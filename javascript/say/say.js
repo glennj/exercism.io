@@ -1,0 +1,93 @@
+/* eslint-disable  no-multi-spaces, class-methods-use-this, no-param-reassign */
+
+const numbers = [];
+numbers[0] = 'zero';  numbers[10] = 'ten';
+numbers[1] = 'one';   numbers[11] = 'eleven';
+numbers[2] = 'two';   numbers[12] = 'twelve';    numbers[20] = 'twenty';
+numbers[3] = 'three'; numbers[13] = 'thirteen';  numbers[30] = 'thirty';
+numbers[4] = 'four';  numbers[14] = 'fourteen';  numbers[40] = 'forty';
+numbers[5] = 'five';  numbers[15] = 'fifteen';   numbers[50] = 'fifty';
+numbers[6] = 'six';   numbers[16] = 'sixteen';   numbers[60] = 'sixty';
+numbers[7] = 'seven'; numbers[17] = 'seventeen'; numbers[70] = 'seventy';
+numbers[8] = 'eight'; numbers[18] = 'eightteen'; numbers[80] = 'eighty';
+numbers[9] = 'nine';  numbers[19] = 'nineteen';  numbers[90] = 'ninety';
+
+// const group = ['', ' thousand', ' million', ' billion', ' trillion'];
+
+const divmod = (num, div) => [Math.floor(num / div), num % div];
+
+class Say {
+  say(n) {
+    if (n < 100)  return numbers[n] || `${this.say(n - (n % 10))}-${this.say(n % 10)}`;
+    if (n < 1000) return this.sayAgain(n, 100,  'hundred');
+    if (n < 1e6)  return this.sayAgain(n, 1000, 'thousand');
+    if (n < 1e9)  return this.sayAgain(n, 1e6,  'million');
+    if (n < 1e12) return this.sayAgain(n, 1e9,  'billion');
+    return n;
+  }
+
+  sayAgain(n, div, group) {
+    const [number, remainder] = divmod(n, div);
+    return `${this.say(number)} ${group} ${remainder ? this.say(remainder) : ''}`;
+  }
+
+  inEnglish(n) {
+    if (!Number.isInteger(n)) throw new Error();
+    if (n < 0 || n > 999999999999) {
+      throw new Error('Number must be between 0 and 999,999,999,999.');
+    }
+    return this.say(n).replace(/\s+$/, '');
+    /*
+    if (n === 0) return numbers[0];
+    const words = [];
+    let g = 0;
+    do {
+      let groupAdded = false;
+      let hundreds;
+      [n, hundreds] = divmod(n, 1000);
+      if (hundreds > 0) {
+        const [hun, tens] = divmod(hundreds, 100);
+        if (tens > 0) {
+          if (numbers[tens] !== undefined) {
+            words.unshift(`${numbers[tens]}${group[g]}`);
+          } else {
+            const [ten, ones] = divmod(tens, 10);
+            words.unshift(`${numbers[10 * ten]}-${numbers[ones]}${group[g]}`);
+          }
+          groupAdded = true;
+        }
+        if (hun > 0) words.unshift(`${numbers[hun]} hundred${groupAdded ? '' : group[g]}`);
+      }
+      g += 1;
+    } while (n > 0);
+    return words.join(' ');
+    */
+  }
+}
+
+module.exports = Say;
+
+/* community
+ *
+ * lovely recursive
+
+      function BadInput () {
+        throw new Error('Number must be between 0 and 999,999,999,999.')
+      }
+
+      function sayCompound (n, base, word) {
+        const rem = n % base
+        return [say((n - rem) / base), word, rem && say(rem)].filter(x => x).join(' ')
+      }
+
+      function say (n) {
+        if (n < 0) BadInput()
+        if (n < 100) return SMALL[n] || XTY[n] || `${say(n - n % 10)}-${say(n % 10)}`
+        if (n < 1000) return sayCompound(n, 100, 'hundred')
+        if (n < 1e6) return sayCompound(n, 1000, 'thousand')
+        if (n < 1e9) return sayCompound(n, 1e6, 'million')
+        if (n < 1e12) return sayCompound(n, 1e9, 'billion')
+        BadInput()
+      }
+
+*/

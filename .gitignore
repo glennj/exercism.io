@@ -1,0 +1,5 @@
+./cli
+./python
+node_modules
+.exercism
+.*.swp

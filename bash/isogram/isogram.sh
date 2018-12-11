@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# this is a situation where is really doesn't make sense
+# to implement this in bash
+#
+# external tools used: tr, grep, sort, uniq, awk
+echo "${1//[-[:blank:]]/}" | 
+  tr '[:upper:]' '[:lower:]' |
+  grep -o . |
+  sort |
+  uniq -c |
+  awk '$1 > 1 {exit 1}' && echo true || echo false
+
