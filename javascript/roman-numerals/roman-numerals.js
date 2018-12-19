@@ -1,6 +1,28 @@
-/* eslint-disable  no-multi-spaces, no-loop-func */
-/* eslint key-spacing: ["error", { "mode": "minimum" }] */
+/* eslint-disable  no-multi-spaces, array-bracket-spacing */
 
+const d2r = [
+  [ 1000, 'M' ], [  900, 'CM' ], [  500, 'D' ], [  400, 'CD' ],
+  [  100, 'C' ], [   90, 'XC' ], [   50, 'L' ], [   40, 'XL' ],
+  [   10, 'X' ], [    9, 'IX' ], [    5, 'V' ], [    4, 'IV' ],
+  [    1, 'I' ],
+];
+
+export default function toRoman(n) {
+  let i = 0;
+  let roman = '';
+  while (n > 0) {
+    while (n >= d2r[i][0]) {
+      n     -= d2r[i][0];       // eslint-disable-line no-param-reassign
+      roman += d2r[i][1];
+    }
+    i += 1;
+  }
+  return roman;
+}
+
+/* Xeslint-disable  no-multi-spaces, no-loop-func */
+/* Xeslint key-spacing: ["error", { "mode": "minimum" }] */
+/*
 const ROMANATOR = [
   { cond: n => n >= 1000, numeral:  'M', value: 1000 },
   { cond: n => n >=  900, numeral: 'CM', value:  900 },
@@ -27,6 +49,7 @@ export default function toRoman(decimal) {
   }
   return roman;
 }
+*/
 
 /* community
  *
