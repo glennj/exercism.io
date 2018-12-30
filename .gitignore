@@ -1,5 +1,12 @@
 ./cli
 ./python
-node_modules
-.exercism
+node_modules/
+.exercism/
 .*.swp
+build/
+.gradle/
+.idea/
+.project
+.settings/
+out/
+settings.gradle
