@@ -10,3 +10,5 @@ build/
 .settings/
 out/
 settings.gradle
+.vstags
+.vscode/
