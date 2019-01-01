@@ -1,7 +1,16 @@
 class CollatzCalculator {
 
     int computeStepCount(int start) {
-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
-    }
+        if (start <= 0) throw new IllegalArgumentException("Only natural numbers are allowed");
 
+        int step = 0;
+        while (start != 1) {
+            step++;
+            if (start % 2 == 0)
+                start /= 2;
+            else
+                start = 3 * start + 1;
+        }
+        return step;
+    }
 }
