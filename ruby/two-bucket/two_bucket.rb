@@ -51,14 +51,17 @@ class TwoBucket
   private
 
   def solve(start, other, goal)
-    @moves = 0
+    start.fill
+    @moves = 1
+
     loop do
       return [start.name, other.amount] if start.amount == goal
       return [other.name, start.amount] if other.amount == goal
 
-      if    start.empty? then start.fill
-      elsif other.full?  then other.empty
-      else                    start.pour(other)
+      if other.size == goal then other.fill
+      elsif start.empty?    then start.fill
+      elsif other.full?     then other.empty
+      else                       start.pour(other)
       end
 
       @moves += 1

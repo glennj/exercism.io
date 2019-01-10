@@ -1,5 +1,3 @@
-import java.util.EnumSet;
-
 public class Robot {
     private Orientation orientation;
     private GridPosition gridPosition;
