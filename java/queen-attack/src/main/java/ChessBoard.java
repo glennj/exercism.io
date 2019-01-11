@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 class ChessBoard {
     static final int SIZE = 8;
 
@@ -15,10 +17,18 @@ class ChessBoard {
         int getRank() { return rank; }
         int getFile() { return file; }
 
-        boolean equals(Position other) {
+        @Override
+        public boolean equals(Object o) {
+            if (o == null) return false;
+            if (o == this) return true;
+            if (!(o instanceof Position)) return false;
+            Position other = (Position) o;
             return this.getRank() == other.getRank() &&
                    this.getFile() == other.getFile();
         }
+
+        @Override
+        public int hashCode() { return Objects.hash(rank, file); }
 
         // TODO remove word "Queen" from exception messages.
         private void validate(int val, String what) throws IllegalArgumentException {

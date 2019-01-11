@@ -52,8 +52,18 @@ class CustomSet<T> implements Set<T> {
         return getIntersection(other).isEmpty();
     }
 
-    boolean equals(CustomSet<T> other) {
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (o == this) return true;
+        if (!(o instanceof CustomSet)) return false;
+        @SuppressWarnings("unchecked")
+        CustomSet<T> other = (CustomSet<T>) o;
         return size() == other.size() && isSubset(other);
+    }
+
+    @Override public int hashCode() {
+        return elements.hashCode();
     }
 
     // return my elements that are in 'other'
