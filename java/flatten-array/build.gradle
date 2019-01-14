@@ -1,0 +1,22 @@
+apply plugin: "java"
+apply plugin: "eclipse"
+apply plugin: "idea"
+
+repositories {
+  mavenCentral()
+}
+
+compileJava {
+  options.compilerArgs << "-Xlint:all"
+}
+
+dependencies {
+  testCompile "junit:junit:4.12"
+}
+
+test {
+  testLogging {
+    exceptionFormat = 'full'
+    events = ["passed", "failed", "skipped"]
+  }
+}
