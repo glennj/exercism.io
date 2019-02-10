@@ -1,23 +1,18 @@
-import java.util.List;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 class LuhnValidator {
 
     boolean isValid(String candidate) {
         candidate = candidate.replaceAll(" ", "");
-        if (!candidate.matches("^\\d+$")) return false;
+        if (candidate.matches(".*\\D.*")) return false;
         if (candidate.length() < 2) return false;
 
-        List<Character> digits = str2list(candidate);
-        Collections.reverse(digits);
-        int i = 0;
-        int sum = 0;
-        for (char digit : digits) {
-            sum += luhnValue(digit, i);
-            i++;
-        }
+        AtomicInteger i = new AtomicInteger(candidate.length());
+        int sum = candidate
+                .chars()
+                .map(c -> luhnValue((char) c, i.decrementAndGet()))
+                .sum();
+
         return sum % 10 == 0;
     }
 
@@ -28,11 +23,5 @@ class LuhnValidator {
             if (number >= 10) number -= 9;
         }
         return number;
-    }
-
-    private List<Character> str2list(String s) {
-        return s.chars()
-                .mapToObj(c -> (char) c)
-                .collect(Collectors.toList());
     }
 }

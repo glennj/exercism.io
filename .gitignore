@@ -12,3 +12,5 @@ out/
 settings.gradle
 .vstags
 .vscode/
+.stack-work/
+*.cabal
