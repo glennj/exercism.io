@@ -12,3 +12,4 @@ out/
 settings.gradle
 .vstags
 .vscode/
+.busted
