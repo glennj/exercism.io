@@ -9,11 +9,12 @@ local triplets_with_sum = function (sum)
     for c = sum - 7, 5, -1 do
         for b = c-1, 4, -1 do
             local a = math.sqrt(c^2 - b^2)
-            if math.tointeger(a) and a < b and a+b+c == sum then
-                if is_pythagorean(a, b, c) then
-                    local triplet = {math.tointeger(a), b, c}
-                    table.insert(triplets, triplet)
-                end
+            if  math.tointeger(a) 
+                and a < b 
+                and a+b+c == sum 
+                and is_pythagorean(a, b, c)
+            then
+                table.insert(triplets, {math.tointeger(a), b, c})
             end
         end
     end
