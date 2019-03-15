@@ -1,5 +1,4 @@
 local tournament = require 'tournament'
-local dbg = require("debugger")
 
 describe('tournament', function()
   it('should generate standings for a complete competition', function()
@@ -19,7 +18,6 @@ describe('tournament', function()
       'Blithering Badgers             |  3 |  1 |  0 |  2 |  3',
       'Courageous Californians        |  3 |  0 |  1 |  2 |  1'
     }
-    --dbg()
 
     assert.are.same(expected, tournament(results))
   end)
@@ -152,6 +150,4 @@ describe('tournament', function()
 
     assert.are.same(expected, tournament(results))
   end)
---[[
---]]
 end)
