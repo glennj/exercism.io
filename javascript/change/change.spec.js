@@ -63,7 +63,6 @@ describe('Change', () => {
     const test = () => { change.calculate([5, 10], 3); };
     expect(test).toThrowError(Error, message);
   });
-
   test('error testing if no combination can add up to target', () => {
     const change = new Change();
     const message = 'The total 94 cannot be represented in the given currency.';

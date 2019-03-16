@@ -1,4 +1,4 @@
-/* eslint-disable  arrow-body-style */
+/* eslint-disable  arrow-body-style, no-param-reassign, class-methods-use-this */
 
 /* Change making algorithm from
  * http://www.ccs.neu.edu/home/jaa/CSG713.04F/Information/Handouts/dyn_prog.pdf
@@ -7,8 +7,6 @@
  *
  * C = maps the minimum number of coins required to make
  *     change for each n from 1 to amount.
- *     It is returned but only used internally in this
- *     application.
  *
  * S = the _first_ coin used to make change for amount n
  *     (actually stores the coin _index_ into the
@@ -19,11 +17,11 @@ const change = (amount, denominations) => {
   const C = [0];
   const S = [];
 
-  for (let n = 1; n <= amount; n++) {
+  for (let n = 1; n <= amount; n += 1) {
     let min = Number.MAX_SAFE_INTEGER;
     let coin;
 
-    for (let i = 0; i < denominations.length; i++) {
+    for (let i = 0; i < denominations.length; i += 1) {
       if (denominations[i] <= n) {
         if (1 + C[n - denominations[i]] < min) {
           min = 1 + C[n - denominations[i]];
@@ -34,31 +32,32 @@ const change = (amount, denominations) => {
     C[n] = min;
     S[n] = coin;
   }
-  return [C, S];
-}
 
-const make_change = (S, d, n) => {
+  return S;
+};
+
+const makeChange = (S, d, n) => {
   const result = [];
 
-  if (!(n in S)) {
-    // can't render this amount with these coins
-    return;
+  if (S[n] === undefined) {
+    throw new Error(`The total ${n} cannot be represented in the given currency.`);
   }
 
   while (n > 0) {
-    result.unshift(S[n]);
-    n -= d[S[n]];
+    const coin = d[S[n]];
+    result.push(coin);
+    n -= coin;
   }
   return result;
-}
-
-const Change = () => {
-  return {
-    calculate: (coins, amount) => {
-      const [C, S] = change(amount, coins);
-      return make_change(S, coins, amount);
-    },
-  };
 };
+
+class Change {
+  calculate(coins, amount) {
+    if (amount < 0) throw new Error('Negative totals are not allowed.');
+    if (amount === 0) return [];
+
+    return makeChange(change(amount, coins), coins, amount);
+  }
+}
 
 module.exports = Change;
