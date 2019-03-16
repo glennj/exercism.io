@@ -1,52 +1,62 @@
 /* eslint-disable  arrow-body-style */
 
-// ref https://en.wikipedia.org/wiki/Change-making_problem#Implementation
-const getChangeMakingMatrix = (setOfCoins, r) => {
-  const m = new Array(setOfCoins.length + 1).fill().map(() => new Array(r + 1).fill(0));
-  m[0] = m[0].map((_, i) => i);
-  return m;
-};
+/* Change making algorithm from
+ * http://www.ccs.neu.edu/home/jaa/CSG713.04F/Information/Handouts/dyn_prog.pdf
+ *
+ * This function generates two arrays:
+ *
+ * C = maps the minimum number of coins required to make
+ *     change for each n from 1 to amount.
+ *     It is returned but only used internally in this
+ *     application.
+ *
+ * S = the _first_ coin used to make change for amount n
+ *     (actually stores the coin _index_ into the
+ *     denominations array)
+ */
+
+const change = (amount, denominations) => {
+  const C = [0];
+  const S = [];
+
+  for (let n = 1; n <= amount; n++) {
+    let min = Number.MAX_SAFE_INTEGER;
+    let coin;
+
+    for (let i = 0; i < denominations.length; i++) {
+      if (denominations[i] <= n) {
+        if (1 + C[n - denominations[i]] < min) {
+          min = 1 + C[n - denominations[i]];
+          coin = i;
+        }
+      }
+    }
+    C[n] = min;
+    S[n] = coin;
+  }
+  return [C, S];
+}
+
+const make_change = (S, d, n) => {
+  const result = [];
+
+  if (!(n in S)) {
+    // can't render this amount with these coins
+    return;
+  }
+
+  while (n > 0) {
+    result.unshift(S[n]);
+    n -= d[S[n]];
+  }
+  return result;
+}
 
 const Change = () => {
   return {
-    // this greedy algorithm fails for "non-standard" denominations.
-    calculate: (values, sum) => {
-      if (sum < 0) throw new Error('Negative totals are not allowed.');
-      const minValue = Math.min(...values);
-      const vals = values.sort((a, b) => b - a); // sort descending
-
-      let tmp = sum;
-      const coins = [];
-
-      while (tmp > 0) {
-        if (tmp < minValue) {
-          throw new Error(`The total ${sum} cannot be represented in the given currency.`);
-        }
-        const coin = vals.find(c => c <= tmp); // eslint-disable-line  no-loop-func
-        if (coin === undefined) {
-          throw new Error(`Hmm. ${vals} ${sum} ${coins}`);
-        }
-        coins.push(coin);
-        tmp -= coin;
-      }
-      return coins.sort((a, b) => a - b);
-    },
-
-    // ref https://en.wikipedia.org/wiki/Change-making_problem#Implementation
-    smallestNumberOfCoins: (coins, n) => {
-      const m = getChangeMakingMatrix(coins, n);
-      for (let c = 1; c <= coins.length; c += 1) {
-        for (let r = 1; r <= n; r += 1) {
-          if (coins[c - 1] === r) {
-            m[c][r] = 1;
-          } else if (coins[c - 1] > r) {
-            m[c][r] = m[c - 1][r];
-          } else {
-            m[c][r] = Math.min(m[c - 1][r], 1 + m[c][r - coins[c - 1]]);
-          }
-        }
-      }
-      return m[coins.length][n];
+    calculate: (coins, amount) => {
+      const [C, S] = change(amount, coins);
+      return make_change(S, coins, amount);
     },
   };
 };
