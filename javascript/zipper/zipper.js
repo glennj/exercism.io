@@ -1,55 +1,39 @@
-/* eslint brace-style: ["error", "stroustrup", { "allowSingleLine": true }] */
-
 const deepCopy = obj => JSON.parse(JSON.stringify(obj));
 
 class Zipper {
-  constructor(tree, path) {
-    if (path === undefined) {
-      this.tree = deepCopy(tree);
-      this.path = [];
-    }
-    else {
-      this.tree = tree;
-      this.path = path;
-    }
+  constructor(tree, path = []) {
+    this.tree = tree;
+    this.path = path;
   }
 
-  static fromTree(t) {
-    const zipper = new Zipper(t);
-    return zipper;
-  }
+  static fromTree(tree) { return new Zipper(deepCopy(tree)); }
 
   getTree() { return this.tree; }
 
   toTree() {
-    if (this.path[0] !== undefined) {
-      return this.path[0].getTree();
-    }
-    return this.tree;
+    return this.path.length > 0
+      ? this.path[0].getTree()
+      : this.tree;
   }
 
   value() { return this.tree.value; }
 
   left() {
-    if (this.tree.left !== null) {
-      return new Zipper(this.tree.left, this.path.concat(this));
-    }
-    return null;
+    return this.tree.left
+      ? new Zipper(this.tree.left, this.path.concat(this))
+      : null;
   }
 
   right() {
-    if (this.tree.right !== null) {
-      return new Zipper(this.tree.right, this.path.concat(this));
-    }
-    return null;
+    return this.tree.right
+      ? new Zipper(this.tree.right, this.path.concat(this))
+      : null;
   }
 
   up() {
-    if (this.path.length > 0) {
-      const previous = this.path.pop();
-      return new Zipper(previous.getTree(), this.path);
-    }
-    return null;
+    return this.path.length > 0
+      ? new Zipper(this.path.pop().getTree(), this.path)
+      : null;
   }
 
   setValue(value) {
