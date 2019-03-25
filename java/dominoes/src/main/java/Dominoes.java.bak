@@ -1,0 +1,87 @@
+import java.util.Collections;
+import java.util.List;
+import java.util.Vector;
+
+public class Dominoes {
+
+    List<Domino> formChain(List<Domino> dominoes) throws ChainNotFoundException {
+        List<Domino> chain = new Vector<>();
+
+        if (dominoes.size() == 0)
+            return Collections.emptyList();
+
+        for (int i = 0; i < dominoes.size(); i++) {
+            Domino d = dominoes.get(i);
+            Vector<Domino> initial = new Vector<>();
+            initial.add(d);
+            List<Domino> rest = removeDomino(dominoes, i);
+
+            boolean haveChain = true;
+            try {
+                chain = makeChain(initial, rest);
+            } catch (ChainNotFoundException e) {
+                haveChain = false;
+            }
+
+            if (!haveChain) {
+                initial.set(0, reverseDomino(d));
+                haveChain = true;
+                try {
+                    chain = makeChain(initial, rest);
+                } catch (ChainNotFoundException e) {
+                    haveChain = false;
+                }
+            }
+
+            if (haveChain)
+                return chain;
+        }
+        throw new ChainNotFoundException("No domino chain found.");
+    }
+
+    private List<Domino> makeChain(Vector<Domino> chain, List<Domino> remaining)
+            throws ChainNotFoundException
+    {
+        int head = chain.firstElement().getLeft();
+        int tail = chain.lastElement().getRight();
+
+        if (remaining.isEmpty()) {
+            if (head == tail)
+                return chain;
+            throw new ChainNotFoundException("No domino chain found.");
+        }
+
+        for (int i = 0; i < remaining.size(); i++) {
+            Domino d = remaining.get(i);
+            if (d.getLeft() != tail && d.getRight() != tail)
+                continue;
+
+            if (d.getRight() == tail)
+                d = reverseDomino(d);
+
+            List<Domino> rest = removeDomino(remaining, i);
+            Vector<Domino> new_chain = new Vector<>(chain);
+            new_chain.add(d);
+            boolean haveChain = true;
+            try {
+                chain = (Vector<Domino>) makeChain(new_chain, rest);
+            }
+            catch (ChainNotFoundException e) {
+                haveChain = false;
+            }
+            if (haveChain)
+                return chain;
+        }
+        throw new ChainNotFoundException("No domino chain found.");
+    }
+
+    private Domino reverseDomino(Domino d) {
+        return new Domino(d.getRight(), d.getLeft());
+    }
+
+    private List<Domino> removeDomino(List<Domino> pack, int index) {
+        List<Domino> remaining = new Vector<>(pack);
+        remaining.remove(index);
+        return remaining;
+    }
+}
