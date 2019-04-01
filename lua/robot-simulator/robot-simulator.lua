@@ -13,7 +13,8 @@ local motion = {}
 
 -- A: advance 1 unit
 function motion.A (robot)
-    local rad = 2 * math.pi * directions[robot.heading] / 360
+    -- local rad = 2 * math.pi * directions[robot.heading] / 360
+    local rad = math.rad(directions[robot.heading])
     robot.x = robot.x + math.cos(rad)
     robot.y = robot.y + math.sin(rad)
 end

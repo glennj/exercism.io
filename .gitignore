@@ -27,6 +27,9 @@ settings.gradle
 # lua
 .busted
 
+# python
+__pycache__/
+
 # c#
 obj/
 bin/
