@@ -1,8 +1,17 @@
 ./cli
-./python
-node_modules/
 .exercism/
+
+# editors
+.vstags
+.vscode/
 .*.swp
+.editorconfig
+
+# javascript
+package-lock.json
+node_modules/
+
+# java
 build/
 .gradle/
 .idea/
@@ -10,8 +19,14 @@ build/
 .settings/
 out/
 settings.gradle
-.vstags
-.vscode/
+
+# ?
 .stack-work/
 *.cabal
+
+# lua
 .busted
+
+# c#
+obj/
+bin/
