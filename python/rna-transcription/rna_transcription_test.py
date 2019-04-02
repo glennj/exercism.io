@@ -25,19 +25,5 @@ class RnaTranscriptionTest(unittest.TestCase):
     def test_transcribes_all_occurrences(self):
         self.assertEqual(to_rna('ACGTGGTCTTAA'), 'UGCACCAGAAUU')
 
-    def test_invalid(self):
-        with self.assertRaisesWithMessage(ValueError):
-            to_rna('foo')
-
-    # Utility functions
-    def setUp(self):
-        try:
-            self.assertRaisesRegex
-        except AttributeError:
-            self.assertRaisesRegex = self.assertRaisesRegexp
-
-    def assertRaisesWithMessage(self, exception):
-        return self.assertRaisesRegex(exception, r".+")
-
 if __name__ == '__main__':
     unittest.main()
