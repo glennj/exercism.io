@@ -1,3 +1,95 @@
+-- reimplementation based on
+-- https://exercism.io/tracks/python/exercises/rail-fence-cipher/solutions/8d7425bdbb844c5e9416015cd7eb3daa
+
+local railed_indices
+
+local encode = function(text, n)
+    if n == 1 or n >= #text then
+        return text
+    end
+    local indices = railed_indices(text, n)
+    local encoded = {}
+    for i = 1, #indices do
+        encoded[#encoded+1] = text:sub(indices[i], indices[i])
+    end
+    return table.concat(encoded)
+end
+
+local decode = function(text, n)
+    if n == 1 or n >= #text then
+        return text
+    end
+    local indices = railed_indices(text, n)
+    -- a Schwartzian transform
+    local a = {}
+    for i = 1, #text do
+        a[#a+1] = {i = indices[i], c = text:sub(i, i)}
+    end
+    table.sort(a, function(a, b) return a.i < b.i end)
+    local decoded = {}
+    for i = 1, #a do
+        decoded[#decoded+1] = a[i].c
+    end
+    return table.concat(decoded)
+end
+
+---------------------------------------------------
+-- Generate the pattern of rails.
+-- Ex: #text = 10 and n = 3, we return:
+--  {1, 2, 3, 2, 1, 2, 3, 2, 1, 2}
+local rail_pattern = function(text, n)
+    local cycle = {}
+    for i = 1, n       do cycle[#cycle+1] = i end
+    for i = n-1, 2, -1 do cycle[#cycle+1] = i end
+    -- cycle is {1, 2, 3, 2}
+    -- repeat it until length is #text
+    local i = 1
+    while #cycle < #text do
+        cycle[#cycle+1] = cycle[i]
+        i = i % #cycle + 1
+    end
+    return cycle
+end
+
+--[[
+ Generate the indices required for encoding.
+
+ Ex. given text = 'HELLOWORLD' and n = 3, then rails are
+
+   1 2 3 4 5 6 7 8 9 10
+ 1 H . . . O . . . L .
+ 2 . E . L . W . R . D
+ 3 . . L . . . O . . .
+
+ The encoded value is "HOLELWRDLO"
+
+ This function returns the array:
+  {1, 5, 9, 2, 4, 6, 8, 10, 3, 7}
+-- ]]
+railed_indices = function(text, n)
+    local rp = rail_pattern(text, n)
+    local indices = {}
+    for i = 1, #text do
+        indices[i] = {i=i, rail=rp[i]}
+    end
+    table.sort(indices, function(a, b)
+        return a.rail < b.rail or
+            (a.rail == b.rail and a.i < b.i)
+    end)
+    local result = {}
+    for i = 1, #indices do
+        result[#result+1] = indices[i].i
+    end
+    return result
+end
+
+
+---------------------------------------------------
+return {encode = encode, decode = decode}
+
+
+---------------------------------------------------
+--[=[
 local RialFenceCipher = {}
 RialFenceCipher.__index = RialFenceCipher
 
@@ -89,3 +181,4 @@ return {
         return rfc:decode(input)
     end,
 }
+--]=]
