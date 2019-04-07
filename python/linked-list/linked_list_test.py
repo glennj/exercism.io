@@ -45,7 +45,7 @@ class LinkedListTest(unittest.TestCase):
         self.assertEqual(lst.pop(), 50)
         self.assertEqual(lst.shift(), 30)
 
-    @unittest.skip("extra-credit")
+    #@unittest.skip("extra-credit")
     def test_length(self):
         lst = LinkedList()
         lst.push(10)
@@ -56,7 +56,7 @@ class LinkedListTest(unittest.TestCase):
         lst.pop()
         self.assertEqual(len(lst), 0)
 
-    @unittest.skip("extra-credit")
+    #@unittest.skip("extra-credit")
     def test_iterator(self):
         lst = LinkedList()
         lst.push(10)
