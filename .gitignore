@@ -33,3 +33,5 @@ __pycache__/
 # c#
 obj/
 bin/
+.RData
+.Rhistory
