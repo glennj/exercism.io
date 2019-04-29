@@ -1,34 +1,33 @@
 #!/bin/bash
 
-declare -A words=()     # associative array
-declare -a count=()     # numerically indexed array
-set -f                  # disable path expansion
+declare -A count=()
+declare -l word         # value is lower-cased
 
-# first, iterate over all the whitespace-separated character sequences
-for chars in $@; do     # $@ is specifically unquoted
-    # replace all NON apostrophe/letter/number characters with spaces
-    chars=${chars//[^\'[:alnum:]]/ }      # ' for syntax highlighing
+for sentence in "$@"; do
+    # Pity bash does not do global regex matching. We have
+    # to loop: find the first match, then remove it.
+    while [[ $sentence =~ [[:alnum:]"'"]+ ]]; do
+        sentence=${sentence#*${BASH_REMATCH[0]}}
 
-    # now, iterate over the remaining words
-    for word in $chars; do     # $chars is specifically unquoted
-        # remove encosing single quotes from the word
-        [[ $word == "'"*"'" ]] && word=${word:1:-1}
-        word=${word,,}
+        word=${BASH_REMATCH[0]}
 
-        # I would like to do this directly 
-        #   ((count[$word]++))
-        # but bash does not like single quotes in arithmetic context:
-        #   count[can't]++ : bad array subscript
-        # so instead I'll have "words" as an associative array that
-        # maps the word to the *index* into the "count" indexed array.
+        # we've allowed single quotes as apostrophes, but
+        # we don't want leading or trailing quotes.
+        [[ $word == "'"* ]] && word=${word#?}
+        [[ $word == *"'" ]] && word=${word%?}
 
-        if ! [[ -v words["$word"] ]]; then
-            words[$word]=${#words[@]}
-        fi
-        (( count[${words[$word]}]++ ))
+        # This would be cleaner:
+        #   (( count[$word] += 1 ))
+        # but when word contains a single quote, the 
+        # arithmetic parser breaks:
+        #   $ word="don't"
+        #   $ (( count[$word] += 1 ))
+        #   bash: ((: count[don't] += 1 : bad array subscript (error token is "count[don't] += 1 ")
+        # No amount of quoting helps.
+        count[$word]=$(( ${count[$word]} + 1 ))
     done
 done
 
-for word in "${!words[@]}"; do
-    echo "$word: ${count[${words[$word]}]}"
+for word in "${!count[@]}"; do
+    echo "$word: ${count[$word]}"
 done

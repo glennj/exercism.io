@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $# -ne 2 ]]; then
-    echo "Usage: $(basename "$0") <strand1> <strand2>" >&2
+    echo "Usage: $(basename "$0") <string1> <string2>" >&2
     exit 1
 fi
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 @test "count one word" {
-  #skip
+  ##skip
   run bash word_count.sh "word"
   [ "$status" -eq 0 ]
   echo $output | grep "word: 1"
@@ -82,7 +82,7 @@
 }
 
 @test "with apostrophes" {
-  skip
+  #skip
   run bash word_count.sh "First: don't laugh. Then: don't cry."
   [ "$status" -eq 0 ]
   echo $output | grep "first: 1"
