@@ -25,7 +25,7 @@ verse() {
     local n=$1
     local b=$(bottles $n)
     local w="on the wall"
-    printf "%s %s, %s.\n" "$(capitalize "$b")" "$w" "$b"
+    printf "%s %s, %s.\n" "${b^}" "$w" "$b"
     b=$(bottles $((n-1)))
     printf "%s, %s %s.\n" "$(action $n)" "$b" "$w"
 }
@@ -37,12 +37,6 @@ bottles() {
     (( n == 0 )) && num="no more" || num=$n
     (( n == 1 )) && s="" || s="s"
     printf "%s bottle%s of beer" "$num" "$s"
-}
-
-capitalize() {
-    local str=$1
-    local -u first=${str:0:1}
-    printf "%s%s" "$first" "${str:1}"
 }
 
 action() {
