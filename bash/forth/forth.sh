@@ -10,7 +10,7 @@ declare -A macros       # associative array
 
 # Encapsulate some stack operations
 stack::len()  { echo ${#stack[@]}; }
-stack::tail() { echo ${stack[-1]}; }
+stack::peek() { echo ${stack[-1]}; }
 stack::pop()  { stack=( ${stack[@]:0:$(stack::len)-1} ); }
 stack::push() { stack+=( $* ); }
 
@@ -106,9 +106,9 @@ binary_op() {
     local op=$1
 
     need 2
-    local b=$(stack::tail)
+    local b=$(stack::peek)
     stack::pop
-    local a=$(stack::tail)
+    local a=$(stack::peek)
     stack::pop
     
     [[ $op == "/" ]] && (( b == 0 )) && die "divide by zero"
@@ -117,7 +117,7 @@ binary_op() {
 
 dup() {
     need 1
-    stack::push $(stack::tail)
+    stack::push $(stack::peek)
 }
 
 drop() {
@@ -127,18 +127,18 @@ drop() {
 
 swap() {
     need 2
-    local b=$(stack::tail)
+    local b=$(stack::peek)
     stack::pop
-    local a=$(stack::tail)
+    local a=$(stack::peek)
     stack::pop
     stack::push $b $a
 }
 
 over() {
     need 2
-    local b=$(stack::tail)
+    local b=$(stack::peek)
     stack::pop
-    local a=$(stack::tail)
+    local a=$(stack::peek)
     stack::push $b $a
 }
 

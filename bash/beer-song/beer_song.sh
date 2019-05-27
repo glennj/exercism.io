@@ -1,53 +1,53 @@
-#!/bin/bash
+set -o errexit
+set -o nounset
+# set -x
 
+assignVal(){
+    (( $1 == 1 )) && { echo "1 bottle"; return 0; }
+    (( $1 == 0 )) && { echo "no more bottles"; return 0; }
+    (( $1 < 0 )) && { echo "99 bottles"; return 0; }
 
-main() {
-    case $# in
-        1)  verse "$1" ;;
-        2)  if (( $1 <= $2 )); then
-                echo "Start must be greater than End" >&2
-                exit 1
-            fi
-            for (( i="$1"; i>="$2"; i-- )); do
-                verse $i
-                echo ""
-            done
-            ;;
-        *)  echo "1 or 2 arguments expected" >&2
-            echo "usage: ${0##*/} verse_num" >&2
-            echo "   or: ${0##*/} start end" >&2
-            exit 2
-            ;;
+    echo "$1 bottles"
+}
+
+singVerse(){
+    local top=$(assignVal $1)
+    local bottom=$(assignVal $(( $1-1 )) )
+    local first="$top of beer on the wall, $top of beer."
+    
+    echo $(tr '[:lower:]' '[:upper:]' <<< "${first:0:1}")${first:1}
+
+    case "$bottom" in
+	"no more bottles")
+	    echo "Take it down and pass it around, $bottom of beer on the wall."
+	    ;;
+	"99 bottles")
+	    echo "Go to the store and buy some more, $bottom of beer on the wall."
+	    ;;
+	*)
+	    echo "Take one down and pass it around, $bottom of beer on the wall."
+	    ;;
+    esac
+}
+main(){
+
+    case "${#@}" in
+	1)
+	    singVerse $1
+	    ;;
+	2)
+	    local -i start=$1 end=$2
+	    
+	    (( $start <= $end )) && { echo "Start must be greater than End"; exit 255; }
+
+	    IFS=''
+	    #   echo $(for (( i=$start; i>=$end; i-- )); do singVerse $i; echo ""; done)
+	    for (( i=$start; i>=$end; i-- )); do singVerse $i; echo ""; done
+	    ;;
+	*)
+	    echo "1 or 2 arguments expected" && exit 255
+	    ;;
     esac
 }
 
-verse() {
-    local n=$1
-    local b=$(bottles $n)
-    local w="on the wall"
-    printf "%s %s, %s.\n" "${b^}" "$w" "$b"
-    b=$(bottles $((n-1)))
-    printf "%s, %s %s.\n" "$(action $n)" "$b" "$w"
-}
-
-bottles() {
-    local n=$1
-    (( n < 0 )) && n=99
-    local num s
-    (( n == 0 )) && num="no more" || num=$n
-    (( n == 1 )) && s="" || s="s"
-    printf "%s bottle%s of beer" "$num" "$s"
-}
-
-action() {
-    local n=$1
-    if (( n == 0 )); then
-        echo "Go to the store and buy some more"
-    else
-        local one
-        (( n == 1 )) && one="it" || one="one"
-        echo "Take $one down and pass it around"
-    fi
-}
-        
 main "$@"
