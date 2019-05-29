@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-(($# == 0)) && exit
-
-for ((i=1; i<$#; i++)); do
-    j=$(( i + 1 ))
+for (( i=1, j=2 ; i < $# ; i++, j++ )); do
     echo "For want of a ${!i} the ${!j} was lost."
 done
-echo "And all for the want of a $1."
+
+[[ -n $1 ]] && echo "And all for the want of a $1." || :
