@@ -1,0 +1,21 @@
+vim digraphs for julialang
+
+Operators
+
+le      =<      ≤       &#8804;
+ge      >=      ≥       &#8805;
+neq     !=      ≠       &#8800;
+in      (-      ∈       &#8712;
+ni      n/a     ∉       &#8713;
+div     -:      ÷       &#247;
+func composition \
+        Ob      ∘       &#8728;
+approx  ?2      ≈       &#8776;
+sqrt    RT      √       &#8730;
+
+bitwise xor \
+        n/a     ⊻       &#8891;
+
+delta   D*      Δ       &#916;
+pi      p*      π       &#960;
+exp     n/a     ℯ       &#8495;
