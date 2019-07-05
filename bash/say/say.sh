@@ -33,9 +33,9 @@ say() {
 
 say_small() {
     local -i n=$1
-    if (( n < ${#low[@]} )); then
+    if (( n < 20 )); then
         echo "${low[n]}"
-    elif [[ -n ${high[$n]} ]]; then
+    elif [[ -v high[$n] ]]; then
         echo "${high[$n]}"
     else
         printf "%s-%s\n" $(say $((n - (n%10)))) $(say $((n%10)))

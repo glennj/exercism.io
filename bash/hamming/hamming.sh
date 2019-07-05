@@ -1,14 +1,11 @@
 #!/bin/bash
 
-if [[ $# -ne 2 ]]; then
-    echo "Usage: $(basename "$0") <string1> <string2>" >&2
-    exit 1
-fi
+die() { echo "$*" >&2; exit 1; }
 
-if [[ ${#1} -ne ${#2} ]]; then
-    echo "left and right strands must be of equal length" >&2
-    exit 1
-fi
+(( $# == 2 ))        || die "Usage: $(basename "$0") <string1> <string2>"
+[[ -z $1 && -n $2 ]] && die "left strand must not be empty"
+[[ -n $1 && -z $2 ]] && die "right strand must not be empty"
+(( ${#1} == ${#2} )) || die "left and right strands must be of equal length"
 
 dist=0
 for ((i=0; i<${#1}; i++)); do

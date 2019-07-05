@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# improvement: sort $1 once
-
 main() {
     local anagrams=()
     set -f   # disable path expansion

@@ -4,6 +4,10 @@ declare -A count=()
 declare -l word         # value is lower-cased
 
 for sentence in "$@"; do
+    # Some tests contain the literal string "\n" to mean a 
+    # newline: replace those characters with a actual newline.
+    sentence="${sentence//\\n/$'\n'}"
+
     # Pity bash does not do global regex matching. We have
     # to loop: find the first match, then remove it.
     while [[ $sentence =~ [[:alnum:]"'"]+ ]]; do

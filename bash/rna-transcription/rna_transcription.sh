@@ -11,8 +11,3 @@ for (( i = 0; i < ${#1}; i++ )); do
     rna+=${map[${1:i:1}]}
 done
 echo "$rna"
-
-# alternately:
-#   d=GCTA
-#   r=CGAU
-#   tr $d $r <<<"$1"

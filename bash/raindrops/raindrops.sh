@@ -16,5 +16,3 @@ done
 # done
 
 [[ "$output" ]] && echo $output || echo $1
-# or
-# echo ${output:-$1}

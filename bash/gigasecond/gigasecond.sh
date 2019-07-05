@@ -6,6 +6,7 @@ if (( $# != 1 )); then
 fi
 
 gigasecond=1000000000
+format="%Y-%m-%dT%H:%M:%S"
 
 if { date --version | grep -q "GNU coreutils"; } 2>/dev/null; then
 
@@ -14,30 +15,27 @@ if { date --version | grep -q "GNU coreutils"; } 2>/dev/null; then
         exit 1
     fi
 
-    input="$1 +$gigasecond second"
+    input="${1}Z +$gigasecond second"
 
-    output=$( date --utc --date="$input" )
+    output=$( date --utc --date="$input" "+$format" )
 
 elif [[ $(what "$(type -P date)") == *"PROGRAM:date"*"PROJECT:shell_cmds"* ]]; then
     # Possibly MacOS date.
     # This BSD-derived date is less flexible about date parsing.
 
-    input=${1%Z}
-    format="%Y-%m-%d %H:%M:%S"
-
     epoch() { 
         date -juf "$format" "$1" "+%s" 2>/dev/null
     }
 
-    if ! e=$(epoch "$input"); then
+    if ! e=$(epoch "$1"); then
         # the input date may only be YYYY-mm-dd: add "midnight"
-        if ! e=$(epoch "$input 00:00:00"); then
+        if ! e=$(epoch "${1}T00:00:00"); then
             echo "error: invalid time-spec '$1'" >&2
             exit 1
         fi
     fi
 
-    output=$( date -juf "%s" "$((e + gigasecond))" )
+    output=$( date -juf "%s" "$((e + gigasecond))" "+$format" )
 
 fi
 

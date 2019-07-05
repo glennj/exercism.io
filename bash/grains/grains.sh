@@ -1,18 +1,35 @@
-#!/usr/bin/env bash
+#!/bin/bash
+# bash implementation fails due to lack of big integer suuport
+#
+# external tools used: bc
 
-# debug
-# set -x
+pow2() { echo "2 ^ ($1 - 1)" | bc; }
 
-declare -i INPUT=$1
+shopt -s extglob
 
-grains() {
-  if (( INPUT < 1 || INPUT > 64)); then
-    echo 'Error: invalid input'
-    exit 1
-  else
-    declare -i SUM=$((2**(INPUT-1)))
-    echo "${SUM#-}"
-  fi
-}
+case $1 in
+    ?(-)+([0-9]) )
+        if (($1 <= 0 || $1 > 64)); then 
+            echo "Error: invalid input" >&2
+            exit 1
+        fi
+        pow2 $1
+        ;;
+    total)
+        # this implementation, while nice and DRY,
+        # is calling bc 65 times:
+        #for i in {1..64}; do
+        #    pow2 $i
+        #done | paste -sd + | bc
 
-grains
+        expression="0"
+        for i in {1..64}; do
+            expression+=" + (2^($i-1))"
+        done
+        echo "$expression" | bc
+
+        ;;
+    *)  echo "Error: invalid input" >&2
+        exit 1
+        ;;
+esac

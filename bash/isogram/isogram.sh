@@ -4,10 +4,20 @@
 # to implement this in bash
 #
 # external tools used: tr, grep, sort, uniq, awk
-echo "${1//[-[:blank:]]/}" | 
-  tr '[:upper:]' '[:lower:]' |
-  grep -o . |
-  sort |
-  uniq -c |
-  awk '$1 > 1 {exit 1}' && echo true || echo false
+#echo "${1//[-[:blank:]]/}" | 
+#  tr '[:upper:]' '[:lower:]' |
+#  grep -o . |
+#  sort |
+#  uniq -c |
+#  awk '$1 > 1 {exit 1}' && echo true || echo false
 
+
+# but if I was forced to use bash, this:
+
+declare -l lc=${1//[-[:blank:]]/}
+declare -A count
+for ((i=0; i<${#lc}; i++)); do
+    char=${lc:i:1}
+    (( ++count[$char] > 1 )) && { echo false; exit; }
+done
+echo true
