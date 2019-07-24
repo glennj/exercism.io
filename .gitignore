@@ -1,5 +1,6 @@
 cli/
 .exercism/
+users/
 
 # editors
 .vstags
