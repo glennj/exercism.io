@@ -182,3 +182,11 @@
   [ "$output" == "Fine. Be that way!" ]
 }
 
+
+
+@test "comic book cursing" {
+  [[ $BATS_RUN_SKIPPED == true  ]] || skip
+  run bash bob.sh '$#*!'
+  [[ $status -eq 0 ]]
+  [[ $output == "Whatever." ]]
+}
