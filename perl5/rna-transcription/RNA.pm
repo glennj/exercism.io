@@ -11,8 +11,3 @@ sub to_rna {
 }
 
 1;
-
-__END__
-better: 
-
-sub to_rna { shift =~ tr/.../.../r }

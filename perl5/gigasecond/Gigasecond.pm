@@ -1,17 +1,18 @@
 package Gigasecond;
 
-use strict;
-use warnings;
+use strictures 2;
 use DateTime;
+use DateTime::Format::ISO8601;
+
+use Exporter 'import';
+our @EXPORT_OK = qw/ add_gigasecond /;
 
 our $GIGASECOND = DateTime::Duration->new( seconds => 1_000_000_000 );
 
-use subs 'date';
-use Class::Tiny qw( date );
-sub BUILDARGS {
-    my ($class, $year, $month, $day)  = @_;
-    return {date => DateTime->new(year=>$year, month=>$month, day=>$day)};
+sub add_gigasecond {
+    my ($input) = @_;
+    my $dt = DateTime::Format::ISO8601->parse_datetime($input);
+    return ($dt + $GIGASECOND)->iso8601();
 }
-sub date { return ( shift->{date} + $GIGASECOND )->truncate(to => 'day') }
 
 1;

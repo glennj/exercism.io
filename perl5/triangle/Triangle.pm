@@ -16,17 +16,3 @@ sub kind {
 }
 
 1;
-
-__END__
-
-@choroba's solution:
-
-    my %lengths;
-    undef @lengths{$x, $y, $z};   # We care only about the keys.
-
-    # The number of different lengths tells us the type of the triangle.
-    return { 1 => 'equilateral',
-             2 => 'isosceles',
-             3 => 'scalene',
-            }->{ keys %lengths }
-

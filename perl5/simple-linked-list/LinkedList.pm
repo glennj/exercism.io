@@ -1,4 +1,5 @@
 #!perl
+use 5.20.0;
 use strict;
 use warnings;
 use feature qw/ postderef /;
@@ -45,8 +46,6 @@ sub reverse {
         $head = (ref $self)->new( $self->data(), $head );
     } while ($self = $self->next());
     return $head;
-    # or:
-    # return (ref $self)->from_array([ reverse $self->to_array()->@* ]);
 }
 
 1;

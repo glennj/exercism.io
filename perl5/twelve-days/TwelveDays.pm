@@ -24,7 +24,7 @@ sub new {
 sub verse {
     my ($self, $n) = @_;
     return 
-        "On the $self->[$n][0] day of Christmas my true love gave to me, "
+        "On the $self->[$n][0] day of Christmas my true love gave to me: "
         . join(', ', map {$self->[$_][1]} reverse 2 .. $n)
         . ($n > 1 ? ', and ' : '') 
         . $self->[1][1]

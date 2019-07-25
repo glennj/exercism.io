@@ -1,14 +1,19 @@
 package Grains;
-use strict;
-use warnings;
-use Exporter 'import';
-our @EXPORT_OK = qw(grains_on_square total_grains);
+
+use strictures 2;
+use bignum;
 use Carp;
 use List::Util  qw( sum );
 
+use Exporter 'import';
+our @EXPORT_OK = qw(grains_on_square total_grains);
+
+## no critic (ControlStructures::ProhibitNegativeExpressionsInUnlessAndUntilConditions)
+
 sub grains_on_square {
     my $square = shift;
-    croak 'ChessException' unless 1 <= $square and $square <= 64;
+    croak 'square must be between 1 and 64'
+        unless 1 <= $square and $square <= 64;
     return 2 ** ($square - 1);
 }
 

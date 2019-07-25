@@ -11,7 +11,10 @@ sub triangle {
 
 sub is_triangle {
     my $candidate = shift;
-    return all { $candidate->[$_] eq row($_) } 0 .. $candidate->$#*;
+    # sadly the test suite expects "0" for false, not 
+    # simply a perl false value.
+    my $valid = all { $candidate->[$_] eq row($_) } 0 .. $candidate->$#*;
+    return $valid ? 1 : 0;
 }
 
 sub row {

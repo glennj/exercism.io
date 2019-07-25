@@ -1,51 +1,48 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test::More tests => 12;
+use Test2::V0;
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
-use Grains qw(grains_on_square total_grains);
 
-can_ok 'Grains', 'import' or BAIL_OUT 'Cannot import subroutines from module';
+use Grains qw(grains_on_square total_grains);
+use Math::BigFloat;
 
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-my @exception_cases;
+plan 12;
 
-foreach (@{$C_DATA->{cases}}) {
-  if (exists $_->{cases}) {
-    foreach my $case (@{$_->{cases}}) {
-      if ($case->{property} eq 'square') {
-        if ($case->{expected} == -1) {
-          push @exception_cases, $case;
-        }
-        else {
-          cmp_ok grains_on_square($case->{input}{square}), '==', $case->{expected}, 'square no. ' . $case->{description};
-        }
-      }
-    }
-  }
-  elsif ($_->{property} eq 'total') {
-    cmp_ok total_grains(), '==', $_->{expected}, $_->{description};
-  }
-}
+imported_ok qw(grains_on_square total_grains) or bail_out;
 
-SKIP: {
-  eval { require Test::Fatal };
-  skip 'Test::Fatal not loaded', scalar @exception_cases if $@;
-  eval q{
-    use Test::Fatal qw(exception);
-    isnt exception {grains_on_square $_->{input}{square}}, undef, $_->{description} foreach @exception_cases;
-  };
+for my $case ( map @{ $_->{cases} // [$_] }, @{ $C_DATA->{cases} } ) {
+  if ( ref $case->{expected} ) {
+    like dies( sub { grains_on_square( $case->{input}{square} ) } ),
+      qr/$case->{expected}{error}/,
+      $case->{description};
+  }
+  elsif ( $case->{property} eq 'square' ) {
+    is(
+      Math::BigFloat->new(
+        grains_on_square( $case->{input}{square} )
+      )->numify,
+      number( $case->{expected} ),
+      'square no. ' . $case->{description}
+    );
+  }
+  elsif ( $case->{property} eq 'total' ) {
+    is(
+      Math::BigFloat->new( total_grains() )->numify,
+      number( $case->{expected} ),
+      $case->{description}
+    );
+  }
 }
 
 __DATA__
 {
   "exercise": "grains",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "comments": [
     "The final tests of square test error conditions",
-    "The expectation for these tests is -1, indicating an error",
     "In these cases you should expect an error as is idiomatic for your language"
   ],
   "cases": [
@@ -114,7 +111,7 @@ __DATA__
           "input": {
             "square": 0
           },
-          "expected": -1
+          "expected": {"error": "square must be between 1 and 64"}
         },
         {
           "description": "negative square raises an exception",
@@ -122,7 +119,7 @@ __DATA__
           "input": {
             "square": -1
           },
-          "expected": -1
+          "expected": {"error": "square must be between 1 and 64"}
         },
         {
           "description": "square greater than 64 raises an exception",
@@ -130,7 +127,7 @@ __DATA__
           "input": {
             "square": 65
           },
-          "expected": -1
+          "expected": {"error": "square must be between 1 and 64"}
         }
       ]
     },

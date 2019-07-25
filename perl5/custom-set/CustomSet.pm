@@ -50,8 +50,7 @@ sub add {
     return $self;
 }
 
-## no critic (Subroutines::ProhibitBuiltinHomonyms)
-sub delete {
+sub remove {
     my ($self, $item) = @_;
     my $value = delete $self->{$item};
     return $self;
@@ -59,7 +58,7 @@ sub delete {
 
 sub empty {
     my ($self) = @_;
-    $self->delete($_) for $self->to_list();
+    $self->remove($_) for $self->to_list();
     return $self;
 }
 
@@ -77,7 +76,7 @@ sub intersect {
 sub difference {
     my ($self, $other) = @_;
     my $clone = (ref $self)->new($self->to_list());
-    $clone->delete($_) for $other->to_list();
+    $clone->remove($_) for $other->to_list();
     return $clone;
 }
 

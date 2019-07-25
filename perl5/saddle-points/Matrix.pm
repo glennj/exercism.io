@@ -1,7 +1,7 @@
 package Matrix;
-use strict;
-use warnings;
+
 use 5.024;
+use strictures 2;
 use List::Util  qw/ reduce min max any /;
 use List::MoreUtils qw/ firstidx /;
 ## no critic (RegularExpressions::RequireExtendedFormatting)

@@ -1,32 +1,26 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
-use Test::More tests => 6;
+use Test2::V0;
 use JSON::PP;
+
 use FindBin qw($Bin);
 use lib $Bin, "$Bin/local/lib/perl5";
+
 use NucleotideCount qw(count_nucleotides);
 
-can_ok 'NucleotideCount', 'import' or BAIL_OUT 'Cannot import subroutines from module';
-
 my $C_DATA = do { local $/; decode_json(<DATA>); };
-my @exception_cases;
-foreach my $case (map {@{$_->{cases}}} @{$C_DATA->{cases}}) {
-  if ($case->{expected}{error}) {
-    push @exception_cases, $case;
+plan 6;
+
+imported_ok qw(count_nucleotides) or bail_out;
+
+for my $case ( map { @{ $_->{cases} } } @{ $C_DATA->{cases} } ) {
+  if ( $case->{expected}{error} ) {
+    like dies( sub { count_nucleotides( $case->{input}{strand} ) } ),
+      qr/$case->{expected}{error}/, $case->{description};
   }
   else {
-    is_deeply count_nucleotides($case->{input}{strand}), $case->{expected}, $case->{description};
+    is count_nucleotides( $case->{input}{strand} ),
+      $case->{expected}, $case->{description};
   }
-}
-
-SKIP: {
-  eval { require Test::Fatal };
-  skip 'Test::Fatal not loaded', scalar @exception_cases if $@;
-  eval q{
-    use Test::Fatal qw(exception);
-    isnt exception {count_nucleotides $_->{input}{strand}}, undef, $_->{description} foreach @exception_cases;
-  };
 }
 
 __DATA__

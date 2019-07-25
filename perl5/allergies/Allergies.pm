@@ -20,7 +20,7 @@ sub BUILDARGS { return {score => pop} }
 
 sub allergic_to {
     my ($self, $allergen) = @_;
-    return $self->score & $ALLERGIES{$allergen};
+    return !!($self->score & $ALLERGIES{$allergen});
 }
 
 sub list {
