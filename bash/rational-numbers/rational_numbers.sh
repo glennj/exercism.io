@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# external tools used: awk
+
 main() {
     case $1 in
         "+") add $2 $3 ;;
@@ -84,9 +86,11 @@ rpow() {
         -v b=${r[numerator]} \
         -v c=${r[denominator]} \
         'BEGIN {
-                ans = sprintf("%.6f", a ** (b / c))
-                sub(/0+$/, "0", ans)
-                print ans
+            # want to limit to 6 decimal places
+            ans = sprintf("%.6f", a ** (b / c))
+            # but do not want to print 1.0 as 1.000000
+            sub(/0+$/, "0", ans)
+            print ans
         }'
 }
 

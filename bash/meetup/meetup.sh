@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# external tools used: gawk
+# external tools used: perl
 
 main() {
     local -g year=$1 month=$2   # global
@@ -39,8 +39,8 @@ month_days() {
     # Using perl to generate the days of the month.
     # perl should be fairly portable amongst *nix-ish systems.
     # Use the "C" locale for day names "Monday", ...
-    # One invocation of perl will be more efficient than
-    # thirty-ish invocations of date.
+    # One invocation of `perl` will be more efficient than
+    # thirty-ish invocations of `date`.
 
     LC_ALL=C perl -sE '
         use Time::Piece;

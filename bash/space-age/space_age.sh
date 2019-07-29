@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# external tools used: awk
+
 secondsPerEarthYear=31557600
 
 declare -A relativeOrbit=(
@@ -18,8 +20,7 @@ if [[ -z ${relativeOrbit[$1]} ]]; then
     exit 1
 fi
 
-# bash can't actually do floating point math.
-# calling out to awk to do it
+# bash can't do floating point math
 awk -v age="$2" \
     -v year="$secondsPerEarthYear" \
     -v planet="${relativeOrbit[$1]}" \

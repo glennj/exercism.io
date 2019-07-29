@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# external tools used: awk, sort
+# external tools used: sort
 
 characteristics=(
     strength
@@ -20,12 +20,9 @@ main() {
 
 modifier() {
     local -i n=$1
-    # call out to awk for floating point math.
-    awk -v n="$n" 'BEGIN {
-        mod = (n - 10) / 2
-        mod -= (mod < 0 ? 0.5 : 0)  # round down
-        print int(mod)
-    }'
+    # a little trickery to ensure we round *down*
+    (( n < 10 )) && (( n-- ))
+    echo $(( (n - 10) / 2 ))
 }
 
 generate() {

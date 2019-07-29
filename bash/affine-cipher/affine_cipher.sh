@@ -1,37 +1,47 @@
 #!/bin/bash 
-# external tools used: tr, sed, factor, cat
+
+# I know what can be unquoted here:
+# shellcheck disable=SC2206
+# shellcheck disable=SC2086
+
+declare -A alphaIdx
+declare -a alphabet
+declare -i m=0
+for letter in {a..z}; do 
+    alphaIdx[$letter]=$((m++))
+    alphabet+=("$letter")
+done
+
+declare -i a b mmi
 
 main() {
-    if (( $# != 4 )); then
-        echo "usage: $(basename "$0") <encode|decode> a b string" >&2
-        exit 1
-    fi
+    (( $# == 4 )) || die "usage: $0 <encode|decode> a b string"
     case "$1" in 
         encode|decode) 
-            declare -gi a=$2 b=$3
-            if ! coprime $a $m; then
-                echo "a and m must be coprime." >&2
-                exit 1
-            fi
-            declare -gi mmi=$(mmi $a $m) || exit 1
+            a=$2
+            b=$3
+            coprime $a $m || die "a and m must be coprime."
+            mmi=$(mmi $a $m) || exit 1
             x_code "$1" "$( echo "$4" | lower_case | alnum_only )"
             ;;
-        *) echo "Error: unknown subcommand '$1'" >&2; exit 1;;
+        *) die "Error: unknown subcommand '$1'" ;;
     esac
 }
+
+die() { echo "$*" >&2; exit 1; }
 
 x_code() {
     local text=$2 encoded="" char filter func
     case $1 in
         encode) func=E; filter=groups ;;
-        decode) func=D; filter=cat    ;;
+        decode) func=D; filter=identity ;;
     esac
     local -i i n
     for ((i=0; i<${#text}; i++)); do
         char=${text:i:1}
-        if [[ ${a2i[$char]} ]]; then
-            n=$($func ${a2i[$char]})
-            encoded+=${alphabet:n:1}
+        if [[ -v alphaIdx[$char] ]]; then
+            n=$($func ${alphaIdx[$char]})
+            encoded+=${alphabet[n]}
         else
             encoded+=$char
         fi
@@ -45,9 +55,9 @@ D() { echo $(( mmi * ($1 - b) % m )); }
 coprime() { 
     (( $# == 2 )) || return 1
     local factors f
-    read -ra factors < <(factor $2)
-    for f in "${factors[@]:1}"; do
-        (( $1 % $f == 0 )) && return 1
+    read -ra factors < <(prime_factors $2)
+    for f in "${factors[@]}"; do
+        (( $1 % f == 0 )) && return 1
     done
     return 0
 }
@@ -65,13 +75,66 @@ mmi() {
     return 1
 }
 
-lower_case() { tr '[:upper:]' '[:lower:]'; }
-alnum_only() { tr -dc "[:alnum:]"; }
-groups()     { sed -Ee "s/.{${1:-5}}/& /g" -e 's/ $//'; }
+# These are nice one line pipeline functions that I would
+# use in a production script. Let's try them with plain bash.
 
-alphabet=abcdefghijklmnopqrstuvwxyz
-m=${#alphabet}
-declare -A a2i
-for ((i=0; i<m; i++)); do a2i[${alphabet:i:1}]=$i; done
+# external tools used: tr, sed, factor, cat, cut
+## identity()   { cat; }
+## lower_case() { tr '[:upper:]' '[:lower:]'; }
+## alnum_only() { tr -dc "[:alnum:]"; }
+## groups()     { sed -Ee "s/.{${1:-5}}/& /g" -e 's/ $//'; }
+## prime_factors() { factor "$1" | cut -d ' ' -f 2-; }
+
+identity() {
+    while IFS= read -r; do
+        echo "$REPLY"
+    done
+}
+
+lower_case() {
+    while IFS= read -r; do
+        echo "${REPLY,,}"
+    done
+}
+
+alnum_only() {
+    while IFS= read -r; do
+        echo "${REPLY//[^[:alnum:]]/}"
+    done
+}
+
+groups() {
+    local -i size=${1:-5} i
+    local -a groups
+    while IFS= read -r; do
+        groups=()
+        for (( i=0; i < ${#REPLY}; i += size )); do
+            groups+=( "${REPLY:i:size}" )
+        done
+        echo "${groups[*]}"
+    done
+}
+
+prime_factors() {
+    local -i n=$1 p=2
+    # shortcut
+    if (( n == 26 )); then
+        echo "2 13"
+        return
+    fi
+
+    local -a factors=()
+    while (( p * p <= n )); do
+        if (( n % p == 0 )); then
+            factors+=( $p )
+            (( n /= p ))
+        else
+            (( p += 1 ))
+        fi
+    done
+    (( n > 1 )) && factors+=( $n )
+    echo "${factors[*]}"
+}
+
 
 main "$@"
