@@ -11,7 +11,6 @@ for sentence in "$@"; do
     # Pity bash does not do global regex matching. We have
     # to loop: find the first match, then remove it.
     while [[ $sentence =~ [[:alnum:]"'"]+ ]]; do
-        sentence=${sentence#*${BASH_REMATCH[0]}}
 
         word=${BASH_REMATCH[0]}
 
@@ -29,6 +28,10 @@ for sentence in "$@"; do
         #   bash: ((: count[don't] += 1 : bad array subscript (error token is "count[don't] += 1 ")
         # No amount of quoting helps.
         count[$word]=$(( ${count[$word]} + 1 ))
+
+        # remove the prefix ending with $word
+        # but don't use $word because it has been lowercased
+        sentence=${sentence#*${BASH_REMATCH[0]}}
     done
 done
 

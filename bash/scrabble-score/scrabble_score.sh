@@ -10,7 +10,9 @@ declare -A points=(
 )
 
 sum=0
-word=${1^^}
-for ((i=0; i<${#word}; i++)); do (( sum += ${points[${word:i:1}]} )); done
+word=${1^^}                     # uppercase
+word=${word//[^A-Z]/}         # remove non-letters
+for ((i=0; i<${#word}; i++)); do
+    (( sum += ${points[${word:i:1}]} ))
+done
 echo $sum
-

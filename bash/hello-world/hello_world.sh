@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-hello_world() {
-    echo 'Hello, World!'
+command_not_found_handle() { 
+    local cmd=$1; shift
+    local args=("${@}")
+    printf "%s %s\n" "$cmd" "${args[*]}"
 }
 
-main() {
-    hello_world
-}
-main "$@"
+        Hello,      \
+        World!
