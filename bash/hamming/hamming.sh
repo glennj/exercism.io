@@ -9,8 +9,6 @@ die() { echo "$*" >&2; exit 1; }
 
 dist=0
 for ((i=0; i<${#1}; i++)); do
-    if [[ ${1:i:1} != "${2:i:1}" ]]; then
-        ((dist++))
-    fi
+    [[ ${1:i:1} == "${2:i:1}" ]] || ((dist++))
 done
 echo "$dist"

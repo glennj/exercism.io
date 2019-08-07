@@ -2,8 +2,13 @@
 
 # the alphabet: a bit convoluted, and hardcoding it would
 # be simple, but let's demonstrate a dynamic method.
-
 alpha=$( set -- {a..z}; IFS=""; echo "$*" )
+
+declare -A map
+for (( i=0, j=${#alpha}-1; i < ${#alpha}; i++, j-- )); do
+    map[${alpha:i:1}]=${alpha:j:1}
+done
+
 
 main() {
     if (( $# != 2 )); then
@@ -42,22 +47,12 @@ alnum_only() {
 }
 
 encipher() {
-    local -A map
-    local -i i j
-    for (( i=0, j=${#alpha}-1; i < ${#alpha}; i++, j-- )); do
-        map[${alpha:i:1}]=${alpha:j:1}
-    done
-
     local result char
     while IFS= read -r; do
         result="" 
         for (( i=0; i < ${#REPLY}; i++ )); do
             char=${REPLY:i:1}
-            if [[ -n ${map[$char]} ]]; then
-                result+=${map[$char]}
-            else
-                result+=$char
-            fi
+            result+=${map[$char]:-$char}
         done
         echo "$result" 
     done
