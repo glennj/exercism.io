@@ -40,12 +40,16 @@ value() {
 
 with_units() {
     local value=$1 unit=$2
-    local i=0
+    local -i idx=0
     while [[ $value == *000 ]]; do
         value=${value%000}
-        ((i++))
+        ((idx++))
     done
-    echo "$value ${PREFIXES[i]}$unit"
+    if (( idx >= ${#PREFIXES[@]} )); then
+        echo "value too large for available unit prefixes" >&2
+        exit 1
+    fi
+    echo "$value ${PREFIXES[idx]}$unit"
 }
 
 main "$@"
