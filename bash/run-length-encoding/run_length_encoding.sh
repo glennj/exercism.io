@@ -10,6 +10,11 @@ main() {
 encode() {
     local phrase=$1
     [[ -z $phrase ]] && return
+    [[ $phrase == *[[:digit:]]* ]] && {
+        echo "Cannot decode the encoding of a phrase with digits" >&2
+        exit 1
+    }
+
     local result=""
     local count=0 char=${phrase:0:1}
     for ((i=0; i < ${#phrase}; i++)); do
@@ -35,24 +40,33 @@ decode() {
     local phrase=$1
     local result=""
     local count char
-    while [[ -n $phrase ]]; do
-        if [[ $phrase =~ ([0-9]*)([^0-9]) ]]; then
-            count=${BASH_REMATCH[1]}
-            [[ -z $count ]] && count=1
-            char=${BASH_REMATCH[2]}
-            result+="$(str_repeat "$char" $count)"
-            len=${#BASH_REMATCH[0]}
-            phrase=${phrase:len}
-        fi
+
+    #while [[ -n $phrase ]]; do
+    #    if [[ $phrase =~ ([0-9]*)([^0-9]) ]]; then
+    #        count=${BASH_REMATCH[1]}
+    #        [[ -z $count ]] && count=1
+    #        char=${BASH_REMATCH[2]}
+    #        result+="$(str_repeat "$char" $count)"
+    #        len=${#BASH_REMATCH[0]}
+    #        phrase=${phrase:len}
+    #    fi
+    #done
+    #echo "$result"
+
+    while [[ $phrase =~ ([[:digit:]]+)([^[:digit:]]) ]]; do
+        printf -v phrase "%s%s%s" \
+            "${phrase%%${BASH_REMATCH[0]}*}" \
+            "$(str_repeat "${BASH_REMATCH[2]}" "${BASH_REMATCH[1]}")" \
+            "${phrase#*${BASH_REMATCH[0]}}"
     done
-    echo "$result"
+    echo "$phrase"
 }
 
 str_repeat() {
     local char=$1 count=$2
     local result
     # string of count spaces
-    printf -v result "%*s" $count ""
+    printf -v result "%*s" "$count" ""
     # replace spaces with the char
     echo "${result// /$char}"
 }
