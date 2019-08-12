@@ -37,6 +37,11 @@
     "CMOS"
     (acronym:acronym "Complementary metal-oxide semiconductor")))
 
+(define-test cmos-test
+  (assert-equal
+    "HC"
+    (acronym:acronym "Halley's Comet")))
+
 #-xlisp-test
 (let ((*print-errors* t)
       (*print-failures* t))
