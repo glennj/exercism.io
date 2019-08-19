@@ -56,16 +56,16 @@
   [[ "$output" == "HC" ]]
 }
 
-@test "apostrophes2" {
-  [[ $BATS_RUN_SKIPPED == true  ]] || skip
-  run bash acronym.sh "She sells 'seashells'"
-  [[ "$status" -eq 0 ]]
-  [[ "$output" == "SSS" ]]
-}
-
 @test "underscore emphasis" {
   [[ $BATS_RUN_SKIPPED == true  ]] || skip
   run bash acronym.sh "The Road __Not__ Taken"
   [[ "$status" -eq 0 ]]
   [[ "$output" == "TRNT" ]]
+}
+
+@test "contains shell globbing character" {
+  [[ $BATS_RUN_SKIPPED == true  ]] || skip
+  run bash acronym.sh "Two * Words"
+  [[ "$status" -eq 0 ]]
+  [[ "$output" == "TW" ]]
 }

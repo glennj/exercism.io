@@ -7,7 +7,7 @@ colors=(
 
 main() {
     local result=""
-    for color; do
+    for color in "${@:1:2}"; do
         result+=$(code "$color") || die "invalid color"
     done
     echo "$result"
