@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if (( $# == 0 )) || [[ $1 == *[^0-9]* ]]; then
     echo "usage: ${0##*/} decimalNumber"
@@ -6,19 +6,18 @@ if (( $# == 0 )) || [[ $1 == *[^0-9]* ]]; then
 fi
 
 decimal=$1
-while (( decimal > 0 )); do
-    (( decimal >= 1000 )) && { printf  M; ((decimal -= 1000)); continue; }
-    (( decimal >=  900 )) && { printf CM; ((decimal -=  900)); continue; }
-    (( decimal >=  500 )) && { printf  D; ((decimal -=  500)); continue; }
-    (( decimal >=  400 )) && { printf CD; ((decimal -=  400)); continue; }
-    (( decimal >=  100 )) && { printf  C; ((decimal -=  100)); continue; }
-    (( decimal >=   90 )) && { printf XC; ((decimal -=   90)); continue; }
-    (( decimal >=   50 )) && { printf  L; ((decimal -=   50)); continue; }
-    (( decimal >=   40 )) && { printf XL; ((decimal -=   40)); continue; }
-    (( decimal >=   10 )) && { printf  X; ((decimal -=   10)); continue; }
-    (( decimal >=    9 )) && { printf IX; ((decimal -=    9)); continue; }
-    (( decimal >=    5 )) && { printf  V; ((decimal -=    5)); continue; }
-    (( decimal >=    4 )) && { printf IV; ((decimal -=    4)); continue; }
-    printf I; ((decimal--))
+roman=(
+    [1000]=M  [900]=CM  [500]=D  [400]=CD
+     [100]=C   [90]=XC   [50]=L   [40]=XL
+      [10]=X    [9]=IX    [5]=V    [4]=IV
+       [1]=I
+)
+
+for value in 1000 900 500 400 100 90 50 40 10 9 5 4 1; do
+    while (( decimal >= value )); do
+        printf "%s" "${roman[value]}"
+        (( decimal -= value ))
+    done
+    (( decimal == 0 )) && break
 done
 printf "\n"
