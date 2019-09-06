@@ -62,10 +62,10 @@ score_throw() {
 #
 asintegers() {
     local -n f=$1 g=$2 e=$3
-    local -i fexp=0 gexp=0
+    local -i fexp gexp
 
-    [[ $f == *.* ]] && fexp=$(exponent $f)
-    [[ $g == *.* ]] && gexp=$(exponent $g)
+    [[ $f == *.* ]] && fexp=$(exponent $f) || fexp=0
+    [[ $g == *.* ]] && gexp=$(exponent $g) || gexp=0
     e=$( max $fexp $gexp )
 
     if (( e > 0 )); then
