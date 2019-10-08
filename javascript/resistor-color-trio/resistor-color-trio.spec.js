@@ -30,20 +30,20 @@ describe('Resistor Color Trio', () => {
       .toEqual(makeLabel({ value: 470, unit: "kiloohms" }));
   });
 
+  // additional tests
   test('3 white', () => {
     expect(new ResistorColorTrio(["white", "white", "white"]).label)
       .toEqual(makeLabel({ value: 99, unit: "gigaohms" }));
   });
-
   test('3 black', () => {
     expect(new ResistorColorTrio(["black", "black", "black"]).label)
       .toEqual(makeLabel({ value: 0, unit: "ohms" }));
   });
-
   test('Blue violet grey', () => {
     expect(new ResistorColorTrio(["blue", "violet", "grey"]).label)
       .toEqual(makeLabel({ value: 6700, unit: "megaohms" }));
   });
+  //
 
   // optional: error
   test('Invalid color', () => {
