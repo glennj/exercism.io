@@ -1,3 +1,3 @@
-pharo
-pharo-*
+*.bash
 Pharo*
+pharo*

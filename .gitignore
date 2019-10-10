@@ -38,3 +38,7 @@ bin/
 .Rhistory
 
 .DS_Store
+
+# pharo dev
+pharo-staging/
+problem-specifications/
