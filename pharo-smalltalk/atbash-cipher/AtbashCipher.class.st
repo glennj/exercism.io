@@ -10,12 +10,15 @@ Class {
 
 { #category : #encoding }
 AtbashCipher >> decodePhrase: phrase [
-	^ self xxcode: phrase
+	^ (phrase asLowercase asArray
+		select: #isAlphaNumeric
+		thenCollect: [ :c | revAlphabet at: (alphabet indexOf: c) ] )
+		joinUsing: ''
 ]
 
 { #category : #encoding }
 AtbashCipher >> encodePhrase: phrase [
-	^ self grouped: (self xxcode: phrase)
+	^ self grouped: (self decodePhrase: phrase)
 ]
 
 { #category : #private }
@@ -25,17 +28,11 @@ AtbashCipher >> grouped: phrase [
 
 { #category : #initialization }
 AtbashCipher >> initialize [
+	| digits |
 	alphabet := Character alphabet asOrderedCollection.
 	revAlphabet := alphabet reversed.
-	
-	alphabet addAll: ($0 to: $9).
-	revAlphabet addAll: ($0 to: $9).
-]
 
-{ #category : #private }
-AtbashCipher >> xxcode: phrase [
-	^ (phrase asLowercase asArray
-		select: [ :c | c isAlphaNumeric ]
-		thenCollect: [ :c | revAlphabet at: (alphabet indexOf: c) ] )
-		joinUsing: ''
+	digits := $0 to: $9.
+	alphabet addAll: digits.
+	revAlphabet addAll: digits.
 ]

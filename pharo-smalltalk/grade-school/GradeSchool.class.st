@@ -2,7 +2,7 @@ Class {
 	#name : #GradeSchool,
 	#superclass : #Object,
 	#instVars : [
-		'classes'
+		'grades'
 	],
 	#category : #'Exercise@GradeSchool'
 }
@@ -12,34 +12,31 @@ GradeSchool >> addStudents: listOfStudents [
 	"each student in the list is a two-element collection: { name . grade }"
 	
 	listOfStudents do: [ :student |
-		classes
+		grades
 			at: student last
-			put: ((self class: student last) add: student first; yourself) ]
+			put: ((self grade: student last) add: student first; yourself) ]
 ]
 
-{ #category : #'as yet unclassified' }
-GradeSchool >> class: grade [
-	| class |
-	class := classes at: grade ifAbsent: [SortedCollection new].
-	^ class copyFrom: 1 to: class size
-
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GradeSchool >> desiredGrade: grade [
-	^ (self class: grade) asArray
+	^ (self grade: grade) asArray
+]
+
+{ #category : #private }
+GradeSchool >> grade: grade [
+	^ (grades at: grade ifAbsent: [ SortedCollection new ]) copy
 ]
 
 { #category : #initialization }
 GradeSchool >> initialize [
-	classes := Dictionary new.
+	grades := Dictionary new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GradeSchool >> roster [
 	| roster |
 
 	roster := OrderedCollection new.
-	classes keys sorted do: [ :grade | roster addAll: (self class: grade) ].
+	grades keys sorted do: [ :grade | roster addAll: (self grade: grade) ].
 	^ roster asArray
 ]

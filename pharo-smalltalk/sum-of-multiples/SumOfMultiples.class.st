@@ -5,14 +5,13 @@ Class {
 }
 
 { #category : #calculating }
-SumOfMultiples >> sumFactors: aCollection limit: anInteger [ 
+SumOfMultiples >> sumFactors: factorList limit: limit [ 
 	| factors |
 	factors := Set new.
 	
-	aCollection do: [ :multiple |
-		multiple > 0
-			ifTrue: [ 
-				factors addAll: (multiple to: anInteger - 1 by: multiple) ] ].
+	factorList do: [ :multiple |
+		multiple > 0 ifTrue: [ 
+		 	factors addAll: (multiple to: limit - 1 by: multiple) ] ].
 	
 	^ factors isEmpty
 		ifTrue: [ 0 ]

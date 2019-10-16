@@ -55,10 +55,10 @@ Tournament >> tallyRows: resultsCollection [
 
 { #category : #private }
 Tournament >> team: name [
-	| team |
-	team := teams select: [ :t | t name = name ].
-	team isEmpty ifFalse: [ ^ team first ].
-	team := Team new name: name.
-	teams add: team.
-	^ team
+	| idx |
+	idx := teams findFirst: [ :t | t name = name ].
+	^ idx > 0
+		ifTrue:  [ teams at: idx ]
+		ifFalse: [ teams add: (Team new name: name) ]
+
 ]

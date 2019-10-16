@@ -29,5 +29,5 @@ MatrixReader >> rows: input [
 	^ (input findTokens: Character cr)
 		collect: [ :row | 
 			(row findTokens: Character separators)
-				collect: [ :intString | intString asInteger ] ]
+				collect: #asInteger ]
 ]

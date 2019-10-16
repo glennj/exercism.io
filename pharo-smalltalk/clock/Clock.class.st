@@ -4,9 +4,6 @@ Class {
 	#instVars : [
 		'minutes'
 	],
-	#classInstVars : [
-		'minutes'
-	],
 	#category : #'Exercise@Clock'
 }
 
@@ -46,12 +43,11 @@ Clock >> initialize [
 ]
 
 { #category : #printing }
-Clock >> printString [ 
-	"note to self: `Object >> asString` returns `self printString`"
-	
-	^ '{1}:{2}' format: { 
-		(minutes // 60) asTwoCharacterString .
-		(minutes \\ 60) asTwoCharacterString  }
+Clock >> printOn: aStream [ 
+	aStream
+		nextPutAll: (minutes // 60) asTwoCharacterString;
+		nextPut:    $:;
+		nextPutAll: (minutes \\ 60) asTwoCharacterString
 ]
 
 { #category : #private }
