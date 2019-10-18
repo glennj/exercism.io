@@ -1,18 +1,24 @@
 class Triangle {
 
-    static boolean isEquilateral(Number a, Number b, Number c) {
-        isTriangle(a, b, c) && (a == b && a == c)
+    Number a, b, c
+
+    Triangle(Number x, Number y, Number z) {
+        (a, b, c) = [x, y, z]
     }
 
-    static boolean isIsosceles(Number a, Number b, Number c) {
-        isTriangle(a, b, c) && (a == b || a == c || b == c)
+    boolean isEquilateral() {
+        isTriangle() && (a == b && a == c)
     }
 
-    static boolean isScalene(Number a, Number b, Number c) {
-        isTriangle(a, b, c) && (a != b && a != c && b != c)
+    boolean isIsosceles() {
+        isTriangle() && (a == b || a == c || b == c)
     }
 
-    static boolean isTriangle(Number a, Number b, Number c) {
+    boolean isScalene() {
+        isTriangle() && (a != b && a != c && b != c)
+    }
+
+    boolean isTriangle() {
         def (x, y, z) = [a, b, c].sort(false)
         return (x > 0) && (x + y > z)
     }

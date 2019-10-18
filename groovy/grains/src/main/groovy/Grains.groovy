@@ -1,5 +1,8 @@
 class Grains {
     static square(num) {
+        if (num < 1 || num > 64)
+            throw new ArithmeticException("Invalid square")
+
         //1 << (num - 1) // wraps at 2^32
         2 ** (num - 1)
     }
