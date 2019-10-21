@@ -13,6 +13,6 @@ Leap >> leapYear: year [
     - it is divisible by 4, and
     - is is _not_ divisible by 100 or it is divisible by 400
    "
+	^ year \\ 4 = 0 and: [ year \\ 100 ~= 0 or: [ year \\ 400 = 0 ] ]
 
-	^ (year \\ 4 = 0) and: ((year \\ 100 = 0) not or: (year \\ 400 = 0)).
 ]
