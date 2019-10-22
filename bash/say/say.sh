@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
 
+# translation of this lovely recursive javascript solution
+# https://exercism.io/tracks/javascript/exercises/say/solutions/515ab00bc90f46b0bde3732d9317a46b
+
+# `-v` test operator introduced in bash 4.3
+if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
+    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
+then
+    echo "bash version 4.3 required" >&2
+    exit 2
+fi
+
 low=(
     zero one two three four five six seven eight nine
     ten eleven twelve thirteen fourteen fifteen

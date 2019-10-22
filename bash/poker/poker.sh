@@ -1,5 +1,10 @@
 #!/usr/bin/bash
 
+if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
+    echo "bash version 4.0 required" >&2
+    exit 2
+fi
+
 # external tools used: sort, grep, wc, uniq
 
 declare -ri SUCCESS=0 FAILURE=1
@@ -49,9 +54,9 @@ validate() {
 #   pair) and the ranking "4110605" (starts with 4, and
 #   other face values descending
 #
-# The hand value is so big so that the value and the ranking
-# can be combined into a single integer value. Given these
-# hands:
+# I chose such a large number for the hand value so that the 
+# value and the ranking can be combined into a single integer 
+# value. Given these hands:
 # a) JH 10H 9H 2S 2C
 # b) JD 10D 8D 2C 2S
 #

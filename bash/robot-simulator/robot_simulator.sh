@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# `-v` test operator introduced in bash 4.3
+if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
+    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
+then
+    echo "bash version 4.3 required" >&2
+    exit 2
+fi
+
 die() { echo "$*" >&2; exit 1; }
 
 
@@ -18,7 +26,7 @@ declare direction=${3:-north}
 declare instructions=$4
 
 
-# -v is a "variable exists" test, added in version 4.2
+# -v is a "variable exists" test, added in version 4.3
 # useful for checking if an array contains a specific key
 [[ -v dx[$direction] ]] || die "invalid direction: $direction"
 

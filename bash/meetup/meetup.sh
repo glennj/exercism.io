@@ -2,8 +2,11 @@
 
 # external tools used: perl
 
+# global variables
+declare -i year month
+
 main() {
-    local -g year=$1 month=$2   # global
+    year=$1 month=$2
     local nth=$3 weekday=$4
     local -i n=0
 

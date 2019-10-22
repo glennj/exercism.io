@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# namerefs introduced in bash 4.3
+if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
+    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
+then
+    echo "bash version 4.3 required" >&2
+    exit 2
+fi
+
 # If we were using a 2-D array with, say, n=3
 #
 # 0 1 2       1 2 3

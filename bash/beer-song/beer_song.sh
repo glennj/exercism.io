@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
+    echo "bash version 4.0 required" >&2
+    exit 2
+fi
 
 main() {
     case $# in

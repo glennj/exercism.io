@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
+    echo "bash version 4.0 required" >&2
+    exit 2
+fi
+
 # A mathematical approach: each cell can be calculated
 # independently: row n column k value is the binomial
 # coefficient C(n,k) = n! / (k! * (n-k)!)

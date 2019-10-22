@@ -1,5 +1,7 @@
 #!/bin/bash
 
+shopt -s extglob
+
 main() {
     if (( $# != 1 )); then
         echo "usage: ${0##*/} ISBN-number" >&2
@@ -9,16 +11,20 @@ main() {
 }
 
 isbn10() {
+    # validate length
     local input=${1//-/}
-    (( ${#input} == 10 )) || return 1              # validate length
+    (( ${#input} == 10 )) || return 1
 
-    local isbn=${input%?}
-    [[ $isbn == +([0-9]) ]] || return 1            # validate all digits
+    # validate first 9 chars are all digits
+    local first9=${input:0:9}
+    [[ $first9 == +([0-9]) ]] || return 1
 
-    local check=${input#$isbn}
-    [[ $check == [0-9X] ]]  || return 1            # validate check character
+    # validate check character
+    local check=${input: -1:1}
+    [[ $check == [0-9X] ]]  || return 1
 
-    [[ $check == "$(isbn10_check_digit $isbn)" ]]  # confirm the given check digit
+    # confirm the given check digit is correct
+    [[ $check == "$(isbn10_check_digit $first9)" ]]
 }
 
 isbn10_check_digit() {

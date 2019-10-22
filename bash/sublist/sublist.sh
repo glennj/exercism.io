@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# namerefs introduced in bash 4.3
+if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
+    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
+then
+    echo "bash version 4.3 required" >&2
+    exit 2
+fi
+
 # print the result, and exit success
 result() {
     echo "$*"

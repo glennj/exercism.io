@@ -41,18 +41,6 @@ decode() {
     local result=""
     local count char
 
-    #while [[ -n $phrase ]]; do
-    #    if [[ $phrase =~ ([0-9]*)([^0-9]) ]]; then
-    #        count=${BASH_REMATCH[1]}
-    #        [[ -z $count ]] && count=1
-    #        char=${BASH_REMATCH[2]}
-    #        result+="$(str_repeat "$char" $count)"
-    #        len=${#BASH_REMATCH[0]}
-    #        phrase=${phrase:len}
-    #    fi
-    #done
-    #echo "$result"
-
     while [[ $phrase =~ ([[:digit:]]+)([^[:digit:]]) ]]; do
         printf -v phrase "%s%s%s" \
             "${phrase%%${BASH_REMATCH[0]}*}" \

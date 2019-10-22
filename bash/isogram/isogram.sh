@@ -1,5 +1,5 @@
 #!/bin/bash
-#
+
 # this is a situation where is really doesn't make sense
 # to implement this in bash
 #
@@ -13,6 +13,11 @@
 
 
 # but if I was forced to use bash, this:
+
+if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
+    echo "bash version 4.0 required" >&2
+    exit 2
+fi
 
 declare -l lc=${1//[-[:blank:]]/}
 declare -A count

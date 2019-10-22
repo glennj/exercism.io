@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 
+# namerefs introduced in bash 4.3
+if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
+    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
+then
+    echo "bash version 4.3 required" >&2
+    exit 2
+fi
+
 declare -A plants=([G]=grass [C]=clover [R]=radishes [V]=violets)
 
 # list of students

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
+    echo "bash version 4.0 required" >&2
+    exit 2
+fi
+
 # the alphabet: a bit convoluted, and hardcoding it would
 # be simple, but let's demonstrate a dynamic method.
 alpha=$( set -- {a..z}; IFS=""; echo "$*" )

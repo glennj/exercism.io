@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
+    echo "bash version 4.0 required" >&2
+    exit 2
+fi
+
 # a 2-D array approach. While bash does not have
 # multidimensional arrays, we can fake them using an
 # associative array and specially constructed index strings.

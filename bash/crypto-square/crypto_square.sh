@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# `printf -v array[index] ...` introduced in bash 4.1
+if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
+    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 1 ]]; }
+then
+    echo "bash version 4.1 required" >&2
+    exit 2
+fi
+
 # remove non-alphanumeric chars from input and store as lowercase
 declare -l input=${1//[^[:alnum:]]/}
 

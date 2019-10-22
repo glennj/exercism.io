@@ -1,24 +1,18 @@
 #!/usr/bin/env bash
-#(( $# == 1 )) || exit 1
-#(( $1 > 0 )) || { echo "invalid input"; exit 1; }
-#
-#count=0
-#for ((i = 2; count < $1; i++)); do
-#  prime=1
-#  for (( j = 2; j * j <= i; j++ )); do
-#    (( i % j == 0 )) && { prime=0; break; }
-#  done
-#  (( prime && count++ ))
-#done
-#
-#echo "$((i - 1))"
-#exit
 
 # The largest concern is finding an algorithm that is not
-# excruciatingly slow in bash. I found that Sieve of 
-# Eratosthenes is a good quick algorithm for finding
-# primes less than an upper bound. The key is estimating
-# an approximate upper bound for the nth prime
+# excruciatingly slow in bash. 
+# The Sieve of Eratosthenes is a good quick algorithm for 
+# finding # primes less than an upper bound. The key is 
+# estimating # an approximate upper bound for the nth prime
+
+# namerefs introduced in bash 4.3
+if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
+    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
+then
+    echo "bash version 4.3 required" >&2
+    exit 2
+fi
 
 main() {
     local -i n=$1

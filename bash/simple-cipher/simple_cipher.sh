@@ -1,5 +1,11 @@
 #!/usr/bin/env bash 
 
+# `local -l var` introduced in bash 4.0
+if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
+    echo "bash version 4.0 required" >&2
+    exit 2
+fi
+
 shopt -u nocasematch
 
 main() {
