@@ -11,29 +11,19 @@ main() {
 }
 
 isbn10() {
-    # validate length
     local input=${1//-/}
-    (( ${#input} == 10 )) || return 1
 
-    # validate first 9 chars are all digits
-    local first9=${input:0:9}
-    [[ $first9 == +([0-9]) ]] || return 1
+    # validate content
+    [[ $input =~ ^[0-9]{9}[0-9X]$ ]] || return 1
 
-    # validate check character
-    local check=${input: -1:1}
-    [[ $check == [0-9X] ]]  || return 1
-
-    # confirm the given check digit is correct
-    [[ $check == "$(isbn10_check_digit $first9)" ]]
-}
-
-isbn10_check_digit() {
-    local -i i sum=0 check
+    # validate check digit
+    local -i i sum=0
     for ((i=0; i<9; i++)); do
-        (( sum += ${1:i:1} * (10-i) ))
+        (( sum += ${input:i:1} * (10-i) ))
     done
-    check=$(( 11 - sum % 11 ))
-    (( $check == 10 )) && echo X || echo $check
+
+    local check=${input: -1:1}
+    (( (11 - sum % 11) == (check == "X" ? 10 : check) ))
 }
 
 main "$@"
