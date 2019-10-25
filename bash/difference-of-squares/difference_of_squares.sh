@@ -20,7 +20,11 @@ sum_of_squares() {
 }
 
 difference() {
-    echo $(( $(square_of_sum $1) - $(sum_of_squares $1) ))
+    abs $(( $(sum_of_squares $1) - $(square_of_sum $1) ))
+}
+
+abs() {
+    echo $(( $1 < 0 ? -1 * $1 : $1 ))
 }
 
 main "$@"
