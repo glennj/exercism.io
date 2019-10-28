@@ -1,11 +1,11 @@
 
 ## Arithmetic
 
----
+<!-- -->
 
 bash can do arithmetic, you don't need to call out to `bc`. See [Arithmetic Expansion](https://www.gnu.org/software/bash/manual/bash.html#Arithmetic-Expansion) in the manual.
 
----
+<!-- -->
 
 You don't need to nest the arithmetic: this is OK
 ```bash
@@ -15,23 +15,44 @@ You don't need to nest the arithmetic: this is OK
     if (( $1 % num == 0 )); then
 ```
 
----
+<!-- -->
 
 Note that you don't need `$` for normal variables inside an arithmetic expression: more C-like arithmetic looks nicer.
+
+<!-- -->
+
+The difference between `$((...))` and `((...))`:
+
+`$((...))` is an arithmetic *expression* -- it returns the result of the expression as a **value**, so you can assign it to a variable like you do in line 10. Ref: [Arithmetic Expansion in the manual](https://www.gnu.org/software/bash/manual/bash.html#Arithmetic-Expansion)
+
+`((...))` is the arithmetic *conditional construct*. It returns the result of the expression as its **exit status** so you can use it in an `if`, `for` or `while` command. See [Conditional Constructs in the manual](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs) and scroll down a bit.
+
+I find the `((...))` syntax very tidy. You can assign to a variable within it, as I demonstrated above, without checking the exit status.
+
+One caveat, source of subtle errors: it does not play well with [`set -e`, the "errexit" setting](https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin). The manual says:
+
+> If the value of the expression is non-zero, the return status is 0; otherwise the return status is 1
+```bash
+$ bash -c 'set -e; count=1; ((count--)); echo "you will see this"; ((count--)); echo "you will not see this"'
+you will see this
+```
+
+Because the 2nd arithmetic expression had value zero, the command returned 1, and then the shell exited due to set -e.
 
 ## Variables
 
 For lines 17-21, consider the `${var:-default value}` form of [Shell Parameter Expansion](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion).
 
----
+<!-- -->
 
-Get out of the habit of using ALLCAPS variable names, leave those as reservied by the shell. One day you'll write `PATH=something` and then wonder why your script is broken.
+
+Get out of the habit of using ALLCAPS variable names, leave those as reserved by the shell. One day you'll write `PATH=something` and then [wonder why your script is broken](https://stackoverflow.com/q/28310594/7552).
 
 ## Quoting
 
 Unquoted variables are subject to [word splitting](https://mywiki.wooledge.org/WordSplitting)
 
----
+<!-- -->
 
 ## Assignment
 
@@ -45,28 +66,7 @@ foo+=bar
 
 In bash, prefer `[[...]]` over `[...]`. The double bracket conditional command gives you more features (including regular expression matching), and fewer surprises (particularly about unquoted variables).
 
-For example, consider this:
-```bash
-[ -n $1 ] && echo true || echo false
-```
-What happens when $1 is unset or an empty string: bash will substitute the `$1` parameter with an empty string. Then bash will have this command:
-```bash
-[ -n  ] && echo true || echo false
-```
-The `[` and `[[` commands do their comparisons based on *the number of arguments given*. When there is only a single argument (excluding the mandatory closing `]` or `]]`) then the comparison is "true" if the argument is non-empty. Here there is a single argument "-n" and it is non-empty. This test incorrectly echoes "true". 
-
----
-
-Note that the `==` operator in bash is not a string equality operator, it is a _pattern matching_ operator. So this may give surprising results:
-```bash
-target="?"
-for char in {a..z}; do
-    [[ $char == $target ]] && echo "$char equals $target"
-done
-```
-To truly get string equality, we have to quote the right-hand side so bash handles it literally: `[[ $char == "$target" ]]` -- another one of bash's quirks.
-
----
+<!-- -->
 
 `[[` does not do word splitting or filename expansion on unquoted variables, so I say that it has few surprises. Consider:
 ```
@@ -85,8 +85,10 @@ $ [ -n $var ] && echo "not empty" || echo empty
 bash: [: too many arguments
 empty
 ```
+I can go into greater detail about why `[` gives incorrect results if you want.
 
----
+
+<!-- -->
 
 The deep dive: the `test`, `[` and `[[` commands all act the same in that
 they do different things based on *how many arguments they are given*
@@ -122,6 +124,22 @@ sees `[[ -n "*" ]]` which is clearly **true**.
     how many files are in your current directory). Since there is an error,
     the exit status of `[` is non-zero and the **false** branch is taken.
 
+<!-- -->
+
+Note that the `==` operator in bash is not a string equality operator, it is a _pattern matching_ operator (see [here in the manual](https://www.gnu.org/software/bash/manual/bash.html#index-_005b_005b)). So this may give surprising results:
+```bash
+target="?"
+for char in {a..z}; do
+    [[ $char == $target ]] && echo "$char equals $target"
+done
+```
+To truly get string equality, we have to quote the right-hand side to force bash to take it literally: `[[ $char == "$target" ]]` 
+
+Another one of bash's quirks.
+
+<!-- -->
+
+I tend to avoid using regular expressions unless I have a matching problem more complicated than what I can achieve with [glob patterns](https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching), or I need to [capture sub-patterns](https://www.gnu.org/software/bash/manual/bash.html#index-BASH_005fREMATCH).
 
 ## Output
 
@@ -129,18 +147,32 @@ You don't need to `echo -n` -- the command substitution automatically removes al
 
 ## Input
 
-For truly capturing the input verbatim, use `IFS= read -r input` otherwise leading/trailing whitespace gets lost. Compare these:
+For truly capturing the input verbatim, use `IFS= read -r input`
+
+* `IFS=` preserves leading/trailing whitespace, and 
+* `-r` is necessary to maintain backslashes as they appear in the data.
+
+Compare these:
 ```bash
-echo "  foo  bar  " | {      read -r input; printf ">%s<\n" "$input"; }
-echo "  foo  bar  " | { IFS= read -r input; printf ">%s<\n" "$input"; }
+echo "  foo  \t  bar  " | {      read    input; printf ">%s<\n" "$input"; }
+echo "  foo  \t  bar  " | {      read -r input; printf ">%s<\n" "$input"; }
+echo "  foo  \t  bar  " | { IFS= read -r input; printf ">%s<\n" "$input"; }
 ```
+
+<!--
+    Although, using the default REPLY variable grabs the data with
+    whitespace:
+        $ echo "  foo  \t  bar  " | { read -r ; printf ">%s<\n" "$REPLY"; }
+        >  foo  \t  bar  <
+-->
+
 ## Exercises
 
 ### atbash-cipher
 
 If you consider the enciphering algorithm, you'll notice that the cipher array is exactly the same as the decipher array. This implies that the only difference between the encode and decode functions would be adding spaces for encode. See how you can use this to simplify your code.
 
----
+<!-- -->
 
 A further note: you can write your case statement like this, if you want:
 
@@ -148,4 +180,22 @@ A further note: you can write your case statement like this, if you want:
         encode|decode) $1 "$2" ;;
         *)             exit 1 ;;
     esac
+
+### two-fer
+
+There is a more concise way to manage the optional input here. I suggest
+looking into the `${var:-default}` form of parameter expansion [here in the
+manual](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html).
+
+<!-- -->
+
+In bash, prefer `[[...]]` over `[...]`. It's more powerful and less likely to act
+in unexpected ways.
+
+<!-- -->
+
+Generally, you should encapsulate the main body of your script in a `main`
+function, like you may remember from the Hello World exercise.  It
+encapsulates a chunk of logic in one function to encourage re-use.
+It is good practice, and becomes more and more important as your programs get bigger.
 
