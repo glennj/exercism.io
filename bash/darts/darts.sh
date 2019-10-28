@@ -13,7 +13,14 @@ fi
 #
 # However bash has not implemented floating point arithmetic.
 #
-# We could call out to an external tool like awk.
+# We could call out to an external tool like awk:
+#    awk -v "x=$1" -v "y=$2" 'BEGIN {
+#        hypot = sqrt(x^2 + y^2)
+#        if      (hypot <=  1) print 10
+#        else if (hypot <=  5) print  5
+#        else if (hypot <= 10) print  1
+#        else                  print  0
+#    }'
 #
 # Or we do some manipulation to convert the numbers to integers:
 # Suppose x=0.03 and y=3.0
@@ -81,8 +88,8 @@ asintegers() {
         # it's OK to strip off the leading hyphen.
         # Use printf to right-pad each number with zeroes
         # so that they're the same length
-        printf -v f "%.*f" $exp ${f#-}
-        printf -v g "%.*f" $exp ${g#-}
+        printf -v f "%.*f" $e ${f#-}
+        printf -v g "%.*f" $e ${g#-}
 
         # Now, remove the decimal point.
         # Force interpretation as base-10 numbers so that
