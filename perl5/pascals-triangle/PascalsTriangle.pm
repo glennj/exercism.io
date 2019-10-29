@@ -1,20 +1,15 @@
-package Triangle;
+package PascalsTriangle;
 use strictures 2;
-use List::Util qw/ product all /;
+use Exporter 'import';
+our @EXPORT_OK = qw/ pascal_rows /;
 
+use List::Util qw/ product /;
 use Memoize;
 memoize($_) for qw( row binom fact );
 
-sub triangle {
-    return [ map { row($_) } 0 .. shift ];
-}
-
-sub is_triangle {
-    my $candidate = shift;
-    # sadly the test suite expects "0" for false, not 
-    # simply a perl false value.
-    my $valid = all { $candidate->[$_] eq row($_) } 0 .. $candidate->$#*;
-    return $valid ? 1 : 0;
+sub pascal_rows {
+    my $n = shift;
+    return join "\n", map { row($_) } 0 .. $n-1;
 }
 
 sub row {
