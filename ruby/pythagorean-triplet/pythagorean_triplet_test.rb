@@ -3,27 +3,26 @@ require_relative 'pythagorean_triplet'
 
 class TripletTest < Minitest::Test
   def test_sum
-    #skip
     assert_equal 12, Triplet.new(3, 4, 5).sum
   end
 
   def test_product
-     #skip
+    #skip
     assert_equal 60, Triplet.new(3, 4, 5).product
   end
 
   def test_pythagorean
-     #skip
+    #skip
     assert Triplet.new(3, 4, 5).pythagorean?
   end
 
   def test_not_pythagorean
-     #skip
+    #skip
     refute Triplet.new(5, 6, 7).pythagorean?
   end
 
   def test_triplets_upto_10
-     #skip
+    #skip
     triplets = Triplet.where(max_factor: 10)
     products = triplets.map(&:product).sort
     assert_equal [60, 480], products
@@ -41,5 +40,12 @@ class TripletTest < Minitest::Test
     triplets = Triplet.where(sum: 180, max_factor: 100)
     products = triplets.map(&:product).sort
     assert_equal [118_080, 168_480, 202_500], products
+  end
+
+  def test_where_sum_1000
+    #skip
+    triplets = Triplet.where(sum: 1_000, min_factor: 200, max_factor: 425)
+    products = triplets.map(&:product)
+    assert_equal [31_875_000], products
   end
 end

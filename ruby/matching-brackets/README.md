@@ -1,27 +1,8 @@
-# Pythagorean Triplet
+# Matching Brackets
 
-A Pythagorean triplet is a set of three natural numbers, {a, b, c}, for
-which,
-
-```text
-a**2 + b**2 = c**2
-```
-
-and such that,
-
-```text
-a < b < c
-```
-
-For example,
-
-```text
-3**2 + 4**2 = 9 + 16 = 25 = 5**2.
-```
-
-Given an input integer N, find all Pythagorean triplets for which `a + b + c = N`.
-
-For example, with N = 1000, there is exactly one Pythagorean triplet for which `a + b + c = 1000`: `{200, 375, 425}`.
+Given a string containing brackets `[]`, braces `{}`, parentheses `()`,
+or any combination thereof, verify that any and all pairs are matched
+and nested correctly.
 
 * * * *
 
@@ -39,16 +20,16 @@ the test file.
 
 Run the tests from the exercise directory using the following command:
 
-    ruby pythagorean_triplet_test.rb
+    ruby matching_brackets_test.rb
 
 To include color from the command line:
 
-    ruby -r minitest/pride pythagorean_triplet_test.rb
+    ruby -r minitest/pride matching_brackets_test.rb
 
 
 ## Source
 
-Problem 9 at Project Euler [http://projecteuler.net/problem=9](http://projecteuler.net/problem=9)
+Ginna Baker
 
 ## Submitting Incomplete Solutions
 It's possible to submit an incomplete solution so you can see how others have completed the exercise.

@@ -12,16 +12,11 @@ class HighScores
     @scores.max
   end
 
-  def personal_top
+  def personal_top_three
     @scores.sort.reverse.slice(0, 3)
   end
 
-  def report
-    delta = if latest < personal_best
-      "#{personal_best - latest} short of "
-    else
-      ''
-    end
-    "Your latest score was #{latest}. That's #{delta}your personal best!"
+  def latest_is_personal_best?
+    latest == personal_best
   end
 end
