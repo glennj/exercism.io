@@ -1,35 +1,19 @@
 #!/usr/bin/env bash
 
-# namerefs introduced in bash 4.3
-if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
-    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
-then
-    echo "bash version 4.3 required" >&2
-    exit 2
-fi
+source ./stack.bash
 
-set -f                  # disable path exansion
-shopt -s extglob        # enable extended patterns
 
-# I'm going to use the stack and the macros as 
-# global variables: Not best practice.
-declare -a stack        # indexed array
-declare -A macros       # associative array
+# I'm going to be using unquoted variables to take advantage
+# of word splitting. Disable filename expansion.
+set -o noglob
+shopt -s extglob
 
-# Encapsulate some stack operations
-stack::len()  { echo ${#stack[@]}; }
-stack::peek() { echo ${stack[-1]}; }
-stack::pop()  { stack=( ${stack[@]:0:$(stack::len)-1} ); }
-stack::push() { stack+=( $* ); }
 
-# True if the first argument consists of digits only
-is_number() { [[ $1 == +([0-9]) ]]; }
+# global variables for the stack and the macros
+declare -a S       # indexed array
+declare -A M       # associative array
 
-die() { echo "$*" >&2; exit 1; }
 
-#
-# The main function
-#
 main() {
     # Read from stdin
     while IFS= read -r line; do
@@ -45,13 +29,15 @@ main() {
             shift
 
             if is_number $word; then
-                stack::push $word
-            elif [[ -n ${macros[$word]} ]]; then
-                set -- ${macros[$word]} $*
+                stack::push S $word
+
+            elif [[ -n ${M[$word]} ]]; then
+                set -- ${M[$word]} "$@"
+
             else
                 case $word in
                 :)
-                    record_macro $*
+                    record_macro "$@"
                     # Discard rest of line
                     set --
                     ;;
@@ -72,8 +58,14 @@ main() {
         done
     done
 
-    echo ${stack[*]}
+    echo "${S[*]}"
 }
+
+
+# True if the first argument consists of digits only
+is_number() { [[ $1 == +([0-9]) ]]; }
+
+die() { echo "$*" >&2; exit 1; }
 
 record_macro() {
     local macro_name=$1
@@ -92,62 +84,59 @@ record_macro() {
     # Check any words in definition for macros
     local definition=()
     for word; do
-        if [[ -n ${macros[$word]} ]]; then
-            definition+=( ${macros[$word]} )
+        if [[ -n ${M[$word]} ]]; then
+            definition+=( ${M[$word]} )
         else
             definition+=( $word )
         fi
     done
-    macros[$macro_name]=${definition[*]}
+    M[$macro_name]=${definition[*]}
 }
 
 # Check the size of the stack for the number of needed elements
 need() {
-    local -i n=$1
-    local -i len=$(stack::len)
+    local -i n=$1 len
+    len=$(stack::len S)
     (( n > 0 && len == 0 )) && die "empty stack"
     (( n > 1 && len == 1 )) && die "only one value on the stack"
     (( n > len ))           && die "not enough values on the stack"
 }
 
 binary_op() {
-    local op=$1
+    local op=$1 a b
 
     need 2
-    local b=$(stack::peek)
-    stack::pop
-    local a=$(stack::peek)
-    stack::pop
+    b=$(stack::peek S) && stack::pop S
+    a=$(stack::peek S) && stack::pop S
     
     [[ $op == "/" ]] && (( b == 0 )) && die "divide by zero"
-    stack::push $(( a $op b ))
+    stack::push S $(( a $op b ))
 }
 
 dup() {
     need 1
-    stack::push $(stack::peek)
+    stack::push S $(stack::peek S)
 }
 
 drop() {
     need 1
-    stack::pop
+    stack::pop S
 }
 
 swap() {
+    local a b
     need 2
-    local b=$(stack::peek)
-    stack::pop
-    local a=$(stack::peek)
-    stack::pop
-    stack::push $b $a
+    b=$(stack::peek S) && stack::pop S
+    a=$(stack::peek S) && stack::pop S
+    stack::push S $b $a
 }
 
 over() {
+    local a b
     need 2
-    local b=$(stack::peek)
-    stack::pop
-    local a=$(stack::peek)
-    stack::push $b $a
+    b=$(stack::peek S) && stack::pop S
+    a=$(stack::peek S)
+    stack::push S $b $a
 }
 
 main
