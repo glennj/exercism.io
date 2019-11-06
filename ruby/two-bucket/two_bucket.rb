@@ -9,34 +9,40 @@ class Bucket
   end
 
   def capacity
-    @size - @amount
+    size - amount
   end
 
   def fill
-    @amount = @size
+    self.amount = size
   end
 
   def empty
-    @amount = 0
+    self.amount = 0
   end
 
   def full?
-    @amount == @size
+    amount == size
   end
 
   def empty?
-    @amount.zero?
+    amount.zero?
   end
 
-  def pour(other)
-    to_pour = [@amount, other.capacity].min
-    @amount -= to_pour
+  def pour_into(other)
+    to_pour = [amount, other.capacity].min
+    self.amount -= to_pour
     other.amount += to_pour
   end
 end
 
 class TwoBucket
   attr_reader :moves, :goal_bucket, :other_bucket
+
+  private
+
+  attr_writer :moves
+
+  public
 
   def initialize(size1, size2, goal, start_name)
     validate(size1, size2, goal, start_name)
@@ -52,7 +58,7 @@ class TwoBucket
 
   def solve(start, other, goal)
     start.fill
-    @moves = 1
+    self.moves = 1
 
     loop do
       return [start.name, other.amount] if start.amount == goal
@@ -61,10 +67,10 @@ class TwoBucket
       if other.size == goal then other.fill
       elsif start.empty?    then start.fill
       elsif other.full?     then other.empty
-      else                       start.pour(other)
+      else                       start.pour_into(other)
       end
 
-      @moves += 1
+      self.moves += 1
     end
   end
 

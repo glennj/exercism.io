@@ -2,9 +2,20 @@
 # the read pointer is fixed at the head of the stack,
 # the write pointer is fixed at the tail of the stack.
 
+# A circular buffer, cyclic buffer or ring buffer is a data
+# structure that uses a single, fixed-size buffer as if it
+# were connected end-to-end.
+#
 class CircularBuffer
   class BufferEmptyException < StandardError; end
   class BufferFullException  < StandardError; end
+
+  private
+
+  attr_reader :size
+  attr_accessor :buffer
+
+  public
 
   def initialize(size)
     @size = size
@@ -12,21 +23,23 @@ class CircularBuffer
   end
 
   def clear
-    @buffer = []
+    self.buffer = []
   end
 
   def read
-    raise BufferEmptyException if @buffer.empty?
-    @buffer.shift
+    raise BufferEmptyException if buffer.empty?
+
+    buffer.shift
   end
 
   def write(data)
-    raise BufferFullException if @buffer.length == @size
-    @buffer.push data
+    raise BufferFullException if buffer.length == size
+
+    buffer.push data
   end
 
   def write!(data)
-    read if @buffer.length == @size
+    read if buffer.length == size
     write(data)
   end
 end

@@ -1,4 +1,12 @@
 class BeerSong
+  private
+
+  attr_reader :max
+  attr_reader :liquid
+  attr_reader :where
+
+  public
+
   def self.recite(start, num)
     new.verses(start, num)
   end
@@ -18,23 +26,23 @@ class BeerSong
 
   def verse(n)
     b = bottle(n)
-    first = "#{b.capitalize} #{@where}, #{b}.\n"
+    first = "#{b.capitalize} #{where}, #{b}.\n"
 
-    b = bottle(n > 0 ? n - 1 : @max)
-    second = "#{task n}, #{b} #{@where}.\n"
+    b = bottle(n.positive? ? n - 1 : max)
+    second = "#{task(n)}, #{b} #{where}.\n"
 
     first + second
   end
 
   def bottle(n)
-    "#{n > 0 ? n : 'no more'} bottle#{n != 1 ? 's' : ''} of #{@liquid}"
+    "#{n.zero? ? 'no more' : n} bottle#{n == 1 ? '' : 's'} of #{liquid}"
   end
 
   def task(n)
     if n.zero?
       'Go to the store and buy some more'
     else
-      "Take #{n > 1 ? 'one' : 'it'} down and pass it around"
+      "Take #{n == 1 ? 'it' : 'one'} down and pass it around"
     end
   end
 end

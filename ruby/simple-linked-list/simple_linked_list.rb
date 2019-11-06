@@ -1,34 +1,42 @@
+# comment
 class Element
+  attr_accessor :next, :datum
+
   def initialize(value)
     @datum = value
     @next = nil
   end
-  attr_accessor :next, :datum
 end
 
+# comment
 class SimpleLinkedList
+  attr_reader :head
+  private
+  attr_writer :head
+
+  public
+
   def initialize(array = [])
     @head = nil
     array.each { |value| push Element.new(value) }
   end
-  attr_reader :head
 
   # push and pop operate at the head of the list
   def push(node)
-    node.next = @head
-    @head = node
+    node.next = head
+    self.head = node
     self
   end
 
   def pop
-    node = @head
-    @head = node.next if node
+    node = head
+    self.head = node.next if node
     node
   end
 
   def each
     if block_given?
-      node = @head
+      node = head
       until node.nil?
         yield node
         node = node.next
@@ -45,8 +53,8 @@ class SimpleLinkedList
 
   def reverse!
     reversed = self.class.new
-    reversed.push(pop) until @head.nil?
-    @head = reversed.head
+    reversed.push(pop) until head.nil?
+    self.head = reversed.head
     self
   end
 end

@@ -1,13 +1,18 @@
 # With significant gratitude to shybyte
 # https://exercism.io/tracks/typescript/exercises/connect/solutions/2e4550709a0241e09842d418c0361225
 
-class Object
-  def deepcopy
-    Marshal.load(Marshal.dump(self))
+module DeepCopy
+  refine Object do
+    def deepcopy
+      Marshal.load(Marshal.dump(self))
+    end
   end
 end
 
+# the Connect game win tester
 class Board
+  using DeepCopy
+
   def initialize(input)
     @board = input.map { |row| row.split(' ') }
   end
@@ -15,7 +20,7 @@ class Board
   def winner
     return 'O' if winner?('O', @board.deepcopy)
     return 'X' if winner?('X', @board.transpose)
-    '' # empty string is "no winner"
+    '' # no winner
   end
 
   private
@@ -47,20 +52,20 @@ class Board
     false
   end
 
-  def neighbours(player, board, r, c)
+  def neighbours(player, board, row, col)
     height = board.length
     width = board[0].length
     neighbours = []
 
     [-1, 0, 1].each do |dr|
-      rr = r + dr
-      next if rr < 0 || rr >= height
+      rr = row + dr
+      next if rr.negative? || rr >= height
 
       [-1, 0, 1].each do |dc|
-        cc = c + dc
-        next if cc < 0 || cc >= width
+        cc = col + dc
+        next if cc.negative? || cc >= width
         next if dr == dc # cannot move this way
-        
+
         neighbours << [rr, cc] if board[rr][cc] == player
       end
     end

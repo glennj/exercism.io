@@ -4,7 +4,7 @@ require_relative 'zipper'
 # Common test data version: 1.1.0 6fb5601
 class ZipperTest < Minitest::Test
   def test_data_is_retained
-    # skip
+    # #skip
     tree =
       Node.new(1,
         Node.new(2,
@@ -31,7 +31,7 @@ class ZipperTest < Minitest::Test
   end
 
   def test_left_right_and_value
-    # skip
+    #skip
     tree =
       Node.new(1,
         Node.new(2,

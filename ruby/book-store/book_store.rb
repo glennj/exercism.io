@@ -1,9 +1,7 @@
 class BookStore
+  private
 
-  def self.calculate_price(basket)
-    price, discount_set = new(basket).best_discount
-    price
-  end
+  attr_reader :basket
 
   BOOK_PRICE = 8.00
 
@@ -15,30 +13,42 @@ class BookStore
     1 => 0
   }.freeze
 
+  public
+
+  def self.calculate_price(basket)
+    new(basket).best_discount.first
+  end
+
   def initialize(basket)
     @basket = basket
-    @discounts = [[1] * basket.length]
-    @discounts += find_discounts(basket)
+  end
+
+  def best_discount
+    discounts = [[1] * basket.length]
+    discounts += find_discounts(basket)
 
     # pad each group of discounts to account for all the books
-    @discounts.map do |d|
+    discounts.each do |d|
       (basket.length - d.sum).times do
         d << 1
       end
     end
-  end
 
-  def best_discount
-    @discounts.map do |set|
-      price = set.reduce(0) do |sum, size|
-        sum + size * BOOK_PRICE * (1 - DISCOUNTS[size])
-      end
-      [price, set]
-    end
-    .min_by(&:first)
+    get_best(discounts)
   end
 
   private
+
+  def get_best(discounts)
+    discounts
+      .map do |set|
+        price = set.reduce(0) do |sum, size|
+          sum + size * BOOK_PRICE * (1 - DISCOUNTS[size])
+        end
+        [price, set]
+      end
+      .min_by(&:first)
+  end
 
   def find_discounts(basket)
     return [] if basket.length < 2
@@ -47,6 +57,7 @@ class BookStore
     max_discount = [basket.length, DISCOUNTS.keys.max].min
     max_discount.downto(2) do |disc|
       next unless contains?(basket, disc)
+
       discounts << [disc]
       rest = remove_group(basket, disc)
       find_discounts(rest).each do |d|

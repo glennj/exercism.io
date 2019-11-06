@@ -1,21 +1,29 @@
 class SpaceAge
-  def initialize(seconds)
-    @earth_age = seconds.to_f / 31_557_600
-  end
+  private
+
+  attr_reader :earth_years
 
   RELATIVE_YEARS = {
-    mercury: 0.2408467,
-    venus:   0.61519726,
-    earth:   1.0,
-    mars:    1.8808158,
-    jupiter: 11.862615,
-    saturn:  29.447498,
-    uranus:  84.016846,
+    mercury:   0.2408467,
+    venus:     0.61519726,
+    earth:     1.0,
+    mars:      1.8808158,
+    jupiter:  11.862615,
+    saturn:   29.447498,
+    uranus:   84.016846,
     neptune: 164.79132
   }.freeze
 
-  RELATIVE_YEARS.each_pair do |p, y|
-    define_method(:"on_#{p}") { @earth_age / y }
+  SECONDS_PER_EARTH_YEAR = 31_557_600
+
+  public
+
+  def initialize(seconds)
+    @earth_years = seconds.to_f / SECONDS_PER_EARTH_YEAR
+  end
+
+  RELATIVE_YEARS.each_pair do |p, r|
+    define_method(:"on_#{p}") { earth_years / r }
   end
 
   # alternately:
@@ -23,7 +31,7 @@ class SpaceAge
   #  def method_missing(method)
   #    m = method.to_s.match(/^on_(\w+)$/)
   #    super if m.nil?
-  #    @earth_age / RELATIVE_YEARS[m[1].to_sym]
+  #    earth_years / RELATIVE_YEARS[m[1].to_sym]
   #  end
   #
   #  def respond_to_missing?(method)

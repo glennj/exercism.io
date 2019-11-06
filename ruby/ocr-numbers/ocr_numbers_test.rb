@@ -4,7 +4,7 @@ require_relative 'ocr_numbers'
 # Common test data version: 1.2.0 965ecad
 class OcrNumbersTest < Minitest::Test
   def test_recognizes_0
-    ##skip
+    # #skip
     input = [" _ ",
              "| |",
              "|_|",
@@ -13,7 +13,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_recognizes_1
-   #skip
+    #skip
     input = ["   ",
              "  |",
              "  |",
@@ -22,7 +22,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_unreadable_but_correctly_sized_inputs_return_question_mark
-   #skip
+    #skip
     input = ["   ",
              "  _",
              "  |",
@@ -31,7 +31,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_input_with_a_number_of_lines_that_is_not_a_multiple_of_four_raises_an_error
-   #skip
+    #skip
     input = [" _ ",
              "| |",
              "   "].join("\n")
@@ -41,7 +41,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_input_with_a_number_of_columns_that_is_not_a_multiple_of_three_raises_an_error
-   #skip
+    #skip
     input = ["    ",
              "   |",
              "   |",
@@ -52,7 +52,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_recognizes_110101100
-   #skip
+    #skip
     input = ["       _     _        _  _ ",
              "  |  || |  || |  |  || || |",
              "  |  ||_|  ||_|  |  ||_||_|",
@@ -61,7 +61,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_garbled_numbers_in_a_string_are_replaced_with_question_mark
-   #skip
+    #skip
     input = ["       _     _           _ ",
              "  |  || |  || |     || || |",
              "  |  | _|  ||_|  |  ||_||_|",
@@ -70,7 +70,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_recognizes_2
-   #skip
+    #skip
     input = [" _ ",
              " _|",
              "|_ ",
@@ -79,7 +79,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_recognizes_3
-   #skip
+    #skip
     input = [" _ ",
              " _|",
              " _|",
@@ -88,7 +88,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_recognizes_4
-   #skip
+    #skip
     input = ["   ",
              "|_|",
              "  |",
@@ -97,7 +97,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_recognizes_5
-   #skip
+    #skip
     input = [" _ ",
              "|_ ",
              " _|",
@@ -106,7 +106,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_recognizes_6
-   #skip
+    #skip
     input = [" _ ",
              "|_ ",
              "|_|",
@@ -115,7 +115,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_recognizes_7
-   #skip
+    #skip
     input = [" _ ",
              "  |",
              "  |",
@@ -124,7 +124,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_recognizes_8
-   #skip
+    #skip
     input = [" _ ",
              "|_|",
              "|_|",
@@ -133,7 +133,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_recognizes_9
-   #skip
+    #skip
     input = [" _ ",
              "|_|",
              " _|",
@@ -142,7 +142,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_recognizes_string_of_decimal_numbers
-   #skip
+    #skip
     input = ["    _  _     _  _  _  _  _  _ ",
              "  | _| _||_||_ |_   ||_||_|| |",
              "  ||_  _|  | _||_|  ||_| _||_|",
@@ -151,7 +151,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_numbers_separated_by_empty_lines_are_recognized_lines_are_joined_by_commas
-   #skip
+    #skip
     input = ["    _  _ ",
              "  | _| _|",
              "  ||_  _|",

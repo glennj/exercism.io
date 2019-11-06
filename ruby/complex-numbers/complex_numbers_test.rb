@@ -168,7 +168,7 @@ class ComplexNumbersTest < Minitest::Test
   def test_eulers_identity_formula
     #skip
     expected = ComplexNumber.new(-1, 0)
-    assert_in_delta expected, ComplexNumber.new(0, Math::PI).exp
+    assert_equal expected, ComplexNumber.new(0, Math::PI).exp
   end
 
   def test_exponential_of_0
@@ -186,6 +186,6 @@ class ComplexNumbersTest < Minitest::Test
   def test_exponential_of_a_number_with_real_and_imaginary_part
     #skip
     expected = ComplexNumber.new(-2, 0)
-    assert_in_delta expected, ComplexNumber.new(Math.log(2), Math::PI).exp
+    assert_equal expected, ComplexNumber.new(Math.log(2), Math::PI).exp
   end
 end

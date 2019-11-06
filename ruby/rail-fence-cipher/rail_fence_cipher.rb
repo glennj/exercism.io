@@ -4,27 +4,16 @@
 class RailFenceCipher
   def self.encode(plaintext, rails)
     railed_indices(plaintext, rails)
-      .map {|i| plaintext[i]}
+      .map { |i| plaintext[i] }
       .join('')
   end
 
   def self.decode(ciphertext, rails)
     railed_indices(ciphertext, rails)
       .zip(ciphertext.chars)
-      .sort_by {|(i, char)| i}
-      .map {|(i, char)| char}
+      .sort_by { |(i, _)| i }
+      .map { |(_, char)| char }
       .join('')
-  end
-
-  private
-
-  # Generate the pattern of rails.
-  # Ex: given n = 3, we return:
-  #  {1, 2, 3, 2, 1, 2, 3, 2, ...}
-  def self.rail_pattern(n)
-    r = (1..n).to_a
-    r += r[1..-2].reverse
-    r.cycle
   end
 
   # Generate the indices required for encoding.
@@ -40,13 +29,24 @@ class RailFenceCipher
   #
   # This function returns the array:
   #  {0, 4, 8, 1, 3, 5, 7, 9, 2, 6}
-  def self.railed_indices(text, n)
-    rp = rail_pattern(n)
-    return (0...text.length).sort_by {|i| [rp.next, i]}
+  def self.railed_indices(text, num_rails)
+    rp = rail_pattern(num_rails)
+    (0...text.length).sort_by { |i| [rp.next, i] }
   end
+
+  private_class_method :railed_indices
+
+  # Generate the pattern of rails.
+  # Ex: given n = 3, we return:
+  #  {1, 2, 3, 2, 1, 2, 3, 2, ...}
+  def self.rail_pattern(num_rails)
+    r = (1..num_rails).to_a
+    r += r[1..-2].reverse
+    r.cycle
+  end
+
+  private_class_method :rail_pattern
 end
-
-
 
 ## previous take:
 ##

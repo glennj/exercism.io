@@ -18,14 +18,13 @@ class House
     { who: 'horse and the hound and the horn', what: 'belonged to' }
   ].freeze
 
-  def initialize
-    @song = Array.new(ACTORS.length) { |i| verse(i) }.join("\n")
+  def song
+    Array.new(ACTORS.length) { |i| verse(i) }.join("\n")
   end
-  attr_reader :song
 
-  def verse(n)
-    verse = "This is the #{ACTORS[n][:who]}\n"
-    n.downto(1) do |i|
+  def verse(num)
+    verse = "This is the #{ACTORS[num][:who]}\n"
+    num.downto(1) do |i|
       verse << "that #{ACTORS[i][:what]} the #{ACTORS[i - 1][:who]}\n"
     end
     verse

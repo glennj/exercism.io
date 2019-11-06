@@ -1,7 +1,7 @@
 class InvalidCodonError < StandardError; end
 
 module Translation
-  Codon2Protein = {
+  CODON_TO_PROTEIN = {
     'AUG' => 'Methionine',
     'UUU' => 'Phenylalanine',
     'UUC' => 'Phenylalanine',
@@ -24,18 +24,18 @@ module Translation
   module_function
 
   def of_codon(codon)
-    raise InvalidCodonError unless Codon2Protein.key? codon
-    
-    Codon2Protein[codon]
+    raise InvalidCodonError unless CODON_TO_PROTEIN.key? codon
+
+    CODON_TO_PROTEIN[codon]
   end
 
   def of_rna(strand)
     proteins = []
     strand.scan(/.../).each do |codon|
-      raise InvalidCodonError unless Codon2Protein.key? codon
-      break if Codon2Protein[codon] == 'STOP'
+      raise InvalidCodonError unless CODON_TO_PROTEIN.key? codon
+      break if CODON_TO_PROTEIN[codon] == 'STOP'
 
-      proteins << Codon2Protein[codon]
+      proteins << CODON_TO_PROTEIN[codon]
     end
     proteins
   end

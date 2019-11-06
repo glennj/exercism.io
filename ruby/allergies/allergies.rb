@@ -1,4 +1,8 @@
 class Allergies
+  private
+
+  attr_reader :code
+
   Allergen = Struct.new(:value, :name)
 
   ALLERGENS = [
@@ -11,6 +15,8 @@ class Allergies
     Allergen.new(0b01000000, 'pollen'),
     Allergen.new(0b10000000, 'cats')
   ].freeze
+
+  public
 
   def initialize(code = 0)
     @code = code
@@ -29,6 +35,6 @@ class Allergies
   private
 
   def has?(allergen)
-    (@code & allergen.value).nonzero?
+    (code & allergen.value).nonzero?
   end
 end

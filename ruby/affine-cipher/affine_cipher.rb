@@ -1,17 +1,31 @@
-class Integer
-  ## find `n` where `a*n mod m == 1`
-  def modular_multiplicative_inverse(m)
-    raise ArgumentError, "#{self} and #{m} are not coprime" unless gcd(m) == 1
+# rubocop:disable Naming/MethodName, Naming/UncommunicativeMethodParamName
 
-    # this simple approach is brute force, not the most efficient.
-    n = 0
-    n += 1 until send(:*, n).modulo(m) == 1
-    n
+module MMI
+  refine Integer do
+    # find `n` where `a*n mod m == 1`
+    def modular_multiplicative_inverse(m)
+      raise ArgumentError, "#{self} and #{m} are not coprime" unless gcd(m) == 1
+
+      # this simple approach is brute force, not the most efficient.
+      n = 0
+      n += 1 until send(:*, n).modulo(m) == 1
+      n
+    end
   end
 end
 
+# the Affine cipher
 class Affine
+  using MMI
+
   ALPHABET = ('a'..'z').to_a.join('').freeze
+
+  private
+
+  attr_reader :mmi
+  attr_reader :coefficients
+
+  public
 
   def initialize(a, b)
     @mmi = a.modular_multiplicative_inverse ALPHABET.length
@@ -38,18 +52,20 @@ class Affine
     x = ALPHABET.index char
     return char if x.nil?
 
-    a, b = @coefficients
+    a, b = coefficients
     m = ALPHABET.length
-    ALPHABET[ (a * x + b) % m ]
+    ALPHABET[(a * x + b) % m]
   end
 
   def D(char)
     y = ALPHABET.index char
     return char if y.nil?
 
-    _a, b = @coefficients
+    _a, b = coefficients
     m = ALPHABET.length
-    a_inv = @mmi
-    ALPHABET[ (a_inv * (y - b)) % m ]
+    a_inv = mmi
+    ALPHABET[(a_inv * (y - b)) % m]
   end
 end
+
+# rubocop:enable all

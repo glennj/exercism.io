@@ -1,4 +1,11 @@
 class Alphametics
+  private
+
+  attr_reader :words
+  attr_reader :letters
+
+  public
+
   def self.solve(puzzle)
     new(puzzle).solution
   end
@@ -9,9 +16,9 @@ class Alphametics
   end
 
   def solution
-    (0..9).to_a.permutation(@letters.length) do |digits|
-      map = @letters.zip(digits).to_h
-      operands = @words.map { |w| digitize(w, map) }
+    (0..9).to_a.permutation(letters.length) do |digits|
+      map = letters.zip(digits).to_h
+      operands = words.map { |w| digitize(w, map) }
       next if operands.any? { |op| op.start_with?('0') }
 
       answer = operands.pop.to_i

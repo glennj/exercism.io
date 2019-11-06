@@ -1,3 +1,5 @@
+# rubocop:disable Naming/UncommunicativeMethodParamName
+
 require 'memoist'
 
 class Triangle
@@ -30,3 +32,5 @@ class Triangle
   end
   memoize :factorial
 end
+
+# rubocop:enable Naming/UncommunicativeMethodParamName

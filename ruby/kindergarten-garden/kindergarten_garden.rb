@@ -13,9 +13,10 @@ class Garden
     garden = parse diagram
     students = students.map(&:downcase).sort
 
-    @holdings = students.slice(0, garden.length)
-                        .zip(garden)
-                        .to_h
+    @holdings = students
+      .slice(0, garden.length)
+      .zip(garden)
+      .to_h
 
     students.each do |student|
       define_singleton_method(:"#{student}") { @holdings[student] }

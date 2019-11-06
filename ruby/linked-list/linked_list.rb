@@ -1,4 +1,8 @@
 class Deque
+  private
+
+  attr_accessor :head, :tail
+
   class Node
     attr_reader :value
     attr_accessor :next, :prev
@@ -8,9 +12,11 @@ class Deque
     end
   end
 
+  public
+
   def size
     count = 0
-    node = @head
+    node = head
     until node.nil?
       count += 1
       node = node.next
@@ -20,56 +26,56 @@ class Deque
 
   def push(value)
     node = Node.new(value)
-    if @tail.nil?
-      @head = node
+    if tail.nil?
+      self.head = node
     else
-      node.prev = @tail
-      @tail.next = node
+      node.prev = tail
+      tail.next = node
     end
-    @tail = node
+    self.tail = node
     self
   end
 
   def pop
-    node = @tail
+    node = tail
     return if node.nil?
 
     if node.prev.nil?
-      @tail = @head = nil
+      self.tail = self.head = nil
     else
       node.prev.next = nil
-      @tail = node.prev
+      self.tail = node.prev
     end
     node.value
   end
 
   def unshift(value)
     node = Node.new(value)
-    if @head.nil?
-      @tail = node
+    if head.nil?
+      self.tail = node
     else
-      node.next = @head
-      @head.prev = node
+      node.next = head
+      head.prev = node
     end
-    @head = node
+    self.head = node
     self
   end
 
   def shift
-    node = @head
+    node = head
     return if node.nil?
 
     if node.next.nil?
-      @tail = @head = nil
+      self.tail = self.head = nil
     else
       node.next.prev = nil
-      @head = node.next
+      self.head = node.next
     end
     node.value
   end
 
   def delete(value)
-    node = @head
+    node = head
     until node.nil?
       if node.value == value
         remove(node)
@@ -83,13 +89,13 @@ class Deque
 
   def remove(node)
     if node.next.nil?
-      @tail = node.prev
+      self.tail = node.prev
     else
       node.next.prev = node.prev
     end
 
     if node.prev.nil?
-      @head = node.next
+      self.head = node.next
     else
       node.prev.next = node.next
     end

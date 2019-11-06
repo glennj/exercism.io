@@ -3,23 +3,23 @@ class BinarySearch
 
   def initialize(list)
     raise ArgumentError unless list == list.sort
-    
+
     @list = list
   end
 
-  def middle(i = 0, j = @list.length - 1)
-    i + ((j - i) * 0.5).ceil
+  def middle(left = 0, right = @list.length - 1)
+    (left + right) / 2
   end
 
-  def search_for(elem, i = 0, j = @list.length - 1)
-    raise "#{elem} not in list" if i > j
+  def search_for(elem, left = 0, right = @list.length - 1)
+    raise "#{elem} not in list" if left > right
 
-    mid = middle(i, j)
+    mid = middle(left, right)
 
     return mid if elem == @list[mid]
 
-    j = mid - 1 if elem < @list[mid]
-    i = mid + 1 if elem > @list[mid]
-    search_for elem, i, j
+    right = mid - 1 if elem < @list[mid]
+    left  = mid + 1 if elem > @list[mid]
+    search_for elem, left, right
   end
 end

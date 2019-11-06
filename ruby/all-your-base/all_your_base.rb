@@ -4,7 +4,7 @@ module BaseConverter
   def convert(from, digits, to)
     raise ArgumentError, "bad input base #{from}" if from <= 1
     raise ArgumentError, "bad output base #{to}" if to <= 1
-    raise ArgumentError, 'bad digits' if digits.any? { |d| d < 0 || d >= from }
+    raise ArgumentError, 'bad digits' if digits.any? { |d| d.negative? || d >= from }
 
     decimal = digits.reduce(0) { |s, d| s * from + d }
     to_digits = []

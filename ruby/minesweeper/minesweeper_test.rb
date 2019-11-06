@@ -3,7 +3,6 @@ require_relative 'minesweeper'
 
 class MinesweeperTest < Minitest::Test
   def test_transform1
-    #skip
     inp = ['+------+', '| *  * |', '|  *   |', '|    * |', '|   * *|',
            '| *  * |', '|      |', '+------+']
     out = ['+------+', '|1*22*1|', '|12*322|', '| 123*2|', '|112*4*|',

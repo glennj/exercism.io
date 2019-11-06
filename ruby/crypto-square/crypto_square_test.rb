@@ -4,13 +4,13 @@ require_relative 'crypto_square'
 # Common test data version: 3.2.0 e00dfb3
 class CryptoSquareTest < Minitest::Test
   def test_empty_plaintext_results_in_an_empty_ciphertext
-    # skip
+    # #skip
     plaintext = ''
     assert_equal "", Crypto.new(plaintext).ciphertext
   end
 
   def test_lowercase
-   # skip
+    #skip
     plaintext = 'A'
     assert_equal "a", Crypto.new(plaintext).ciphertext
   end

@@ -7,16 +7,11 @@ module Bob
     # contains at least 1 letter, but no lower case letters
     shouting = input =~ /^(?=.*[[:alpha:]])(?!.*[[:lower:]])/
 
-    if question && shouting
-      "Calm down, I know what I'm doing!"
-    elsif question
-      'Sure.'
-    elsif shouting
-      'Whoa, chill out!'
-    elsif silent
-      'Fine. Be that way!'
-    else
-      'Whatever.'
+    if    question && shouting then "Calm down, I know what I'm doing!"
+    elsif question             then 'Sure.'
+    elsif shouting             then 'Whoa, chill out!'
+    elsif silent               then 'Fine. Be that way!'
+    else                            'Whatever.'
     end
   end
 end

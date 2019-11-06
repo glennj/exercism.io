@@ -1,19 +1,27 @@
 class Triplet
+  private
+
+  attr_reader :sides
+
+  public
+
   def initialize(*sides)
-    @a, @b, @c = sides.sort
-    raise ArgumentError if @a <= 0 || @a + @b <= @c
+    @sides = sides.sort
+    raise ArgumentError if @sides.size != 3  ||
+                           @sides.first <= 0 ||
+                           @sides.take(2).sum <= @sides.last
   end
 
   def sum
-    [@a, @b, @c].reduce(&:+)
+    sides.reduce(&:+)
   end
 
   def product
-    [@a, @b, @c].reduce(&:*)
+    sides.reduce(&:*)
   end
 
   def pythagorean?
-    @a**2 + @b**2 == @c**2
+    sides[0]**2 + sides[1]**2 == sides[2]**2
   end
 
   def self.where(max_factor: 1, min_factor: 1, sum: nil)

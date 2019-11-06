@@ -4,26 +4,32 @@
 # class CustomSet < Set; end
 
 class CustomSet
+  private
+
+  attr_reader :set
+
+  public
+
   def initialize(elements)
     @set = elements.zip([nil] * elements.length).to_h
   end
 
   def elements
-    @set.keys.sort
+    set.keys.sort
   end
 
   def size
-    @set.size
+    set.size
   end
 
   # methods that return a boolean
 
   def empty?
-    @set.empty?
+    set.empty?
   end
 
   def member?(elem)
-    @set.key? elem
+    set.key? elem
   end
 
   def subset?(other)
@@ -41,7 +47,7 @@ class CustomSet
   # methods that return a CustomSet
 
   def add(elem)
-    @set[elem] = nil
+    set[elem] = nil
     self
   end
 

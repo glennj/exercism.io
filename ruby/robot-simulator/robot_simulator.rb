@@ -1,3 +1,4 @@
+# class comment
 class Robot
   # this particular ordering used by #advance
   BEARINGS = %i[east north west south].freeze
@@ -29,13 +30,14 @@ class Robot
 
   def advance
     rad = (BEARINGS.index(bearing) * 90) * (2 * Math::PI / 360)
-    x, y = @coordinates
+    x, y = coordinates
     dx = Math.cos(rad).to_i
     dy = Math.sin(rad).to_i
     at x + dx, y + dy
   end
 end
 
+# class comment
 class Simulator
   INSTRUCTIONS = { 'L' => :turn_left, 'R' => :turn_right, 'A' => :advance }.freeze
 

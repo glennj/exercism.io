@@ -1,8 +1,19 @@
 class Matrix
-  attr_reader :rows, :columns
+  private
 
-  def initialize(string)
-    @rows = string.split("\n").map { |row| row.split(' ').map(&:to_i) }
-    @columns = @rows.transpose
+  attr_reader :input
+
+  public
+
+  def initialize(input)
+    @input = input
+  end
+
+  def rows
+    @rows ||= input.split("\n").map { |row| row.split(' ').map(&:to_i) }
+  end
+
+  def columns
+    @columns ||= rows.transpose
   end
 end

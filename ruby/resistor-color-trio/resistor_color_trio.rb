@@ -1,22 +1,26 @@
-require_relative "../resistor-color/resistor_color"
+require_relative '../resistor-color/resistor_color'
 
 class ResistorColorTrio
+  private
+
+  attr_reader :colors
+
+  UNIT_PREFIXES = ['', 'kilo', 'mega', 'giga'].freeze
+
+  public
+
   def initialize(colors)
     @colors = colors.take(3)  # ignore extra colors
-    @value = nil
-    @label = nil
   end
 
   def value
-    if @value.nil?
-      codes = @colors.map do |color|
-        code = ResistorColor.color_code(color)
-        raise ArgumentError, "invalid color" if code.nil?
-        code
+    @value ||= begin
+      codes = colors.map do |color|
+        ResistorColor.color_code(color) ||
+          raise(ArgumentError, 'invalid color')
       end
-      @value = (10 * codes[0] + codes[1]) * 10 ** codes[2]
+      (10 * codes[0] + codes[1]) * 10**codes[2]
     end
-    @value
   end
 
   def label
@@ -27,11 +31,7 @@ class ResistorColorTrio
         val /= 1000
         idx += 1
       end
-
-      sprintf("Resistor value: %d %sohms",
-        val,
-        ["", "kilo", "mega", "giga"][idx]
-      )
+      "Resistor value: #{val} #{UNIT_PREFIXES[idx]}ohms"
     end
   end
 end

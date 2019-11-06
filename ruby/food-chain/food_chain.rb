@@ -12,26 +12,27 @@ class FoodChain
     Animal.new(name: 'dog',    tag: "What a hog, to swallow a dog!\n"),
     Animal.new(name: 'goat',   tag: "Just opened her throat and swallowed a goat!\n"),
     Animal.new(name: 'cow',    tag: "I don't know how she swallowed a cow!\n"),
-    Animal.new(name: 'horse',  tag: "She's dead, of course!\n", apexPredator?: true)
+    Animal.new(name: 'horse',
+               tag: "She's dead, of course!\n",
+               apexPredator?: true)
   ].freeze
 
   def self.song
     new.song
   end
 
-  def initialize
-    @song = CHAIN.length.times.map { |i| verse(i) }.join("\n").lstrip
+  def song
+    CHAIN.length.times.map { |i| verse(i) }.join("\n").lstrip
   end
-  attr_reader :song
 
   private
 
-  def verse(n)
-    return if n.zero?
-    animal = CHAIN[n]
+  def verse(num)
+    return if num.zero?
+    animal = CHAIN[num]
     verse = i_know(animal)
     unless animal.apexPredator?
-      n.downto(2) { |i| verse << hunt(CHAIN[i], CHAIN[i - 1]) }
+      num.downto(2) { |i| verse << hunt(CHAIN[i], CHAIN[i - 1]) }
       verse << i_dont_know
     end
     verse

@@ -1,4 +1,8 @@
 class Nucleotide
+  attr_reader :histogram
+
+  singleton_class.send(:alias_method, :from_dna, :new)
+
   def initialize(dna)
     raise ArgumentError if dna =~ /[^ACGT]/
     @histogram = {}
@@ -7,11 +11,8 @@ class Nucleotide
     end
   end
 
-  singleton_class.send(:alias_method, :from_dna, :new)
-  attr_reader :histogram
-
   def count(nucleotide)
-    raise ArgumentError unless @histogram.key? nucleotide
-    @histogram[nucleotide]
+    raise ArgumentError unless histogram.key? nucleotide
+    histogram[nucleotide]
   end
 end

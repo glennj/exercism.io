@@ -10,16 +10,14 @@ class Node
   attr_accessor :value, :left, :right
 
   def ==(other)
-    other.class == self.class && other.state == state
+    other.class == self.class && other.state == self.state
   end
 
-  protected
-
-  def state
-    [value, left, right]
+  protected def state
+    [self.value, self.left, self.right]
   end
 end
-
+    
 ############################################################
 class Zipper
   def self.from_tree(tree)
@@ -37,13 +35,15 @@ class Zipper
   end
 
   def left
-    return if @tree.left.nil?
-    self.class.new(@tree.left, @path + [self])
+    if not @tree.left.nil?
+      self.class.new(@tree.left, @path + [self])
+    end
   end
 
   def right
-    return if @tree.right.nil?
-    self.class.new(@tree.right, @path + [self])
+    if not @tree.right.nil?
+      self.class.new(@tree.right, @path + [self])
+    end
   end
 
   def value
@@ -51,12 +51,11 @@ class Zipper
   end
 
   def up
-    return if @path.empty?
-    previous = @path.pop
-    self.class.new(previous.tree, @path)
+    if not @path.empty?
+      previous = @path.pop
+      self.class.new(previous.tree, @path)
+    end
   end
-
-  # rubocop:disable Naming/AccessorMethodName
 
   def set_value(value)
     @tree.value = value
@@ -73,15 +72,11 @@ class Zipper
     self
   end
 
-  # rubocop:enable Naming/AccessorMethodName
-
   def ==(other)
-    other.class == self.class && other.state == state
+    other.class == self.class && other.state == self.state
   end
 
-  protected
-
-  def state
-    [tree]
+  protected def state
+    [self.tree]
   end
 end

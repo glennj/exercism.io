@@ -10,7 +10,7 @@ class ProverbTest < Minitest::Test
   end
 
   def test_a_short_chain_of_consequences
-   #skip
+    #skip
     proverb = Proverb.new('nail', 'shoe', 'horse')
     expected = "For want of a nail the shoe was lost.\n" \
       "For want of a shoe the horse was lost.\n" \
@@ -19,7 +19,7 @@ class ProverbTest < Minitest::Test
   end
 
   def test_a_longer_chain_of_consequences
-   #skip
+    #skip
     proverb = Proverb.new('nail', 'shoe', 'horse', 'rider')
     expected = "For want of a nail the shoe was lost.\n" \
       "For want of a shoe the horse was lost.\n" \
@@ -29,7 +29,7 @@ class ProverbTest < Minitest::Test
   end
 
   def test_proverb_does_not_hard_code_the_rhyme_dictionary
-   #skip
+    #skip
     proverb = Proverb.new('key', 'value')
     expected = "For want of a key the value was lost.\n" \
       'And all for the want of a key.'
@@ -37,7 +37,7 @@ class ProverbTest < Minitest::Test
   end
 
   def test_the_whole_proverb
-   #skip
+    #skip
     chain = %w(nail shoe horse rider message battle kingdom)
     proverb = Proverb.new(*chain)
     expected = "For want of a nail the shoe was lost.\n" \
@@ -51,7 +51,7 @@ class ProverbTest < Minitest::Test
   end
 
   def test_an_optional_qualifier_in_the_final_consequence
-   #skip
+    #skip
     chain = %w(nail shoe horse rider message battle kingdom)
     proverb = Proverb.new(*chain, qualifier: 'horseshoe')
     expected = "For want of a nail the shoe was lost.\n" \
@@ -65,7 +65,7 @@ class ProverbTest < Minitest::Test
   end
 
   def test_proverb_is_same_each_time
-   #skip
+    #skip
     proverb = Proverb.new('nail', 'shoe')
     assert_equal proverb.to_s, proverb.to_s
   end

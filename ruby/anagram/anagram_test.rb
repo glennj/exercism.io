@@ -4,7 +4,7 @@ require_relative 'anagram'
 # Common test data version: 1.4.0 baaf092
 class AnagramTest < Minitest::Test
   def test_no_matches
-    # ##skip
+    # #skip
     detector = Anagram.new('diaper')
     anagrams = detector.match(["hello", "world", "zombies", "pants"])
     expected = []
@@ -12,7 +12,7 @@ class AnagramTest < Minitest::Test
   end
 
   def test_detects_two_anagrams
-    ##skip
+    #skip
     detector = Anagram.new('master')
     anagrams = detector.match(["stream", "pigeon", "maters"])
     expected = ["maters", "stream"]
@@ -92,7 +92,7 @@ class AnagramTest < Minitest::Test
   end
 
   def test_words_are_not_anagrams_of_themselves_case_insensitive
-    ##skip
+    #skip
     detector = Anagram.new('BANANA')
     anagrams = detector.match(["BANANA", "Banana", "banana"])
     expected = []

@@ -5,16 +5,16 @@ require_relative 'grep'
 class GrepTest < Minitest::Test
   def setup
     IO.write 'iliad.txt', <<~END
-Achilles sing, O Goddess! Peleus' son;
-His wrath pernicious, who ten thousand woes
-Caused to Achaia's host, sent many a soul
-Illustrious into Ades premature,
-And Heroes gave (so stood the will of Jove)
-To dogs and to all ravening fowls a prey,
-When fierce dispute had separated once
-The noble Chief Achilles from the son
-Of Atreus, Agamemnon, King of men.
-END
+      Achilles sing, O Goddess! Peleus' son;
+      His wrath pernicious, who ten thousand woes
+      Caused to Achaia's host, sent many a soul
+      Illustrious into Ades premature,
+      And Heroes gave (so stood the will of Jove)
+      To dogs and to all ravening fowls a prey,
+      When fierce dispute had separated once
+      The noble Chief Achilles from the son
+      Of Atreus, Agamemnon, King of men.
+    END
 
     IO.write 'midsummer-night.txt', <<~END
       I do entreat your grace to pardon me.
