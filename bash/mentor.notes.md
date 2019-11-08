@@ -326,6 +326,98 @@ done
 Phew!
 
 <!-- ........................................................ -->
+## bob
+
+You may find this simpler to take a step back and look at the problem abstractly:
+```bash
+if input is silence
+    echo "Fine. Be that way!"
+else if input is yelling and question
+    echo 'Calm down, I know what I'm doing!'
+else if input is just yelling
+    echo 'Whoa, chill out!'
+else if input is just a question
+    echo 'Sure.'
+else any other input
+    echo 'Whatever.'
+```
+
+Notice that yelling and question appear twice? That indicates we should try to put that in some reusable form, like a variable or a function.
+
+Let's look at these factors and see how to satisfy them:
+* silence is easy, $input is empty
+* question is simple too, $input ends with a question mark
+* yelling can be described as: $input contains upper case letters but no lower case letters. We don't care about the presence or absence of digits.
+
+Before continuing, note that the `==` operator in bash is not a string equality operator, it is a _pattern matching_ operator (see [here in the manual](https://www.gnu.org/software/bash/manual/bash.html#index-_005b_005b)). So we can use `==` for our "contains an upper" test. Yelling can be tested thusly:
+```bash
+[[ $input == *[[:upper:]]* ]] && [[ $input != *[[:lower:]]* ]]
+```
+[Bash patterns](https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching) allow us to do a lot without having to use regular expressions.
+
+About that "reusable form" remark. How to achieve that?
+
+First, note the syntax of `if` (bash has a really useful interactive `help` system)
+```bash
+$ help if
+if: if COMMANDS; then COMMANDS; [ elif COMMANDS; then COMMANDS; ]... [ else COMMANDS; ] fi
+    Execute commands based on conditional.
+
+    The `if COMMANDS' list is executed.  If its exit status is zero, then the ...
+```
+See that after the `if` keyword, bash wants to see COMMANDS. There's nothing specific about `[` or `[[` or `((` -- those are just builtin commands. We could put any any list/pipeline of commands in there, and `if` branches based on the exit status.
+
+I mentioned variables. Here's a technique I like to use that some people don't like. `true` and `false` are bash builtin commands that return the expected exit status. So you can do this:
+```bash
+[[ $input == *[[:upper:]]* ]] && [[ $input != *[[:lower:]]* ]] && yelling=true || yelling=false
+# similar for setting `silence` and `question` variables
+
+# `if` now uses the *values* of the variables as "COMMANDS"
+if $silence; then
+  echo "silence response"
+elif $yelling && $question; then
+  echo "shouted question response"
+elif $yelling; then
+  echo "yelling response"
+elif $question; then
+  echo "question response"
+fi
+```
+
+We could also use functions to store the conditions for reuse:
+```bash
+yelling() {
+  [[ $input == *[[:upper:]]* ]] && [[ $input != *[[:lower:]]* ]]
+}
+# similar for defining `silence` and `question` functions
+
+# `if` now uses the functions as "COMMANDS"
+if silence; then
+  echo "silence response"
+elif yelling && question; then
+  echo "shouted question response"
+elif yelling; then
+  echo "yelling response"
+elif question; then
+  echo "question response"
+fi
+```
+
+Note that `local` variables do show up in the scope of functions *called
+from where the variable was declared*, so `$input` in `yelling` is OK. 
+We could have written the following to keep the variables even more "local":
+```bash
+yelling() {
+  [[ $1 == *[[:upper:]]* ]] && [[ $1 != *[[:lower:]]* ]]
+}
+
+# and then
+# ...
+elif yelling "$input" && question "$input"; then ...
+```
+
+
+<!-- ........................................................ -->
 # Exercism/Philosophy
 
 Well, it depends on the purpose of the scripts you write, I suppose. If it
