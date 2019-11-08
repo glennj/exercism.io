@@ -36,8 +36,8 @@ public class Knapsack {
         int i = 0;
         for (Item item : items) {
             i++;
-            w[i] = item.getWeight();
-            v[i] = item.getValue();
+            w[i] = item.weight;
+            v[i] = item.value;
         }
 
         Arrays.fill(m[0], 0);
