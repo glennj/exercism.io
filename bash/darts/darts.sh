@@ -33,8 +33,6 @@ fi
 # The goal is to find the exponent of 10 that converts x and y
 # into integers. Now we have arithmetic that bash can do.
 
-shopt -s extglob
-
 main() {
     (( $# == 2 )) || die "wrong number of arguments"
     isnumeric "$1" && isnumeric "$2" || die "arguments must be numeric"

@@ -59,8 +59,6 @@ evaluate() {
     done
 }
 
-shopt -s extglob
-
 isInt() { [[ $1 == ?(-)+([[:digit:]]) ]]; }
 isOp()  { [[ $1 == [-+*/] ]]; }
 die()   { echo "$*" >&2; exit 1; }

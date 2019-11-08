@@ -2,17 +2,13 @@
 
 source ./stack.bash
 
-
 # I'm going to be using unquoted variables to take advantage
 # of word splitting. Disable filename expansion.
 set -o noglob
-shopt -s extglob
-
 
 # global variables for the stack and the macros
 declare -a S       # indexed array
 declare -A M       # associative array
-
 
 main() {
     # Read from stdin
@@ -60,7 +56,6 @@ main() {
 
     echo "${S[*]}"
 }
-
 
 # True if the first argument consists of digits only
 is_number() { [[ $1 == +([0-9]) ]]; }

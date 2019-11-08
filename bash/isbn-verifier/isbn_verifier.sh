@@ -1,7 +1,5 @@
 #!/bin/bash
 
-shopt -s extglob
-
 main() {
     if (( $# != 1 )); then
         echo "usage: ${0##*/} ISBN-number" >&2

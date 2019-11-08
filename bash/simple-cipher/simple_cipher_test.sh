@@ -8,7 +8,6 @@
     [[ $status -eq 0 ]]
     key=$output
     [[ ${#key} -ge 100 ]]     # at least 100 chars
-    shopt -s extglob
     [[ $key == +([[:lower:]]) ]]    # only lowercase letters
 }
 

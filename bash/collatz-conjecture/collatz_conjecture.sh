@@ -1,5 +1,4 @@
 #!/bin/bash
-shopt -s extglob
 
 if [[ $# -ne 1 ]] || ! [[ $1 == +([0-9]) && $1 -gt 0 ]]; then
     echo "Error: Only positive numbers are allowed" >&2

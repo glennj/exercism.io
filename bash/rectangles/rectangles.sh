@@ -8,8 +8,6 @@ then
     exit 2
 fi
 
-shopt -s extglob
-
 # gonna use globals
 declare -a rows=()
 declare -a vertices=()

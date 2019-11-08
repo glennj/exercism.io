@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-shopt -s extglob
-
 die() { echo "$*" >&2; exit 1; }
 
 isnumeric() {
