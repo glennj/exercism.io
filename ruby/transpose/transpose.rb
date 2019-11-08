@@ -1,12 +1,19 @@
-class String
-  # right-pad a string with spaces
-  def rpad!(len, fill = ' ')
-    self << (fill * len)[length..-1] if length < len
+# Don't monkeypatch. Use a refinement
+module StringPadder
+  refine String do
+    # right-pad a string with spaces
+    def rpad!(len, fill = ' ')
+      self << (fill * len)[length..-1] if length < len
+    end
+
+    # lpad! and non-mutating versions left as an exercise
   end
-  # lpad! and non-mutating versions left as an exercise
 end
 
+# comment
 module Transpose
+  using StringPadder
+
   module_function
 
   def transpose(input)
@@ -27,7 +34,7 @@ module Transpose
   # example: ["foo", "bang", "barbaz", "qux"]
   # becomes: ["foo   ", "bang  ", "barbaz", "qux"]
   # because line 2 is longer
-  #
+
   def pad_descending(lines)
     # starting from the bottom...
     max = lines[-1].length
@@ -42,4 +49,6 @@ module Transpose
     end
     lines
   end
+
+  private_class_method :pad_descending
 end
