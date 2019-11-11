@@ -15,8 +15,9 @@ main() {
 }
 
 valid() {
-    readarray -t sorted < <(printf "%s\n" "$@" | sort -g)
-    [[ "$(printf "%s + %s > %s\n" "${sorted[@]}" | bc)" == "1" ]]
+    local a b c
+    { read a; read b; read c; } < <(printf "%s\n" "$@" | sort -g)
+    (( $(echo "$a > 0 && $a + $b > $c" | bc) ))
 }
 
 equilateral() { [[ $1 == "$2" && $1 == "$3" ]]; }
