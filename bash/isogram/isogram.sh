@@ -4,12 +4,12 @@
 # to implement this in bash
 #
 # external tools used: tr, grep, sort, uniq, awk
-#echo "${1//[-[:blank:]]/}" | 
-#  tr '[:upper:]' '[:lower:]' |
-#  grep -o . |
-#  sort |
-#  uniq -c |
-#  awk '$1 > 1 {exit 1}' && echo true || echo false
+#    echo "${1//[^[:alpha:]]/}" | 
+#    tr '[:upper:]' '[:lower:]' |
+#    grep -o . |
+#    sort |
+#    uniq -c |
+#    awk '$1 > 1 {exit 1}' && echo true || echo false
 
 
 # but if I was forced to use bash, this:
@@ -19,10 +19,15 @@ if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
     exit 2
 fi
 
-declare -l lc=${1//[-[:blank:]]/}
 declare -A count
-for ((i=0; i<${#lc}; i++)); do
-    char=${lc:i:1}
-    (( ++count[$char] > 1 )) && { echo false; exit; }
+declare -l char     # lower case
+
+for ((i=0; i<${#1}; i++)); do
+    char=${1:i:1}
+    if [[ $char == [[:alpha:]] ]] && (( ++count[$char] > 1 )); then
+        echo false
+        exit
+    fi
 done
+
 echo true
