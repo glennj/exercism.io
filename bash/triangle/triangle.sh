@@ -2,10 +2,13 @@
 
 main() {
     case $1 in
-        equilateral|scalene|isosceles) : ;;
-        *) echo "unknown type $1" >&2; exit 1 ;;
+        equilateral|scalene|isosceles)
+            valid "${@:2}"  &&  "$@"  && echo true || echo false
+            ;;
+        *)  echo "unknown type $1" >&2
+            exit 1
+            ;;
     esac
-    valid "${@:2}" && "$@" && echo true || echo false
 }
 
 valid() {
