@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# `readarray` introduced in bash 4
-if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
-    echo "bash version 4.0 required" >&2
-    exit 2
-fi
-
 main() {
     case $1 in
         equilateral|scalene|isosceles) : ;;
