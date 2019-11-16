@@ -9,7 +9,7 @@ while (( p * p <= n )); do
         factors+=( $p )
         (( n /= p ))
     else
-        (( p += 1 ))
+        (( p += (p == 2 ? 1 : 2) ))
     fi
 done
 
