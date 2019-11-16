@@ -1,5 +1,26 @@
-#Bash
+# Bash
 
+[Shebang](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#shebang)<br>
+[Backticks](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#backticks)<br>
+[Arithmetic](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#arithmetic)<br>
+[Variables](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#variables)<br>
+[Quoting](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#quoting)<br>
+[Assignment](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#assignment)<br>
+[Conditionals](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#conditionals)<br>
+[Output](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#output)<br>
+[Input](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#input)<br>
+[Very rare and subtle mistakes](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#very-rare-and-subtle-mistakes)<br>
+[Exercism/Philosophy](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#exercismphilosophy)<br>
+
+Exercises
+
+* [two-fer](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#two-fer)
+* [raindrops](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#raindrops)
+* [atbash-cipher](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#atbash-cipher)
+* [markdown](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#markdown)
+* [bob](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#bob)
+
+---
 ## Shebang
 
 The first 2 characters of the program file should be `#!`. It is recommended
@@ -239,6 +260,27 @@ This loops while `read` reads a whole newline-terminated line OR `read`
 reads some characters.
 
 <!-- ........................................................ -->
+# Exercism/Philosophy
+
+_(Responding to a comment about using bash features vs external tools)_
+
+Well, it depends on the purpose of the scripts you write, I suppose. If it
+is going to run on multiple machines, then portability will be a concern, so
+you can't target the latest and greatest bash features. If your scripts are
+going to have to run on multiple OS's, then you have to worry about how
+portable your external code is: sed on MacOS is different from GNU sed is
+different from AIX and Solaris ... In my work experience, bash scripts I
+write live in one place on the server, so portability really hasn't been a
+concern.
+
+I currently work on a Mac, which ships with the very old bash 3.2. But with
+Homebrew it's super easy to install bash 5.
+
+Mainly, here on exercism, I consider the bash track to be where you can
+learn about bash-specific features.
+
+
+<!-- ........................................................ -->
 # Exercises
 
 ## two-fer
@@ -451,25 +493,4 @@ yelling() {
 # ...
 elif yelling "$input" && question "$input"; then ...
 ```
-
-
-<!-- ........................................................ -->
-# Exercism/Philosophy
-
-_(Responding to a comment about using bash features vs external tools)_
-
-Well, it depends on the purpose of the scripts you write, I suppose. If it
-is going to run on multiple machines, then portability will be a concern, so
-you can't target the latest and greatest bash features. If your scripts are
-going to have to run on multiple OS's, then you have to worry about how
-portable your external code is: sed on MacOS is different from GNU sed is
-different from AIX and Solaris ... In my work experience, bash scripts I
-write live in one place on the server, so portability really hasn't been a
-concern.
-
-I currently work on a Mac, which ships with the very old bash 3.2. But with
-Homebrew it's super easy to install bash 5.
-
-Mainly, here on exercism, I consider the bash track to be where you can
-learn about bash-specific features.
 
