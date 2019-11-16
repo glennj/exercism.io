@@ -184,6 +184,17 @@ I tend to avoid using regular expressions unless I have a matching problem more 
 
 You don't need to `echo -n` -- the command substitution automatically removes all trailing newlines.
 
+<!-- -->
+
+It is very important to quote your variables. Try this:
+```bash
+var="  *"
+echo $var
+# then
+echo "$var"
+```
+There are even [Security implications of forgetting to quote a variable in bash/POSIX shells](https://unix.stackexchange.com/questions/171346/security-implications-of-forgetting-to-quote-a-variable-in-bash-posix-shells)
+
 <!-- ........................................................ -->
 ## Input
 
@@ -193,35 +204,43 @@ For truly capturing the input verbatim, use `IFS= read -r input`
 
 Compare these:
 ```bash
-echo "  foo  \t  bar  " | {      read    input; printf ">%s<\n" "$input"; }
-echo "  foo  \t  bar  " | {      read -r input; printf ">%s<\n" "$input"; }
-echo "  foo  \t  bar  " | { IFS= read -r input; printf ">%s<\n" "$input"; }
+echo "  foo  \t  bar  " | {      read    input; printf '"%s"\n' "$input"; }
+echo "  foo  \t  bar  " | {      read -r input; printf '"%s"\n' "$input"; }
+echo "  foo  \t  bar  " | { IFS= read -r input; printf '"%s"\n' "$input"; }
 ```
 
 <!--
-    Although, using the default REPLY variable grabs the data with
-    whitespace:
-        $ echo "  foo  \t  bar  " | { read -r ; printf ">%s<\n" "$REPLY"; }
-        >  foo  \t  bar  <
+    Note to self:
+    Although, using the default REPLY variable grabs the whole line with whitespace:
+        $ echo "  foo  \t  bar  " | { read -r ; printf '"%s"\n' "$REPLY"; }
+        "  foo  \t  bar  "
 -->
+
+<!-- ........................................................ -->
+# Very rare and subtle mistakes
+
+## reading a file and the last line of the file does not end with a newline
+
+```bash
+{ echo "foo"; echo -n "bar"; } | while IFS= read -r line; do echo "$line"; done
+```
+outputs only "foo". 
+
+What's happening here? `IFS= read -r line` reads the characters "bar" into
+the variable but then exits with a non-zero status, due to the missing
+newline. The while loop ends.
+
+The absolutely safe way to read a line from a file, even if the last line is
+missing a newline is:
+```bash
+while IFS= read -r line || [[ -n $line ]]; do ...
+```
+This loops while `read` reads a whole newline-terminated line OR `read`
+reads some characters.
 
 <!-- ........................................................ -->
 # Exercises
 
-## atbash-cipher
-
-If you consider the enciphering algorithm, you'll notice that the cipher array is exactly the same as the decipher array. This implies that the only difference between the encode and decode functions would be adding spaces for encode. See how you can use this to simplify your code.
-
-<!-- -->
-
-A further note: you can write your case statement like this, if you want:
-
-    case "$1" in
-        encode|decode) $1 "$2" ;;
-        *)             exit 1 ;;
-    esac
-
-<!-- ........................................................ -->
 ## two-fer
 
 There is a more concise way to manage the optional input here. I suggest
@@ -267,6 +286,23 @@ and scroll down to `((...))`):
     # do this
     if (( $1 % num == 0 )); then
 ```
+
+<!-- ........................................................ -->
+## atbash-cipher
+
+If you consider the enciphering algorithm, you'll notice that the cipher
+array is exactly the same as the decipher array. This implies that the only
+difference between the encode and decode functions would be adding spaces
+for encode. See how you can use this to simplify your code.
+
+<!-- -->
+
+A further note: you can write your case statement like this, if you want:
+
+    case "$1" in
+        encode|decode) $1 "$2" ;;
+        *)             exit 1 ;;
+    esac
 
 <!-- ........................................................ -->
 ## markdown
@@ -419,6 +455,8 @@ elif yelling "$input" && question "$input"; then ...
 
 <!-- ........................................................ -->
 # Exercism/Philosophy
+
+_(Responding to a comment about using bash features vs external tools)_
 
 Well, it depends on the purpose of the scripts you write, I suppose. If it
 is going to run on multiple machines, then portability will be a concern, so
