@@ -19,6 +19,7 @@ Exercises
 * [atbash-cipher](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#atbash-cipher)
 * [markdown](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#markdown)
 * [bob](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#bob)
+* [acronym](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#acronym)
 
 ---
 ## Shebang
@@ -279,6 +280,10 @@ Homebrew it's super easy to install bash 5.
 Mainly, here on exercism, I consider the bash track to be where you can
 learn about bash-specific features.
 
+<!-- -->
+
+Why not use `set -e` (`set -o errexit`)?
+See [http://mywiki.wooledge.org/BashFAQ/105](http://mywiki.wooledge.org/BashFAQ/105)
 
 <!-- ........................................................ -->
 # Exercises
@@ -494,3 +499,119 @@ yelling() {
 elif yelling "$input" && question "$input"; then ...
 ```
 
+<!-- ........................................................ -->
+## acronym
+
+You're not passing the last test. The problem with using unquoted variables
+is that you're subjected to 
+(i) [Word Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting) (which you want) 
+but also (ii) [Filename Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion)
+(which you don't want).
+
+In the last test, there's a `*` character standing alone as a word. When you do 
+```bash
+  for word in ${sanitised_sentence}
+```
+bash will:
+
+* expand the variable
+    ```bash
+    for word in "Two * Words"
+    ```
+* then because the variable was not quoted, the value is split into words
+    ```bash
+    for word in Two * Words
+    ```
+* then because the variable was not quoted, each word is expanded into filenames
+    ```bash
+    for word in Two README.md acronym.sh acronym_test.sh Words
+    ```
+
+You can run the test with `bash -x acronym.sh "Two * Words"` to see what
+bash is doing. 
+
+Read in the manual about 
+[The Set Builtin](https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin) 
+to disable filename expansion.
+
+
+---
+# Miscellaneous notes to be organized
+
+<!-- -->
+
+Interesting reading: [Why is printf better than echo?](https://unix.stackexchange.com/questions/65803/why-is-printf-better-than-echo)
+
+<!-- -->
+
+1. If you go to [3.2.4.2 Conditional Constructs](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs) in the bash manual and scroll down a bit, you'll find:
+
+    > ((…))
+    >
+    >         (( expression ))
+    >
+    > The arithmetic expression is evaluated according to the rules described below (see [Shell Arithmetic](https://www.gnu.org/software/bash/manual/bash.html#Shell-Arithmetic)). _If the value of the expression is non-zero, the return status is 0; otherwise the return status is 1_. 
+
+    My opinion, it's not a misuse to use ((...)) to do simple calculations and/or assign variables without using the return status. We do that all the time for other commands -- you wouldn't write 
+    ```bash
+    echo something || exit 1 # cannot write to stdout!
+    ```
+
+2. `[[` has the additional features of `=~` regex matching and `==` pattern
+matching. And you can use `&&` and `||` and `()` to form more complex
+tests.   
+
+    `[[` does not do word splitting or filename expansion on unquoted variables, so I say that it has few surprises. Consider:
+    ```
+    $ var=""
+    $ [[ -n $var ]] && echo "not empty" || echo empty
+    empty
+    $ [ -n $var ] && echo "not empty" || echo empty
+    not empty
+    ```
+    Next example, depending on the contents of your current directory, you'll probably see this following result:
+    ```
+    $ var="*"
+    $ [[ -n $var ]] && echo "not empty" || echo empty
+    not empty
+    $ [ -n $var ] && echo "not empty" || echo empty
+    bash: [: too many arguments
+    empty
+    ```
+    I can go into greater detail about why `[` gives incorrect results if you want.
+
+    More details at [What is the difference between `test`, `[` and `[[`?](https://mywiki.wooledge.org/BashFAQ/031)
+
+3. There is a difference between 
+[regular expressions](https://www.gnu.org/software/gnulib/manual/html_node/posix_002dextended-regular-expression-syntax.html)
+and [glob patterns](https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching)
+
+    Regular expression "quantifiers" `*` and `+` cannot appear without an
+    immediately preceding "atom" to act upon:
+
+    - The *regular expression* to match "zero or more of any character" is
+    `.*`
+    - The *glob pattern* to match "zero or more of any character" is `*`
+
+    The glob pattern `[0-9]` will match exactly one character, a digit,
+    because there are no wildcard `*`s in the pattern. If you  want to match
+    a string *containing* a digit, you need to write "there may be some
+    characters, then a digit, then there may be some characters" --
+    `*[0-9]*`. This is why the bash extended pattern `+([0-9])` matches
+    *only* one or more digits: there are no leading or trailing wildcards.
+    The equivalent regex demands anchors: `^[0-9]+$`
+
+    For the leap year exercise, we want to abort if it contains a
+    non-digits. In the `year=''` scenario, the test `[[ $year == *[^0-9]* ]]` is insufficient because
+    that pattern tests for: zero or more of any character, one non-digit, and
+    zero or more of any character. If year is empty, _there is no non-digit_.
+    Therefore we also have to test if the variable is empty.
+    
+    In writing all this, I realize I may have bias *against* using regular
+    expressions. Regex is a perfectly valid and powerful tool. I guess I
+    just like using bash glob patterns because to me they feel more "native"
+    to the shell. I wonder (but have no evidence) if the glob pattern
+    matching performs better then regex matching.
+    
+    To conclude, I hope you learned something about glob patterns, and
+    if you prefer to use regexes then don't let me stop you.

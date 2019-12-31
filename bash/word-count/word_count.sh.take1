@@ -1,18 +1,17 @@
 #!/bin/bash
 
-# associative arrays introduced in bash 4
 if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
     echo "bash version 4.0 required" >&2
     exit 2
 fi
 
 declare -A count=()
+declare -l word         # value is lower-cased
 
 for sentence in "$@"; do
     # Some tests contain the literal string "\n" to mean a 
-    # newline: generally replace escape sequences with their
-    # actual characters:
-    printf -v sentence "${sentence//%/%%}"
+    # newline: replace those characters with a actual newline.
+    sentence="${sentence//\\n/$'\n'}"
 
     # Pity bash does not do global regex matching. We have
     # to loop: find the first match, then remove it.
@@ -20,25 +19,24 @@ for sentence in "$@"; do
 
         word=${BASH_REMATCH[0]}
 
-        # remove the shortest prefix ending with $word
-        sentence=${sentence#*$word}
-
-        lc=${word,,}
-
         # we've allowed single quotes as apostrophes, but
         # we don't want leading or trailing quotes.
-        lc=${lc#\'}
-        lc=${lc%\'}
+        [[ $word == "'"* ]] && word=${word#?}
+        [[ $word == *"'" ]] && word=${word%?}
 
         # This would be cleaner:
-        #   (( count[$lc] += 1 ))
-        # but when lc contains a single quote, the 
+        #   (( count[$word] += 1 ))
+        # but when word contains a single quote, the 
         # arithmetic parser breaks:
-        #   $ lc="don't"
-        #   $ (( count[$lc] += 1 ))
+        #   $ word="don't"
+        #   $ (( count[$word] += 1 ))
         #   bash: ((: count[don't] += 1 : bad array subscript (error token is "count[don't] += 1 ")
         # No amount of quoting helps.
-        count[$lc]=$(( ${count[$lc]} + 1 ))
+        count[$word]=$(( ${count[$word]} + 1 ))
+
+        # remove the prefix ending with $word
+        # but don't use $word because it has been lowercased
+        sentence=${sentence#*${BASH_REMATCH[0]}}
     done
 done
 

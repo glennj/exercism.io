@@ -15,8 +15,8 @@ sub reduce {
     my $accumulator;
     my $idx = 0;
     for my $element (@$list) {
-        $accumulator = $idx 
-            ? $func->($accumulator, $element) 
+        $accumulator = $idx
+            ? $func->($accumulator, $element)
             : $element;
         $idx++;
     }
