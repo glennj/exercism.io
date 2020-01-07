@@ -1,0 +1,138 @@
+#!/usr/bin/env tclsh
+set version 4.0.0
+package require tcltest
+namespace import ::tcltest::*
+source "high-scores.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    # List of scores
+    test high-scores-1.1 {List of scores} -setup {
+        set hs [HighScores new]
+        $hs addScores 30 50 20 70 
+    } -body {
+        $hs scores
+    } -returnCodes ok -result {30 50 20 70}
+
+    test high-scores-1.2 {List of scores, uninitialized} -setup {
+        set hs [HighScores new]
+    } -body {
+        $hs scores
+    } -returnCodes ok -result {}
+
+    # Latest score
+    test high-scores-2.1 {Latest scores} -setup {
+        set hs [HighScores new]
+        $hs addScores 100 0 90 30
+    } -body {
+        $hs latest
+    } -returnCodes ok -result 30
+
+    test high-scores-2.2 {Latest scores, uninitialized} -setup {
+        set hs [HighScores new]
+    } -body {
+        $hs latest
+    } -returnCodes ok -result {}
+
+    # Personal best
+    test high-scores-3.1 {Personal best} -setup {
+        set hs [HighScores new]
+        $hs addScores 40 100 70
+    } -body {
+        $hs personalBest
+    } -returnCodes ok -result 100
+
+    test high-scores-3.2 {Personal best} -setup {
+        set hs [HighScores new]
+    } -body {
+        $hs personalBest
+    } -returnCodes ok -result {}
+
+    # Top three
+    test high-scores-4.1 {Personal top 3} -setup {
+        set hs [HighScores new]
+        $hs addScores 10 30 90 30 100 20 10 0 30 40 40 70 70
+    } -body {
+        $hs topThree
+    } -returnCodes ok -result {100 90 70}
+
+    test high-scores-4.2 {Personal top 3 for list of 3} -setup {
+        set hs [HighScores new]
+        $hs addScores 20 10 30
+    } -body {
+        $hs topThree
+    } -returnCodes ok -result {30 20 10}
+
+    test high-scores-4.3 {Personal top 3 with tie} -setup {
+        set hs [HighScores new]
+        $hs addScores 40 20 40 30
+    } -body {
+        $hs topThree
+    } -returnCodes ok -result {40 40 30}
+
+    test high-scores-4.4 {Personal top 3 for list of 2} -setup {
+        set hs [HighScores new]
+        $hs addScores 30 70
+    } -body {
+        $hs topThree
+    } -returnCodes ok -result {70 30}
+
+    test high-scores-4.5 {Personal top 3 for list of 1} -setup {
+        set hs [HighScores new]
+        $hs addScores 30
+    } -body {
+        $hs topThree
+    } -returnCodes ok -result {30}
+
+    test high-scores-4.6 {Personal top 3 for uninitialized obj} -setup {
+        set hs [HighScores new]
+    } -body {
+        $hs topThree
+    } -returnCodes ok -result {}
+
+    test high-scores-4.7 {Personal top 3 does not mutate list} -setup {
+        set hs [HighScores new]
+        $hs addScores 40 20 40 30
+        set top3 [$hs topThree]
+    } -body {
+        $hs latest
+    } -returnCodes ok -result 30
+
+    # multiple objects
+    test high-scores-5 {Object data is private} -setup {
+        set h1 [HighScores new]
+        set h2 [HighScores new]
+        $h1 addScores 10
+        $h2 addScores 20
+    } -body {
+        $h1 latest
+    } -returnCodes ok -result 10
+
+    cleanupTests
+}
+

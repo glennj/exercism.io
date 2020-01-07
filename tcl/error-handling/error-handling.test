@@ -1,0 +1,58 @@
+#!/usr/bin/env tclsh
+set version 1.0.0
+package require tcltest
+namespace import ::tcltest::*
+source "error-handling.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    test error-handling-1 {
+        throw an error with the given error message
+    } -body {
+        custom_error_message "This is an error"
+    } -returnCodes error -result "This is an error"
+
+    set testCases [dict create]
+    # map an expected result message to a script that creates an exception
+    dict set testCases "division by zero"    {expr {1 / 0}}
+    dict set testCases "file does not exist" {open [file join . "no dir" "no file"] r}
+    dict set testCases "proc does not exist" {no::such::procedure}
+    # handle a non-error script
+    dict set testCases "success"             {append var no error here}
+
+    set n 2
+    dict for {result script} $testCases {
+        test "error-handling-$n" "gracefully handle $result" -body {
+            handle_error $script
+        } -returnCodes ok -result $result
+
+        incr n
+    }
+
+    cleanupTests
+}

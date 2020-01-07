@@ -1,0 +1,65 @@
+#!/usr/bin/env tclsh
+set version 1.1.0
+package require tcltest
+namespace import ::tcltest::*
+source "raindrops.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    # test cases: test name, input value, expected output
+    set cases {
+        raindrops-1      1  1
+        raindrops-2      3  Pling
+        raindrops-3      5  Plang
+        raindrops-4      7  Plong
+        raindrops-5      6  Pling
+        raindrops-6      8  8
+        raindrops-7      9  Pling
+        raindrops-8     10  Plang
+        raindrops-9     14  Plong
+        raindrops-10    15  PlingPlang
+        raindrops-11    21  PlingPlong
+        raindrops-12    25  Plang
+        raindrops-13    27  Pling
+        raindrops-14    35  PlangPlong
+        raindrops-15    49  Plong
+        raindrops-16    52  52
+        raindrops-17   105  PlingPlangPlong
+        raindrops-18  3125  Plang
+    }
+
+    foreach {testName input result} $cases {
+        test $testName "
+            sound for $input is $result
+        " -body {
+            raindrops $input
+        } -returnCodes ok -result $result
+    }
+
+    cleanupTests
+}

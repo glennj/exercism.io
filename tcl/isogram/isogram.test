@@ -1,0 +1,91 @@
+#!/usr/bin/env tclsh
+set version 1.7.0
+package require tcltest
+namespace import ::tcltest::*
+source "isogram.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+proc booleanMatch {expected actual} {
+    return [expr {
+        [string is boolean -strict $expected] &&
+        [string is boolean -strict $actual] &&
+        (($expected && $actual) || (!$expected && !$actual))
+    }]
+}
+customMatch boolean booleanMatch
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        isogram-1  "empty string"
+            "" true
+
+        isogram-2  "isogram with only lower case characters"
+            "isogram" true
+
+        isogram-3  "word with one duplicated character"
+            "eleven" false
+
+        isogram-4  "word with one duplicated character from the end of the alphabet"
+            "zzyzx" false
+
+        isogram-5  "longest reported english isogram"
+            "subdermatoglyphic" true
+
+        isogram-6  "word with duplicated character in mixed case"
+            "Alphabet" false
+
+        isogram-7  "word with duplicated character in mixed case, lowercase first"
+            "alphAbet" false
+
+        isogram-8  "hypothetical isogrammic word with hyphen"
+            "thumbscrew-japingly" true
+
+        isogram-9  "hypothetical word with duplicated character following hyphen"
+            "thumbscrew-jappingly" false
+
+        isogram-10 "isogram with duplicated hyphen"
+            "six-year-old" true
+
+        isogram-11 "made-up name that is an isogram"
+            "Emily Jung Schwartzkopf" true
+
+        isogram-12 "duplicated character in the middle"
+            "accentor" false
+
+        isogram-13 "same first and last characters"
+            "angola" false
+    }
+
+    foreach {name description input result} $cases {
+        test $name $description -body {
+            isIsogram $input
+        } -returnCodes ok -match boolean -result $result
+    }
+
+    cleanupTests
+}

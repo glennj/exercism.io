@@ -1,0 +1,60 @@
+#!/usr/bin/env tclsh
+set version 2.3.0
+package require tcltest
+namespace import ::tcltest::*
+source "hamming.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        hamming-1.1 "empty strands" "" "" 0
+        hamming-1.2 "single letter identical strands" "A" "A" 0
+        hamming-1.3 "single letter different strands" "G" "T" 1
+        hamming-1.4 "long identical strands" "GGACTGAAATCTG" "GGACTGAAATCTG" 0
+        hamming-1.5 "long different strands" "GGACGGATTCTG" "AGGACGGATTCT" 9
+    }
+    foreach {name desc first second result} $cases {
+        test $name $desc -body {
+            hammingDistance $first $second
+        } -returnCodes ok -result $result
+    }
+
+    set errors {
+        hamming-2.1 "disallow first strand longer" "AATG" "AAA"
+        hamming-2.2 "disallow second strand longer" "ATA" "AGTG"
+        hamming-2.3 "disallow left empty strand" "" "G"
+        hamming-2.4 "disallow right empty strand" "G" ""
+    }
+    foreach {name desc first second} $errors {
+        test $name $desc -body {
+            hammingDistance $first $second
+        } -returnCodes error -result "left and right strands must be of equal length"
+    }
+
+    cleanupTests
+}

@@ -1,0 +1,70 @@
+#!/usr/bin/env tclsh
+set version 1.6.1
+package require tcltest
+namespace import ::tcltest::*
+source "luhn.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+proc booleanEqual {expected actual} {
+    return [expr {
+        [string is boolean -strict $expected] &&
+        [string is boolean -strict $actual] &&
+        (($expected && $actual) || (!$expected && !$actual))
+    }]
+}
+customMatch boolean booleanEqual
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        luhn-1  "1"                   false "single digit strings can not be valid"
+        luhn-2  "0"                   false "a single zero is invalid"
+        luhn-3  "059"                 true  "a simple valid SIN that remains valid if reversed"
+        luhn-4  "59"                  true  "a simple valid SIN that becomes invalid if reversed"
+        luhn-5  "055 444 285"         true  "a valid Canadian SIN"
+        luhn-6  "055 444 286"         false "invalid Canadian SIN"
+        luhn-7  "8273 1232 7352 0569" false "invalid credit card"
+        luhn-8  "095 245 88"          true  "valid number with an even number of digits"
+        luhn-9  "234 567 891 234"     true  "valid number with an odd number of spaces"
+        luhn-10 "059a"                false "valid strings with a non-digit added at the end become invalid"
+        luhn-11 "055-444-285"         false "valid strings with punctuation included become invalid"
+        luhn-12 "055# 444$ 285"       false "valid strings with symbols included become invalid"
+        luhn-13 " 0"                  false "single zero with space is invalid"
+        luhn-14 "0000 0"              true  "more than a single zero is valid"
+        luhn-15 "091"                 true  "input digit 9 is correctly converted to output digit 9"
+        luhn-16 "055b 444 285"        false "using ascii value for non-doubled non-digit isn't allowed"
+        luhn-17 ":9"                  false "using ascii value for doubled non-digit isn't allowed"
+    }
+
+    foreach {name input result description} $cases {
+        test $name $description -body {
+            luhn $input
+        } -returnCodes ok -match boolean -result $result
+    }
+
+    cleanupTests
+}

@@ -1,0 +1,55 @@
+#!/usr/bin/env tclsh
+set version 1.1.0
+package require tcltest
+namespace import ::tcltest::*
+source "scrabble-score.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        scrabble-score-1  "a"       1  "lowercase letter"
+        scrabble-score-2  "A"       1  "uppercase letter"
+        scrabble-score-3  "f"       4  "valuable letter"
+        scrabble-score-4  "at"      2  "short word"
+        scrabble-score-5  "zoo"    12  "short, valuable word"
+        scrabble-score-6  "street"  6  "medium word"
+        scrabble-score-7  "quirky" 22  "medium, valuable word"
+        scrabble-score-8  "pinata"  8  "english-like word"
+        scrabble-score-9  ""        0  "empty input"
+        scrabble-score-10 "OxyphenButazone" 41 "long, mixed-case word"
+        scrabble-score-11 "abcdefghijklmnopqrstuvwxyz" 87 "entire alphabet available"
+    }
+
+    foreach {name word score description} $cases {
+        test $name $description -body {
+            scrabbleScore $word
+        } -returnCodes ok -result $score
+    }
+
+    cleanupTests
+}

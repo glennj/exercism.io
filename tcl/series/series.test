@@ -1,0 +1,64 @@
+#!/usr/bin/env tclsh
+set version 1.0.0
+package require tcltest
+namespace import ::tcltest::*
+source "series.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        series-1.1            1 1 {1}
+        series-1.2           12 1 {1 2}
+        series-1.3           35 2 {35}
+        series-1.4         9142 2 {91 14 42}
+        series-1.5       777777 3 {777 777 777 777}
+        series-1.6 918493904243 5 {91849 18493 84939 49390 93904 39042 90424 04243}
+    }
+
+    foreach {name input len result} $cases {
+        test $name "slices of $len from $input" -body {
+            slices $input $len
+        } -returnCodes ok -result $result
+    }
+
+    set errorCases {
+        series-2.1 12345  6 "slice length cannot be greater than series length"
+        series-2.2 12345  0 "slice length cannot be less than one"
+        series-2.3 12345 -1 "slice length cannot be less than one"
+        series-2.4    ""  1 "series cannot be empty"
+    }
+
+    foreach {name input len result} $errorCases {
+        test $name "error: $result" -body {
+            slices $input $len
+        } -returnCodes error -result $result
+    }
+
+    cleanupTests
+}
+

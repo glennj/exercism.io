@@ -1,0 +1,73 @@
+#!/usr/bin/env tclsh
+set version 1.0.0
+package require tcltest
+namespace import ::tcltest::*
+source "resistor-color.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+proc orderedListsEqual {a b} {
+    if {[llength $a] != [llength $b]} then {return false}
+    foreach elemA $a elemB $b {
+        if {$elemA ne $elemB} then {return false}
+    }
+    return true
+}
+customMatch orderedLists orderedListsEqual
+
+if {$::argv0 eq [info script]} {
+
+    test resistor-color-1 "List of colors" -body {
+        resistorColor::colors
+    } -returnCodes ok -match orderedLists -result {
+        black brown red orange yellow green blue violet grey white
+    }
+
+    set cases {
+        resistor-color-2   black   0
+        resistor-color-3   white   9
+        resistor-color-4   orange  3
+        resistor-color-5   brown   1
+        resistor-color-6   red     2
+        resistor-color-7   yellow  4
+        resistor-color-8   green   5
+        resistor-color-9   blue    6
+        resistor-color-10  violet  7
+        resistor-color-11  grey    8
+    }
+
+    foreach {name color value} $cases {
+        test $name "Color $color" -body {
+            resistorColor::colorCode $color
+        } -returnCodes ok -result $value
+    }
+
+    test resistor-color-12 "Unknown color" -body {
+        resistorColor::colorCode beige
+    } -returnCodes error -result "Invalid color: beige"
+
+    cleanupTests
+}
