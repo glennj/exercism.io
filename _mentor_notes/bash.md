@@ -323,6 +323,11 @@ foo+=bar
 
 <!-- -->
 
+Instead of looping over all the numbers from 1 to _num_, you only
+need to test the remainder of 3, 5 and 7.
+
+<!-- -->
+
 Instead of putting an arithmetic expansion inside the string-oriented `[[...]]`, 
 you can use the arithmetic conditional construct (see [here in the
 manual](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs)
