@@ -11,6 +11,7 @@
 [Input](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#input)<br>
 [Very rare and subtle mistakes](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#very-rare-and-subtle-mistakes)<br>
 [Exercism/Philosophy](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#exercismphilosophy)<br>
+[Miscellaneous notes to be organized](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#miscellaneous-notes-to-be-organized)<br>
 
 Exercises
 
@@ -20,6 +21,8 @@ Exercises
 * [markdown](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#markdown)
 * [bob](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#bob)
 * [acronym](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#acronym)
+
+
 
 ---
 ## Shebang
@@ -102,7 +105,7 @@ Because the 2nd arithmetic expression had value zero, the command returned
 <!-- ........................................................ -->
 ## Variables
 
-For lines 17-21, consider the `${var:-default value}` form of [Shell Parameter Expansion](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion).
+Consider the `${var:-default value}` form of [Shell Parameter Expansion](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion).
 
 <!-- -->
 
@@ -111,7 +114,7 @@ Get out of the habit of using ALLCAPS variable names, leave those as reserved by
 <!-- ........................................................ -->
 ## Quoting
 
-Unquoted variables are subject to [word splitting](https://mywiki.wooledge.org/WordSplitting)
+Unquoted variables are subject to [word splitting](https://mywiki.wooledge.org/WordSplitting) and [glob](https://mywiki.wooledge.org/glob) expansion.
 
 <!-- ........................................................ -->
 ## Assignment
