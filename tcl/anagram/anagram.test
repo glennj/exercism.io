@@ -1,0 +1,58 @@
+#!/usr/bin/env tclsh
+set version 1.5.0
+package require tcltest
+namespace import ::tcltest::*
+source "anagram.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        anagram-1 "no matches" diaper {hello world zombies pants} {} 
+        anagram-2 "detects two anagrams" master {stream pigeon maters} {stream maters} 
+        anagram-3 "does not detect anagram subsets" good {dog goody} {} 
+        anagram-4 "detects anagram" listen {enlists google inlets banana} {inlets} 
+        anagram-5 "detects three anagrams" allergy { gallery ballerina regally clergy largely leading } {gallery regally largely} 
+        anagram-6 "detects multiple anagrams with different case" nose {Eons ONES} {Eons ONES} 
+        anagram-7 "does not detect non-anagrams with identical checksum" mass {last} {} 
+        anagram-8 "detects anagrams case-insensitively" Orchestra {cashregister Carthorse radishes} {Carthorse} 
+        anagram-9 "detects anagrams using case-insensitive subject" Orchestra {cashregister carthorse radishes} {carthorse} 
+        anagram-10 "detects anagrams using case-insensitive possible matches" orchestra {cashregister Carthorse radishes} {Carthorse}
+        anagram-11 "does not detect an anagram if the original word is repeated" go {go Go GO} {} 
+        anagram-12 "anagrams must use all letters exactly once" tapper {patter} {} 
+        anagram-13 "words are not anagrams of themselves (case-insensitive)" BANANA {BANANA Banana banana} {} 
+        anagram-14 "words other than themselves can be anagrams" LISTEN {Listen Silent LISTEN} {Silent} 
+    }
+
+    foreach {name description subject candidates expected} $cases {
+        test $name $description -body {
+            findAnagrams $subject $candidates
+        } -returnCodes ok -result $expected
+    }
+
+    cleanupTests
+}

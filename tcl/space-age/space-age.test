@@ -1,0 +1,58 @@
+#!/usr/bin/env tclsh
+set version 1.2.0
+package require tcltest
+namespace import ::tcltest::*
+source "space-age.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+proc roundTo {precision number} {
+    return [format {%.*f} $precision $number]
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        space-age-1 "age on Earth"   "onEarth"   1000000000  31.69
+        space-age-1 "age on Mercury" "onMercury" 2134835688 280.88
+        space-age-1 "age on Venus"   "onVenus"    189839836   9.78
+        space-age-1 "age on Mars"    "onMars"    2129871239  35.88
+        space-age-1 "age on Jupiter" "onJupiter"  901876382   2.41
+        space-age-1 "age on Saturn"  "onSaturn"  2000000000   2.15
+        space-age-1 "age on Uranus"  "onUranus"  1210123456   0.46
+        space-age-1 "age on Neptune" "onNeptune" 1821023456   0.35
+    }
+
+    foreach {name description procname seconds result} $cases {
+        test $name $description -body {
+            set age [$procname $seconds]
+            # Don't worry about rounding your result, we'll do it:
+            roundTo 2 $age
+        } -returnCodes ok -result $result
+    }
+
+    cleanupTests
+}

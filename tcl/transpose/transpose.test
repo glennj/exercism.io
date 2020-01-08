@@ -1,0 +1,199 @@
+#!/usr/bin/env tclsh
+set version 1.1.0
+package require tcltest
+namespace import ::tcltest::*
+source "transpose.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+customMatch list orderedListsMatch
+proc orderedListsMatch {expected actual} {
+    if {[llength $expected] != [llength $actual]} {
+        return false
+    }
+    foreach e $expected a $actual {
+        if {$e != $a} {
+            return false
+        }
+    }
+    return true
+}
+
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        transpose-1 "empty string" {} {}
+        transpose-2 "two characters in a row" {"A1"} {"A" "1"}
+        transpose-3 "two characters in a column" {
+            "A"
+            "1"
+        } {
+            "A1"
+        }
+        transpose-4 "simple" {
+            "ABC"
+            "123"
+        } {
+            "A1"
+            "B2"
+            "C3"
+        }
+        transpose-5 "single line" {
+            "Single line."
+        } {
+            "S"
+            "i"
+            "n"
+            "g"
+            "l"
+            "e"
+            " "
+            "l"
+            "i"
+            "n"
+            "e"
+            "."
+        }
+        transpose-6 "first line longer than second line" {
+            "The fourth line."
+            "The fifth line."
+        } {
+            "TT"
+            "hh"
+            "ee"
+            "  "
+            "ff"
+            "oi"
+            "uf"
+            "rt"
+            "th"
+            "h "
+            " l"
+            "li"
+            "in"
+            "ne"
+            "e."
+            "."
+        }
+        transpose-7 "second line longer than first line" {
+            "The first line."
+            "The second line."
+        } {
+            "TT"
+            "hh"
+            "ee"
+            "  "
+            "fs"
+            "ie"
+            "rc"
+            "so"
+            "tn"
+            " d"
+            "l "
+            "il"
+            "ni"
+            "en"
+            ".e"
+            " ."
+        }
+        transpose-8 "mixed line length" {
+            "The longest line."
+            "A long line."
+            "A longer line."
+            "A line."
+        } {
+            "TAAA"
+            "h   "
+            "elll"
+            " ooi"
+            "lnnn"
+            "ogge"
+            "n e."
+            "glr"
+            "ei "
+            "snl"
+            "tei"
+            " .n"
+            "l e"
+            "i ."
+            "n"
+            "e"
+            "."
+        }
+        transpose-9 "square" {
+            "HEART"
+            "EMBER"
+            "ABUSE"
+            "RESIN"
+            "TREND"
+        } {
+            "HEART"
+            "EMBER"
+            "ABUSE"
+            "RESIN"
+            "TREND"
+        }
+        transpose-10 "rectangle" {
+            "FRACTURE"
+            "OUTLINED"
+            "BLOOMING"
+            "SEPTETTE"
+        } {
+            "FOBS"
+            "RULE"
+            "ATOP"
+            "CLOT"
+            "TIME"
+            "UNIT"
+            "RENT"
+            "EDGE"
+        }
+        transpose-11 "triangle" {
+            "T"
+            "EE"
+            "AAA"
+            "SSSS"
+            "EEEEE"
+            "RRRRRR"
+        } {
+            "TEASER"
+            " EASER"
+            "  ASER"
+            "   SER"
+            "    ER"
+            "     R"
+        }
+    }
+
+    foreach {name description lines result} $cases {
+        test $name $description -body {
+            transpose $lines
+        } -returnCodes ok -match list -result $result
+    }
+
+    cleanupTests
+}

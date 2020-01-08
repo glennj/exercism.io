@@ -1,0 +1,54 @@
+#!/usr/bin/env tclsh
+set version 1.6.0
+package require tcltest
+namespace import ::tcltest::*
+source "leap.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        {leap-1 2015 0 "year not divisible by 4 in common year"}
+        {leap-2 1970 0 "year divisible by 2, not divisible by 4 in common year"}
+        {leap-3 1996 1 "year divisible by 4, not divisible by 100 in leap year"}
+        {leap-4 1960 1 "year divisible by 4 and 5 is still a leap year"}
+        {leap-5 2100 0 "year divisible by 100, not divisible by 400 in common year"}
+        {leap-6 1900 0 "year divisible by 100 but not by 3 is still not a leap year"}
+        {leap-7 2000 1 "year divisible by 400 in leap year"}
+        {leap-8 2400 1 "year divisible by 400 but not by 125 is still a leap year"}
+        {leap-9 1800 0 "year divisible by 200, not divisible by 400 in common year"}
+    }
+
+    foreach case $cases {
+        lassign $case name year result description
+        test $name $description -body "
+            isLeapYear $year
+        " -result $result
+    }
+
+    cleanupTests
+}

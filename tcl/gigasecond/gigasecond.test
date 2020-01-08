@@ -1,0 +1,50 @@
+#!/usr/bin/env tclsh
+set version 2.0.0
+package require tcltest
+namespace import ::tcltest::*
+source "gigasecond.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        gigasecond-1 "2011-04-25"                "2043-01-01T01:46:40" "date only specification of time"
+        gigasecond-2 "1977-06-13"                "2009-02-19T01:46:40" "second test for date only specification of time"
+        gigasecond-3 "1959-07-19"                "1991-03-27T01:46:40" "third test for date only specification of time"
+        gigasecond-4 "2015-01-24T22:00:00"       "2046-10-02T23:46:40" "full time specified"
+        gigasecond-5 "2015-01-24T23:59:59"       "2046-10-03T01:46:39" "full time with day roll-over"
+        gigasecond-6 "thu march 2, 1978 1:23 PM" "2009-11-08T15:09:40" "free-form datetime string"
+    }
+
+    foreach {name input output description} $cases {
+        test $name $description -body {
+            addGigasecond $input
+        } -returnCodes ok -result $output
+    }
+
+    cleanupTests
+}
