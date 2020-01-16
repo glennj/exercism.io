@@ -32,7 +32,5 @@
     "lint-test": "eslint . && jest --no-cache ./* "
   },
   "license": "MIT",
-  "dependencies": {
-    "babel-register": "^6.26.0"
-  }
+  "dependencies": {}
 }

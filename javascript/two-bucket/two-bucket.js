@@ -44,8 +44,8 @@ class TwoBucket {
       b2 = new Bucket('two', vol2);
     }
     else {
-      b2 = new Bucket('one', vol1);
       b1 = new Bucket('two', vol2);
+      b2 = new Bucket('one', vol1);
     }
 
     this.solve(b1, b2, goal);
@@ -57,6 +57,17 @@ class TwoBucket {
     start.empty();
     other.empty();
     let moves = 0;
+
+    // fill the start bucket with the first move
+    start.fill();
+    moves += 1;
+
+    // optimization: if the other bucket is the right
+    // size, fill it immediately with the second move
+    if (other.size === goal) {
+      other.fill();
+      moves += 1;
+    }
 
     while (true) {                    // eslint-disable-line no-constant-condition
       if (start.amount === goal) {
@@ -82,4 +93,4 @@ class TwoBucket {
   }
 }
 
-module.exports = TwoBucket;
+module.exports = { TwoBucket };
