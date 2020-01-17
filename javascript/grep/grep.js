@@ -17,8 +17,9 @@ function main() {
     process.exit(1);
   }
   let pattern = getPattern(args.shift());
+  opts.multipleFiles = (args.length > 1);
   args.forEach(filename => {
-    processFile(filename, pattern, args.length);
+    processFile(filename, pattern);
   });
 }
 
@@ -56,7 +57,7 @@ function getPattern(patternString) {
   return new RegExp(patternString, opts.caseInsensitive ? 'i' : '');
 }
 
-function processFile(filename, pattern, numFiles) {
+function processFile(filename, pattern) {
   // TODO: validate file exists and is readable
   const lines = fs.readFileSync(filename, 'utf8').split('\n');
 
@@ -66,8 +67,8 @@ function processFile(filename, pattern, numFiles) {
   let lineNum = 1;
   for (const line of lines) {
     const match = line.match(pattern) ? 1 : 0;
-    if (inv ^ match) {
-      emit(filename, line, lineNum, numFiles);
+    if (inv ^ match) { // XOR: inv or match but not both
+      emit(filename, line, lineNum);
       if (opts.fileNameOnly) {
         break;
       }
@@ -76,13 +77,13 @@ function processFile(filename, pattern, numFiles) {
   }
 }
 
-function emit(filename, line, lineNum, numFiles) {
+function emit(filename, line, lineNum) {
   const output = [];
   if (opts.fileNameOnly) {
     output.push(filename);
   }
   else {
-    if (numFiles > 1) {
+    if (opts.multipleFiles) {
       output.push(filename);
     }
     if (opts.lineNumbers) {
