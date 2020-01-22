@@ -1,5 +1,6 @@
 # Bash
 
+[Testing](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#testing)<br>
 [Shebang](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#shebang)<br>
 [Backticks](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#backticks)<br>
 [Arithmetic](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#arithmetic)<br>
@@ -7,6 +8,7 @@
 [Quoting](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#quoting)<br>
 [Assignment](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#assignment)<br>
 [Conditionals](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#conditionals)<br>
+[Loops](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#loops)<br>
 [Output](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#output)<br>
 [Input](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#input)<br>
 [Very rare and subtle mistakes](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#very-rare-and-subtle-mistakes)<br>
@@ -20,11 +22,17 @@ Exercises
 * [atbash-cipher](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#atbash-cipher)
 * [markdown](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#markdown)
 * [bob](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#bob)
+* [hamming](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#hamming)
 * [acronym](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#acronym)
 
 
 
 ---
+## Testing
+
+Make use of the test suite provided for you. See [Running the Tests](https://exercism.io/tracks/bash/tests).
+
+<!-- ........................................................ -->
 ## Shebang
 
 The first 2 characters of the program file should be `#!`. It is recommended
@@ -47,6 +55,10 @@ for more details.
 ## Arithmetic
 
 bash can do arithmetic, you don't need to call out to `bc`. See [Arithmetic Expansion](https://www.gnu.org/software/bash/manual/bash.html#Arithmetic-Expansion) in the manual.
+
+<!-- -->
+
+`((...))` is preferred over `let`. See [the let builtin command](https://wiki-dev.bash-hackers.org/commands/builtin/let) for details.
 
 <!-- -->
 
@@ -123,6 +135,15 @@ You can use the `+=` concatenating assignment operator: these are equivalent:
 ```bash
 foo=${foo}bar
 foo+=bar
+```
+
+<!-- ........................................................ -->
+## Loops
+
+You don't need to call out to `seq`: use a builtin bash C-style for loop:
+```bash
+len=${#input}
+for (( i = 0; i < len; i++ )); do ...
 ```
 
 <!-- ........................................................ -->
@@ -293,14 +314,14 @@ See [http://mywiki.wooledge.org/BashFAQ/105](http://mywiki.wooledge.org/BashFAQ/
 
 ## two-fer
 
-There is a more concise way to manage the optional input here. I suggest
-looking into the `${var:-default}` form of parameter expansion [here in the
-manual](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html).
+In bash, prefer `[[...]]` over `[...]`. It's more powerful and less likely to act
+in unexpected ways.
 
 <!-- -->
 
-In bash, prefer `[[...]]` over `[...]`. It's more powerful and less likely to act
-in unexpected ways.
+There is a more concise way to manage the optional input here. I suggest
+looking into the `${var:-default}` form of parameter expansion [here in the
+manual](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html).
 
 <!-- -->
 
@@ -505,6 +526,46 @@ yelling() {
 # and then
 # ...
 elif yelling "$input" && question "$input"; then ...
+```
+
+<!-- ........................................................ -->
+## hamming
+
+Don't check specifically that a char is `?` -- the same problem will occur with the `*` character.
+
+The issue is that the `==` operator (and `!=` too) is not just string
+equality, it is a *pattern matching* operator. For example, to check if a
+string contains a digit, you can write:
+```bash
+if [[ $string == *[0-9]* ]]; then echo "contains a digit"; fi
+```
+
+Patterns can be stored in variables:
+```bash
+has_digit='*[0-9]*'
+if [[ $string == $has_digit ]]; then echo "contains a digit"; fi
+```
+
+If any parts of the pattern are quoted, then that part is taken literally:
+```bash
+if [[ $string == *"[0-9]"* ]]; then 
+	echo "contains the exact string '[0-9]'"
+fi
+```
+
+Same holds for patterns stored in variables
+```bash
+has_digit='*[0-9]*'
+if [[ $string == "$has_digit" ]]; then
+	echo "\$string is the exact string '*[0-9]*'"
+fi
+```
+
+This is the concept the last test is trying to illustrate. Instead of
+specifically testing the various glob metacharacters -- which is at best fragile --
+you can simply ensure the right-hand operand is quoted:
+```bash
+		if [[ ${s:$i:1} != "${t:$i:1}" ]]; then
 ```
 
 <!-- ........................................................ -->

@@ -11,6 +11,7 @@ users/
 # javascript
 package-lock.json
 node_modules/
+.eslintrc
 
 # java
 build/
