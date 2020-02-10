@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# local version: 1.0.0.2
+# additional tests for: invalid color, invalid octal number, too many colors
+
 @test "Orange and orange and black" {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash resistor_color_trio.sh "orange" "orange" "black"
@@ -12,6 +15,13 @@
     run bash resistor_color_trio.sh "blue" "grey" "brown"
     [[ $status -eq 0 ]]
     [[ $output == "680 ohms" ]]
+}
+
+@test "Brown and red and red" {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash resistor_color_trio.sh "brown" "red" "red"
+    [[ $status -eq 0 ]]
+    [[ $output == "1200 ohms" ]]
 }
 
 @test "Red and black and red" {
@@ -76,4 +86,18 @@
     run bash resistor_color_trio.sh "white" "white" "baz"
     [[ $status -eq 1 ]]
     [[ -n $output ]]
+}
+
+@test "First two colors make an invalid octal number" {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash resistor_color_trio.sh "black" "grey" "black"
+    [[ $status -eq 0 ]]
+    [[ $output == "8 ohms" ]]
+}
+
+@test "Ignore extra colors" {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash resistor_color_trio.sh "blue" "green" "yellow" "orange"
+    [[ $status -eq 0 ]]
+    [[ $output == "650 kiloohms" ]]
 }

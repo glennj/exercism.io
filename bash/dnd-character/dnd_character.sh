@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# external tools used: sort
-
 characteristics=(
     strength
     dexterity
@@ -29,15 +27,26 @@ generate() {
     local a c hp
     for c in "${characteristics[@]}"; do
         a=$(ability)
-        printf "%s %d\n" "$c" "$(ability)"
         [[ $c == constitution ]] && hp=$(( 10 + $(modifier $a) ))
+        echo "$c $a"
     done
     echo "hitpoints $hp"
 }
 
 ability() {
-    set -- $( { d6; d6; d6; d6; } | sort -nr )  
-    echo $(( $1 + $2 + $3 ))
+    # using sort: add the top 3 rolls
+    #set -- $( { d6; d6; d6; d6; } | sort -nr )
+    #echo $(( $1 + $2 + $3 ))
+    
+    # add 4 dice rolls, then subtract the smallest one
+    # Thanks to @ScoobD for the inspiration
+    local roll sum min
+    for _ in {1..4}; do
+        roll=$(d6)
+        (( roll < ${min:-7} )) && min=$roll
+        (( sum += roll ))
+    done
+    echo $(( sum - min ))
 }
 
 # roll a 6-sided die

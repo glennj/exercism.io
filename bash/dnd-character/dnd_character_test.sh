@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# local version: 1.1.0.0
+
 # usage: dnd_character.sh modifier n
 # -> output expected modifier
 
@@ -122,7 +124,7 @@
 }
 
 
-# generate a character, validate expecte output
+# generate a character, validate expected output
 
 @test "generate a character" {
     [[ $BATS_RUN_SKIPPED = true ]] || skip

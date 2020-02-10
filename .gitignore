@@ -12,6 +12,7 @@ users/
 package-lock.json
 node_modules/
 .eslintrc
+yarn.lock
 
 # java
 build/

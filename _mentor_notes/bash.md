@@ -4,13 +4,14 @@
 [Shebang](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#shebang)<br>
 [Backticks](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#backticks)<br>
 [Arithmetic](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#arithmetic)<br>
-[Variables](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#variables)<br>
+[Parameter Expansion](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#parameter-expansion)<br>
 [Quoting](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#quoting)<br>
 [Assignment](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#assignment)<br>
 [Conditionals](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#conditionals)<br>
 [Loops](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#loops)<br>
 [Output](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#output)<br>
 [Input](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#input)<br>
+[Functions](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#functions)<br>
 [Very rare and subtle mistakes](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#very-rare-and-subtle-mistakes)<br>
 [Exercism/Philosophy](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#exercismphilosophy)<br>
 [Miscellaneous notes to be organized](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#miscellaneous-notes-to-be-organized)<br>
@@ -23,6 +24,7 @@ Exercises
 * [markdown](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#markdown)
 * [bob](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#bob)
 * [hamming](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#hamming)
+* [tournament](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#tournament)
 * [acronym](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#acronym)
 
 
@@ -52,9 +54,69 @@ Use `$(...)` instead of `` `...` `` -- see
 for more details.
 
 <!-- ........................................................ -->
+## Functions
+
+It's a good habit to use `local` for function variables. Then you're not polluting the global namespace with every variable.
+
+<!-- -->
+
+Note that `local` variables show up in the scope of functions *called
+from where the variable was declared*. So you can do this:
+```bash
+foo() {
+	local x=$1
+	bar
+}
+
+bar() {
+	echo "parameter is $x"
+}
+
+foo 42
+```
+
+Sometimes this helps readability, sometimes not, so when it makes sense
+pass variables as function arguments.
+
+<!-- -->
+
+A good design practice is to make functions as single-purpose as possible.
+If you have a function that does, say, a bunch of validation and then some
+calculations, you might consider breaking the function up:
+```
+main() {
+	validate "$@"
+	hamming "$@"
+}
+
+validate() { 
+	do checks and exit if errors
+}
+
+hamming() { 
+	count=...
+	echo $count
+}
+
+main "$@"
+```
+
+
+
+<!-- ........................................................ -->
 ## Arithmetic
 
 bash can do arithmetic, you don't need to call out to `bc`. See [Arithmetic Expansion](https://www.gnu.org/software/bash/manual/bash.html#Arithmetic-Expansion) in the manual.
+
+<!-- -->
+
+You can assign to variables within an arithmetic expression:
+```bash
+# instead of
+total=$(( total + increment ))
+# you can write
+(( total += increment ))
+```
 
 <!-- -->
 
@@ -115,7 +177,7 @@ Because the 2nd arithmetic expression had value zero, the command returned
 1, and then the shell exited (with status 1) due to `set -e`.
 
 <!-- ........................................................ -->
-## Variables
+## Parameter Expansion
 
 Consider the `${var:-default value}` form of [Shell Parameter Expansion](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion).
 
@@ -123,10 +185,49 @@ Consider the `${var:-default value}` form of [Shell Parameter Expansion](https:/
 
 Get out of the habit of using ALLCAPS variable names, leave those as reserved by the shell. One day you'll write `PATH=something` and then [wonder why your script is broken](https://stackoverflow.com/q/28310594/7552).
 
+<!-- -->
+
+In the `${var:index:length}` form of parameter expansion, both the `index`
+and `length` parts are arithmetic expressions: you don't need to use `$` for
+variables in an arithmetic expression. So you can write:
+```bash
+char="${string:i:1}"
+# .............^
+```
+
 <!-- ........................................................ -->
 ## Quoting
 
 Unquoted variables are subject to [word splitting](https://mywiki.wooledge.org/WordSplitting) and [glob](https://mywiki.wooledge.org/glob) expansion.
+
+<!-- -->
+
+Ah, that's the magic of quoting: given a script invocation `script.sh "a b" "c d"`:
+
+* with `main "$@"`, main receives 2 parameters
+* with `main $@`, main receives 4 parameters
+* with `main $*`, main receives 4 parameters
+* with `main "$*"`, main receives 1 parameter
+
+<!-- this specific comment on a ReverseString solution -->
+
+The problem is unquoted variables.
+
+When bash is processing a line from your script and figuring out how to execute it, the line gets split into tokens (using whitespace) and the tokens are subject to a list of [Shell Expansions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions). Two of the expansions are [Word Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting) and [Filename Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion) -- these 2 expansions don't happen within quotes.
+
+What's happening with that test is:
+
+* after the loop, the $reverseString variable holds the value `"b  * a "`
+* then you echo the variable **without quotes**
+* the shell turns `echo ${reverseString}` into `echo b  * a` 
+* then word splitting happens, and glob expansion turns `*` into the list of files in the current directory.
+
+Run the test manually with tracing turned on and you'll see what's going on:
+```bash
+bash -x reverse_string.sh " a *  b"
+```
+
+There's a long writeup about it here: [Security implications of forgetting to quote a variable in bash/POSIX shells](https://unix.stackexchange.com/questions/171346/security-implications-of-forgetting-to-quote-a-variable-in-bash-posix-shells)
 
 <!-- ........................................................ -->
 ## Assignment
@@ -149,9 +250,15 @@ for (( i = 0; i < len; i++ )); do ...
 <!-- ........................................................ -->
 ## Conditionals
 
-In bash, prefer `[[...]]` over `[...]`. The double bracket conditional command gives you more features (including regular expression matching), and fewer surprises (particularly about unquoted variables).
+Within `[[...]]`, the `=`,`<`,`>`,... operators do **_string_**
+comparison. For _numeric_ comparisons use `-eq`, `-lt`, `-gt`, ... operators
+respectively. At a bash prompt, type `help test` for details.
 
 <!-- -->
+
+In bash, prefer `[[...]]` over `[...]`. The double bracket conditional command gives you more features (including regular expression matching), and fewer surprises (particularly about unquoted variables).
+
+<!-- Some more details -->
 
 `[[` does not do word splitting or filename expansion on unquoted variables, so I say that it has few surprises. Consider:
 ```
@@ -173,7 +280,7 @@ empty
 I can go into greater detail about why `[` gives incorrect results if you want.
 
 
-<!-- -->
+<!-- Way more details -->
 
 The deep dive: the `test`, `[` and `[[` commands all act the same in that
 they do different things based on *how many arguments they are given*
@@ -286,6 +393,10 @@ reads some characters.
 
 <!-- ........................................................ -->
 # Exercism/Philosophy
+
+Check out the community solutions to see other approaches.
+
+<!-- -->
 
 _(Responding to a comment about using bash features vs external tools)_
 
@@ -527,6 +638,60 @@ yelling() {
 # ...
 elif yelling "$input" && question "$input"; then ...
 ```
+ 
+<!-- ........................................................ -->
+## tournament
+
+OK, there's a few things going on here. In order from least crucial to most:
+
+* there's not a test case for when the points are 2 digits, but I think your printf format should be
+    ```bash
+    fmt="%-30s | %2s | %2s | %2s | %2s | %2s\n"
+    ```
+* you need to sort by *points* not *wins*
+* if the points are equal, sort by name: `sort -t, -k2,2nr -k1,1`
+* you're not reading the data correctly.
+
+    This is a tricky one, where you have to either read from stdin or from a named file.  The way to do this is with the `-t` test:
+    ```bash
+    $ help test
+    test: test [expr]
+    ...
+          -t FD          True if FD is opened on a terminal.
+    ```
+
+    If `[[ -t 0 ]]` is true, then stdin is connected to the terminal -- i.e. **not redirected** --> read from the file named in $1.  
+    If `[[ -t 0 ]]` is false, then stdin is a redirection --> read from stdin.
+
+<!-- -->
+
+Option 1: slurp the data all at once
+```bash
+if [[ ! -t 0 ]]; then
+	# read from stdin
+	data=$(cat)
+else
+    [[ -r $1 ]] || die "cannot read: $1"
+	data=$(< "$1") 
+fi
+
+while IFS=';' read -r home away outcome; do
+    # ...
+done <<<"$data"
+```
+
+Option 2: if it's a file, redirect it onto stdin, and read line by line
+```bash
+if [[ -t 0 ]]; then
+    [[ -r $1 ]] || die "cannot read: $1"
+	exec 0< "$1"
+	# now the script's stdin come from that file
+fi
+
+while IFS=';' read -r home away outcome; do
+    # ...
+done    # no redirection, read from stdin
+```
 
 <!-- ........................................................ -->
 ## hamming
@@ -597,11 +762,32 @@ bash will:
     ```
 
 You can run the test with `bash -x acronym.sh "Two * Words"` to see what
-bash is doing. 
+bash is doing.  A couple of ways to deal with this:
 
-Read in the manual about 
-[The Set Builtin](https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin) 
-to disable filename expansion.
+1. turn off path expansion: see the `noglob` setting at [The Set Builtin](https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin)
+2. read the words into an array with `read -a`
+    ```bash
+    read -r -a words <<< "${1//-/ }"
+    for word in "${words[@]}"
+    ```
+    This approach allows you to keep the variables quoted at all times, so there won't be any expansion.
+
+<!-- -->
+
+To not worry about upper/lower case:
+
+1. you can use a POSIX character class:
+    ```bash
+        if [[ $letter =~ [[:alpha:]] ]]
+    ```
+2. declare the `letter` variable with the lowercase attribute (anytime the variable is assigned to, the value will be lowercased -- see `help local` and `help declare` from a bash prompt for more details):
+    ```bash
+      local -l letter
+       ...
+        letter=${word:index:1}
+        if [[ $letter =~ [a-z] ]]
+    ```
+
 
 
 ---

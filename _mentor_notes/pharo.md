@@ -31,3 +31,9 @@ We must use proper block syntax:
 " ..........v.....................................v "
 (false and: [ (myList add: 42; yourself) size = 0 ]) 
 ```
+
+<!-- ===================================================== -->
+## Exercise: two-fer
+
+Instead of hardcoding the output strings in two places, have the `who`
+method call the `who: aString` method, passing it the default value.

@@ -16,15 +16,11 @@ main() {
 die() { echo "$*" >&2; exit 1; }
 
 code() {
-    local -i code=-1 i
-    for i in "${!colors[@]}"; do
-        if [[ ${colors[i]} == "$1" ]]; then
-            code=$i
-            break
-        fi
+    local code
+    for code in "${!colors[@]}"; do
+        [[ $1 == ${colors[code]} ]] && echo $code && return
     done
-    (( code == -1 )) && return 1
-    echo $code
+    return 1
 }
 
 main "$@"

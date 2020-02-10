@@ -10,10 +10,6 @@ dependencies {
     testCompile "junit:junit:4.12"
 }
 
-compileJava {
-    options.compilerArgs << "-Xlint:all"
-}
-
 test {
     testLogging {
         exceptionFormat = 'full'

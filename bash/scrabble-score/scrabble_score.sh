@@ -5,20 +5,51 @@ if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
     exit 2
 fi
 
-declare -A points=(
-    [A]=1 [E]=1 [I]=1 [O]=1 [U]=1 [L]=1 [N]=1 [R]=1 [S]=1 [T]=1
-    [D]=2 [G]=2
-    [B]=3 [C]=3 [M]=3 [P]=3
-    [F]=4 [H]=4 [V]=4 [W]=4 [Y]=4
-    [K]=5
-    [J]=8 [X]=8
-    [Q]=10 [Z]=10
-)
+using_associative_array() {
 
-sum=0
-word=${1^^}                     # uppercase
-word=${word//[^A-Z]/}         # remove non-letters
-for ((i=0; i<${#word}; i++)); do
-    (( sum += ${points[${word:i:1}]} ))
-done
-echo $sum
+    local -A points=(
+        [A]=1 [E]=1 [I]=1 [O]=1 [U]=1 [L]=1 [N]=1 [R]=1 [S]=1 [T]=1
+        [D]=2 [G]=2
+        [B]=3 [C]=3 [M]=3 [P]=3
+        [F]=4 [H]=4 [V]=4 [W]=4 [Y]=4
+        [K]=5
+        [J]=8 [X]=8
+        [Q]=10 [Z]=10
+    )
+
+    local sum=0
+    local word=${1^^}              # uppercase
+    word=${word//[^A-Z]/}          # remove non-letters
+
+    for ((i=0; i<${#word}; i++)); do
+        (( sum += ${points[${word:i:1}]} ))
+    done
+    echo $sum
+}
+
+using_case_glob() {
+
+    # the integer attribute allows "bare" arithmetic evaluation
+    # ref: https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters
+    local -i sum=0
+
+    # don't care if the input is upper or lower case
+    shopt -s nocasematch
+    local word=${1//[^[:alpha:]]/}
+
+    for ((i=0; i<${#word}; i++)); do
+        case ${word:i:1} in
+            [aeioulnrst]) sum+=1 ;;
+                    [dg]) sum+=2 ;;
+                  [bcmp]) sum+=3 ;;
+                 [fhvwy]) sum+=4 ;;
+                     [k]) sum+=5 ;;
+                    [jx]) sum+=8 ;;
+                    [qz]) sum+=10 ;;
+        esac
+    done
+    echo $sum
+}
+
+#using_associative_array "$@"
+using_case_glob "$@"
