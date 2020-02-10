@@ -1,15 +1,12 @@
-class Squares {
-    //TODO: implement proper constructor
+import kotlin.math.pow
 
-    fun sumOfSquares() {
-        TODO("Implement the function to complete the task")
-    }
+fun Int.pow(n: Int): Int = this.toFloat().pow(n).toInt()
 
-    fun squareOfSum() {
-        TODO("Implement the function to complete the task")
-    }
+class Squares(val n: Int) {
 
-    fun difference() {
-        TODO("Implement the function to complete the task")
-    }
+    fun sumOfSquares(): Int = (1..n).sumBy { it.pow(2) }
+
+    fun squareOfSum(): Int = (1..n).sum().pow(2)
+
+    fun difference(): Int = squareOfSum() - sumOfSquares()
 }
