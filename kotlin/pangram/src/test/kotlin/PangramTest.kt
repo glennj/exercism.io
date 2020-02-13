@@ -1,0 +1,67 @@
+import org.junit.Test
+import org.junit.Ignore
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
+
+class PangramTest {
+
+    @Test
+    fun emptySentence() {
+        assertFalse(Pangram.isPangram(""))
+    }
+
+    //@ignore
+    @Test
+    fun perfectLowerCase() {
+        assertTrue(Pangram.isPangram("abcdefghijklmnopqrstuvwxyz"))
+    }
+
+    //@ignore
+    @Test
+    fun onlyLowerCase() {
+        assertTrue(Pangram.isPangram("the quick brown fox jumps over the lazy dog"))
+    }
+
+    //@ignore
+    @Test
+    fun missingTheLetterX() {
+        assertFalse(Pangram.isPangram("a quick movement of the enemy will jeopardize five gunboats"))
+    }
+
+    //@ignore
+    @Test
+    fun missingTheLetterH() {
+        assertFalse(Pangram.isPangram("five boxing wizards jump quickly at it"))
+    }
+
+    //@ignore
+    @Test
+    fun withUnderscores() {
+        assertTrue(Pangram.isPangram("the_quick_brown_fox_jumps_over_the_lazy_dog"))
+    }
+
+    //@ignore
+    @Test
+    fun withNumbers() {
+        assertTrue(Pangram.isPangram("the 1 quick brown fox jumps over the 2 lazy dogs"))
+    }
+
+    //@ignore
+    @Test
+    fun missingLettersReplacedByNumbers() {
+        assertFalse(Pangram.isPangram("7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog"))
+    }
+
+    //@ignore
+    @Test
+    fun mixedCaseAndPunctuation() {
+        assertTrue(Pangram.isPangram("\"Five quacking Zephyrs jolt my wax bed.\""))
+    }
+
+    //@ignore
+    @Test
+    fun caseInsensitive() {
+        assertFalse(Pangram.isPangram("the quick brown fox jumps over with lazy FX"))
+    }
+
+}
