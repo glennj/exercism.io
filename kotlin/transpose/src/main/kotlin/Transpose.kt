@@ -1,36 +1,37 @@
 object Transpose {
 
     fun transpose(input: List<String>): List<String> {
-        var result = listOf<String>()
+        return when {
+            input.isEmpty() -> input
+            else -> with(simpleTranspose(input)) {
+                // note to self, "this" is the result of the "with" expression
 
-        if (!input.isEmpty()) {
-            // Annoyingly kotlin.collections.max might be null
-            //val max = input.map { it.length }.max() // Int?
-            var max = input.fold(-1) { m, row -> kotlin.math.max(m, row.length) }
+                // pad the transposed strings so that each line is
+                // not shorter than the next line
 
-            // make the input matrix "square"
-            val padded = input.map { it.padEnd(max) }
+                var currentWidth = this.last().trimEnd().length
 
-            // transpose it
-            val transposed = padded.first().indices
-                    .map { i -> padded
-                            .map { it[i] }
-                            .joinToString(separator = "")
-                    }
-
-            // pad the transposed strings so that each line is
-            // not shorter than the next line
-            var currentWidth = transposed.last().trimEnd().length
-            result = transposed
-                    .reversed()
+                this.reversed()
                     .map {
                         val linePadded = it.trimEnd().padEnd(currentWidth)
                         currentWidth = linePadded.length
                         linePadded
                     }
                     .reversed()
+            }
         }
+    }
 
-        return result
+    private fun simpleTranspose(input: List<String>): List<String> {
+        // Annoyingly kotlin.collections.max might be null
+        //val max = input.map { it.length }.max() // Int?
+        val max = input.fold(-1) { m, row -> kotlin.math.max(m, row.length) }
+
+        // square the matrix and then tranpose it
+        return with(input.map { it.padEnd(max) }) {
+            this.first()
+                .indices
+                .map { i -> this.map { it[i] }.joinToString("") }
+        }
     }
 }
