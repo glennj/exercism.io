@@ -35,10 +35,9 @@ using_case_glob() {
 
     # don't care if the input is upper or lower case
     shopt -s nocasematch
-    local word=${1//[^[:alpha:]]/}
 
-    for ((i=0; i<${#word}; i++)); do
-        case ${word:i:1} in
+    for ((i=0; i<${#1}; i++)); do
+        case ${1:i:1} in
             [aeioulnrst]) sum+=1 ;;
                     [dg]) sum+=2 ;;
                   [bcmp]) sum+=3 ;;
@@ -46,6 +45,7 @@ using_case_glob() {
                      [k]) sum+=5 ;;
                     [jx]) sum+=8 ;;
                     [qz]) sum+=10 ;;
+                       *) : ;; # other characters are value-free
         esac
     done
     echo $sum

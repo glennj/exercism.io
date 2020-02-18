@@ -28,6 +28,8 @@ Exercises
 * [acronym](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#acronym)
 
 
+Check out the community solutions to see other approaches.
+
 
 ---
 ## Testing
@@ -72,7 +74,10 @@ bar() {
 	echo "parameter is $x"
 }
 
+x=global
+echo $x
 foo 42
+echo $x
 ```
 
 Sometimes this helps readability, sometimes not, so when it makes sense
@@ -393,8 +398,6 @@ reads some characters.
 
 <!-- ........................................................ -->
 # Exercism/Philosophy
-
-Check out the community solutions to see other approaches.
 
 <!-- -->
 
