@@ -1,7 +1,7 @@
 object RunLengthEncoding {
 
     fun encode(input: String): String =
-        input.replace(Regex("(.)(\\1+)")) {
+        input.replace(Regex("(.)\\1+")) {
             String.format("%d%s", it.value.length, it.groupValues[1])
         }
 
