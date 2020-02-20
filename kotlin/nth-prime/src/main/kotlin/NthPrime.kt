@@ -17,10 +17,7 @@ object Prime {
                 2 -> 3
                 else -> {
                     var n = it
-                    while (true) {
-                        n += 2
-                        if (n.isPrime()) break
-                    }
+                    do { n += 2 } while (!n.isPrime())
                     n
                 }
             }
