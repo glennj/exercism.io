@@ -18,7 +18,7 @@ object CryptoSquare {
         }
 
         return with(letters.chunked(size)) {
-                this[0].indices.map { i ->
+            (0 until size).map { i ->
                     this.map { it[i] }.joinToString("")
                 }
             }
