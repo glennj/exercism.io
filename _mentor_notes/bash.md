@@ -129,12 +129,12 @@ total=$(( total + increment ))
 
 <!-- -->
 
-You don't need to nest the arithmetic: this is OK
+You don't need to nest the arithmetic:
 ```bash
     # instead of this
-    if (( $(( $1 % num )) == 0 )); then
+    if (( $(( a % b )) == 0 )); then
     # do this
-    if (( $1 % num == 0 )); then
+    if (( a % b == 0 )); then
 ```
 
 <!-- -->
@@ -148,8 +148,8 @@ such as `${#var}`)
 The difference between `$((...))` and `((...))`:
 
 `$((...))` is an arithmetic *expression* -- it returns the result of the
-expression as a **value**, so you can assign it to a variable like you do in
-line 10. Ref: [Arithmetic Expansion in the
+expression as a **value**, so you can assign it to a variable like `answer=$(( 6 * 9 ))`. 
+Ref: [Arithmetic Expansion in the
 manual](https://www.gnu.org/software/bash/manual/bash.html#Arithmetic-Expansion)
 
 `((...))` is the arithmetic *conditional construct*. It returns the result
@@ -158,8 +158,12 @@ or `while` command. See [Conditional Constructs in the
 manual](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs)
 and scroll down a bit.
 
-I find the `((...))` syntax very tidy. You can assign to a variable within
-it, as I demonstrated above, without checking the exit status.
+I find the `((...))` syntax very tidy. You can assign/update a variable within
+it without checking the exit status:
+```bash
+(( result += $a + $b ))
+(( count++ ))
+```
 
 One caveat, a source of subtle errors: it does not play well with [`set -e`,
 the "errexit"
@@ -180,6 +184,19 @@ you will see this
 ```
 Because the 2nd arithmetic expression had value zero, the command returned
 1, and then the shell exited (with status 1) due to `set -e`.
+
+
+<!-- -->
+
+For check a value is in a range, instead of
+```bash
+[[ "$arg" -gt 0 && "$arg" -le 64 ]]
+```
+you can use the arithmetic
+```bash
+(( 1 <= arg && arg <= 64 ))
+```
+That's as close to the `1 ≤ arg ≤ 64` mathematical notation as you'll get
 
 <!-- ........................................................ -->
 ## Parameter Expansion
@@ -237,11 +254,11 @@ There's a long writeup about it here: [Security implications of forgetting to qu
 <!-- ........................................................ -->
 ## Assignment
 
-You can use the `+=` concatenating assignment operator: these are equivalent:
-```bash
-foo=${foo}bar
-foo+=bar
-```
+* You can use the `+=` concatenating assignment operator: these are equivalent:
+    ```bash
+    foo=${foo}bar
+    foo+=bar
+    ```
 
 <!-- ........................................................ -->
 ## Loops
@@ -352,6 +369,12 @@ echo $var
 echo "$var"
 ```
 There are even [Security implications of forgetting to quote a variable in bash/POSIX shells](https://unix.stackexchange.com/questions/171346/security-implications-of-forgetting-to-quote-a-variable-in-bash-posix-shells)
+
+<!-- -->
+
+Always use a format specifier for `printf` -- if the string to be printed
+contains a `%` character, you'll get an error. See [this shellcheck
+explanation](https://www.shellcheck.net/wiki/SC2059)
 
 <!-- ........................................................ -->
 ## Input
@@ -873,3 +896,24 @@ and [glob patterns](https://www.gnu.org/software/bash/manual/bash.html#Pattern-M
     
     To conclude, I hope you learned something about glob patterns, and
     if you prefer to use regexes then don't let me stop you.
+
+<!-- -->
+
+### performance impact of subshells
+
+https://exercism.io/mentor/solutions/d75f219017ad49dca16f68ab6772d7d2#discussion-post-599212
+
+```bash
+SECONDS=0
+for (( count=0; count<100000; count++ )) ; do ( true ); done
+echo $SECONDS
+
+SECONDS=0
+for (( count=0; count<100000; count++ )) ; do true; done
+echo $SECONDS
+```
+```
+69
+1
+```
+
