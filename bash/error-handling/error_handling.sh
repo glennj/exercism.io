@@ -1,8 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-if [[ $# -ne 1 ]]; then
-    echo "Usage: ./error_handling <greetee>" >&2
-    exit 1
-fi
-
-echo "Hello, $1"
+case $# in
+    1) echo "Hello, $1" ;;
+    *) echo >&2 "Usage: ${0##*/} <person>"; exit 1 ;;
+esac
