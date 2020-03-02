@@ -5,16 +5,12 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Isogram >> isIsogramPhrase: aString [ 
-	| seen lc |
+Isogram >> isIsogramPhrase: aString [
+	| seen |
 	seen := Bag new.
-	lc := aString asLowercase.
-	1 to: (lc size) do: [ :idx |
-		|char|
-		char := lc at: idx.
-		char isLetter ifTrue: [
-			"short circuit: return immediately if a duplicate found"
-			(seen includes: char) ifTrue: [ ^ false ].
-			seen add: char ] ].
+	(aString asLowercase select: #isLetter) do: [ :letter |
+		(seen includes: letter) ifTrue: [ ^ false ].
+		seen add: letter
+	].
 	^ true
 ]
