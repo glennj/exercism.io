@@ -1,31 +1,31 @@
 # Bash
 
-[Testing](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#testing)<br>
-[Shebang](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#shebang)<br>
-[Backticks](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#backticks)<br>
-[Arithmetic](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#arithmetic)<br>
-[Parameter Expansion](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#parameter-expansion)<br>
-[Quoting](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#quoting)<br>
-[Assignment](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#assignment)<br>
-[Conditionals](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#conditionals)<br>
-[Loops](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#loops)<br>
-[Output](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#output)<br>
-[Input](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#input)<br>
-[Functions](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#functions)<br>
-[Very rare and subtle mistakes](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#very-rare-and-subtle-mistakes)<br>
-[Exercism/Philosophy](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#exercismphilosophy)<br>
-[Miscellaneous notes to be organized](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#miscellaneous-notes-to-be-organized)<br>
+[Testing](#testing)<br>
+[Shebang](#shebang)<br>
+[Backticks](#backticks)<br>
+[Arithmetic](#arithmetic)<br>
+[Parameter Expansion](#parameter-expansion)<br>
+[Quoting](#quoting)<br>
+[Assignment](#assignment)<br>
+[Conditionals](#conditionals)<br>
+[Loops](#loops)<br>
+[Output](#output)<br>
+[Input](#input)<br>
+[Functions](#functions)<br>
+[Very rare and subtle mistakes](#very-rare-and-subtle-mistakes)<br>
+[Exercism/Philosophy](#exercismphilosophy)<br>
+[Miscellaneous notes to be organized](#miscellaneous-notes-to-be-organized)<br>
 
 Exercises
 
-* [two-fer](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#two-fer)
-* [raindrops](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#raindrops)
-* [atbash-cipher](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#atbash-cipher)
-* [markdown](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#markdown)
-* [bob](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#bob)
-* [hamming](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#hamming)
-* [tournament](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#tournament)
-* [acronym](https://github.com/glennj/exercism.io/blob/master/_mentor_notes/bash.md#acronym)
+* [two-fer](#two-fer)
+* [raindrops](#raindrops)
+* [atbash-cipher](#atbash-cipher)
+* [markdown](#markdown)
+* [bob](#bob)
+* [hamming](#hamming)
+* [tournament](#tournament)
+* [acronym](#acronym)
 
 
 Check out the community solutions to see other approaches.
