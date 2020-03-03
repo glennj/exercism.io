@@ -1,0 +1,62 @@
+#!/usr/bin/env tclsh
+set version 1.1.0
+package require tcltest
+namespace import ::tcltest::*
+source "armstrong-numbers.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+customMatch boolean booleanMatch
+proc booleanMatch {expected actual} {
+    return [expr {
+        [string is boolean -strict $expected] &&
+        [string is boolean -strict $actual] &&
+        (($expected && $actual) || (!$expected && !$actual))
+    }]
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        armstrong-1 "Zero is an Armstrong number" 0 true
+        armstrong-2 "Single digit numbers are Armstrong numbers" 5 true
+        armstrong-3 "There are no 2 digit Armstrong numbers" 10 false
+        armstrong-4 "Three digit number that is an Armstrong number" 153 true
+        armstrong-5 "Three digit number that is not an Armstrong number" 100 false
+        armstrong-6 "Four digit number that is an Armstrong number" 9474 true
+        armstrong-7 "Four digit number that is not an Armstrong number" 9475 false
+        armstrong-8 "Seven digit number that is an Armstrong number" 9926315 true
+        armstrong-9 "Seven digit number that is not an Armstrong number" 9926314 false
+    }
+
+    foreach {name description number result} $cases {
+        test $name $description -body {
+            isArmstrongNumber $number
+        } -returnCodes ok -match boolean -result $result
+    }
+
+    cleanupTests
+}

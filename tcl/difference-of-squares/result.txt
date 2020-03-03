@@ -1,0 +1,3 @@
+$ tclsh benchmark.tcl
+difference::math {1.5869849999999999 microseconds per iteration}
+difference::iterative {552.979365 microseconds per iteration}

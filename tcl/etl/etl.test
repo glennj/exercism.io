@@ -1,0 +1,84 @@
+#!/usr/bin/env tclsh
+set version 2.0.0
+package require tcltest
+namespace import ::tcltest::*
+source "etl.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+# compare two dictionaries for the same keys and same values
+# - keys do not have to be in same order.
+proc dictionaryMatch {expected actual} {
+    if {[dict size $expected] != [dict size $actual]} {
+        return false
+    }
+    dict for {word count} $expected {
+        if {![dict exists $actual $word]} {
+            return false
+        }
+        if {[dict get $actual $word] != $count} {
+            return false
+        }
+    }
+    return true
+}
+customMatch dictionary dictionaryMatch
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        etl-1 "single letter" {1 {A}} {a 1}
+        etl-2 "single score with multiple letters"
+            {1 {A E I O U}}
+            {a 1 e 1 i 1 o 1 u 1}
+        etl-3 "multiple scores with multiple letters"
+            {1 {A E} 2 {D G}}
+            {a 1 d 2 e 1 g 2}
+        etl-4 "multiple scores with differing numbers of letters"
+            { 1 {A E I O U L N R S T} 
+              2 {D G} 
+              3 {B C M P}
+              4 {F H V W Y} 
+              5 {K} 
+              8 {J X} 
+              10 {Q Z} }
+            { a 1 b 3 c 3 d 2 e 1 f 4 g 2 h 4 i 1 j 8
+              k 5 l 1 m 3 n 1 o 1 p 3 q 10 r 1 s 1 t 1
+              u 1 v 4 w 4 x 8 y 4 z 10 }
+    }
+
+    foreach {name description legacy new} $cases {
+        test $name $description -body {
+            transform $legacy
+        } -returnCodes ok -match dictionary -result $new
+    }
+
+    test etl-5 "odd number of list elements" -body {
+        transform {1 {a b c} 2}
+    } -returnCodes error -result "invalid input"
+
+    cleanupTests
+}

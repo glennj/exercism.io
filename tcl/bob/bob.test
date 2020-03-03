@@ -1,0 +1,119 @@
+#!/usr/bin/env tclsh
+set version 1.6.0
+package require tcltest
+namespace import ::tcltest::*
+source "bob.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        bob-1  "stating something" \
+                "Tom-ay-to, tom-aaaah-to." \
+                "Whatever."
+        bob-2  "shouting" \
+                "WATCH OUT!" \
+                "Whoa, chill out!"
+        bob-3  "shouting gibberish" \
+                "FCECDFCAAB" \
+                "Whoa, chill out!"
+        bob-4  "asking a question" \
+                "Does this cryogenic chamber make me look fat?" \
+                "Sure."
+        bob-5  "asking a numeric question" \
+                "You are, what, like 15?" \
+                "Sure."
+        bob-6  "asking gibberish" \
+                "fffbbcbeab?" \
+                "Sure."
+        bob-7  "talking forcefully" \
+                "Hi there!" \
+                "Whatever."
+        bob-8  "using acronyms in regular speech" \
+                "It's OK if you don't want to go work for NASA." \
+                "Whatever."
+        bob-9  "forceful question" \
+                "WHAT'S GOING ON?" \
+                "Calm down, I know what I'm doing!"
+        bob-10 "shouting numbers" \
+                "1, 2, 3 GO!" \
+                "Whoa, chill out!"
+        bob-11 "no letters" \
+                "1, 2, 3" \
+                "Whatever."
+        bob-12 "question with no letters" \
+                "4?" \
+                "Sure."
+        bob-13 "shouting with special characters" \
+                "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!" \
+                "Whoa, chill out!"
+        bob-14 "shouting with no exclamation mark" \
+                "I HATE THE DENTIST" \
+                "Whoa, chill out!"
+        bob-15 "statement containing question mark" \
+                "Ending with ? means a question." \
+                "Whatever."
+        bob-16 "non-letters with question" \
+                ":) ?" \
+                "Sure."
+        bob-17 "prattling on" \
+                "Wait! Hang on. Are you going to be OK?" \
+                "Sure."
+        bob-18 "silence" \
+                "" \
+                "Fine. Be that way!"
+        bob-19 "prolonged silence" \
+                "          " \
+                "Fine. Be that way!"
+        bob-20 "alternate silence" \
+                "\t\t\t\t\t\t\t\t\t\t" \
+                "Fine. Be that way!"
+        bob-21 "multiple line question" \
+                "\nDoes this cryogenic chamber make me look fat?\nNo." \
+                "Whatever."
+        bob-22 "starting with whitespace" \
+                "         hmmmmmmm..." \
+                "Whatever."
+        bob-23 "ending with whitespace" \
+                "Okay if like my  spacebar  quite a bit?   " \
+                "Sure."
+        bob-24 "other whitespace" \
+                "\n\r \t" \
+                "Fine. Be that way!"
+        bob-25 "non-question ending with whitespace" \
+                "This is a statement ending with whitespace      " \
+                "Whatever."
+    }
+
+    foreach {name description phrase response} $cases {
+        test $name $description -body {
+            heyBob $phrase
+        } -returnCodes ok -result $response
+    }
+
+    cleanupTests
+}

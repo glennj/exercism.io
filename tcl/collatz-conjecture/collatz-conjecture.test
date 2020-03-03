@@ -1,0 +1,50 @@
+#!/usr/bin/env tclsh
+set version 1.2.1
+package require tcltest
+namespace import ::tcltest::*
+source "collatz-conjecture.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+    collatz-1 ok "zero steps for one" 1 0
+    collatz-2 ok "divide if even" 16 4
+    collatz-3 ok "even and odd steps" 12 9
+    collatz-4 ok "large number of even and odd steps" 1000000 152
+    collatz-5 error "zero is an error" 0 "Only positive numbers are allowed"
+    collatz-6 error "negative value is an error" -15 "Only positive numbers are allowed"
+    }
+
+    foreach {name status description input output} $cases {
+        test $name $description -body {
+            steps $input
+        } -returnCodes $status -result $output
+    }
+
+    cleanupTests
+}

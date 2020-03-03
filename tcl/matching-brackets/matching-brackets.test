@@ -1,0 +1,70 @@
+#!/usr/bin/env tclsh
+set version 2.0.0
+package require tcltest
+namespace import ::tcltest::*
+source "matching-brackets.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+proc booleanMatch {expected actual} {
+    return [expr {
+        [string is boolean -strict $expected] &&
+        [string is boolean -strict $actual] &&
+        !!$expected == !!$actual
+    }]
+}
+customMatch boolean booleanMatch
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        matching-brackets-1 "paired square brackets"           "\[]"            true
+        matching-brackets-1 "empty string"                     ""               true
+        matching-brackets-1 "unpaired brackets"                "\[\["           false
+        matching-brackets-1 "wrong ordered brackets"           "\}\{"           false
+        matching-brackets-1 "wrong closing bracket"            "\{]"            false
+        matching-brackets-1 "paired with whitespace"           "{ }"            true
+        matching-brackets-1 "partially paired brackets"        "\{\[])"         false
+        matching-brackets-1 "simple nested brackets"           "{\[]}"          true
+        matching-brackets-1 "several paired brackets"          "{}[]"           true
+        matching-brackets-1 "paired and nested brackets"       "(\[{}({}\[])])" true
+        matching-brackets-1 "unopened closing brackets"        "{\[)]\[]}"      false
+        matching-brackets-1 "unpaired and nested brackets"     "(\[\{])"        false
+        matching-brackets-1 "paired and wrong nested brackets" "\[({]})"        false
+        matching-brackets-1 "paired and incomplete brackets"   "{}\["           false
+        matching-brackets-1 "too many closing brackets"        "\[]]"           false
+        matching-brackets-1 "math expression"          "(((185 + 223.85) * 15) - 543)/2" true
+        matching-brackets-1 "complex latex expression" "\\left(\\begin{array}{cc} \\frac{1}{3} & x\\\\ \\mathrm{e}^{x} &... x^2 \\end{array}\\right)" true
+    }
+
+    foreach {name description input result} $cases {
+        test $name $description -body {
+            bracketsMatch $input
+        } -returnCodes ok -match boolean -result $result
+    }
+
+    cleanupTests
+}

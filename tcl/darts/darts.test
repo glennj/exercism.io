@@ -1,0 +1,57 @@
+#!/usr/bin/env tclsh
+set version 2.2.0
+package require tcltest
+namespace import ::tcltest::*
+source "darts.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        darts-1 "Missed target" -9 9 0
+        darts-2 "On the outer circle" 0 10 1
+        darts-3 "On the middle circle" -5 0 5
+        darts-4 "On the inner circle" 0 -1 10
+        darts-5 "Exactly on centre" 0 0 10
+        darts-6 "Near the centre" -0.1 -0.1 10
+        darts-7 "Just within the inner circle" 0.7 0.7 10
+        darts-8 "Just outside the inner circle" 0.8 -0.8 5
+        darts-9 "Just within the middle circle" -3.5 3.5 5
+        darts-10 "Just outside the middle circle" -3.6 -3.6 1
+        darts-11 "Just within the outer circle" -7.0 7.0 1
+        darts-12 "Just outside the outer circle" 7.1 -7.1 0
+        darts-13 "Asymmetric position between the inner and middle circles" 0.5 -4 5
+    }
+
+    foreach {name description x y value} $cases {
+        test $name $description -body {
+            score $x $y
+        } -returnCodes ok -result $value
+    }
+
+    cleanupTests
+}
