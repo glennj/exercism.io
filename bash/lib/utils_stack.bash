@@ -4,9 +4,6 @@
 source "${BASH_SOURCE[0]%/*}"/utils.bash
 checkBashVersion 4.3 namerefs
 
-# a library of useful bash functions
-# works with bash version 3.2+
-
 #############################################################
 # Stack functions
 
