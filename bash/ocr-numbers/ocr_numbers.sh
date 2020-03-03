@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 
-# requires associative array index fixes in 4.3
-if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
-    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
-then
-    echo "bash version 4.3 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+checkBashVersion 4.3 "associative array index fixes"
 
 if [[ -t 0 ]]; then
     # No input redirection, stdin is a tty: handle this as a

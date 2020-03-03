@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 
-# namerefs introduced in bash 4.3
-if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
-    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
-then
-    echo "bash version 4.3 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+source ../lib/utils_string.bash
+checkBashVersion 4.3 namerefs
 
 # the quick brown fox jumps over the lazy dog
 # 5 rails
@@ -58,8 +54,8 @@ __code() {
             idx=$(( i + j * cycle ))
             (( idx >= ${#src} )) && break
             case $type in
-                E) putAt $((k++)) "${src:idx:1}" dest ;;
-                D) putAt $idx     "${src:k++:1}" dest ;;
+                E) str::putAt $((k++)) "${src:idx:1}" dest ;;
+                D) str::putAt $idx     "${src:k++:1}" dest ;;
             esac
 
             # "middle" rails consume 2 chars per cycle
@@ -67,8 +63,8 @@ __code() {
                 idx=$(( (cycle - i) + j * cycle ))
                 (( idx >= ${#src} )) && break
                 case $type in
-                    E) putAt $((k++)) "${src:idx:1}" dest ;;
-                    D) putAt $idx     "${src:k++:1}" dest ;;
+                    E) str::putAt $((k++)) "${src:idx:1}" dest ;;
+                    D) str::putAt $idx     "${src:k++:1}" dest ;;
                 esac
             fi
         done
@@ -76,19 +72,5 @@ __code() {
 
     echo "$dest"
 }
-
-# In a string variable, set the character at a specific index
-# to be the given new character.
-# First char is at index 0
-putAt() {
-    local -i idx=$1
-    local char=${2:- }
-    local -n str=$3
-    if (( 0 <= idx && idx < ${#str} )); then
-        str=${str:0:idx}${char}${str:idx+1}
-    fi
-}
-
-die() { echo "$*" >&2; exit 1; }
 
 main "$@"

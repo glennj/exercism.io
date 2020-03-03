@@ -1,6 +1,6 @@
 #!/bin/bash
 
-die() { echo "$*" >&2; exit 1; }
+source ../lib/utils.bash    # `die`
 
 (( $# == 2 ))        || die "Usage: $(basename "$0") <string1> <string2>"
 [[ -z $1 && -n $2 ]] && die "left strand must not be empty"

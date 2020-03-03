@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 
-# namerefs introduced in bash 4.3
-if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
-    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
-then
-    echo "bash version 4.3 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+checkBashVersion 4.3 namerefs
 
 main() {
     local -i amount=$1; shift
@@ -37,6 +32,7 @@ main() {
 #
 #   S = the _first_ coin used to make change for amount n
 #       (actually stores the coin _index_ into the coins array)
+
 change() {
     local -i amount=$1
     local -n coins=$2

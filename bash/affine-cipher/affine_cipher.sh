@@ -4,10 +4,8 @@
 # shellcheck disable=SC2206
 # shellcheck disable=SC2086
 
-if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
-    echo "bash version 4.0 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+checkBashVersion 4.0 "associative arrays"
 
 declare -A alphaIdx
 declare -a alphabet
@@ -32,8 +30,6 @@ main() {
         *) die "Error: unknown subcommand '$1'" ;;
     esac
 }
-
-die() { echo "$*" >&2; exit 1; }
 
 x_code() {
     local text=$2 encoded="" char filter func

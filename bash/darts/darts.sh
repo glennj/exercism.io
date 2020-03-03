@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-# namerefs introduced in bash 4.3
-if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
-    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
-then
-    echo "bash version 4.3 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+source ../lib/utils_string.bash
+source ../lib/utils_math.bash
+
+checkBashVersion 4.3 namerefs
 
 # Given an x and y, we will calculate sqrt(x^2 + y^2) and
 # compare that against some radii to determine the score.
@@ -35,14 +33,8 @@ fi
 
 main() {
     (( $# == 2 )) || die "wrong number of arguments"
-    isnumeric "$1" && isnumeric "$2" || die "arguments must be numeric"
+    str::isFloat "$1" && str::isFloat "$2" || die "arguments must be numeric"
     score_throw "$@"
-}
-
-die() { echo "#*" >&2; exit 1; }
-
-isnumeric() {
-    [[ $1 == ?([+-])+([[:digit:]])?(.+([[:digit:]])) ]]
 }
 
 score_throw() {
@@ -79,7 +71,7 @@ asintegers() {
 
     [[ $f == *.* ]] && fexp=$(exponent $f) || fexp=0
     [[ $g == *.* ]] && gexp=$(exponent $g) || gexp=0
-    e=$( max $fexp $gexp )
+    e=$( math::max $fexp $gexp )
 
     if (( e > 0 )); then
         # We will eventually square the number, so 
@@ -103,7 +95,5 @@ exponent() {
     local frac=${float#*.}
     echo ${#frac}
 }
-
-max() { echo $(( $1 > $2 ? $1 : $2 )); }
 
 main "$@"

@@ -1,17 +1,13 @@
 #!/bin/bash
 
-if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
-    echo "bash version 4.0 required" >&2
-    exit 2
-fi
-
-shopt -s extglob
+source ../lib/utils.bash
+source ../lib/utils_string.bash
+checkBashVersion 4.0 "uppercase parameter expansion"
 
 isQuestion() { [[ $1 == *"?" ]] && echo true || echo false; }
 isShouting() { [[ $1 == *[[:alpha:]]* && $1 == "${1^^}" ]] && echo true || echo false; }
-trimright() { echo "${1/%+([[:space:]])}"; }
 
-input=$(trimright "$1")
+input=$(str::trimright "$1")
 
 if [[ -z "$input" ]]; then
     echo 'Fine. Be that way!'

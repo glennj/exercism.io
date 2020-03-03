@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ../lib/utils.bash
+
 colors=(
     black brown red orange yellow 
     green blue violet grey white
@@ -12,8 +14,6 @@ main() {
     done
     echo "$result"
 }
-
-die() { echo "$*" >&2; exit 1; }
 
 code() {
     local code

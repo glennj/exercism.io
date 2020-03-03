@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ../lib/utils.bash    # `die`
+
 # some globals
 declare -r gigasecond=1000000000
 declare -r format="%Y-%m-%dT%H:%M:%S"
@@ -19,11 +21,7 @@ main() {
     outputTimestamp $(( epoch + gigasecond ))
 }
 
-die() {
-    echo "$1" >&2
-    exit 1
-}
-
+# try to make this as platform-agnostic as possible
 determineDateCapabilities() {
     if { date --version | grep -q "GNU coreutils"; } 2>/dev/null; then
         gnuDate=true 

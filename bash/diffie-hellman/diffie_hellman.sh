@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+source ../lib/utils_math.bash
+
 main() {
     case $1 in
-        privateKey) rand 2 $2 ;;
+        privateKey) math::rand 2 $2 ;;
         publicKey|secret) "$@" ;;
         *) echo "unknown subcommand" >&2; exit 1 ;;
     esac
@@ -27,14 +29,6 @@ powmod() {
         (( result > c )) && (( result %= c ))
     done
     echo $result
-}
-
-
-# a randomish number in the range [a,b)
-rand() {
-    local -i a=$1 b=$2
-    local -i r=$(( RANDOM % (b - a) ))
-    echo $(( r + a ))
 }
 
 main "$@"

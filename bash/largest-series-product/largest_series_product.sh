@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
+source ../lib/utils.bash    # `die`
+
 series=$1
 declare -i span=$2
-
-die() { echo "$*" >&2; exit 1; }
 
 nondig="*[^[:digit:]]*"   # contains a non-digit
 

@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 
-die() { echo "$*" >&2; exit 1; }
-
-isnumeric() {
-    [[ $1 == ?([+-])+([[:digit:]]) ]]
-}
+source ../lib/utils.bash
+source ../lib/utils_string.bash
 
 main() {
     (( $# == 2 || $# == 4 )) || die "invalid arguments"
 
-    isnumeric "$1" || die "non-numeric argument"
-    isnumeric "$2" || die "non-numeric argument"
+    str::isInt "$1" || die "non-numeric argument"
+    str::isInt "$2" || die "non-numeric argument"
 
     local -i h=$1 m=$2
 
@@ -22,7 +19,7 @@ main() {
 
     case $3 in
         [+-]) 
-            isnumeric "$4" || die "non-numeric argument"
+            str::isInt "$4" || die "non-numeric argument"
             minutes=$(( minutes $3 $4 ))
             ;;
         "") : ;;

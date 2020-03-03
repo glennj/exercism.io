@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 
-# namerefs introduced in bash 4.3
-if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
-    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
-then
-    echo "bash version 4.3 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+source ../lib/utils_math.bash
+checkBashVersion 4.3 namerefs
 
 # external tools used: awk
 
@@ -65,7 +61,7 @@ div() {
 abs() {
     local -A r1
     parse $1 r1
-    reduced $(_abs ${r1[numerator]}) $(_abs ${r1[denominator]})
+    reduced $(math::abs ${r1[numerator]}) $(math::abs ${r1[denominator]})
 }
 
 # this is rational ^ real => 1/2 ^ 3 == 1/8
@@ -120,7 +116,7 @@ reduced() {
         return
     fi
 
-    local -i gcd=$( gcd $numer $denom )
+    local -i gcd=$( math::gcd $numer $denom )
     (( numer /= gcd ))
     (( denom /= gcd ))
     if (( denom < 0 )); then
@@ -132,15 +128,6 @@ reduced() {
 
 _abs() {
     (( $1 < 0 )) && echo $(( $1 * -1 )) || echo $1
-}
-
-gcd() {
-    local -i a=$(_abs $1) b=$(_abs $2)
-    if (( b > 0 )); then
-        gcd $b $((a % b))
-    else
-        echo $a
-    fi
 }
 
 main "$@"

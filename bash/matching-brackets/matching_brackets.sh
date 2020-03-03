@@ -1,13 +1,7 @@
 #!/usr/bin/env bash
 
-# requires bug fix from version 4.3
-# https://git.savannah.gnu.org/cgit/bash.git/tree/CHANGES#n2144
-if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
-    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
-then
-    echo "bash version 4.3 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+checkBashVersion 4.3 "associative array fixes"
 
 declare -A brackets=(
     ["]"]="["

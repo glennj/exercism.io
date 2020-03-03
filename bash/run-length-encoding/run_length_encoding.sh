@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ../lib/utils_string.bash
+
 main() {
     case $1 in
         encode|decode) "$1" "$2" ;;
@@ -44,19 +46,10 @@ decode() {
     while [[ $phrase =~ ([[:digit:]]+)([^[:digit:]]) ]]; do
         printf -v phrase "%s%s%s" \
             "${phrase%%${BASH_REMATCH[0]}*}" \
-            "$(str_repeat "${BASH_REMATCH[2]}" "${BASH_REMATCH[1]}")" \
+            "$(str::repeat "${BASH_REMATCH[2]}" "${BASH_REMATCH[1]}")" \
             "${phrase#*${BASH_REMATCH[0]}}"
     done
     echo "$phrase"
-}
-
-str_repeat() {
-    local char=$1 count=$2
-    local result
-    # string of count spaces
-    printf -v result "%*s" "$count" ""
-    # replace spaces with the char
-    echo "${result// /$char}"
 }
 
 main "$@"

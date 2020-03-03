@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+source ../lib/utils.bash
+source ../lib/utils_string.bash
+
 # algorithm lifted from
 # https://exercism.io/tracks/python/exercises/palindrome-products/solutions/d68cab86cad94d4d821f26da44bb0722
 
@@ -27,7 +30,7 @@ main() {
 
     local -i i=$start
     while ((step == 1 && i <= end)) || ((step == -1 && i >= end)); do
-        if is_palindrome "$i"; then
+        if str::isPalindrome "$i"; then
             local factors=$(factors $i $min $max $step)
             if [[ -n $factors ]]; then
                 printf "%d:%s\n" $i "$factors"
@@ -56,19 +59,5 @@ factors() {
     done
     echo "$factors" 
 }       
-
-die() {
-    echo "$*" >&2
-    exit 1
-}
-
-is_palindrome() {
-    local word=$1
-    local -i i j len=${#word}
-    for ((i = len / 2; i >= 0; i--)); do
-        j=$(( len - i - 1 ))
-        [[ ${word:i:1} == "${word:j:1}" ]] || return 1
-    done
-}
 
 main "$@"

@@ -4,7 +4,8 @@
 # to implement this in bash
 #
 # external tools used: tr, grep, sort, uniq, awk
-#    echo "${1//[^[:alpha:]]/}" | 
+#    echo "$1" | 
+#    tr -dc '[:alpha:]' |
 #    tr '[:upper:]' '[:lower:]' |
 #    grep -o . |
 #    sort |
@@ -14,10 +15,8 @@
 
 # but if I was forced to use bash, this:
 
-if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
-    echo "bash version 4.0 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+checkBashVersion 4.0 "associative arrays"
 
 declare -A count
 declare -l char     # lower case

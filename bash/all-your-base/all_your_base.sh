@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ../lib/utils.bash    # `die`
+
 main() {
     validate_bases "$1" "$3"
 
@@ -45,11 +47,6 @@ validate_digit() {
 
     (( digit < from_base )) || die "Digit must be less than the from base"
     (( digit >= 0 )) || die "Digit cannot be negative"
-}
-
-die() {
-    echo "$*" >&2
-    exit 1
 }
 
 main "$@"

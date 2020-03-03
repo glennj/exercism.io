@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 
-# namerefs introduced in bash 4.3
-if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
-    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
-then
-    echo "bash version 4.3 required" >&2
-    exit 2
-fi
+# look for utils.bash in the same directory as this file
+source "${BASH_SOURCE[0]%/*}"/utils.bash
+checkBashVersion 4.3 namerefs
 
+# a library of useful bash functions
+# works with bash version 3.2+
 
-# Encapsulate some stack operations
+#############################################################
+# Stack functions
 
 # one issue with namerefs is that each function in the call stack
 # must use a unique variable name:

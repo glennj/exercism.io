@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ../lib/utils.bash
+
 # I'm taking some liberties with quoting since I know
 # what the values are.
 
@@ -20,8 +22,6 @@ main() {
 
     with_units $(value $a $b $c) ohms
 }
-
-die() { echo "$*" >&2; exit 1; }
 
 indexof() {
     local color=$1 i

@@ -2,7 +2,7 @@
 #
 # inspired by @DERPSQUID9
 
-abs() { echo $(( $1 < 0 ? -1 * $1 : $1 )); }
+source ../lib/utils_math.bash
 
 # sum: n(n+1)/2
 square_of_sum=$(( ($2 * ($2 + 1) / 2) ** 2 ))
@@ -10,7 +10,7 @@ square_of_sum=$(( ($2 * ($2 + 1) / 2) ** 2 ))
 # n(n+1)(2n+1)/6
 sum_of_squares=$(( $2 * ($2 + 1) * (2 * $2 + 1) / 6 ))
 
-difference=$(abs $(( sum_of_squares - square_of_sum )))
+difference=$(math::abs $(( sum_of_squares - square_of_sum )))
 
 case $1 in
     difference | sum_of_squares | square_of_sum) echo "${!1}" ;;

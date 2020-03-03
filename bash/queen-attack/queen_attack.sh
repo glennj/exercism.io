@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+source ../lib/utils.bash
+source ../lib/utils_math.bash
+
 main() {
     local -i w_row w_col b_row b_col
 
@@ -16,18 +19,14 @@ main() {
     validate black $b_row $b_col
     (( w_row == b_row && w_col == b_col )) && die "cannot occupy same position"
 
-    local -i d_row=$( abs $(( w_row - b_row )) )
-    local -i d_col=$( abs $(( w_col - b_col )) )
+    local -i d_row=$( math::abs $(( w_row - b_row )) )
+    local -i d_col=$( math::abs $(( w_col - b_col )) )
 
     if (( d_row == 0 || d_col == 0 || d_row == d_col ))
     then echo true
     else echo false
     fi
 }
-
-die() { echo "$*" >&2; exit 1; }
-
-abs() { echo $(( $1 < 0 ? -$1 : $1 )); }
 
 validate() {
     local player=$1

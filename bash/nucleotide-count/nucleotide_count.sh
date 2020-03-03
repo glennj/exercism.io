@@ -1,9 +1,7 @@
 #!/bin/bash
 
-if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
-    echo "bash version 4.0 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+checkBashVersion 4.0 "associative arrays"
 
 if [[ "$1" == *[^ACGT]* ]]; then
     echo "Invalid nucleotide in strand" >&2

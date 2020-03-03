@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 
-# namerefs introduced in bash 4.3
-if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
-    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
-then
-    echo "bash version 4.3 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+source ../lib/utils_math.bash
+
+checkBashVersion 4.3 namerefs
 
 main() {
     local -A b1=([name]=one [size]=0 [amount]=0)
@@ -37,19 +34,10 @@ validate() {
     # if the buckets are not relatively prime, then
     # the goal must be divisible by the greatest
     # common divisor of the buckdets
-    local gcd=$(gcd $a $b)
+    local gcd=$(math::gcd $a $b)
     if (( gcd > 1 && (goal % gcd) != 0 )); then
         echo "invalid goal: unsatisfiable" >&2
         exit 1
-    fi
-}
-
-gcd() {
-    local -i a=$1 b=$2
-    if (( b > 0 )); then
-        gcd $b $((a % b))
-    else
-        echo $a
     fi
 }
 

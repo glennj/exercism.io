@@ -1,1 +1,1 @@
-pascals_triangle.2Darray.sh
+pascals_triangle.factorials.sh

@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-source ./stack.bash
+source ../lib/utils.bash
+source ../lib/utils_string.bash
+source ../lib/utils_stack.bash
+checkBashVersion 4.0 "associative arrays"
+
 
 # I'm going to be using unquoted variables to take advantage
 # of word splitting. Disable filename expansion.
@@ -24,7 +28,7 @@ main() {
             word=$1
             shift
 
-            if is_number $word; then
+            if str::isInt $word; then
                 stack::push S $word
 
             elif [[ -n ${M[$word]} ]]; then
@@ -57,14 +61,9 @@ main() {
     echo "${S[*]}"
 }
 
-# True if the first argument consists of digits only
-is_number() { [[ $1 == +([0-9]) ]]; }
-
-die() { echo "$*" >&2; exit 1; }
-
 record_macro() {
     local macro_name=$1
-    if is_number $macro_name; then 
+    if str::isInt $macro_name; then 
         die "illegal operation: cannot redefine number"
     fi
     shift

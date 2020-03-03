@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# external tools used: sort
+
 main() {
     case $1 in
         equilateral|scalene|isosceles)

@@ -1,18 +1,15 @@
 #!/usr/bin/env bash
 
+# external tools: bc
+
+source ../lib/utils.bash
+checkBashVersion 4.3 namerefs
+
 # The largest concern is finding an algorithm that is not
 # excruciatingly slow in bash. 
 # The Sieve of Eratosthenes is a good quick algorithm for 
 # finding # primes less than an upper bound. The key is 
 # estimating # an approximate upper bound for the nth prime
-
-# namerefs introduced in bash 4.3
-if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
-    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
-then
-    echo "bash version 4.3 required" >&2
-    exit 2
-fi
 
 main() {
     local -i n=$1

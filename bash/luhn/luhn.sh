@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ../lib/utils_string.bash
+
 main() {
     if (( $# != 1 )); then
         echo "usage: $(basename "$0") cc_number" >&2
@@ -18,7 +20,7 @@ main() {
 }
 
 luhn() {
-    local num=$(reverse "$1")
+    local num=$(str::reverse "$1")
     local -i i digit sum=0
 
     # x = n * 2; if x > 10 then x -= 9
@@ -30,14 +32,6 @@ luhn() {
         ((sum += digit))
     done
     (( sum % 10 == 0 )) 
-}
-
-reverse () {
-    local reversed=""
-    for (( i=${#1}-1; i >= 0; i-- )); do
-        reversed+="${1:i:1}"
-    done
-    echo "$reversed"
 }
 
 main "$@"

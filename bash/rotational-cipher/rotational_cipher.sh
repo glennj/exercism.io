@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
 
-if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
-    echo "bash version 4.0 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+source ../lib/utils_math.bash
+checkBashVersion 4.0 "associative arrays"
 
 phrase=$1
 declare -i rotation=$2
 
 # this is necessary for negative rotation
-while (( rotation < 0 )); do (( rotation += 26 )); done
-
-(( rotation %= 26 ))
+rotation=$( math::floorMod $rotation 26 )
 
 alphabet=( {a..z} )
 rotated=( "${alphabet[@]:rotation}" "${alphabet[@]:0:rotation}" )

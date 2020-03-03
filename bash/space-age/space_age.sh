@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
-if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
-    echo "bash version 4.0 required" >&2
-    exit 2
-fi
-
 # external tools used: awk
+
+source ../lib/utils.bash
+checkBashVersion 4.0 "associative arrays"
 
 secondsPerEarthYear=31557600
 

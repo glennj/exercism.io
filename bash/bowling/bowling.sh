@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 
-# namerefs introduced in bash 4.3
-if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
-    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
-then
-    echo "bash version 4.3 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+source ../lib/utils_math.bash
+checkBashVersion 4.3 namerefs
 
 # global vars
 frame=1
@@ -25,11 +21,6 @@ main() {
     done
     (( frame <= 10 )) && die "Score cannot be taken until the end of the game"
     echo $score
-}
-
-die() {
-    echo "$*" >&2
-    exit 1
 }
 
 # Check if there have been too many pins rolled for the current frame.
@@ -54,7 +45,7 @@ too_many_tenth() {
     done
     local num=${#non_strikes[@]}
     if  (( num == 0 )) ||
-        (( num == 2 && $(sum non_strikes) == 10 ))
+        (( num == 2 && $(math::sumArray non_strikes) == 10 ))
     then
         return 1        # not too many
     else
@@ -108,18 +99,10 @@ handle_tenth_frame() {
     current_frame+=( $pins )
     local num=${#current_frame[@]}
     if  (( num == 3 )) ||
-        (( num == 2 && $(sum current_frame) < 10 ))
+        (( num == 2 && $(math::sumArray current_frame) < 10 ))
     then
         (( frame += 1 ))
     fi
-}
-
-sum() {
-    # sum the contents of an array
-    local -n ary=$1
-    local -i sum=0
-    for val in ${ary[@]}; do (( sum += val )); done
-    echo $sum
 }
 
 main "$@"

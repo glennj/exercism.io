@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 
-# namerefs introduced in bash 4.3
-if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
-    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
-then
-    echo "bash version 4.3 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+source ../lib/utils_string.bash
+checkBashVersion 4.3 namerefs
 
 main() {
     local -l question=$1            # lower case
@@ -41,14 +37,14 @@ evaluate() {
     while true; do
         read -r a op b rest <<<"$q"
 
-        isInt "$a" || die "syntax error"
+        str::isInt "$a" || die "syntax error"
 
         if [[ -z $op ]]; then
             echo "$a"
             return
         fi
 
-        isInt "$b" || die "syntax error"
+        str::isInt "$b" || die "syntax error"
         isOp "$op" || die "syntax error"
 
         if [[ -n $rest ]]; then
@@ -59,8 +55,6 @@ evaluate() {
     done
 }
 
-isInt() { [[ $1 == ?(-)+([[:digit:]]) ]]; }
 isOp()  { [[ $1 == [-+*/] ]]; }
-die()   { echo "$*" >&2; exit 1; }
 
 main "$@"

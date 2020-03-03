@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 
-# namerefs introduced in bash 4.3
-if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
-    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
-then
-    echo "bash version 4.3 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+source ../lib/utils_string.bash
+checkBashVersion 4.3 namerefs
 
 main() {
     local code=$1
@@ -24,13 +20,7 @@ main() {
         reverse result
     fi
 
-    join , "${result[@]}"
-}
-
-join() {
-    local IFS=$1
-    shift
-    echo "$*"
+    str::join , "${result[@]}"
 }
 
 reverse() {

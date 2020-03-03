@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
+source ../lib/utils.bash
+
 declare -ri SHIFT=7
 declare -ri MSB=0x80    # 0b10000000, "most significant bit"
 declare -ri MASK=0x7F   # 0b01111111
-
-
-die() { echo "$*" >&2; exit 1; }
-
 
 encode() {
     result=()

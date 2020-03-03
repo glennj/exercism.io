@@ -1,14 +1,7 @@
 #!/usr/bin/env bash
 
-# `-v` test operator introduced in bash 4.3
-if    [[ ${BASH_VERSINFO[0]} -lt 4 ]] ||
-    { [[ ${BASH_VERSINFO[0]} -eq 4 ]] && [[ ${BASH_VERSINFO[1]} -lt 3 ]]; }
-then
-    echo "bash version 4.3 required" >&2
-    exit 2
-fi
-
-die() { echo "$*" >&2; exit 1; }
+source ../lib/utils.bash
+checkBashVersion 4.3 "-v operator"
 
 
 declare -A turn=(

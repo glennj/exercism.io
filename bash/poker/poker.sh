@@ -1,9 +1,7 @@
 #!/usr/bin/bash
 
-if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
-    echo "bash version 4.0 required" >&2
-    exit 2
-fi
+source ../lib/utils.bash
+checkBashVersion 4.0 "associative arrays"
 
 # external tools used: sort, grep, wc, uniq
 
@@ -28,8 +26,6 @@ main() {
         (( max == value[$hand] )) && echo "$hand" || true
     done
 }
-
-die() { echo "$*" >&2; exit $FAILURE; }
 
 validate() {
     local card="1?[234567890JQKA][HCSD]"
