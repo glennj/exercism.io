@@ -44,3 +44,28 @@ proc assert {condition errMsg} {
         error $errMsg
     }
 }
+
+
+proc foldlCoro {initValue varnames coro body} {
+    lassign $varnames accumVarname elemVarname
+    upvar 1 $accumVarname acc
+    upvar 1 $elemVarname  elem
+
+    set acc $initValue
+    while {[set elem [$coro]] ne ""} {
+        set acc [uplevel 1 $body]
+    }
+    return $acc
+}
+
+proc foldl {initValue varnames list body} {
+    lassign $varnames accumVarname elemVarname
+    upvar 1 $accumVarname acc
+    upvar 1 $elemVarname  elem
+
+    set acc $initValue
+    foreach elem $list {
+        set acc [uplevel 1 $body]
+    }
+    return $acc
+}

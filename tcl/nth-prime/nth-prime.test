@@ -1,0 +1,49 @@
+#!/usr/bin/env tclsh
+set version 2.1.0
+package require tcltest
+namespace import ::tcltest::*
+source "nth-prime.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        nth-prime "first prime"     ok     1 2
+        nth-prime "second prime"    ok     2 3
+        nth-prime "sixth prime"     ok     6 13
+        nth-prime "big prime"       ok 10001 104743
+        nth-prime "no zeroth prime" error  0 "there is no zeroth prime" 
+    }
+
+    foreach {name description status index prime} $cases {
+        test $name $description -body {
+            nthPrime $index
+        } -returnCodes $status -result $prime
+    }
+
+    cleanupTests
+}

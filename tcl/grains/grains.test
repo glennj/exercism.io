@@ -1,0 +1,59 @@
+#!/usr/bin/env tclsh
+set version 1.2.0
+package require tcltest
+namespace import ::tcltest::*
+source "grains.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        grains-1.1 "square 1"   1 ok 1
+        grains-1.2 "square 2"   2 ok 2
+        grains-1.3 "square 3"   3 ok 4
+        grains-1.4 "square 4"   4 ok 8
+        grains-1.5 "square 16" 16 ok 32768
+        grains-1.6 "square 32" 32 ok 2147483648
+        grains-1.7 "square 64" 64 ok 9223372036854775808
+
+        grains-2.1 "square 0 raises an exception" 0 error "square must be between 1 and 64"
+        grains-2.2 "negative square raises an exception" -1 error "square must be between 1 and 64"
+        grains-2.3 "square greater than 64 raises an exception" 65 error "square must be between 1 and 64"
+    }
+
+    foreach {name description square status result} $cases {
+        test $name $description -body {
+            grains square $square
+        } -returnCodes $status -result $result
+    }
+
+    test grains-3.1 "returns the total number of grains on the board" -body {
+        grains total
+    } -returnCodes ok -result 18446744073709551615
+
+    cleanupTests
+}

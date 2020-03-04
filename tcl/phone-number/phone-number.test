@@ -1,0 +1,63 @@
+#!/usr/bin/env tclsh
+set version 1.7.0
+package require tcltest
+namespace import ::tcltest::*
+source "phone-number.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        phone-1.1 "cleans the number" "(223) 456-7890" ok "2234567890"
+        phone-1.2 "cleans numbers with dots" "223.456.7890" ok "2234567890"
+        phone-1.3 "cleans numbers with multiple spaces" "223 456   7890   " ok "2234567890"
+        phone-1.4 "valid when 11 digits and starting with 1" "12234567890" ok "2234567890"
+        phone-1.5 "valid when 11 digits and starting with 1 even with punctuation" "+1 (223) 456-7890" ok "2234567890"
+
+        phone-2.1 "invalid when 9 digits" "123456789" error "incorrect number of digits"
+        phone-2.2 "invalid when 11 digits does not start with a 1" "22234567890" error "11 digits must start with 1"
+        phone-2.3 "invalid when more than 11 digits" "321234567890" error "more than 11 digits"
+        phone-2.4 "invalid with letters" "123-abc-7890" error "letters not permitted"
+        phone-2.5 "invalid with punctuations" "123-@:!-7890" error "punctuations not permitted"
+        phone-2.6 "invalid if area code starts with 0" "(023) 456-7890" error "area code cannot start with zero"
+        phone-2.7 "invalid if area code starts with 1" "(123) 456-7890" error "area code cannot start with one"
+        phone-2.8 "invalid if exchange code starts with 0" "(223) 056-7890" error "exchange code cannot start with zero"
+        phone-2.9 "invalid if exchange code starts with 1" "(223) 156-7890" error "exchange code cannot start with one"
+        phone-2.10 "invalid if area code starts with 0 on valid 11-digit number" "1 (023) 456-7890" error "area code cannot start with zero"
+        phone-2.11 "invalid if area code starts with 1 on valid 11-digit number" "1 (123) 456-7890" error "area code cannot start with one"
+        phone-2.12 "invalid if exchange code starts with 0 on valid 11-digit number" "1 (223) 056-7890" error "exchange code cannot start with zero"
+        phone-2.13 "invalid if exchange code starts with 1 on valid 11-digit number" "1 (223) 156-7890" error "exchange code cannot start with one"
+    }
+
+    foreach {name description input status output} $cases {
+        test $name $description -body {
+            clean $input
+        } -returnCodes $status -result $output
+    }
+
+    cleanupTests
+}

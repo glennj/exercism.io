@@ -1,0 +1,94 @@
+#!/usr/bin/env tclsh
+set version 1.0.0
+package require tcltest
+namespace import ::tcltest::*
+source "pythagorean-triplet.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+customMatch unorderedList unorderedListMatch
+proc unorderedListMatch {expected actual} {
+    if {[llength $expected] != [llength $actual]} {
+        return false
+    }
+    foreach elem $expected {
+        if {[lsearch -exact $actual $elem] == -1} {
+            return false
+        }
+    }
+    return true
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        triplets-1 "triplets whose sum is 12" 12 {
+            {3 4 5}
+        }
+
+        triplets-2 "triplets whose sum is 108" 108 {
+            {27 36 45}
+        }
+
+        triplets-3 "triplets whose sum is 1000" 1000 {
+            {200 375 425}
+        }
+
+        triplets-4 "no matching triplets for 1001" 1001 {}
+
+        triplets-5 "returns all matching triplets" 90 {
+            {9 40 41}
+            {15 36 39}
+        }
+
+        triplets-6 "several matching triplets" 840 {
+            {40 399 401}
+            {56 390 394}
+            {105 360 375}
+            {120 350 370}
+            {140 336 364}
+            {168 315 357}
+            {210 280 350}
+            {240 252 348}
+        }
+
+        triplets-7 "triplets for large number" 30000 {
+            {1200 14375 14425}
+            {1875 14000 14125}
+            {5000 12000 13000}
+            {6000 11250 12750}
+            {7500 10000 12500}
+        }
+    }
+
+    foreach {name description perimeter result} $cases {
+        test $name $description -body {
+            tripletsWithSum $perimeter
+        } -returnCodes ok -match unorderedList -result $result
+    }
+
+    cleanupTests
+}
