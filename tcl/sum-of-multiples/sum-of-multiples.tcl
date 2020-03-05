@@ -9,5 +9,5 @@ proc sumOfMultiples {factors limit} {
             }
         }
     }
-    tcl::mathop::+ {*}[linsert [$multiples toList] end 0]
+    tcl::mathop::+ {*}[$multiples toList]
 }

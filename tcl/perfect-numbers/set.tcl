@@ -17,6 +17,10 @@ oo::class create Set {
         }
     }
 
+    method empty {} {
+        set data [dict create]
+    }
+
     method size {} {
         dict size $data 
     }
@@ -27,5 +31,11 @@ oo::class create Set {
 
     method toList {} {
         dict keys $data 
+    }
+
+    method clone {} {
+        set new [Set new]
+        $new add {*}[my toList]
+        return $new
     }
 }
