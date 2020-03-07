@@ -1,0 +1,83 @@
+#!/usr/bin/env tclsh
+set version 1.1.0
+package require tcltest
+namespace import ::tcltest::*
+source "run-length-encoding.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        rle-1.1 "empty string"
+        encode "" ""
+
+        rle-1.2 "single characters only are encoded without count"
+        encode "XYZ" "XYZ"
+
+        rle-1.3 "string with no single characters"
+        encode "AABBBCCCC" "2A3B4C"
+
+        rle-1.4 "single characters mixed with repeated characters"
+        encode "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB" "12WB12W3B24WB"
+
+        rle-1.5 "multiple whitespace mixed in string"
+        encode "  hsqq qww  " "2 hs2q q2w2 "
+
+        rle-1.6 "lowercase characters"
+        encode "aabbbcccc" "2a3b4c"
+
+        rle-2.1 "empty string"
+        decode "" ""
+
+        rle-2.2 "single characters only"
+        decode "XYZ" "XYZ"
+
+        rle-2.3 "string with no single characters"
+        decode "2A3B4C" "AABBBCCCC"
+
+        rle-2.4 "single characters with repeated characters"
+        decode "12WB12W3B24WB" "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB"
+
+        rle-2.5 "multiple whitespace mixed in string"
+        decode "2 hs2q q2w2 " "  hsqq qww  "
+
+        rle-2.6 "lower case string"
+        decode "2a3b4c" "aabbbcccc"
+    }
+    foreach {name description func input result} $cases {
+        test $name $description -body {
+            $func $input
+        } -returnCodes ok -result $result
+    }
+
+    set string "zzz ZZ  zZ"
+    test rle-3.1 "encode followed by decode gives original string" -body {
+        decode [encode $string]
+    } -returnCodes ok -result $string
+
+    cleanupTests
+}

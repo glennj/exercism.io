@@ -1,0 +1,119 @@
+#!/usr/bin/env tclsh
+set version 2.0.0
+package require tcltest
+namespace import ::tcltest::*
+source "allergies.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+proc booleanMatch {expected actual} {
+    return [expr {
+        [string is boolean -strict $expected] &&
+        [string is boolean -strict $actual] &&
+        (($expected && $actual) || (!$expected && !$actual))
+    }]
+}
+customMatch boolean booleanMatch
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        allergies-1.1 "not allergic to anything" eggs 0 false
+        allergies-1.2 "allergic only to eggs" eggs 1 true
+        allergies-1.3 "allergic to eggs and something else" eggs 3 true
+        allergies-1.4 "allergic to something, but not eggs" eggs 2 false
+        allergies-1.5 "allergic to everything" eggs 255 true
+
+        allergies-2.1 "not allergic to anything" peanuts 0 false
+        allergies-2.2 "allergic only to peanuts" peanuts 2 true
+        allergies-2.3 "allergic to peanuts and something else" peanuts 7 true
+        allergies-2.4 "allergic to something, but not peanuts" peanuts 5 false
+        allergies-2.5 "allergic to everything" peanuts 255 true
+
+        allergies-3.1 "not allergic to anything" shellfish 0 false
+        allergies-3.2 "allergic only to shellfish" shellfish 4 true
+        allergies-3.3 "allergic to shellfish and something else" shellfish 14 true
+        allergies-3.4 "allergic to something, but not shellfish" shellfish 10 false
+        allergies-3.5 "allergic to everything" shellfish 255 true
+
+        allergies-4.1 "not allergic to anything" strawberries 0 false
+        allergies-4.2 "allergic only to strawberries" strawberries 8 true
+        allergies-4.3 "allergic to strawberries and something else" strawberries 28 true
+        allergies-4.4 "allergic to something, but not strawberries" strawberries 20 false
+        allergies-4.5 "allergic to everything" strawberries 255 true
+
+        allergies-5.1 "not allergic to anything" tomatoes 0 false
+        allergies-5.2 "allergic only to tomatoes" tomatoes 16 true
+        allergies-5.3 "allergic to tomatoes and something else" tomatoes 56 true
+        allergies-5.4 "allergic to something, but not tomatoes" tomatoes 40 false
+        allergies-5.5 "allergic to everything" tomatoes 255 true
+
+        allergies-6.1 "not allergic to anything" chocolate 0 false
+        allergies-6.2 "allergic only to chocolate" chocolate 32 true
+        allergies-6.3 "allergic to chocolate and something else" chocolate 112 true
+        allergies-6.4 "allergic to something, but not chocolate" chocolate 80 false
+        allergies-6.5 "allergic to everything" chocolate 255 true
+
+        allergies-7.1 "not allergic to anything" pollen 0 false
+        allergies-7.2 "allergic only to pollen" pollen 64 true
+        allergies-7.3 "allergic to pollen and something else" pollen 224 true
+        allergies-7.4 "allergic to something, but not pollen" pollen 160 false
+        allergies-7.5 "allergic to everything" pollen 255 true
+
+        allergies-8.1 "not allergic to anything" cats 0 false
+        allergies-8.2 "allergic only to cats" cats 128 true
+        allergies-8.3 "allergic to cats and something else" cats 192 true
+        allergies-8.4 "allergic to something, but not cats" cats 64 false
+        allergies-8.5 "allergic to everything" cats 255 true
+    }
+
+    foreach {name description allergen score result} $cases {
+        test $name $description -body {
+            allergicTo $allergen $score
+        } -returnCodes ok -match boolean -result $result
+    }
+
+    # Given a number, list all things Tom is allergic to
+    set cases {
+        allergies-9.1 "no allergies" 0 {}
+        allergies-9.2 "just eggs" 1 {eggs}
+        allergies-9.3 "just peanuts" 2 {peanuts}
+        allergies-9.4 "just strawberries" 8 {strawberries}
+        allergies-9.5 "eggs and peanuts" 3 {eggs peanuts}
+        allergies-9.6 "more than eggs but not peanuts" 5 {eggs shellfish}
+        allergies-9.7 "lots of stuff" 248 {strawberries tomatoes chocolate pollen cats}
+        allergies-9.8 "everything" 255 {eggs peanuts shellfish strawberries tomatoes chocolate pollen cats}
+        allergies-9.9 "no allergen score parts" 509 {eggs shellfish strawberries tomatoes chocolate pollen cats}
+    }
+
+    foreach {name description score result} $cases {
+        test $name $description -body {
+            listAllergies $score
+        } -returnCodes ok -result $result
+    }
+
+    cleanupTests
+}

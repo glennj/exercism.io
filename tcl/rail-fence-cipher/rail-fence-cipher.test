@@ -1,0 +1,50 @@
+#!/usr/bin/env tclsh
+set version 1.1.0
+package require tcltest
+namespace import ::tcltest::*
+source "rail-fence-cipher.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        rail-fence-cipher-1.1 encode "encode with two rails" "XOXOXOXOXOXOXOXOXO" 2 "XXXXXXXXXOOOOOOOOO"
+        rail-fence-cipher-1.2 encode "encode with three rails" "WEAREDISCOVEREDFLEEATONCE" 3 "WECRLTEERDSOEEFEAOCAIVDEN"
+        rail-fence-cipher-1.3 encode "encode with ending in the middle" "EXERCISES" 4 "ESXIEECSR"
+        rail-fence-cipher-2.1 decode "decode with three rails" "TEITELHDVLSNHDTISEIIEA" 3 "THEDEVILISINTHEDETAILS"
+        rail-fence-cipher-2.2 decode "decode with five rails" "EIEXMSMESAORIWSCE" 5 "EXERCISMISAWESOME"
+        rail-fence-cipher-2.3 decode "decode with six rails" "133714114238148966225439541018335470986172518171757571896261" 6 "112358132134558914423337761098715972584418167651094617711286"
+    }
+
+    foreach {name func description input n result} $cases {
+        test $name $description -body "
+            railFenceCipher $func $input $n
+        " -returnCodes ok -result $result
+    }
+
+    cleanupTests
+}

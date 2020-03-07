@@ -120,7 +120,7 @@ namespace eval ::struct::list {
         if {$size == 0} {return [list [list]]}
         set perms {}
         set subset {}
-        while {[set subset [nextKsubset list $size $subset]] ne ""} {
+        while {[llength [set subset [nextKsubset list $size $subset]]] != 0} {
             lappend perms {*}[Lpermutations $subset]
         }
         return $perms
