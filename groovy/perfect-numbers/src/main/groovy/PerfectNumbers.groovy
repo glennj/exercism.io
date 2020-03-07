@@ -2,7 +2,6 @@ class PerfectNumbers {
 
     static Classification classify(int num) {
         if (num <= 0) throw new ArithmeticException()
-        if (num <= 2) return Classification.DEFICIENT
 
         def sum = aliquotSum(num)
 
@@ -12,13 +11,13 @@ class PerfectNumbers {
     }
 
     static int aliquotSum(int num) {
-        def sum = 1
-        2.upto(Math.floor(Math.sqrt(num))) {
+        def factors = new HashSet()
+        1.upto(Math.floor(Math.sqrt(num))) {
             if (num % it == 0) {
-                def q = num.intdiv(it)
-                sum += it + (it == q ? 0 : q)
+                factors.addAll([it, num.intdiv(it)])
             }
         }
-        sum
+        factors.removeElement(num)
+        return factors.sum() ?: 0
     }
 }

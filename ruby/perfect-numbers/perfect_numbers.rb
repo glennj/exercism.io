@@ -1,3 +1,5 @@
+require 'set'
+
 module PerfectNumber
   module_function
 
@@ -11,12 +13,13 @@ module PerfectNumber
   def aliquot_sum(num)
     raise 'invalid' if num < 1
 
-    factors = [1]
+    factors = Set.new
     sqrt = Math.sqrt(num).floor
-    2.upto(sqrt) do |factor|
+    1.upto(sqrt) do |factor|
       div, rem = num.divmod(factor)
       factors << factor << div if rem.zero?
     end
+    factors.delete(num)
     factors.sum
   end
 end

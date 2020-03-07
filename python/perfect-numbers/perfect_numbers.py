@@ -5,12 +5,13 @@ def classify(number):
     if number < 1:
         raise ValueError('Positive numbers only.')
 
-    factors = set([1])
-    for i in range(2, 1+math.floor(math.sqrt(number))):
+    factors = set()
+    for i in range(1, 1+math.floor(math.sqrt(number))):
         q, r = divmod(number, i)
         if r == 0:
             factors.add(i)
             factors.add(q)
+    factors.remove(number)
 
     summ = sum(factors)
     if summ < number or number == 1:

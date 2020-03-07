@@ -3,26 +3,25 @@
 aliquot_sum() {
     local -i num=$1 sum
 
-    # 1 is classified as "deficient"
-    if ((num == 1)); then 
-        sum=0
-    else        
-        sum=1
-        local -i a=2 b
-        while true; do
-            b=$((num / a))
+    # So we don't need any special cases for num==1, use
+    # a Set to store the factors, then remove $num from the set.
+    # 
+    # Use the indices of an array as the set.
 
-            # only need to loop up to sqrt(num)
-            ((a > b)) && break
+    local factors=()
+    for (( i = 1; i * i <= num; i++ )); do
+        if (( num % i == 0 )); then
+            factors[i]=1
+            factors[ num / i ]=1
+        fi
+    done
+    unset "factors[num]"
+    
+    sum=0
+    for factor in "${!factors[@]}"; do
+        (( sum += factor ))
+    done
 
-            if ((a * b == num)); then
-                ((sum += a))
-                ((a != b)) && ((sum += b))
-            fi
-
-            ((a++))
-        done
-    fi
     echo $sum
 }
 
@@ -33,7 +32,7 @@ if ((num <= 0)); then
     exit 1
 fi
 
-declare -i sum=$(aliquot_sum $num)
+sum=$(aliquot_sum "$num")
 
 if   ((sum < num)); then echo deficient
 elif ((sum > num)); then echo abundant
