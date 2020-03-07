@@ -14,7 +14,7 @@ def classify(number):
     factors.remove(number)
 
     summ = sum(factors)
-    if summ < number or number == 1:
+    if summ < number:
         return "deficient"
     if summ == number:
         return "perfect"
