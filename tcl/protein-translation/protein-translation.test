@@ -1,0 +1,112 @@
+#!/usr/bin/env tclsh
+set version 1.1.1
+package require tcltest
+namespace import ::tcltest::*
+source "protein-translation.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        proteins-1 "Methionine RNA sequence"
+        AUG {Methionine}
+
+        proteins-2 "Phenylalanine RNA sequence 1"
+        UUU {Phenylalanine}
+
+        proteins-3 "Phenylalanine RNA sequence 2"
+        UUC {Phenylalanine}
+
+        proteins-4 "Leucine RNA sequence 1"
+        UUA {Leucine}
+
+        proteins-5 "Leucine RNA sequence 2"
+        UUG {Leucine}
+
+        proteins-6 "Serine RNA sequence 1"
+        UCU {Serine}
+
+        proteins-7 "Serine RNA sequence 2"
+        UCC {Serine}
+
+        proteins-8 "Serine RNA sequence 3"
+        UCA {Serine}
+
+        proteins-9 "Serine RNA sequence 4"
+        UCG {Serine}
+
+        proteins-10 "Tyrosine RNA sequence 1"
+        UAU {Tyrosine}
+
+        proteins-11 "Tyrosine RNA sequence 2"
+        UAC {Tyrosine}
+
+        proteins-12 "Cysteine RNA sequence 1"
+        UGU {Cysteine}
+
+        proteins-13 "Cysteine RNA sequence 2"
+        UGC {Cysteine}
+
+        proteins-14 "Tryptophan RNA sequence"
+        UGG {Tryptophan}
+
+        proteins-15 "STOP codon RNA sequence 1"
+        UAA {}
+
+        proteins-16 "STOP codon RNA sequence 2"
+        UAG {}
+
+        proteins-17 "STOP codon RNA sequence 3"
+        UGA {}
+
+        proteins-18 "Translate RNA strand into correct protein list"
+        AUGUUUUGG {Methionine Phenylalanine Tryptophan}
+
+        proteins-19 "Translation stops if STOP codon at beginning of sequence"
+        UAGUGG {}
+
+        proteins-20 "Translation stops if STOP codon at end of two-codon sequence"
+        UGGUAG {Tryptophan}
+
+        proteins-21 "Translation stops if STOP codon at end of three-codon sequence"
+        AUGUUUUAA {Methionine Phenylalanine}
+
+        proteins-22 "Translation stops if STOP codon in middle of three-codon sequence"
+        UGGUAGUGG {Tryptophan}
+
+        proteins-23 "Translation stops if STOP codon in middle of six-codon sequence"
+        UGGUGUUAUUAAUGGUUU {Tryptophan Cysteine Tyrosine}
+    }
+
+    foreach {name description strand result} $cases {
+        test $name $description -body {
+            proteins $strand
+        } -returnCodes ok -result $result
+    }
+
+    cleanupTests
+}

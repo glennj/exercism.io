@@ -1,0 +1,66 @@
+#!/usr/bin/env tclsh
+set version 1.2.0
+package require tcltest
+namespace import ::tcltest::*
+source "pig-latin.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        pig-latin-1 "word beginning with a" "apple" "appleay"
+        pig-latin-2 "word beginning with e" "ear" "earay"
+        pig-latin-3 "word beginning with i" "igloo" "iglooay"
+        pig-latin-4 "word beginning with o" "object" "objectay"
+        pig-latin-5 "word beginning with u" "under" "underay"
+        pig-latin-6 "word beginning with a vowel and followed by a qu" "equal" "equalay"
+        pig-latin-7 "word beginning with p" "pig" "igpay"
+        pig-latin-8 "word beginning with k" "koala" "oalakay"
+        pig-latin-9 "word beginning with x" "xenon" "enonxay"
+        pig-latin-10 "word beginning with q without a following u" "qat" "atqay"
+        pig-latin-11 "word beginning with ch" "chair" "airchay"
+        pig-latin-12 "word beginning with qu" "queen" "eenquay"
+        pig-latin-13 "word beginning with qu and a preceding consonant" "square" "aresquay"
+        pig-latin-14 "word beginning with th" "therapy" "erapythay"
+        pig-latin-15 "word beginning with thr" "thrush" "ushthray"
+        pig-latin-16 "word beginning with sch" "school" "oolschay"
+        pig-latin-17 "word beginning with yt" "yttria" "yttriaay"
+        pig-latin-18 "word beginning with xr" "xray" "xrayay"
+        pig-latin-19 "y is treated like a consonant at the beginning of a word" "yellow" "ellowyay"
+        pig-latin-20 "y is treated like a vowel at the end of a consonant cluster" "rhythm" "ythmrhay"
+        pig-latin-21 "y as second letter in two letter word" "my" "ymay"
+        pig-latin-22 "a whole phrase" "quick fast run" "ickquay astfay unray"
+    }
+
+    foreach {name description input output} $cases {
+        test $name $description -body {
+            translate $input
+        } -returnCodes ok -result $output
+    }
+
+    cleanupTests
+}
