@@ -26,6 +26,9 @@ str::ord() {
 # chr: the character represented by the given ASCII decimal value
 # $ chr 65 #=> A
 #
+# Would probably be more performant to use a fixed array of
+# letters and index into it, but this is pretty cool.
+#
 str::chr() {
     printf "\x$(printf "%x" "$1")"
 }

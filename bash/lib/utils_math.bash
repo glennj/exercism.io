@@ -17,7 +17,7 @@ math::abs() {
 # Greatest Common Divisor of two integers
 #
 math::gcd() {
-    local -i a=$(math::abs "$1") b=$(math::abs "$2")
+    local a=$(math::abs "$1") b=$(math::abs "$2")
     if (( b > 0 )); then
         math::gcd $b $((a % b))
     else
@@ -26,8 +26,9 @@ math::gcd() {
 }
 
 
-# maximum of two values
+# minimum/maximum of two values
 #
+math::min() { echo $(( $1 < $2 ? $1 : $2 )); }
 math::max() { echo $(( $1 > $2 ? $1 : $2 )); }
 
 
@@ -57,10 +58,12 @@ math::add() {
 
 
 # a randomish number in the range [a,b)
+# if only 1 parameter, the range is [0,a)
 #
 math::rand() {
-    local -i a=$1 b=$2
-    local -i r=$(( RANDOM % (b - a) ))
+    local a=$1 b=$2
+    [[ -z $b ]] && { a=0; b=$1; }
+    local r=$(( RANDOM % (b - a) ))
     echo $(( r + a ))
 }
 
@@ -76,7 +79,10 @@ math::sum() {
 # sum the contents of an array
 #
 math::sumArray() {
-    local -n __sum_array=$1
+    # namerefs are a v4.3 feature. indirect vars work in v3.2
+    #local -n __sum_array=$1
+    local ref="${1}[@]"
+    local -a __sum_array=( "${!ref}" )
     math::sum "${__sum_array[@]}"
 }
 
