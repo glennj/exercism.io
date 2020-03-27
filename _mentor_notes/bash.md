@@ -26,9 +26,10 @@ Exercises
 * [hamming](#hamming)
 * [tournament](#tournament)
 * [acronym](#acronym)
+* [grep](#grep)
 
 
-Check out the community solutions to see other approaches.
+Be sure to check out the community solutions to see other approaches.
 
 
 ---
@@ -47,6 +48,16 @@ that bash scripts start with
 That instructs the OS to run your script with bash (if you make it
 executable), and it allows people reading your code to know that 
 this is specifically a bash program. 
+
+<!-- -->
+
+We usually recommend you use 
+```bash
+#!/usr/bin/env bash
+```
+That makes the script a bit more portable (for systems where bash is not located in /bin)
+
+It does expose you to possible version conflicts (for example if you use a bash 4.3 feature in your code, but the bash found in the path is an older version)
 
 <!-- ........................................................ -->
 ## Backticks
@@ -125,7 +136,7 @@ total=$(( total + increment ))
 
 <!-- -->
 
-`((...))` is preferred over `let`. See [the let builtin command](https://wiki-dev.bash-hackers.org/commands/builtin/let) for details.
+`((...))` is preferred over `let`. See [the let builtin command](https://wiki.bash-hackers.org/commands/builtin/let) for details.
 
 <!-- -->
 
@@ -582,7 +593,7 @@ You may find this simpler to take a step back and look at the problem abstractly
 if input is silence
     echo "Fine. Be that way!"
 else if input is yelling and question
-    echo 'Calm down, I know what I'm doing!'
+    echo "Calm down, I know what I'm doing!"
 else if input is just yelling
     echo 'Whoa, chill out!'
 else if input is just a question
@@ -760,6 +771,16 @@ you can simply ensure the right-hand operand is quoted:
 ```
 
 <!-- ........................................................ -->
+## grep
+
+Instead of inventing your own way to parse the arguments, use the builtin `getopts`
+command. There's a good [tutorial on the Bash Hackers wiki][getopts] and
+[tons of examples on Stack Overflow][getopts-so].
+
+[getopts]: https://wiki.bash-hackers.org/howto/getopts_tutorial
+[getopts-so]: https://stackoverflow.com/search?q=%5Bbash%5D+getopts
+
+<!-- ........................................................ -->
 ## acronym
 
 You're not passing the last test. The problem with using unquoted variables
@@ -818,6 +839,11 @@ To not worry about upper/lower case:
 
 ---
 # Miscellaneous notes to be organized
+
+`eval` is generally considered dangerous. Here, it's pretty benign, but there's a command specifically for declaring variables -- since we're using this in a function, have to use `-g` option.
+```bash
+declare -g "$1=$((1 - $?))"
+```
 
 <!-- -->
 
