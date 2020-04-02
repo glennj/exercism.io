@@ -1,0 +1,67 @@
+#!/usr/bin/env tclsh
+set version 1.2.0
+package require tcltest
+namespace import ::tcltest::*
+source "atbash-cipher.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set encode_cases {
+        atbash-1.1 "encode yes" "yes" "bvh"
+        atbash-1.2 "encode no" "no" "ml"
+        atbash-1.3 "encode OMG" "OMG" "lnt"
+        atbash-1.4 "encode spaces" "O M G" "lnt"
+        atbash-1.5 "encode mindblowingly" "mindblowingly" "nrmwy oldrm tob"
+        atbash-1.6 "encode numbers" "Testing,1 2 3, testing." "gvhgr mt123 gvhgr mt"
+        atbash-1.7 "encode deep thought" "Truth is fiction." "gifgs rhurx grlm"
+        atbash-1.8 "encode all the letters" "The quick brown fox jumps over the lazy dog." "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt"
+    }
+
+    foreach {name description input output} $encode_cases {
+        test $name $description -body {
+            atbash encode $input
+        } -returnCodes ok -result $output
+    }
+
+    set decode_cases {
+        atbash-2.1 "decode exercism" "vcvix rhn" "exercism"
+        atbash-2.2 "decode a sentence" "zmlyh gzxov rhlug vmzhg vkkrm thglm v" "anobstacleisoftenasteppingstone"
+        atbash-2.3 "decode numbers" "gvhgr mt123 gvhgr mt" "testing123testing"
+        atbash-2.4 "decode all the letters" "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt" "thequickbrownfoxjumpsoverthelazydog"
+        atbash-2.5 "decode with too many spaces" "vc vix    r hn" "exercism"
+        atbash-2.6 "decode with no spaces" "zmlyhgzxovrhlugvmzhgvkkrmthglmv" "anobstacleisoftenasteppingstone"
+    }
+
+    foreach {name description input output} $decode_cases {
+        test $name $description -body {
+            atbash decode $input
+        } -returnCodes ok -result $output
+    }
+
+    cleanupTests
+}
