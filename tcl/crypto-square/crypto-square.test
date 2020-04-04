@@ -1,0 +1,65 @@
+#!/usr/bin/env tclsh
+set version 3.2.0
+package require tcltest
+namespace import ::tcltest::*
+source "crypto-square.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        crypto-1 "empty plaintext results in an empty ciphertext"
+            ""
+            ""
+        crypto-2 "Lowercase"
+            "A"
+            "a"
+        crypto-3 "Remove spaces"
+            "  b "
+            "b"
+        crypto-4 "Remove punctuation"
+            "@1,%!"
+            "1"
+        crypto-5 "9 character plaintext results in 3 chunks of 3 characters"
+            "This is fun!"
+            "tsf hiu isn"
+        crypto-6 "8 character plaintext results in 3 chunks, the last one with a trailing space"
+            "Chill out."
+            "clu hlt io "
+        crypto-7 "54 character plaintext results in 7 chunks, the last two with trailing spaces"
+            "If man was meant to stay on the ground, god would have given us roots."
+            "imtgdvs fearwer mayoogo anouuio ntnnlvt wttddes aohghn  sseoau "
+    }
+
+    foreach {name description plaintext ciphertext} $cases {
+        test $name $description -body {
+            encrypt $plaintext
+        } -returnCodes ok -result $ciphertext
+    }
+
+    cleanupTests
+}

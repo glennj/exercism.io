@@ -73,6 +73,7 @@ oo::class create Robot {
         set robot [iRobot #auto]
     }
     method robot {cmd} {return [$robot $cmd]}
+    unexport robot
     forward name    my robot name
     forward reset   my robot reset
 }
