@@ -1,20 +1,24 @@
 # Bash
 
-[Testing](#testing)<br>
-[Shebang](#shebang)<br>
-[Backticks](#backticks)<br>
-[Arithmetic](#arithmetic)<br>
-[Parameter Expansion](#parameter-expansion)<br>
-[Quoting](#quoting)<br>
-[Assignment](#assignment)<br>
-[Conditionals](#conditionals)<br>
-[Loops](#loops)<br>
-[Output](#output)<br>
-[Input](#input)<br>
-[Functions](#functions)<br>
-[Very rare and subtle mistakes](#very-rare-and-subtle-mistakes)<br>
-[Exercism/Philosophy](#exercismphilosophy)<br>
-[Miscellaneous notes to be organized](#miscellaneous-notes-to-be-organized)<br>
+TOC
+* [How bash interprets command](#how-bash-interprets-command)<br>
+* [Shebang](#shebang)<br>
+* [Backticks](#backticks)<br>
+* [Arithmetic](#arithmetic)<br>
+* [Parameter Expansion](#parameter-expansion)<br>
+* [Quoting](#quoting)<br>
+* [Assignment](#assignment)<br>
+* [Conditionals](#conditionals)<br>
+* [Loops](#loops)<br>
+* [Output](#output)<br>
+* [Input](#input)<br>
+* [Functions](#functions)<br>
+    * [Passing an array to a function](#passing-an-array-to-a-function)<br>
+* [Very rare and subtle mistakes](#very-rare-and-subtle-mistakes)<br>
+* Exercism
+    * [Exercism/Philosophy](#exercismphilosophy)<br>
+    * [Exercism/Testing](#exercismtesting)<br>
+* [Miscellaneous notes to be organized](#miscellaneous-notes-to-be-organized)<br>
 
 Exercises
 
@@ -29,10 +33,23 @@ Exercises
 * [grep](#grep)
 
 
-Be sure to check out the community solutions to see other approaches.
+Be sure to check out [the community solutions](https://exercism.io/tracks/bash/exercises/${SLUG}/solutions) to see other approaches.
 
+<!-- ============================================================ -->
+
+## How bash interprets a command
+
+A bash command is a "metacharacter"-separated list of words and operators; the first word is the command (except for optional leading `var=value` words).
+
+One the key things to learn to really grok bash is [3.1.1 Shell Operation](https://www.gnu.org/software/bash/manual/bash.html#Shell-Operation), and particularly [3.5 Shell Expansions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions): 
+* bash gets a command to execute
+* it is split into words and operators
+* the words are subject to expansions
+* redirections are applied
+* and finally the command is executed
 
 ---
+
 ## Testing
 
 Make use of the test suite provided for you. See [Running the Tests](https://exercism.io/tracks/bash/tests).
@@ -69,7 +86,7 @@ for more details.
 <!-- ........................................................ -->
 ## Functions
 
-It's a good habit to use `local` for function variables. Then you're not polluting the global namespace with every variable.
+It's a good habit to use `local` for function variables. Then the global namespace is not polluting with every variable.
 
 <!-- -->
 
@@ -117,6 +134,49 @@ hamming() {
 main "$@"
 ```
 
+### Passing an array to a function
+
+Regarding passing arrays around, there are 3 ways to do it without stringifying:
+
+1. **pass by value**: send all the array values as arguments to a function, and
+    the function can reassemble the values into a local array. This makes it
+    impossible to update an array in-place.
+    ```bash
+    function byval() {
+        local ary=( "$@" )
+        declare -p ary
+    }
+    my_array=( a b "c d" e )
+    byval "${my_array[@]}"
+    ```
+    Double quoting is absolutely crucial here to ensure array elements
+    containing whitespace are maintained as units.
+
+1. **pass by name**: send the array **name** to the function and use indirect
+    variables to slurp the values into the function. Again, no in-place
+    modifications. The syntax here is gross.
+    ```bash
+    function byname() {
+        local ary_name=$1
+        local tmp="${ary_name}[@]"  # this is a plain string
+        local ary=( "${!tmp}" )
+        declare -p ary
+    }
+    byname my_array
+    ```
+
+1. **pass by reference**: this requires bash version 4.3+. Send the array
+    name to the function, but the function establishes it as a reference to
+    the caller's variable. This allows the array to be updated.
+    ```bash
+    function byref() {
+        local -n ary=$1
+        declare -p ary
+        ary[2]="Hello, World!"
+    }
+    byref my_array
+    declare -p my_array
+    ```
 
 
 <!-- ........................................................ -->
@@ -274,7 +334,7 @@ There's a long writeup about it here: [Security implications of forgetting to qu
 <!-- ........................................................ -->
 ## Loops
 
-You don't need to call out to `seq`: use a builtin bash C-style for loop:
+It's not necessary to call out to `seq`: use bash's builtin C-style for loop:
 ```bash
 len=${#input}
 for (( i = 0; i < len; i++ )); do ...
@@ -484,6 +544,7 @@ It is good practice, and becomes more and more important as your programs get bi
 There is a more concise way to handle the maybe-empty variable: I suggest
 looking into the `${var:-default}` form of parameter expansion [here in the
 manual](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html).
+You may have seen this already in the "two-fer" exercise.
 
 <!-- -->
 
