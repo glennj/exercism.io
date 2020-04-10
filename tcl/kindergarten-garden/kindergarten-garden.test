@@ -1,0 +1,71 @@
+#!/usr/bin/env tclsh
+set version 1.1.1
+package require tcltest
+namespace import ::tcltest::*
+source "kindergarten-garden.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        kg-1 "garden with single student"
+            "RC\nGG" 
+            "Alice" {radishes clover grass grass}
+        kg-2 "different garden with single student"
+            "VC\nRC" 
+            "Alice" {violets clover radishes clover}
+        kg-3 "garden with two students"
+            "VVCG\nVVRC" 
+            "Bob" {clover grass radishes clover}
+        kg-4 "second student's garden"
+            "VVCCGG\nVVCCGG" 
+            "Bob" {clover clover clover clover}
+        kg-5 "third student's garden"
+            "VVCCGG\nVVCCGG" 
+            "Charlie" {grass grass grass grass}
+        kg-6 "first student's garden"
+            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
+            "Alice" {violets radishes violets radishes}
+        kg-7 "second student's garden"
+            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
+            "Bob" {clover grass clover clover}
+        kg-8 "second to last student's garden"
+            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
+            "Kincaid" {grass clover clover grass}
+        kg-9 "last student's garden"
+            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
+            "Larry" {grass violets clover violets}
+    }
+
+    foreach {name description diagram student result} $cases {
+        test $name $description -body {
+            plants $diagram $student
+        } -returnCodes ok -result $result
+    }
+
+    cleanupTests
+}

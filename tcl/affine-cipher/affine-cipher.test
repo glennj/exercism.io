@@ -1,0 +1,74 @@
+#!/usr/bin/env tclsh
+set version 2.0.0
+package require tcltest
+namespace import ::tcltest::*
+source "affine-cipher.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+
+    set encode_cases {
+        affine-1.1 "encode yes" "yes" 5 7 "xbt"
+        affine-1.2 "encode no" "no" 15 18 "fu"
+        affine-1.3 "encode OMG" "OMG" 21 3 "lvz"
+        affine-1.4 "encode O M G" "O M G" 25 47 "hjp"
+        affine-1.5 "encode mindblowingly" "mindblowingly" 11 15 "rzcwa gnxzc dgt"
+        affine-1.6 "encode numbers" "Testing,1 2 3, testing." 3 4 "jqgjc rw123 jqgjc rw"
+        affine-1.7 "encode deep thought" "Truth is fiction." 5 17 "iynia fdqfb ifje"
+        affine-1.8 "encode all the letters" "The quick brown fox jumps over the lazy dog." 17 33 "swxtj npvyk lruol iejdc blaxk swxmh qzglf"
+    }
+    foreach {name description phrase a b expected} $encode_cases {
+        test $name $description -body {
+            affine_encode $phrase $a $b
+        } -returnCodes ok -result $expected
+    }
+    test affine-1.9 "encode with a not coprime to m" -body {
+        affine_encode "This is a test." 6 17
+    } -returnCodes error -result "a and m must be coprime."
+
+
+    set decode_cases {
+        affine-2.1 "decode exercism" "tytgn fjr" 3 7 "exercism"
+        affine-2.2 "decode a sentence" "qdwju nqcro muwhn odqun oppmd aunwd o" 19 16 "anobstacleisoftenasteppingstone"
+        affine-2.3 "decode numbers" "odpoz ub123 odpoz ub" 25 7 "testing123testing"
+        affine-2.4 "decode all the letters" "swxtj npvyk lruol iejdc blaxk swxmh qzglf" 17 33 "thequickbrownfoxjumpsoverthelazydog"
+        affine-2.5 "decode with no spaces in input" "swxtjnpvyklruoliejdcblaxkswxmhqzglf" 17 33 "thequickbrownfoxjumpsoverthelazydog"
+        affine-2.6 "decode with too many spaces" "vszzm    cly   yd cg    qdp" 15 16 "jollygreengiant"
+    }
+    foreach {name description phrase a b expected} $decode_cases {
+        test $name $description -body {
+            affine_decode $phrase $a $b
+        } -returnCodes ok -result $expected
+    }
+    test affine-2.7 "decode with a not coprime to m" -body {
+        affine_decode "This is a test." 13 5
+    } -returnCodes error -result "a and m must be coprime."
+
+
+    cleanupTests
+}

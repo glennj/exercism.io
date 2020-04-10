@@ -1,0 +1,121 @@
+#!/usr/bin/env tclsh
+set version 1.0.0
+package require tcltest
+namespace import ::tcltest::*
+source "linked-list.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    test linked-list-1 "push pop" -body {
+        set result {}
+        set ll [LinkedList new]
+        $ll push 10
+        $ll push 20
+        lappend result [$ll pop]
+        lappend result [$ll pop]
+    } -returnCodes ok -result {20 10}
+
+    test linked-list-2 "push shift" -body {
+        set result {}
+        set ll [LinkedList new]
+        $ll push 10
+        $ll push 20
+        lappend result [$ll shift]
+        lappend result [$ll shift]
+    } -returnCodes ok -result {10 20}
+
+    test linked-list-3 "unshift shift" -body {
+        set result {}
+        set ll [LinkedList new]
+        $ll unshift 10
+        $ll unshift 20
+        lappend result [$ll shift]
+        lappend result [$ll shift]
+    } -returnCodes ok -result {20 10}
+
+    test linked-list-4 "unshift pop" -body {
+        set result {}
+        set ll [LinkedList new]
+        $ll unshift 10
+        $ll unshift 20
+        lappend result [$ll pop]
+        lappend result [$ll pop]
+    } -returnCodes ok -result {10 20}
+
+    test linked-list-5 "all" -body {
+        set result {}
+        set ll [LinkedList new]
+        $ll push 10
+        $ll push 20
+        lappend result [$ll pop]
+        $ll push 30
+        lappend result [$ll shift]
+        $ll unshift 40
+        $ll push 50
+        lappend result [$ll shift]
+        lappend result [$ll pop]
+        lappend result [$ll shift]
+    } -returnCodes ok -result {20 10 40 50 30}
+
+    test linked-list-6 "iteration" -body {
+        set result {}
+        set ll [LinkedList new]
+        $ll push 10
+        $ll push 20
+        $ll push 30
+        $ll for value {
+            lappend result $value
+        }
+        set result
+    } -returnCodes ok -result {10 20 30}
+
+    test linked-list-7 "length" -body {
+        set result {}
+        set ll [LinkedList new]
+        $ll push 10
+        $ll push 20
+        lappend result [$ll length]
+        $ll shift
+        lappend result [$ll length]
+        $ll pop
+        lappend result [$ll length]
+    } -returnCodes ok -result {2 1 0}
+
+    test linked-list-A "reverse" -body {
+        set ll [LinkedList new]
+        $ll push 1
+        $ll push 2
+        $ll push 3
+        set rev [$ll reversed]
+        set result {}
+        $rev for value {lappend result $value}
+        set result
+    } -returnCodes ok -result {3 2 1}
+
+    cleanupTests
+}

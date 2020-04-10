@@ -1,0 +1,64 @@
+#!/usr/bin/env tclsh
+set version 2.2.0
+package require tcltest
+namespace import ::tcltest::*
+source "house.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+    set verses {
+        "This is the house that Jack built."
+        "This is the malt that lay in the house that Jack built."
+        "This is the rat that ate the malt that lay in the house that Jack built."
+        "This is the cat that killed the rat that ate the malt that lay in the house that Jack built."
+        "This is the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+        "This is the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+        "This is the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+        "This is the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+        "This is the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+        "This is the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+        "This is the farmer sowing his corn that kept the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+        "This is the horse and the hound and the horn that belonged to the farmer sowing his corn that kept the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+    }
+
+
+    for {set i 1} {$i <= 12} {incr i} {
+        test "house-$i" "verse $i" -body "
+            recite $i $i
+        " -returnCodes ok -result [lindex $verses $i-1]
+    }
+
+    test house-13 "multiple verses" -body {
+        recite 4 8
+    } -returnCodes ok -result [join [lrange $verses 3 7] \n]
+
+    test house-14 "full rhyme" -body {
+        recite 1 12
+    } -returnCodes ok -result [join $verses \n]
+
+    cleanupTests
+}

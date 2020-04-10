@@ -1,0 +1,51 @@
+#!/usr/bin/env tclsh
+set version 1.1.0
+package require tcltest
+namespace import ::tcltest::*
+source "prime-factors.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        pf-1 "no factors" 1 {}
+        pf-2 "prime number" 2 {2}
+        pf-3 "square of a prime" 9 {3 3}
+        pf-4 "cube of a prime" 8 {2 2 2}
+        pf-5 "product of primes and non-primes" 12 {2 2 3}
+        pf-6 "product of primes" 901255 {5 17 23 461}
+        pf-7 "factors include a large prime" 93819012551 {11 9539 894119}
+    }
+
+    foreach {name description number primes} $cases {
+        test $name $description -body {
+            factors $number
+        } -returnCodes ok -result $primes
+    }
+
+    cleanupTests
+}
