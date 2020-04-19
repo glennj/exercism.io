@@ -6,6 +6,7 @@ TOC
 * [Backticks](#backticks)<br>
 * [Arithmetic](#arithmetic)<br>
 * [Parameter Expansion](#parameter-expansion)<br>
+    * [Special parameters](#special-parameters)<br>
 * [Quoting](#quoting)<br>
 * [Assignment](#assignment)<br>
 * [Conditionals](#conditionals)<br>
@@ -289,6 +290,66 @@ char="${string:i:1}"
 ```
 
 <!-- ........................................................ -->
+### Special parameters
+
+Use `set` with no options to assign to the positional parameters $1, $2, etc
+```bash
+set -- "a  b" "c * d" e
+```
+Now, $1 equals "<code>a &nbsp;b</code>" (with 2 spaces); $2 equals "`c * d`" and $3 equals "`e`".
+
+These two special parameters are extremely useful:
+* `"$*"` -> all the arguments are concatenated into a single string.  
+* `"$@"` -> expands so that each argument is separate.
+
+When they are unquoted, the usual shell 
+[Word Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting) and [Filename Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion) is allowed to happen.
+
+It's best illustrated with an example.
+Given a little testing function (note: `printf` will reuse the format string as many times as necessary to consume all its arguments):
+```bash
+check_args() {
+  echo "I have $# arguments:"
+  printf ">%s<\n" "$@"
+}
+```
+We can demonstrate:  
+* into 1 string
+    ```bash
+    $ check_args "$*"
+    I have 1 arguments:
+    >a  b c * d e<
+    ```
+* each parameter
+    ```bash
+    $ check_args "$@"
+    I have 3 arguments:
+    >a  b<
+    >c * d<
+    >e<
+    ```
+* word splitting and filename expansion allowed (unquoted `$*` will behave exactly the same):
+    ```bash
+    $ check_args $@
+    I have 8 arguments:
+    >a<
+    >b<
+    >c<
+    >README.md<
+    >bob.sh<
+    >bob_test.sh<
+    >d<
+    >e<
+    ```
+`"$*"` uses the first character of `$IFS` as the join character. By default, that is a space. If we redefine IFS, we can see the effect:
+```bash
+$ IFS=":"
+$ check_args "$*"
+I have 1 arguments:
+>a  b:c * d:e<
+```
+
+<!-- ........................................................ -->
 ## Quoting
 
 Unquoted variables are subject to [word splitting](https://mywiki.wooledge.org/WordSplitting) and [glob](https://mywiki.wooledge.org/glob) expansion.
@@ -548,29 +609,36 @@ You may have seen this already in the "two-fer" exercise.
 
 <!-- -->
 
-You can use the `+=` concatenating assignment operator: these are equivalent:
+<details><summary>You can use the <code>+=</code> concatenating assignment operator:</summary>
+These are equivalent:
+
 ```bash
 foo=${foo}bar
 foo+=bar
 ```
+</details>
+
+<!-- -->
+
+<details><summary>Instead of putting an arithmetic expansion inside the
+string-oriented <code>[[...]]</code>, you can use the arithmetic conditional
+construct. Click for details.</summary>
+
+```bash
+# instead of this
+if [[ $(( $1 % num )) == 0 ]]; then
+# do this
+if (( $1 % num == 0 )); then
+```
+see [here in the
+manual](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs)
+and scroll down to `((...))`
+</details>
 
 <!-- -->
 
 Instead of looping over all the numbers from 1 to _num_, you only
 need to test the remainder of 3, 5 and 7.
-
-<!-- -->
-
-Instead of putting an arithmetic expansion inside the string-oriented `[[...]]`, 
-you can use the arithmetic conditional construct (see [here in the
-manual](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs)
-and scroll down to `((...))`):
-```bash
-    # instead of this
-    if [[ $(( $1 % num )) == 0 ]]; then
-    # do this
-    if (( $1 % num == 0 )); then
-```
 
 <!-- ........................................................ -->
 ## atbash-cipher
@@ -662,6 +730,53 @@ else if input is just a question
 else any other input
     echo 'Whatever.'
 ```
+
+<!-- -->
+
+<details><summary>Refactor the conditions into functions. (expand for spoilers)</summary>
+
+```bash
+shouting() {
+  [[ $1 =~ [[:upper:]] ]] && [[ ! $1 =~ [[:lower:]] ]]
+}
+asking() {
+  [[ $1 =~ [?][[:space:]]*$ ]]
+}
+silent() {
+  [[ $1 =~ [^[:space:]] ]]
+}
+
+if silent "$1"; then ...
+elif asking "$1"; then
+  if shouting "$1"; then ...
+  else ...
+  fi
+elif shouting "$1"; then ...
+else ...
+fi
+```
+This works because `if` takes a _command_ as its first argument, and `[[` is a
+command (it's actually a "keyword" but acts like a command). So any command
+is valid, and the success/failure is based on the _exit status_ of the
+command. See `help if` at a bash prompt.
+
+</details>
+<details><summary>Another method is to perform each test in advance and capture the exit status</summary>
+
+```bash
+[[ $1 =~ [A-Z] ]] && [[ ! $1 =~ [a-z] ]]; shouting=$?
+...
+if [[ $shouting -eq 0 ]]; ...
+```
+or convert the 0/1 exit status into a 1/0 boolean
+```bash
+[[ $1 =~ [A-Z] ]] && [[ ! $1 =~ [a-z] ]]; shouting=$(( ! $? ))
+...
+if (( shouting )); ...
+```
+</details>
+
+<!-- -->
 
 Notice that yelling and question appear twice? That indicates we should try to put that in some reusable form, like a variable or a function.
 
