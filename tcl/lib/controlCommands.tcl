@@ -69,3 +69,32 @@ proc foldl {initValue varnames list body} {
     }
     return $acc
 }
+
+
+############################################################
+# modelled after Ruby's each_cons:
+# https://ruby-doc.org/core-2.6.3/Enumerable.html#method-i-each_cons
+#     % foreach {a b c} {1 2 3 4 5 6} {puts [list $a $b $c]}
+#     1 2 3
+#     4 5 6
+#     % foreach_cons {a b c} {1 2 3 4 5 6} {puts [list $a $b $c]}
+#     1 2 3
+#     2 3 4
+#     3 4 5
+#     4 5 6
+#
+proc foreach_cons {varnames list script} {
+    foreach var $varnames {
+        upvar 1 $var $var
+    }
+    set n [llength $varnames]
+    for {set i 0; set j [expr {$n - 1}]} \
+        {$i <= [llength $list] - $n
+        {incr i; incr j} \
+        {
+            lassign [lrange $list $i $j] {*}$varnames
+            uplevel 1 $script
+        }
+}
+
+

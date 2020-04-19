@@ -49,8 +49,8 @@ oo::class create PokerHand {
         if {[my isFlush        ]} then return
         if {[my isStraight     ]} then return
         if {[my is3ofaKind     ]} then return
-        if {[my is2Pair        ]} then return
-        if {[my is1Pair        ]} then return
+        if {[my isTwoPair      ]} then return
+        if {[my isOnePair      ]} then return
 
         set category 9
         set rank [my allCardsRank]
@@ -110,12 +110,12 @@ oo::class create PokerHand {
         return no
     }
 
-    forward is5ofaKind   my isGrouping "5"       1
+    forward is5ofaKind   my isGrouping "5"       0
     forward is4ofaKind   my isGrouping "4 1"     2
     forward isFullHouse  my isGrouping "3 2"     3
     forward is3ofaKind   my isGrouping "3 1 1"   6
-    forward is2Pair      my isGrouping "2 2 1"   7
-    forward is1Pair      my isGrouping "2 1 1 1" 8
+    forward isTwoPair    my isGrouping "2 2 1"   7
+    forward isOnePair    my isGrouping "2 1 1 1" 8
 
     method groupCards {} {
         foreach card $cards {
