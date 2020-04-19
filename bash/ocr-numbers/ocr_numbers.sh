@@ -12,16 +12,11 @@ else
     readarray -t lines
 fi
 
-if (( ${#lines[@]} % 4 != 0 )); then
-    echo "Number of input lines is not a multiple of four" >&2
-    exit 1
-fi
+assert "${#lines[@]} % 4 == 0" "Number of input lines is not a multiple of four"
 
-# assume all lines of input are same length as first line
-if (( ${#lines[0]} % 3 != 0 )); then
-    echo "Number of input columns is not a multiple of three" >&2
-    exit 1
-fi
+for line in "${lines[@]}"; do
+    assert "${#line} % 3 == 0" "Number of input columns is not a multiple of three"
+done
 
 declare -A map=(
     [" _ | ||_|   "]=0
