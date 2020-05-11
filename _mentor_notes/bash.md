@@ -187,13 +187,17 @@ bash can do arithmetic, you don't need to call out to `bc`. See [Arithmetic Expa
 
 <!-- -->
 
-You can assign to variables within an arithmetic expression:
+<details><summary>You can assign to variables within an arithmetic expression (click for details):</summary><p>
+
+Instead of
 ```bash
-# instead of
 total=$(( total + increment ))
-# you can write
+```
+You can write
+```bash
 (( total += increment ))
 ```
+</p></details>
 
 <!-- -->
 
@@ -215,6 +219,30 @@ Note that you don't need `$` for normal variables inside an arithmetic
 expression ($ is still required for positional parameters and expansions
 such as `${#var}`)
 
+<!-- -->
+
+Within an arithmetic expression, bash allows for variable names without the `$`, so:
+```bash
+if (( number % 4 == 0 ))
+```
+This allows for readable C-like expressions.
+
+It works for array elements too:
+```bash
+ary=(41 42 43)
+echo $(( ary[1] * 2 )) # => 84
+```
+The index part of numerically indexed arrays is an arithmetic expression:
+```bash
+i=0
+echo ${ary[i + 1]} # => 42
+```
+As well as the offset and length parts of the `${var:offset:length}` parameter expansion:
+```bash
+str='Hello world'
+i=4
+echo "${str:i:1},${str:i+2:2}" # => "o,wo"
+```
 <!-- -->
 
 The difference between `$((...))` and `((...))`:
@@ -395,11 +423,13 @@ There's a long writeup about it here: [Security implications of forgetting to qu
 <!-- ........................................................ -->
 ## Loops
 
-It's not necessary to call out to `seq`: use bash's builtin C-style for loop:
+<details><summary>It's not necessary to call out to <code>seq</code>: use bash's builtin C-style for loop (click for details):</summary><p>
+
 ```bash
 len=${#input}
 for (( i = 0; i < len; i++ )); do ...
 ```
+</p></details>
 
 <!-- ........................................................ -->
 ## Conditionals
