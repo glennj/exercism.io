@@ -1,0 +1,68 @@
+#!/usr/bin/env tclsh
+set version 1.4.0
+package require tcltest
+namespace import ::tcltest::*
+source "book-store.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    # results expressed in units of cents.
+    set cases {
+        bookstore-1 "Only a single book" {1} 800
+        bookstore-2 "Two of the same book" {2 2} 1600
+        bookstore-3 "Empty basket" {} 0
+        bookstore-4 "Two different books" {1 2} 1520
+        bookstore-5 "Three different books" {1 2 3} 2160
+        bookstore-6 "Four different books" {1 2 3 4} 2560
+        bookstore-7 "Five different books" {1 2 3 4 5} 3000
+        bookstore-8 "Two groups of four is cheaper than group of five plus group of three" 
+            {1 1 2 2 3 3 4 5} 5120
+        bookstore-9 "Two groups of four is cheaper than group of five plus group of three, alternate basket" 
+            {1 1 2 3 4 4 5 5} 5120
+        bookstore-10 "Group of four plus group of two is cheaper than two groups of three"
+            {1 1 2 2 3 4} 4080
+        bookstore-11 "Two each of first 4 books and 1 copy each of rest"
+            {1 1 2 2 3 3 4 4 5} 5560
+        bookstore-12 "Two copies of each book"
+            {1 1 2 2 3 3 4 4 5 5} 6000
+        bookstore-13 "Three copies of first book and 2 each of remaining"
+            {1 1 2 2 3 3 4 4 5 5 1} 6800
+        bookstore-14 "Three each of first 2 books and 2 each of remaining books"
+            {1 1 2 2 3 3 4 4 5 5 1 2} 7520
+        bookstore-15 "Four groups of four are cheaper than two groups each of five and three"
+            {1 1 2 2 3 3 4 5 1 1 2 2 3 3 4 5} 10240
+    }
+
+    foreach {name description basket cost} $cases {
+        test $name $description -body "
+            basketCost {$basket}
+        " -result $cost
+    }
+
+    cleanupTests
+}
