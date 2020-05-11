@@ -8,6 +8,9 @@ Class {
 Binary >> convert: aString toDecimalFromBase: fromBase [
 	"add this generic method to pave the way for future All Your Base exercise"
 	| fromDigits |
+	
+	(fromBase < 2)  ifTrue: [ ^self error: 'base must be >= 2' ].
+	(fromBase > 36) ifTrue: [ ^self error: 'base > 36 is not implemented' ].	
 
 	"`digitValue` properly handles up to base 36"
 	fromDigits := aString asArray collect: #digitValue.
