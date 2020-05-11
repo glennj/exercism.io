@@ -4,31 +4,29 @@ Class {
 	#category : #'Exercise@Diamond'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #generating }
 Diamond >> rowsLetter: letterString [
 	| alphabet letter size spaces rows |
 	letter := letterString first.
 	alphabet := Character alphabet asUppercase.
 
 	(alphabet includes: letter)
-		ifFalse: [ self error: 'invalid letter ', letterString ].
+		ifFalse: [ ^ self error: 'invalid letter ', letterString ].
 
 	size := alphabet indexOf: letter.
 	rows := Array new: 2 * size - 1.
 	spaces := ' ' repeat: size.
 
-	"build the top half"
 	($A to: letter) withIndexDo: [ :char :i |
-		| halfRow |
+		| halfRow row |
+		"build the top half"
 		halfRow := spaces copy.
 		halfRow at: i put: char.
-		rows at: i put: halfRow allButFirst reversed , halfRow ].
-
-	"and mirror the bottom half"
-	(rows first: size - 1) 
-		reversed 
-		withIndexDo: [ :row :i | 
-			rows at: size + i put: row ].
+		"the whole row"
+		row :=  halfRow allButFirst reversed , halfRow.
+		"add the row to the array in both hemispheres"
+		rows at: i put: row.
+		rows at: (2 * size - i) put: row ].
 
 	^ rows
 ]
