@@ -47,6 +47,8 @@ customMatch dictionary dictionaryMatch
 
 if {$::argv0 eq [info script]} {
 
+    configure -verbose [concat [configure -verbose] msec]
+
     set cases {
         alphametics-1 "puzzle with three letters"
             "I + BB == ILL"
