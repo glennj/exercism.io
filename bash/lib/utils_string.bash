@@ -82,8 +82,8 @@ str::repeat() {
 # - variable holding the string
 #
 # e.g.
-#     str="hello world"
-#     str::putAt 4 , str
+#     s="hello world"
+#     str::putAt 4 "," s
 #     echo "$string"    # => 'hell, world'
 #
 str::putAt() {
@@ -125,3 +125,12 @@ str::trimright() { echo "${1/%+([[:space:]])}"; }
 str::trimleft()  { echo "${1/#+([[:space:]])}"; }
 str::trim()      { str::trimleft "$(str::trimright "$1")"; }
 
+
+# find the first index of a substring (needle) within a string (haystack)
+# return -1 if haystack does not contain needle
+#
+str::index() {
+    local needle=$1 haystack=$2
+    local prefix=${haystack%%"$needle"*}
+    [[ "$prefix" == "$haystack" ]] && echo -1 || echo "${#prefix}"
+}
