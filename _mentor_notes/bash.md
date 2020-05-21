@@ -411,6 +411,25 @@ bash -x reverse_string.sh " a *  b"
 
 There's a long writeup about it here: [Security implications of forgetting to quote a variable in bash/POSIX shells](https://unix.stackexchange.com/questions/171346/security-implications-of-forgetting-to-quote-a-variable-in-bash-posix-shells)
 
+<!-- -->
+
+([responding to a question](https://exercism.io/mentor/solutions/9206be1023cb490a8d0a0d93d8cf15b4?iteration_idx=6#discussion-post-669985))
+
+Always quote your variables, unless you know exactly when (and why!) to leave them unquoted. Sometimes you _want_ word splitting or pathname expansion, but most often you don't.
+
+Sometimes though, you know exactly what your variables will contain. For example 
+
+* on line 26, you know that's a number, and you have not altered IFS so you know it's safe to leave unquoted.
+* or line 18, the variable of a case statement is documented to be exempt from word splitting and pathname expansion (but it's no harm to quote that variable).
+* like line 15, it's documented that variables inside `[[...]]` are not subject to word splitting and pathname expansion (but it's no harm to quote them).
+* however, since `==` is a _pattern matching_ operator inside `[[...]]`, if you want to do _equality_ comparison and the right-hand side of == is a variable, you have to quote that variable so any special glob characters are treated as plain characters.
+    ```bash
+    [[ $x == ? ]] && echo "x is any one character"
+    [[ $x == "?" ]] && echo "x is a question mark"
+    ```
+
+Like many things in bash, it's complicated, and there are exceptions to just about everything. 
+
 <!-- ........................................................ -->
 ## Assignment
 
