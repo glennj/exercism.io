@@ -21,8 +21,8 @@ namespace eval railFenceCipher {
         while 1 {
             yield $rail
             if { ($dir == -1 && $rail == 0) ||
-                 ($dir == 1 && $rail == $nrails - 1)
-            } {
+                 ($dir ==  1 && $rail == $nrails - 1)
+            } then {
                 set dir [expr {-$dir}]
             }
             incr rail $dir

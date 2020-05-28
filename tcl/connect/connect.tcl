@@ -53,7 +53,7 @@ oo::class create Connect {
                     (0 <= $rr && $rr < $height) &&
                     (0 <= $cc && $cc < $width) &&
                     [lindex $board $rr $cc] eq $player
-                } {
+                } then {
                     lappend neighbours [list $rr $cc]
                 }
             }

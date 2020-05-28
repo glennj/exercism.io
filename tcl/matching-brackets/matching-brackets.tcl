@@ -11,7 +11,7 @@ proc bracketsMatch {input} {
             if {
                 [llength $stack] == 0 ||
                 $char ne [dict get $brackets [lpop stack]]
-            } {
+            } then {
                 return false
             }
         }

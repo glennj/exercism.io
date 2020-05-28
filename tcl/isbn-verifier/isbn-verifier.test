@@ -1,0 +1,70 @@
+#!/usr/bin/env tclsh
+set version 2.7.0
+package require tcltest
+namespace import ::tcltest::*
+source "isbn-verifier.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+proc booleanMatch {expected actual} {
+    return [expr {
+        [string is boolean -strict $expected] &&
+        [string is boolean -strict $actual] &&
+        !!$expected == !!$actual
+    }]
+}
+customMatch boolean booleanMatch
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        isbn-1  "3-598-21508-8"  true   "valid isbn number"
+        isbn-2  "3-598-21508-9"  false  "invalid isbn check digit"
+        isbn-3  "3-598-21507-X"  true   "valid isbn number with a check digit of 10"
+        isbn-4  "3-598-21507-A"  false  "check digit is a character other than X"
+        isbn-5  "3-598-P1581-X"  false  "invalid character in isbn"
+        isbn-6  "3-598-2X507-9"  false  "X is only valid as a check digit"
+        isbn-7  "3598215088"     true   "valid isbn without separating dashes"
+        isbn-8  "359821507X"     true   "isbn without separating dashes and X as check digit"
+        isbn-9  "359821507"      false  "isbn without check digit and dashes"
+        isbn-10 "3598215078X"    false  "too long isbn and no dashes"
+        isbn-11 "00"             false  "too short isbn"
+        isbn-12 "3-598-21507"    false  "isbn without check digit"
+        isbn-13 "3-598-21515-X"  false  "check digit of X should not be used for 0"
+        isbn-14 ""               false  "empty isbn"
+        isbn-15 "134456729"      false  "input is 9 characters"
+        isbn-16 "3132P34035"     false  "invalid characters are not ignored"
+        isbn-17 "98245726788"    false  "input is too long but contains a valid isbn"
+    }
+
+    foreach {name input result description} $cases {
+        test $name $description \
+            -body [list isValid $input] \
+            -returnCodes ok -match boolean -result $result
+    }
+
+    cleanupTests
+}

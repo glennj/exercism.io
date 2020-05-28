@@ -70,6 +70,16 @@ proc foldl {initValue varnames list body} {
     return $acc
 }
 
+proc all {elemName list condition} {
+    upvar 1 $elemName elem
+    foreach elem $list {
+        if {![uplevel 1 [list expr $condition]]} {
+            return false
+        }
+    }
+    return true
+}
+
 
 ############################################################
 # modelled after Ruby's each_cons:

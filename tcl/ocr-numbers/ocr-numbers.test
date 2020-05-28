@@ -1,0 +1,153 @@
+#!/usr/bin/env tclsh
+set version 1.2.0
+package require tcltest
+namespace import ::tcltest::*
+source "ocr-numbers.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        ocr-1 "Recognizes 0" {
+              " _ "
+              "| |"
+              "|_|"
+              "   "
+          } ok "0"
+        ocr-2 "Recognizes 1" {
+              "   "
+              "  |"
+              "  |"
+              "   "
+          } ok "1"
+        ocr-3 "Unreadable but correctly sized inputs return ?" {
+              "   "
+              "  _"
+              "  |"
+              "   "
+          } ok "?"
+        ocr-4 "Input with a number of lines that is not a multiple of four raises an error" {
+              " _ "
+              "| |"
+              "   "
+          } error "Number of input lines is not a multiple of four"
+        ocr-5 "Input with a number of columns that is not a multiple of three raises an error" {
+              "    "
+              "   |"
+              "   |"
+              "    "
+          } error "Number of input columns is not a multiple of three"
+        ocr-6 "Recognizes 110101100" {
+              "       _     _        _  _ "
+              "  |  || |  || |  |  || || |"
+              "  |  ||_|  ||_|  |  ||_||_|"
+              "                           "
+          } ok "110101100"
+        ocr-7 "Garbled numbers in a string are replaced with ?" {
+              "       _     _           _ "
+              "  |  || |  || |     || || |"
+              "  |  | _|  ||_|  |  ||_||_|"
+              "                           "
+          } ok "11?10?1?0"
+        ocr-8 "Recognizes 2" {
+              " _ "
+              " _|"
+              "|_ "
+              "   "
+          } ok "2"
+        ocr-9 "Recognizes 3" {
+              " _ "
+              " _|"
+              " _|"
+              "   "
+          } ok "3"
+        ocr-10 "Recognizes 4" {
+              "   "
+              "|_|"
+              "  |"
+              "   "
+          } ok "4"
+        ocr-11 "Recognizes 5" {
+              " _ "
+              "|_ "
+              " _|"
+              "   "
+          } ok "5"
+        ocr-12 "Recognizes 6" {
+              " _ "
+              "|_ "
+              "|_|"
+              "   "
+          } ok "6"
+        ocr-13 "Recognizes 7" {
+              " _ "
+              "  |"
+              "  |"
+              "   "
+          } ok "7"
+        ocr-14 "Recognizes 8" {
+              " _ "
+              "|_|"
+              "|_|"
+              "   "
+          } ok "8"
+        ocr-15 "Recognizes 9" {
+              " _ "
+              "|_|"
+              " _|"
+              "   "
+          } ok "9"
+        ocr-16 "Recognizes string of decimal numbers" {
+              "    _  _     _  _  _  _  _  _ "
+              "  | _| _||_||_ |_   ||_||_|| |"
+              "  ||_  _|  | _||_|  ||_| _||_|"
+              "                              "
+          } ok "1234567890"
+        ocr-17 "Numbers separated by empty lines are recognized. Lines are joined by commas." {
+              "    _  _ "
+              "  | _| _|"
+              "  ||_  _|"
+              "         "
+              "    _  _ "
+              "|_||_ |_ "
+              "  | _||_|"
+              "         "
+              " _  _  _ "
+              "  ||_||_|"
+              "  ||_| _|"
+              "         "
+          } ok "123,456,789"
+    }
+
+    foreach {name description rows status result} $cases {
+        test $name $description -body {
+            convert $rows
+        } -returnCodes $status -result $result
+    }
+
+    cleanupTests
+}
