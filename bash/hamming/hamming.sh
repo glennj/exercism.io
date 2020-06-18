@@ -1,11 +1,9 @@
 #!/bin/bash
 
-source ../lib/utils.bash    # `die`
+source ../lib/utils.bash    # `assert`
 
-(( $# == 2 ))        || die "Usage: $(basename "$0") <string1> <string2>"
-[[ -z $1 && -n $2 ]] && die "left strand must not be empty"
-[[ -n $1 && -z $2 ]] && die "right strand must not be empty"
-(( ${#1} == ${#2} )) || die "left and right strands must be of equal length"
+assert "$# == 2"        "Usage: $(basename "$0") <string1> <string2>"
+assert "${#1} == ${#2}" "left and right strands must be of equal length"
 
 dist=0
 for ((i=0; i<${#1}; i++)); do

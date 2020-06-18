@@ -658,7 +658,7 @@ You may have seen this already in the "two-fer" exercise.
 
 <!-- -->
 
-<details><summary>You can use the <code>+=</code> concatenating assignment operator:</summary>
+<details><summary>You can use the <code>+=</code> concatenating assignment operator: click for details</summary>
 These are equivalent:
 
 ```bash
@@ -1004,6 +1004,70 @@ command. There's a good [tutorial on the Bash Hackers wiki][getopts] and
 
 [getopts]: https://wiki.bash-hackers.org/howto/getopts_tutorial
 [getopts-so]: https://stackoverflow.com/search?q=%5Bbash%5D+getopts
+
+<!-- -->
+
+Using `getopts` we can replace all of lines 28-84 with
+```bash
+while getopts ":nlivxh" opt;  do
+    case $opt in
+        h) print_help ;;
+        n) line_number=1 ;;
+        l) files_with_matches=1 ;;
+        i) ignore_case=1 ;;
+        v) invert_match=1 ;;
+        x) line_regexp=1 ;;
+        *) echo "${0##*/}: unrecognized option '$OPTARG'"
+           print_usage
+           ;;
+    esac
+done
+shift $((OPTIND - 1))   # these are the processed options
+(( $# > 0 )) || print_usage
+pattern=$1
+files=( "${@:2}" )
+```
+`getopts` only handles single-letter arguments, so `-h` instead of `--help`. 
+If you want long options, you can use `getopt` (here's [the example script](https://salsa.debian.org/debian/util-linux/blob/master/misc-utils/getopt-parse.bash) that ships with GNU getopt)
+
+<!-- -->
+
+Here's a `getopt` example that accepts long and short options:
+```bash
+temp=$(
+    getopt \
+        -o 'nlivx' \
+        --long 'help,line-number,files-with-matches,ignore-case,invert-match,line-regexp' \
+        -- "$@"
+)
+if (( $? != 0 )); then 
+    echo "getopt error" >&2
+    exit 1
+fi
+eval set -- "$temp"
+
+while true; do
+    case $1 in 
+        '-n'|'--line-number')        line_number=1;        shift ;;
+        '-l'|'--files-with-matches') files_with_matches=1; shift ;;
+        '-i'|'--ignore-case')        ignore_case=1;        shift ;;
+        '-v'|'--invert-match')       invert_match=1;       shift ;;
+        '-x'|'--line-regexp')        line_regexp=1;        shift ;;
+        '--help') print_help ;;
+        '--')     shift; break ;;
+        '--'*)    echo "unrecognized long option: '$1'" >&2
+                  print_usage
+                  ;;
+        *) : ;; # unrecognized short options silently ignored
+    esac
+done
+
+(( $# > 0 )) || print_usage
+pattern=$1
+files=( "${@:2}" )
+(( ${#files[@]} > 0 )) || files+=("-")
+```
+
 
 <!-- ........................................................ -->
 ## acronym

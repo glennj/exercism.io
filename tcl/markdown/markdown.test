@@ -1,0 +1,104 @@
+#!/usr/bin/env tclsh
+set version 1.4.0
+package require tcltest
+namespace import ::tcltest::*
+source "markdown.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        md-1 "parses normal text as a paragraph"
+            "This will be a paragraph"
+            "<p>This will be a paragraph</p>"
+
+        md-2 "parsing italics"
+            "_This will be italic_"
+            "<p><em>This will be italic</em></p>"
+
+        md-3 "parsing bold text"
+            "__This will be bold__"
+            "<p><strong>This will be bold</strong></p>"
+
+        md-4 "mixed normal, italics and bold text"
+            "This will _be_ __mixed__"
+            "<p>This will <em>be</em> <strong>mixed</strong></p>"
+
+        md-5 "with h1 header level"
+            "# This will be an h1"
+            "<h1>This will be an h1</h1>"
+
+        md-6 "with h2 header level"
+            "## This will be an h2"
+            "<h2>This will be an h2</h2>"
+
+        md-7 "with h6 header level"
+            "###### This will be an h6"
+            "<h6>This will be an h6</h6>"
+
+        md-8 "unordered lists"
+            "* Item 1\n* Item 2"
+            "<ul><li>Item 1</li><li>Item 2</li></ul>"
+
+        md-9 "With a little bit of everything"
+            "# Header!\n* __Bold Item__\n* _Italic Item_"
+            "<h1>Header!</h1><ul><li><strong>Bold Item</strong></li><li><em>Italic Item</em></li></ul>"
+
+        md-10 "with markdown symbols in the header text that should not be interpreted"
+            "# This is a header with # and * in the text"
+            "<h1>This is a header with # and * in the text</h1>"
+
+        md-11 "with markdown symbols in the list item text that should not be interpreted"
+            "* Item 1 with a # in the text\n* Item 2 with * in the text"
+            "<ul><li>Item 1 with a # in the text</li><li>Item 2 with * in the text</li></ul>"
+
+        md-12 "with markdown symbols in the paragraph text that should not be interpreted"
+            "This is a paragraph with # and * in the text"
+            "<p>This is a paragraph with # and * in the text</p>"
+
+        md-13 "unordered lists close properly with preceding and following lines"
+            "# Start a list\n* Item 1\n* Item 2\nEnd a list"
+            "<h1>Start a list</h1><ul><li>Item 1</li><li>Item 2</li></ul><p>End a list</p>"
+
+        md-tcl1 "multiple em on a line"
+            "foo _bar_ _baz_ quz"
+            "<p>foo <em>bar</em> <em>baz</em> quz</p>"
+
+        md-tcl2 "multiple strong on a line"
+            "foo __bar__ __baz__ quz"
+            "<p>foo <strong>bar</strong> <strong>baz</strong> quz</p>"
+    }
+
+    foreach {name description markdownText HTML} $cases {
+        test $name $description \
+            -body [list parse $markdownText] \
+            -returnCodes ok \
+            -result $HTML
+    }
+
+    cleanupTests
+}
