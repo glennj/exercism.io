@@ -35,7 +35,13 @@ for sentence in "$@"; do
         #   $ (( count[$lc] += 1 ))
         #   bash: ((: count[don't] += 1 : bad array subscript (error token is "count[don't] += 1 ")
         # No amount of quoting helps.
-        count[$lc]=$(( ${count[$lc]} + 1 ))
+        ###count[$lc]=$(( ${count[$lc]} + 1 ))
+
+        # 2020-06-23: breakthrough!
+        # This is possible, thanks to @undefined-None in
+        # https://exercism.io/mentor/solutions/fbdc80eeb4e043ad94397050118aecb1
+
+        (( 'count[$lc]' += 1 ))
     done
 done
 

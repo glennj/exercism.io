@@ -17,7 +17,7 @@ main() {
     case $start in
         one) solve b1 b2 $goal ;;
         two) solve b2 b1 $goal ;;
-        *) echo "invalid start bucket" >&2; exit 1 ;;
+        *)   die "invalid start bucket" ;;
     esac
 }
 
@@ -25,20 +25,14 @@ validate() {
     local a=$1 b=$2 goal=$3
 
     # the goal amount must fit in a single bucket
-    local max; (( a > b )) && max=$a || max=$b
-    if (( goal > max )); then
-        echo "invalid goal: too big" >&2
-        exit 1
-    fi
+    local max=$(math::max $a $b)
+    assert "goal <= max" "invalid goal: too big"
 
     # if the buckets are not relatively prime, then
     # the goal must be divisible by the greatest
     # common divisor of the buckdets
     local gcd=$(math::gcd $a $b)
-    if (( gcd > 1 && (goal % gcd) != 0 )); then
-        echo "invalid goal: unsatisfiable" >&2
-        exit 1
-    fi
+    assert "gcd == 1 || (goal % gcd) == 0" "invalid goal: unsatisfiable"
 }
 
 solve() {
@@ -103,16 +97,12 @@ pour() {
     # have to be careful not to reuse a variable name from
     # anywhere up the stack.
     local -n _b1=$2 _b2=$4
-    local b1_amt=${_b1[amount]}
-    local b2_amt=${_b2[amount]} 
-    local b2_cap=$(capacity _b2)
 
     # determine the amount to pour: minimum of
     # b1's current amount and b2's current capacity
-    local amount
-    (( b1_amt < b2_cap )) && amount=$b1_amt || amount=$b2_cap
-    _b1[amount]=$(( b1_amt - amount ))
-    _b2[amount]=$(( b2_amt + amount ))
+    local amount=$(math::min ${_b1[amount]} $(capacity _b2) )
+    (( _b1[amount] -= amount ))
+    (( _b2[amount] += amount ))
 }
 
 main "$@"
