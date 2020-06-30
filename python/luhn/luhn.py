@@ -4,26 +4,23 @@ from functools import reduce
 
 class Luhn(object):
     def __init__(self, card_num):
-        no_space = re.sub(r'\s', '', str(card_num))
-        digits = list(map(int, re.sub(r'\D', '', no_space)))
+        self.no_space = re.sub(r'\s', '', str(card_num))
+        self.digits = list(map(int, re.sub(r'\D', '', self.no_space)))
 
-        self._valid = False
-        if len(digits) >= 2 and len(no_space) == len(digits):
+    def valid(self):
+        valid = False
+        if len(self.digits) >= 2 and len(self.no_space) == len(self.digits):
             summ = reduce(
-                lambda acc, pair: acc + luhn_digit(*pair),
-                enumerate(reversed(digits)),
+                lambda acc, pair: acc + self.luhn_digit(*pair),
+                enumerate(reversed(self.digits)),
                 0)
-            self._valid = summ % 10 == 0
+            valid = summ % 10 == 0
+        return valid
 
-    def is_valid(self):
-        return self._valid
+    def luhn_digit(self, idx, digit):
+        d = digit * (2 if self.odd(idx) else 1)
+        d -= 9 if d > 9 else 0
+        return d
 
-
-def luhn_digit(idx, digit):
-    d = digit * (2 if odd(idx) else 1)
-    d -= 9 if d > 9 else 0
-    return d
-
-
-def odd(n):
-    return n % 2 == 1
+    def odd(self, n):
+        return n % 2 == 1

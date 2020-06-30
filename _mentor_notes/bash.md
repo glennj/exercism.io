@@ -557,6 +557,10 @@ Always use a format specifier for `printf` -- if the string to be printed
 contains a `%` character, you'll get an error. See [this shellcheck
 explanation](https://www.shellcheck.net/wiki/SC2059)
 
+<!-- -->
+
+There's a "useless" echo here: `echo $(cmd ...)` when `cmd` already prints to stdout, it's merely extra overhead to capture that output only to print it to stdout. More details at [https://github.com/koalaman/shellcheck/wiki/SC2005](https://github.com/koalaman/shellcheck/wiki/SC2005)
+
 <!-- ........................................................ -->
 ## Input
 
