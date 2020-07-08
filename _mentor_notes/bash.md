@@ -307,6 +307,8 @@ Consider the `${var:-default value}` form of [Shell Parameter Expansion](https:/
 
 Get out of the habit of using ALLCAPS variable names, leave those as reserved by the shell. One day you'll write `PATH=something` and then [wonder why your script is broken](https://stackoverflow.com/q/28310594/7552).
 
+If you're using ALLCAPS to indicate a constant, use the `readonly` or `declare -r` builtins to let the shell know too.
+
 <!-- -->
 
 In the `${var:index:length}` form of parameter expansion, both the `index`
@@ -1132,6 +1134,10 @@ To not worry about upper/lower case:
 
 ---
 # Miscellaneous notes to be organized
+
+Proper indentation becomes essential for readability as the program grows. [See what the Google style guide says about indentation](https://google.github.io/styleguide/shellguide.html#s5-formatting).
+
+<!-- -->
 
 `eval` is generally considered dangerous. Here, it's pretty benign, but there's a command specifically for declaring variables -- since we're using this in a function, have to use `-g` option.
 ```bash

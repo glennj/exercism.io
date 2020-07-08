@@ -1,4 +1,4 @@
-import { hey } from './bob-community-2';
+import { hey } from './bob';
 
 describe('Bob', () => {
   test('stating something', () => {
