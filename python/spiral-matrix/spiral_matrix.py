@@ -1,10 +1,13 @@
 from itertools import cycle
 
 
-def spiral(size):
+def spiral_matrix(size):
     matrix = [[None] * size for _ in range(size)]
     r, c = 0, 0
 
+    # this cycle determines the movement of the "current cell"
+    # (0,1) represents moving along a row to the right
+    # (1,0) represents moving down a column
     deltas = cycle(((0,1), (1,0), (0,-1), (-1,0)))
     dr, dc = next(deltas)
 

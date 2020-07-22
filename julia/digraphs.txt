@@ -1,7 +1,7 @@
 vim digraphs for julialang
 
 Operators
-
+       ^K + 
 le      =<      ≤       &#8804;
 ge      >=      ≥       &#8805;
 neq     !=      ≠       &#8800;

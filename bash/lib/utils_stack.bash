@@ -50,5 +50,5 @@ stack::peek() {
 
 stack::pop() {
     local -n __stack_pop=$1
-    ! stack::empty __stack_pop && unset __stack_pop[-1]
+    ! stack::empty __stack_pop && unset '__stack_pop[-1]'
 }

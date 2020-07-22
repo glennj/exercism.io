@@ -87,7 +87,7 @@ for more details.
 <!-- ........................................................ -->
 ## Functions
 
-It's a good habit to use `local` for function variables. Then the global namespace is not polluting with every variable.
+It's a good habit to use `local` for function variables. Then the global namespace is not polluted with every variable.
 
 <!-- -->
 
@@ -187,6 +187,12 @@ bash can do arithmetic, you don't need to call out to `bc`. See [Arithmetic Expa
 
 <!-- -->
 
+It's not necessary to use `$` for normal variables inside an arithmetic
+expression ($ is still required for positional parameters and expansions
+such as `${#var}`)
+
+<!-- -->
+
 <details><summary>You can assign to variables within an arithmetic expression (click for details):</summary><p>
 
 Instead of
@@ -215,12 +221,6 @@ You don't need to nest the arithmetic:
 
 <!-- -->
 
-Note that you don't need `$` for normal variables inside an arithmetic
-expression ($ is still required for positional parameters and expansions
-such as `${#var}`)
-
-<!-- -->
-
 Within an arithmetic expression, bash allows for variable names without the `$`, so:
 ```bash
 if (( number % 4 == 0 ))
@@ -232,17 +232,23 @@ It works for array elements too:
 ary=(41 42 43)
 echo $(( ary[1] * 2 )) # => 84
 ```
+
 The index part of numerically indexed arrays is an arithmetic expression:
 ```bash
-i=0
-echo ${ary[i + 1]} # => 42
+fibonacci=(1 1)
+for ((i=2; i<=10; i++)); do
+    (( fibonacci[i] = fibonacci[i-2] + fibonacci[i-1] ))
+done
+declare -p fibonacci 
 ```
+
 As well as the offset and length parts of the `${var:offset:length}` parameter expansion:
 ```bash
 str='Hello world'
 i=4
-echo "${str:i:1},${str:i+2:2}" # => "o,wo"
+echo "${str:i:1},${str:i + 2:6 - 4}" # => "o,wo"
 ```
+
 <!-- -->
 
 The difference between `$((...))` and `((...))`:
@@ -426,8 +432,9 @@ Sometimes though, you know exactly what your variables will contain. For example
 * like line 15, it's documented that variables inside `[[...]]` are not subject to word splitting and pathname expansion (but it's no harm to quote them).
 * however, since `==` is a _pattern matching_ operator inside `[[...]]`, if you want to do _equality_ comparison and the right-hand side of == is a variable, you have to quote that variable so any special glob characters are treated as plain characters.
     ```bash
-    [[ $x == ? ]] && echo "x is any one character"
-    [[ $x == "?" ]] && echo "x is a question mark"
+    y="?"
+    [[ $x == $y ]] && echo "x is any one character"
+    [[ $x == "$y" ]] && echo "x is a question mark"
     ```
 
 Like many things in bash, it's complicated, and there are exceptions to just about everything. 
@@ -606,6 +613,10 @@ while IFS= read -r line || [[ -n $line ]]; do ...
 This loops while `read` reads a whole newline-terminated line OR `read`
 reads some characters.
 
+<!-- -->
+
+To accurately read the lines of a file, use a `while read` loop: see [bash FAQ #1](http://mywiki.wooledge.org/BashFAQ/001).
+
 <!-- ........................................................ -->
 # Exercism/Philosophy
 
@@ -613,13 +624,13 @@ reads some characters.
 
 _(Responding to a comment about using bash features vs external tools)_
 
-Well, it depends on the purpose of the scripts you write, I suppose. If it
+Well, it depends on the purpose of the scripts you write, I a. If it
 is going to run on multiple machines, then portability will be a concern, so
 you can't target the latest and greatest bash features. If your scripts are
 going to have to run on multiple OS's, then you have to worry about how
 portable your external code is: sed on MacOS is different from GNU sed is
 different from AIX and Solaris ... In my work experience, bash scripts I
-write live in one place on the server, so portability really hasn't been a
+write live in one place on one server, so portability really hasn't been a
 concern.
 
 I currently work on a Mac, which ships with the very old bash 3.2. But with

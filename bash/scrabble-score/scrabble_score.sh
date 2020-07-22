@@ -20,7 +20,7 @@ using_associative_array() {
     word=${word//[^A-Z]/}          # remove non-letters
 
     for ((i=0; i<${#word}; i++)); do
-        (( sum += ${points[${word:i:1}]} ))
+        (( sum += points[${word:i:1}] ))
     done
     echo $sum
 }
@@ -49,5 +49,5 @@ using_case_glob() {
     echo $sum
 }
 
-#using_associative_array "$@"
-using_case_glob "$@"
+using_associative_array "$@"
+#using_case_glob "$@"

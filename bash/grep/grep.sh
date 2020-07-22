@@ -3,19 +3,13 @@
 source ../lib/utils.bash
 checkBashVersion 4.0 "lowercase parameter expansion"
 
-# Some global boolean flags
-#
-# I like to use the builtin commands `true` and `false` as
-# boolean values. Then instead of using:
-#      if [[ $var == true ]]; then echo something; fi
-# we can just rely on the exit status:
-#      $var && echo something
+# Some global boolean "flags", implemented as functions
 
-case_insensitive=false
-filename_only=false
-line_numbers=false
-full_line=false
-inverted=false
+case_insensitive () { false; }
+filename_only    () { false; }
+line_numbers     () { false; }
+full_line        () { false; }
+inverted         () { false; }
 
 main() {
     local opt pattern file
@@ -24,12 +18,12 @@ main() {
     # Process options
     while getopts :ilnxv opt; do
         case $opt in
-        i) case_insensitive=true ;;
-        l) filename_only=true ;;
-        n) line_numbers=true ;;
-        v) inverted=true ;;
-        x) full_line=true ;;
-        ?) echo "Unknown option: $OPTARG" >&2 ;;
+            i) case_insensitive () { true; } ;;
+            l) filename_only    () { true; } ;;
+            n) line_numbers     () { true; } ;;
+            v) inverted         () { true; } ;;
+            x) full_line        () { true; } ;;
+            ?) echo "Unknown option: $OPTARG" >&2 ;;
         esac
     done
     shift $((OPTIND - 1))
@@ -37,8 +31,8 @@ main() {
     local pattern=$1
     shift
 
-    $case_insensitive && pattern=${pattern,,}
-    $full_line        && pattern="^${pattern}$"
+    case_insensitive && shopt -s nocasematch
+    full_line        && pattern="^${pattern}$"
 
     for file; do
         process_file "$file" "$pattern" "$#"
@@ -51,12 +45,10 @@ process_file() {
 
     while IFS= read -r line; do
         (( lineno++ ))
-        $case_insensitive && line_cmp=${line,,} || line_cmp=$line
-
-        if { ! $inverted &&   [[ $line_cmp =~ $pattern ]]; } ||
-           {   $inverted && ! [[ $line_cmp =~ $pattern ]]; }
+        if { ! inverted &&   [[ $line =~ $pattern ]]; } ||
+           {   inverted && ! [[ $line =~ $pattern ]]; }
         then
-            if $filename_only; then
+            if filename_only; then
                 printf "%s\n" "$file"
                 break
             fi
@@ -68,8 +60,8 @@ process_file() {
 output() {
     local n=$1 file=$2 lineno=$3 line=$4
     local prefix=""
-    (( n > 1 ))   && prefix+="$file:"
-    $line_numbers && prefix+="$lineno:"
+    (( n > 1 ))  && prefix+="$file:"
+    line_numbers && prefix+="$lineno:"
     printf "%s%s\n" "$prefix" "$line"
 }
 
