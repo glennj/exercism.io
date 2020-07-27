@@ -58,9 +58,8 @@ Make use of the test suite provided for you. See [Running the Tests](https://exe
 <!-- ........................................................ -->
 ## Shebang
 
-The first 2 characters of the program file should be `#!`. It is recommended
-that bash scripts start with
-```
+It is recommended that bash scripts start with
+```bash
 #!/usr/bin/env bash
 ``` 
 That instructs the OS to run your script with bash (if you make it
