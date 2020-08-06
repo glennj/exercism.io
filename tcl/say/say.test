@@ -1,0 +1,66 @@
+#!/usr/bin/env tclsh
+set version 1.2.0
+package require tcltest
+namespace import ::tcltest::*
+source "say.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        say-1 0 "zero" "zero"
+        say-2 1 "one" "one"
+        say-3 14 "fourteen" "fourteen"
+        say-4 20 "twenty" "twenty"
+        say-5 22 "twenty-two" "twenty-two"
+        say-6 100 "one hundred" "one hundred"
+        say-7 123 "one hundred twenty-three" "one hundred twenty-three"
+        say-8 1000 "one thousand" "one thousand"
+        say-9 1234 "one thousand two hundred thirty-four" "one thousand two hundred thirty-four"
+        say-10 1000000 "one million" "one million"
+        say-11 1002345 "one million two thousand three hundred forty-five" "one million two thousand three hundred forty-five"
+        say-12 1000000000 "one billion" "one billion"
+        say-13 987654321123 "nine hundred eighty-seven billion six hundred fifty-four million three hundred twenty-one thousand one hundred twenty-three" "a big number"
+    }
+    set errors {
+        say-14 -1 "input out of range" "numbers below zero are out of range"
+        say-15 1000000000000 "input out of range" "numbers above 999,999,999,999 are out of range"
+    }
+
+    foreach {name number result description} $cases {
+        test $name $description -body {
+            say $number
+        } -returnCodes ok -result $result
+    }
+    foreach {name number result description} $errors {
+        test $name $description -body {
+            say $number
+        } -returnCodes error -result $result
+    }
+
+    cleanupTests
+}

@@ -1,0 +1,364 @@
+#!/usr/bin/env tclsh
+set version 1.2.1
+package require tcltest
+namespace import ::tcltest::*
+source "word-search.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+proc dictionaryMatch {expected actual} {
+    if {[dict size $expected] != [dict size $actual]} {
+        return false
+    }
+    dict for {key value} $expected {
+        if {![dict exists $actual $key]} {
+            return false
+        }
+        if {[dict get $actual $key] != $value} {
+            return false
+        }
+    }
+    return true
+}
+customMatch dictionary dictionaryMatch
+
+
+if {$::argv0 eq [info script]} {
+
+    # note that grid coordinates are 1-indexed
+
+    set cases {
+        ws-1 "Should accept an initial game grid and a target search word"
+            {
+                jefblpepre
+            }
+            {clojure}
+            {clojure {}}
+
+        ws-2 "Should locate one word written left to right"
+            {
+                clojurermt
+            }
+            {clojure}
+            {clojure {{1 1} {7 1}}}
+
+        ws-3 "Should locate the same word written left to right in a different position"
+            {
+                mtclojurer
+            }
+            {clojure}
+            {clojure {{3 1} {9 1}}}
+
+        ws-4 "Should locate a different left to right word"
+            {
+                coffeelplx
+            }
+            {coffee}
+            {coffee {{1 1} {6 1}}}
+
+        ws-5 "Should locate that different left to right word in a different position"
+            {
+                xcoffeezlp
+            }
+            {coffee}
+            {coffee {{2 1} {7 1}}}
+
+        ws-6 "Should locate a left to right word in two line grid"
+            {
+                jefblpepre
+                tclojurerm
+            }
+            {clojure}
+            {clojure {{2 2} {8 2}}}
+
+        ws-7 "Should locate a left to right word in three line grid"
+            {
+                camdcimgtc
+                jefblpepre
+                clojurermt
+            }
+            {clojure}
+            {clojure {{1 3} {7 3}}}
+
+        ws-8 "Should locate a left to right word in ten line grid"
+            {
+                jefblpepre
+                camdcimgtc
+                oivokprjsm
+                pbwasqroua
+                rixilelhrs
+                wolcqlirpc
+                screeaumgr
+                alxhpburyi
+                jalaycalmp
+                clojurermt
+            }
+            {clojure}
+            {clojure {{1 10} {7 10}}}
+
+        ws-9 "Should locate that left to right word in a different position in a ten line grid"
+            {
+                jefblpepre
+                camdcimgtc
+                oivokprjsm
+                pbwasqroua
+                rixilelhrs
+                wolcqlirpc
+                screeaumgr
+                alxhpburyi
+                clojurermt
+                jalaycalmp
+            }
+            {clojure}
+            {clojure {{1 9} {7 9}}}
+
+        ws-10 "Should locate a different left to right word in a ten line grid"
+            {
+                jefblpepre
+                camdcimgtc
+                oivokprjsm
+                pbwasqroua
+                rixilelhrs
+                wolcqlirpc
+                fortranftw
+                alxhpburyi
+                clojurermt
+                jalaycalmp
+            }
+            {fortran}
+            {fortran {{1 7} {7 7}}}
+
+        ws-11 "Should locate multiple words"
+            {
+                jefblpepre
+                camdcimgtc
+                oivokprjsm
+                pbwasqroua
+                rixilelhrs
+                wolcqlirpc
+                fortranftw
+                alxhpburyi
+                jalaycalmp
+                clojurermt
+            }
+            {fortran clojure}
+            {clojure {{1 10} {7 10}} fortran {{1 7} {7 7}}}
+
+        ws-12 "Should locate a single word written right to left"
+            {
+                rixilelhrs
+            }
+            {elixir}
+            {elixir {{6 1} {1 1}}}
+
+        ws-13 "Should locate multiple words written in different horizontal directions"
+            {
+                jefblpepre
+                camdcimgtc
+                oivokprjsm
+                pbwasqroua
+                rixilelhrs
+                wolcqlirpc
+                screeaumgr
+                alxhpburyi
+                jalaycalmp
+                clojurermt
+            }
+            {elixir clojure}
+            {clojure {{1 10} {7 10}} elixir {{6 5} {1 5}}}
+
+        ws-14 "Should locate words written top to bottom"
+            {
+                jefblpepre
+                camdcimgtc
+                oivokprjsm
+                pbwasqroua
+                rixilelhrs
+                wolcqlirpc
+                screeaumgr
+                alxhpburyi
+                jalaycalmp
+                clojurermt
+            }
+            {clojure elixir ecmascript}
+            {
+                clojure {{1 10} {7 10}} 
+                elixir {{6 5} {1 5}} 
+                ecmascript {{10 1} {10 10}}
+            }
+
+        ws-15 "Should locate words written bottom to top"
+            {
+                jefblpepre
+                camdcimgtc
+                oivokprjsm
+                pbwasqroua
+                rixilelhrs
+                wolcqlirpc
+                screeaumgr
+                alxhpburyi
+                jalaycalmp
+                clojurermt
+            }
+            {clojure elixir ecmascript rust}
+            {
+                clojure {{1 10} {7 10}} 
+                elixir {{6 5} {1 5}} 
+                ecmascript {{10 1} {10 10}} 
+                rust {{9 5} {9 2}}
+            }
+
+        ws-16 "Should locate words written top left to bottom right"
+            {
+                jefblpepre
+                camdcimgtc
+                oivokprjsm
+                pbwasqroua
+                rixilelhrs
+                wolcqlirpc
+                screeaumgr
+                alxhpburyi
+                jalaycalmp
+                clojurermt
+            }
+            {clojure elixir ecmascript rust java}
+            {
+                clojure {{1 10} {7 10}} 
+                elixir {{6 5} {1 5}} 
+                ecmascript {{10 1} {10 10}} 
+                rust {{9 5} {9 2}} 
+                java {{1 1} {4 4}}
+            }
+
+        ws-17 "Should locate words written bottom right to top left"
+            {
+                jefblpepre
+                camdcimgtc
+                oivokprjsm
+                pbwasqroua
+                rixilelhrs
+                wolcqlirpc
+                screeaumgr
+                alxhpburyi
+                jalaycalmp
+                clojurermt
+            }
+            {clojure elixir ecmascript rust java lua}
+            {
+                clojure {{1 10} {7 10}} 
+                elixir {{6 5} {1 5}} 
+                ecmascript {{10 1} {10 10}} 
+                rust {{9 5} {9 2}} 
+                java {{1 1} {4 4}} 
+                lua {{8 9} {6 7}}
+            }
+
+        ws-18 "Should locate words written bottom left to top right"
+            {
+                jefblpepre
+                camdcimgtc
+                oivokprjsm
+                pbwasqroua
+                rixilelhrs
+                wolcqlirpc
+                screeaumgr
+                alxhpburyi
+                jalaycalmp
+                clojurermt
+            }
+            {clojure elixir ecmascript rust java lua lisp}
+            {
+                clojure {{1 10} {7 10}} 
+                elixir {{6 5} {1 5}} 
+                ecmascript {{10 1} {10 10}} 
+                rust {{9 5} {9 2}} 
+                java {{1 1} {4 4}} 
+                lua {{8 9} {6 7}} 
+                lisp {{3 6} {6 3}}
+            }
+
+        ws-19 "Should locate words written top right to bottom left"
+            {
+                jefblpepre
+                camdcimgtc
+                oivokprjsm
+                pbwasqroua
+                rixilelhrs
+                wolcqlirpc
+                screeaumgr
+                alxhpburyi
+                jalaycalmp
+                clojurermt
+            }
+            {clojure elixir ecmascript rust java lua lisp ruby}
+            {
+                clojure {{1 10} {7 10}} 
+                elixir {{6 5} {1 5}} 
+                ecmascript {{10 1} {10 10}} 
+                rust {{9 5} {9 2}} 
+                java {{1 1} {4 4}} 
+                lua {{8 9} {6 7}} 
+                lisp {{3 6} {6 3}} 
+                ruby {{8 6} {5 9}}
+            }
+
+        ws-20 "Should fail to locate a word that is not in the puzzle"
+            {
+                jefblpepre
+                camdcimgtc
+                oivokprjsm
+                pbwasqroua
+                rixilelhrs
+                wolcqlirpc
+                screeaumgr
+                alxhpburyi
+                jalaycalmp
+                clojurermt
+            }
+            {clojure elixir ecmascript rust java lua lisp ruby haskell}
+            {
+                clojure {{1 10} {7 10}} 
+                elixir {{6 5} {1 5}} 
+                ecmascript {{10 1} {10 10}} 
+                rust {{9 5} {9 2}} 
+                java {{1 1} {4 4}} 
+                lua {{8 9} {6 7}} 
+                lisp {{3 6} {6 3}} 
+                ruby {{8 6} {5 9}} 
+                haskell {}
+            }
+    }
+
+    foreach {name description grid words result} $cases {
+        test $name $description \
+            -body [list wordSearch $grid $words] \
+            -returnCodes ok \
+            -match dictionary \
+            -result $result
+    }
+
+    cleanupTests
+}
