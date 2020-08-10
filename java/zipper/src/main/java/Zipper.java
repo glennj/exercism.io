@@ -1,23 +1,38 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Zipper {
-    private BinaryTree tree;
-    private List<Zipper> path;
-    public
+    BinaryTree tree;
+    int value;
+    Zipper left;
+    Zipper right;
+    Zipper up;
 
     Zipper(int value) {
-        this.tree = new BinaryTree(value, this);
-        path = new ArrayList<>();
+        setValue(value);
+        setTree(new BinaryTree(this));
     }
 
-    void setTree(BinaryTree tree) {
-        this.tree = tree;
+    void setValue(int value)      { this.value = value; }
+    void setTree(BinaryTree tree) { this.tree = tree; }
+
+    BinaryTree toTree()  {
+        Zipper root = this;
+        while (root.up != null)
+            root = root.up;
+        return root.tree;
     }
 
-    BinaryTree getTree() { return this.tree; }
+    int getValue()    { return value; }
+    Zipper getLeft()  { return left; }
+    Zipper getRight() { return right; }
 
-    int getValue() { return this.tree.getValue(); }
-    BinaryTree getLeft() { return this.tree.getLeft(); }
-    BinaryTree getRight() { return this.tree.getRight(); }
+    void setLeft(Zipper zipper)  {
+        if (zipper != null)
+            zipper.up = this;
+        left = zipper;
+    }
+
+    void setRight(Zipper zipper) {
+        if (zipper != null)
+            zipper.up = this;
+        right = zipper;
+    }
 }

@@ -456,6 +456,8 @@ Like many things in bash, it's complicated, and there are exceptions to just abo
 len=${#input}
 for (( i = 0; i < len; i++ )); do ...
 ```
+
+See [Looping Constructs](https://www.gnu.org/software/bash/manual/bash.html#Looping-Constructs) in the manual.
 </p></details>
 
 <!-- ........................................................ -->
@@ -1010,6 +1012,29 @@ you can simply ensure the right-hand operand is quoted:
 ```bash
 		if [[ ${s:$i:1} != "${t:$i:1}" ]]; then
 ```
+
+<!-- When use user does `[ ${s:i:1} != ${t:i:1} ]` in single brackets -->
+
+Note that, since you're using the single bracket conditional on line 23, you're exposing a slightly different bug:
+```bash
+$ bash hamming.sh 'AAA' 'A?A'
+1
+$ touch A
+$ bash hamming.sh 'AAA' 'A?A'
+0
+$ touch B
+$ bash hamming.sh 'AAA' 'A?A'
+hamming.sh: line 23: [: too many arguments
+0
+```
+Within `[...]` bare bash patterns will attempt to do [filename expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion). And as you never know what files your users will have, you need to quote the right-hand side of `==` and `!=` within `[...]`
+
+Within `[[...]]`, the right-hand side needs to be quoted as well, but for a different reason: `==` and `!=` are not simply equality operators, they are [_pattern matching_ operators](https://www.gnu.org/software/bash/manual/bash.html#index-_005b_005b):
+```bash
+[[ $string == *[0-9]* ]] && echo "contains a digit"
+```
+
+In bash, prefer `[[...]]` over `[...]`. The double bracket conditional command gives you more features (including regular expression matching), and fewer surprises (particularly about unquoted variables). But as seen here, there are still a couple of potential "gotcha"s in there.
 
 <!-- ........................................................ -->
 ## grep

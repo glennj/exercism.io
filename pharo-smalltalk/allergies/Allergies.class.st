@@ -18,19 +18,19 @@ Allergies class >> allergens [
 	} asOrderedDictionary
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #querying }
 Allergies >> allergicToItem: item forScore: score [ 
 	^ self 
-		allergicToItemValue: (self class allergens at: item)
+		allergicToItemValue: (self class allergens at: item ifAbsent: 0)
 		forScore: score
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #querying }
 Allergies >> allergicToItemValue: value forScore: score [
-	^ (score & value > 0)
+	^ (score & value) isZero not
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #querying }
 Allergies >> allergyListForScore: score [
 	^(self class allergens 
 		associationsSelect: [ :each |

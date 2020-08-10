@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
 source ../lib/utils.bash
-source ../lib/utils_string.bash
 checkBashVersion 4.3 namerefs
+
+source ../lib/utils_array.bash
+source ../lib/utils_string.bash
+
 
 main() {
     local code=$1
@@ -17,22 +20,10 @@ main() {
     done
 
     if (( code >= (1 << ${#actions[@]}) )); then
-        reverse result
+        array::reverse result
     fi
 
     str::join , "${result[@]}"
-}
-
-reverse() {
-    local -n ary=$1
-    local -i a b
-    local tmp
-
-    for (( a=0, b=${#ary[@]} - 1; a < b; a++, b-- )); do
-        tmp=${ary[a]}
-        ary[a]=${ary[b]}
-        ary[b]=$tmp
-    done
 }
 
 main "$@"
