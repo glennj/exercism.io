@@ -13,6 +13,7 @@ TOC
 * [Loops](#loops)<br>
 * [Output](#output)<br>
 * [Input](#input)<br>
+* [Boolean Operators](#boolean-operators)<br>
 * [Functions](#functions)<br>
     * [Passing an array to a function](#passing-an-array-to-a-function)<br>
 * [Very rare and subtle mistakes](#very-rare-and-subtle-mistakes)<br>
@@ -186,9 +187,8 @@ bash can do arithmetic, you don't need to call out to `bc`. See [Arithmetic Expa
 
 <!-- -->
 
-It's not necessary to use `$` for normal variables inside an arithmetic
-expression ($ is still required for positional parameters and expansions
-such as `${#var}`)
+It's not necessary to use `$` for variables inside an arithmetic expression.
+See [this Shellcheck wiki entry](https://github.com/koalaman/shellcheck/wiki/SC2004) for details.
 
 <!-- -->
 
@@ -441,11 +441,11 @@ Like many things in bash, it's complicated, and there are exceptions to just abo
 <!-- ........................................................ -->
 ## Assignment
 
-* You can use the `+=` concatenating assignment operator: these are equivalent:
-    ```bash
-    foo=${foo}bar
-    foo+=bar
-    ```
+You can use the `+=` concatenating assignment operator: these are equivalent:
+```bash
+foo=${foo}bar
+foo+=bar
+```
 
 <!-- ........................................................ -->
 ## Loops
@@ -545,6 +545,106 @@ Another one of bash's quirks.
 
 I tend to avoid using regular expressions unless I have a matching problem more complicated than what I can achieve with [glob patterns](https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching), or I need to [capture sub-patterns](https://www.gnu.org/software/bash/manual/bash.html#index-BASH_005fREMATCH).
 
+<!-- -->
+---
+
+`$((` vs `((`
+* the first *outputs* the result of the expression. It's suitable for things like `result=$((...))` or `echo $((...))`
+* the second evaluates the expression and sets an *exit status*: if the result is zero, status is 1; otherwise status is zero. It is this that makes `((...))` suitable as the condition of an `if/for/while` statement.
+
+Keep in mind that bash arithmetic expressions allow for assignment. These two are equivalent, but one is more readable:
+```bash
+result=$((result + 1))
+(( result += 1 ))
+```
+---
+One thing to note about `((...))` and `set -e`: the "errexit" setting aborts the script if any command exits with a non-zero status. 
+```bash
+$ bash -c '
+    set -e
+    count=2
+    ((--count))
+    echo "you will see this"
+    ((--count))
+    echo "you will not see this"
+'
+```
+This is just one of the reasons I don't use `set -e`: 
+See [http://mywiki.wooledge.org/BashFAQ/105](http://mywiki.wooledge.org/BashFAQ/105)
+
+<!-- -->
+---
+
+`[[` vs `((`
+
+First, how does `if` work?
+```bash
+$ help if
+if: if COMMANDS; then COMMANDS; [ elif COMMANDS; then COMMANDS; ]... [ else COMMANDS; ] fi
+    Execute commands based on conditional.
+```
+Note there's nothing in there about `[[` or `((`. The conditional is the
+exit status of COMMANDS. This is a common usage:
+```bash
+if grep -q pattern file; then
+    echo "file contains pattern"
+fi
+```
+The COMMAND can also be a shell function, so this can lead to very tidy
+code.
+
+So `[[` or `((`? As you've seen, `((` is only for arithmetic expressions.
+`[[` is for anything else.
+
+To see what `[[` can do, do this at a shell prompt:
+```
+$ help [ test | less
+```
+A couple of specific things to point out:
+
+* `[[ $a == $b ]]` -- the `==` and `!=` operators are not just for string
+  equality, they are _pattern matching_ operators:
+    ```bash
+    [[ $string == *foo* ]] && echo "string contains foo"
+    ```
+    But the right-hand side can be quoted to remove any special meaning of
+    pattern characters
+    ```bash
+    var="*foo*"
+    [[ $string == "$foo" ]] && echo "string is exactly '*foo*'"
+    ```
+* `[[` has a regular expression matching operator: `=~`
+    * there is no `!~` operator, so
+        ```bash
+        if [[ ! $string =~ $regex ]]; then
+            echo "string did not match"
+        fi
+        ```
+    * captured bits go into the `BASH_REMATCH` array:
+        ```bash
+        [[ "hello world" =~ (.*)(o.*o)(.*) ]]
+        declare -p BASH_REMATCH
+        ```
+* `-v` can be useful to test if an associative array contains a key:
+    ```bash
+    declare -A map=([foo]=bar [baz]=qux)
+    key="blah"
+    if [[ -v map[$key] ]]; then
+        echo "$key is in the map"
+    fi
+    ```
+
+`[[` vs `[`: In bash, prefer `[[...]]` over `[...]`. The double bracket conditional command gives you more features, and fewer surprises (particularly about unquoted variables).
+
+
+
+<!-- ........................................................ -->
+## Boolean Operators
+
+You have to be a bit careful with `A && B || C` -- C will execute if **either** A **or** B fails.
+
+With `if A; then B; else C; fi` the only time C runs is if A fails, regardless of what happens with B.
+
 <!-- ........................................................ -->
 ## Output
 
@@ -620,6 +720,9 @@ To accurately read the lines of a file, use a `while read` loop: see [bash FAQ #
 
 <!-- ........................................................ -->
 # Exercism/Philosophy
+
+This is a fine *shell* solution. I challenge you to use bash builtin
+features instead of external tools.
 
 <!-- -->
 
@@ -1275,5 +1378,28 @@ echo $SECONDS
 ```
 69
 1
+```
+
+### performance impact of string length
+
+Obtaining the length of a string is a surprisingly expensive operation in
+bash. 
+
+```bash
+$ printf -v string "%32767s" foo
+$ time for ((i=0; i<${#string}; i++)); do echo ${string:i:1}; done > /dev/null
+
+real	0m19.751s
+user	0m19.648s
+sys	0m0.082s
+```
+Caching the value helps significantly
+```bash
+$ len=${#string}
+$ time for ((i=0; i<len; i++)); do echo ${string:i:1}; done > /dev/null
+
+real	0m5.880s
+user	0m5.853s
+sys	0m0.024s
 ```
 

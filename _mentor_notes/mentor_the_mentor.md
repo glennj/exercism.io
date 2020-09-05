@@ -13,20 +13,21 @@ Tips and tricks fron the #mentor-the-mentor channel on Slack
 ---
 Something like "spoiler" text: use the `details` tag with a `summary`.  
 Can be nested.  
-Markdown in the details requires the `p` tag with a blank line.  
+No markdown in the summary.
+Markdown in the details requires the `p` tag or a blank line.  
 Example:
 <details>
 <summary>There is a more compact way to read the fields of a CSV-type line (expand for details)</summary>
-<details>
-<summary>Use <code>read</code> with a specific <code>IFS</code> value</summary>
-<p>
+  <details>
+  <summary>Use <code>read</code> with a specific <code>IFS</code> value</summary>
+  <p>
 
 ```bash
 line='first;second;third'
 IFS=';' read -r a b c <<<"$line"
 ```
-</p>
-</details>
+  </p>
+  </details>
 </details>
 
 ---
