@@ -1,7 +1,5 @@
 #!bash
 
-shopt -s extglob
-
 # a library of useful bash functions
 # works with bash version 3.2+
 
@@ -19,15 +17,24 @@ shopt -s extglob
 #
 # e.g. checkBashVersion 4.3 namerefs
 #
+# the introduction of some intesting bash features:
+# v4.0 - case conversion parameter expansion and `declare -u/-l`
+#      - associative arrays
+#      - a bug fix for array concatenation
+# v4.1 - `printf -v arrray[index]`
+# v4.3 - `-v` operator for `[[...]]`
+#      - bug fixes for associative array indices
+#      - namerefs
+#
 checkBashVersion() {
     local -i major minor
     IFS=. read -r major minor <<<"$1"
-    local feature=$2
+    local feature=${2:+" for $2"}
 
-    if    (( BASH_VERSINFO[0] < major )) ||
-        { (( BASH_VERSINFO[0] == major && BASH_VERSINFO[1] < minor )); }
+    if  (( BASH_VERSINFO[0] < major )) ||
+        (( BASH_VERSINFO[0] == major && BASH_VERSINFO[1] < minor ))
     then
-        die -s 2 "Bash version $1 required for $2: this is $BASH_VERSION"
+        die -s 254 "Bash version $1 is required${feature}: this is $BASH_VERSION"
     fi
 }
 
@@ -44,6 +51,8 @@ assert() {
 
 # Emit an error message and exit
 # e.g.:  [[ $x == $y ]] || die "Incorrect value"
+# 
+# Provide an exit status with the -s option (default: 1)
 #
 die() { 
     local OPTIND OPTARG
@@ -53,5 +62,5 @@ die() {
     done
     shift $((OPTIND-1))
     echo "$*" >&2
-    exit $status; 
+    exit "$status"
 }

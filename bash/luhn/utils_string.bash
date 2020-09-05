@@ -1,7 +1,5 @@
 #!bash
 
-shopt -s extglob
-
 # a library of useful bash functions
 # works with bash version 3.2+
 
@@ -25,9 +23,6 @@ str::ord() {
 
 # chr: the character represented by the given ASCII decimal value
 # $ chr 65 #=> A
-#
-# Would probably be more performant to use a fixed array of
-# letters and index into it, but this is pretty cool.
 #
 str::chr() {
     printf "\x$(printf "%x" "$1")"
@@ -85,8 +80,8 @@ str::repeat() {
 # - variable holding the string
 #
 # e.g.
-#     str="hello world"
-#     str::putAt 4 , str
+#     s="hello world"
+#     str::putAt 4 "," s
 #     echo "$string"    # => 'hell, world'
 #
 str::putAt() {
@@ -122,9 +117,39 @@ str::reverse () {
 }
 
 
-# trim whitespace from the ends of a string
+# trim whitespace from the ends of a string.
+# These functions require extglob. To reduce altering the script's
+# setting, only set extglob temporarily in the functions.
 #
-str::trimright() { echo "${1/%+([[:space:]])}"; }
-str::trimleft()  { echo "${1/#+([[:space:]])}"; }
-str::trim()      { str::trimleft "$(str::trimright "$1")"; }
+str::trimright() {
+    local extglob
+    # capture the current value, then set it
+    extglob=$(shopt -p extglob)
+    shopt -s extglob
 
+    # remove trailing whitespace
+    echo "${1/%+([[:space:]])}"
+
+    # restore the setting (specifically unquoted).
+    $extglob
+}
+str::trimleft()  {
+    local extglob
+    extglob=$(shopt -p extglob)
+    shopt -s extglob
+
+    echo "${1/#+([[:space:]])}"
+
+    $extglob
+}
+str::trim() { str::trimleft "$(str::trimright "$1")"; }
+
+
+# find the first index of a substring (needle) within a string (haystack)
+# return -1 if haystack does not contain needle
+#
+str::index() {
+    local needle=$1 haystack=$2
+    local prefix=${haystack%%"$needle"*}
+    [[ "$prefix" == "$haystack" ]] && echo -1 || echo "${#prefix}"
+}

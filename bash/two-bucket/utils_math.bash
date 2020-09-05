@@ -1,7 +1,5 @@
 #!bash
 
-shopt -s extglob
-
 # a library of useful bash functions
 # works with bash version 3.2+
 
@@ -53,18 +51,27 @@ math::add() {
     done
     result=${carry}${result}
 
-    echo ${result##+(0)}
+    local extglob
+    extglob=$(shopt -p extglob)
+    shopt -s extglob
+
+    echo "${result##+(0)}"
+
+    $extglob
 }
 
 
 # a randomish number in the range [a,b)
-# if only 1 parameter, the range is [0,a)
+# the $RANDOM variable returns a number in [0, 32768)
 #
 math::rand() {
     local a=$1 b=$2
-    [[ -z $b ]] && { a=0; b=$1; }
-    local r=$(( RANDOM % (b - a) ))
-    echo $(( r + a ))
+    case $# in
+        0) echo $RANDOM ;;
+        1) echo $(( RANDOM % $1 )) ;;
+        2) echo $(( $(math::min $1 $2) + RANDOM % ($2 - $1) )) ;;
+        *) echo "usage: $FUNCNAME [[lower] upper]" >&2; return 1;;
+    esac
 }
 
 

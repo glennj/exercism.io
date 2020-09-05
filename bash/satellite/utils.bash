@@ -1,7 +1,5 @@
 #!bash
 
-shopt -s extglob
-
 # a library of useful bash functions
 # works with bash version 3.2+
 
@@ -18,6 +16,15 @@ shopt -s extglob
 # - name of feature requiring that version
 #
 # e.g. checkBashVersion 4.3 namerefs
+#
+# the introduction of some intesting bash features:
+# v4.0 - case conversion parameter expansion and `declare -u/-l`
+#      - associative arrays
+#      - a bug fix for array concatenation
+# v4.1 - `printf -v arrray[index]`
+# v4.3 - `-v` operator for `[[...]]`
+#      - bug fixes for associative array indices
+#      - namerefs
 #
 checkBashVersion() {
     local -i major minor
@@ -55,5 +62,5 @@ die() {
     done
     shift $((OPTIND-1))
     echo "$*" >&2
-    exit $status; 
+    exit "$status"
 }

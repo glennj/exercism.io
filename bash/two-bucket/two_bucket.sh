@@ -36,37 +36,42 @@ validate() {
 }
 
 solve() {
-    local -n start=$1 other=$2
+    local -n first=$1 second=$2
     local -i goal=$3 moves
 
-    fill start
+    fill first
     moves=1
 
-    ((other[size] == goal)) && {
-        fill other
-        (( moves++ ))
-    }
+    if (( second[size] == goal )); then
+        fill second
+        moves+=1        # -i attribute allows "bare" arithmetic
+    fi
 
     while true; do
-        if (( start[amount] == goal )); then
-            output $moves ${start[name]} ${other[amount]}
+        if (( first[amount] == goal )); then
+            result $moves ${first[name]} ${second[amount]}
             return
-        elif (( other[amount] == goal )); then
-            output $moves ${other[name]} ${start[amount]}
+        fi
+        if (( second[amount] == goal )); then
+            result $moves ${second[name]} ${first[amount]}
             return
         fi
 
-        # heh, some (mostly) punctuation-free bash poetry
-        if is empty start; then fill start
-        elif is full other; then empty other
-        else pour from start to other
+        # some punctuation-free bash poetry
+        if      is empty first
+        then    fill first
+
+        elif    is full second
+        then    empty second
+
+        else    pour from first to second
         fi
 
-        (( moves++ ))
+        moves+=1
     done
 }
 
-output() {
+result() {
     echo "moves: $1, goalBucket: $2, otherBucket: $3"
 }
 
