@@ -24,6 +24,7 @@ word_splitting() {
     # without using an array:
     ##set -f                    # disable path expansion
     ##for word in $1; do        # $1 specifically unquoted
+    ##    word=${word/#+([^[:alpha:]])/}
     ##    acronym+=${word:0:1}
     ##done
 
@@ -34,13 +35,13 @@ word_splitting() {
 # and use a state machine to determine when to add a letter
 # to the acronym
 state_machine() {
-    local state="A" char i
+    local state="A" char acronym=""
 
-    for ((i=0; i<"${#1}"; i++)); do
-        char=${1:i:1}
+    # loop over the input one character at a time
+    while IFS= read -r -n1 char; do
 
         case $state in
-            # state "A": looking for the _next_ alpha
+            # state "A": looking for the next alpha
             # character to add to the acronym
             A)  if [[ $char == [[:alpha:]] ]]; then
                     acronym+=${char^}
@@ -56,7 +57,9 @@ state_machine() {
                 fi
                 ;;
         esac
-    done
+
+    done <<< "$1"
+
     echo "$acronym"
 }
 

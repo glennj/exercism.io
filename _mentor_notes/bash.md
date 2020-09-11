@@ -187,13 +187,12 @@ bash can do arithmetic, you don't need to call out to `bc`. See [Arithmetic Expa
 
 <!-- -->
 
-It's not necessary to use `$` for variables inside an arithmetic expression.
+You can omit the `$` for variables inside an arithmetic expression.
 See [this Shellcheck wiki entry](https://github.com/koalaman/shellcheck/wiki/SC2004) for details.
 
 <!-- -->
 
-<details><summary>You can assign to variables within an arithmetic expression (click for details):</summary><p>
-
+<details><summary>You can assign to variables within an arithmetic expression (click for details):</summary><p> 
 Instead of
 ```bash
 total=$(( total + increment ))
@@ -310,7 +309,7 @@ Consider the `${var:-default value}` form of [Shell Parameter Expansion](https:/
 
 <!-- -->
 
-Get out of the habit of using ALLCAPS variable names, leave those as reserved by the shell. One day you'll write `PATH=something` and then [wonder why your script is broken](https://stackoverflow.com/q/28310594/7552).
+Get out of the habit of using ALLCAPS variable names, leave those as reserved by the shell. One day you'll write `PATH=something` and then [wonder why](https://stackoverflow.com/q/27555060/7552) [your script is broken](https://stackoverflow.com/q/28310594/7552).
 
 If you're using ALLCAPS to indicate a constant, use the `readonly` or `declare -r` builtins to let the shell know too.
 
@@ -469,7 +468,10 @@ respectively. At a bash prompt, type `help test` for details.
 
 <!-- -->
 
-In bash, prefer `[[...]]` over `[...]`. The double bracket conditional command gives you more features (including regular expression matching), and fewer surprises (particularly about unquoted variables).
+In bash, prefer `[[...]]` over `[...]`. The double bracket [conditional
+command](https://www.gnu.org/software/bash/manual/bash.html#index-_005b_005b)
+gives you more features (including regular expression matching), and fewer
+surprises (particularly about unquoted variables).
 
 <!-- Some more details -->
 
