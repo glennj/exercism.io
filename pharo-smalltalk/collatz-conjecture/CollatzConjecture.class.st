@@ -6,8 +6,8 @@ Class {
 
 { #category : #calculating }
 CollatzConjecture >> stepsFrom: number [
-	number < 1
-		ifTrue: [ self error: 'Only positive numbers are allowed' ].
+	number isInteger ifFalse: [ self error: 'Only integers are allowed' ].
+	number < 1 ifTrue: [ self error: 'Only positive numbers are allowed' ].
 	^ self stepsFrom: number withSteps: 0
 ]
 
@@ -17,9 +17,6 @@ CollatzConjecture >> stepsFrom: number withSteps: steps [
 		ifTrue: [ steps ]
 		ifFalse: [ 
 			self 
-				stepsFrom: 
-					((number isDivisibleBy: 2)
-						ifTrue: [ number / 2]
-						ifFalse: [ 3 * number + 1 ])
+				stepsFrom: (number nextCollatzNumber)
 				withSteps: steps + 1 ]
 ]
