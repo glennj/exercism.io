@@ -1,0 +1,2 @@
+# for exercism, ignore compiled *_test files
+*_test
