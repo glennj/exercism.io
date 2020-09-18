@@ -34,9 +34,6 @@ GradeSchool >> initialize [
 
 { #category : #accessing }
 GradeSchool >> roster [
-	| roster |
-
-	roster := OrderedCollection new.
-	grades keys sorted do: [ :grade | roster addAll: (self grade: grade) ].
-	^ roster asArray
+	^ grades keys sorted flatCollect: [ :grade | self grade: grade ].
+	
 ]
