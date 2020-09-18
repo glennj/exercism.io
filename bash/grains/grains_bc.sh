@@ -3,16 +3,14 @@
 #
 # external tools used: bc
 
-pow2() { echo "2 ^ ($1 - 1)" | bc; }
-
+source ../lib/utils.bash
 shopt -s extglob
+
+pow2() { echo "2 ^ ($1 - 1)" | bc; }
 
 case $1 in
     ?(-)+([0-9]) )
-        if (($1 <= 0 || $1 > 64)); then 
-            echo "Error: invalid input" >&2
-            exit 1
-        fi
+        (($1 <= 0 || $1 > 64)) && die "Error: invalid input"
         pow2 $1
         ;;
     total)
@@ -29,7 +27,6 @@ case $1 in
         echo "$expression" | bc
 
         ;;
-    *)  echo "Error: invalid input" >&2
-        exit 1
+    *)  die "Error: invalid input"
         ;;
 esac
