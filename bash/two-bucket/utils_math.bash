@@ -30,12 +30,11 @@ math::min() { echo $(( $1 < $2 ? $1 : $2 )); }
 math::max() { echo $(( $1 > $2 ? $1 : $2 )); }
 
 
-# Add two arbitrarily large integers, just like you'd do by
-# hand: add digits from right to left, using a carry digit.
+# Add two arbitrarily large _positive_ integers, just like you'd do by hand:
+# add digits from right to left, using a carry digit.
 # 
 math::add() {
-    local a=$1 b=$2 c
-    local result="" carry=0
+    local a=$1 b=$2
 
     # left pad the numbers with zeroes so they're the same width
     local width
@@ -44,6 +43,7 @@ math::add() {
     printf -v b '%0*s' $width $b
 
     # add the digits from right to left
+    local c result="" carry=0
     for (( i = width-1; i >= 0; i-- )); do
         (( c = carry + ${a:i:1} + ${b:i:1} ))
         result=$((c % 10))${result}
@@ -55,7 +55,9 @@ math::add() {
     extglob=$(shopt -p extglob)
     shopt -s extglob
 
-    echo "${result##+(0)}"
+    # trim leading zeroes
+    : "${result##+(0)}"
+    echo "${_:-0}"
 
     $extglob
 }
