@@ -35,15 +35,22 @@ Exercises
 * [grep](#grep)
 
 
-Be sure to check out [the community solutions](https://exercism.io/tracks/bash/exercises/${SLUG}/solutions) to see other approaches.
+Be sure to check out [the community
+solutions](https://exercism.io/tracks/bash/exercises/${SLUG}/solutions) to
+see other approaches.
 
 <!-- ============================================================ -->
 
 ## How bash interprets a command
 
-A bash command is a "metacharacter"-separated list of words and operators; the first word is the command (except for optional leading `var=value` words).
+A bash command is a "metacharacter"-separated list of words and operators;
+the first word is the command (except for optional leading `var=value`
+words).
 
-One the key things to learn to really grok bash is [3.1.1 Shell Operation](https://www.gnu.org/software/bash/manual/bash.html#Shell-Operation), and particularly [3.5 Shell Expansions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions): 
+One the key things to learn to really grok bash is [3.1.1 Shell
+Operation](https://www.gnu.org/software/bash/manual/bash.html#Shell-Operation),
+and particularly [3.5 Shell
+Expansions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions): 
 * bash gets a command to execute
 * it is split into words and operators
 * the words are subject to expansions
@@ -54,7 +61,8 @@ One the key things to learn to really grok bash is [3.1.1 Shell Operation](https
 
 ## Testing
 
-Make use of the test suite provided for you. See [Running the Tests](https://exercism.io/tracks/bash/tests).
+Make use of the test suite provided for you. See [Running the
+Tests](https://exercism.io/tracks/bash/tests).
 
 <!-- ........................................................ -->
 ## Shebang
@@ -75,7 +83,9 @@ We usually recommend you use
 ```
 That makes the script a bit more portable (for systems where bash is not located in /bin)
 
-It does expose you to possible version conflicts (for example if you use a bash 4.3 feature in your code, but the bash found in the path is an older version)
+It does expose you to possible version conflicts (for example if you use a
+bash 4.3 feature in your code, but the bash found in the path is an older
+version)
 
 <!-- ........................................................ -->
 ## Backticks
@@ -87,7 +97,8 @@ for more details.
 <!-- ........................................................ -->
 ## Functions
 
-It's a good habit to use `local` for function variables. Then the global namespace is not polluted with every variable.
+It's a good habit to use `local` for function variables. Then the global
+namespace is not polluted with every variable.
 
 <!-- -->
 
@@ -183,7 +194,9 @@ Regarding passing arrays around, there are 3 ways to do it without stringifying:
 <!-- ........................................................ -->
 ## Arithmetic
 
-bash can do arithmetic, you don't need to call out to `bc`. See [Arithmetic Expansion](https://www.gnu.org/software/bash/manual/bash.html#Arithmetic-Expansion) in the manual.
+bash can do arithmetic, you don't need to call out to `bc`. See [Arithmetic
+Expansion](https://www.gnu.org/software/bash/manual/bash.html#Arithmetic-Expansion)
+in the manual.
 
 <!-- -->
 
@@ -192,7 +205,8 @@ See [this Shellcheck wiki entry](https://github.com/koalaman/shellcheck/wiki/SC2
 
 <!-- -->
 
-<details><summary>You can assign to variables within an arithmetic expression (click for details):</summary><p> 
+<details><summary>You can assign to variables within an arithmetic
+expression (click for details):</summary><p> 
 Instead of
 ```bash
 total=$(( total + increment ))
@@ -205,7 +219,8 @@ You can write
 
 <!-- -->
 
-`((...))` is preferred over `let`. See [the let builtin command](https://wiki.bash-hackers.org/commands/builtin/let) for details.
+`((...))` is preferred over `let`. See [the let builtin
+command](https://wiki.bash-hackers.org/commands/builtin/let) for details.
 
 <!-- -->
 
@@ -274,7 +289,8 @@ the "errexit"
 setting](https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin).
 The manual says this about `((...))`
 
-> If the value of the expression is non-zero, the return status is 0; otherwise the return status is 1
+> If the value of the expression is non-zero, the return status is 0;
+> otherwise the return status is 1
 ```bash
 $ bash -c '
     set -e
@@ -305,13 +321,18 @@ That's as close to the `1 ≤ arg ≤ 64` mathematical notation as you'll get
 <!-- ........................................................ -->
 ## Parameter Expansion
 
-Consider the `${var:-default value}` form of [Shell Parameter Expansion](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion).
+Consider the `${var:-default value}` form of [Shell Parameter
+Expansion](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion).
 
 <!-- -->
 
-Get out of the habit of using ALLCAPS variable names, leave those as reserved by the shell. One day you'll write `PATH=something` and then [wonder why](https://stackoverflow.com/q/27555060/7552) [your script is broken](https://stackoverflow.com/q/28310594/7552).
+Get out of the habit of using ALLCAPS variable names, leave those as
+reserved by the shell. One day you'll write `PATH=something` and then
+[wonder why](https://stackoverflow.com/q/27555060/7552) 
+[your script is broken](https://stackoverflow.com/q/28310594/7552).
 
-If you're using ALLCAPS to indicate a constant, use the `readonly` or `declare -r` builtins to let the shell know too.
+If you're using ALLCAPS to indicate a constant, use the `readonly` or
+`declare -r` builtins to let the shell know too.
 
 <!-- -->
 
@@ -337,10 +358,13 @@ These two special parameters are extremely useful:
 * `"$@"` -> expands so that each argument is separate.
 
 When they are unquoted, the usual shell 
-[Word Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting) and [Filename Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion) is allowed to happen.
+[Word Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting)
+and [Filename Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion)
+is allowed to happen.
 
 It's best illustrated with an example.
-Given a little testing function (note: `printf` will reuse the format string as many times as necessary to consume all its arguments):
+Given a little testing function (note: `printf` will reuse the format string
+as many times as necessary to consume all its arguments):
 ```bash
 check_args() {
   echo "I have $# arguments:"
@@ -375,7 +399,8 @@ We can demonstrate:
     >d<
     >e<
     ```
-`"$*"` uses the first character of `$IFS` as the join character. By default, that is a space. If we redefine IFS, we can see the effect:
+`"$*"` uses the first character of `$IFS` as the join character. By default,
+that is a space. If we redefine IFS, we can see the effect:
 ```bash
 $ IFS=":"
 $ check_args "$*"
@@ -386,7 +411,9 @@ I have 1 arguments:
 <!-- ........................................................ -->
 ## Quoting
 
-Unquoted variables are subject to [word splitting](https://mywiki.wooledge.org/WordSplitting) and [glob](https://mywiki.wooledge.org/glob) expansion.
+Unquoted variables are subject to [word
+splitting](https://mywiki.wooledge.org/WordSplitting) and
+[glob](https://mywiki.wooledge.org/glob) expansion.
 
 <!-- -->
 
@@ -401,34 +428,53 @@ Ah, that's the magic of quoting: given a script invocation `script.sh "a b" "c d
 
 The problem is unquoted variables.
 
-When bash is processing a line from your script and figuring out how to execute it, the line gets split into tokens (using whitespace) and the tokens are subject to a list of [Shell Expansions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions). Two of the expansions are [Word Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting) and [Filename Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion) -- these 2 expansions don't happen within quotes.
+When bash is processing a line from your script and figuring out how to
+execute it, the line gets split into tokens (using whitespace) and the
+tokens are subject to a list of 
+[Shell Expansions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions).
+Two of the expansions are 
+[Word Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting)
+and [Filename Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion)
+-- these 2 expansions don't happen within quotes.
 
 What's happening with that test is:
 
 * after the loop, the $reverseString variable holds the value `"b  * a "`
 * then you echo the variable **without quotes**
 * the shell turns `echo ${reverseString}` into `echo b  * a` 
-* then word splitting happens, and glob expansion turns `*` into the list of files in the current directory.
+* then word splitting happens, and glob expansion turns `*` into the list of
+  files in the current directory.
 
 Run the test manually with tracing turned on and you'll see what's going on:
 ```bash
 bash -x reverse_string.sh " a *  b"
 ```
 
-There's a long writeup about it here: [Security implications of forgetting to quote a variable in bash/POSIX shells](https://unix.stackexchange.com/questions/171346/security-implications-of-forgetting-to-quote-a-variable-in-bash-posix-shells)
+There's a long writeup about it here: [Security implications of forgetting
+to quote a variable in bash/POSIX shells](https://unix.stackexchange.com/q/171346/4667)
 
 <!-- -->
 
 ([responding to a question](https://exercism.io/mentor/solutions/9206be1023cb490a8d0a0d93d8cf15b4?iteration_idx=6#discussion-post-669985))
 
-Always quote your variables, unless you know exactly when (and why!) to leave them unquoted. Sometimes you _want_ word splitting or pathname expansion, but most often you don't.
+Always quote your variables, unless you know exactly when (and why!) to
+leave them unquoted. Sometimes you _want_ word splitting or pathname
+expansion, but most often you don't.
 
 Sometimes though, you know exactly what your variables will contain. For example 
 
-* on line 26, you know that's a number, and you have not altered IFS so you know it's safe to leave unquoted.
-* or line 18, the variable of a case statement is documented to be exempt from word splitting and pathname expansion (but it's no harm to quote that variable).
-* like line 15, it's documented that variables inside `[[...]]` are not subject to word splitting and pathname expansion (but it's no harm to quote them).
-* however, since `==` is a _pattern matching_ operator inside `[[...]]`, if you want to do _equality_ comparison and the right-hand side of == is a variable, you have to quote that variable so any special glob characters are treated as plain characters.
+* on line 26, you know that's a number, and you have not altered IFS so you
+  know it's safe to leave unquoted.
+* or line 18, the variable of a case statement is documented to be exempt
+  from word splitting and pathname expansion (but it's no harm to quote that
+  variable).
+* like line 15, it's documented that variables inside `[[...]]` are not
+  subject to word splitting and pathname expansion (but it's no harm to
+  quote them).
+* however, since `==` is a _pattern matching_ operator inside `[[...]]`, if
+  you want to do _equality_ comparison and the right-hand side of == is a
+  variable, you have to quote that variable so any special glob characters
+  are treated as plain characters.
     ```bash
     y="?"
     [[ $x == $y ]] && echo "x is any one character"
@@ -440,23 +486,32 @@ Like many things in bash, it's complicated, and there are exceptions to just abo
 <!-- ........................................................ -->
 ## Assignment
 
-You can use the `+=` concatenating assignment operator: these are equivalent:
+<details><summary>You can use the `+=` concatenating assignment operator:
+click for details</summary><p>
+These are equivalent:
 ```bash
-foo=${foo}bar
-foo+=bar
+foo="${foo}bar"
+foo+="bar"
 ```
+Full details at [Shell
+Parameters](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters)
+in the manual.
+</p></details>
 
 <!-- ........................................................ -->
 ## Loops
 
-<details><summary>It's not necessary to call out to <code>seq</code>: use bash's builtin C-style for loop (click for details):</summary><p>
+<details><summary>It's not necessary to call out to <code>seq</code>: use
+bash's builtin C-style for loop (click for details):</summary><p>
 
 ```bash
 len=${#input}
 for (( i = 0; i < len; i++ )); do ...
 ```
 
-See [Looping Constructs](https://www.gnu.org/software/bash/manual/bash.html#Looping-Constructs) in the manual.
+See [Looping
+Constructs](https://www.gnu.org/software/bash/manual/bash.html#Looping-Constructs)
+in the manual.
 </p></details>
 
 <!-- ........................................................ -->
@@ -475,7 +530,8 @@ surprises (particularly about unquoted variables).
 
 <!-- Some more details -->
 
-`[[` does not do word splitting or filename expansion on unquoted variables, so I say that it has few surprises. Consider:
+`[[` does not do word splitting or filename expansion on unquoted variables,
+so I say that it has few surprises. Consider:
 ```
 $ var=""
 $ [[ -n $var ]] && echo "not empty" || echo empty
@@ -532,35 +588,48 @@ sees `[[ -n "*" ]]` which is clearly **true**.
 
 <!-- -->
 
-Note that the `==` operator in bash is not a string equality operator, it is a _pattern matching_ operator (see [here in the manual](https://www.gnu.org/software/bash/manual/bash.html#index-_005b_005b)). So this may give surprising results:
+Note that the `==` operator in bash is not a string equality operator, it is
+a _pattern matching_ operator (see [here in the
+manual](https://www.gnu.org/software/bash/manual/bash.html#index-_005b_005b)).
+So this may give surprising results:
 ```bash
 target="?"
 for char in {a..z}; do
     [[ $char == $target ]] && echo "$char equals $target"
 done
 ```
-To truly get string equality, we have to quote the right-hand side to force bash to take it literally: `[[ $char == "$target" ]]` 
+To truly get string equality, we have to quote the right-hand side to force
+bash to take it literally: `[[ $char == "$target" ]]` 
 
 Another one of bash's quirks.
 
 <!-- -->
 
-I tend to avoid using regular expressions unless I have a matching problem more complicated than what I can achieve with [glob patterns](https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching), or I need to [capture sub-patterns](https://www.gnu.org/software/bash/manual/bash.html#index-BASH_005fREMATCH).
+I tend to avoid using regular expressions unless I have a matching problem
+more complicated than what I can achieve with [glob
+patterns](https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching),
+or I need to [capture
+sub-patterns](https://www.gnu.org/software/bash/manual/bash.html#index-BASH_005fREMATCH).
 
 <!-- -->
 ---
 
 `$((` vs `((`
-* the first *outputs* the result of the expression. It's suitable for things like `result=$((...))` or `echo $((...))`
-* the second evaluates the expression and sets an *exit status*: if the result is zero, status is 1; otherwise status is zero. It is this that makes `((...))` suitable as the condition of an `if/for/while` statement.
+* the first *outputs* the result of the expression. It's suitable for things
+  like `result=$((...))` or `echo $((...))`
+* the second evaluates the expression and sets an *exit status*: if the
+  result is zero, status is 1; otherwise status is zero. It is this that
+  makes `((...))` suitable as the condition of an `if/for/while` statement.
 
-Keep in mind that bash arithmetic expressions allow for assignment. These two are equivalent, but one is more readable:
+Keep in mind that bash arithmetic expressions allow for assignment. These
+two are equivalent, but one is more readable:
 ```bash
 result=$((result + 1))
 (( result += 1 ))
 ```
 ---
-One thing to note about `((...))` and `set -e`: the "errexit" setting aborts the script if any command exits with a non-zero status. 
+One thing to note about `((...))` and `set -e`: the "errexit" setting aborts
+the script if any command exits with a non-zero status. 
 ```bash
 $ bash -c '
     set -e
@@ -636,21 +705,26 @@ A couple of specific things to point out:
     fi
     ```
 
-`[[` vs `[`: In bash, prefer `[[...]]` over `[...]`. The double bracket conditional command gives you more features, and fewer surprises (particularly about unquoted variables).
+`[[` vs `[`: In bash, prefer `[[...]]` over `[...]`. The double bracket
+conditional command gives you more features, and fewer surprises
+(particularly about unquoted variables).
 
 
 
 <!-- ........................................................ -->
 ## Boolean Operators
 
-You have to be a bit careful with `A && B || C` -- C will execute if **either** A **or** B fails.
+You have to be a bit careful with `A && B || C` -- C will execute if
+**either** A **or** B fails.
 
-With `if A; then B; else C; fi` the only time C runs is if A fails, regardless of what happens with B.
+With `if A; then B; else C; fi` the only time C runs is if A fails,
+regardless of what happens with B.
 
 <!-- ........................................................ -->
 ## Output
 
-You don't need to `echo -n` -- the command substitution automatically removes all trailing newlines.
+You don't need to `echo -n` -- the command substitution automatically
+removes all trailing newlines.
 
 <!-- -->
 
@@ -661,7 +735,8 @@ echo $var
 # then
 echo "$var"
 ```
-There are even [Security implications of forgetting to quote a variable in bash/POSIX shells](https://unix.stackexchange.com/questions/171346/security-implications-of-forgetting-to-quote-a-variable-in-bash-posix-shells)
+There are even [Security implications of forgetting to quote a variable in
+bash/POSIX shells](https://unix.stackexchange.com/q/171346/4667)
 
 <!-- -->
 
@@ -671,7 +746,10 @@ explanation](https://www.shellcheck.net/wiki/SC2059)
 
 <!-- -->
 
-There's a "useless" echo here: `echo $(cmd ...)` when `cmd` already prints to stdout, it's merely extra overhead to capture that output only to print it to stdout. More details at [https://github.com/koalaman/shellcheck/wiki/SC2005](https://github.com/koalaman/shellcheck/wiki/SC2005)
+There's a "useless" echo here: `echo $(cmd ...)` when `cmd` already prints
+to stdout, it's merely extra overhead to capture that output only to print
+it to stdout. More details at
+[the shellcheck wiki](https://github.com/koalaman/shellcheck/wiki/SC2005)
 
 <!-- ........................................................ -->
 ## Input
@@ -718,7 +796,8 @@ reads some characters.
 
 <!-- -->
 
-To accurately read the lines of a file, use a `while read` loop: see [bash FAQ #1](http://mywiki.wooledge.org/BashFAQ/001).
+To accurately read the lines of a file, use a `while read` loop: see [bash
+FAQ #1](http://mywiki.wooledge.org/BashFAQ/001).
 
 <!-- ........................................................ -->
 # Exercism/Philosophy
@@ -781,12 +860,12 @@ You may have seen this already in the "two-fer" exercise.
 
 <!-- -->
 
-<details><summary>You can use the <code>+=</code> concatenating assignment operator: click for details</summary>
+<details><summary>You can use the <code>+=</code> concatenating assignment
+operator: click for details</summary>
 These are equivalent:
-
 ```bash
-foo=${foo}bar
-foo+=bar
+foo="${foo}bar"
+foo+="bar"
 ```
 </details>
 
@@ -933,7 +1012,8 @@ is valid, and the success/failure is based on the _exit status_ of the
 command. See `help if` at a bash prompt.
 
 </details>
-<details><summary>Another method is to perform each test in advance and capture the exit status</summary>
+<details><summary>Another method is to perform each test in advance and
+capture the exit status</summary>
 
 ```bash
 [[ $1 =~ [A-Z] ]] && [[ ! $1 =~ [a-z] ]]; shouting=$?
@@ -950,18 +1030,26 @@ if (( shouting )); ...
 
 <!-- -->
 
-Notice that yelling and question appear twice? That indicates we should try to put that in some reusable form, like a variable or a function.
+Notice that yelling and question appear twice? That indicates we should try
+to put that in some reusable form, like a variable or a function.
 
 Let's look at these factors and see how to satisfy them:
 * silence is easy, $input is empty
 * question is simple too, $input ends with a question mark
-* yelling can be described as: $input contains upper case letters but no lower case letters. We don't care about the presence or absence of digits.
+* yelling can be described as: $input contains upper case letters but no
+  lower case letters. We don't care about the presence or absence of digits.
 
-Before continuing, note that the `==` operator in bash is not a string equality operator, it is a _pattern matching_ operator (see [here in the manual](https://www.gnu.org/software/bash/manual/bash.html#index-_005b_005b)). So we can use `==` for our "contains an upper" test. Yelling can be tested thusly:
+Before continuing, note that the `==` operator in bash is not a string
+equality operator, it is a _pattern matching_ operator (see [here in the
+manual](https://www.gnu.org/software/bash/manual/bash.html#index-_005b_005b)).
+So we can use `==` for our "contains an upper" test. Yelling can be tested
+thusly:
 ```bash
 [[ $input == *[[:upper:]]* ]] && [[ $input != *[[:lower:]]* ]]
 ```
-[Bash patterns](https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching) allow us to do a lot without having to use regular expressions.
+[Bash
+patterns](https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching)
+allow us to do a lot without having to use regular expressions.
 
 About that "reusable form" remark. How to achieve that?
 
@@ -973,9 +1061,14 @@ if: if COMMANDS; then COMMANDS; [ elif COMMANDS; then COMMANDS; ]... [ else COMM
 
     The `if COMMANDS' list is executed.  If its exit status is zero, then the ...
 ```
-See that after the `if` keyword, bash wants to see COMMANDS. There's nothing specific about `[` or `[[` or `((` -- those are just builtin commands. We could put any any list/pipeline of commands in there, and `if` branches based on the exit status.
+See that after the `if` keyword, bash wants to see COMMANDS. There's nothing
+specific about `[` or `[[` or `((` -- those are just builtin commands. We
+could put any any list/pipeline of commands in there, and `if` branches
+based on the exit status.
 
-I mentioned variables. Here's a technique I like to use that some people don't like. `true` and `false` are bash builtin commands that return the expected exit status. So you can do this:
+I mentioned variables. Here's a technique I like to use that some people
+don't like. `true` and `false` are bash builtin commands that return the
+expected exit status. So you can do this:
 ```bash
 [[ $input == *[[:upper:]]* ]] && [[ $input != *[[:lower:]]* ]] && yelling=true || yelling=false
 # similar for setting `silence` and `question` variables
@@ -1029,7 +1122,8 @@ elif yelling "$input" && question "$input"; then ...
 
 OK, there's a few things going on here. In order from least crucial to most:
 
-* there's not a test case for when the points are 2 digits, but I think your printf format should be
+* there's not a test case for when the points are 2 digits, but I think your
+  printf format should be
     ```bash
     fmt="%-30s | %2s | %2s | %2s | %2s | %2s\n"
     ```
@@ -1037,7 +1131,8 @@ OK, there's a few things going on here. In order from least crucial to most:
 * if the points are equal, sort by name: `sort -t, -k2,2nr -k1,1`
 * you're not reading the data correctly.
 
-    This is a tricky one, where you have to either read from stdin or from a named file.  The way to do this is with the `-t` test:
+    This is a tricky one, where you have to either read from stdin or from a
+    named file.  The way to do this is with the `-t` test:
     ```bash
     $ help test
     test: test [expr]
@@ -1045,7 +1140,8 @@ OK, there's a few things going on here. In order from least crucial to most:
           -t FD          True if FD is opened on a terminal.
     ```
 
-    If `[[ -t 0 ]]` is true, then stdin is connected to the terminal -- i.e. **not redirected** --> read from the file named in $1.  
+    If `[[ -t 0 ]]` is true, then stdin is connected to the terminal -- i.e.
+    **not redirected** --> read from the file named in $1.  
     If `[[ -t 0 ]]` is false, then stdin is a redirection --> read from stdin.
 
 <!-- -->
@@ -1120,7 +1216,8 @@ you can simply ensure the right-hand operand is quoted:
 
 <!-- When use user does `[ ${s:i:1} != ${t:i:1} ]` in single brackets -->
 
-Note that, since you're using the single bracket conditional on line 23, you're exposing a slightly different bug:
+Note that, since you're using the single bracket conditional on line 23,
+you're exposing a slightly different bug:
 ```bash
 $ bash hamming.sh 'AAA' 'A?A'
 1
@@ -1132,14 +1229,23 @@ $ bash hamming.sh 'AAA' 'A?A'
 hamming.sh: line 23: [: too many arguments
 0
 ```
-Within `[...]` bare bash patterns will attempt to do [filename expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion). And as you never know what files your users will have, you need to quote the right-hand side of `==` and `!=` within `[...]`
+Within `[...]` bare bash patterns will attempt to do [filename
+expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion).
+And as you never know what files your users will have, you need to quote the
+right-hand side of `==` and `!=` within `[...]`
 
-Within `[[...]]`, the right-hand side needs to be quoted as well, but for a different reason: `==` and `!=` are not simply equality operators, they are [_pattern matching_ operators](https://www.gnu.org/software/bash/manual/bash.html#index-_005b_005b):
+Within `[[...]]`, the right-hand side needs to be quoted as well, but for a
+different reason: `==` and `!=` are not simply equality operators, they are
+[_pattern matching_
+operators](https://www.gnu.org/software/bash/manual/bash.html#index-_005b_005b):
 ```bash
 [[ $string == *[0-9]* ]] && echo "contains a digit"
 ```
 
-In bash, prefer `[[...]]` over `[...]`. The double bracket conditional command gives you more features (including regular expression matching), and fewer surprises (particularly about unquoted variables). But as seen here, there are still a couple of potential "gotcha"s in there.
+In bash, prefer `[[...]]` over `[...]`. The double bracket conditional
+command gives you more features (including regular expression matching), and
+fewer surprises (particularly about unquoted variables). But as seen here,
+there are still a couple of potential "gotcha"s in there.
 
 <!-- ........................................................ -->
 ## grep
@@ -1174,7 +1280,9 @@ pattern=$1
 files=( "${@:2}" )
 ```
 `getopts` only handles single-letter arguments, so `-h` instead of `--help`. 
-If you want long options, you can use `getopt` (here's [the example script](https://salsa.debian.org/debian/util-linux/blob/master/misc-utils/getopt-parse.bash) that ships with GNU getopt)
+If you want long options, you can use `getopt` (here's [the example
+script](https://salsa.debian.org/debian/util-linux/blob/master/misc-utils/getopt-parse.bash)
+that ships with GNU getopt)
 
 <!-- -->
 
@@ -1220,8 +1328,11 @@ files=( "${@:2}" )
 
 You're not passing the last test. The problem with using unquoted variables
 is that you're subjected to 
-(i) [Word Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting) (which you want) 
-but also (ii) [Filename Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion)
+(i) [Word
+Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting)
+(which you want) 
+but also (ii) [Filename
+Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion)
 (which you don't want).
 
 In the last test, there's a `*` character standing alone as a word. When you do 
@@ -1246,13 +1357,15 @@ bash will:
 You can run the test with `bash -x acronym.sh "Two * Words"` to see what
 bash is doing.  A couple of ways to deal with this:
 
-1. turn off path expansion: see the `noglob` setting at [The Set Builtin](https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin)
+1. turn off path expansion: see the `noglob` setting at [The Set
+Builtin](https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin)
 2. read the words into an array with `read -a`
     ```bash
     read -r -a words <<< "${1//-/ }"
     for word in "${words[@]}"
     ```
-    This approach allows you to keep the variables quoted at all times, so there won't be any expansion.
+    This approach allows you to keep the variables quoted at all times, so
+    there won't be any expansion.
 
 <!-- -->
 
@@ -1262,7 +1375,9 @@ To not worry about upper/lower case:
     ```bash
         if [[ $letter =~ [[:alpha:]] ]]
     ```
-2. declare the `letter` variable with the lowercase attribute (anytime the variable is assigned to, the value will be lowercased -- see `help local` and `help declare` from a bash prompt for more details):
+2. declare the `letter` variable with the lowercase attribute (anytime the
+   variable is assigned to, the value will be lowercased -- see `help local`
+   and `help declare` from a bash prompt for more details):
     ```bash
       local -l letter
        ...
@@ -1275,30 +1390,43 @@ To not worry about upper/lower case:
 ---
 # Miscellaneous notes to be organized
 
-Proper indentation becomes essential for readability as the program grows. [See what the Google style guide says about indentation](https://google.github.io/styleguide/shellguide.html#s5-formatting).
+Proper indentation becomes essential for readability as the program grows.
+[See what the Google style guide says about
+indentation](https://google.github.io/styleguide/shellguide.html#s5-formatting).
 
 <!-- -->
 
-`eval` is generally considered dangerous. Here, it's pretty benign, but there's a command specifically for declaring variables -- since we're using this in a function, have to use `-g` option.
+`eval` is generally considered dangerous. Here, it's pretty benign, but
+there's a command specifically for declaring variables -- since we're using
+this in a function, have to use `-g` option.
 ```bash
 declare -g "$1=$((1 - $?))"
 ```
 
 <!-- -->
 
-Interesting reading: [Why is printf better than echo?](https://unix.stackexchange.com/questions/65803/why-is-printf-better-than-echo)
+Interesting reading: [Why is printf better than
+echo?](https://unix.stackexchange.com/questions/65803/why-is-printf-better-than-echo)
 
 <!-- -->
 
-1. If you go to [3.2.4.2 Conditional Constructs](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs) in the bash manual and scroll down a bit, you'll find:
+1. If you go to [3.2.4.2 Conditional
+   Constructs](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs)
+   in the bash manual and scroll down a bit, you'll find:
 
     > ((…))
     >
     >         (( expression ))
     >
-    > The arithmetic expression is evaluated according to the rules described below (see [Shell Arithmetic](https://www.gnu.org/software/bash/manual/bash.html#Shell-Arithmetic)). _If the value of the expression is non-zero, the return status is 0; otherwise the return status is 1_. 
+    > The arithmetic expression is evaluated according to the rules
+    > described below (see [Shell
+    > Arithmetic](https://www.gnu.org/software/bash/manual/bash.html#Shell-Arithmetic)).
+    > _If the value of the expression is non-zero, the return status is 0;
+    > otherwise the return status is 1_. 
 
-    My opinion, it's not a misuse to use ((...)) to do simple calculations and/or assign variables without using the return status. We do that all the time for other commands -- you wouldn't write 
+    My opinion, it's not a misuse to use ((...)) to do simple calculations
+    and/or assign variables without using the return status. We do that all
+    the time for other commands -- you wouldn't write 
     ```bash
     echo something || exit 1 # cannot write to stdout!
     ```
@@ -1307,7 +1435,8 @@ Interesting reading: [Why is printf better than echo?](https://unix.stackexchang
 matching. And you can use `&&` and `||` and `()` to form more complex
 tests.   
 
-    `[[` does not do word splitting or filename expansion on unquoted variables, so I say that it has few surprises. Consider:
+    `[[` does not do word splitting or filename expansion on unquoted
+    variables, so I say that it has few surprises. Consider:
     ```
     $ var=""
     $ [[ -n $var ]] && echo "not empty" || echo empty
@@ -1315,7 +1444,8 @@ tests.
     $ [ -n $var ] && echo "not empty" || echo empty
     not empty
     ```
-    Next example, depending on the contents of your current directory, you'll probably see this following result:
+    Next example, depending on the contents of your current directory,
+    you'll probably see this following result:
     ```
     $ var="*"
     $ [[ -n $var ]] && echo "not empty" || echo empty
@@ -1326,7 +1456,8 @@ tests.
     ```
     I can go into greater detail about why `[` gives incorrect results if you want.
 
-    More details at [What is the difference between `test`, `[` and `[[`?](https://mywiki.wooledge.org/BashFAQ/031)
+    More details at [What is the difference between `test`, `[` and
+    `[[`?](https://mywiki.wooledge.org/BashFAQ/031)
 
 3. There is a difference between 
 [regular expressions](https://www.gnu.org/software/gnulib/manual/html_node/posix_002dextended-regular-expression-syntax.html)
@@ -1348,10 +1479,11 @@ and [glob patterns](https://www.gnu.org/software/bash/manual/bash.html#Pattern-M
     The equivalent regex demands anchors: `^[0-9]+$`
 
     For the leap year exercise, we want to abort if it contains a
-    non-digits. In the `year=''` scenario, the test `[[ $year == *[^0-9]* ]]` is insufficient because
-    that pattern tests for: zero or more of any character, one non-digit, and
-    zero or more of any character. If year is empty, _there is no non-digit_.
-    Therefore we also have to test if the variable is empty.
+    non-digits. In the `year=''` scenario, the test `[[ $year == *[^0-9]*
+    ]]` is insufficient because that pattern tests for: zero or more of any
+    character, one non-digit, and zero or more of any character. If year is
+    empty, _there is no non-digit_.  Therefore we also have to test if the
+    variable is empty.
     
     In writing all this, I realize I may have bias *against* using regular
     expressions. Regex is a perfectly valid and powerful tool. I guess I
@@ -1384,24 +1516,47 @@ echo $SECONDS
 
 ### performance impact of string length
 
-Obtaining the length of a string is a surprisingly expensive operation in
-bash. 
+<details><summary>Obtaining the length of a string is a surprisingly
+expensive operation in bash. With large strings and/or large loops,
+performance can be significantly impacted.  Storing the length in a variable
+helps significantly.  Click for benchmarks</summary><p>
 
 ```bash
 $ printf -v string "%32767s" foo
-$ time for ((i=0; i<${#string}; i++)); do echo ${string:i:1}; done > /dev/null
+$ time for ((i=0; i<${#string}; i++)); do :; done
 
-real	0m19.751s
-user	0m19.648s
-sys	0m0.082s
-```
-Caching the value helps significantly
-```bash
+real	0m14.807s
+user	0m14.768s
+sys	0m0.035s
+
 $ len=${#string}
-$ time for ((i=0; i<len; i++)); do echo ${string:i:1}; done > /dev/null
+$ time for ((i=0; i<len; i++)); do :; done
 
-real	0m5.880s
-user	0m5.853s
-sys	0m0.024s
+real	0m0.189s
+user	0m0.189s
+sys	0m0.000s
 ```
+Or if you can loop backwards, don't even need the variable. I imagine that
+the 0.01 sec gain here is real: bash does not need to access the variable
+contents for each iteration.
+```bash
+$ time for ((i = ${#string} - 1; i>=0; i--)); do :; done
 
+real	0m0.178s
+user	0m0.177s
+sys	0m0.000s
+```
+But, a while-read loop is much faster than for if you need to iterate over
+the characters of the string:
+```bash
+$ time while IFS= read -d "" -r -n 1 char; do 
+    echo "$char"
+  done < <(printf "%s" "$string") > /dev/null
+
+real	0m0.603s
+user	0m0.473s
+sys	0m0.131s
+```
+Note the use of the printf process substitution. Using a `<<<"$string"`
+here-string redirection adds a trailing newline.
+</p></details>

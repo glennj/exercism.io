@@ -1,0 +1,92 @@
+#!/usr/bin/env tclsh
+set version 1.1.0
+package require tcltest
+namespace import ::tcltest::*
+source "dnd-character.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        dnd-1 "ability modifier for score 3 is -4" 3 -4
+        dnd-2 "ability modifier for score 4 is -3" 4 -3
+        dnd-3 "ability modifier for score 5 is -3" 5 -3
+        dnd-4 "ability modifier for score 6 is -2" 6 -2
+        dnd-5 "ability modifier for score 7 is -2" 7 -2
+        dnd-6 "ability modifier for score 8 is -1" 8 -1
+        dnd-7 "ability modifier for score 9 is -1" 9 -1
+        dnd-8 "ability modifier for score 10 is 0" 10 0
+        dnd-9 "ability modifier for score 11 is 0" 11 0
+        dnd-10 "ability modifier for score 12 is +1" 12 1
+        dnd-11 "ability modifier for score 13 is +1" 13 1
+        dnd-12 "ability modifier for score 14 is +2" 14 2
+        dnd-13 "ability modifier for score 15 is +2" 15 2
+        dnd-14 "ability modifier for score 16 is +3" 16 3
+        dnd-15 "ability modifier for score 17 is +3" 17 3
+        dnd-16 "ability modifier for score 18 is +4" 18 4
+    }
+
+    foreach {name description score modifier} $cases {
+        test $name $description -body {
+            dnd modifier $score
+        } -returnCodes ok -result $modifier
+    }
+
+    test dnd-17 "random ability is within range" -body {
+        set result true
+        for {set i 0} {$i < 10000} {incr i} {
+            set a [dnd ability]
+            if {$a < 3 || $score > 18} {
+                set result false
+                break
+            }
+        }
+        set result
+    } -returnCodes ok -result true
+
+    test dnd-18 "a character has the correct attributes" -body {
+        set character [dnd character]
+        lsort [dict keys $character]
+    } -returnCodes ok -result {charisma constitution dexterity hitpoints intelligence strength wisdom}
+
+    test dnd-19 "characteristics have the correct values" -body {
+        set character [dnd character]
+        dict with character {
+            expr {
+                3 <= $charisma && $charisma <= 18 &&
+                3 <= $constitution && $constitution <= 18 &&
+                3 <= $dexterity && $dexterity <= 18 &&
+                3 <= $intelligence && $intelligence <= 18 &&
+                3 <= $strength && $strength <= 18 &&
+                3 <= $wisdom && $wisdom <= 18 &&
+                $hitpoints == 10 + [dnd modifier $constitution]
+            }
+        }
+    } -returnCodes ok -result 1
+
+    cleanupTests
+}

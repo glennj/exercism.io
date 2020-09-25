@@ -1,0 +1,168 @@
+#!/usr/bin/env tclsh
+set version 2.0.0
+package require tcltest
+namespace import ::tcltest::*
+source "scale-generator.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+proc orderedListsMatch {expected actual} {
+    if {[llength $expected] != [llength $actual]} {
+        return false
+    }
+    foreach e $expected a $actual {
+        if {$e != $a} {
+            return false
+        }
+    }
+    return true
+}
+customMatch lists orderedListsMatch
+
+
+if {$::argv0 eq [info script]} {
+
+    test scale-1 "Chromatic scale with sharps" -body {
+        set scale [Scale new C]
+        $scale chromatic
+    } -returnCodes ok -match lists -result {
+        C C# D D# E F F# G G# A A# B 
+    }
+
+    test scale-2 "Chromatic scale with flats" -body {
+        set scale [Scale new F]
+        $scale chromatic
+    } -returnCodes ok -match lists -result {
+        F Gb G Ab A Bb B C Db D Eb E
+    }
+    
+    test scale-3 "Simple major scale" -body {
+        set scale [Scale new C]
+        $scale intervals "MMmMMMm"
+    } -returnCodes ok -match lists -result {
+        C D E F G A B
+    }
+
+    test scale-4 "Major scale with sharps" -body {
+        set scale [Scale new G]
+        $scale intervals "MMmMMMm"
+    } -returnCodes ok -match lists -result {
+        G A B C D E "F#"
+    }
+
+    test scale-5 "Major scale with flats" -body {
+        set scale [Scale new F]
+        $scale intervals "MMmMMMm"
+    } -returnCodes ok -match lists -result {
+        F G A Bb C D E
+    }
+
+    test scale-6 "Minor scale with sharps" -body {
+        set scale [Scale new f#]
+        $scale intervals "MmMMmMM"
+    } -returnCodes ok -match lists -result {
+        F# G# A B C# D E
+    }
+
+    test scale-7 "Minor scale with flats" -body {
+        set scale [Scale new bb]
+        $scale intervals "MmMMmMM"
+    } -returnCodes ok -match lists -result {
+        Bb C Db Eb F Gb Ab
+    }
+
+    test scale-8 "Dorian mode" -body {
+        set scale [Scale new d]
+        $scale intervals "MmMMMmM"
+    } -returnCodes ok -match lists -result {
+        D E F G A B C
+    }
+
+    test scale-9 "Mixolydian mode" -body {
+        set scale [Scale new Eb]
+        $scale intervals "MMmMMmM"
+    } -returnCodes ok -match lists -result {
+        Eb F G Ab Bb C Db
+    }
+
+    test scale-10 "Lydian mode" -body {
+        set scale [Scale new a]
+        $scale intervals "MMMmMMm"
+    } -returnCodes ok -match lists -result {
+        A B C# D# E F# G#
+    }
+
+    test scale-11 "Phrygian mode" -body {
+        set scale [Scale new e]
+        $scale intervals "mMMMmMM"
+    } -returnCodes ok -match lists -result {
+        E F G A B C D
+    }
+
+    test scale-12 "Lacrian mode" -body {
+        set scale [Scale new g]
+        $scale intervals "mMMmMMM"
+    } -returnCodes ok -match lists -result {
+        G Ab Bb C Db Eb F
+    }
+
+    test scale-13 "Harmonic minor" -body {
+        set scale [Scale new d]
+        $scale intervals "MmMMmAm"
+    } -returnCodes ok -match lists -result {
+        D E F G A Bb Db
+    }
+
+    test scale-14 "Octatonic" -body {
+        set scale [Scale new C]
+        $scale intervals "MmMmMmMm"
+    } -returnCodes ok -match lists -result {
+        C D D# F F# G# A B
+    }
+
+    test scale-15 "Hexatonic" -body {
+        set scale [Scale new Db]
+        $scale intervals "MMMMMM"
+    } -returnCodes ok -match lists -result {
+        Db Eb F G A B
+    }
+
+    test scale-16 "Pentatonic" -body {
+        set scale [Scale new A]
+        $scale intervals "MMAMA"
+    } -returnCodes ok -match lists -result {
+        A B C# E F#
+    }
+
+    test scale-17 "Enigmatic" -body {
+        set scale [Scale new G]
+        $scale intervals "mAMMMmm"
+    } -returnCodes ok -match lists -result {
+        G G# B C# D# F F#
+    }
+
+    cleanupTests
+}

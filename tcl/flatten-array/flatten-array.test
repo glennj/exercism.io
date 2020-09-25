@@ -1,0 +1,71 @@
+#!/usr/bin/env tclsh
+set version 1.2.0
+package require tcltest
+namespace import ::tcltest::*
+source "flatten-array.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        flatten-1 "no nesting"
+            {0 1 2}
+            {0 1 2}
+
+        flatten-2 "flattens array with just integers present"
+            {1 {2 3 4 5 6 7} 8}
+            {1 2 3 4 5 6 7 8}
+
+        flatten-3 "5 level nesting"
+            {0 2 {{2 3} 8 100 4 {{{50}}}} -2}
+            {0 2 2 3 8 100 4 50 -2}
+
+        flatten-4 "6 level nesting"
+            {1 {2 {{3}} {4 {{5}}} 6 7} 8}
+            {1 2 3 4 5 6 7 8}
+
+        flatten-5 "6 level nest list with null values"
+            {0 2 {{2 3} 8 {{100}} "" {{""}}} -2}
+            {0 2 2 3 8 100 -2}
+
+        flatten-6 "all values in nested list are null"
+            {"" {{{""}}} "" "" {{"" ""} ""} ""}
+            {}
+
+        flatten-7 "Tcl can't differentiate between a list and a string"
+            {foo bar {baz "a string with spaces"}}
+            {foo bar baz a string with spaces}
+    }
+
+    foreach {name description input output} $cases {
+        test $name $description -body {
+            flatten $input
+        } -returnCodes ok -result $output
+    }
+
+    cleanupTests
+}

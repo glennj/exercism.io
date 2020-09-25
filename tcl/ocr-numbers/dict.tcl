@@ -8,9 +8,15 @@ set dictSubcommands [namespace ensemble configure dict -map]
 
 if {![dict exists $dictSubcommands getdef]} {
     proc ::tcl::dict::getdef {dictValue args} {
-        # `set` is a command in the ::tcl::dict namespace, so qualify it
+        if {[llength $args] < 2} {
+            error {wrong # args: should be "dict getdef dictionary ?key ...? key default"}
+        }
+
+        # `set` is a command in the ::tcl::dict namespace, 
+        # so this usage needs to be fully qualified
         ::set default [lindex $args end]
         ::set keys [lrange $args 0 end-1]
+
         if {[dict exists $dictValue {*}$keys]} {
             return [dict get $dictValue {*}$keys]
         } else {
