@@ -1,5 +1,5 @@
 #!/usr/bin/env tclsh
-set version 1.0.0
+set version 1.0.1
 package require tcltest
 namespace import ::tcltest::*
 source "resistor-color.tcl"
@@ -60,14 +60,24 @@ if {$::argv0 eq [info script]} {
     }
 
     foreach {name color value} $cases {
-        test $name "Color $color" -body {
-            resistorColor::colorCode $color
-        } -returnCodes ok -result $value
+        test $name "Color $color" \
+            -body [list resistorColor::colorCode $color] \
+            -returnCodes ok \
+            -result $value
     }
 
-    test resistor-color-12 "Unknown color" -body {
-        resistorColor::colorCode beige
-    } -returnCodes error -result "Invalid color: beige"
+    # additional track-specific tests
+    set cases {
+        resistor-color-12 "beige" "Unknown color"
+        resistor-color-13 "bl*" "test for lsearch with glob"
+    }
+
+    foreach {name color desc} $cases {
+        test $name $desc \
+            -body [list resistorColor::colorCode $color] \
+            -returnCodes error \
+            -result "Invalid color: $color"
+    }
 
     cleanupTests
 }
