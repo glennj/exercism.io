@@ -1,15 +1,13 @@
 proc countWords {sentence} {
     set counts [dict create]
 
-    # Normalize word separators, and remove leading/trailing whitespace
-    set sentence [string trim [regsub -all {[\s,]+} $sentence " "]]
+    # find all "words" -- numbers, letters and apostrophes,
+    # trim leading/trailing apostrophes from each word,
+    # and count them case insensitively
 
-    foreach word [split $sentence] {
-        # remove non-word non-hyphen characters
-        set word [regsub -all {[^\w']} [string tolower $word] ""]
-
-        # and remove outer hyphens while incrementing
-        dict incr counts [string trim $word {'}]
+    foreach word [regexp -all -inline {[[:alnum:]']+} $sentence] {
+        set w [string trim $word {'}]
+        dict incr counts [string tolower $w]
     }
     return $counts
 }
