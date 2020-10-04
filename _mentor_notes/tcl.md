@@ -1,3 +1,17 @@
+# Tcl
+
+TOC
+* [Welcome back to Tcl](#welcome-back-to-tcl)
+* [Exception Handling](#exception-handling)
+* [indices](#indices)
+* [uplevel and upvar](#uplevel-and-upvar)
+* [TclOO Notes](#tcloo-notes)
+* [Optimizations](#optimizations)
+* [Links and references](#links-and-references)
+
+---
+<!-- #################################################### -->
+
 ## Welcome back to Tcl
 
 To catch up with Tcl 8.6, you might want to:
@@ -6,7 +20,10 @@ To catch up with Tcl 8.6, you might want to:
   [available commands](http://www.tcl-lang.org/man/tcl8.6/TclCmd/contents.htm)
 * read about [OO programming in Tcl](https://www.magicsplat.com/articles/oo.html)
 
-## try ... trap
+---
+<!-- #################################################### -->
+
+## Exception Handling
 
 Tcl 8.6 introduced the [`try` command](http://www.tcl-lang.org/man/tcl8.6/TclCmd/try.htm).
 This encapsulates a lot of the uses of `catch`
@@ -36,4 +53,181 @@ ARITH DIVZERO {divide by zero}
 ```
 So the error to be trapped is `lrange $errorCode 0 end-1`
 
-<!-- -->
+<!-- #################################################### -->
+
+### Further reading
+
+* [Errors management](https://wiki.tcl-lang.org/page/Errors+management)
+* [try](https://wiki.tcl-lang.org/page/try)
+* the [`errorCode` global
+  variable](https://www.tcl-lang.org/man/tcl/TclCmd/tclvars.htm#M12)
+* the [Child Status
+  section](https://wiki.tcl-lang.org/page/exec#1a39e854c66866d4b4567dcb8126b8f0914bdab191eea3a4812f3ca8d9d2bff3)
+  of the [`exec` wiki page](https://wiki.tcl-lang.org/page/exec)
+* the [original TIP for try/catch/finally](https://core.tcl-lang.org/tips/doc/trunk/tip/329.md)
+
+
+---
+<!-- #################################################### -->
+
+## indices
+
+It's not strictly necessary to use `expr` here: See the [String
+Indices](http://www.tcl-lang.org/man/tcl8.6/TclCmd/string.htm#M54) section
+of the string man page (lindex indices use the same rules).
+
+---
+<!-- #################################################### -->
+
+## uplevel and upvar
+
+When you have a proc that receives a script to evaluate, you want to do the
+evaluation in _the **caller's** stack frame_. As an example, if you're
+writing a `do ... while ...` procedure, you might think you could:
+```tcl
+proc do {script whileKeyword condition} {
+    eval $script
+    while {[expr $condition]} {
+        eval $script
+    }
+}
+```
+And then run it like:
+```tcl
+set mylist {}
+set n 3
+do {lappend mylist $n; incr n -1} while {$n > 0}
+```
+But this happens:
+```none
+can't read "n": no such variable
+```
+That's because the `do` proc has no variable `n`. But the caller does.
+
+So you have to use the
+[`uplevel`](http://www.tcl-lang.org/man/tcl8.6/TclCmd/uplevel.htm) command
+to perform the script, and test the condition, in the same context where the
+variable lives:
+
+```tcl
+proc do {script whileKeyword condition} {
+    uplevel 1 $script
+    while {[uplevel 1 [list expr $condition]]} {
+        uplevel 1 $script
+    }
+}
+
+do {lappend mylist $n; incr n -1} while {$n > 0}
+puts $mylist  ;# => 3 2 1
+puts $n       ;# => 0
+```
+
+<!-- #################################################### -->
+
+A companion to `uplevel` is
+[`upvar`](http://www.tcl-lang.org/man/tcl8.6/TclCmd/upvar.htm)
+that connects variables in different stack frames. Think of upvar as
+creating an "alias" for the variable.
+
+This is invaluable when you're implementing control procs that use a
+variable to, say, iterate over a list (like `foreach` does). For example:
+```tcl
+proc select {varName elements condition} {
+    upvar 1 $varName elem
+    set selected {}
+    foreach elem $elements {
+        if {[uplevel 1 [list expr $condition]]} {
+            lappend selected $elem
+        }
+    }
+    return $selected
+}
+
+set mylist {1 2 3 4 5 6 7}
+set evens [select num $mylist {$num % 2 == 0}]
+puts $evens    ;# => 2 4 6
+```
+
+In the select, 
+* `upvar` connects the local `elem` variable to the caller's `num` variable, 
+* foreach sets the value of `elem` which also sets `num` in the caller, 
+* and the "even-ness" test (that explicitly refers to `$num`) is performed
+  in the caller's context
+
+<!-- #################################################### -->
+
+That `select` proc can use 
+[`lmap`](http://www.tcl-lang.org/man/tcl8.6/TclCmd/lmap.htm)
+to be a little more concise:
+```tcl
+proc select {varName elements condition} {
+    upvar 1 $varName elem
+    lmap elem $elements {
+        if {[uplevel 1 [list expr $condition]]} {
+            set elem
+        } else continue
+    }
+}
+```
+
+---
+<!-- #################################################### -->
+
+## TclOO Notes
+
+* in very broad brush strokes, classes and instances are implemented as
+  Tcl namespace ensembles.
+    * instance variables are thus namespace variables
+    * instance methods are namespace procedures
+    * instance methods are exported (or not) to achieve public/private
+      visibility.
+
+* by default, all methods that start with a lower case letter are exported
+  (i.e. "public").  
+    * other methods need to be explicitly exported. Example:
+      ```tcl
+      method == {other} {...}
+      export ==
+      ```
+* instance variable declarations: [when to use `my variable
+  x` in a method?](https://stackoverflow.com/q/58071069/7552)
+
+---
+<!-- #################################################### -->
+
+## Optimizations
+
+Avoid copying data in mamory. Change
+```tcl
+set mylist [linsert $mylist 0 some new content]
+```
+to
+```tcl
+set mylist [linsert $mylist[set mylist ""] 0 some new content]
+```
+This dereferences the value of the variable and then sets the variable to
+the empty string. This reduces the variable's reference count.
+
+Details at [https://wiki.tcl-lang.org/K](https://wiki.tcl-lang.org/K),
+specifically the [Unsharing
+Objects](https://wiki.tcl-lang.org/page/K#c2a6014c2d129837889d8a8000d05e5c3b44e8f6b46cab777c04df8a927bfad2)
+section, and [this Stack Overflow answer](https://stackoverflow.com/a/64117854/7552)
+
+
+---
+<!-- #################################################### -->
+
+## Links and references
+
+* [Tcl Style Guide](https://core.tcl-lang.org/tips/doc/trunk/tip/352.md)
+* [Tcl Style Guide](https://core.tcl-lang.org/tips/doc/trunk/tip/352.md)
+
+### Stack Overflow
+
+* [Q: TclOO: Difference between declaring variable as “class” level or in
+  constructor](https://stackoverflow.com/q/58071069/7552)
+* [Q: Using `lmap` to filter list of strings](https://stackoverflow.com/q/30489106/7552)
+
+### Tcl wiki
+
+* [Brace your expr-essions](https://wiki.tcl-lang.org/page/Brace+your+expr-essions)
