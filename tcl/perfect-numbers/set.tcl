@@ -1,3 +1,5 @@
+package provide set 0.1
+
 oo::class create Set {
     variable data
 
@@ -9,6 +11,10 @@ oo::class create Set {
         foreach element $args {
             dict set data $element "" 
         }
+    }
+
+    method contains {element} {
+        dict exists $data $element
     }
 
     method remove {args} {

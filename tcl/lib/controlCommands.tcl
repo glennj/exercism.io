@@ -1,3 +1,4 @@
+package provide controlCommands 0.1
 
 proc lmapWithIndex {vars list body} {
     lassign $vars idxVar elemVar
@@ -70,6 +71,33 @@ proc foldl {initValue varnames list body} {
     return $acc
 }
 
+# usage: inject accumVar initVal var1 list1 ?var2 list2 ...? script
+# 
+# example:
+# inject sum 100 a {1 2 3} b {2 4 6} {expr {$sum + $a*$b}}  ;# => 128
+#
+proc inject {args} {
+    if {[llength $args] < 5 || [llength $args] % 2 != 1} {
+        error {wrong # args: should be "inject accumVar initValue var1 list1 ?var2 list2 ...? command"}
+    }
+
+    set accumVar [lindex $args 0]
+    set initValue [lindex $args 1]
+    set iterables [lrange $args 2 end-1]
+    set script [lindex $args end]
+
+    upvar 1 $accumVar accum
+    foreach {var list} $iterables {
+        upvar 1 $var $var
+    }
+
+    set accum $initValue
+    foreach {*}$iterables {
+        set accum [uplevel 1 $script]
+    }
+    return $accum
+}
+
 proc all {elemName list condition} {
     upvar 1 $elemName elem
     foreach elem $list {
@@ -80,6 +108,23 @@ proc all {elemName list condition} {
     return true
 }
 
+proc seq {from to step} {
+    assert {$step != 0} "step cannot be zero"
+    if {$from == $to} {return $from}
+    if {$from < $to} {
+        if {$step < 0} {error "infinite sequence"}
+        set stop {$i <= $to}
+    }
+    if {$from > $to} {
+        if {$step > 0} {error "infinite sequence"}
+        set stop {$i >= $to}
+    }
+    set sequence [list]
+    for {set i $from} $stop {incr i $step} {
+        lappend sequence $i
+    }
+    return $sequence
+}
 
 ############################################################
 # modelled after Ruby's each_cons:

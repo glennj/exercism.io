@@ -1,0 +1,25 @@
+isIsogram_iterate       is isogram      6.956297 microseconds per iteration
+isIsogram_iterate       dup at end      7.026552 microseconds per iteration
+isIsogram_iterate       dup at mid      7.026213 microseconds per iteration
+isIsogram_iterate       dup at start    7.010242 microseconds per iteration
+
+isIsogram_split         is isogram      5.366928 microseconds per iteration
+isIsogram_split         dup at end      5.470860 microseconds per iteration
+isIsogram_split         dup at mid      5.499735 microseconds per iteration
+isIsogram_split         dup at start    5.458982 microseconds per iteration
+
+isIsogram_regexp        is isogram     14.296800 microseconds per iteration
+isIsogram_regexp        dup at end     14.792535 microseconds per iteration
+isIsogram_regexp        dup at mid     14.643569 microseconds per iteration
+isIsogram_regexp        dup at start   14.612412 microseconds per iteration
+
+isIsogram_early_return  is isogram      5.892204 microseconds per iteration
+isIsogram_early_return  dup at end      5.961233 microseconds per iteration
+isIsogram_early_return  dup at mid      4.615238 microseconds per iteration
+isIsogram_early_return  dup at start    3.241760 microseconds per iteration
+
+isIsogram_non_regex     is isogram      7.390842 microseconds per iteration
+isIsogram_non_regex     dup at end      7.400785 microseconds per iteration
+isIsogram_non_regex     dup at mid      5.213900 microseconds per iteration
+isIsogram_non_regex     dup at start    2.887808 microseconds per iteration
+

@@ -1,5 +1,5 @@
 #!/usr/bin/env tclsh
-set version 2.4.0
+set version 2.4.1
 package require tcltest
 namespace import ::tcltest::*
 source "clock.tcl"
@@ -33,7 +33,7 @@ proc booleanMatch {expected actual} {
     return [expr {
         [string is boolean -strict $expected] &&
         [string is boolean -strict $actual] &&
-        (($expected && $actual) || (!$expected && !$actual))
+        !!$expected == !!$actual
     }]
 }
 customMatch boolean booleanMatch
@@ -78,6 +78,7 @@ if {$::argv0 eq [info script]} {
         clock-2.6  23  59     2  "00:01"  "add across midnight"
         clock-2.7   5  32  1500  "06:32"  "add more than one day (1500 min = 25 hrs)"
         clock-2.8   1   1  3500  "11:21"  "add more than two days"
+        clock-2.9  12   0   -30  "11:30"  "add a negative value"
     }
 
     foreach {name hour minute delta result description} $addCases {
@@ -96,6 +97,7 @@ if {$::argv0 eq [info script]} {
         clock-3.6   6 15   160  "03:35"  "subtract more than two hours with borrow"
         clock-3.7   5 32  1500  "04:32"  "subtract more than one day (1500 min = 25 hrs)"
         clock-3.8   2 20  3000  "00:20"  "subtract more than two days"
+        clock-3.9  12  0   -30  "12:30"  "subtract a negative value"
     }
 
     foreach {name hour minute delta result description} $subtractCases {

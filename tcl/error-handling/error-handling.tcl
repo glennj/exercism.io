@@ -1,16 +1,15 @@
-proc custom_error_message {message} {
-    error $message
-}
+lappend auto_path ../lib
+package require Exceptions
 
 proc handle_error {script} {
     set result "success"
     try {
         uplevel 1 $script 
-    } trap {ARITH DIVZERO} err {
+    } trap $Exceptions::DivisionByZero {err opts} {
         set result "division by zero"
-    } trap {POSIX ENOENT} err {
+    } trap $Exceptions::FileNotFound {err opts} {
         set result "file does not exist"
-    } trap {TCL LOOKUP COMMAND} err {
+    } trap $Exceptions::NoSuchCommand {err opts} {
         set result "proc does not exist"
     } on error {errMsg errOpts} {
         set result "unknown error: [list [dict get $errOpts -errorcode] $errMsg]"
@@ -19,6 +18,11 @@ proc handle_error {script} {
 }
 
 
+# `custom_error_message` -- just delegate to `error`
+interp alias "" custom_error_message "" error
+
+
+############################################################
 ### try ... trap
 # 
 # Tcl 8.6 introduced the [`try` command](http://www.tcl-lang.org/man/tcl8.6/TclCmd/try.htm).

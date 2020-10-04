@@ -4,6 +4,8 @@
 #
 # This will be in Tcl 8.7 -- https://tcl.tk/man/tcl8.7/TclCmd/dict.htm
 
+package provide dictGetdef 0.1
+
 set dictSubcommands [namespace ensemble configure dict -map]
 
 if {![dict exists $dictSubcommands getdef]} {

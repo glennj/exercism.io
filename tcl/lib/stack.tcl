@@ -1,7 +1,4 @@
-if {"Stack" in [info commands]} {
-    # we've already sourced this file
-    return
-}
+package provide stack 0.1
 
 oo::class create Stack {
     variable data
