@@ -1,0 +1,61 @@
+########################################################################
+# This is a prior iteration, creating a specific number of threads
+# instead of a pool.  Preserved for posterity.
+
+package require Thread
+
+proc calculate {input} {
+    # create 2 thread-safe variables:
+    # * the list of lines in the input,
+    #   each worker thread can pull work from it.
+    # * the dictionary of the letter counts.
+
+    # destroy the shared vars if they exist from a previous run
+    catch {tsv::unset input}
+    catch {tsv::unset count}
+
+    tsv::set input lines $input
+    tsv::array set count {}
+
+    set nWorkers 4      ;# an arbitrary number
+    set threads {}
+    for {set i 1} {$i <= $nWorkers} {incr i} {
+        lappend threads [createWorker]
+    }
+
+    # start working
+    foreach thread $threads {
+        thread::send -async $thread doWork
+    }
+
+    # and reap them when complete
+    foreach thread $threads {
+        thread::join $thread
+    }
+
+    tsv::array get count
+}
+
+proc createWorker {} {
+    thread::create -joinable {
+        proc doWork {} {
+            while {[tsv::llength input lines] > 0} {
+                # Another thread may have grabbed the last line here.
+                # No problem though, tsv::lpop returns an empty string
+                # if the list is empty: we add nothing to the count.
+                set line [tsv::lpop input lines]
+
+                foreach char [split [string tolower $line] ""] {
+                    if {[string is alpha $char]} {
+                        # frustratingly, tsv::incr is apparently not atomic
+                        tsv::lock count {
+                            tsv::incr count $char
+                        }
+                    }
+                }
+            }
+            thread::release     ;# this thread 
+        }
+        thread::wait            ;# await further instructions
+    }
+}
