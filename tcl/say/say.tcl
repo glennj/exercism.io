@@ -40,6 +40,7 @@ namespace eval SayNumber {
 
     proc sayCompound {n group divisor} {
         lassign [divmod $n $divisor] div rem
+        # using `concat` for the "list flattening" effect
         set result [concat [say $div] $group]
         if {$rem != 0} then {lappend result {*}[say $rem]}
         return $result

@@ -70,7 +70,7 @@ oo::class create Dominoes {
                 if {[$d left] != $tail} then {$d reverse}
 
                 set newChain [my buildChain \
-                    [concat $chain $d] \
+                    [list {*}$chain $d] \
                     [lreplace $available $i $i] \
                 ]
 

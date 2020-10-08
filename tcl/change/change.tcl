@@ -10,7 +10,7 @@ namespace eval Change {
         assert {$amount >= 0} "target can't be negative"
         
         # These algorithms assume 1-based array indexing: pad the coins list
-        set denominations [concat null $coins]
+        set denominations [list null {*}$coins]
 
         lassign [Change $denominations [llength $coins] $amount] C S
         return [MakeChange $S $denominations $amount]
@@ -28,8 +28,8 @@ namespace eval Change {
     #   to making change for p cents.
     #
     proc Change {d k n} {
-        set C [concat 0 [lrepeat $k null]]
-        set S [concat null [lrepeat $k null]]
+        set C [linsert [lrepeat $k null] 0 0]
+        set S [linsert [lrepeat $k null] 0 null]
 
         for {set p 1} {$p <= $n} {incr p} {
             set min Inf

@@ -29,7 +29,7 @@ oo::class create Forth {
             set instructions [lassign $instructions token]
 
             if {[dict exists $macros $token]} {
-                set instructions [concat [dict get $macros $token] $instructions]
+                set instructions [linsert $instructions 0 {*}[dict get $macros $token]]
 
             } elseif {[string is integer -strict $token]} {
                 $stack push $token
@@ -52,7 +52,7 @@ oo::class create Forth {
     }
 
     method ArithmeticOperation {op} {
-        my MinStack 2
+        my CheckStack 2
         set b [$stack pop]
         set a [$stack pop]
         $stack push [expr "$a $op $b"]
@@ -60,19 +60,19 @@ oo::class create Forth {
     }
 
     method DUP {} {
-        my MinStack 1
+        my CheckStack 1
         $stack push [$stack peek]
         return
     }
 
     method DROP {} {
-        my MinStack 1
+        my CheckStack 1
         $stack pop
         return
     }
 
     method SWAP {} {
-        my MinStack 2
+        my CheckStack 2
         set b [$stack pop]
         set a [$stack pop]
         $stack push $b
@@ -81,7 +81,7 @@ oo::class create Forth {
     }
  
     method OVER {} {
-        my MinStack 2
+        my CheckStack 2
         set b [$stack pop]
         set a [$stack peek]
         $stack push $b
@@ -89,7 +89,8 @@ oo::class create Forth {
         return
     }
 
-    method MinStack {n} {
+    # check if the stack has the minimum number of items
+    method CheckStack {n} {
         if {$n > 0 && [$stack isEmpty]} {
             error "empty stack"
         } elseif {$n > 1 && [$stack size] == 1} {

@@ -22,7 +22,7 @@ namespace eval BookStore {
         if {[llength $books] == 0} {
             return $priceSoFar
         }
-        
+
         set uniqBooks [ldistinct $books]
         set minPrice Inf
 
@@ -43,12 +43,21 @@ namespace eval BookStore {
         return $minPrice
     }
 
+    # example
+    #   set things {b c d d a b c c d c a d d d}
+    #   sortByGroupSize $things
+    #   #=> d d d d d d c c c c b b a a
+    #
+    # Note how the b's come before the a's:
+    # - b was seen in the input before a
+    #
     proc sortByGroupSize {items} {
         set groups {}
         foreach item $items {dict incr groups $item}
 
         set sortedDict [lsort -int -decr -stride 2 -index end $groups]
 
+        # using `concat` for the "list flattening" effect
         concat {*}[dict values [dict map {item n} $sortedDict {
             lrepeat $n $item
         }]]
@@ -68,6 +77,10 @@ namespace eval BookStore {
     proc K {x y} {return $x}
 
     # find the distinct items in a list without changing the order
+    #   set things {b c d d a b c c d c a d d d}
+    #   ldistinct $things
+    #   #=> b c d a
+    #
     proc ldistinct {list} {
         set uniq {}
         foreach elem $list {dict set uniq $elem ""}

@@ -25,7 +25,7 @@ oo::class create GoBoard {
 
         set NoStone " "
         set Players {B black W white}
-        set Stones [concat [dict keys $Players] $NoStone]
+        set Stones {B W " "}
     }
 
     method Get {point} {

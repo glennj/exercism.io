@@ -52,9 +52,11 @@ oo::class create Tree {
             incr commonPathLength
         }
 
-        set pathUp [lreverse [lrange $fromPath $commonPathLength end]]
-        set pathDown [lrange $toPath $commonPathLength+1 end]
-        return [concat $pathUp $pathDown]
+        # the path "up"
+        set path [lreverse [lrange $fromPath $commonPathLength end]]
+        # the path "down"
+        lappend path {*}[lrange $toPath $commonPathLength+1 end]
+        return $path
     }
 
     method addChild {child} {
@@ -77,7 +79,7 @@ oo::class create Tree {
     }
 
     method pathFromRoot {needle {path ""}} {
-        set newPath [concat $path [self]]
+        set newPath [linsert $path end [self]]
         if {$needle eq $label} {
             return $newPath
         }

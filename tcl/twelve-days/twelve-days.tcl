@@ -22,19 +22,18 @@ namespace eval TwelveDays {
         "twelve Drummers Drumming"
     }
 
+    variable verse {On the %s day of Christmas my true love gave to me: %s.}
+
     proc verse {n} {
         variable ordinal
         variable gifts
-
-        set verse "On the [lindex $ordinal $n] day of Christmas "
-        append verse "my true love gave to me: "
+        variable verse
 
         set days [lreverse [lrange $gifts 1 $n]]
         if {$n > 1} {
             lset days end "and [lindex $days end]"
         }
-        append verse [join $days ", "]
-        return "$verse."
+        format $verse [lindex $ordinal $n] [join $days ", "]
     }
 
     proc sing {from to} {

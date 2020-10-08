@@ -1,3 +1,7 @@
+lappend auto_path ../lib
+package require dictGetdef
+
+
 # This approach pre-sorts the data, then creates the mapping.
 #
 proc roster {students} {
@@ -18,9 +22,5 @@ proc roster {students} {
 
 
 proc grade {students grade} {
-    set roster [roster $students]
-    if {[catch {dict get $roster $grade} names] != 0} {
-        set names {}
-    }
-    return $names
+    dict getdef [roster $students] $grade {}
 }

@@ -26,7 +26,9 @@ oo::class create Scale {
 
         # rotate the notes so the tonic comes first
         set idx [lsearch -exact $notes_ [string totitle $tonic_]]
-        set notes_ [concat [lrange $notes_ $idx end] [lrange $notes_ 0 $idx-1]]
+        set notes_ [list \
+            {*}[lrange $notes_ $idx end] \
+            {*}[lrange $notes_ 0 $idx-1] ]
 
         # what about the "XX major/minor" tonics?
         # Should the above be:
