@@ -23,6 +23,10 @@ namespace eval ::Exceptions {
     variable DivisionByZero    {ARITH DIVZERO}
     variable WrongType         {ARITH DOMAIN}
 
+    # example of WrongType:
+    #   % expr {pow(-1, 0.5)}
+    #   domain error: argument not in valid range
+
     # Tcl
     variable Arguments         {TCL WRONGARGS}
     variable ChannelNotOpen    {TCL LOOKUP CHANNEL}

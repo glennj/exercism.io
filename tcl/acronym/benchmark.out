@@ -1,0 +1,5 @@
+abbreviate_splitchars    lorem ipsum     1357.109 microseconds per iteration
+abbreviate_findinitials  lorem ipsum      224.755 microseconds per iteration
+abbreviate_findwords     lorem ipsum       77.690 microseconds per iteration
+abbreviate_bychar        lorem ipsum     1471.825 microseconds per iteration
+abbreviate               lorem ipsum       92.330 microseconds per iteration

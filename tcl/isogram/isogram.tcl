@@ -59,13 +59,8 @@ proc isIsogram_non_regex {input} {
 
 ############################################################
 proc benchmark {} {
-    set procs {
-        isIsogram_iterate
-        isIsogram_split
-        isIsogram_regexp
-        isIsogram_early_return
-        isIsogram_non_regex
-    }
+    set procs [info procs isIsogram_*]
+
     set alphabet  abcdefghijklmnopqrstuvwxyz
     set dup_end "${alphabet}A"
     set dup_mid abcdefghijklmMnopqrstuvwxyz
