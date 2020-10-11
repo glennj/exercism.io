@@ -1,38 +1,48 @@
-# WIP
-# failing with `ERROR: LoadError: LoadError: UndefVarError: T not defined`
-# why fail: this is how julia defines a Set
-# https://github.com/JuliaLang/julia/blob/55e36cc308b66d3472990a06b2797f9f9154ea0a/base/set.jl
+import Base: isempty, in, length, iterate, push!, filter!
 
 struct CustomSet{T} <: AbstractSet{T}
     elements::Array{T,1}
-
-    CustomSet{T}() where {T} = new(Array{T,1}())
-    CustomSet{T}(container::Array{T,1}) = new(x for x in container)
-    CustomSet{T}(cs::CustomSet{T})      = new(x for x in cs.elements)
+    CustomSet(a::Array{T,1}) where T = new{T}(unique(a))
 end
 
-isempty(cs::CustomSet) = isempty(cs.elements)
+# unneeded constructor methods.
+#CustomSet{T}() where {T} = CustomSet(Array{T,1}())
+#CustomSet{T}(a::CustomSet{T}) where {T} = CustomSet(a.elements)
 
-in(elem, cs::CustomSet) = elem in cs.elements
+isempty(a::CustomSet) = isempty(a.elements)
 
-length(cs::CustomSet) = length(cs.elements)
+length(a::CustomSet) = length(a.elements)
 
-push!(cs::CustomSet, elem) = push!(cs.elements, elem)
+in(elem, a::CustomSet) = elem in a.elements
 
-function pop!(cs::CustomSet, elem) 
-    pop!(cs.elements, elem)
-    elem
+filter!(f::Any, a::CustomSet) = filter!(f, a.elements)
+
+function issubset(a::CustomSet, b::CustomSet) 
+    all(elem -> elem in b, a.elements)
 end
 
-function pop!(cs::CustomSet, elem, default) 
-    if elem in cs
-        pop!(cs, elem)
-    else
-        default
+function disjoint(a::CustomSet, b::CustomSet) 
+    !any(elem -> elem in b, a.elements)
+end
+
+iterate(a::CustomSet) = iterate(a.elements)
+function iterate(a::CustomSet, state::Union{Nothing, T}) where T
+    iterate(a.elements, state)
+end
+
+function push!(a::CustomSet, elem)
+    if !(elem in a)
+        push!(a.elements, elem)
     end
 end
 
+function complement!(a::CustomSet, b::CustomSet)
+    filter!(elem -> !(elem in b), a)
+end
+function complement(a::CustomSet, b::CustomSet)
+    CustomSet(filter(elem -> !(elem in b), a.elements))
+end
 
-function copy(cs::CustomSet)
-    CustomSet(cs.elements)
+function copy(a::CustomSet)
+    CustomSet(a.elements)
 end
