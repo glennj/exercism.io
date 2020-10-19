@@ -1,3 +1,6 @@
+"
+I represent a Cartesian (x,y) coordinate, the ""position"" of a Robot.
+"
 Class {
 	#name : #Position,
 	#superclass : #Object,
@@ -13,9 +16,21 @@ Position class >> x: xValue y: yValue [
 	^ self new setX: xValue y: yValue
 ]
 
-{ #category : #moves }
+{ #category : #'instance creation' }
+Position class >> zero [
+	^ self x: 0 y: 0
+]
+
+{ #category : #setter }
 Position >> addX: xDelta y: yDelta [
 	self setX: x + xDelta y: y + yDelta
+]
+
+{ #category : #actions }
+Position >> advance: aDirection [
+	| delta |
+	delta := aDirection advancement.
+	self addX: (delta x) y: (delta y)
 ]
 
 { #category : #converting }
@@ -30,7 +45,7 @@ Position >> initialize [
 	y := 0.
 ]
 
-{ #category : #private }
+{ #category : #setter }
 Position >> setX: xValue y: yValue [
 	x := xValue.
 	y := yValue.

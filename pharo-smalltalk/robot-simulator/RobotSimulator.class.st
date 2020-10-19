@@ -1,3 +1,6 @@
+"
+I am a robot that can be given some instructions.
+"
 Class {
 	#name : #RobotSimulator,
 	#superclass : #Object,
@@ -8,45 +11,16 @@ Class {
 	#category : #'Exercise@RobotSimulator'
 }
 
-{ #category : #constants }
-RobotSimulator class >> advances [
-	"Maps a direction to a (xDelta yDelta) pair"
-	^ Dictionary newFromPairs: { 
-		'east'  . { 'x' ->  1 . 'y' ->  0 } asDictionary .
-		'north' . { 'x' ->  0 . 'y' ->  1 } asDictionary .
-		'west'  . { 'x' -> -1 . 'y' ->  0 } asDictionary .
-		'south' . { 'x' ->  0 . 'y' -> -1 } asDictionary }
-]
-
-{ #category : #constants }
-RobotSimulator class >> directions [
-	^ #('north' 'east' 'south' 'west')
-]
-
-{ #category : #private }
-RobotSimulator >> actionA [
+{ #category : #actions }
+RobotSimulator >> advance [
 	"Advance the robot 1 step in the current direction."
-	| delta |
-	delta := self class advances at: direction.
-	position addX: (delta at: 'x') y: (delta at: 'y')
-]
-
-{ #category : #private }
-RobotSimulator >> actionL [
-	"Turn Left (counterclockwise)."
-	self turn: -1
-]
-
-{ #category : #private }
-RobotSimulator >> actionR [
-	"Turn Right (clockwise)."
-	self turn: 1
+	position advance: direction
 ]
 
 { #category : #converting }
 RobotSimulator >> asDictionary [
 	^ (Dictionary new)
-		add: ('direction' -> direction);
+		add: ('direction' -> direction asString);
 		add: ('position' -> position asDictionary);
 		yourself
 ]
@@ -54,27 +28,37 @@ RobotSimulator >> asDictionary [
 { #category : #initialization }
 RobotSimulator >> initialize [ 
 	super initialize.
-	direction := 'north'.
-	position := Position x: 0 y: 0.
+	direction := Direction north.
+	position := Position zero.
 ]
 
 { #category : #controlling }
 RobotSimulator >> sendInstructions: aString [ 
+	| dispatch action |
+	
+	dispatch := Dictionary newFrom: { 
+		$A -> #advance .
+		$R -> #turnRight  .
+		$L -> #turnLeft .
+	}.
+	
 	aString asUppercase asArray do: [ :instruction |
-		('RAL' includes: instruction)
-			ifFalse: [ self error: 'Unknown instruction ', instruction ].
-		self perform: ('action' , instruction asString) asSymbol ].
+		action := dispatch
+			at: instruction
+			ifAbsent: [ self error: 'Unknown instruction' ].
+		self perform: action
+	].
+	
 	^ self asDictionary
 ]
 
-{ #category : #private }
+{ #category : #setter }
 RobotSimulator >> setDirection: directionName [
-	(self class directions includes: directionName)
-		ifTrue: [ direction := directionName ]
-		ifFalse: [ self error: 'Invalid direction ', directionName ]
+	direction := Direction newFrom: directionName
+
 ]
 
-{ #category : #private }
+{ #category : #setter }
 RobotSimulator >> setPosition: aDictionary [
 	(aDictionary includesKey: 'x') & (aDictionary includesKey: 'y')
 		ifTrue: [ position := Position x: (aDictionary at: 'x') y: (aDictionary at: 'y') ]
@@ -83,17 +67,21 @@ RobotSimulator >> setPosition: aDictionary [
 
 { #category : #controlling }
 RobotSimulator >> startFacing: aString atPosition: aCollection [ 
-	self setDirection: aString.
-	self setPosition: aCollection.
-	^ self asDictionary
+	^ self
+		setDirection: aString;
+		setPosition: aCollection;
+		asDictionary
 ]
 
-{ #category : #private }
-RobotSimulator >> turn: increment [
-	| directions nextIndex |
-	directions := self class directions.
-	nextIndex := (directions indexOf: direction) + increment.
-	nextIndex = (directions size + 1) ifTrue: [ nextIndex := 1 ].
-	nextIndex = 0 ifTrue: [ nextIndex := directions size ].
-	self setDirection: (directions at: nextIndex)
+{ #category : #actions }
+RobotSimulator >> turnLeft [
+	"Turn Left (counterclockwise)."
+	direction turnLeft
+
+]
+
+{ #category : #actions }
+RobotSimulator >> turnRight [
+	"Turn Right (clockwise)."
+	direction turnRight
 ]
