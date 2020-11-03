@@ -25,11 +25,7 @@ public class Team implements Comparable<Team> {
      */
     public int compareTo(Team other) {
         int myPoints = getPoints();
-        int otherPoints = other.getPoints();
-        if (myPoints > otherPoints)
-            return -1;
-        if (myPoints < otherPoints)
-            return 1;
-        return getName().compareTo(other.getName());
+        int cmp = -1 * Integer.compare(myPoints, other.getPoints());
+        return (cmp != 0) ? cmp : getName().compareTo(other.getName());
     }
 }

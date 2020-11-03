@@ -21,7 +21,7 @@ public class TournamentTest {
     //@Ignore("Remove to run test")
     @Test
     public void aWinIsThreePointsALossIsZeroPoints() {
-        tournament.applyResults("Allegoric Alaskans;Blithering Badgers;won");
+        tournament.applyResults("Allegoric Alaskans;Blithering Badgers;win");
         assertEquals(
                 "Team                           | MP |  W |  D |  L |  P\n" +
                 "Allegoric Alaskans             |  1 |  1 |  0 |  0 |  3\n" +
@@ -32,7 +32,7 @@ public class TournamentTest {
     //@Ignore("Remove to run test")
     @Test
     public void aWinCanAlsoBeExpressedAsALoss() {
-        tournament.applyResults("Blithering Badgers;Allegoric Alaskans;lost");
+        tournament.applyResults("Blithering Badgers;Allegoric Alaskans;loss");
         assertEquals(
                 "Team                           | MP |  W |  D |  L |  P\n" +
                 "Allegoric Alaskans             |  1 |  1 |  0 |  0 |  3\n" +
@@ -43,7 +43,7 @@ public class TournamentTest {
     //@Ignore("Remove to run test")
     @Test
     public void aDifferentTeamCanWin() {
-        tournament.applyResults("Blithering Badgers;Allegoric Alaskans;won");
+        tournament.applyResults("Blithering Badgers;Allegoric Alaskans;win");
         assertEquals(
                 "Team                           | MP |  W |  D |  L |  P\n" +
                 "Blithering Badgers             |  1 |  1 |  0 |  0 |  3\n" +
@@ -54,7 +54,7 @@ public class TournamentTest {
     //@Ignore("Remove to run test")
     @Test
     public void aDrawIsOnePointEach() {
-        tournament.applyResults("Allegoric Alaskans;Blithering Badgers;drew");
+        tournament.applyResults("Allegoric Alaskans;Blithering Badgers;draw");
         assertEquals(
                 "Team                           | MP |  W |  D |  L |  P\n" +
                 "Allegoric Alaskans             |  1 |  0 |  1 |  0 |  1\n" +
@@ -66,8 +66,8 @@ public class TournamentTest {
     @Test
     public void thereCanBeMoreThanOneMatch() {
         tournament.applyResults(
-                "Allegoric Alaskans;Blithering Badgers;won\n" +
-                "Allegoric Alaskans;Blithering Badgers;won");
+                "Allegoric Alaskans;Blithering Badgers;win\n" +
+                "Allegoric Alaskans;Blithering Badgers;win");
         assertEquals(
                 "Team                           | MP |  W |  D |  L |  P\n" +
                 "Allegoric Alaskans             |  2 |  2 |  0 |  0 |  6\n" +
@@ -79,8 +79,8 @@ public class TournamentTest {
     @Test
     public void thereCanBeMoreThanOneWinner() {
         tournament.applyResults(
-                "Allegoric Alaskans;Blithering Badgers;lost\n" +
-                "Allegoric Alaskans;Blithering Badgers;won");
+                "Allegoric Alaskans;Blithering Badgers;loss\n" +
+                "Allegoric Alaskans;Blithering Badgers;win");
         assertEquals(
                 "Team                           | MP |  W |  D |  L |  P\n" +
                 "Allegoric Alaskans             |  2 |  1 |  0 |  1 |  3\n" +
@@ -92,9 +92,9 @@ public class TournamentTest {
     @Test
     public void thereCanBeMoreThanTwoTeams() {
         tournament.applyResults(
-                "Allegoric Alaskans;Blithering Badgers;won\n" +
-                "Blithering Badgers;Courageous Californians;won\n" +
-                "Courageous Californians;Allegoric Alaskans;lost");
+                "Allegoric Alaskans;Blithering Badgers;win\n" +
+                "Blithering Badgers;Courageous Californians;win\n" +
+                "Courageous Californians;Allegoric Alaskans;loss");
         assertEquals(
                 "Team                           | MP |  W |  D |  L |  P\n" +
                 "Allegoric Alaskans             |  2 |  2 |  0 |  0 |  6\n" +
@@ -107,12 +107,12 @@ public class TournamentTest {
     @Test
     public void typicalInput() {
         tournament.applyResults(
-                "Allegoric Alaskans;Blithering Badgers;won\n" +
-                "Devastating Donkeys;Courageous Californians;drew\n" +
-                "Devastating Donkeys;Allegoric Alaskans;won\n" +
-                "Courageous Californians;Blithering Badgers;lost\n" +
-                "Blithering Badgers;Devastating Donkeys;lost\n" +
-                "Allegoric Alaskans;Courageous Californians;won");
+                "Allegoric Alaskans;Blithering Badgers;win\n" +
+                "Devastating Donkeys;Courageous Californians;draw\n" +
+                "Devastating Donkeys;Allegoric Alaskans;win\n" +
+                "Courageous Californians;Blithering Badgers;loss\n" +
+                "Blithering Badgers;Devastating Donkeys;loss\n" +
+                "Allegoric Alaskans;Courageous Californians;win");
         assertEquals(
                 "Team                           | MP |  W |  D |  L |  P\n" +
                 "Devastating Donkeys            |  3 |  2 |  1 |  0 |  7\n" +
@@ -126,10 +126,10 @@ public class TournamentTest {
     @Test
     public void incompleteCompetition() {
         tournament.applyResults(
-                "Allegoric Alaskans;Blithering Badgers;lost\n" +
-                "Devastating Donkeys;Allegoric Alaskans;lost\n" +
-                "Courageous Californians;Blithering Badgers;drew\n" +
-                "Allegoric Alaskans;Courageous Californians;won");
+                "Allegoric Alaskans;Blithering Badgers;loss\n" +
+                "Devastating Donkeys;Allegoric Alaskans;loss\n" +
+                "Courageous Californians;Blithering Badgers;draw\n" +
+                "Allegoric Alaskans;Courageous Californians;win");
         assertEquals(
                 "Team                           | MP |  W |  D |  L |  P\n" +
                 "Allegoric Alaskans             |  3 |  2 |  0 |  1 |  6\n" +
@@ -143,12 +143,12 @@ public class TournamentTest {
     @Test
     public void tiesBrokenAlphabetically() {
         tournament.applyResults(
-                "Courageous Californians;Devastating Donkeys;won\n" +
-                "Allegoric Alaskans;Blithering Badgers;won\n" +
-                "Devastating Donkeys;Allegoric Alaskans;lost\n" +
-                "Courageous Californians;Blithering Badgers;won\n" +
-                "Blithering Badgers;Devastating Donkeys;drew\n" +
-                "Allegoric Alaskans;Courageous Californians;drew");
+                "Courageous Californians;Devastating Donkeys;win\n" +
+                "Allegoric Alaskans;Blithering Badgers;win\n" +
+                "Devastating Donkeys;Allegoric Alaskans;loss\n" +
+                "Courageous Californians;Blithering Badgers;win\n" +
+                "Blithering Badgers;Devastating Donkeys;draw\n" +
+                "Allegoric Alaskans;Courageous Californians;draw");
         assertEquals(
                 "Team                           | MP |  W |  D |  L |  P\n" +
                 "Allegoric Alaskans             |  3 |  2 |  1 |  0 |  7\n" +

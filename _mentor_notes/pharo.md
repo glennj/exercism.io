@@ -49,13 +49,13 @@ aString select: #isLetter thenCollect: #lowercase.
 
 ## implementing `=`
 
-My understanding that classes that implement = should also implement hash.
+My understanding that classes that implement `=` should also implement hash.
 * Two objects that are equal must have the same hash.
 * Two objects that are unequal may or may not have different hash values.
 
 I believe the best practice for implementing = is:
 * test if the objects are the same object (using the ProtoObject == method)
-* test if they are the same class
+* test if they are the same `species`
 * then do equality test based on instance vars.
 
 ## and: and or: take blocks

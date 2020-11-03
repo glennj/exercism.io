@@ -1,5 +1,24 @@
 package provide controlCommands 0.1
 
+proc until {test command} {
+    uplevel [list while "!($test)" $command]
+}
+
+proc do {body while condition} {
+    switch -exact -- $while {
+        while - until {}
+        default {
+            error "unknown keyword \"$while\": must be while or until"
+        }
+    }
+    uplevel $body
+    $while {[uplevel [list expr $condition]]} {
+        uplevel $body
+    }
+}
+
+
+
 proc lmapWithIndex {vars list body} {
     lassign $vars idxVar elemVar
     upvar 1 $idxVar idx
@@ -144,7 +163,7 @@ proc foreach_cons {varnames list script} {
     }
     set n [llength $varnames]
     for {set i 0; set j [expr {$n - 1}]} \
-        {$i <= [llength $list] - $n
+        {$i <= [llength $list] - $n} \
         {incr i; incr j} \
         {
             lassign [lrange $list $i $j] {*}$varnames

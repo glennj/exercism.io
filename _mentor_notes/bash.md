@@ -1532,30 +1532,38 @@ sys	0m0.035s
 $ len=${#string}
 $ time for ((i=0; i<len; i++)); do :; done
 
-real	0m0.189s
-user	0m0.189s
+real	0m0.193s
+user	0m0.193s
 sys	0m0.000s
 ```
 Or if you can loop backwards, don't even need the variable. I imagine that
-the 0.01 sec gain here is real: bash does not need to access the variable
-contents for each iteration.
+the 0.022 sec gain we see is significant: bash does not need to access the
+variable contents for each iteration.
 ```bash
 $ time for ((i = ${#string} - 1; i>=0; i--)); do :; done
 
-real	0m0.178s
-user	0m0.177s
+real	0m0.171s
+user	0m0.170s
 sys	0m0.000s
 ```
-But, a while-read loop is much faster than for if you need to iterate over
-the characters of the string:
+If you need to iterate over the characters of the string, a while-read loop
+is _much_ faster than a for loop:
 ```bash
-$ time while IFS= read -d "" -r -n 1 char; do 
++$ time for ((i=0; i<len; i++)); do
+     echo "${string:i:1}"
+   done > /dev/null
+
+real	0m7.875s
+user	0m7.841s
+sys	0m0.028s
+
+$ time while IFS= read -d "" -r -n 1 char; do
     echo "$char"
   done < <(printf "%s" "$string") > /dev/null
 
-real	0m0.603s
-user	0m0.473s
-sys	0m0.131s
+real	0m0.481s
+user	0m0.439s
+sys	0m0.042s
 ```
 Note the use of the printf process substitution. Using a `<<<"$string"`
 here-string redirection adds a trailing newline.

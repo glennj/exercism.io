@@ -10,6 +10,7 @@
 
 package ifneeded Exceptions 0.1 [list source [file join $dir exceptions.tcl]]
 package ifneeded additionalMathFunctions 0.1 [list source [file join $dir mathfunc.tcl]]
+package ifneeded controlCommands 0.1 [list source [file join $dir controlCommands.tcl]]
 package ifneeded dictGetdef 0.1 [list source [file join $dir dict.tcl]]
 package ifneeded set 0.1 [list source [file join $dir set.tcl]]
 package ifneeded stack 0.1 [list source [file join $dir stack.tcl]]

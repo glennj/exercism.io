@@ -82,8 +82,13 @@ of the string man page (lindex indices use the same rules).
 ## uplevel and upvar
 
 When you have a proc that receives a script to evaluate, you want to do the
-evaluation in _the **caller's** stack frame_. As an example, if you're
-writing a `do ... while ...` procedure, you might think you could:
+evaluation in _the **caller's** stack frame_.  You have to use the
+[`uplevel`](http://www.tcl-lang.org/man/tcl8.6/TclCmd/uplevel.htm) command
+to perform the script in the same context it was defined.
+I can provide more details if you want.
+
+As an example, if you're writing a `do ... while ...` procedure, you might
+think you could:
 ```tcl
 proc do {script whileKeyword condition} {
     eval $script
@@ -104,10 +109,6 @@ can't read "n": no such variable
 ```
 That's because the `do` proc has no variable `n`. But the caller does.
 
-So you have to use the
-[`uplevel`](http://www.tcl-lang.org/man/tcl8.6/TclCmd/uplevel.htm) command
-to perform the script, and test the condition, in the same context where the
-variable lives:
 
 ```tcl
 proc do {script whileKeyword condition} {
@@ -175,22 +176,35 @@ proc select {varName elements condition} {
 
 ## TclOO Notes
 
-* in very broad brush strokes, classes and instances are implemented as
-  Tcl namespace ensembles.
-    * instance variables are thus namespace variables
-    * instance methods are namespace procedures
-    * instance methods are exported (or not) to achieve public/private
-      visibility.
+in very broad brush strokes, classes and instances are implemented as Tcl
+namespace ensembles.
+* instance variables are thus namespace variables
+* instance methods are namespace procedures
+* instance methods are exported (or not) to achieve public/private
+    visibility.
 
-* by default, all methods that start with a lower case letter are exported
+by default, all methods that start with a lower case letter are exported
   (i.e. "public").  
-    * other methods need to be explicitly exported. Example:
-      ```tcl
-      method == {other} {...}
-      export ==
-      ```
-* instance variable declarations: [when to use `my variable
-  x` in a method?](https://stackoverflow.com/q/58071069/7552)
+* other methods need to be explicitly exported. Example:
+    ```tcl
+    method == {other} {...}
+    export ==
+    ```
+
+<!-- -->
+
+Instance variable declarations:
+* If you use `variable myVar` **outside** of the constructor, then
+  you do **not** need to use `my variable myVar` in any method: 
+  the class knows how to find `$myVar` in the object's namespace.
+* If you use `variable myVar` **inside** the constructor, then
+  you **must** use `my variable myVar` in all methods that use
+  that variable.
+
+Full details in 
+[when to use `my variable x` in a method?][my-variable]
+with the author of TclOO providing the answer.
+[my-variable]: https://stackoverflow.com/q/58071069/7552
 
 ---
 <!-- #################################################### -->
@@ -220,7 +234,7 @@ section, and [this Stack Overflow answer](https://stackoverflow.com/a/64117854/7
 ## Links and references
 
 * [Tcl Style Guide](https://core.tcl-lang.org/tips/doc/trunk/tip/352.md)
-* [Tcl Style Guide](https://core.tcl-lang.org/tips/doc/trunk/tip/352.md)
+* [Tcl info page on StackOverflow](https://stackoverflow.com/tags/tcl/info)
 
 ### Stack Overflow
 
@@ -230,4 +244,10 @@ section, and [this Stack Overflow answer](https://stackoverflow.com/a/64117854/7
 
 ### Tcl wiki
 
-* [Brace your expr-essions](https://wiki.tcl-lang.org/page/Brace+your+expr-essions)
+[Brace your expr-essions](https://wiki.tcl-lang.org/page/Brace+your+expr-essions)
+
+It's best practice to (almost) always "brace your expr-essions". This
+applies to the `expr` command but also `if` and `while`. See
+[Brace your expr-essions](https://wiki.tcl-lang.org/page/Brace+your+expr-essions)
+and a similar discussion on the [`if` wiki page](https://wiki.tcl-lang.org/page/if#c0af59c387e4e754fbfe4d65236c77b7a9f9e5496baea85a10dfa1447e83f6b7)
+

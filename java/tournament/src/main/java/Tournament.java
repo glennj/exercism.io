@@ -17,15 +17,15 @@ public class Tournament {
             Team away = teams.computeIfAbsent(items[1], Team::new);
 
             switch (items[2]) {
-                case "won":
+                case "win":
                     home.won();
                     away.lost();
                     break;
-                case "lost":
+                case "loss":
                     home.lost();
                     away.won();
                     break;
-                case "drew":
+                case "draw":
                     home.drew();
                     away.drew();
                     break;

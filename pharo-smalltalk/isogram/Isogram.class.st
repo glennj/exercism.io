@@ -10,12 +10,13 @@ Class {
 { #category : #checking }
 Isogram >> isIsogramPhrase: aString [ 
 	| seen |
-	seen := Bag new.
+	seen := Set new.
 	aString asLowercase
 		select: #isLetter
 		thenDo: [ :letter |
-			(seen includes: letter) ifTrue: [ ^ false ].
-			seen add: letter
+			seen
+				addIfNotPresent: letter
+				ifPresentDo: [ ^ false ]
 		].
 	^ true
 ]

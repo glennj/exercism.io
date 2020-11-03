@@ -9,13 +9,20 @@ proc markMultiples(prime: int, candidates: var seq[bool]) =
 
 proc primes*(limit: int): seq[int] =
   if limit >= 2:
+    # initially, all numbers are candidates
     var candidates = repeat(true, limit+1)
-    markMultiples 2, candidates
 
+    # mark all non-primes as not candidates
+    markMultiples 2, candidates
     for p in countup(3, limit, 2):
       if candidates[p]:
         markMultiples p, candidates
 
-    for p in 2..limit:
-      if candidates[p]:
-        result.add p
+    # the remaining candidates are prime
+    # which is prettier?
+
+    # for p in 2..limit:
+    #   if candidates[p]:
+    #     result.add p
+
+    return (2..limit).toSeq.filterIt(candidates[it])
