@@ -36,20 +36,11 @@ proc byRunningSlice {str strlen len} {
     return $slices
 }
 
-proc K {x y} {set x}
-
 
 # benchmarking
-if 0 {
-echo 
-    source series.tcl
+if {$argv0 eq [info script]} {
     set str [string repeat asdflkjhqweroiuyxzvbzcxvb 100]
     foreach method {byStringRange byRunningSlice} {
         puts [list $method [time {slices $str 10 $method} 10000]]
     }
-' | tclsh
-
-# outputs
-byStringRange {1219.6135567 microseconds per iteration}
-byRunningSlice {693.013196 microseconds per iteration}
 }
