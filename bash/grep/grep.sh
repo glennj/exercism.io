@@ -1,53 +1,42 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
-checkBashVersion 4.0 "lowercase parameter expansion"
+# Works with bash v3.2.57 and up.
 
 # Some global boolean "flags", implemented as functions
+filename_only () { false; }
+line_numbers  () { false; }
+inverted      () { false; }
 
-case_insensitive () { false; }
-filename_only    () { false; }
-line_numbers     () { false; }
-full_line        () { false; }
-inverted         () { false; }
+# Print a matched line, prefixed by filename and line number,
+# depending on options selected
+output() {
+    local n=$1 file=$2 lineno=$3 line=$4
 
-main() {
-    local opt pattern file
-    local OPTIND OPTARG  # when using `getopts` in a function
+    local items=()
+    (( n > 1 ))  && items+=( "$file" )
+    line_numbers && items+=( "$lineno" )
+    items+=( "$line" )
 
-    # Process options
-    while getopts :ilnxv opt; do
-        case $opt in
-            i) case_insensitive () { true; } ;;
-            l) filename_only    () { true; } ;;
-            n) line_numbers     () { true; } ;;
-            v) inverted         () { true; } ;;
-            x) full_line        () { true; } ;;
-            ?) echo "Unknown option: $OPTARG" >&2 ;;
-        esac
-    done
-    shift $((OPTIND - 1))
-
-    local pattern=$1
-    shift
-
-    case_insensitive && shopt -s nocasematch
-    full_line        && pattern="^${pattern}$"
-
-    for file; do
-        process_file "$file" "$pattern" "$#"
-    done
+    local IFS=":"
+    printf "%s\n" "${items[*]}"
 }
 
+# Determine if a line matches. 
+# Relies on "nocaseglob" options for case insensitivity.
+matches() {
+    local line=$1 pattern=$2
+    { ! inverted &&   [[ $line =~ $pattern ]]; } ||
+    {   inverted && ! [[ $line =~ $pattern ]]; }
+}
+
+# Read the lines of a file and find matches.
 process_file() {
     local file=$1 pattern=$2 num_files=$3
     local -i lineno=0
 
     while IFS= read -r line; do
         (( lineno++ ))
-        if { ! inverted &&   [[ $line =~ $pattern ]]; } ||
-           {   inverted && ! [[ $line =~ $pattern ]]; }
-        then
+        if matches "$line" "$pattern"; then
             if filename_only; then
                 printf "%s\n" "$file"
                 break
@@ -57,12 +46,31 @@ process_file() {
     done < "$file"
 }
 
-output() {
-    local n=$1 file=$2 lineno=$3 line=$4
-    local prefix=""
-    (( n > 1 ))  && prefix+="$file:"
-    line_numbers && prefix+="$lineno:"
-    printf "%s%s\n" "$prefix" "$line"
+main() {
+    local opt pattern file
+    local OPTIND OPTARG  # when using `getopts` in a function
+    local pattern_fmt='%s'
+
+    # Process options
+    while getopts :ilnxv opt; do
+        case $opt in
+            l) filename_only () { true; } ;;
+            n) line_numbers  () { true; } ;;
+            v) inverted      () { true; } ;;
+            i) shopt -s nocasematch ;;
+            x) pattern_fmt='^%s$' ;;
+            ?) echo "Unknown option: $OPTARG" >&2 ;;
+        esac
+    done
+    shift $((OPTIND - 1))
+
+    local pattern
+    printf -v pattern "$pattern_fmt" "$1"
+    shift
+
+    for file; do
+        process_file "$file" "$pattern" "$#"
+    done
 }
 
 main "$@"
