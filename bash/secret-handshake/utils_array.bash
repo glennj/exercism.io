@@ -1,4 +1,4 @@
-#!bash
+#!/usr/bin/env bash
 
 # look for utils.bash in the same directory as this file
 source "${BASH_SOURCE[0]%/*}"/utils.bash

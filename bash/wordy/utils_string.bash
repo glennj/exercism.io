@@ -1,4 +1,6 @@
-#!bash
+#!/usr/bin/env bash
+
+shopt -s extglob
 
 # a library of useful bash functions
 # works with bash version 3.2+
@@ -117,32 +119,11 @@ str::reverse () {
 }
 
 
-# trim whitespace from the ends of a string.
-# These functions require extglob. To reduce altering the script's
-# setting, only set extglob temporarily in the functions.
+# trim whitespace from the ends of a string
 #
-str::trimright() {
-    local extglob
-    # capture the current value, then set it
-    extglob=$(shopt -p extglob)
-    shopt -s extglob
-
-    # remove trailing whitespace
-    echo "${1/%+([[:space:]])}"
-
-    # restore the setting (specifically unquoted).
-    $extglob
-}
-str::trimleft()  {
-    local extglob
-    extglob=$(shopt -p extglob)
-    shopt -s extglob
-
-    echo "${1/#+([[:space:]])}"
-
-    $extglob
-}
-str::trim() { str::trimleft "$(str::trimright "$1")"; }
+str::trimright() { echo "${1/%+([[:space:]])}"; }
+str::trimleft()  { echo "${1/#+([[:space:]])}"; }
+str::trim()      { str::trimleft "$(str::trimright "$1")"; }
 
 
 # find the first index of a substring (needle) within a string (haystack)

@@ -1,4 +1,4 @@
-#!bash
+#!/usr/bin/env bash
 
 # a library of useful bash functions
 # works with bash version 3.2+
