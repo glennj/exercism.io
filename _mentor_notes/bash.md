@@ -1636,6 +1636,17 @@ classes=(
     cntrl graph print
 )
 
+classify() {
+    local a=$1 char=$2
+    printf "%d\t%03o\t%02x\t%s" $a $a $a "${char@Q}"
+    for cls in "${classes[@]}"; do
+        patt="[[:$cls:]]"
+        printf "\t"
+        [[ $char == $patt ]] && printf Y || printf .
+    done
+    echo
+}
+
 header=$(
     printf "dec\toct\thex\tchar"
     for cls in "${classes[@]}"; do printf "\t%s" $cls; done
@@ -1650,16 +1661,31 @@ for j in {0..3}; do
         # which is a problem when the function returns a newline.
         ((a==10)) && char=$'\n' || char=$(chr $a)
 
-        printf "%d\t%03o\t%02x\t%s" $a $a $a "${char@Q}"
-        for cls in "${classes[@]}"; do
-            patt="[[:$cls:]]"
-            printf "\t"
-            [[ $char == $patt ]] && printf Y || printf .
-        done
-        echo
+        classify $a "$char"
     done
 done
+
+# some non-ASCII chars
+echo "$header"
+chars=(
+        · ≤ € ¥ ¿ ¡     # math, currency, punct
+        à á â ã ä å æ   # accented letters
+        ♢ ♠ ♡ ♣         # card suits
+        あ い う え お  # Hiragana letters
+        ア イ ウ エ オ  # Katakana letters
+        ﬀ ﬁ ﬂ           # Latin ligatures
+)
+for char in "${chars[@]}"; do classify 0 "$char"; done
 ```
+
+From this, we can observe:
+
+* the `[[:alpha:]]` class consists of `[[:lower:][:upper:]]`
+* the `[[:alnum:]]` class consists of `[[:alpha:][:digit:]]`
+* the `[[:word:]]` class consists of `[[:alnum:]_]`
+* underscore (octal 137) is both `[[:word:]]` and `[[:punct:]]` 
+* the `[[:graph:]]` class consists of `[[:alnum:][:punct:]]`
+* the `[[:print:]]` class consists of `[[:graph:] ]` -- just `space` (octal 040) not any other whitespace.
 
 output
 ```none
@@ -1801,4 +1827,37 @@ dec	oct	hex	char	alpha	alnum	upper	lower	word	digit	xdigit	space	blank	punct	cnt
 125	175	7d	'}'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
 126	176	7e	'~'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
 127	177	7f	$'\177'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+```
+```none
+dec	oct	hex	char	alpha	alnum	upper	lower	word	digit	xdigit	space	blank	punct	cntrl	graph	print
+0	000	00	'·'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+0	000	00	'≤'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+0	000	00	'€'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+0	000	00	'¥'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+0	000	00	'¿'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+0	000	00	'¡'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+0	000	00	'à'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+0	000	00	'á'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+0	000	00	'â'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+0	000	00	'ã'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+0	000	00	'ä'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+0	000	00	'å'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+0	000	00	'æ'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+0	000	00	'♢'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+0	000	00	'♠'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+0	000	00	'♡'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+0	000	00	'♣'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+0	000	00	'あ'	.	.	.	.	.	.	.	.	.	.	.	Y	Y
+0	000	00	'い'	.	.	.	.	.	.	.	.	.	.	.	Y	Y
+0	000	00	'う'	.	.	.	.	.	.	.	.	.	.	.	Y	Y
+0	000	00	'え'	.	.	.	.	.	.	.	.	.	.	.	Y	Y
+0	000	00	'お'	.	.	.	.	.	.	.	.	.	.	.	Y	Y
+0	000	00	'ア'	.	.	.	.	.	.	.	.	.	.	.	Y	Y
+0	000	00	'イ'	.	.	.	.	.	.	.	.	.	.	.	Y	Y
+0	000	00	'ウ'	.	.	.	.	.	.	.	.	.	.	.	Y	Y
+0	000	00	'エ'	.	.	.	.	.	.	.	.	.	.	.	Y	Y
+0	000	00	'オ'	.	.	.	.	.	.	.	.	.	.	.	Y	Y
+0	000	00	'ﬀ'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+0	000	00	'ﬁ'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+0	000	00	'ﬂ'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
 ```
