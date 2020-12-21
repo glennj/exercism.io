@@ -23,9 +23,9 @@ TOC
     * [Exercism/Philosophy](#exercismphilosophy)<br>
     * [Exercism/Testing](#exercismtesting)<br>
 * [Miscellaneous notes to be organized](#miscellaneous-notes-to-be-organized)<br>
-    * [performance impact of subshells](performance-impact-of-subshells)
-    * [performance impact of string length](performance-impact-of-string-length)
-    * [exploring character classes](exploring-character-classes)
+    * [performance impact of subshells](#performance-impact-of-subshells)
+    * [performance impact of string length](#performance-impact-of-string-length)
+    * [exploring character classes](#exploring-character-classes)
 
 Exercises
 
