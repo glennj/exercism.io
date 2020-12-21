@@ -1645,7 +1645,11 @@ for j in {0..3}; do
     echo "$header"
     for i in {0..31}; do
         a=$(( 32 * j + i ))
-        char=$(chr $a)
+
+        # command substitution strips trailing newlines,
+        # which is a problem when the function returns a newline.
+        ((a==10)) && char=$'\n' || char=$(chr $a)
+
         printf "%d\t%03o\t%02x\t%s" $a $a $a "${char@Q}"
         for cls in "${classes[@]}"; do
             patt="[[:$cls:]]"
@@ -1670,7 +1674,7 @@ dec	oct	hex	char	alpha	alnum	upper	lower	word	digit	xdigit	space	blank	punct	cnt
 7	007	07	$'\a'	.	.	.	.	.	.	.	.	.	.	Y	.	.
 8	010	08	$'\b'	.	.	.	.	.	.	.	.	.	.	Y	.	.
 9	011	09	$'\t'	.	.	.	.	.	.	.	Y	Y	.	Y	.	.
-10	012	0a	''	.	.	.	.	.	.	.	.	.	.	.	.	.
+10	012	0a	$'\n'	.	.	.	.	.	.	.	Y	.	.	Y	.	.
 11	013	0b	$'\v'	.	.	.	.	.	.	.	Y	.	.	Y	.	.
 12	014	0c	$'\f'	.	.	.	.	.	.	.	Y	.	.	Y	.	.
 13	015	0d	$'\r'	.	.	.	.	.	.	.	Y	.	.	Y	.	.
