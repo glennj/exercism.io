@@ -5,9 +5,13 @@ TOC
 * [Exception Handling](#exception-handling)
 * [indices](#indices)
 * [uplevel and upvar](#uplevel-and-upvar)
+* [Namespace variables](#namespace-variables)
 * [TclOO Notes](#tcloo-notes)
 * [Optimizations](#optimizations)
 * [Links and references](#links-and-references)
+
+Exercises
+* [word-count](#word-count)
 
 ---
 <!-- #################################################### -->
@@ -36,7 +40,7 @@ try {
 }
 ```
 Now, where is "ARITH DIVZERO" documented? I think only in the source code,
-but we can as tcl to show us:
+but we can ask tcl to show us:
 ```tcl
 $ tclsh
 % set a 1; set b 0
@@ -250,4 +254,49 @@ It's best practice to (almost) always "brace your expr-essions". This
 applies to the `expr` command but also `if` and `while`. See
 [Brace your expr-essions](https://wiki.tcl-lang.org/page/Brace+your+expr-essions)
 and a similar discussion on the [`if` wiki page](https://wiki.tcl-lang.org/page/if#c0af59c387e4e754fbfe4d65236c77b7a9f9e5496baea85a10dfa1447e83f6b7)
+
+---
+## Namespace variables
+
+Referring to [this resistor-color solution](https://exercism.io/mentor/solutions/1c3938443f094fafbcc9eab83b2a526c?iteration_idx=1)
+
+It's important to use the `variable` command to set namespace variables. This code can be defeated by creating a _global_ `colors` variable before sourcing the file:
+```tcl
+# in a tclsh session
+% dict set colors rainbow 12345
+rainbow 12345
+% source resistor-color.tcl
+% resistorColor::colorCode black
+can't read "colors": no such variable
+```
+Add `variable colors` before line 2, and this happens:
+```tcl
+# in a tclsh session
+% dict set colors rainbow 12345
+rainbow 12345
+% source resistor-color.tcl
+% resistorColor::colorCode black
+0
+% resistorColor::colorCode rainbow
+Invalid color: rainbow
+% dict get $colors rainbow
+12345
+```
+This is due to [name resolution](http://www.tcl-lang.org/man/tcl8.6/TclCmd/namespace.htm#M26) as discussed on the `namespace` man page.
+
+---
+# Exercises
+
+<!-- #################################################### -->
+
+## word-count
+
+In general, it's better to describe the "good" characters of words we want
+to keep (letters, numbers and apostrophe), and it's harder to list all the
+"bad" characters. What about `|` or `[` or `]`? What about characters that
+don't appear on the (US) keyboard like `€` or `é`?
+
+A rule of thumb for Tcl is to use `split` when we know what to throw away
+and use `regexp` when we know what we want to keep.
+
 

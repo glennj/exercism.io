@@ -1,6 +1,7 @@
 # Bash
 
 TOC
+* [Shellcheck](#shellcheck)<br>
 * [How bash interprets command](#how-bash-interprets-command)<br>
 * [Shebang](#shebang)<br>
 * [Backticks](#backticks)<br>
@@ -17,10 +18,14 @@ TOC
 * [Functions](#functions)<br>
     * [Passing an array to a function](#passing-an-array-to-a-function)<br>
 * [Very rare and subtle mistakes](#very-rare-and-subtle-mistakes)<br>
+* [Exit status](#exit-status)<br>
 * Exercism
     * [Exercism/Philosophy](#exercismphilosophy)<br>
     * [Exercism/Testing](#exercismtesting)<br>
 * [Miscellaneous notes to be organized](#miscellaneous-notes-to-be-organized)<br>
+    * [performance impact of subshells](performance-impact-of-subshells)
+    * [performance impact of string length](performance-impact-of-string-length)
+    * [exploring character classes](exploring-character-classes)
 
 Exercises
 
@@ -38,6 +43,26 @@ Exercises
 Be sure to check out [the community
 solutions](https://exercism.io/tracks/bash/exercises/${SLUG}/solutions) to
 see other approaches.
+
+## Exit status
+
+The `exit 0` commands are not strictly necessary. Without them, the main
+function will return the exit status of the last command executed (bc),
+which will be zero. Then the script will exit with the return status of the
+main function.
+
+[3.3 Shell Functions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Functions)
+
+> When executed, the exit status of a function is the exit status of the last command executed in the body.
+
+
+
+<!-- ============================================================ -->
+
+## Shellcheck
+
+I recommend you paste this code into [https://shellcheck.net](https://shellcheck.net)
+to get tips and further reading about improvements.
 
 <!-- ============================================================ -->
 
@@ -144,6 +169,26 @@ hamming() {
 }
 
 main "$@"
+```
+
+<!-- -->
+
+Functions will return the exit status of the last command performed. This
+knowledge can make your code more concise. Instead of 
+```bash
+myfunc() {
+    if [[ some condition ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+```
+Since `[[` is a command and it has a 0/1 exit status, it's valid to write
+```bash
+myfunc() {
+    [[ some condition ]]
+}
 ```
 
 ### Passing an array to a function
@@ -1496,25 +1541,30 @@ and [glob patterns](https://www.gnu.org/software/bash/manual/bash.html#Pattern-M
 
 <!-- -->
 
-### performance impact of subshells
+## performance impact of subshells
 
 https://exercism.io/mentor/solutions/d75f219017ad49dca16f68ab6772d7d2#discussion-post-599212
 
 ```bash
-SECONDS=0
-for (( count=0; count<100000; count++ )) ; do ( true ); done
-echo $SECONDS
+# no subshell
 
-SECONDS=0
-for (( count=0; count<100000; count++ )) ; do true; done
-echo $SECONDS
-```
-```
-69
-1
+$ time for (( count=0; count<100000; count++ )) ; do true; done
+
+real	0m0.637s
+user	0m0.632s
+sys	0m0.001s
+
+# with subshell
+# ...................................................v......v
+$ time for (( count=0; count<100000; count++ )) ; do ( true ); done
+
+
+real	1m40.905s
+user	0m30.578s
+sys	1m12.693s
 ```
 
-### performance impact of string length
+## performance impact of string length
 
 <details><summary>Obtaining the length of a string is a surprisingly
 expensive operation in bash. With large strings and/or large loops,
@@ -1568,3 +1618,183 @@ sys	0m0.042s
 Note the use of the printf process substitution. Using a `<<<"$string"`
 here-string redirection adds a trailing newline.
 </p></details>
+
+<!-- -->
+
+## exploring character classes
+
+Ref [3.5.8.1 Pattern Matching](https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching), let's see which ASCII characters are contained in which POSIX character class:
+
+```bash
+#!/usr/bin/env bash
+chr() { printf "\x$(printf "%x" "$1")"; }
+classes=(
+    alpha alnum upper lower word 
+    digit xdigit
+    space blank
+    punct
+    cntrl graph print
+)
+
+header=$(
+    printf "dec\toct\thex\tchar"
+    for cls in "${classes[@]}"; do printf "\t%s" $cls; done
+)
+
+for j in {0..3}; do
+    echo "$header"
+    for i in {0..31}; do
+        a=$(( 32 * j + i ))
+        char=$(chr $a)
+        printf "%d\t%03o\t%02x\t%s" $a $a $a "${char@Q}"
+        for cls in "${classes[@]}"; do
+            patt="[[:$cls:]]"
+            printf "\t"
+            [[ $char == $patt ]] && printf Y || printf .
+        done
+        echo
+    done
+done
+```
+
+output
+```none
+dec	oct	hex	char	alpha	alnum	upper	lower	word	digit	xdigit	space	blank	punct	cntrl	graph	print
+0	000	00	''	.	.	.	.	.	.	.	.	.	.	.	.	.
+1	001	01	$'\001'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+2	002	02	$'\002'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+3	003	03	$'\003'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+4	004	04	$'\004'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+5	005	05	$'\005'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+6	006	06	$'\006'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+7	007	07	$'\a'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+8	010	08	$'\b'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+9	011	09	$'\t'	.	.	.	.	.	.	.	Y	Y	.	Y	.	.
+10	012	0a	''	.	.	.	.	.	.	.	.	.	.	.	.	.
+11	013	0b	$'\v'	.	.	.	.	.	.	.	Y	.	.	Y	.	.
+12	014	0c	$'\f'	.	.	.	.	.	.	.	Y	.	.	Y	.	.
+13	015	0d	$'\r'	.	.	.	.	.	.	.	Y	.	.	Y	.	.
+14	016	0e	$'\016'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+15	017	0f	$'\017'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+16	020	10	$'\020'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+17	021	11	$'\021'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+18	022	12	$'\022'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+19	023	13	$'\023'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+20	024	14	$'\024'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+21	025	15	$'\025'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+22	026	16	$'\026'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+23	027	17	$'\027'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+24	030	18	$'\030'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+25	031	19	$'\031'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+26	032	1a	$'\032'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+27	033	1b	$'\E'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+28	034	1c	$'\034'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+29	035	1d	$'\035'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+30	036	1e	$'\036'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+31	037	1f	$'\037'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+```
+```none
+dec	oct	hex	char	alpha	alnum	upper	lower	word	digit	xdigit	space	blank	punct	cntrl	graph	print
+32	040	20	' '	.	.	.	.	.	.	.	Y	Y	.	.	.	Y
+33	041	21	'!'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+34	042	22	'"'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+35	043	23	'#'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+36	044	24	'$'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+37	045	25	'%'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+38	046	26	'&'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+39	047	27	\'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+40	050	28	'('	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+41	051	29	')'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+42	052	2a	'*'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+43	053	2b	'+'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+44	054	2c	','	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+45	055	2d	'-'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+46	056	2e	'.'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+47	057	2f	'/'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+48	060	30	'0'	.	Y	.	.	Y	Y	Y	.	.	.	.	Y	Y
+49	061	31	'1'	.	Y	.	.	Y	Y	Y	.	.	.	.	Y	Y
+50	062	32	'2'	.	Y	.	.	Y	Y	Y	.	.	.	.	Y	Y
+51	063	33	'3'	.	Y	.	.	Y	Y	Y	.	.	.	.	Y	Y
+52	064	34	'4'	.	Y	.	.	Y	Y	Y	.	.	.	.	Y	Y
+53	065	35	'5'	.	Y	.	.	Y	Y	Y	.	.	.	.	Y	Y
+54	066	36	'6'	.	Y	.	.	Y	Y	Y	.	.	.	.	Y	Y
+55	067	37	'7'	.	Y	.	.	Y	Y	Y	.	.	.	.	Y	Y
+56	070	38	'8'	.	Y	.	.	Y	Y	Y	.	.	.	.	Y	Y
+57	071	39	'9'	.	Y	.	.	Y	Y	Y	.	.	.	.	Y	Y
+58	072	3a	':'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+59	073	3b	';'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+60	074	3c	'<'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+61	075	3d	'='	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+62	076	3e	'>'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+63	077	3f	'?'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+```
+```none
+dec	oct	hex	char	alpha	alnum	upper	lower	word	digit	xdigit	space	blank	punct	cntrl	graph	print
+64	100	40	'@'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+65	101	41	'A'	Y	Y	Y	.	Y	.	Y	.	.	.	.	Y	Y
+66	102	42	'B'	Y	Y	Y	.	Y	.	Y	.	.	.	.	Y	Y
+67	103	43	'C'	Y	Y	Y	.	Y	.	Y	.	.	.	.	Y	Y
+68	104	44	'D'	Y	Y	Y	.	Y	.	Y	.	.	.	.	Y	Y
+69	105	45	'E'	Y	Y	Y	.	Y	.	Y	.	.	.	.	Y	Y
+70	106	46	'F'	Y	Y	Y	.	Y	.	Y	.	.	.	.	Y	Y
+71	107	47	'G'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+72	110	48	'H'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+73	111	49	'I'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+74	112	4a	'J'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+75	113	4b	'K'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+76	114	4c	'L'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+77	115	4d	'M'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+78	116	4e	'N'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+79	117	4f	'O'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+80	120	50	'P'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+81	121	51	'Q'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+82	122	52	'R'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+83	123	53	'S'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+84	124	54	'T'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+85	125	55	'U'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+86	126	56	'V'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+87	127	57	'W'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+88	130	58	'X'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+89	131	59	'Y'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+90	132	5a	'Z'	Y	Y	Y	.	Y	.	.	.	.	.	.	Y	Y
+91	133	5b	'['	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+92	134	5c	'\'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+93	135	5d	']'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+94	136	5e	'^'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+95	137	5f	'_'	.	.	.	.	Y	.	.	.	.	Y	.	Y	Y
+```
+```none
+dec	oct	hex	char	alpha	alnum	upper	lower	word	digit	xdigit	space	blank	punct	cntrl	graph	print
+96	140	60	'`'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+97	141	61	'a'	Y	Y	.	Y	Y	.	Y	.	.	.	.	Y	Y
+98	142	62	'b'	Y	Y	.	Y	Y	.	Y	.	.	.	.	Y	Y
+99	143	63	'c'	Y	Y	.	Y	Y	.	Y	.	.	.	.	Y	Y
+100	144	64	'd'	Y	Y	.	Y	Y	.	Y	.	.	.	.	Y	Y
+101	145	65	'e'	Y	Y	.	Y	Y	.	Y	.	.	.	.	Y	Y
+102	146	66	'f'	Y	Y	.	Y	Y	.	Y	.	.	.	.	Y	Y
+103	147	67	'g'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+104	150	68	'h'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+105	151	69	'i'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+106	152	6a	'j'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+107	153	6b	'k'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+108	154	6c	'l'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+109	155	6d	'm'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+110	156	6e	'n'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+111	157	6f	'o'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+112	160	70	'p'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+113	161	71	'q'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+114	162	72	'r'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+115	163	73	's'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+116	164	74	't'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+117	165	75	'u'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+118	166	76	'v'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+119	167	77	'w'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+120	170	78	'x'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+121	171	79	'y'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+122	172	7a	'z'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
+123	173	7b	'{'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+124	174	7c	'|'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+125	175	7d	'}'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+126	176	7e	'~'	.	.	.	.	.	.	.	.	.	Y	.	Y	Y
+127	177	7f	$'\177'	.	.	.	.	.	.	.	.	.	.	Y	.	.
+```
