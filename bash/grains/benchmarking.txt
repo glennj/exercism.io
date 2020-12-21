@@ -1,0 +1,47 @@
+Here are 3 different implementations:
+
+1. all the values for each square are simply hardcoded
+2. calling out to `bc` to perform the calculcations
+    - optimized to minimize the number of `bc` invocations
+3. performing the addition in bash, using string manipulation
+
+
+#### hardcoded values
+
+    ln -f grains_precalculated.sh grains.sh
+    time for i in {1..10}; do 
+        BATS_RUN_SKIPPED=true command bats grains_test.sh
+    done >/dev/null
+
+result
+    real   0m12.209s
+    user   0m3.201s
+    sys    0m3.165s
+
+#### calling `bc`
+
+    ln -f grains_bc.sh grains.sh
+    time for i in {1..10}; do
+        BATS_RUN_SKIPPED=true command bats grains_test.sh
+    done >/dev/null
+
+result
+    real   0m13.030s
+    user   0m3.348s
+    sys    0m3.421s
+
+_Almost_ as fast as the hardcoded version, pretty good.
+
+#### bash only
+
+    ln -f grains_bash_only.sh grains.sh
+    time for i in {1..10}; do
+        BATS_RUN_SKIPPED=true command bats grains_test.sh
+    done >/dev/null
+
+result
+    real   0m20.443s
+    user   0m6.669s
+    sys    0m7.167s
+
+Not surprising this one is very slow.
