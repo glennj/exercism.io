@@ -27,6 +27,7 @@ str::ord() {
 # $ chr 65 #=> A
 #
 str::chr() {
+    # shellcheck disable=SC2059
     printf "\x$(printf "%x" "$1")"
 }
 

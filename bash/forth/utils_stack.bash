@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=SC1090,SC2034
+
 # look for utils.bash in the same directory as this file
 source "${BASH_SOURCE[0]%/*}"/utils.bash
 checkBashVersion 4.3 namerefs
@@ -45,7 +47,7 @@ stack::push() {
 
 stack::peek() { 
     local -n __stack_peek=$1
-    ! stack::empty __stack_peek && echo ${__stack_peek[-1]}
+    ! stack::empty __stack_peek && echo "${__stack_peek[-1]}"
 }
 
 stack::pop() {

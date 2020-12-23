@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=SC1090
+
 # look for utils.bash in the same directory as this file
 source "${BASH_SOURCE[0]%/*}"/utils.bash
 checkBashVersion 4.3 namerefs
@@ -66,6 +68,7 @@ array::repeat() {
 array::split() {
     local -n __array_split=$1
     local IFS=$2 string=$3
+    # shellcheck disable=SC2034
     read -ra __array_split <<<"$string"
 }
 

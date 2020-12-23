@@ -15,11 +15,13 @@ math::abs() {
 # Greatest Common Divisor of two integers
 #
 math::gcd() {
-    local a=$(math::abs "$1") b=$(math::abs "$2")
+    local a b
+    a=$(math::abs "$1")
+    b=$(math::abs "$2")
     if (( b > 0 )); then
-        math::gcd $b $((a % b))
+        math::gcd "$b" $((a % b))
     else
-        echo $a
+        echo "$a"
     fi
 }
 
@@ -39,8 +41,8 @@ math::add() {
     # left pad the numbers with zeroes so they're the same width
     local width
     width=$( math::max ${#a} ${#b} )
-    printf -v a '%0*s' $width $a
-    printf -v b '%0*s' $width $b
+    printf -v a '%0*s' "$width" "$a"
+    printf -v b '%0*s' "$width" "$b"
 
     # add the digits from right to left
     local c result="" carry=0
@@ -71,8 +73,8 @@ math::rand() {
     case $# in
         0) echo $RANDOM ;;
         1) echo $(( RANDOM % $1 )) ;;
-        2) echo $(( $(math::min $1 $2) + RANDOM % ($2 - $1) )) ;;
-        *) echo "usage: $FUNCNAME [[lower] upper]" >&2; return 1;;
+        2) echo $(( $(math::min "$1" "$2") + RANDOM % ($2 - $1) )) ;;
+        *) echo "usage: ${FUNCNAME[0]} [[lower] upper]" >&2; return 1;;
     esac
 }
 
@@ -82,7 +84,7 @@ math::rand() {
 math::sum() {
     local sum=0
     for arg; do ((sum += arg)); done
-    echo $sum
+    echo "$sum"
 }
 
 # sum the contents of an array
