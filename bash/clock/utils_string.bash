@@ -135,3 +135,23 @@ str::index() {
     local prefix=${haystack%%"$needle"*}
     [[ "$prefix" == "$haystack" ]] && echo -1 || echo "${#prefix}"
 }
+
+
+# add commas to a number
+#
+# e.g.
+#    str::commify 1234567890       # => "1,234,567,890"
+#    str::commify 1234567890 "."   # => "1.234.567.890"
+#    str::commify 1234567890 " " 4 # => "12 3456 7890"
+#
+str::commify() {
+    local n=$1
+    local IFS=${2:-,}
+    local size=${3:-3}
+    local -a groups
+    while [[ $n =~ (.{1,$size})$ ]]; do
+        groups=( "${BASH_REMATCH[1]}" "${groups[@]}")
+        n=${n%${BASH_REMATCH[1]}}
+    done
+    echo "${groups[*]}"
+}

@@ -92,21 +92,44 @@ array::push() {
     __array_push+=( "$2" )
 }
 
-array::pop() {
-    local -n __array_pop=$1
-    echo "${__array_pop[-1]}"
-    unset "__array_pop[-1]"
-}
-
 array::unshift() {
     local -n __array_unshift=$1
     __array_unshift=( "$2" "${__array_unshift[@]}" )
 }
 
+# The `pop` and `shift` functions do NOT emit the value, just remove it.
+# This is because they don't work in subshells. Suppose we have
+#       array::pop() {
+#           local -n __array_pop=$1
+#           echo "${___array_pop[-1]}"
+#           unset "__array_pop[-1]"
+#       }
+# Then naturally we would do this:
+#       value=$( array::pop myArray )
+# But the function executes in a subshell, which interferes with
+# the name referencing, and the array in the current shell is
+# untouched:
+#       $ myArray=(a b c d e f)
+#       $ declare -p myArray
+#       declare -a myArray=([0]="a" [1]="b" [2]="c" [3]="d" [4]="e" [5]="f")
+#       $ value=$( array::pop myArray )
+#       $ declare -p value myArray
+#       declare -- value="f"
+#       declare -a myArray=([0]="a" [1]="b" [2]="c" [3]="d" [4]="e" [5]="f")
+# It is required to do this instead:
+#       value=${myArray[-1]}
+#       array::pop myArray
+# Inconvenient, but it is what it is.
+
+array::pop() {
+    # shellcheck disable=SC2034
+    local -n __array_pop=$1
+    unset "__array_pop[-1]"
+}
+
 # the simple `unset 'ary[0]'` does not shift the other elements down
 array::shift() {
     local -n __array_shift=$1
-    echo "${__array_shift[0]}"
     __array_shift=( "${__array_shift[@]:1}" )
 }
 

@@ -38,11 +38,13 @@ Exercises
 * [tournament](#tournament)
 * [acronym](#acronym)
 * [grep](#grep)
+* [grains](#grains)
 
 
-Be sure to check out [the community
-solutions](https://exercism.io/tracks/bash/exercises/${SLUG}/solutions) to
-see other approaches.
+Be sure to check out [the community solutions](https://exercism.io/tracks/bash/exercises/${SLUG}/solutions) to see other approaches.
+
+This is a fine _shell_ solution. I challenge you to write a _bash_ solution, using no external tools.
+
 
 ## Exit status
 
@@ -116,7 +118,7 @@ version)
 ## Backticks
 
 Use `$(...)` instead of `` `...` `` -- see
-[https://mywiki.wooledge.org/BashFAQ/082](https://mywiki.wooledge.org/BashFAQ/082)
+[https://github.com/koalaman/shellcheck/wiki/SC2006](https://github.com/koalaman/shellcheck/wiki/SC2006)
 for more details.
 
 <!-- ........................................................ -->
@@ -239,9 +241,11 @@ Regarding passing arrays around, there are 3 ways to do it without stringifying:
 <!-- ........................................................ -->
 ## Arithmetic
 
-bash can do arithmetic, you don't need to call out to `bc`. See [Arithmetic
+bash can do arithmetic, you don't need to call out to `expr`. See [Arithmetic
 Expansion](https://www.gnu.org/software/bash/manual/bash.html#Arithmetic-Expansion)
-in the manual.
+in the manual, and also [Conditional
+Constructs](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs)
+(scroll down to `((...))`).
 
 <!-- -->
 
@@ -266,6 +270,7 @@ You can write
 
 `((...))` is preferred over `let`. See [the let builtin
 command](https://wiki.bash-hackers.org/commands/builtin/let) for details.
+Also [the shellcheck wiki entry](https://github.com/koalaman/shellcheck/wiki/SC2219).
 
 <!-- -->
 
@@ -306,6 +311,11 @@ str='Hello world'
 i=4
 echo "${str:i:1},${str:i + 2:6 - 4}" # => "o,wo"
 ```
+
+<!-- -->
+
+Within an arithmetic expression, bash allows for variable names without the `$`.
+The offset and length parts of the `${var:offset:length}` parameter expansion are arithmetic expressions.
 
 <!-- -->
 
@@ -374,7 +384,7 @@ Expansion](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Ex
 Get out of the habit of using ALLCAPS variable names, leave those as
 reserved by the shell. One day you'll write `PATH=something` and then
 [wonder why](https://stackoverflow.com/q/27555060/7552) 
-[your script is broken](https://stackoverflow.com/q/28310594/7552).
+your [script is broken](https://stackoverflow.com/q/28310594/7552).
 
 If you're using ALLCAPS to indicate a constant, use the `readonly` or
 `declare -r` builtins to let the shell know too.
@@ -760,10 +770,10 @@ conditional command gives you more features, and fewer surprises
 ## Boolean Operators
 
 You have to be a bit careful with `A && B || C` -- C will execute if
-**either** A **or** B fails.
-
-With `if A; then B; else C; fi` the only time C runs is if A fails,
-regardless of what happens with B.
+**either** A **or** B fails.  With `if A; then B; else C; fi` the only time
+C runs is if A fails, regardless of what happens with B.
+But if B is an `echo` statement, that only fails if it can't write to the
+output channel.
 
 <!-- ........................................................ -->
 ## Output
@@ -873,6 +883,52 @@ learn about bash-specific features.
 
 Why not use `set -e` (`set -o errexit`)?
 See [http://mywiki.wooledge.org/BashFAQ/105](http://mywiki.wooledge.org/BashFAQ/105)
+
+<!-- -->
+
+### set -E vs set -e
+
+Note that `set -E` does not include `set -e`. Given this script that has an error in a function:
+```bash
+$ cat trap_test.sh
+#!/usr/bin/env bash
+trap 'echo "Error on line $LINENO. Exit code: $?" >&2' ERR
+myfunc() {
+    noSuchCommand
+    echo OK
+}
+myfunc
+```
+then we can examine the combinations of -E and -e
+
+1. neither specified: no trap, no early exit
+    ```bash
+    $ bash trap_test.sh; echo "exit status: $?"
+    trap_test.sh: line 6: noSuchCommand: command not found
+    OK
+    exit status: 0
+    ```
+1. -e: early exit, no trap from the function
+    ```bash
+    $ bash -e trap_test.sh; echo "exit status: $?"
+    trap_test.sh: line 6: noSuchCommand: command not found
+    exit status: 127
+    ```
+1. -E, trap fired from error in function
+    ```bash
+    $ bash -E trap_test.sh; echo "exit status: $?"
+    trap_test.sh: line 6: noSuchCommand: command not found
+    Error on line 6. Exit code: 127
+    OK
+    exit status: 0
+    ```
+1. both early exit and trap
+    ```bash
+    $ bash -eE trap_test.sh; echo "exit status: $?"
+    trap_test.sh: line 6: noSuchCommand: command not found
+    Error on line 6. Exit code: 127
+    exit status: 127
+    ```
 
 <!-- ........................................................ -->
 # Exercises
@@ -1163,6 +1219,15 @@ elif yelling "$input" && question "$input"; then ...
 ```
  
 <!-- ........................................................ -->
+## grains
+
+To get the formula to calculate the total, we can look at:
+
+* [summation](https://en.wikipedia.org/wiki/Summation) and
+* [geometric progression](https://en.wikipedia.org/wiki/Geometric_progression)
+
+
+<!-- ........................................................ -->
 ## tournament
 
 OK, there's a few things going on here. In order from least crucial to most:
@@ -1441,6 +1506,12 @@ indentation](https://google.github.io/styleguide/shellguide.html#s5-formatting).
 
 <!-- -->
 
+Don't use nested functions unless the outer function is the _only_ place
+where the inner function should be visible: see [this stackoverflow
+answer](https://stackoverflow.com/a/8439070/7552)
+
+<!-- -->
+
 `eval` is generally considered dangerous. Here, it's pretty benign, but
 there's a command specifically for declaring variables -- since we're using
 this in a function, have to use `-g` option.
@@ -1623,11 +1694,17 @@ here-string redirection adds a trailing newline.
 
 ## exploring character classes
 
-Ref [3.5.8.1 Pattern Matching](https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching), let's see which ASCII characters are contained in which POSIX character class:
+Ref [3.5.8.1 Pattern Matching](https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching),
+let's see which ASCII characters are contained in which POSIX character class:
 
 ```bash
 #!/usr/bin/env bash
-chr() { printf "\x$(printf "%x" "$1")"; }
+
+# `chr 65` == "A"
+chr() {
+    printf "\x$(printf "%x" "$1")"
+}
+
 classes=(
     alpha alnum upper lower word 
     digit xdigit

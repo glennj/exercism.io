@@ -4,15 +4,29 @@ proc until {test command} {
     uplevel [list while "!($test)" $command]
 }
 
-proc do {body while condition} {
-    switch -exact -- $while {
-        while - until {}
+# do {some action} while  {some condition}
+# do {some action} until  {some condition}
+# do {some action} if     {some condition}
+# do {some action} unless {some condition}
+#
+proc do {body keyword condition} {
+    switch -exact -- $keyword {
+        if     {}
+        while  {uplevel $body}
+        unless {
+            set keyword "if"
+            set condition "!($condition)"
+        }
+        until  {
+            set keyword "while"
+            set condition "!($condition)"
+            uplevel $body
+        }
         default {
-            error "unknown keyword \"$while\": must be while or until"
+            error "unknown keyword \"$keyword\": must be if, unless, while or until"
         }
     }
-    uplevel $body
-    $while {[uplevel [list expr $condition]]} {
+    $keyword {[uplevel [list expr $condition]]} {
         uplevel $body
     }
 }

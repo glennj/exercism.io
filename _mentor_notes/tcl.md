@@ -11,6 +11,7 @@ TOC
 * [Links and references](#links-and-references)
 
 Exercises
+* [error-handling](#error-handling)
 * [word-count](#word-count)
 
 ---
@@ -206,9 +207,15 @@ Instance variable declarations:
   that variable.
 
 Full details in 
-[when to use `my variable x` in a method?][my-variable]
+[when to use `my variable x` in a method?](https://stackoverflow.com/q/58071069/7552)
 with the author of TclOO providing the answer.
-[my-variable]: https://stackoverflow.com/q/58071069/7552
+
+---
+
+Confusingly, Tcl has decided to give the OO `variable` command different arguments then the `namespace variable` command:
+
+* in a namespace, [`variable`](http://www.tcl-lang.org/man/tcl8.6/TclCmd/variable.htm) takes a varname and optionally a value
+* in a class, [`variable`](http://www.tcl-lang.org/man/tcl8.6/TclCmd/define.htm) takes only variable names. You give it a value in the constructor or a method.
 
 ---
 <!-- #################################################### -->
@@ -299,4 +306,19 @@ don't appear on the (US) keyboard like `€` or `é`?
 A rule of thumb for Tcl is to use `split` when we know what to throw away
 and use `regexp` when we know what we want to keep.
 
+<!-- #################################################### -->
 
+## error-handling
+
+One thing to note: when you're writing a control function that takes a script, it's important to evaluate the script in the caller's scope. This is where the [`uplevel`](http://www.tcl-lang.org/man/tcl8.6/TclCmd/uplevel.htm) command comes in. With `eval` like this code:
+```bash
+$ tclsh
+% source error-handling.tcl
+% set a 5
+5
+% set b 1
+1
+% handle_error {expr {$a / $b}}
+can't read "a": no such variable
+```
+Change `eval` to `uplevel` and the expected "success" response is obtained.

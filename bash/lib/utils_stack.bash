@@ -29,6 +29,8 @@ checkBashVersion 4.3 namerefs
 # This is clearly inconvenient, but you have to do this:
 #     val=$(stack::peek stack) && stack::pop stack
 
+# See also the "deque" functions in utils_array.bash
+
 stack::len() {
     local -n __stack_len=$1
     echo ${#__stack_len[@]}

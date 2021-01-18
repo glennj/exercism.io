@@ -28,12 +28,29 @@ namespace eval ::Exceptions {
     #   domain error: argument not in valid range
 
     # Tcl
+
+    # example: puts a b c
     variable Arguments         {TCL WRONGARGS}
+
+    # example: read foobar
     variable ChannelNotOpen    {TCL LOOKUP CHANNEL}
+
     variable NoSuchCommand     {TCL LOOKUP COMMAND}
     variable NoSuchVariable    {TCL LOOKUP VARIABLE}
+
+    # example:
+    #   unset x
+    #   set search_id [array startsearch x]
     variable NotAnArray        {TCL LOOKUP VARNAME}
+
+    # example: 
+    #   set d {1 2 3}   ;# invalid dictionary
+    #   dict size $d
     variable DictionaryKey     {TCL VALUE DICTIONARY}
+
+    # example:
+    #   set lst "a {b c"    ;# invalid list
+    #   llength $lst
     variable ListValue         {TCL VALUE LIST}
 
     variable ClassExists       {TCL OO OVERWRITE_OBJECT}
