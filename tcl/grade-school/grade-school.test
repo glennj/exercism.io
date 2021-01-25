@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 1.0.0
 package require tcltest
 namespace import ::tcltest::*
 source "grade-school.tcl"
@@ -76,6 +75,10 @@ if {$::argv0 eq [info script]} {
         grade-school-2.2 "Grade returns an empty list if there are no students in that grade" \
             {} \
             1 \
+            {}
+        grade-school-2.3 "A student can't be in two different grades" \
+            {{Aimee 2} {Aimee 1}} \
+            2 \
             {}
     }
     foreach {name description students grade expected} $cases {

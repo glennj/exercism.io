@@ -1,0 +1,51 @@
+#!/usr/bin/env tclsh
+set version null
+package require tcltest
+namespace import ::tcltest::*
+configure -verbose {error body usec}
+source "square-root.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        sqrt-1      1   1  "root of 1"
+        sqrt-2      4   2  "root of 4"
+        sqrt-3     25   5  "root of 25"
+        sqrt-4     81   9  "root of 81"
+        sqrt-5    196  14  "root of 196"
+        sqrt-6  65025 255  "root of 65025"
+    }
+
+    foreach {name radicand root description} $cases {
+        test $name $description -body "
+            squareRoot $radicand
+        " -result $root
+    }
+
+    cleanupTests
+}

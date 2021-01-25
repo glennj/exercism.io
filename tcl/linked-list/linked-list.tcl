@@ -80,6 +80,33 @@ oo::class create LinkedList {
         return [$node value]
     }
 
+    method delete {value} {
+        for {set node $head} {$node ne ""} {set node [$node next]} {
+            if {[$node value] == $value} {
+                set prev [$node prev]
+                set next [$node next]
+                if {$prev eq "" && $next eq ""} {
+                    # this is the only node
+                    set head ""
+                    set tail ""
+                } elseif {$prev eq "" && $next ne ""} {
+                    # this is the head
+                    set head $next
+                    $next setPrev ""
+                } elseif {$prev ne "" && $next eq ""} {
+                    # this is the tail
+                    set tail $prev
+                    $prev setNext ""
+                } else {
+                    $prev setNext $next
+                    $next setPrev $prev
+                }
+                $node destroy
+                break
+            }
+        }
+    }
+
     # walk the list, and execute some code with each value
     method for {varname script} {
         upvar 1 $varname value
@@ -94,6 +121,7 @@ oo::class create LinkedList {
         my for _ {incr length}
         return $length
     }
+
 
     # returns a new linked list
     method reversed {} {
