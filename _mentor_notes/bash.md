@@ -38,6 +38,7 @@ Exercises
 * [tournament](#tournament)
 * [acronym](#acronym)
 * [grep](#grep)
+* [proverb](#proverb)
 * [grains](#grains)
 
 
@@ -835,7 +836,7 @@ echo "  foo  \t  bar  " | { IFS= read -r input; printf '"%s"\n' "$input"; }
 ```bash
 { echo "foo"; echo -n "bar"; } | while IFS= read -r line; do echo "$line"; done
 ```
-outputs only "foo". 
+/utputs only "foo". 
 
 What's happening here? `IFS= read -r line` reads the characters "bar" into
 the variable but then exits with a non-zero status, due to the missing
@@ -857,8 +858,15 @@ FAQ #1](http://mywiki.wooledge.org/BashFAQ/001).
 <!-- ........................................................ -->
 # Exercism/Philosophy
 
-This is a fine *shell* solution. I challenge you to use bash builtin
-features instead of external tools.
+In my view, Exercism is a site for programmers to pick up another language.
+Exercism itself is not going to teach bash to you. Rather you are going to
+learn bash yourself, using the exercises to gently guide your progress. The
+chief benefits of Exercism as a learning tool are:
+
+* having another programmer (the mentor) for asking questions.
+* looking at how other programmers solved the same exercise, and discovering
+  language features you didn't know about, or even seeing how other
+  programmers use different coding paradigms.
 
 <!-- -->
 
@@ -951,6 +959,49 @@ function, like you may remember from the Hello World exercise.  It
 encapsulates a chunk of logic in one function to encourage re-use.
 It is good practice, and becomes more and more important as your programs get bigger.
 
+<!-- -->
+
+(discussion [about effect of IFS on expansion of positional parameters](https://exercism.io/mentor/solutions/645be831c6de43168f1fc7b6bdcab8ec))
+
+Have a look at the Expansions section of the manual I linked earlier. It applies to the bats code too: when the test runs
+```bash
+bash two_fer.sh "John Smith" "Mary Ann"
+```
+then your script will receive `John Smith` as $1 and `Mary Ann` as $2 -- _**no quotes**_ (the last expansion is "quote removal")
+
+In your 1st iteration, `main $@` is seen by bash as
+```bash
+main John Smith Mary Ann
+```
+And the main function receives `John` as $1
+
+The 2nd iteration uses `main "$@"`. This is expanded as
+```bash
+main "John Smith" "Mary Ann"
+```
+And the main function receives `John Smith` as $1
+
+When IFS is set to a double quote, **and** `$@` is unquoted, then each positional parameter will use IFS for word splitting. In this case, neither `John Smith` nor `Mary Add` contains double quotes, so the parameters are sent to main untouched.
+
+However, if we forcibly inject double quotes into John Smith's name, then we can see the effect of IFS. This is using the 1st iteration code:
+```bash
+$ bash -x iteration1.sh  'John "Jonny Boy" Smith' 'Mary Ann'
++ IFS='"'
++ main 'John ' 'Jonny Boy' ' Smith' 'Mary Ann'
++ name='John '
++ [[ -z John  ]]
++ '[' 'John ' == '*' ']'
++ echo 'One for John , one for me.'
+One for John , one for me.
+```
+
+We can observe:
+
+* I sent 2 single-quoted arguments to the script
+* the unquoted `$@` expanded the 2 arguments into 4, due to the presence of the literal double quotes
+* the main function's $1 is `John ` with a trailing space -- the first quote-delimited "field" of the first program argument.
+
+The key learning is: bash expands variable to their actual contents, and the _if the variable was not quoted_ then word splitting and filename expansion will be performed on the variable contents.
 <!-- ........................................................ -->
 ## raindrops
 
@@ -1358,6 +1409,23 @@ fewer surprises (particularly about unquoted variables). But as seen here,
 there are still a couple of potential "gotcha"s in there.
 
 <!-- ........................................................ -->
+## proverb
+
+<details><summary>This is a good exercise to learn about <em>indirect expansion</em>: click for details.</summary>
+
+```bash
+set -- foo bar baz
+i=1 j=2
+echo "For want of a ${!i} the ${!j} was lost."
+# ....................^.........^
+```
+```none
+For want of a foo the bar was lost.
+```
+See [Shell Parameter Expansion](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion) in the manual.
+</details>
+
+<!-- ........................................................ -->
 ## grep
 
 Instead of inventing your own way to parse the arguments, use the builtin `getopts`
@@ -1476,7 +1544,6 @@ Builtin](https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin)
     ```
     This approach allows you to keep the variables quoted at all times, so
     there won't be any expansion.
-
 <!-- -->
 
 To not worry about upper/lower case:
@@ -1495,14 +1562,13 @@ To not worry about upper/lower case:
         if [[ $letter =~ [a-z] ]]
     ```
 
-
-
 ---
 # Miscellaneous notes to be organized
 
 Proper indentation becomes essential for readability as the program grows.
 [See what the Google style guide says about
 indentation](https://google.github.io/styleguide/shellguide.html#s5-formatting).
+
 
 <!-- -->
 
