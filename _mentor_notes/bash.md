@@ -380,6 +380,42 @@ That's as close to the `1 ≤ arg ≤ 64` mathematical notation as you'll get
 Consider the `${var:-default value}` form of [Shell Parameter
 Expansion](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion).
 
+<!-- more detail -->
+
+There are 3 particular variable expansions that are relevant:
+
+* `${var:-default}` -- if $var is _unset or empty_, substitute "default"
+* `${var:=default}` -- if $var is _unset or empty_, **assign** "default" to the var, and then expand to that value
+* `${var:+alternate}` -- if $var is _set and not empty_, substitute "alternate"
+
+<details><summary>Click for more details...</summary>
+
+And 3 variations (that remove the colon only)
+* `${var-default}` -- if $var is unset (only), substitute "default"
+* `${var=default}` -- if $var is unset (only), assign  "default" to the var, and then expand to that value
+* `${var+alternate}` -- if $var is set (only), substitute "alternate"
+
+This demo shows the various effects:
+```bash
+unset var; echo ":->${var:-default1}"; echo " ->${var-default2}"
+var="";    echo ":->${var:-default1}"; echo " ->${var-default2}"
+var="x";   echo ":->${var:-default1}"; echo " ->${var-default2}"
+
+# `:` is the "no-op" command, but it does process it's arguments
+# see https://www.gnu.org/software/bash/manual/bash.html#index-_003a
+unset var; : "${var:=default1}"; echo ":=>$var"
+unset var; : "${var=default2}";  echo " =>$var"
+var="";    : "${var:=default1}"; echo ":=>$var"
+var="";    : "${var=default2}";  echo " =>$var"
+var="x";   : "${var:=default1}"; echo ":=>$var"
+var="x";   : "${var=default2}";  echo " =>$var"
+
+unset var; echo ":+>${var:+alt1}"; echo " +>${var+alt2}"
+var="";    echo ":+>${var:+alt1}"; echo " +>${var+alt2}"
+var="x";   echo ":+>${var:+alt1}"; echo " +>${var+alt2}"
+```
+</details>
+
 <!-- -->
 
 Get out of the habit of using ALLCAPS variable names, leave those as
@@ -467,8 +503,7 @@ I have 1 arguments:
 <!-- ........................................................ -->
 ## Quoting
 
-Unquoted variables are subject to [word
-splitting](https://mywiki.wooledge.org/WordSplitting) and
+Unquoted variables are subject to [word splitting](https://mywiki.wooledge.org/WordSplitting) and
 [glob](https://mywiki.wooledge.org/glob) expansion.
 
 <!-- -->
@@ -553,6 +588,30 @@ Full details at [Shell
 Parameters](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters)
 in the manual.
 </p></details>
+
+<!-- -->
+
+Prepending a variable assignment to a command actually puts that variable in
+the _environment_ of that command execution. See [3.7.1 Simple Command
+Expansion](https://www.gnu.org/software/bash/manual/bash.html#Simple-Command-Expansion)
+in the manual. 
+
+A quick example:
+```bash
+MY_VAR='she said "hi"'  awk 'BEGIN {print ENVIRON["MY_VAR"]}'
+echo "${MY_VAR:-variable not set}"
+```
+This can be very handy for passing a shell variable to a command body without having to jump through quoting hoops:
+```bash
+MY_VAR='she said "hi"'
+awk 'BEGIN {print "'"${MY_VAR//\"/\\\"}"'"}'
+```
+
+(Yes, awk's `-v` option allows passing a shell variable into an awk variable:
+```bash
+awk -v greeting="$MY_VAR" 'BEGIN {print greeting}'
+```
+but some languages, like Expect, do not have such an option.)
 
 <!-- ........................................................ -->
 ## Loops
@@ -659,6 +718,30 @@ bash to take it literally: `[[ $char == "$target" ]]`
 
 Another one of bash's quirks.
 
+<!--
+https://exercism.io/mentor/solutions/4794e60d39154b298c232c7b814275f9?iteration_idx=1
+-->
+
+Referring to [the `[[...]]` documentation](https://www.gnu.org/software/bash/manual/bash.html#index-_005b_005b), the `==` operator is a _pattern matching_ operator:
+```bash
+var=cat
+[[ $var == c* ]] && echo "$var starts with c"
+```
+As the documentation (eventually) states:
+> Any part of the pattern may be quoted to force the quoted portion to be matched as a string.
+
+```bash
+[[ $var == "c*" ]] && echo "$var is exactly c+star"
+```
+Since the words you're testing are not glob patterns, you're OK quoted or unquoted.
+
+If the right-hand side is a variable:
+* unquoted means pattern matching
+* quoted means equality.
+
+This is demonstrated in the hamming exercise.
+
+
 <!-- -->
 
 I tend to avoid using regular expressions unless I have a matching problem
@@ -764,6 +847,75 @@ A couple of specific things to point out:
 `[[` vs `[`: In bash, prefer `[[...]]` over `[...]`. The double bracket
 conditional command gives you more features, and fewer surprises
 (particularly about unquoted variables).
+
+
+<!--
+    Way way more details:
+    https://exercism.io/mentor/solutions/3246b249a635476d89a1cd9368c943f5?iteration_idx=4
+-->
+
+First, look up [3.2.5.2 Conditional Constructs](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs) in the manual. Then, at a bash prompt, do
+```bash
+help [
+help test | less
+help [[
+help '(('
+help let
+```
+
+`[` is an alias for the `test` command. In very early shells, these commands were not even built into the shell. If you type `type -a test [` you can see the artifacts of that history.
+
+`[` is an ordinary command. That means the shell will perform all [3.5 Shell Expansions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions) on the arguments _before_ `[` executes. This means you have to be very vigilant about quoting variables inside `[...]`
+
+`[[` is a shell **keyword**, not a command. That means the shell parses it differently than `[`
+* `[[` can have special syntax (such as allowing `&&` and `||`)
+* `[[` does not perform word splitting or filename expansion on variables, so quoting is less important.
+
+Within `[[...]]` the `==` operator is not just string equality, it is actually a _pattern matching_ operator. We can write
+```bash
+[[ $var == a* ]] && echo "var starts with an a"
+```
+without worrying about the pattern expanding into a list of _files_ that start with "a". `[` uses `=` strictly as string equality because there's no way to specify a pattern without the shell expanding it to a list of files.
+
+Also, `[[` implements regex matching with the `=~` operator.
+
+IMO, there's no compelling reason to use `[` for bash code.
+
+`((` is for arithmetic conditionals. `==` there is obviously numeric equality. bash arithmetic is integer-only. A nice feature here is that  the `$` can be omitted for variables and array elements.
+```bash
+x=10
+a=( 5 -3 )
+(( x == 5 )) && echo five || echo not five
+(( a[0] * a[1] < 0 )) && echo negative || echo positive
+```
+This greatly increases readability for arithmetic expressions.
+
+`$` is still required for positional parameters and for parameter expansions like `${#var}`
+
+In addition to conditional expressions, `((` can be used to _modify_ variables:
+```bash
+i=1
+while ((i < 20)); do
+  echo $i
+  ((i += i))
+done
+```
+This is quite nice for readability: it takes out some of the syntax of `var=$((expression))` and allows more whitespace. It does not play well with `set -e` because `((` returns a non-zero exit status if the expression evaluates to zero:
+```bash
+bash -c '
+  set -e
+  x=1
+  echo before
+  (( x -= 1 ))  # script aborts here
+  echo "after: this is not printed"
+'
+```
+`((...))` is preferred over `let`, mostly for the same reasons `[[` is
+preferred over `[`. See [the let builtin
+command](https://wiki.bash-hackers.org/commands/builtin/let) for details.
+Also [the shellcheck wiki entry](https://github.com/koalaman/shellcheck/wiki/SC2219).
+
+<!-- -->
 
 
 
@@ -1678,6 +1830,72 @@ and [glob patterns](https://www.gnu.org/software/bash/manual/bash.html#Pattern-M
 
 <!-- -->
 
+Testing if a parameter is an integer:
+
+1. as you are doing, with a regex:
+    ```bash
+    [[ $1 =~ ^[[:digit:]]+$ ]] && echo int
+    ```
+    Or, if negative numbers are allowed
+    ```bash
+    [[ $1 =~ ^[+-]?[[:digit:]]+$ ]] && echo int
+    ```
+
+1. with a "negative" regex: does it contain no non-digits?
+    ```bash
+    [[ ! $1 =~ [^[:digit:]] ]] && echo int
+    ```
+
+1. with bash "extended patterns"
+    ```bash
+    [[ $1 == +([[:digit:]]) ]] && echo int
+    ```
+    Or, if negative numbers are allowed
+    ```bash
+    [[ $1 == ?([+-])+([[:digit:]]) ]] && echo int
+    ```
+    Extended patterns are enabled with `shopt -s extglob`, except that they
+    are used by default within `[[...]]`
+
+All of those are using string comparision to test the value is a number.
+I've seen some people force the parameter into an integer context and
+rely on shell errors. I'm not a fan of this style
+```bash
+set -e
+value=$(($1))
+```
+such as
+```bash
+$ set -- 42x
+$ value=$(($1))
+bash: 42x: value too great for base (error token is "42x")
+```
+
+<!--
+    here-string vs pipe
+    https://exercism.io/mentor/solutions/79bf2ee3402c45c792af8e89b15bbfb8
+-->
+
+It's a toss-up:
+
+Here-string:
+*  _may_ create a temp file on disk (I'm don't know how it's implemented)
+*  implicitly adds a trailing newline to the data
+
+Pipe:
+* create subshells for both sides: process creation is probably faster than disk IO.
+* because of subshells, variables do not persist: consider
+    ```bash
+    ary=(); echo foo bar | read -a ary; declare -p ary
+    ```
+    vs
+    ```bash
+    ary=(); read -a ary <<<"foo bar"; declare -p ary
+    ```
+
+<!-- -->
+
+---
 ## performance impact of subshells
 
 https://exercism.io/mentor/solutions/d75f219017ad49dca16f68ab6772d7d2#discussion-post-599212
@@ -1701,12 +1919,13 @@ user	0m30.578s
 sys	1m12.693s
 ```
 
+---
 ## performance impact of string length
 
-<details><summary>Obtaining the length of a string is a surprisingly
+Obtaining the length of a string is a surprisingly
 expensive operation in bash. With large strings and/or large loops,
 performance can be significantly impacted.  Storing the length in a variable
-helps significantly.  Click for benchmarks</summary><p>
+helps significantly.  
 
 ```bash
 $ printf -v string "%32767s" foo
@@ -1736,7 +1955,7 @@ sys	0m0.000s
 If you need to iterate over the characters of the string, a while-read loop
 is _much_ faster than a for loop:
 ```bash
-+$ time for ((i=0; i<len; i++)); do
+$ time for ((i=0; i<len; i++)); do
      echo "${string:i:1}"
    done > /dev/null
 
@@ -1754,10 +1973,10 @@ sys	0m0.042s
 ```
 Note the use of the printf process substitution. Using a `<<<"$string"`
 here-string redirection adds a trailing newline.
-</p></details>
 
 <!-- -->
 
+---
 ## exploring character classes
 
 Ref [3.5.8.1 Pattern Matching](https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching),
