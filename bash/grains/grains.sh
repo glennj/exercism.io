@@ -7,8 +7,6 @@
 source ../lib/utils.bash        # `die`
 source ../lib/utils_math.bash   # `math::add`
 
-shopt -s extglob
-
 # populate the grains in the necessary squares
 calcSquares() {
     local OPTIND calcTotal=false
@@ -32,8 +30,7 @@ main() {
     local result=0
 
     case $1 in
-        [1-9]*([0-9]))
-            (($1 <= 64)) || die "Error: invalid input"
+        [1-9] | [1-5][0-9] | 6[0-4])
             calcSquares $1
             echo ${square[$1]}
             ;;

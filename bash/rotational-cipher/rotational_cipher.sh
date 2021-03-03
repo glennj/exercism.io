@@ -2,37 +2,41 @@
 
 source ../lib/utils.bash
 source ../lib/utils_math.bash
-checkBashVersion 4.0 "associative arrays"
+checkBashVersion 4.3 "namerefs"
 
-phrase=$1
-declare -i rotation=$2
+readonly Alphabet=( {a..z} )
 
-# this is necessary for negative rotation
-rotation=$( math::floorMod $rotation 26 )
+generateMapping() {
+    local -n _map=$1
+    local -i rotation=$2
+    rotation=$( math::floorMod $rotation 26 )
 
-alphabet=( {a..z} )
-rotated=( "${alphabet[@]:rotation}" "${alphabet[@]:0:rotation}" )
+    local rotated=(
+        "${Alphabet[@]:rotation}" 
+        "${Alphabet[@]:0:rotation}" 
+    )
 
-## using `tr`:
-# from=$(IFS=; echo "${alphabet[*]}${alphabet[*]^^}")
-# to=$(IFS=; echo "${rotated[*]}${rotated[*]^^}")
-# tr "$from" "$to" <<<"$phrase"
+    for i in {0..25}; do
+        _map[${Alphabet[i]}]=${rotated[i]}      # lower case
+        _map[${Alphabet[i]^}]=${rotated[i]^}    # upper case
+    done
+}
 
-# using plain bash:
-declare -A mapping
-for (( i=0; i < ${#alphabet[@]}; i++ )); do
-    mapping[${alphabet[i]}]=${rotated[i]}       # lower case
-    mapping[${alphabet[i]^^}]=${rotated[i]^^}   # upper case
-done
+rotate() {
+    local phrase=$1
+    local -i rotation=$2
+    local result
 
-result=""
-for (( i=0; i < ${#phrase}; i++ )); do
-    char=${phrase:i:1}
-    if [[ -n ${mapping[$char]} ]]; then
-        result+=${mapping[$char]}
-    else
-        result+=$char
-    fi
-done
+    local -A mapping
+    generateMapping mapping $rotation
 
-echo "$result"
+    while IFS= read -r -n1 char; do
+        result+=${mapping[$char]:-$char}
+        # ......................^^^^^^^
+        # handles unmapped characters (space, punct, digit)
+    done < <(printf '%s' "$phrase")
+
+    echo "$result"
+}
+
+rotate "$@"

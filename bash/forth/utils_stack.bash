@@ -47,12 +47,29 @@ stack::push() {
     __stack_push+=("$@")
 }
 
+# Return the last element.
+# If passed 2 arguments, populate the 2nd nameref with the
+# value of the last element.
 stack::peek() { 
     local -n __stack_peek=$1
-    ! stack::empty __stack_peek && echo "${__stack_peek[-1]}"
+    if ! stack::empty __stack_peek; then
+        if (($# == 1)); then
+            echo "${__stack_peek[-1]}"
+        else
+            local -n __stack_peek_elem=$2
+            __stack_peek_elem=${__stack_peek[-1]}
+        fi
+    fi
 }
 
+# Remove the last element.
+# If passed 2 arguments, populate the 2nd nameref with the
+# value of the last element.
 stack::pop() {
     local -n __stack_pop=$1
+    if [[ $2 ]]; then
+        local -n __stack_pop_elem=$2
+        __stack_pop_elem=$(stack::peek __stack_pop)
+    fi
     ! stack::empty __stack_pop && unset '__stack_pop[-1]'
 }

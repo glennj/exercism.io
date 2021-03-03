@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
-checkBashVersion 4.0 "uppercase parameter expansion"
+# works with: bash 3.2.57 and up
 
 shopt -s extglob
+
+
+toUpper() {
+    if [[ ${BASH_VERSINFO[0]} -le 3 ]]; then
+        echo "$*" | tr '[:lower:]' '[:upper:]'
+    else
+        echo "${*^^}"
+    fi
+}
+
 
 # first approach, split the input into words, using
 # a custom set of "non-word" characters (IFS): take the
@@ -28,8 +37,9 @@ word_splitting() {
     ##    acronym+=${word:0:1}
     ##done
 
-    echo "${acronym^^}"
+    toUpper "$acronym"
 }
+
 
 # second approach, iterate over the characters of the input
 # and use a state machine to determine when to add a letter
@@ -44,7 +54,7 @@ state_machine() {
             # state "A": looking for the next alpha
             # character to add to the acronym
             A)  if [[ $char == [[:alpha:]] ]]; then
-                    acronym+=${char^}
+                    acronym+=$char
                     state="N"
                 fi
                 ;;
@@ -60,8 +70,31 @@ state_machine() {
 
     done <<< "$1"
 
-    echo "$acronym"
+    toUpper "$acronym"
 }
 
+
+# third approach, use regular expression matching to find
+# letters that are not preceded by a letter. Since bash does
+# not implement global matching, this needs to be in a loop.
+# The leading (greedy) `.*` means this matches the 
+# _last_ word in the phrase.
+regex_matching() {
+
+    # Adding a leading non-letter simplifies the regex a bit.
+    # Remove apostrophes from the input.
+    local phrase=">${1//"'"/}"
+    local result
+
+    while [[ $phrase =~ (.*)[^[:alpha:]]([[:alpha:]]) ]]; do
+        result=${BASH_REMATCH[2]}$result
+        phrase=${BASH_REMATCH[1]}
+    done
+
+    toUpper "$result"
+}
+
+
 #word_splitting "$1"
-state_machine "$1"
+#state_machine "$1"
+regex_matching "$1"

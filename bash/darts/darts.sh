@@ -2,9 +2,32 @@
 
 source ../lib/utils.bash
 source ../lib/utils_string.bash
-source ../lib/utils_math.bash
 
-checkBashVersion 4.3 namerefs
+main() {
+    (( $# == 2 )) || die "wrong number of arguments"
+    str::isFloat "$1" && str::isFloat "$2" || die "arguments must be numeric"
+
+    score_throw_bc "$@"
+    #score_throw_bash_only "$@"
+}
+
+
+# This uses a single call to bc.
+score_throw_bc() {
+    checkBashVersion 4.0 "mapfile command"
+    local bools fmt
+
+    printf -v fmt 'sqrt(%s^2 + %s^2) <= %%d\n' "$@"
+    mapfile -t bools < <(printf "$fmt" 1 5 10 | bc -l)
+
+    case "${bools[*]}" in
+        "1 1 1") echo 10 ;;
+        "0 1 1") echo  5 ;;
+        "0 0 1") echo  1 ;;
+        "0 0 0") echo  0 ;;
+    esac
+}
+
 
 # Given an x and y, we will calculate sqrt(x^2 + y^2) and
 # compare that against some radii to determine the score.
@@ -30,14 +53,11 @@ checkBashVersion 4.3 namerefs
 #
 # The goal is to find the exponent of 10 that converts x and y
 # into integers. Now we have arithmetic that bash can do.
+#
+score_throw_bash_only() {
+    checkBashVersion 4.3 namerefs
+    source ../lib/utils_math.bash
 
-main() {
-    (( $# == 2 )) || die "wrong number of arguments"
-    str::isFloat "$1" && str::isFloat "$2" || die "arguments must be numeric"
-    score_throw "$@"
-}
-
-score_throw() {
     local x=$1 y=$2 
     local -i exp=0
 

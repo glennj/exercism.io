@@ -1,7 +1,8 @@
 #!/bin/bash
 
-set -- '' ''
+set -- '' '' # the main loop in hamming.sh requires 2 params
 source ./hamming.sh >/dev/null
+export -f hamming_forLoop hamming_whileReadLoop
 
 alpha=( {a..z} )
 
@@ -18,11 +19,6 @@ assert "${#strand1} == ${#strand2}" "why are the lengths different"
 assert "$(hamming_forLoop $strand1 $strand2) == 1" "distance is 1"
 assert "$(hamming_whileReadLoop $strand1 $strand2) == 1" "distance is 1"
 
-for func in hamming_forLoop hamming_whileReadLoop; do
-    printf "\n%s\n\n" "$func"
-    time {
-        for ((i=0; i<10; i++)); do
-            "$func" "$strand1" "$strand2" >/dev/null
-        done
-    }
-done
+hyperfine --warmup 10 --min-runs 200 \
+    'hamming_forLoop       "$strand1" "$strand2"' \
+    'hamming_whileReadLoop "$strand1" "$strand2"'

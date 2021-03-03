@@ -1,6 +1,8 @@
 #!/bin/bash
 
-source ../lib/utils_string.bash
+script=${0##*/}
+dir=${0%$script}; : "${dir:=./}"
+source "$dir"../lib/utils_string.bash
 
 isQuestion() { [[ "$1" == *"?" ]]; trueOrFalse; }
 isYelling () { 

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!bash
 
 shopt -s extglob
 
@@ -26,8 +26,10 @@ str::ord() {
 # chr: the character represented by the given ASCII decimal value
 # $ chr 65 #=> A
 #
+# Would probably be more performant to use a fixed array of
+# letters and index into it, but this is pretty cool.
+#
 str::chr() {
-    # shellcheck disable=SC2059
     printf "\x$(printf "%x" "$1")"
 }
 
@@ -83,8 +85,8 @@ str::repeat() {
 # - variable holding the string
 #
 # e.g.
-#     s="hello world"
-#     str::putAt 4 "," s
+#     str="hello world"
+#     str::putAt 4 , str
 #     echo "$string"    # => 'hell, world'
 #
 str::putAt() {

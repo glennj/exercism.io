@@ -21,6 +21,7 @@
 # v4.0 - case conversion parameter expansion and `declare -u/-l`
 #      - associative arrays
 #      - a bug fix for array concatenation
+#      - `mapfile`
 # v4.1 - `printf -v arrray[index]`
 # v4.3 - `-v` operator for `[[...]]`
 #      - bug fixes for associative array indices
@@ -55,12 +56,11 @@ assert() {
 # Provide an exit status with the -s option (default: 1)
 #
 die() { 
-    local OPTIND OPTARG
     local status=1
+    local OPTIND OPTARG
     while getopts s: opt; do
         [[ $opt == "s" ]] && status=$OPTARG
     done
-    shift $((OPTIND-1))
-    echo "$*" >&2
+    echo "${*:OPTIND}" >&2
     exit "$status"
 }

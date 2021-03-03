@@ -62,10 +62,37 @@ main function.
 
 <!-- ============================================================ -->
 
-## Shellcheck
+## Tools
+
+Linting: Shellcheck - https://github.com/koalaman/shellcheck
+Benchmarking: Hyperfine - https://github.com/sharkdp/hyperfine
+Formatting: shfmt - https://github.com/mvdan/sh
+
+
+### Shellcheck
 
 I recommend you paste this code into [https://shellcheck.net](https://shellcheck.net)
 to get tips and further reading about improvements.
+
+<!-- quick links -->
+
+[Shellcheck](https://shellcheck.net) warns ["Argument mixes string and array"](https://www.shellcheck.net/wiki/SC2145).
+[Shellcheck](https://shellcheck.net) warns ["Assigning an array to a string"](https://www.shellcheck.net/wiki/SC2124).
+[Shellcheck](https://shellcheck.net) warns ["Useless echo"](https://www.shellcheck.net/wiki/SC2005).
+[Shellcheck](https://shellcheck.net) warns ["Don't use variables in the printf format string."](https://www.shellcheck.net/wiki/SC2059).
+[Shellcheck](https://shellcheck.net) warns [Use "$@" (with quotes) to prevent whitespace problems.](https://www.shellcheck.net/wiki/SC2048).
+[Shellcheck](https://shellcheck.net) warns ["Double quote array expansions to avoid re-splitting elements."](https://www.shellcheck.net/wiki/SC2068).
+[Shellcheck](https://shellcheck.net) warns ["Quote parameters to `tr` to prevent glob expansion."](https://www.shellcheck.net/wiki/SC2060).
+
+### Hyperfine
+
+Example
+```bash
+hyperfine --warmup 10 --min-runs 100 \
+    'bash implementation_1.sh args args args' \
+    'bash implementation_2.sh args args args' \
+    'bash implementation_3.sh args args args'
+```
 
 <!-- ============================================================ -->
 
@@ -84,6 +111,19 @@ Expansions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions)
 * the words are subject to expansions
 * redirections are applied
 * and finally the command is executed
+
+<!-- put another way -->
+
+I'm mainly going to direct you to the bash manual.
+
+* First read through [3.1.1 Shell Operation](https://www.gnu.org/software/bash/manual/bash.html#Shell-Operation), a high-level overview of how the shell interprets code
+* Next, read [3.7.1 Simple Command Expansion](https://www.gnu.org/software/bash/manual/bash.html#Simple-Command-Expansion) (this is where it says "variable assignments [...] preceding the command name [...] are saved"
+* Next read [3.5 Shell Expansions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions), noting the order that the expansions occur.
+* Then dig in to [3.5.3 Shell Parameter Expansion](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion), [3.5.7 Word Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting) and [3.5.8 Filename Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion) -- for the last 2, note "that did not occur within double quotes"
+
+The bash manual can be a frustrating read. It's very dense, and literally every sentence is important, so it takes much re-reading for things to really sink in.
+
+In my view, once you really understand these particular things (quoting, word splitting, globbing), you are well on your way to being comfortable in bash. Then you'll pick up other features more and more quickly.
 
 ---
 
@@ -435,6 +475,28 @@ variables in an arithmetic expression. So you can write:
 char="${string:i:1}"
 # .............^
 ```
+
+<!-- -->
+
+<details><summary>Instead of trying to listing all the characters to remove
+(it's easy to let a few characters slip through), think about want
+characters you want to keep, and remove all the other ones. Click for an
+example.</summary>
+If you want to keep only letters and
+numbers:
+```bash
+cleaned=${input//[^A-Za-z0-9]/}
+```
+or case insensitively
+```bash
+shopt -s nocasematch
+cleaned=${input//[^A-Z0-9]/}
+```
+# or with a character class
+cleaned=${input//[^[:alnum:]]/}
+```
+</details>
+
 
 <!-- ........................................................ -->
 ### Special parameters
@@ -1082,7 +1144,7 @@ then we can examine the combinations of -E and -e
     OK
     exit status: 0
     ```
-1. both early exit and trap
+1. both early exit and trap/
     ```bash
     $ bash -eE trap_test.sh; echo "exit status: $?"
     trap_test.sh: line 6: noSuchCommand: command not found
@@ -1714,6 +1776,32 @@ To not worry about upper/lower case:
         if [[ $letter =~ [a-z] ]]
     ```
 
+<!-- -->
+
+<details><summary>There's a more general way to extract the first letter
+from a string, even if the word starts with non-letters. Click for
+details.</summary>
+
+Regular expression engines generally match "leftmost longest". For example
+`[[ "aaBBBccBBBBBd" =~ B+ ]]` will match the first run of B's (leftmost) and
+it will match all 3 of them (longest).
+
+Additionally, the BASH_REMATCH array will hold the various captured parts:
+```bash
+$ [[ "aaBBBccBBBBBd" =~ (.)(B+) ]]
+$ declare -p BASH_REMATCH
+declare -ar BASH_REMATCH=([0]="aBBB" [1]="a" [2]="BBB")
+```
+
+So, putting that together, the first letter of a word:
+```bash
+word="__foo"
+[[ $word =~ ([[:alpha:]]) ]]
+echo ${BASH_REMATCH[1]} # => f
+```
+</details>
+
+
 ---
 # Miscellaneous notes to be organized
 
@@ -1920,6 +2008,14 @@ sys	1m12.693s
 ```
 
 ---
+<!--
+Obtaining the length of a string is a 
+[surprisingly expensive operation](https://github.com/glennj/exercism.io/blob/main/_mentor_notes/bash.md#performance-impact-of-string-length)
+in bash. With large strings and/or large loops, performance can be
+significantly impacted.  Storing the length in a variable helps
+significantly.  
+-->
+
 ## performance impact of string length
 
 Obtaining the length of a string is a surprisingly

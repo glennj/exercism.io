@@ -78,11 +78,7 @@ record_macro() {
     # Check any words in definition for macros
     local definition=()
     for word; do
-        if [[ -n ${M[$word]} ]]; then
-            definition+=( ${M[$word]} )
-        else
-            definition+=( $word )
-        fi
+        definition+=( "${M[$word]:-$word}" )
     done
     M[$macro_name]=${definition[*]}
 }
@@ -100,8 +96,8 @@ binary_op() {
     local op=$1 a b
 
     need 2
-    b=$(stack::peek S) && stack::pop S
-    a=$(stack::peek S) && stack::pop S
+    stack::pop S b
+    stack::pop S a
     
     [[ $op == "/" ]] && (( b == 0 )) && die "divide by zero"
     stack::push S $(( a $op b ))
@@ -120,16 +116,16 @@ drop() {
 swap() {
     local a b
     need 2
-    b=$(stack::peek S) && stack::pop S
-    a=$(stack::peek S) && stack::pop S
+    stack::pop S b
+    stack::pop S a
     stack::push S $b $a
 }
 
 over() {
     local a b
     need 2
-    b=$(stack::peek S) && stack::pop S
-    a=$(stack::peek S)
+    stack::pop S b
+    stack::peek S a
     stack::push S $b $a
 }
 

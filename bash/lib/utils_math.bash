@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+#!bash
+
+shopt -s extglob
 
 # a library of useful bash functions
 # works with bash version 3.2+
@@ -15,37 +17,34 @@ math::abs() {
 # Greatest Common Divisor of two integers
 #
 math::gcd() {
-    local a b
-    a=$(math::abs "$1")
-    b=$(math::abs "$2")
+    local -i a=$(math::abs "$1") b=$(math::abs "$2")
     if (( b > 0 )); then
-        math::gcd "$b" $((a % b))
+        math::gcd $b $((a % b))
     else
-        echo "$a"
+        echo $a
     fi
 }
 
 
-# minimum/maximum of two values
+# maximum of two values
 #
-math::min() { echo $(( $1 < $2 ? $1 : $2 )); }
 math::max() { echo $(( $1 > $2 ? $1 : $2 )); }
 
 
-# Add two arbitrarily large _positive_ integers, just like you'd do by hand:
-# add digits from right to left, using a carry digit.
+# Add two arbitrarily large integers, just like you'd do by
+# hand: add digits from right to left, using a carry digit.
 # 
 math::add() {
-    local a=$1 b=$2
+    local a=$1 b=$2 c
+    local result="" carry=0
 
     # left pad the numbers with zeroes so they're the same width
     local width
     width=$( math::max ${#a} ${#b} )
-    printf -v a '%0*s' "$width" "$a"
-    printf -v b '%0*s' "$width" "$b"
+    printf -v a '%0*s' $width $a
+    printf -v b '%0*s' $width $b
 
     # add the digits from right to left
-    local c result="" carry=0
     for (( i = width-1; i >= 0; i-- )); do
         (( c = carry + ${a:i:1} + ${b:i:1} ))
         result=$((c % 10))${result}
@@ -53,29 +52,16 @@ math::add() {
     done
     result=${carry}${result}
 
-    local extglob
-    extglob=$(shopt -p extglob)
-    shopt -s extglob
-
-    # trim leading zeroes
-    : "${result##+(0)}"
-    echo "${_:-0}"
-
-    $extglob
+    echo ${result##+(0)}
 }
 
 
 # a randomish number in the range [a,b)
-# the $RANDOM variable returns a number in [0, 32768)
 #
 math::rand() {
-    local a=$1 b=$2
-    case $# in
-        0) echo $RANDOM ;;
-        1) echo $(( RANDOM % $1 )) ;;
-        2) echo $(( $(math::min "$1" "$2") + RANDOM % ($2 - $1) )) ;;
-        *) echo "usage: ${FUNCNAME[0]} [[lower] upper]" >&2; return 1;;
-    esac
+    local -i a=$1 b=$2
+    local -i r=$(( RANDOM % (b - a) ))
+    echo $(( r + a ))
 }
 
 
@@ -84,16 +70,13 @@ math::rand() {
 math::sum() {
     local sum=0
     for arg; do ((sum += arg)); done
-    echo "$sum"
+    echo $sum
 }
 
 # sum the contents of an array
 #
 math::sumArray() {
-    # namerefs are a v4.3 feature. indirect vars work in v3.2
-    #local -n __sum_array=$1
-    local ref="${1}[@]"
-    local -a __sum_array=( "${!ref}" )
+    local -n __sum_array=$1
     math::sum "${__sum_array[@]}"
 }
 
