@@ -7,10 +7,10 @@ main() {
     validate "$@"
 
     local allergies=()
-    getAllergies "$1" ;# populates allergies array
+    getAllergies "$1"  # populates allergies array
 
     case "$2" in
-        list) 
+        list)
             echo "${allergies[*]}"
             ;;
         allergic_to)
@@ -26,7 +26,7 @@ main() {
 }
 
 validate() {
-    (( $# < 2 )) && usage
+    (($# < 2)) && usage
     [[ $2 != @(list|allergic_to) ]] && usage
     [[ $2 == "allergic_to" ]] && [[ -z $3 ]] && usage
 }
@@ -44,8 +44,8 @@ getAllergies() {
         tomatoes chocolate pollen cats
     )
 
-    for (( i=0; i<${#allergens[@]}; i++ )); do
-        if (( (code & (1 << i)) != 0 )); then
+    for ((i = 0; i < ${#allergens[@]}; i++)); do
+        if (((code & (1 << i)) != 0)); then
             allergies+=("${allergens[i]}")
         fi
     done

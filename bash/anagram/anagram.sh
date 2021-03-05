@@ -3,25 +3,30 @@
 # external tools: grep, sort, paste
 
 source ../lib/utils.bash
-checkBashVersion 4.0 "'local -l'"
-
-main() {
-    local anagrams=()
-    set -f   # disable path expansion
-    for candidate in $2; do
-        isAnagram "$1" "$candidate" && anagrams+=("$candidate")
-    done
-    echo "${anagrams[*]}"
-}
-
-isAnagram() {
-    local -l first=$1 second=$2
-    [[ "$first" != "$second" ]] && 
-    [[ "$(sorted "$first")" == "$(sorted "$second")" ]]
-}
+checkBashVersion 4.0 "lower-case conversion"
 
 sorted() {
     echo "$1" | grep -o . | sort | paste -sd ""
+}
+
+main() {
+    local -a anagrams candidates
+    local word key candidate
+
+    word=${1,,}
+    key=$(sorted "$word")
+    read -ra candidates <<< "$2"
+
+    local -l candLower
+    for candidate in "${candidates[@]}"; do
+        candLower=$candidate
+
+        [[ $word != "$candLower" ]] \
+        && [[ $key == "$(sorted "$candLower")" ]] \
+        && anagrams+=("$candidate")
+    done
+
+    echo "${anagrams[*]}"
 }
 
 main "$@"

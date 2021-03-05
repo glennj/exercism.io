@@ -1,32 +1,23 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# this is a situation where is really doesn't make sense
-# to implement this in bash
-#
-# external tools used: tr, grep, sort, uniq, awk
-#    echo "$1" | 
-#    tr -dc '[:alpha:]' |
-#    tr '[:upper:]' '[:lower:]' |
-#    grep -o . |
-#    sort |
-#    uniq -c |
-#    awk '$1 > 1 {exit 1}' && echo true || echo false
+# Set a variable for each letter seen.  If the variable
+# already exists, the letter has occurred before so the
+# input cannot be an isogram.
 
-
-# but if I was forced to use bash, this:
+# Ensure we're not polluted by environment variables
+unset {A..Z}
 
 source ../lib/utils.bash
-checkBashVersion 4.0 "associative arrays"
+checkBashVersion 4.0 "case conversion"
 
-declare -A count
-declare -l char     # lower case
+declare -u char     # upper case
 
-for ((i=0; i<${#1}; i++)); do
-    char=${1:i:1}
-    if [[ $char == [[:alpha:]] ]] && (( ++count[$char] > 1 )); then
+while IFS= read -r -n1 char; do
+    if [[ -n ${!char} ]]; then
         echo false
         exit
     fi
-done
+    declare "${char}=seen"
+done < <(printf '%s' "${1//[^[:alpha:]]/}")
 
 echo true

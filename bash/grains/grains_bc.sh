@@ -11,6 +11,7 @@ pow2() { echo "2 ^ ($1 - 1)" | bc; }
 case $1 in
     ?(-)+([0-9]) )
         (($1 <= 0 || $1 > 64)) && die "Error: invalid input"
+        # shellcheck disable=SC2086
         pow2 $1
         ;;
     total)

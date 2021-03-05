@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 source ../lib/utils.bash
+checkBashVersion 4.3 "stacks (namerefs)"
 source ../lib/utils_string.bash
 source ../lib/utils_stack.bash
-checkBashVersion 4.0 "associative arrays"
-
 
 # I'm going to be using unquoted variables to take advantage
 # of word splitting. Disable filename expansion.
@@ -14,28 +13,29 @@ set -o noglob
 declare -a S       # indexed array
 declare -A M       # associative array
 
-main() {
-    # Read from stdin
-    while IFS= read -r line; do
+############################################################
+evaluate() {
+    # Lower-case the line, and allow word-splitting.
+    # Use the positional parameters as a work array.
+    # shellcheck disable=SC2086
+    set -- ${line,,}
 
-        # Lower-case the line, and allow word-splitting.
-        # Use the positional parameters as a work array.
-        set -- ${line,,}
+    # Keep looping until all the positional params
+    # have been consumed.
+    while (($# > 0)); do
+        word=$1
+        shift
 
-        # Keep looping until all the positional params
-        # have been consumed.
-        while (( $# > 0 )); do
-            word=$1
-            shift
+        if str::isInt "$word"; then
+            stack::push S "$word"
 
-            if str::isInt $word; then
-                stack::push S $word
+        elif [[ -n ${M[$word]} ]]; then
+            # it's a macro: expand it
+            read -ra macroWords <<< "${M[$word]}"
+            set -- "${macroWords[@]}" "$@"
 
-            elif [[ -n ${M[$word]} ]]; then
-                set -- ${M[$word]} "$@"
-
-            else
-                case $word in
+        else
+            case $word in
                 :)
                     record_macro "$@"
                     # Discard rest of line
@@ -43,68 +43,68 @@ main() {
                     ;;
                 [-+*/])
                     # Arithmetic operation
-                    binary_op $word
+                    arithmetic "$word"
                     ;;
-                dup|drop|swap|over)
+                dup | drop | swap | over)
                     # Invoke this word as a command
                     $word
                     ;;
                 *)
-                    echo "undefined operation" >&2
-                    exit 1
+                    die "undefined operation"
                     ;;
-                esac
-            fi
-        done
+            esac
+        fi
     done
-
-    echo "${S[*]}"
 }
 
+############################################################
 record_macro() {
     local macro_name=$1
-    if str::isInt $macro_name; then 
-        die "illegal operation: cannot redefine number"
-    fi
+    refute -C str::isInt "$macro_name" "illegal operation: cannot redefine number"
     shift
 
     # Check the last word
-    [[ ${!#} != ";" ]] && die "macro not terminated with semicolon"
+    assert -C [ "${!#}" = ";" ] "macro not terminated with semicolon"
     # pop the semicolon
-    set -- ${@:1:$#-1}
+    set -- "${@:1:$#-1}"
 
-    (( $# == 0 )) && die "empty macro definition"
+    assert "$# > 0" "empty macro definition"
 
     # Check any words in definition for macros
     local definition=()
     for word; do
-        definition+=( "${M[$word]:-$word}" )
+        definition+=("${M[$word]:-$word}")
     done
     M[$macro_name]=${definition[*]}
 }
 
+############################################################
 # Check the size of the stack for the number of needed elements
 need() {
     local -i n=$1 len
     len=$(stack::len S)
-    (( n > 0 && len == 0 )) && die "empty stack"
-    (( n > 1 && len == 1 )) && die "only one value on the stack"
-    (( n > len ))           && die "not enough values on the stack"
+    refute "n > 0 && len == 0" "empty stack"
+    refute "n > 1 && len == 1" "only one value on the stack"
+    refute "n > len"           "not enough values on the stack"
 }
 
-binary_op() {
+arithmetic() {
     local op=$1 a b
 
     need 2
     stack::pop S b
     stack::pop S a
-    
-    [[ $op == "/" ]] && (( b == 0 )) && die "divide by zero"
+
+    [[ $op == "/" ]] && ((b == 0)) && die "divide by zero"
+
+    # shfmt cannot handle the dynamic expression
+    # shellcheck disable=SC1102,SC2046,SC2086
     stack::push S $(( a $op b ))
 }
 
 dup() {
     need 1
+    # shellcheck disable=SC2046
     stack::push S $(stack::peek S)
 }
 
@@ -118,7 +118,7 @@ swap() {
     need 2
     stack::pop S b
     stack::pop S a
-    stack::push S $b $a
+    stack::push S "$b" "$a"
 }
 
 over() {
@@ -126,7 +126,16 @@ over() {
     need 2
     stack::pop S b
     stack::peek S a
-    stack::push S $b $a
+    stack::push S "$b" "$a"
+}
+
+############################################################
+main() {
+    # consume stdin
+    while IFS= read -r line; do
+        evaluate "$line"
+    done
+    echo "${S[*]}"
 }
 
 main

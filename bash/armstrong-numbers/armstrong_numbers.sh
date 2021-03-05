@@ -1,25 +1,13 @@
 #!/usr/bin/env bash
 
 is_armstrong() {
-    local -i num=$1
-    local -i sum=0 len=${#num} i
+    local -i num=$1 sum=0 len=${#num} digit
 
-    for (( i=0; i<len; i++ )); do
-        (( sum += ${num:i:1} ** len ))
-    done
+    while read -r -n1 digit; do
+        ((sum += digit ** len))
+    done < <(printf '%s' "$num")
 
-    (( sum == num ))
+    ((sum == num))
 }
 
 is_armstrong "$1" && echo true || echo false
-exit
-
-
-# golfed wrt LOC:
-for (( len=${#1}, i=0; i<len; i++ )); do 
-    (( sum += ${1:i:1} ** len ))
-done
-(( sum == $1 )) && echo true || echo false
-
-
-

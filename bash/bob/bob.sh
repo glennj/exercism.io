@@ -1,30 +1,25 @@
 #!/bin/bash
 
-script=${0##*/}
-dir=${0%$script}; : "${dir:=./}"
-source "$dir"../lib/utils_string.bash
+source ../lib/utils_string.bash
 
-isQuestion() { [[ "$1" == *"?" ]]; trueOrFalse; }
-isYelling () { 
-    # contains a letter and contains no lower-case letters
-    [[ "$1" == *[[:alpha:]]* && "$1" != *[[:lower:]]* ]]
-    trueOrFalse
-}
-isSilent()    { [[ -z "$1" ]]; trueOrFalse; }
-trueOrFalse() { (( $? == 0 )) && echo true || echo false; }
+# Yelling: contains a letter and no lower-case letters
 
-main() {
-    input=$(str::trimright "$1")
-    q=$(isQuestion "$input")
-    y=$(isYelling  "$input")
-    z=$(isSilent   "$input")
+isSilent()   { [[ -z "$1" ]]; }
+isQuestion() { [[ "$1" == *"?" ]]; }
+isYelling()  { [[ "$1" == *[[:alpha:]]* && "$1" != *[[:lower:]]* ]]; }
 
-    if   $q && $y; then echo "Calm down, I know what I'm doing!"
-    elif $q;       then echo 'Sure.'
-    elif $y;       then echo 'Whoa, chill out!'
-    elif $z;       then echo 'Fine. Be that way!'
-                   else echo 'Whatever.'
-    fi
-}
+input=$(str::trimright "$1")
 
-main "$@"
+if isSilent "$input"; then
+    echo 'Fine. Be that way!'
+else
+    isQuestion "$input"; result+=$?
+    isYelling  "$input"; result+=$?
+
+    case $result in
+        00) echo "Calm down, I know what I'm doing!" ;;
+        01) echo 'Sure.' ;;
+        10) echo 'Whoa, chill out!' ;;
+        11) echo 'Whatever.' ;;
+    esac
+fi

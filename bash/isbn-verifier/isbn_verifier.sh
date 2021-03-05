@@ -1,12 +1,4 @@
-#!/bin/bash
-
-main() {
-    if (( $# != 1 )); then
-        echo "usage: ${0##*/} ISBN-number" >&2
-        exit 1
-    fi
-    isbn10 "$1" && echo true || echo false
-}
+#!/usr/bin/env bash
 
 isbn10() {
     local input=${1//-/}
@@ -16,12 +8,20 @@ isbn10() {
 
     # validate check digit
     local -i i sum=0
-    for ((i=0; i<9; i++)); do
-        (( sum += ${input:i:1} * (10-i) ))
+    for ((i = 0; i < 9; i++)); do
+        ((sum += ${input:i:1} * (10 - i)))
     done
 
     local check=${input: -1:1}
-    (( (11 - sum % 11) == (check == "X" ? 10 : check) ))
+    (((11 - sum % 11) == (check == "X" ? 10 : check)))
+}
+
+main() {
+    if (($# != 1)); then
+        echo "usage: ${0##*/} ISBN-number" >&2
+        exit 1
+    fi
+    isbn10 "$1" && echo true || echo false
 }
 
 main "$@"

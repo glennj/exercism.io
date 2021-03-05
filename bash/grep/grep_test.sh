@@ -42,73 +42,73 @@ teardown() {
 # Test grepping a single file
 
 @test "One file, one match, no flags" {
-    #[[ $BATS_RUN_SKIPPED == true  ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="Of Atreus, Agamemnon, King of men."
     pattern="Agamemnon"
     flags=()
     files=(iliad.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "One file, one match, print line numbers flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="2:Of that Forbidden Tree, whose mortal tast"
     pattern="Forbidden"
     flags=(-n)
     files=(paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "One file, one match, case-insensitive flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="Of that Forbidden Tree, whose mortal tast"
     pattern="FORBIDDEN"
     flags=(-i)
     files=(paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "One file, one match, print file names flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="paradise-lost.txt"
     pattern="Forbidden"
     flags=(-l)
     files=(paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "One file, one match, match entire lines flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="With loss of Eden, till one greater Man"
     pattern="With loss of Eden, till one greater Man"
     flags=(-x)
     files=(paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "One file, one match, multiple flags" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="9:Of Atreus, Agamemnon, King of men."
     pattern="OF ATREUS, Agamemnon, KIng of MEN."
     flags=(-n -i -x)
     files=(iliad.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "One file, several matches, no flags" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="Nor how it may concern my modesty,
 But I beseech your grace that I may know
 The worst that may befall me in this case,"
@@ -116,12 +116,12 @@ The worst that may befall me in this case,"
     flags=()
     files=(midsummer-night.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "One file, several matches, print line numbers flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="3:Nor how it may concern my modesty,
 5:But I beseech your grace that I may know
 6:The worst that may befall me in this case,"
@@ -129,36 +129,36 @@ The worst that may befall me in this case,"
     flags=(-n)
     files=(midsummer-night.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 
 @test "One file, several matches, match entire lines flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=""
     pattern="may"
     flags=(-x)        
     files=(midsummer-night.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "One file, several matches, case-insensitive flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="Achilles sing, O Goddess! Peleus' son;
 The noble Chief Achilles from the son"
     pattern="ACHILLES"
     flags=(-i)        
     files=(iliad.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "One file, several matches, inverted flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="Brought Death into the World, and all our woe,
 With loss of Eden, till one greater Man
 Restore us, and regain the blissful Seat,
@@ -168,34 +168,34 @@ That Shepherd, who first taught the chosen Seed"
     flags=(-v)        
     files=(paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "One file, no matches, various flags" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=""
     pattern="Gandalf"
     flags=(-n -l -x -i)
     files=(iliad.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "One file, one match, file flag takes precedence over line flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="iliad.txt"
     pattern="ten"
     flags=(-n -l)
     files=(iliad.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "One file, several matches, inverted and match entire lines flags" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="Achilles sing, O Goddess! Peleus' son;
 His wrath pernicious, who ten thousand woes
 Caused to Achaia's host, sent many a soul
@@ -208,25 +208,25 @@ Of Atreus, Agamemnon, King of men."
     flags=(-x -v)
     files=(iliad.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 # Multiple files
             
 @test "Multiple files, one match, no flags" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="iliad.txt:Of Atreus, Agamemnon, King of men."
     pattern="Agamemnon"
     flags=()
     files=(iliad.txt midsummer-night.txt paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "Multiple files, several matches, no flags" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="midsummer-night.txt:Nor how it may concern my modesty,
 midsummer-night.txt:But I beseech your grace that I may know
 midsummer-night.txt:The worst that may befall me in this case,"
@@ -234,12 +234,12 @@ midsummer-night.txt:The worst that may befall me in this case,"
     flags=()
     files=(iliad.txt midsummer-night.txt paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "Multiple files, several matches, print line numbers flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="midsummer-night.txt:5:But I beseech your grace that I may know
 midsummer-night.txt:6:The worst that may befall me in this case,
 paradise-lost.txt:2:Of that Forbidden Tree, whose mortal tast
@@ -248,24 +248,24 @@ paradise-lost.txt:6:Sing Heav'nly Muse, that on the secret top"
     flags=(-n)
     files=(iliad.txt midsummer-night.txt paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "Multiple files, one match, print file names flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="iliad.txt
 paradise-lost.txt"
     pattern="who"
     flags=(-l)
     files=(iliad.txt midsummer-night.txt paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "Multiple files, several matches, case-insensitive flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="iliad.txt:Caused to Achaia's host, sent many a soul
 iliad.txt:Illustrious into Ades premature,
 iliad.txt:And Heroes gave (so stood the will of Jove)
@@ -280,12 +280,12 @@ paradise-lost.txt:Sing Heav'nly Muse, that on the secret top"
     flags=(-i)
     files=(iliad.txt midsummer-night.txt paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "Multiple files, several matches, inverted flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="iliad.txt:Achilles sing, O Goddess! Peleus' son;
 iliad.txt:The noble Chief Achilles from the son
 midsummer-night.txt:If I refuse to wed Demetrius."
@@ -293,57 +293,57 @@ midsummer-night.txt:If I refuse to wed Demetrius."
     flags=(-v)
     files=(iliad.txt midsummer-night.txt paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "Multiple files, one match, match entire lines flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="midsummer-night.txt:But I beseech your grace that I may know"
     pattern="But I beseech your grace that I may know"
     flags=(-x)
     files=(iliad.txt midsummer-night.txt paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "Multiple files, one match, multiple flags" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="paradise-lost.txt:4:With loss of Eden, till one greater Man"
     pattern="WITH LOSS OF EDEN, TILL ONE GREATER MAN"
     flags=(-n -i -x)
     files=(iliad.txt midsummer-night.txt paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "Multiple files, no matches, various flags" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=""
     pattern="Frodo"
     flags=(-n -l -i -x)
     files=(iliad.txt midsummer-night.txt paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "Multiple files, several matches, file flag takes precedence over line number flag" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="iliad.txt
 paradise-lost.txt"
     pattern="who"
     flags=(-n -l)
     files=(iliad.txt midsummer-night.txt paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "Multiple files, several matches, inverted and match entire lines flags" {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="iliad.txt:Achilles sing, O Goddess! Peleus' son;
 iliad.txt:His wrath pernicious, who ten thousand woes
 iliad.txt:Caused to Achaia's host, sent many a soul
@@ -371,6 +371,6 @@ paradise-lost.txt:That Shepherd, who first taught the chosen Seed"
     flags=(-x -v)
     files=(iliad.txt midsummer-night.txt paradise-lost.txt)
     run bash grep.sh "${flags[@]}" "$pattern" "${files[@]}"
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }

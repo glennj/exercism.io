@@ -2,34 +2,32 @@
 
 source ../lib/utils.bash
 source ../lib/utils_string.bash
+source ../lib/utils_math.bash
 
 main() {
-    (( $# == 2 || $# == 4 )) || die "invalid arguments"
+    assert "$# == 2 || $# == 4" "invalid arguments"
+    assert -C str::isInt "$1" "non-numeric argument"
+    assert -C str::isInt "$2" "non-numeric argument"
 
-    str::isInt "$1" || die "non-numeric argument"
-    str::isInt "$2" || die "non-numeric argument"
-
-    local -i h=$1 m=$2
-
-    # ensure the hours and minutes are positive
-    while ((m < 0)); do ((m += 60, h -= 1)); done
-    while ((h < 0)); do ((h += 24)); done
-
-    local -i minutes=$(( 60 * h + m ))
+    local -i minutes=$((60 * $1 + $2))
 
     case $3 in
-        [+-]) 
-            str::isInt "$4" || die "non-numeric argument"
-            minutes=$(( minutes $3 $4 ))
+        [+-])
+            assert -C str::isInt "$4" "non-numeric argument"
+
+            # shfmt and shellcheck both have problems with
+            # dynamically generated expressions like this:
+            # shellcheck disable=SC1105,SC2086
+            ((minutes ${3}= $4))
             ;;
         "") : ;;
         *)  die "invalid arguments" ;;
     esac
 
     # no DST here, all days have 24*60 minutes
-    while ((minutes < 0)); do ((minutes += (24*60))); done
+    minutes=$(math::floorMod $minutes 1440)
 
-    printf "%02d:%02d\n" $(( (minutes / 60) % 24 )) $((minutes % 60))
+    printf "%02d:%02d\n" $((minutes / 60 % 24)) $((minutes % 60))
 }
 
 main "$@"

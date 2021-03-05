@@ -2,10 +2,12 @@
 
 # Works with bash v3.2.57 and up.
 
+# shellcheck disable=SC2094
+
 # Some global boolean "flags", implemented as functions
-filename_only () { false; }
-line_numbers  () { false; }
-inverted      () { false; }
+filename_only() { false; }
+line_numbers()  { false; }
+inverted()      { false; }
 
 # Print a matched line, prefixed by filename and line number,
 # depending on options selected
@@ -13,15 +15,15 @@ output() {
     local n=$1 file=$2 lineno=$3 line=$4
 
     local items=()
-    (( n > 1 ))  && items+=( "$file" )
-    line_numbers && items+=( "$lineno" )
-    items+=( "$line" )
+    ((n > 1))    && items+=("$file")
+    line_numbers && items+=("$lineno")
+    items+=("$line")
 
     local IFS=":"
     printf "%s\n" "${items[*]}"
 }
 
-# Determine if a line matches. 
+# Determine if a line matches.
 # Relies on "nocaseglob" options for case insensitivity.
 matches() {
     local line=$1 pattern=$2
@@ -35,7 +37,7 @@ process_file() {
     local -i lineno=0
 
     while IFS= read -r line; do
-        (( lineno++ ))
+        ((lineno++))
         if matches "$line" "$pattern"; then
             if filename_only; then
                 printf "%s\n" "$file"
@@ -54,9 +56,9 @@ main() {
     # Process options
     while getopts :ilnxv opt; do
         case $opt in
-            l) filename_only () { true; } ;;
-            n) line_numbers  () { true; } ;;
-            v) inverted      () { true; } ;;
+            l) filename_only() { true; } ;;
+            n) line_numbers()  { true; } ;;
+            v) inverted()      { true; } ;;
             i) shopt -s nocasematch ;;
             x) pattern_fmt='^%s$' ;;
             ?) echo "Unknown option: $OPTARG" >&2 ;;
@@ -65,6 +67,7 @@ main() {
     shift $((OPTIND - 1))
 
     local pattern
+    # shellcheck disable=SC2059
     printf -v pattern "$pattern_fmt" "$1"
     shift
 

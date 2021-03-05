@@ -1,10 +1,20 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-if [[ $# -ne 1 ]] || ! [[ $1 == +([0-9]) && $1 -gt 0 ]]; then
-    echo "Error: Only positive numbers are allowed" >&2
-    exit 1
+source ../lib/utils.bash
+source ../lib/utils_string.bash
+
+if (($# != 1)) || ! str::isInt "$1" || (($1 <= 0)); then
+    die "Error: Only positive numbers are allowed"
 fi
 
-n=$1
-for (( steps=0; n > 1; n=(n%2 == 1 ? n*3+1 : n/2), steps++ )); do :; done
-echo $steps
+declare -i n=$1 steps=0
+
+while ((n > 1)); do
+    case $((n % 2)) in
+        0) ((n /= 2)) ;;
+        1) ((n = 3 * n + 1)) ;;
+    esac
+    ((steps++))
+done
+
+echo "$steps"

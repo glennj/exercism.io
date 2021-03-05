@@ -4,8 +4,12 @@
 #
 # I do not recommend this approach if you care about performance.
 
+# shellcheck disable=SC2086
+
 source ../lib/utils.bash        # `die`
 source ../lib/utils_math.bash   # `math::add`
+
+shopt -s extglob
 
 # populate the grains in the necessary squares
 calcSquares() {
@@ -18,8 +22,8 @@ calcSquares() {
     square=(0 1)
     $calcTotal && total=${square[1]}
 
-    for (( i = 2; i <= $1; i++ )); do
-        square[i]=$(math::add ${square[i-1]} ${square[i-1]})
+    for ((i = 2; i <= $1; i++)); do
+        square[i]=$(math::add ${square[i - 1]} ${square[i - 1]})
         $calcTotal && total=$(math::add $total ${square[i]})
     done
 }
@@ -30,7 +34,8 @@ main() {
     local result=0
 
     case $1 in
-        [1-9] | [1-5][0-9] | 6[0-4])
+        [1-9]*([0-9]))
+            (($1 <= 64)) || die "Error: invalid input"
             calcSquares $1
             echo ${square[$1]}
             ;;

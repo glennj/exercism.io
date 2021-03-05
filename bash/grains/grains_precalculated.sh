@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=SC2086
+
 main() {
     case $1 in
-        total) 
+        total)
             echo $sum
             ;;
-        [1-9] | [1-5][0-9] | 6[0-4]) 
+        [1-9] | [1-5][0-9] | 6[0-4])
             echo ${grains[$1]}
             ;;
         *)  echo "Error: invalid input" >&2

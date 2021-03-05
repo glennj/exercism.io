@@ -14,14 +14,14 @@ size=$(perl -MPOSIX=ceil -se 'print ceil(sqrt($n))' -- -n=${#input})
 
 # split into segments
 segments=()
-for ((i=0; i<${#input}; i+=size)); do
-    segments+=( "${input:i:size}" )
+for ((i = 0; i < ${#input}; i += size)); do
+    segments+=("${input:i:size}")
 done
 
 # transpose the segments array
 declare -a transposed
-for ((i=0; i<size; i++)); do
-    for ((j=0; j<${#segments[@]}; j++)); do
+for ((i = 0; i < size; i++)); do
+    for ((j = 0; j < ${#segments[@]}; j++)); do
         transposed[i]+=${segments[j]:i:1}
     done
 done

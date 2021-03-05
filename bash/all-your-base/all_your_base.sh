@@ -1,52 +1,33 @@
 #!/bin/bash
 
-source ../lib/utils.bash    # `die`
+source ../lib/utils.bash    # `assert`
 
 main() {
-    validate_bases "$1" "$3"
-
     local -i from_base=$1
     local    from_digits=$2
     local -i to_base=$3
 
-    # We're going to use an unquoted variable to take
-    # advantage of word splitting. However, we don't want to
-    # be affected by pathname expansion, so we must turn off
-    # that feature.
-    set -f
-    local digits=( $from_digits )
-    set +f
+    assert "from_base > 1" "From base must be greater than 1"
+    assert "to_base   > 1" "To base must be greater than 1"
+
+    local digits
+    read -ra digits <<< "$from_digits"
 
     local -i decimal=0
     for digit in "${digits[@]}"; do
-        validate_digit "$digit" "$from_base"
-        decimal=$(( from_base * decimal + digit ))
+        assert "digit < from_base" "Digit must be less than the from base"
+        assert "digit >= 0"        "Digit cannot be negative"
+        ((decimal = from_base * decimal + digit))
     done
 
     digits=()
-    while (( decimal > 0 )); do
-        digit=$(( decimal % to_base ))
-        decimal=$(( decimal / to_base ))
-        digits=( "$digit" "${digits[@]}" )
+    while ((decimal > 0)); do
+        ((digit = decimal % to_base))
+        ((decimal /= to_base))
+        digits=("$digit" "${digits[@]}")
     done
 
     echo "${digits[*]}"
-}
-
-validate_bases() {
-    local -i from_base=$1
-    local -i to_base=$2
-
-    (( from_base > 1 )) || die "From base must be greater than 1"
-    (( to_base   > 1 )) || die "To base must be greater than 1"
-}
-
-validate_digit() {
-    local -i digit=$1
-    local -i from_base=$2
-
-    (( digit < from_base )) || die "Digit must be less than the from base"
-    (( digit >= 0 )) || die "Digit cannot be negative"
 }
 
 main "$@"

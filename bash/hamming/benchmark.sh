@@ -1,24 +1,40 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set -- '' '' # the main loop in hamming.sh requires 2 params
+readonly alpha=({a..z})
+
+makeString() {
+    local -i len=$1
+    local str
+    echo "creating a string of $len random letters"
+    for ((i = 0; i < len; i++)); do
+        str+=${alpha[RANDOM % 26]}
+    done
+    echo "$str"
+}
+
+
+dotest() {
+    "$1" "$strand1" "$strand2"
+}
+
+set -- '' '' # the main loop in hamming.sh requires 2 positional params
 source ./hamming.sh >/dev/null
+
+benches=(
+    -n whileLoop 'bash -c "dotest hamming_whileReadLoop"'
+    -n forLoop   'bash -c "dotest hamming_forLoop"'
+)
+
 export -f hamming_forLoop hamming_whileReadLoop
+export -f dotest
+export strand1 strand2
 
-alpha=( {a..z} )
+for len in 127 255 4095 32767; do
+    strand1=$(makeString $len)
+    strand2=${strand1%?}X       # only the last char is different
 
-# a long string of random letters
-for ((i=0; i < 10000; i++)); do
-    strand1+=${alpha[ RANDOM % 26 ]}
+    echo "benchmark with length $len"
+    echo
+    hyperfine "${benches[@]}"
+    echo
 done
-
-# only the last char is different
-strand2=${strand1%?}X
-
-# quick validation
-assert "${#strand1} == ${#strand2}" "why are the lengths different"
-assert "$(hamming_forLoop $strand1 $strand2) == 1" "distance is 1"
-assert "$(hamming_whileReadLoop $strand1 $strand2) == 1" "distance is 1"
-
-hyperfine --warmup 10 --min-runs 200 \
-    'hamming_forLoop       "$strand1" "$strand2"' \
-    'hamming_whileReadLoop "$strand1" "$strand2"'

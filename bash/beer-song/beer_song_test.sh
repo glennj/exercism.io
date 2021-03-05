@@ -3,64 +3,64 @@
 # local version: 2.1.0.1
 
 @test 'first_generic_verse' {
-    #[[ $BATS_RUN_SKIPPED == true  ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="99 bottles of beer on the wall, 99 bottles of beer.
 Take one down and pass it around, 98 bottles of beer on the wall."
     run bash beer_song.sh 99
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test '3rd_last_generic_verse' {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="3 bottles of beer on the wall, 3 bottles of beer.
 Take one down and pass it around, 2 bottles of beer on the wall."
     run bash beer_song.sh 3
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test '2nd_last_generic_verse' {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="2 bottles of beer on the wall, 2 bottles of beer.
 Take one down and pass it around, 1 bottle of beer on the wall."
     run bash beer_song.sh 2
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test 'penultimate_verse' {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="1 bottle of beer on the wall, 1 bottle of beer.
 Take it down and pass it around, no more bottles of beer on the wall."
     run bash beer_song.sh 1
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test 'verse_with_zero_bottles' {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="No more bottles of beer on the wall, no more bottles of beer.
 Go to the store and buy some more, 99 bottles of beer on the wall."
     run bash beer_song.sh 0
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test 'first_two_verses' {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="99 bottles of beer on the wall, 99 bottles of beer.
 Take one down and pass it around, 98 bottles of beer on the wall.
 
 98 bottles of beer on the wall, 98 bottles of beer.
 Take one down and pass it around, 97 bottles of beer on the wall."
     run bash beer_song.sh 99 98
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test 'last_three_verses' {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
         expected="2 bottles of beer on the wall, 2 bottles of beer.
 Take one down and pass it around, 1 bottle of beer on the wall.
 
@@ -71,12 +71,12 @@ No more bottles of beer on the wall, no more bottles of beer.
 Go to the store and buy some more, 99 bottles of beer on the wall."
 
     run bash beer_song.sh 2 0
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test 'all_verses' {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected="99 bottles of beer on the wall, 99 bottles of beer.
 Take one down and pass it around, 98 bottles of beer on the wall.
 
@@ -378,29 +378,29 @@ No more bottles of beer on the wall, no more bottles of beer.
 Go to the store and buy some more, 99 bottles of beer on the wall."
 
     run bash beer_song.sh 99 0
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 # bash-specific tests: Input validation
 
 @test 'no_arguments' {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash beer_song.sh
     [[ $status -ne 0 ]]
     [[ $output == *"1 or 2 arguments expected"* ]]
 }
 
 @test 'too_many_arguments' {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash beer_song.sh 1 2 3
     [[ $status -ne 0 ]]
     [[ $output == *"1 or 2 arguments expected"* ]]
 }
 
 @test 'wrong_order_arguments' {
-    [[ $BATS_RUN_SKIPPED == true  ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash beer_song.sh 1 2
     [[ $status -ne 0 ]]
-    [[ $output = "Start must be greater than End" ]]
+    [[ $output == "Start must be greater than End" ]]
 }

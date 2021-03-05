@@ -1,9 +1,9 @@
-#!bash
-
-shopt -s extglob
+#!/usr/bin/env bash
 
 # a library of useful bash functions
 # works with bash version 3.2+
+
+source "$(dirname "${BASH_SOURCE[0]}")"/utils.bash
 
 #############################################################
 # String functions
@@ -11,7 +11,7 @@ shopt -s extglob
 # ord: the ascii value of a character
 # $ ord "A" #=> 65
 #
-# Note the leading single quote in the last argument 
+# Note the leading single quote in the last argument
 # https://www.gnu.org/software/bash/manual/bash.html#index-printf
 #     Arguments to non-string format specifiers (ed: such as %d)
 #     are treated as C language constants, except [...] if
@@ -22,7 +22,6 @@ str::ord() {
     printf "%d" "'$1"
 }
 
-
 # chr: the character represented by the given ASCII decimal value
 # $ chr 65 #=> A
 #
@@ -30,9 +29,9 @@ str::ord() {
 # letters and index into it, but this is pretty cool.
 #
 str::chr() {
+    # shellcheck disable=SC2059
     printf "\x$(printf "%x" "$1")"
 }
-
 
 # join the elements of an array into a single string
 #
@@ -48,16 +47,14 @@ str::join() {
     echo "$*"
 }
 
-
 # Check that the parameter is a valid integer
 #
 str::isInt() { [[ $1 == ?([-+])+([[:digit:]]) ]]; }
 
-str::isFloat() { 
+str::isFloat() {
     [[ $1 == ?([-+])+([[:digit:]])?(.*([[:digit:]])) ]] ||
     [[ $1 == ?([-+])*([[:digit:]]).+([[:digit:]]) ]]
 }
-
 
 # Repeat a character a specified number of times
 #
@@ -93,11 +90,10 @@ str::putAt() {
     local -i idx=$1
     local char=${2:- }
     local -n __str=$3
-    if (( 0 <= idx && idx < ${#__str} )); then
+    if ((0 <= idx && idx < ${#__str})); then
         __str=${__str:0:idx}${char}${__str:idx+1}
     fi
 }
-
 
 # is the given string a palindrome
 #
@@ -105,29 +101,36 @@ str::isPalindrome() {
     local word=$1
     local -i i j len=${#word}
     for ((i = len / 2; i >= 0; i--)); do
-        j=$(( len - i - 1 ))
+        j=$((len - i - 1))
         [[ ${word:i:1} == "${word:j:1}" ]] || return 1
     done
 }
 
-
 # reverse a string
 #
-str::reverse () {
+str::reverse() {
     local reversed=""
-    for (( i=${#1}-1; i >= 0; i-- )); do
+    for ((i = ${#1} - 1; i >= 0; i--)); do
         reversed+="${1:i:1}"
     done
     echo "$reversed"
 }
 
-
 # trim whitespace from the ends of a string
 #
-str::trimright() { echo "${1/%+([[:space:]])}"; }
-str::trimleft()  { echo "${1/#+([[:space:]])}"; }
-str::trim()      { str::trimleft "$(str::trimright "$1")"; }
+str::trimright() { 
+    local str=$1
+    with_shopt extglob 'echo "${str/%+([[:space:]])/}"'
+}
 
+str::trimleft()  { 
+    local str=$1
+    with_shopt extglob 'echo "${str/#+([[:space:]])/}"'
+}
+
+str::trim() {
+    str::trimleft "$(str::trimright "$1")"
+}
 
 # find the first index of a substring (needle) within a string (haystack)
 # return -1 if haystack does not contain needle
@@ -137,7 +140,6 @@ str::index() {
     local prefix=${haystack%%"$needle"*}
     [[ "$prefix" == "$haystack" ]] && echo -1 || echo "${#prefix}"
 }
-
 
 # add commas to a number
 #
@@ -152,7 +154,7 @@ str::commify() {
     local size=${3:-3}
     local -a groups
     while [[ $n =~ (.{1,$size})$ ]]; do
-        groups=( "${BASH_REMATCH[1]}" "${groups[@]}")
+        groups=("${BASH_REMATCH[1]}" "${groups[@]}")
         n=${n%${BASH_REMATCH[1]}}
     done
     echo "${groups[*]}"

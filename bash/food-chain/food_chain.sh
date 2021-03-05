@@ -3,9 +3,9 @@
 source ../lib/utils.bash
 checkBashVersion 4.0 "associative arrays"
 
-beasts=( fly spider bird cat dog goat cow horse )
+declare -ra beasts=(fly spider bird cat dog goat cow horse)
 
-declare -A catchphrase=(
+declare -rA catchphrase=(
     [spider]="It wriggled and jiggled and tickled inside her."
     [bird]="How absurd to swallow a bird!"
     [cat]="Imagine that, to swallow a cat!"
@@ -15,23 +15,6 @@ declare -A catchphrase=(
     [horse]="She's dead, of course!"
 )
 
-main() {
-    if (( $# != 2 )); then
-        echo "Error: 2 arguments expected." >&2
-        echo "Usage: $0 startVerse endVerse" >&2
-        exit 1
-    fi
-    local -i start=$1 end=$2
-    if (( start > end )); then
-        echo "Error: Start must be less than or equal to End" >&2
-        exit 1
-    fi
-
-    for ((i = start; i <= end; i++)); do
-        verse "$i"
-    done
-}
-
 verse() {
     local n=$1
     local i=$((n - 1))
@@ -40,14 +23,31 @@ verse() {
     [[ -n ${catchphrase[$beast]} ]] && echo "${catchphrase[$beast]}"
     [[ $beast == horse ]] && return
 
-    for ((; i >= 1; i--)); do
+    for (( ; i >= 1; i--)); do
         local predator=${beasts[i]}
-        local prey=${beasts[i-1]}
+        local prey=${beasts[i - 1]}
         [[ $prey == spider ]] && prey+=" that wriggled and jiggled and tickled inside her"
         echo "She swallowed the $predator to catch the $prey."
     done
     echo "I don't know why she swallowed the fly. Perhaps she'll die."
     echo
+}
+
+main() {
+    if (($# != 2)); then
+        echo "Error: 2 arguments expected." >&2
+        echo "Usage: $0 startVerse endVerse" >&2
+        exit 1
+    fi
+    local -i start=$1 end=$2
+    if ((start > end)); then
+        echo "Error: Start must be less than or equal to End" >&2
+        exit 1
+    fi
+
+    for ((i = start; i <= end; i++)); do
+        verse "$i"
+    done
 }
 
 main "$@"

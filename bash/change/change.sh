@@ -4,21 +4,21 @@ source ../lib/utils.bash
 checkBashVersion 4.3 namerefs
 
 main() {
-    local -i amount=$1; shift
-    local -a denonimations=( "$@" )
-    local -a firstCoinForValue=()
+    local -i amount=$(($1))
+    # shellcheck disable=SC2034
+    local -ia denonimations=("${@:2}")
+    # shellcheck disable=SC2034
+    local -a firstCoinForValue=() # not given integer attribute
 
-    if (( amount < 0 )); then
+    if ((amount < 0)); then
         echo "target can't be negative" >&2
         exit 1
+    elif ((amount > 0)); then
+        # Passing 2 arrays by nameref
+        # Populates the `firstCoinForValue` array
+        change $amount denonimations firstCoinForValue
+        makeChange $amount denonimations firstCoinForValue
     fi
-    (( amount == 0 )) && exit 0
-
-    # Passing 2 arrays by nameref
-    # Populates the `firstCoinForValue` array
-    change $amount denonimations firstCoinForValue
-
-    make_change $amount denonimations firstCoinForValue
 }
 
 #   Change making algorithm from
@@ -38,23 +38,23 @@ change() {
     local -n coins=$2
     local -n S=$3
     local -a C
-    local -i max=99999999
-    local i p min coin
+    local -i max=99999999 min i p
+    local coin # not an integer variable
 
     C=(0)
     S=(0)
     for ((i = 1; i <= amount; i++)); do
-        C+=( $max )
-        S+=( "" )
+        C+=("$max")
+        S+=("")
     done
 
     for ((p = 1; p <= amount; p++)); do
         min=$max
         coin=""
-        for ((i=0; i < ${#coins[@]}; i++)); do
-            if (( coins[i] <= p )); then
-                if ((1 + C[p - coins[i]] < min )); then
-                    min=$((1 + ${C[p - coins[i]]} ))
+        for ((i = 0; i < ${#coins[@]}; i++)); do
+            if ((coins[i] <= p)); then
+                if ((1 + C[p - coins[i]] < min)); then
+                    min=$((1 + ${C[p - coins[i]]}))
                     coin=$i
                 fi
             fi
@@ -64,23 +64,24 @@ change() {
     done
 }
 
-make_change() {
+makeChange() {
     local -i amount=$1
     local -n coins=$2
-    local -n S=$3
-    local -a change=()
-    local coin idx
+    local -n firstCoin=$3
+    local -ia change
+    local -i coin idx
 
-    if [[ -z ${S[amount]} ]]; then
+    if [[ -z ${firstCoin[amount]} ]]; then
         echo "can't make target with given coins" >&2
-        exit 1
+        return 1
     fi
 
-    while (( amount > 0 )); do
-        idx=${S[amount]}
+    while ((amount > 0)); do
+        idx=${firstCoin[amount]}
         coin=${coins[idx]}
-        change+=( $coin )
-        (( amount -= coin ))
+        # shellcheck disable=SC2206
+        change+=($coin)
+        ((amount -= coin))
     done
 
     printf "%d\n" "${change[@]}" | sort -n | paste -sd" "
