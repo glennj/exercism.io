@@ -1,7 +1,9 @@
 # Bash
 
 TOC
-* [Shellcheck](#shellcheck)<br>
+* [Tools](#tools)</br>
+    * [Shellcheck](#shellcheck)<br>
+    * [Hyperfine](#hyperfine)<br>
 * [How bash interprets command](#how-bash-interprets-command)<br>
 * [Shebang](#shebang)<br>
 * [Backticks](#backticks)<br>
