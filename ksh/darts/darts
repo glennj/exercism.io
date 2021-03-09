@@ -1,0 +1,20 @@
+#!/usr/bin/env ksh
+
+function isfloat {
+    [[ $1 == ?([-+])+([0-9]) ]] ||
+    [[ $1 == ?([-+])+([0-9]).*([0-9]) ]] ||
+    [[ $1 == ?([-+])*([0-9]).+([0-9]) ]]
+}
+function die { echo "$*" >&2; exit 1; }
+
+(( $# == 2 )) || die "usage: ..."
+isfloat "$1" || die "not a number"
+isfloat "$2" || die "not a number"
+
+float dist=$(( hypot($1, $2) ))
+echo $((
+    dist <=  1.0 ? 10 :
+    dist <=  5.0 ?  5 :
+    dist <= 10.0 ?  1 :
+                    0
+))

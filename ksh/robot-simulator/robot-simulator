@@ -1,0 +1,68 @@
+#!/usr/bin/env ksh
+
+enum Direction=( 'north' 'west' 'south' 'east' )
+
+typeset -T Robot_t=(
+    integer -h 'x coordinate' x=0
+    integer -h 'y coordinate' y=0
+    Direction -h 'direction' direction=north
+
+    typeset -A rightTurns=([north]=east [east]=south [south]=west [west]=north)
+    typeset -A  leftTurns=([north]=west [east]=north [south]=east [west]=south)
+
+    function setx         { _.x=$1; }
+    function sety         { _.y=$1; }
+    function setdirection { _.direction=$1; }
+
+    function toJSON {
+        printf '{"position": {"x": %d, "y": %d}, "direction": "%s"}\n' \
+            "${_.x}" \
+            "${_.y}" \
+            "${_.direction}"
+    }
+
+    function execute {
+        for (( i=0; i < ${#1}; i++ )); do
+            typeset instruction=${1:i:1}
+            case $instruction in
+                (R) _.turnRight ;;
+                (L) _.turnLeft ;;
+                (A) _.advance ;;
+                (*) die "Error: invalid instruction $instruction" ;;
+            esac
+        done
+    }
+
+    function turnRight { _.direction=${_.rightTurns[${_.direction}]}; }
+    function turnLeft  { _.direction=${_.leftTurns[${_.direction}]}; }
+
+    function advance {
+        case ${_.direction} in
+            (north) _.y=$(( ${_.y} + 1 )) ;;
+            (east)  _.x=$(( ${_.x} + 1 )) ;;
+            (south) _.y=$(( ${_.y} - 1 )) ;;
+            (west)  _.x=$(( ${_.x} - 1 )) ;;
+        esac
+    }
+)
+
+function die { (($#)) && print -u2 "$*"; exit 1; }
+
+function main {
+    Robot_t robot
+
+    while getopts x:y:d: opt; do
+        case $opt in
+            x) robot.setx "$OPTARG" || die ;;
+            y) robot.sety "$OPTARG" || die ;;
+            d) robot.setdirection "$OPTARG" || die ;;
+            *) die ;;
+        esac
+    done
+    shift $((OPTIND - 1))
+
+    robot.execute "$1"
+    print "${robot.toJSON}"
+}
+
+main "$@"
