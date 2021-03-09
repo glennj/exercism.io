@@ -83,7 +83,7 @@ is() {
     esac
 }
 
-capacity() {
+freeSpace() {
     local -n bucket=$1
     echo $((bucket[size] - bucket[amount]))
 }
@@ -104,8 +104,8 @@ pour() {
     local -n _b1=$2 _b2=$4
 
     # determine the amount to pour: minimum of
-    # b1's current amount and b2's current capacity
-    local amount=$(math::min ${_b1[amount]} $(capacity _b2) )
+    # b1's current amount and b2's current free space
+    local amount=$(math::min ${_b1[amount]} $(freeSpace _b2) )
     ((_b1[amount] -= amount))
     ((_b2[amount] += amount))
 }

@@ -73,7 +73,7 @@ Bucket() {
         isEmpty)
             (( $($instance get amount) == 0 ))
             ;;
-        capacity)
+        freeSpace)
             echo $(( $($instance get size ) - $($instance get amount) ))
             ;;
         fill)
@@ -85,7 +85,7 @@ Bucket() {
         pourInto)
             local other=$1   # TODO verify $other isa Bucket
             local amount
-            amount=$(math::min "$($instance get amount)" "$($other capacity)")
+            amount=$(math::min "$($instance get amount)" "$($other freeSpace)")
             $instance remove "$amount"
             $other add "$amount"
             ;;
