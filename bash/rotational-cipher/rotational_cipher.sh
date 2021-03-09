@@ -1,22 +1,24 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=SC2034
+
 source ../lib/utils.bash
 source ../lib/utils_math.bash
 checkBashVersion 4.3 "namerefs"
 
-readonly Alphabet=( {a..z} )
+readonly Alphabet=({a..z})
 
 generateMapping() {
     local -n _map=$1
     local -i rotation=$2
-    rotation=$( math::floorMod $rotation 26 )
+    rotation=$(math::floorMod "$rotation" ${#Alphabet[@]})
 
     local rotated=(
-        "${Alphabet[@]:rotation}" 
-        "${Alphabet[@]:0:rotation}" 
+        "${Alphabet[@]:rotation}"
+        "${Alphabet[@]:0:rotation}"
     )
 
-    for i in {0..25}; do
+    for ((i = ${#Alphabet[@]} - 1; i >= 0; i--)); do
         _map[${Alphabet[i]}]=${rotated[i]}      # lower case
         _map[${Alphabet[i]^}]=${rotated[i]^}    # upper case
     done
@@ -28,7 +30,7 @@ rotate() {
     local result
 
     local -A mapping
-    generateMapping mapping $rotation
+    generateMapping mapping "$rotation"
 
     while IFS= read -r -n1 char; do
         result+=${mapping[$char]:-$char}

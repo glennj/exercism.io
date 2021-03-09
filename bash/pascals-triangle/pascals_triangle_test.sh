@@ -4,38 +4,38 @@
 
 
 @test "zero rows" {
-    #[[ $BATS_RUN_SKIPPED == true ]] || skip
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=""
     run bash pascals_triangle.sh 0
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "single row" {
-    [[ $BATS_RUN_SKIPPED == true ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=$(cat <<END
 1
 END
 )
     run bash pascals_triangle.sh 1
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "two rows" {
-    [[ $BATS_RUN_SKIPPED == true ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=$(cat <<END
  1
 1 1
 END
 )
     run bash pascals_triangle.sh 2
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "three rows" {
-    [[ $BATS_RUN_SKIPPED == true ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=$(cat <<END
   1
  1 1
@@ -43,12 +43,12 @@ END
 END
 )
     run bash pascals_triangle.sh 3
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "four rows" {
-    [[ $BATS_RUN_SKIPPED == true ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=$(cat <<END
    1
   1 1
@@ -57,12 +57,12 @@ END
 END
 )
     run bash pascals_triangle.sh 4
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "five rows" {
-    [[ $BATS_RUN_SKIPPED == true ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=$(cat <<END
     1
    1 1
@@ -72,12 +72,12 @@ END
 END
 )
     run bash pascals_triangle.sh 5
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "six rows" {
-    [[ $BATS_RUN_SKIPPED == true ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=$(cat <<END
      1
     1 1
@@ -88,12 +88,12 @@ END
 END
 )
     run bash pascals_triangle.sh 6
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "ten rows" {
-    [[ $BATS_RUN_SKIPPED == true ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=$(cat <<END
          1
         1 1
@@ -108,12 +108,12 @@ END
 END
 )
     run bash pascals_triangle.sh 10
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }
 
 @test "21 rows" {
-    [[ $BATS_RUN_SKIPPED == true ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     expected=$(cat <<END
                     1
                    1 1
@@ -139,6 +139,6 @@ END
 END
 )
     run bash pascals_triangle.sh 21
-    [[ $status -eq 0 ]]
+    (( status == 0 ))
     [[ $output == "$expected" ]]
 }

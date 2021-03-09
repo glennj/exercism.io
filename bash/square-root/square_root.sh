@@ -9,7 +9,7 @@ sqrt() {
     local -i b=1
     while ((b * 4 <= n)); do ((b *= 4)); done
 
-    local x=0
+    local -i x=0
     while ((b != 0)); do
         if ((n >= x + b)); then
             ((n = n - x - b))

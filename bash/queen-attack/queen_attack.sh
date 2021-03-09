@@ -3,40 +3,40 @@
 source ../lib/utils.bash
 source ../lib/utils_math.bash
 
-main() {
-    local -i w_row w_col b_row b_col
+validate() {
+    local player=$1
+    # shellcheck disable=SC2034
+    local -i row=$2 col=$3
 
-    while getopts :w:b: opt; do
+    assert "row >= 0" "$player row not positive"
+    assert "row <= 7" "$player row not on board"
+    assert "col >= 0" "$player column not positive"
+    assert "col <= 7" "$player column not on board"
+}
+
+main() {
+    local -i blackRow blackCol whiteRow whiteCol
+
+    while getopts :b:w: opt; do
         case $opt in
-            w) IFS=, read -r w_row w_col <<< "$OPTARG" ;;
-            b) IFS=, read -r b_row b_col <<< "$OPTARG" ;;
-            :) die "Missing argument for option -$OPTARG"  ;;
-            *) : ;; # ignore invalid options
+            b) IFS=, read -r blackRow blackCol <<< "$OPTARG" ;;
+            w) IFS=, read -r whiteRow whiteCol <<< "$OPTARG" ;;
+            :) die "Missing argument for option -$OPTARG" ;;
+            *) : ;;
         esac
     done
 
-    validate white $w_row $w_col
-    validate black $b_row $b_col
-    (( w_row == b_row && w_col == b_col )) && die "cannot occupy same position"
+    validate black "$blackRow" "$blackCol"
+    validate white "$whiteRow" "$whiteCol"
+    refute "blackRow == whiteRow && blackCol == whiteCol" \
+        "cannot occupy same position"
 
-    local -i d_row=$( math::abs $(( w_row - b_row )) )
-    local -i d_col=$( math::abs $(( w_col - b_col )) )
+    local -i rowDelta colDelta
+    rowDelta=$(math::abs $((blackRow - whiteRow)))
+    colDelta=$(math::abs $((blackCol - whiteCol)))
 
-    if (( d_row == 0 || d_col == 0 || d_row == d_col ))
-    then echo true
-    else echo false
-    fi
-}
-
-validate() {
-    local player=$1
-    local -i row=$2 col=$3
-
-    (( row < 0 )) && die "$player row not positive"
-    (( row > 7 )) && die "$player row not on board"
-    (( col < 0 )) && die "$player column not positive"
-    (( col > 7 )) && die "$player column not on board"
+    ((rowDelta == 0 || colDelta == 0 || rowDelta == colDelta))
+    true_or_false
 }
 
 main "$@"
-

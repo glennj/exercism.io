@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=SC2086,SC2034
+
 source ../lib/utils.bash
 checkBashVersion 4.3 namerefs
 
@@ -16,12 +18,12 @@ main() {
 
     # find the max width
     width=${#rows[0]}
-    for ((i=1; i<${#rows[@]}; i++)); do
-        (( width < ${#rows[i]} )) && width=${#rows[i]}
+    for ((i = 1; i < ${#rows[@]}; i++)); do
+        ((width < ${#rows[i]})) && width=${#rows[i]}
     done
 
     find_vertices
-    
+
     local topL topR bottomL bottomR
     local -i r1 r2 c1 c2
 
@@ -43,10 +45,10 @@ main() {
 
 find_vertices() {
     local -i r c
-    for ((r=0; r<${#rows[@]}; r++)); do
-        for ((c=0; c<width; c++)); do
+    for ((r = 0; r < ${#rows[@]}; r++)); do
+        for ((c = 0; c < width; c++)); do
             if [[ ${rows[r]:c:1} == "+" ]]; then
-                vertices+=( "$r,$c" )
+                vertices+=("$r,$c")
             fi
         done
     done
@@ -65,7 +67,7 @@ verts_to_right() {
     parse_vertex $vertex r c
     for v in "${vertices[@]}"; do
         parse_vertex $v rr cc
-        (( r == rr && c < cc )) && echo $v
+        ((r == rr && c < cc)) && echo $v
     done
 }
 
@@ -75,7 +77,7 @@ verts_below() {
     parse_vertex $1 r c
     for v in "${vertices[@]}"; do
         parse_vertex $v rr cc
-        (( c == cc && r < rr )) && echo $v
+        ((c == cc && r < rr)) && echo $v
     done
 }
 
@@ -98,7 +100,7 @@ horizontal_line() {
 
 vertical_line() {
     local -i col=$1 row1=$2 row2=$3 r
-    for ((r=row1; r<=row2; r++)); do
+    for ((r = row1; r <= row2; r++)); do
         [[ ${rows[r]:col:1} == @([|+]) ]] || return 1
     done
 }

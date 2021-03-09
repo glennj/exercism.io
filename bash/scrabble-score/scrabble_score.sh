@@ -4,8 +4,7 @@ source ../lib/utils.bash
 checkBashVersion 4.0 "associative arrays"
 
 using_associative_array() {
-
-    local -A points=(
+    local -rA points=(
         [A]=1 [E]=1 [I]=1 [O]=1 [U]=1 [L]=1 [N]=1 [R]=1 [S]=1 [T]=1
         [D]=2 [G]=2
         [B]=3 [C]=3 [M]=3 [P]=3
@@ -16,13 +15,12 @@ using_associative_array() {
     )
 
     local sum=0
-    local word=${1^^}              # uppercase
-    word=${word//[^A-Z]/}          # remove non-letters
+    local word=${1^^}
 
-    for ((i=0; i<${#word}; i++)); do
-        (( sum += points[${word:i:1}] ))
+    for ((i = 0; i < ${#word}; i++)); do
+        ((sum += ${points[${word:i:1}]:-0}))
     done
-    echo $sum
+    echo "$sum"
 }
 
 using_case_glob() {
@@ -34,20 +32,20 @@ using_case_glob() {
     # don't care if the input is upper or lower case
     shopt -s nocasematch
 
-    for ((i=0; i<${#1}; i++)); do
+    for ((i = 0; i < ${#1}; i++)); do
         case ${1:i:1} in
             [aeioulnrst]) sum+=1 ;;
-                    [dg]) sum+=2 ;;
-                  [bcmp]) sum+=3 ;;
-                 [fhvwy]) sum+=4 ;;
-                     [k]) sum+=5 ;;
-                    [jx]) sum+=8 ;;
-                    [qz]) sum+=10 ;;
-                       *) : ;; # other characters are value-free
+            [dg])         sum+=2 ;;
+            [bcmp])       sum+=3 ;;
+            [fhvwy])      sum+=4 ;;
+            [k])          sum+=5 ;;
+            [jx])         sum+=8 ;;
+            [qz])         sum+=10 ;;
+            *)            : ;; # other characters are value-free
         esac
     done
     echo $sum
 }
 
-using_associative_array "$@"
-#using_case_glob "$@"
+#using_associative_array "$@"
+using_case_glob "$@"

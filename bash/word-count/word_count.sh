@@ -2,13 +2,15 @@
 
 source ../lib/utils.bash
 checkBashVersion 4.0 "associative arrays"
+source ../lib/utils_string.bash
 
 declare -A count=()
 
 for sentence in "$@"; do
-    # Some tests contain the literal string "\n" to mean a 
+    # Some tests contain the literal string "\n" to mean a
     # newline: generally replace escape sequences with their
     # actual characters:
+    # shellcheck disable=SC2059
     printf -v sentence "${sentence//%/%%}"
 
     # Pity bash does not do global regex matching. We have
@@ -24,12 +26,11 @@ for sentence in "$@"; do
 
         # we've allowed single quotes as apostrophes, but
         # we don't want leading or trailing quotes.
-        lc=${lc#\'}
-        lc=${lc%\'}
+        lc=$(str::trim "$lc" "'")
 
         # This would be cleaner:
         #   (( count[$lc] += 1 ))
-        # but when lc contains a single quote, the 
+        # but when lc contains a single quote, the
         # arithmetic parser breaks:
         #   $ lc="don't"
         #   $ (( count[$lc] += 1 ))
@@ -37,11 +38,11 @@ for sentence in "$@"; do
         # No amount of quoting helps.
         ###count[$lc]=$(( ${count[$lc]} + 1 ))
 
-        # 2020-06-23: breakthrough!
-        # This is possible, thanks to @undefined-None in
-        # https://exercism.io/mentor/solutions/fbdc80eeb4e043ad94397050118aecb1
-
-        (( 'count[$lc]' += 1 ))
+        # Breakthrough!  This is possible, thanks to @undefined-None in
+        # https://exercism.io/tracks/bash/exercises/word-count/solutions/fbdc80eeb4e043ad94397050118aecb1
+        #
+        # shellcheck disable=SC2016
+        (('count[$lc]' += 1))
     done
 done
 

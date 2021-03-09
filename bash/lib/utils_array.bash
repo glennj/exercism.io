@@ -3,9 +3,14 @@
 # shellcheck disable=SC1090
 
 # look for utils.bash in the same directory as this file
-source "${BASH_SOURCE[0]%/*}"/utils.bash
+if ! type -t checkBashVersion > /dev/null; then
+    source "${BASH_SOURCE[0]%/*}"/utils.bash
+fi
 checkBashVersion 4.3 namerefs
-source "${BASH_SOURCE[0]%/*}"/utils_string.bash
+
+if ! type -t str::join > /dev/null; then
+    source "${BASH_SOURCE[0]%/*}"/utils_string.bash
+fi
 
 #
 # reverse the contents of an array in-place

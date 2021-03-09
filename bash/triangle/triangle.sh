@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # works with: bash 3.2.57
-# external tools used: 
+# external tools used:
 #   bc   - arithmetic expression evaluation
 #   sort - sorting numerically
 #
@@ -20,7 +20,7 @@ validate() {
         | bc --mathlib \
         | sort --general-numeric-sort
     )
-    (( $(bc <<< "$a > 0 && $a + $b > $c") ))
+    (($(bc <<< "$a > 0 && $a + $b > $c")))
 }
 
 countEqualPairs() {
@@ -28,23 +28,27 @@ countEqualPairs() {
     { read a; read b; read c; } < <(
         printf "(%s)==(%s)\n"  "$1" "$2"  "$1" "$3"  "$2" "$3" \
         | bc --mathlib
+        # this outputs 3 lines, each 1 or 0
     )
-    echo $(( a + b + c ))
+    echo $((a + b + c))
 }
 
-equilateral() { (( $1 == 3 )); }
-isosceles()   { (( $1 >= 1 )); }
-scalene()     { (( $1 == 0 )); }
+# counting pairs of equal sides
+equilateral() { (($1 == 3)); }
+isosceles()   { (($1 >= 1)); }
+scalene()     { (($1 == 0)); }
 
 main() {
     case $1 in
         equilateral | scalene | isosceles)
-            validate "${@:2}" \
-            && $1 "$(countEqualPairs "${@:2:3}")" \
-            && echo true \
-            || echo false
+            local p
+            p=$(countEqualPairs "${@:2:3}")
+
+            validate "${@:2}" && "$1" "$p" &&
+                echo true || echo false
+
             ;;
-        *)  echo "unknown type $1" >&2
+        *)  echo "unknown type: $1" >&2
             exit 1
             ;;
     esac

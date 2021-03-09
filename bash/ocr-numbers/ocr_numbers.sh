@@ -34,10 +34,10 @@ declare -A map=(
 output=""
 separator=","
 
-for (( i = 0; i < ${#lines[@]} / 4; i++ )); do
-    (( i > 0 )) && output+=$separator
+for ((i = 0; i < ${#lines[@]} / 4; i++)); do
+    ((i > 0)) && output+=$separator
 
-    for (( j = 0; j < ${#lines[0]}; j += 3 )); do
+    for ((j = 0; j < ${#lines[0]}; j += 3)); do
         ocr_digit=""
         for k in {0..3}; do
             ocr_digit+=${lines[i * 4 + k]:j:3}

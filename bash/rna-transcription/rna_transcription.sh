@@ -1,16 +1,13 @@
 #!/bin/bash
 
 source ../lib/utils.bash
-checkBashVersion 4.0 "associative arrays"
+checkBashVersion 4.3 "-v test"
 
-if [[ $1 == *[^GCTA]* ]]; then
-    echo "Invalid nucleotide detected." >&2
-    exit 1
-fi
+declare -A map=([G]=C [C]=G [T]=A [A]=U)
 
-declare -A map=( [G]=C [C]=G [T]=A [A]=U )
-rna=""
-for (( i = 0; i < ${#1}; i++ )); do
-    rna+=${map[${1:i:1}]}
-done
+while IFS= read -r -n1 char; do
+    assert -C [ -v "map[$char]" ] "Invalid nucleotide detected."
+    rna+=${map[$char]}
+done < <(printf '%s' "$1")
+
 echo "$rna"

@@ -1,25 +1,16 @@
 #!/usr/bin/env bash
 
+source ../lib/utils.bash
 source ../lib/utils_string.bash
-
-main() {
-    case $1 in
-        encode|decode) "$1" "$2" ;;
-        *) echo "unknown subcommand" >&2; exit 1 ;;
-    esac
-}
 
 encode() {
     local phrase=$1
     [[ -z $phrase ]] && return
-    [[ $phrase == *[[:digit:]]* ]] && {
-        echo "Cannot decode the encoding of a phrase with digits" >&2
-        exit 1
-    }
+    [[ $phrase == *[[:digit:]]* ]] &&
+        die "Cannot decode the encoding of a phrase with digits"
 
-    local result=""
-    local count=0 char=${phrase:0:1}
-    for ((i=0; i < ${#phrase}; i++)); do
+    local result="" count=0 char=${phrase:0:1}
+    for ((i = 0; i < ${#phrase}; i++)); do
         if [[ ${phrase:i:1} == "$char" ]]; then
             ((count++))
         else
@@ -50,6 +41,13 @@ decode() {
             "${phrase#*${BASH_REMATCH[0]}}"
     done
     echo "$phrase"
+}
+
+main() {
+    case $1 in
+        encode | decode) "$1" "$2" ;;
+        *) die "unknown subcommand" ;;
+    esac
 }
 
 main "$@"

@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-# a library of useful bash functions
-# works with bash version 3.2+
+# A library of useful bash functions
+# Works with bash version 3.2+
 
-source "$(dirname "${BASH_SOURCE[0]}")"/utils.bash
+if ! type -t with_shopt > /dev/null; then
+    # shellcheck source=/dev/null
+    source "$(dirname "${BASH_SOURCE[0]}")"/utils.bash
+fi
 
 #############################################################
 # String functions
@@ -49,11 +52,21 @@ str::join() {
 
 # Check that the parameter is a valid integer
 #
-str::isInt() { [[ $1 == ?([-+])+([[:digit:]]) ]]; }
+str::isInt() {
+    # shellcheck disable=SC2034
+    local str=$1
+    # shellcheck disable=SC2016
+    with_shopt extglob '[[ $str == ?([-+])+([[:digit:]]) ]]'
+}
 
 str::isFloat() {
-    [[ $1 == ?([-+])+([[:digit:]])?(.*([[:digit:]])) ]] ||
-    [[ $1 == ?([-+])*([[:digit:]]).+([[:digit:]]) ]]
+    # shellcheck disable=SC2034
+    local str=$1
+    # shellcheck disable=SC2016
+    with_shopt extglob '
+        [[ $str == ?([-+])+([[:digit:]])?(.*([[:digit:]])) ]] ||
+        [[ $str == ?([-+])*([[:digit:]]).+([[:digit:]]) ]]
+    '
 }
 
 # Repeat a character a specified number of times
@@ -116,20 +129,24 @@ str::reverse() {
     echo "$reversed"
 }
 
-# trim whitespace from the ends of a string
+# trim whitespace or chosen characters from the ends of a string
 #
-str::trimright() { 
-    local str=$1
-    with_shopt extglob 'echo "${str/%+([[:space:]])/}"'
+str::trimright() {
+    # shellcheck disable=SC2034
+    local str=$1 chars=${2:-[:space:]}
+    # shellcheck disable=SC2016
+    with_shopt extglob 'echo "${str/%+([$chars])/}"'
 }
 
-str::trimleft()  { 
-    local str=$1
-    with_shopt extglob 'echo "${str/#+([[:space:]])/}"'
+str::trimleft() {
+    # shellcheck disable=SC2034
+    local str=$1 chars=${2:-[:space:]}
+    # shellcheck disable=SC2016
+    with_shopt extglob 'echo "${str/#+([$chars])/}"'
 }
 
 str::trim() {
-    str::trimleft "$(str::trimright "$1")"
+    str::trimleft "$(str::trimright "$1" "$2")" "$2"
 }
 
 # find the first index of a substring (needle) within a string (haystack)

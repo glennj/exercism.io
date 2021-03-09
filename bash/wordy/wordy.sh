@@ -4,17 +4,6 @@ source ../lib/utils.bash
 source ../lib/utils_string.bash
 checkBashVersion 4.3 namerefs
 
-main() {
-    local -l question=$1            # lower case
-    question=${question#what is}    # remove prefix words
-    question=${question%?}          # remove trailing "?"
-
-    [[ -n $question ]] || die "syntax error"
-
-    subst question
-    evaluate question
-}
-
 subst() {
     local -n q=$1
     while [[ $q == *[[:alpha:]]* ]]; do
@@ -32,10 +21,11 @@ subst() {
     done
 }
 
+# evaluate the arithmetic operations from left to right
 evaluate() {
     local -n q=$1
     while true; do
-        read -r a op b rest <<<"$q"
+        read -r a op b rest <<< "$q"
 
         str::isInt "$a" || die "syntax error"
 
@@ -43,18 +33,25 @@ evaluate() {
             echo "$a"
             return
         fi
+        [[ $op == [-+*/] ]] || die "syntax error"
 
         str::isInt "$b" || die "syntax error"
-        isOp "$op" || die "syntax error"
 
-        if [[ -n $rest ]]; then
-            q="$(( a $op b )) $rest"
-        else
-            q=$(( a $op b ))
-        fi
+        # shellcheck disable=SC2086,SC1102
+        q=$((a $op b))
+        [[ -n $rest ]] && q+=" $rest"
     done
 }
 
-isOp()  { [[ $1 == [-+*/] ]]; }
+main() {
+    local -l question=$1
+    shopt -s extglob
+    question=${question##*([[:blank:]])what is*([[:blank:]])}
+    question=${question%%*([[:blank:]])?*([[:blank:]])}
+
+    [[ -n $question ]] || die "syntax error"
+
+    subst question && evaluate question
+}
 
 main "$@"

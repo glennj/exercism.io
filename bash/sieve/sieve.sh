@@ -3,21 +3,24 @@
 # Sieve of Eratosthenes
 
 sieve() {
-    local limit=$1
+    local -i limit=$1 i
+    local -a is_prime
+    local -ia primes
 
     # create the array of candidates
-    local is_prime=()
     for ((i = 2; i <= limit; i++)); do
         is_prime[i]=true
     done
 
     # un-mark the non-primes in the is_prime array
+
+    #sieve_naive
     sieve_optimized
+    #sieve3
 
     # extract the prime numbers
-    local primes=()
     for ((i = 2; i <= limit; i++)); do
-        ${is_prime[i]} && primes+=( $i )
+        ${is_prime[i]} && primes+=($i)
     done
 
     echo "${primes[*]}"
@@ -28,7 +31,7 @@ sieve() {
 sieve_naive() {
     for ((p = 2; p <= limit; p++)); do
         # mark multiples as not prime
-        for (( i = 2 * p; i <= limit; i += p )); do
+        for ((i = 2 * p; i <= limit; i += p)); do
             is_prime[i]=false
         done
     done
@@ -36,15 +39,15 @@ sieve_naive() {
 
 # a more optimized version
 # these optimizations speed up the code a great deal:
-# 
+#
 # $ time bash sieve_unoptimized.sh 100000 >/dev/null
-# 
+#
 # real	0m17.402s
 # user	0m17.375s
 # sys	0m0.018s
-# 
+#
 # $ time bash sieve.sh 100000 >/dev/null
-# 
+#
 # real	0m2.377s
 # user	0m2.366s
 # sys	0m0.007s
@@ -61,13 +64,13 @@ sieve_optimized() {
             # while iterating when p > 2, we know we've already
             # handled any multiple of 2, and also that p will be
             # odd, so we can step by 2*p (e.g. 3, 9, 15, ...)
-            (( step = (p==2) ? 2 : 2*p ))
+            ((step = p == 2 ? 2 : 2 * p))
 
             # we can start removing multiples starting at p * p
             # because for any multiple k*p where k < p, we have
             # already removed those numbers as non-prime in
             # previous iterations of p.
-            for (( i = p * p; i <= limit; i += step )); do
+            for ((i = p * p; i <= limit; i += step)); do
                 is_prime[i]=false
             done
         fi
@@ -82,10 +85,10 @@ sieve_optimized() {
 # bash indexed arrays.
 sieve3() {
     for ((p = 2; p * p <= limit; p++)); do
-        if [[ -v is_prime[p] ]]; then
-            (( step = (p==2) ? 2 : 2*p ))
-            for (( i = p * p; i <= limit; i += step )); do
-                unset is_prime[i]
+        if [[ -n ${is_prime[p]} ]] && ${is_prime[p]}; then
+            ((step = p == 2 ? 2 : 2 * p))
+            for ((i = p * p; i <= limit; i += step)); do
+                unset 'is_prime[i]'
             done
         fi
     done

@@ -23,6 +23,7 @@
 #      - a bug fix for array concatenation
 #      - `mapfile`
 # v4.1 - `printf -v arrray[index]`
+# v4.2 - some extended globbing fixes
 # v4.3 - `-v` operator for `[[...]]`
 #      - bug fixes for associative array indices
 #      - namerefs
@@ -61,6 +62,16 @@ die() {
 # e.g.
 #   assert "$# > 0" "Provide at least one argument"
 #   assert -C grep -q pattern file "pattern not found in file"
+#
+# Be careful with the arithmetic expressions:
+#   var='-1'
+#   # ......▽
+#   assert 'var > 0'  'err' # properly dies
+#   assert "$var > 0" 'err' # shows usage
+#   # ......△
+# This is because getopts sees "-1 > 0" as an option,
+# the *) case ignores it but getopts increments OPTIND.
+# Then $1 gets shifted off and the (($# < 2)) test fails.
 #
 assert() {
     local mode=A

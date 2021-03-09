@@ -6,8 +6,10 @@
 # A library of math-related bash functions.
 # Works with bash version 3.2+
 
-# shellcheck source=/dev/null
-source "$(dirname "${BASH_SOURCE[0]}")"/utils.bash
+if ! type -t with_shopt > /dev/null; then
+    # shellcheck source=/dev/null
+    source "$(dirname "${BASH_SOURCE[0]}")"/utils.bash
+fi
 
 #############################################################
 # Math functions

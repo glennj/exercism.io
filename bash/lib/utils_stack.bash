@@ -3,7 +3,9 @@
 # shellcheck disable=SC1090,SC2034
 
 # look for utils.bash in the same directory as this file
-source "$(dirname "${BASH_SOURCE[0]}")"/utils.bash
+if ! type -t checkBashVersion > /dev/null; then
+    source "$(dirname "${BASH_SOURCE[0]}")"/utils.bash
+fi
 checkBashVersion 4.3 namerefs
 
 #############################################################

@@ -19,16 +19,13 @@ proteins=()
 
 codons=$1
 
-while [[ -n $codons ]]; do
-    codon=${codons:0:3}
+while [[ $codons =~ (...)(.*) ]]; do
+    codon=${BASH_REMATCH[1]}
+    codons=${BASH_REMATCH[2]}
     protein=${map[$codon]}
-    if [[ -z $protein ]]; then
-        echo "Invalid codon" >&2
-        exit 1
-    fi
+    [[ -n $protein ]] || die "Invalid codon"
     [[ $protein == STOP ]] && break
-    proteins+=($protein)
-    codons=${codons:3}
+    proteins+=("$protein")
 done
 
 echo "${proteins[*]}"

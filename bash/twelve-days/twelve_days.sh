@@ -22,12 +22,15 @@ readonly gifts=(
 )
 
 verse() {
-    local presents=()
+    local -a presents
     local -i n=$1 i
     local comma="," and=""
-    for ((i=n; i >= 1; i--)); do
-        ((i == 1)) && { comma="."; ((n > 1)) && and="and "; }
-        presents+=( "${and}${gifts[i]}${comma}" )
+    for ((i = n; i >= 1; i--)); do
+        if ((i == 1)); then
+            comma="."
+            ((n > 1)) && and="and "
+        fi
+        presents+=("${and}${gifts[i]}${comma}")
     done
     printf "On the %s day of Christmas my true love gave to me: %s\n" \
         "${days[n]}" \
@@ -36,7 +39,7 @@ verse() {
 
 main() {
     local -i i
-    for ((i=$1; i<=$2; i++)); do
+    for ((i = $1; i <= $2; i++)); do
         verse $i
     done
 }

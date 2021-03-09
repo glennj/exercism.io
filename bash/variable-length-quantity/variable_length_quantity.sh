@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# works with bash v3.2.57
+
 source ../lib/utils.bash
 
 declare -ri SHIFT=7
@@ -13,21 +15,20 @@ encode() {
         bytes=()
         msb=0
         while true; do
-            printf -v byte "%02X" $(( (val & MASK) | msb ))
-            bytes=( "$byte" "${bytes[@]}" )
+            printf -v byte "%02X" $(((val & MASK) | msb))
+            bytes=("$byte" "${bytes[@]}")
             msb=$MSB
-            val=$(( val >> SHIFT ))
-            (( val == 0 )) && break
+            val=$((val >> SHIFT))
+            ((val == 0)) && break
         done
-        result+=( "${bytes[@]}" )
+        result+=("${bytes[@]}")
     done
     echo "${result[*]}"
 }
 
-
 decode() {
     printf -v last_val "%d" "0x${!#}"
-    if (( (last_val & MSB) != 0 )); then
+    if (((last_val & MSB) != 0)); then
         die "incomplete byte sequence"
     fi
 
@@ -35,17 +36,16 @@ decode() {
     n=0
     for byte in "$@"; do
         printf -v val "%d" "0x${byte}"
-        n=$(( (n << SHIFT) + (val & MASK) ))
-        if (( (val & MSB) == 0 )); then
-            values+=( "$(printf "%02X" $n)" )
+        n=$(((n << SHIFT) + (val & MASK)))
+        if (((val & MSB) == 0)); then
+            values+=("$(printf "%02X" $n)")
             n=0
         fi
     done
     echo "${values[*]}"
 }
 
-
 case $1 in
-    encode|decode) "$@" ;;
+    encode | decode) "$1" "${@:2}" ;;
     *) die "unknown subcommand" ;;
 esac

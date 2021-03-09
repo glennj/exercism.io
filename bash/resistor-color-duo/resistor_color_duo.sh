@@ -1,26 +1,11 @@
 #!/usr/bin/env bash
 
 source ../lib/utils.bash
+source ../lib/resistor_color.bash
 
-colors=(
-    black brown red orange yellow 
-    green blue violet grey white
-)
-
-main() {
-    local result=""
-    for color in "${@:1:2}"; do
-        result+=$(code "$color") || die "invalid color"
-    done
-    echo "$result"
-}
-
-code() {
-    local code
-    for code in "${!colors[@]}"; do
-        [[ $1 == ${colors[code]} ]] && echo $code && return
-    done
-    return 1
-}
-
-main "$@"
+result=0
+for color in "${@:1:2}"; do
+    value=$(colorValue "$color") || die "invalid color"
+    ((result = 10 * result + value))
+done
+echo "$result"

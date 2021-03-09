@@ -10,10 +10,10 @@ declare -A brackets=(
 )
 stack=""
 
-for ((i=0; i<${#1}; i++)); do
+for ((i = 0; i < ${#1}; i++)); do
     char=${1:i:1}
     case $char in
-        "[" | "(" | "{") 
+        "[" | "(" | "{")
             stack+=$char
             ;;
         "]" | ")" | "}")
@@ -27,4 +27,5 @@ for ((i=0; i<${#1}; i++)); do
     esac
 done
 
-[[ -z $stack ]] && echo true || echo false
+[[ -z $stack ]]
+true_or_false

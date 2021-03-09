@@ -4,9 +4,42 @@
 in_list=false
 html=""
 
+open_list() {
+    if ! $in_list; then
+        html+="<ul>"
+        in_list=true
+    fi
+}
+
+close_list() {
+    if $in_list; then
+        html+="</ul>"
+        in_list=false
+    fi
+}
+
+em()     { inline_style "$1"  _   em; }
+strong() { inline_style "$1"  __  strong; }
+
+inline_style() {
+    local line=$1 delimiter=$2 tag=$3
+
+    # Because the first `.*` is greedy, the pattern will match
+    # the _last_ pair of delimiters in the line.
+
+    while [[ $line =~ ^(.*)"$delimiter"(.+)"$delimiter"(.*) ]]; do
+        printf -v line '%s<%s>%s</%s>%s' \
+            "${BASH_REMATCH[1]}" \
+            "$tag" \
+            "${BASH_REMATCH[2]}" \
+            "$tag" \
+            "${BASH_REMATCH[3]}"
+    done
+    printf '%s' "$line"
+}
+
 main() {
-    local file=$1
-    local -i n
+    exec < "$1"
 
     while IFS= read -r line; do
 
@@ -51,45 +84,11 @@ main() {
                 html+="<p>$line</p>"
             fi
         fi
-    done < "$file"
+    done
 
     close_list
 
     printf '%s' "$html"
-}
-
-open_list() {
-    if ! $in_list; then
-        html+="<ul>"
-        in_list=true
-    fi
-}
-
-close_list() {
-    if $in_list; then
-        html+="</ul>"
-        in_list=false
-    fi
-}
-
-em()     { inline_style "$1"  _   em; }
-strong() { inline_style "$1"  __  strong; }
-
-inline_style() {
-    local line=$1 delimiter=$2 tag=$3
-
-    # Because the first `.*` is greedy, the pattern will match 
-    # the _last_ pair of delimiters in the line.
-
-    while [[ $line =~ ^(.*)"$delimiter"(.+)"$delimiter"(.*) ]]; do
-        printf -v line '%s<%s>%s</%s>%s' \
-            "${BASH_REMATCH[1]}" \
-            "$tag" \
-            "${BASH_REMATCH[2]}" \
-            "$tag" \
-            "${BASH_REMATCH[3]}"
-    done
-    printf '%s' "$line"
 }
 
 main "$@"

@@ -42,17 +42,17 @@ solve() {
     fill first
     moves=1
 
-    if (( second[size] == goal )); then
+    if ((second[size] == goal)); then
         fill second
         moves+=1        # -i attribute allows "bare" arithmetic
     fi
 
     while true; do
-        if (( first[amount] == goal )); then
+        if ((first[amount] == goal)); then
             result $moves ${first[name]} ${second[amount]}
             return
         fi
-        if (( second[amount] == goal )); then
+        if ((second[amount] == goal)); then
             result $moves ${second[name]} ${first[amount]}
             return
         fi
@@ -78,14 +78,14 @@ result() {
 is() {
     local -n bucket=$2
     case $1 in
-        full)  (( bucket[amount] == bucket[size] )) ;;
-        empty) (( bucket[amount] == 0 )) ;;
+        full)  ((bucket[amount] == bucket[size])) ;;
+        empty) ((bucket[amount] == 0)) ;;
     esac
 }
 
 capacity() {
     local -n bucket=$1
-    echo $(( bucket[size] - bucket[amount] ))
+    echo $((bucket[size] - bucket[amount]))
 }
 
 fill() {
@@ -106,8 +106,8 @@ pour() {
     # determine the amount to pour: minimum of
     # b1's current amount and b2's current capacity
     local amount=$(math::min ${_b1[amount]} $(capacity _b2) )
-    (( _b1[amount] -= amount ))
-    (( _b2[amount] += amount ))
+    ((_b1[amount] -= amount))
+    ((_b2[amount] += amount))
 }
 
 main "$@"
