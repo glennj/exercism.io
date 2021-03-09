@@ -66,3 +66,9 @@ load "${BATS_ADDON_DIR}/bats-assert/load.bash"
     assert_output --partial "invalid goal"
 }
 
+@test "invalid start bucket" {
+    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run ksh two_bucket.ksh 3 5 1 "three"
+    assert_failure
+    assert_output --partial "invalid"
+}

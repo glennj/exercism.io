@@ -7,12 +7,15 @@
 source ./math_functions.ksh
 
 function die { print -u2 "$*"; exit 1; }
-function assert { (($1)) || die "$2"; }
+function assertArith { (($1)) || die "$2"; }
+function assertTest  { eval "[[ $1 ]]" || die "$2"; }
 
 [[ $KSH_VERSION == *93* ]] || die "ksh version 93 required"
 
 ############################################################
 # Define a "class"
+#
+# ksh uses `_` as "self" or "this"
 #
 typeset -T Bucket=(
     integer size=0
@@ -67,14 +70,14 @@ typeset -T Solver=(
         integer a=$1 b=$2 goal=$3
         typeset startName=$4
 
-        # the "." causes `assert` to execute in the context
+        # the "." causes function to execute in the context
         # of *this* function, allowing variables to be shared.
-        . assert "goal <= max(a, b)" "invalid goal: too big"
+        . assertArith "goal <= max(a, b)" "invalid goal: too big"
 
         integer gcd=$((gcd(a, b)))
-        . assert "gcd == 1 || goal % gcd == 0" "invalid goal: unsatisfiable"
+        . assertArith "gcd == 1 || goal % gcd == 0" "invalid goal: unsatisfiable"
 
-        [[ $startName == @(one|two) ]] || die "invalid start bucket"
+        . assertTest "$startName == @(one|two)" "invalid start bucket"
     }
 
     function run {
