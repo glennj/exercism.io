@@ -20,13 +20,10 @@ luhn() {
 main() {
     assert "$# == 1" "usage: ${0##*/} cc_number"
     local cc=${1//[[:space:]]/}
-    if [[ ${#cc} -lt 2 || $cc =~ [^[:digit:]] ]]; then
-        # invalid number: too short or non-digits
-        echo false
-    else
-        luhn "$cc"
-        true_or_false
-    fi
+
+    [[ ${#cc} -ge 2 && $cc == +([[:digit:]]) ]] && luhn "$cc"
+
+    true_or_false
 }
 
 main "$@"

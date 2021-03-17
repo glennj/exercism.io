@@ -9,20 +9,6 @@ source ../lib/utils.bash
 source ../lib/utils_math.bash
 source ./bucket_class.bash
 
-validate() {
-    local -i size1=$1 size2=$2 goal=$3
-
-    # the goal amount must fit in a single bucket
-    local max=$(math::max $size1 $size2)
-    assert "goal <= max" "invalid goal: too big"
-
-    # if the buckets are not relatively prime, then
-    # the goal must be divisible by the greatest
-    # common divisor of the buckdets
-    local gcd=$(math::gcd $size1 $size2)
-    assert "gcd == 1 || (goal % gcd) == 0" "invalid goal: unsatisfiable"
-}
-
 solve() {
     local first=$1 second=$2
     local -i goal=$3 moves=0
@@ -36,14 +22,8 @@ solve() {
     fi
 
     while true; do
-        if (($($first get amount) == goal)); then
-            result $moves $($first get name) $($second get amount)
-            return
-        fi
-        if (($($second get amount) == goal)); then
-            result $moves $($second get name) $($first get amount)
-            return
-        fi
+        satisfied $goal $first $second $moves && return
+        satisfied $goal $second $first $moves && return
 
         if   $first isEmpty; then $first fill
         elif $second isFull; then $second empty
@@ -54,8 +34,22 @@ solve() {
     done
 }
 
-result() {
-    printf "moves: %d, goalBucket: %s, otherBucket: %d\n" "$@"
+satisfied() {
+    local goal=$1 a=$2 b=$3 moves=$4
+    (($($a get amount) == goal)) || return 1
+    echo "moves: $moves," \
+         "goalBucket: $($a get name)," \
+         "otherBucket: $($b get amount)"
+}
+
+validate() {
+    local -i size1=$1 size2=$2 goal=$3
+
+    local max=$(math::max $size1 $size2)
+    assert "goal <= max" "invalid goal: too big"
+
+    local gcd=$(math::gcd $size1 $size2)
+    assert "gcd == 1 || (goal % gcd) == 0" "invalid goal: unsatisfiable"
 }
 
 main() {
@@ -64,12 +58,9 @@ main() {
     Bucket new x name "one" size "$1"
     Bucket new y name "two" size "$2"
 
-    local -i goal=$3
-    local start=$4
-
-    case $start in
-        one) solve x y $goal ;;
-        two) solve y x $goal ;;
+    case $4 in
+        one) solve x y $3 ;;
+        two) solve y x $3 ;;
         *)   die "invalid start bucket: $start" ;;
     esac
 }
