@@ -70,7 +70,7 @@ typeset -T Solver=(
         integer a=$1 b=$2 goal=$3
         typeset startName=$4
 
-        # the "." causes function to execute in the context
+        # the "." causes the function to execute in the context
         # of *this* function, allowing variables to be shared.
         . assertArith "goal <= max(a, b)" "invalid goal: too big"
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=SC2178
+
 # A library of useful bash functions
 # Works with bash version 3.2+
 
@@ -22,7 +24,7 @@ fi
 #     value is the ASCII value of the following character.
 #
 str::ord() {
-    printf "%d" "'$1"
+    printf "%d" "\"$1"
 }
 
 # chr: the character represented by the given ASCII decimal value
@@ -48,6 +50,21 @@ str::join() {
     local IFS=$1
     shift
     echo "$*"
+}
+
+# retrieve the characters in a string
+#
+# parameters
+# - the string to split
+# - the name of an array variable to hold the chars
+#
+# usage:
+#   str::chars "$aString" chars;  declare -p chars
+#
+str::chars() {
+    local -n chars=$2
+    [[ $1 =~ ${1//?/(.)} ]]
+    chars=("${BASH_REMATCH[@]:1}")
 }
 
 # Check that the parameter is a valid integer

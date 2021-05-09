@@ -15,6 +15,10 @@ error() {
     return 1
 }
 
+# Represent the bash version as an int, with major and minor version numbers.
+# Do the math once, and store the constant as a function
+eval "date::bashver() { echo $((10 * BASH_VERSINFO[0] + BASH_VERSINFO[1])); }"
+
 ############################################################
 date::determineCapabilities() {
     local exe
@@ -58,7 +62,7 @@ date::determineCapabilities() {
 date::now() {
     # bash v5 has the EPOCHSECONDS builtin variable,
     # unless it has been unset
-    if  ((10 * BASH_VERSINFO[0] + BASH_VERSINFO[1] >= 50)) &&
+    if  (($(date::bashver) >= 50)) &&
         [[ -n ${EPOCHSECONDS+set} ]]
     then
         echo "$EPOCHSECONDS"
@@ -92,7 +96,10 @@ date::parse() {
     done
     shift $((OPTIND - 1))
 
-    [[ $1 ]] || error "usage: ${FUNCNAME[0]} [-u] [-f format] timestamp"
+    if [[ -z $1 ]]; then
+        error "usage: ${FUNCNAME[0]} [-u] [-f format] timestamp"
+        return
+    fi
 
     local timestamp=$1
     local -a args
@@ -121,7 +128,7 @@ date::parse() {
         ' -- -input="$timestamp" -fmt="$fmt" -utc=$utc
 
     else
-        error "Don't know how to parse a datetime string"
+        error "Don't know how to parse datetimes."
     fi
 }
 
@@ -145,12 +152,15 @@ date::format() {
     done
     shift $((OPTIND - 1))
 
-    [[ $1 ]] || error "usage: ${FUNCNAME[0]} [-f format] [-u] timestamp"
+    if [[ -z $1 ]]; then
+        error "usage: ${FUNCNAME[0]} [-f format] [-u] timestamp"
+        return
+    fi
 
     local -i timestamp=$1
     local -a args
 
-    if ((10 * BASH_VERSINFO[0] + BASH_VERSINFO[1] >= 43)); then
+    if (($(date::bashver) >= 43)); then
         # version 4.3 printf has a "%(format)T" date formatter
         if $utc; then
             TZ=UTC printf "%($fmt)T\n" "$1"

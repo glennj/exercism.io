@@ -30,14 +30,14 @@ array::reverse() {
     local -i a b
     local tmp
 
-    for (( a=0, b=${#__array_reverse[@]} - 1; a < b; a++, b-- )); do
+    for ((a = 0, b = ${#__array_reverse[@]} - 1; a < b; a++, b--)); do
         tmp=${__array_reverse[a]}
         __array_reverse[a]=${__array_reverse[b]}
         __array_reverse[b]=$tmp
     done
 }
 
-#   
+#
 # create an array with "repeat" copies of the given string
 #
 # e.g.
@@ -74,7 +74,7 @@ array::split() {
     local -n __array_split=$1
     local IFS=$2 string=$3
     # shellcheck disable=SC2034
-    read -ra __array_split <<<"$string"
+    read -ra __array_split <<< "$string"
 }
 
 # for convenience
@@ -94,12 +94,12 @@ array::join() {
 
 array::push() {
     local -n __array_push=$1
-    __array_push+=( "$2" )
+    __array_push+=("$2")
 }
 
 array::unshift() {
     local -n __array_unshift=$1
-    __array_unshift=( "$2" "${__array_unshift[@]}" )
+    __array_unshift=("$2" "${__array_unshift[@]}")
 }
 
 # The `pop` and `shift` functions do NOT emit the value, just remove it.
@@ -135,7 +135,7 @@ array::pop() {
 # the simple `unset 'ary[0]'` does not shift the other elements down
 array::shift() {
     local -n __array_shift=$1
-    __array_shift=( "${__array_shift[@]:1}" )
+    __array_shift=("${__array_shift[@]:1}")
 }
 
 # find the index of the given string, or -1 if not found

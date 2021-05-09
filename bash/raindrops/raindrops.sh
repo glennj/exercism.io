@@ -19,16 +19,13 @@ using_array() {
 }
 
 using_indirect_variables() {
+    (($1 > 0)) || return
     # shellcheck disable=SC2034
-    local Pling=3 Plang=5 Plong=7
+    local pling=3 plang=5 plong=7
     local output
-
-    if (($1 > 0)); then
-        for var in Pling Plang Plong; do
-            (($1 % ${!var} == 0)) && output+=$var
-        done
-    fi
-
+    for var in pling plang plong; do
+        (($1 % ${!var} == 0)) && output+=${var^}
+    done
     echo "${output:-$1}"
 }
 

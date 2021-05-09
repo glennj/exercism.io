@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+source ../lib/utils.bash
+source rational_number_class.bash
+
+# Some of the instance methods want to return a new instance.
+# But because of way "objects" are created, they cannot be
+# instantiated in a command substitution -- when the subshell
+# exits, the instance goes away. Therefore, I have used a `-v`
+# option (like printf) for specifying a new instance name, or
+# alternately a global variable for the last instance created.
+
+main() {
+    local op=$1
+    shift
+
+    case $op in
+        [-+*/])
+            RationalNumber new a "$1"
+            RationalNumber new b "$2"
+            a "$op" b -v result
+            result toString
+            ;;
+        abs)
+            RationalNumber new a "$1"
+            a abs
+            local result="$RATIONAL_NUMBER_INSTANCE" 
+            "$result" toString
+            ;;
+        pow)
+            RationalNumber new a "$1"
+            a pow "$2"
+            "$RATIONAL_NUMBER_INSTANCE" toString
+            ;;
+        rpow)
+            RationalNumber new a "$2"
+            a rpow "$1"
+            ;;
+        reduce)
+            RationalNumber new a "$1"
+            a toString
+            ;;
+        *)  die "unknown operation: $op"
+            ;;
+    esac
+}
+
+main "$@"

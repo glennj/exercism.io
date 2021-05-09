@@ -3,7 +3,8 @@
 source ../lib/utils.bash
 source ../lib/utils_string.bash
 
-[[ $1 == [A-Z] ]] || die "usage: ${0#*/} upper_case_letter"
+#[[ $1 == [A-Z] ]] || die "usage: ${0#*/} upper_case_letter"
+case $1 in [A-Z]) :;; *) die "usage: ${0#*/} upper_case_letter" ;; esac
 
 # `eval` is required here because the shell performs
 # brace expansion _before_ variable expansion
@@ -17,7 +18,7 @@ len=${#letters[@]}
 segments=()
 
 for ((i = 0; i < len; i++)); do
-    segment="$(str::repeat " " "$i")${letters[i]}$(str::repeat " " $((len - i - 1)))"
+    printf -v segment '%*s%s%*s' $i '' ${letters[i]} $((len - i - 1)) ''
     segments[i]="$(str::reverse "${segment#?}")$segment"
     echo "${segments[i]}"
 done
