@@ -13,6 +13,8 @@ TOC
 Exercises
 * [error-handling](#error-handling)
 * [word-count](#word-count)
+* [clock](#clock)
+* [two-bucket](#two-bucket)
 
 ---
 <!-- #################################################### -->
@@ -123,6 +125,7 @@ proc do {script whileKeyword condition} {
     }
 }
 
+set n 3
 do {lappend mylist $n; incr n -1} while {$n > 0}
 puts $mylist  ;# => 3 2 1
 puts $n       ;# => 0
@@ -222,7 +225,7 @@ Confusingly, Tcl has decided to give the OO `variable` command different argumen
 
 ## Optimizations
 
-Avoid copying data in mamory. Change
+Avoid copying data in memory. Change
 ```tcl
 set mylist [linsert $mylist 0 some new content]
 ```
@@ -322,3 +325,45 @@ $ tclsh
 can't read "a": no such variable
 ```
 Change `eval` to `uplevel` and the expected "success" response is obtained.
+
+<!-- #################################################### -->
+
+## clock
+
+To promote code reuse, the `subtract` method could  call `add` with negative minutes.
+
+<!-- -->
+
+<details><summary>For the <code>==</code> method, the TclOO <code>forward</code> command can be used like an "alias" of the <code>equals</code> method. Click for details</summary>
+
+The [`forward` command documentation](http://www.tcl-lang.org/man/tcl8.6/TclCmd/define.htm#M11).
+
+```tcl
+forward == my equals
+```
+Note that, by default, only methods beginning with a lower-case letter are
+"exported", or made public. To explicitly export it:
+```tcl
+export ==
+```
+(conversely, to make a method private: `unexport aMethod`)
+</details>
+
+<!-- #################################################### -->
+
+## two-bucket
+
+Algorithm:
+
+```none
+fill start
+if other size == goal, fill other
+while true {
+    if goal is satisfied, return results
+
+    if start is empty, fill start
+    else if other is full, empty other
+    else pour from start to other
+}
+```
+

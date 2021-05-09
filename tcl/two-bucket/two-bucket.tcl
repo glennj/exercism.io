@@ -1,3 +1,4 @@
+
 ############################################################
 #
 oo::class create Bucket {
@@ -35,6 +36,7 @@ oo::class create TwoBucketGame {
     variable first
     variable second
     variable goal
+    variable isDebug
 
     constructor {input} {
         set params [dict create {*}$input]
@@ -50,12 +52,13 @@ oo::class create TwoBucketGame {
             default {error "invalid start bucket name"}
         }
         set goal [dict get $params goal]
+        set isDebug [expr {[info exists ::env(DEBUG)] && $::env(DEBUG)}]
     }
 
     method validate {} {
         set gcd [expr {gcd([$first size], [$second size])}]
-        assert {$gcd == 1 || $goal % $gcd == 0} "goal unsatisfiable"
-        assert {$goal <= [$first size] + [$second size]} "goal too big"
+        assert {$gcd == 1 || $goal % $gcd == 0} "goal unsatisfiable: answer impossible"
+        assert {$goal <= max([$first size], [$second size])} "goal too big: answer impossible"
     }
 
     method solve {} {
@@ -64,13 +67,16 @@ oo::class create TwoBucketGame {
         $first empty
         $second empty
         set moves 0
+        my debug $moves "======= first=[$first size];second=[$second size];goal=$goal"
 
         $first fill
         incr moves
+        my debug $moves fill 
 
         if {$goal == [$second size]} {
             $second fill
             incr moves
+            my debug $moves fill 
         }
 
         while 1 {
@@ -83,12 +89,28 @@ oo::class create TwoBucketGame {
 
             if {[$first isEmpty]} {
                 $first fill
+                set dbg_action fill 
             } elseif {[$second isFull]} {
                 $second empty
+                set dbg_action empty 
             } else {
                 $first pourInto $second
+                set dbg_action pour 
             }
             incr moves
+            my debug $moves $dbg_action
+        }
+    }
+
+    method debug {move action} {
+        if {$isDebug} {
+            puts stderr [format {%s - %d. %s (%d, %d)} \
+                [clock format [clock seconds] -format {%Y-%m-%d %T}] \
+                $move \
+                $action \
+                [$first amount] \
+                [$second amount] \
+            ]
         }
     }
 

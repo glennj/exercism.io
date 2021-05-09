@@ -176,13 +176,12 @@ proc foreach_cons {varnames list script} {
         upvar 1 $var $var
     }
     set n [llength $varnames]
-    for {set i 0; set j [expr {$n - 1}]} \
-        {$i <= [llength $list] - $n} \
-        {incr i; incr j} \
-        {
-            lassign [lrange $list $i $j] {*}$varnames
-            uplevel 1 $script
-        }
+    set last [expr {[llength $list] - $n}]
+    set j [expr {$n - 1}]
+    for {set i 0} {$i <= $last} {incr i; incr j} {
+        lassign [lrange $list $i $j] {*}$varnames
+        uplevel 1 $script
+    }
 }
 
 

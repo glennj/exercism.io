@@ -3,6 +3,7 @@
 TOC
 * [Tools](#tools)</br>
     * [Shellcheck](#shellcheck)<br>
+    * [Shfmt](#shfmt)<br>
     * [Hyperfine](#hyperfine)<br>
 * [How bash interprets command](#how-bash-interprets-command)<br>
 * [Shebang](#shebang)<br>
@@ -11,6 +12,7 @@ TOC
 * [Parameter Expansion](#parameter-expansion)<br>
     * [Special parameters](#special-parameters)<br>
 * [Quoting](#quoting)<br>
+* [Unset and Quoting](#unset-and-quoting)
 * [Assignment](#assignment)<br>
 * [Conditionals](#conditionals)<br>
 * [Loops](#loops)<br>
@@ -42,6 +44,7 @@ Exercises
 * [grep](#grep)
 * [proverb](#proverb)
 * [grains](#grains)
+* [armstrong numbers](#armstrong-numbers)
 
 
 Be sure to check out [the community solutions](https://exercism.io/tracks/bash/exercises/${SLUG}/solutions) to see other approaches.
@@ -66,12 +69,17 @@ main function.
 
 ## Tools
 
-Linting: Shellcheck - https://github.com/koalaman/shellcheck
-Benchmarking: Hyperfine - https://github.com/sharkdp/hyperfine
-Formatting: shfmt - https://github.com/mvdan/sh
+<!-- -->
 
+A couple of tools you might be interested in:
+* [shfmt](https://github.com/mvdan/sh#shfmt) for formatting shell scripts (or seeing how your style deviates from this tool's recommendations)
+* [shellcheck](https://shellcheck.net) for linting. I'd recommend [acquiring the command line tool](https://github.com/koalaman/shellcheck#installing) for your OS.
+
+<!-- -->
 
 ### Shellcheck
+
+Linting: Shellcheck - https://github.com/koalaman/shellcheck
 
 I recommend you paste this code into [https://shellcheck.net](https://shellcheck.net)
 to get tips and further reading about improvements.
@@ -80,13 +88,24 @@ to get tips and further reading about improvements.
 
 [Shellcheck](https://shellcheck.net) warns ["Argument mixes string and array"](https://www.shellcheck.net/wiki/SC2145).
 [Shellcheck](https://shellcheck.net) warns ["Assigning an array to a string"](https://www.shellcheck.net/wiki/SC2124).
-[Shellcheck](https://shellcheck.net) warns ["Useless echo"](https://www.shellcheck.net/wiki/SC2005).
+[Shellcheck](https://shellcheck.net) warns ["Useless echo? Instead of 'echo $(cmd)' just use cmd"](https://www.shellcheck.net/wiki/SC2005).
+[Shellcheck](https://shellcheck.net) warns ["Useless echo? Instead of 'cmd $(echo foo)' just use 'cmd foo'"](https://www.shellcheck.net/wiki/SC2116).
 [Shellcheck](https://shellcheck.net) warns ["Don't use variables in the printf format string."](https://www.shellcheck.net/wiki/SC2059).
 [Shellcheck](https://shellcheck.net) warns [Use "$@" (with quotes) to prevent whitespace problems.](https://www.shellcheck.net/wiki/SC2048).
 [Shellcheck](https://shellcheck.net) warns ["Double quote array expansions to avoid re-splitting elements."](https://www.shellcheck.net/wiki/SC2068).
 [Shellcheck](https://shellcheck.net) warns ["Quote parameters to `tr` to prevent glob expansion."](https://www.shellcheck.net/wiki/SC2060).
+[Shellcheck](https://shellcheck.net) warns ["$/${} is unnecessary on arithmetic variables."](https://www.shellcheck.net/wiki/SC2004).
+
+
+### Shfmt
+
+Formatting: shfmt - https://github.com/mvdan/sh
+
+[shfmt](https://github.com/mvdan/sh#shfmt)
 
 ### Hyperfine
+
+Benchmarking: [Hyperfine](https://github.com/sharkdp/hyperfine)
 
 Example
 ```bash
@@ -284,11 +303,14 @@ Regarding passing arrays around, there are 3 ways to do it without stringifying:
 <!-- ........................................................ -->
 ## Arithmetic
 
-bash can do arithmetic, you don't need to call out to `expr`. See [Arithmetic
-Expansion](https://www.gnu.org/software/bash/manual/bash.html#Arithmetic-Expansion)
-in the manual, and also [Conditional
-Constructs](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs)
-(scroll down to `((...))`).
+bash can do arithmetic, you don't need to call out to `expr`. See 
+[Arithmetic Expansion](https://www.gnu.org/software/bash/manual/bash.html#Arithmetic-Expansion)
+and [Shell Arithmetic](https://www.gnu.org/software/bash/manual/bash.html#Shell-Arithmetic)
+in the manual.
+There is also an arithmetic conditional construct (analogous to the
+string-oriented `[[...]]` conditional construct) -- see 
+[Conditional Constructs](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs)
+and scroll down to `((...))` (there's no direct link).
 
 <!-- -->
 
@@ -499,6 +521,43 @@ cleaned=${input//[^[:alnum:]]/}
 ```
 </details>
 
+<!-- -->
+
+<details><summary>bash can do most of what `tr` can do. Click for
+details.</summary>
+
+Look at 
+[Shell Parameter Expansion](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion)
+and 
+[Pattern Matching](https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching).
+
+For example:
+```bash
+x=$(echo "$y" | tr 'A' 'B')
+```
+can be
+```bash
+x=${y//A/B}
+```
+and
+```bash
+x=$(echo "$y" | tr -cd '[:alpha:][:blank:]')
+```
+can be
+```bash
+x=${y//[^[:alpha:][:blank:]]/}
+```
+Even `tr -s` can be done in bash, using "extended" patterns
+```bash
+y=aaaabaacaaada
+echo "$y" | tr -s a -   # => -b-c-d-
+
+echo "${y//a/-}"        # => ----b--c---d-
+
+shopt -s extglob
+echo ${y//+(a)/-}       # => -b-c-d-
+```
+</details>
 
 <!-- ........................................................ -->
 ### Special parameters
@@ -638,6 +697,51 @@ Sometimes though, you know exactly what your variables will contain. For example
 
 Like many things in bash, it's complicated, and there are exceptions to just about everything. 
 
+<!-- -->
+
+([responding to a question](https://exercism.io/mentor/solutions/fe8493cf90504101b886181c63e24667#discussion-post-910559))
+
+> When whould I use/not use quotations around a variable?
+
+That actually is a very deep question. I'll keep my answer brief, but feel free with followup questions.
+
+Quotes are not required:
+
+* on the right-hand side of a variable assignment
+* inside `[[ ... ]]`
+    * except on the right-hand side of `=~`, `==`, `!=` when you want the variable value to be used as literal text and not a pattern
+* as the "word" of a [`case` statement](https://www.gnu.org/software/bash/manual/bash.html#index-case)
+* as the "word" of a [Here String](https://www.gnu.org/software/bash/manual/bash.html#Here-Strings)
+* when you _want_ the variable to undergo [Word Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting) and [Filename Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion)
+
+
+<!-- ........................................................ -->
+## Unset and Quoting
+
+For the line `unset array[-1]`, Shellcheck warns 
+["Quote arguments to unset so they're not glob expanded."](https://github.com/koalaman/shellcheck/wiki/SC2184)
+
+Why is this? First consider how bash executes a command:
+[3.7.1 Simple Command Expansion](https://www.gnu.org/software/bash/manual/bash.html#Simple-Command-Expansion).
+Before executing the command, bash performs a series of expansions
+([3.5 Shell Expansions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions)).
+One of the expansions is [3.5.8 Filename Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion).
+This is what makes `for f in *` iterate over the files in the current
+directory. But it also makes `echo *` print the files instead of printing an
+asterisk: if you want that, you need to quote the pattern: `echo '*'`
+
+Similarly, `unset array[-1]` will attempt to expand that [valid glob
+pattern](https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching)
+into matching files: that particular pattern can expand into one of "array-"
+or "array1". If either of those files exist, then "array[-1]" will be
+**replaced**, and the command then becomes `unset array1` (for instance),
+certainly not what you intended. If neither of those files exist, the
+_default_ behaviour of bash is to leave the pattern in place, and the last
+element of the array will indeed be unset (however this behaviour can by
+changed by [4.3.2 The Shopt Builtin](https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin).
+Like the `echo` example above, quoting prevents filename expansion: `unset
+'array[-1]'`
+
 <!-- ........................................................ -->
 ## Assignment
 
@@ -727,11 +831,11 @@ $ [ -n $var ] && echo "not empty" || echo empty
 bash: [: too many arguments
 empty
 ```
-I can go into greater detail about why `[` gives incorrect results if you want.
 
+<details><summary>Click for
+details about why `[` gives incorrect results if you want.</summary>
 
-<!-- Way more details -->
-
+---
 The deep dive: the `test`, `[` and `[[` commands all act the same in that
 they do different things based on *how many arguments they are given*
 (excluding the closing `]`/`]]`).
@@ -741,7 +845,7 @@ they do different things based on *how many arguments they are given*
 * with 3 arguments, the arguments are treated as an operand, a binary
   operator (such as `=`) and another operand
 * more than 3 arguments, `test` and `[` give a "too many arguments" error,
-  and `[[` may give a different error (it has a more complicated parser).
+  and `[[` may or may not give an error (it has a more complicated parser).
 
 Now, looking at the `[ -n $var ]` example.
 
@@ -764,6 +868,9 @@ sees `[[ -n "*" ]]` which is clearly **true**.
     You'll see the "too many arguments" error (but maybe not depending on
     how many files are in your current directory). Since there is an error,
     the exit status of `[` is non-zero and the **false** branch is taken.
+
+---
+</details>
 
 <!-- -->
 
@@ -873,6 +980,7 @@ So `[[` or `((`? As you've seen, `((` is only for arithmetic expressions.
 To see what `[[` can do, do this at a shell prompt:
 ```
 $ help [ test | less
+$ help [[     | less
 ```
 A couple of specific things to point out:
 
@@ -885,7 +993,8 @@ A couple of specific things to point out:
     pattern characters
     ```bash
     var="*foo*"
-    [[ $string == "$foo" ]] && echo "string is exactly '*foo*'"
+    [[ $string == $var   ]] && echo "string contains foo"
+    [[ $string == "$var" ]] && echo "string is exactly '*foo*'"
     ```
 * `[[` has a regular expression matching operator: `=~`
     * there is no `!~` operator, so
@@ -1052,7 +1161,7 @@ echo "  foo  \t  bar  " | { IFS= read -r input; printf '"%s"\n' "$input"; }
 ```bash
 { echo "foo"; echo -n "bar"; } | while IFS= read -r line; do echo "$line"; done
 ```
-/utputs only "foo". 
+outputs only "foo". 
 
 What's happening here? `IFS= read -r line` reads the characters "bar" into
 the variable but then exits with a non-zero status, due to the missing
@@ -1495,6 +1604,16 @@ To get the formula to calculate the total, we can look at:
 
 
 <!-- ........................................................ -->
+## armstrong numbers
+
+Obtaining the length of a string is a surprisingly
+expensive operation in bash. With large strings and/or large loops,
+performance can be significantly impacted.  Storing the length in a variable
+helps significantly. I've done 
+[some benchmarking](https://github.com/glennj/exercism.io/blob/main/_mentor_notes/bash.md#performance-impact-of-string-length)
+to demonstrate.
+
+<!-- ........................................................ -->
 ## tournament
 
 OK, there's a few things going on here. In order from least crucial to most:
@@ -1608,8 +1727,8 @@ hamming.sh: line 23: [: too many arguments
 ```
 Within `[...]` bare bash patterns will attempt to do [filename
 expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion).
-And as you never know what files your users will have, you need to quote the
-right-hand side of `==` and `!=` within `[...]`
+And as you never know what files your users will have, you need to quote
+_all_ the arguments within `[...]`.
 
 Within `[[...]]`, the right-hand side needs to be quoted as well, but for a
 different reason: `==` and `!=` are not simply equality operators, they are
@@ -1760,6 +1879,36 @@ Builtin](https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin)
     ```
     This approach allows you to keep the variables quoted at all times, so
     there won't be any expansion.
+
+<!-- -->
+
+The variable is unquoted on line XYZ because you want to take advantage of 
+[Word
+Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting)
+but
+[Filename
+Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion)
+is still a factor: `*` is not the only special character to worry about:
+```bash
+$ touch {a,b,c}EADME.md
+$ ls *EADME.md
+README.md  aEADME.md  bEADME.md  cEADME.md
+$ bash acronym.sh '?EADME.md'
+RABC
+```
+<details><summary>There are a couple of ways to handle this: click for spoilers.</summary>
+
+1. turn off path expansion: see the `noglob` setting at [The Set
+Builtin](https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin)
+2. read the words into an array with `read -a`
+    ```bash
+    read -r -a words <<< "${1//-/ }"
+    for word in "${words[@]}"
+    ```
+    This approach allows you to keep the variables quoted at all times, so
+    there won't be any expansion.
+</details>
+
 <!-- -->
 
 To not worry about upper/lower case:
@@ -2025,16 +2174,17 @@ expensive operation in bash. With large strings and/or large loops,
 performance can be significantly impacted.  Storing the length in a variable
 helps significantly.  
 
+Demonstrating an empty loop, iterating over the string indices:
 ```bash
 $ printf -v string "%32767s" foo
-$ time for ((i=0; i<${#string}; i++)); do :; done
+$ time for ((i = 0; i < ${#string}; i++)); do :; done
 
-real	0m14.807s
-user	0m14.768s
-sys	0m0.035s
+real	0m2.405s
+user	0m2.400s
+sys	0m0.003s
 
 $ len=${#string}
-$ time for ((i=0; i<len; i++)); do :; done
+$ time for ((i = 0; i < len; i++)); do :; done
 
 real	0m0.193s
 user	0m0.193s
@@ -2044,7 +2194,7 @@ Or if you can loop backwards, don't even need the variable. I imagine that
 the 0.022 sec gain we see is significant: bash does not need to access the
 variable contents for each iteration.
 ```bash
-$ time for ((i = ${#string} - 1; i>=0; i--)); do :; done
+$ time for ((i = ${#string} - 1; i >= 0; i--)); do :; done
 
 real	0m0.171s
 user	0m0.170s
@@ -2053,21 +2203,22 @@ sys	0m0.000s
 If you need to iterate over the characters of the string, a while-read loop
 is _much_ faster than a for loop:
 ```bash
-$ time for ((i=0; i<len; i++)); do
-     echo "${string:i:1}"
-   done > /dev/null
+$ time for ((i = 0; i < len; i++)); do
+     char="${string:i:1}"
+     :
+   done
 
-real	0m7.875s
-user	0m7.841s
-sys	0m0.028s
+real	0m7.062s
+user	0m7.039s
+sys	0m0.018s
 
 $ time while IFS= read -d "" -r -n 1 char; do
-    echo "$char"
-  done < <(printf "%s" "$string") > /dev/null
+    :
+  done < <(printf "%s" "$string")
 
-real	0m0.481s
-user	0m0.439s
-sys	0m0.042s
+real	0m0.369s
+user	0m0.335s
+sys	0m0.034s
 ```
 Note the use of the printf process substitution. Using a `<<<"$string"`
 here-string redirection adds a trailing newline.
