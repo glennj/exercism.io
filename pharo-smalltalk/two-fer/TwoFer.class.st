@@ -1,16 +1,20 @@
+"
+I will return a message containing the given name, or a default value if no name given. 
+"
 Class {
 	#name : #TwoFer,
 	#superclass : #Object,
 	#category : #'Exercise@TwoFer'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #translating }
 TwoFer >> who [
 	^ self who: 'you'.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #translating }
 TwoFer >> who: name [ 
-	name ifNil: [ ^ self who ].
-	^ 'One for {1}, one for me.' format: {name}.
+	^ name isNil 
+		ifTrue: [ self who ]
+		ifFalse: [ 'One for {1}, one for me.' format: {name} ].
 ]
