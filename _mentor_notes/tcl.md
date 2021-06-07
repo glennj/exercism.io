@@ -367,3 +367,11 @@ while true {
 }
 ```
 
+<!-- #################################################### -->
+
+## two-fer
+
+The ideal would be to have the output string hardcoded only once.
+Read the [`proc`](http://www.tcl-lang.org/man/tcl8.6/TclCmd/proc.htm) man
+page to learn about how to specify the default value in the argument list.
+

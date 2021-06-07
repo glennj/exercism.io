@@ -33,6 +33,7 @@ TOC
 
 Exercises
 
+* [error-handling](#error-handling)
 * [two-fer](#two-fer)
 * [raindrops](#raindrops)
 * [atbash-cipher](#atbash-cipher)
@@ -86,15 +87,18 @@ to get tips and further reading about improvements.
 
 <!-- quick links -->
 
-[Shellcheck](https://shellcheck.net) warns ["Argument mixes string and array"](https://www.shellcheck.net/wiki/SC2145).
-[Shellcheck](https://shellcheck.net) warns ["Assigning an array to a string"](https://www.shellcheck.net/wiki/SC2124).
-[Shellcheck](https://shellcheck.net) warns ["Useless echo? Instead of 'echo $(cmd)' just use cmd"](https://www.shellcheck.net/wiki/SC2005).
-[Shellcheck](https://shellcheck.net) warns ["Useless echo? Instead of 'cmd $(echo foo)' just use 'cmd foo'"](https://www.shellcheck.net/wiki/SC2116).
-[Shellcheck](https://shellcheck.net) warns ["Don't use variables in the printf format string."](https://www.shellcheck.net/wiki/SC2059).
+[Shellcheck](https://shellcheck.net) warns [Argument mixes string and array](https://www.shellcheck.net/wiki/SC2145).
+[Shellcheck](https://shellcheck.net) warns [Assigning an array to a string](https://www.shellcheck.net/wiki/SC2124).
+[Shellcheck](https://shellcheck.net) warns [Useless echo? Instead of 'echo $(cmd)' just use cmd](https://www.shellcheck.net/wiki/SC2005).
+[Shellcheck](https://shellcheck.net) warns [Useless echo? Instead of 'cmd $(echo foo)' just use 'cmd foo'](https://www.shellcheck.net/wiki/SC2116).
+[Shellcheck](https://shellcheck.net) warns [Don't use variables in the printf format string.](https://www.shellcheck.net/wiki/SC2059).
 [Shellcheck](https://shellcheck.net) warns [Use "$@" (with quotes) to prevent whitespace problems.](https://www.shellcheck.net/wiki/SC2048).
-[Shellcheck](https://shellcheck.net) warns ["Double quote array expansions to avoid re-splitting elements."](https://www.shellcheck.net/wiki/SC2068).
-[Shellcheck](https://shellcheck.net) warns ["Quote parameters to `tr` to prevent glob expansion."](https://www.shellcheck.net/wiki/SC2060).
-[Shellcheck](https://shellcheck.net) warns ["$/${} is unnecessary on arithmetic variables."](https://www.shellcheck.net/wiki/SC2004).
+[Shellcheck](https://shellcheck.net) warns [Double quote array expansions to avoid re-splitting elements.](https://www.shellcheck.net/wiki/SC2068).
+[Shellcheck](https://shellcheck.net) warns [Quote parameters to `tr` to prevent glob expansion.](https://www.shellcheck.net/wiki/SC2060).
+[Shellcheck](https://shellcheck.net) warns [$/${} is unnecessary on arithmetic variables.](https://www.shellcheck.net/wiki/SC2004).
+[Shellcheck](https://shellcheck.net) warns [read without -r will mangle backslashes](https://www.shellcheck.net/wiki/SC2162).
+[Shellcheck](https://shellcheck.net) warns [Declare and assign separately to avoid masking return values](https://www.shellcheck.net/wiki/SC2155).
+[Shellcheck](https://shellcheck.net) warns [Double quote to prevent globbing and word splitting](https://www.shellcheck.net/wiki/SC2086).
 
 
 ### Shfmt
@@ -316,6 +320,32 @@ and scroll down to `((...))` (there's no direct link).
 
 You can omit the `$` for variables inside an arithmetic expression.
 See [this Shellcheck wiki entry](https://github.com/koalaman/shellcheck/wiki/SC2004) for details.
+
+<!-- -->
+
+<details><summary>You can omit the <code>$</code> for variables inside an arithmetic expression.
+Click for details...</summary>
+
+```bash
+x=5
+y=4
+echo $((x * y))
+# ......^...^
+```
+See [this Shellcheck wiki entry](https://github.com/koalaman/shellcheck/wiki/SC2004) for details.
+
+This also applies to the index of a numerically indexed array:
+```bash
+for ((i = 0; i <= ${#ary[@]}; i++)); do
+    echo "${ary[i]}"
+    # ..........^
+done
+```
+As well as the "offset" and "length" parts of the `${var:offset:length}`
+expansion.
+
+---
+</details>
 
 <!-- -->
 
@@ -1266,10 +1296,44 @@ then we can examine the combinations of -E and -e
 <!-- ........................................................ -->
 # Exercises
 
+## error-handling
+
+<details><summary>
+There's a slightly different way to structure the code -- click for details:
+</summary>
+
+```bash
+if (some error condition); then
+    echo some error message >&2
+    exit 1
+fi
+
+rest of code here
+```
+
+The "error and exit" can be extracted into a function (as a former perl
+coder I like the function name "die"), and the code can look like:
+```bash
+die() { echo "$*" >&2; exit 1; }
+
+(some SUCCESS condition) || die "some error message"
+```
+This style emulates an `assert` function that other languages have.
+
+---
+</details>
+
+<!-- ........................................................ -->
 ## two-fer
 
-In bash, prefer `[[...]]` over `[...]`. It's more powerful and less likely to act
-in unexpected ways.
+<details><summary>In bash, prefer <code>[[...]]</code> over <code>[...]</code>. It's more powerful and less likely to act
+in unexpected ways. Click for references:</summary>
+
+* `[...]` is documented in the [`test` command in the manual](https://www.gnu.org/software/bash/manual/bash.html#index-test).
+* `[[...]]` construct is documented in [Conditional Constructs](https://www.gnu.org/software/bash/manual/bash.html#index-_005b_005b)
+
+---
+</details>
 
 <!-- -->
 
@@ -1282,6 +1346,15 @@ manual](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expan
 Generally, you should encapsulate the main body of your script in a `main`
 function, like you may remember from the Hello World exercise.  It
 encapsulates a chunk of logic in one function to encourage re-use.
+
+<!-- -->
+
+
+<!-- -->
+
+
+<!-- -->
+
 It is good practice, and becomes more and more important as your programs get bigger.
 
 <!-- -->
@@ -1344,6 +1417,8 @@ These are equivalent:
 foo="${foo}bar"
 foo+="bar"
 ```
+
+---
 </details>
 
 <!-- -->
@@ -1361,6 +1436,8 @@ if (( $1 % num == 0 )); then
 see [here in the
 manual](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs)
 and scroll down to `((...))`
+
+---
 </details>
 
 <!-- -->

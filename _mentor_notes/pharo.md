@@ -99,8 +99,8 @@ Since it's a constant, the timeDict instance variable could also be written as a
 <!-- ===================================================== -->
 ## Exercise: two-fer
 
-Instead of hardcoding the output strings in two places, have the `who`
-method call the `who: aString` method, passing it the default value.
+Smalltalk values code reuse as much as possible. In this exercise, the `who`
+function can invoke the `who: aName` function, passing the default value.
 
 <!-- ===================================================== -->
 ## Exercise: leap
@@ -110,9 +110,3 @@ expression. If you supply an expression, Smalltalk will *evaluate
 the expression first*, and use that value as the argument to `and:`.
 Here, if the year is not divisible by 4, there's no need to divide it by 100
 and then 400.
-
-<!-- ===================================================== -->
-## Exercise: two-fer
-
-Smalltalk values code reuse as much as possible. In this exercise, the `who`
-function can invoke the `who: aName` function, passing the default value.
