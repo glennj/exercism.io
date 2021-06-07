@@ -25,7 +25,6 @@ class RomanNumeralsTest(unittest.TestCase):
         575: 'DLXXV',
         911: 'CMXI',
         1024: 'MXXIV',
-        2888: 'MMDCCCLXXXVIII',
         3000: 'MMM',
     }
 

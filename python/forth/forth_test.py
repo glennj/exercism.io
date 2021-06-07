@@ -16,6 +16,7 @@ class ForthUtilities(unittest.TestCase):
     def assertRaisesWithMessage(self, exception):
         return self.assertRaisesRegex(exception, r".+")
 
+
 class ForthParsingTest(ForthUtilities):
     def test_numbers_just_get_pushed_to_stack(self):
         input_data = ["1 2 3 4 5"]
@@ -261,6 +262,7 @@ class ForthUserDefinedWordsTest(ForthUtilities):
         input_data = ["foo"]
         with self.assertRaisesWithMessage(ValueError):
             evaluate(input_data)
+
 
 class ForthCaseInsensitivityTest(ForthUtilities):
     def test_dup_is_case_insensitive(self):

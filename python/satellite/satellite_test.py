@@ -22,24 +22,6 @@ class SatelliteTest(unittest.TestCase):
         }
         self.assertEqual(tree_from_traversals(preorder, inorder), expected)
 
-    def test_tree_with_one_branch(self):
-        preorder = ["a", "b", "c"]
-        inorder = ["c", "b", "a"]
-        expected = {
-            "v": "a",
-            "l": {
-              "v": "b",
-              "l": {
-                "v": "c",
-                "l": {},
-                "r": {}
-              },
-              "r": {}
-            },
-            "r": {}
-        }
-        self.assertEqual(tree_from_traversals(preorder, inorder), expected)
-
     def test_tree_with_many_items(self):
         preorder = ["a", "i", "x", "f", "r"]
         inorder = ["i", "a", "f", "x", "r"]

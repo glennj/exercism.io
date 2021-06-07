@@ -73,7 +73,7 @@ class AlphameticsTest(unittest.TestCase):
              "S": 6,
              "T": 9})
 
-    # @unittest.skip("extra-credit")
+    @unittest.skip("extra-credit")
     def test_puzzle_with_ten_letters_and_199_addends(self):
         self.assertEqual(
             solve(

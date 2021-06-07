@@ -48,8 +48,6 @@ class RunLengthEncodingTest(unittest.TestCase):
 
     def test_combination(self):
         self.assertMultiLineEqual(decode(encode('zzz ZZ  zZ')), 'zzz ZZ  zZ')
-    '''
-    '''
 
 
 if __name__ == '__main__':

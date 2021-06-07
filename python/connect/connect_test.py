@@ -5,8 +5,6 @@ import connect
 
 # Tests adapted from `problem-specifications//canonical-data.json` @ v1.1.0
 
-'''
-'''
 testcases = [
     {
         "description": "an empty board has no winner",
@@ -102,8 +100,6 @@ testcases = [
         "winner": "X"
     },
 ]
-'''
-'''
 
 
 class ConnectTest(unittest.TestCase):

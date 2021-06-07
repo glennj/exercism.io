@@ -72,5 +72,6 @@ class PigLatinTest(unittest.TestCase):
     def test_a_whole_phrase(self):
         self.assertEqual(translate("quick fast run"), "ickquay astfay unray")
 
+
 if __name__ == '__main__':
     unittest.main()

@@ -67,8 +67,6 @@ class BinarySearchTreeTest(unittest.TestCase):
             BinarySearchTree(['2', '1', '3', '6', '7', '5']).sorted_data(),
             ['1', '2', '3', '5', '6', '7']
         )
-    '''
-    '''
 
     # Utilities
     def assertTreeEqual(self, tree_one, tree_two):

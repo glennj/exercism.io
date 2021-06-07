@@ -249,11 +249,8 @@ class GrepTest(unittest.TestCase):
             "\nparadise-lost.txt:Restore us, and regain the blissful Seat,\n"
             "paradise-lost.txt:Sing Heav'nly Muse, that on the secret top\n"
         )
-        actual = grep("TO", FILENAMES, "-i")
-        print("actual\n", actual)
-        print("expected\n", expected)
         self.assertMultiLineEqual(
-            actual,
+            grep("TO", FILENAMES, "-i"),
             expected
         )
 

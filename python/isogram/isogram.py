@@ -9,7 +9,6 @@ def is_isogram(string):
             return False
     '''
 
-    '''
     # This should be faster as it only examines
     # each character once.
     count = {}
@@ -19,6 +18,3 @@ def is_isogram(string):
             return False
 
     return True
-    '''
-
-    return len(normalized) == len(set(normalized))

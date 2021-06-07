@@ -40,7 +40,7 @@ class FlattenArrayTest(unittest.TestCase):
         self.assertEqual(flatten([[()]]), [])
 
     def test_strings(self):
-        self.assertEqual(flatten(['0', ['1', 'two']]), ['0', '1', 'two'])
+        self.assertEqual(flatten(['0', ['1', '2']]), ['0', '1', '2'])
 
 
 if __name__ == '__main__':

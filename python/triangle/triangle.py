@@ -22,30 +22,3 @@ def classify(sides):
         return 'isosceles'
     else:
         return 'scalene'
-
-
-'''
-community solution using validator:
-https://exercism.io/tracks/python/exercises/triangle/solutions/ef7f2f708da0422381bfa8ed075096b9
-
-    def valid_triangle(f):
-        def inner(sides):
-            s = sorted(sides)
-            return s[0] + s[1] > s[2] and s[0] != 0 and f(sides)
-        return inner
-
-
-    @valid_triangle
-    def is_equilateral(sides):
-        return len(set(sides)) == 1
-
-
-    @valid_triangle
-    def is_isosceles(sides):
-        return len(set(sides)) < 3
-
-
-    @valid_triangle
-    def is_scalene(sides):
-        return len(set(sides)) == 3
-'''
