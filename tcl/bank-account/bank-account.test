@@ -30,6 +30,9 @@ proc cleanupTests {} {
 }
 
 if {$::argv0 eq [info script]} {
+
+    configure -verbose {error body usec}
+
     test bank-account-1 "newly opened account has zero balance" -body {
         set account [BankAccount new]
         $account open

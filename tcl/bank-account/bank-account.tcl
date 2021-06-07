@@ -4,16 +4,17 @@ oo::class create BankAccount {
 
     constructor {} {
         set isOpen no
+        set balance 0
     }
 
     method open {} {
         assert {!$isOpen} "This account is already open."
-        set balance 0
         set isOpen yes
     }
 
     method close {} {
         assert {$isOpen} "This account is not open."
+        my withdraw $balance
         set isOpen no
     }
 
@@ -31,7 +32,7 @@ oo::class create BankAccount {
     method withdraw {amount} {
         assert {$isOpen} "This account is not open."
         assert {$amount >= 0} "Cannot complete withdrawal: invalid amount."
-        assert {$balance >= $amount} "Cannot complete withdrawal: insufficient funds."
+        assert {$amount <= $balance} "Cannot complete withdrawal: insufficient funds."
         incr balance [expr {-1 * $amount}]
     }
 }
