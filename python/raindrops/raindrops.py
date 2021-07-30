@@ -10,6 +10,5 @@ def raindrops(number):
     return sound
     '''
 
-    sound = "".join([s for f, s in sounds if number % f == 0])
-
-    return sound if sound else str(number)
+    drops = [drop for factor, drop in sounds if number % factor == 0]
+    return "".join(drops) if drops else str(number)
