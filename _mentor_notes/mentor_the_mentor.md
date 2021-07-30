@@ -30,5 +30,3 @@ IFS=';' read -r a b c <<<"$line"
   </details>
 </details>
 
----
-

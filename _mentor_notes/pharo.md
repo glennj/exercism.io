@@ -1,4 +1,4 @@
-Be sure to check out [the community solutions](https://exercism.io/tracks/pharo-smalltalk/exercises/${SLUG}/solutions) to see other approaches.
+Be sure to check out [the community solutions](https://exercism.io/tracks/pharo-smalltalk/exercises/__SLUG__/solutions) to see other approaches.
 
 
 ## super vs self

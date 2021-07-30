@@ -48,7 +48,7 @@ Exercises
 * [armstrong numbers](#armstrong-numbers)
 
 
-Be sure to check out [the community solutions](https://exercism.io/tracks/bash/exercises/${SLUG}/solutions) to see other approaches.
+Be sure to check out [the community solutions](https://exercism.io/tracks/bash/exercises/__SLUG__/solutions) to see other approaches.
 
 This is a fine _shell_ solution. I challenge you to write a _bash_ solution, using no external tools.
 
@@ -99,6 +99,7 @@ to get tips and further reading about improvements.
 [Shellcheck](https://shellcheck.net) warns [read without -r will mangle backslashes](https://www.shellcheck.net/wiki/SC2162).
 [Shellcheck](https://shellcheck.net) warns [Declare and assign separately to avoid masking return values](https://www.shellcheck.net/wiki/SC2155).
 [Shellcheck](https://shellcheck.net) warns [Double quote to prevent globbing and word splitting](https://www.shellcheck.net/wiki/SC2086).
+[Shellcheck](https://shellcheck.net) warns [Instead of `let expr`, prefer `(( expr ))`](https://www.shellcheck.net/wiki/SC2219).
 
 
 ### Shfmt
@@ -156,6 +157,9 @@ In my view, once you really understand these particular things (quoting, word sp
 
 Make use of the test suite provided for you. See [Running the
 Tests](https://exercism.io/tracks/bash/tests).
+
+The tests will pass arguments to your program on the command line. You can
+access them all at once with `"$@"` or idividually with `"$1"`, `"$2"`, etc.
 
 <!-- ........................................................ -->
 ## Shebang
@@ -1113,6 +1117,7 @@ bash -c '
   echo "after: this is not printed"
 '
 ```
+
 `((...))` is preferred over `let`, mostly for the same reasons `[[` is
 preferred over `[`. See [the let builtin
 command](https://wiki.bash-hackers.org/commands/builtin/let) for details.
@@ -1337,7 +1342,7 @@ in unexpected ways. Click for references:</summary>
 
 <!-- -->
 
-There is a more concise way to manage the optional input here. I suggest
+There is a more concise way to manage the optional input. I suggest
 looking into the `${var:-default}` form of parameter expansion [here in the
 manual](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html).
 
@@ -1346,14 +1351,6 @@ manual](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expan
 Generally, you should encapsulate the main body of your script in a `main`
 function, like you may remember from the Hello World exercise.  It
 encapsulates a chunk of logic in one function to encourage re-use.
-
-<!-- -->
-
-
-<!-- -->
-
-
-<!-- -->
 
 It is good practice, and becomes more and more important as your programs get bigger.
 
@@ -1400,7 +1397,9 @@ We can observe:
 * the main function's $1 is `John ` with a trailing space -- the first quote-delimited "field" of the first program argument.
 
 The key learning is: bash expands variable to their actual contents, and the _if the variable was not quoted_ then word splitting and filename expansion will be performed on the variable contents.
+
 <!-- ........................................................ -->
+
 ## raindrops
 
 There is a more concise way to handle the maybe-empty variable: I suggest
@@ -1439,6 +1438,28 @@ and scroll down to `((...))`
 
 ---
 </details>
+
+<!-- -->
+
+<details><summary>For maximum brevity, you can use the 
+<code>&&</code> control operator.
+Click for details.</summary>
+
+```bash
+# instead of this
+if some_conditional_command; then
+    some_action
+fi
+
+# do
+some_conditional_command && some_action
+```
+see [here in the
+manual](https://www.gnu.org/software/bash/manual/bash.html#Lists).
+
+---
+</details>
+
 
 <!-- -->
 
@@ -1916,6 +1937,38 @@ files=( "${@:2}" )
 <!-- ........................................................ -->
 ## acronym
 
+<!-- -->
+Although this is passing the tests, there is still a vulnerability.
+
+On line 6, we leave the variable  unquoted to take advantage of [Word
+Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting),
+but omitting the quotes also enables [Filename
+Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion).
+You have added `*` to IFS, which is good, but that's not the only glob
+pattern special character. Try this, and see if you're surprised by the
+result:
+```bash
+touch {a,b,c}EADME.md
+bash acronym.sh 'hello ?EADME.md'
+```
+
+<details><summary>There are a couple of ways to handle this. Click for spoilers:</summary>
+
+1. turn off path expansion: see the `noglob` setting at [The Set
+Builtin](https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin)
+2. read the words into an array with `read -a`
+    ```bash
+    read -r -a words <<< "${1//-/ }"
+    for word in "${words[@]}"
+    ```
+    This approach allows you to keep the variables quoted at all times, so
+    there won't be any expansion.
+
+---
+</details>
+Be sure to check out [the community solutions](https://exercism.io/tracks/bash/exercises/acronym/solutions) to see other approaches.
+
+<!-- -->
 You're not passing the last test. The problem with using unquoted variables
 is that you're subjected to 
 (i) [Word
@@ -2299,6 +2352,45 @@ sys	0m0.034s
 ```
 Note the use of the printf process substitution. Using a `<<<"$string"`
 here-string redirection adds a trailing newline.
+
+<!-- -->
+<!-- https://exercism.io/mentor/solutions/46664b6978834cd7a3283e0be7a37335
+    explaining the while read -n1 loop
+-->
+
+This is the idiomatic way to read lines from a file:
+```bash
+while IFS= read -r line; do ...; done < file
+```
+You might see
+```bash
+while read line; do ...; done < file
+```
+But that has 2 problems:
+1. read will attempt to interpret backslashes as escape sequences without `-r`
+2. Due to word splitting, any leading and/or trailing whitespace in the line will be missing unless you use `IFS=` or `IFS=""`
+
+    * bash lets to set environment variables only for the duration of a command:
+        ```bash
+        VAR1=value1 VAR2=value some_command_here
+        ```
+        and then VAR1 and VAR2 will return to their previous values after the command returns.
+
+Going back to my tricky code, the `-n` option for `read` specified the number of characters to read, not a whole line. I'm asking for one character at a time.
+
+And I'm not reading from a file, I'm reading from a string. bash has a special 
+[redirection](https://www.gnu.org/software/bash/manual/bash.html#Redirections)
+for that: `<<<"$string"`. However, that adds a newline to the end of the string. I don't want to add a newline into the reversed string. The bash builtins `echo -n` and `printf '%s'` can output a string without a newline (see
+[Why is printf better than echo?](https://unix.stackexchange.com/questions/65803/why-is-printf-better-than-echo)).
+
+bash has a feature called [Process Substitution](https://www.gnu.org/software/bash/manual/bash.html#Process-Substitution)
+-- you put some code inside `<(...)` and bash handles the output like it's a
+file
+
+That's where we get
+```bash
+while IFS= read -r -n1 line; do ...; done < <(printf '%s' "$1")
+```
 
 <!-- -->
 
