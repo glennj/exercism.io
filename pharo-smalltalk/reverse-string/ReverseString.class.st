@@ -1,3 +1,11 @@
+"
+I can take a string and reverse it.
+
+Pedantically, I can take any instance of a SequenceableCollection
+
+Example: ReverseString new reverseValue: 'hello world'  "" -> 'dlrow olleh""
+
+"
 Class {
 	#name : #ReverseString,
 	#superclass : #Object,
@@ -5,10 +13,10 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ReverseString >> reverseValue: aString [
-	^ String
-		new: (aString size)
+ReverseString >> reverseValue: input [
+	^ input species
+		new: (input size)
 		streamContents: [ :stream |
-			aString size to: 1 by: -1 do: [ :idx |
-				stream nextPut: (aString at: idx) ] ]
+			input size to: 1 by: -1 do: [ :idx |
+				stream nextPut: (input at: idx) ] ]
 ]
