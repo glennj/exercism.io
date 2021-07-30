@@ -1,0 +1,49 @@
+#!/usr/bin/env tclsh
+package require tcltest
+namespace import ::tcltest::*
+source "reverse-string.tcl"
+
+proc fail_fast {} {
+    return [expr {
+        ![info exists ::env(RUN_ALL)]
+        || [string is boolean -strict $::env(RUN_ALL)]
+        && !$::env(RUN_ALL)
+    }]
+}
+
+proc failed {} {
+    return [expr {$::tcltest::numTests(Failed) > 0}]
+}
+
+if {[fail_fast]} {
+    proc test args {
+        if {[failed]} {::tcltest::configure -skip *}
+        uplevel [list ::tcltest::test {*}$args]
+    }
+}
+
+proc cleanupTests {} {
+    set failed [failed]
+    uplevel 1 ::tcltest::cleanupTests
+    if {$failed} {exit 1}
+}
+
+if {$::argv0 eq [info script]} {
+
+    set cases {
+        reverse-string-1 "an empty string" "" ""
+        reverse-string-2 "a word" "robot" "tobor"
+        reverse-string-3 "a capitalized word" "Ramen" "nemaR"
+        reverse-string-4 "a sentence with punctuation" "I'm hungry!" "!yrgnuh m'I"
+        reverse-string-5 "a palindrome" "racecar" "racecar"
+        reverse-string-6 "an even-sized word" "drawer" "reward"
+    }
+
+    foreach {name description input output} $cases {
+        test $name $description -body {
+            stringReverse $input
+        } -returnCodes ok -result $output
+    }
+
+    cleanupTests
+}

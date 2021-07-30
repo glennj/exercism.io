@@ -27,6 +27,11 @@ proc abbreviate_findwords {phrase} {
     string toupper $acronym
 }
 
+proc abbreviate_findwords_oneliner {phrase} {
+    string toupper [join [lmap word [regexp -all -inline {[[:alpha:]][\w']*} $phrase] {string index $word 0}] ""]
+}
+
+
 # refine the above to extract each word's initial
 proc abbreviate_findinitials {phrase} {
     set regex {([[:alpha:]])[\w']*}
