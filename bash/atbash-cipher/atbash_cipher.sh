@@ -6,9 +6,6 @@ checkBashVersion 4.0 "lower-casing parameter expansion"
 readonly Alphabet=$( set -- {a..z}; IFS=""; echo "$*" )
 
 ############################################################
-decode() { echo "$1" | alnum_only | lower_case | encipher; }
-encode() { decode "$1" | chunked 5; }
-
 # Map a to z, b to y, ...
 #
 # Suppose $1 is:        X     9
@@ -21,7 +18,7 @@ cipherChar() {
     local char=${1,}
     local suffix=${Alphabet#*$char}
     local enciphered=${Alphabet:${#suffix}:1}
-    printf '%s\n' "${enciphered:-$char}"
+    printf '%s' "${enciphered:-$char}"
 }
 
 ############################################################
@@ -30,7 +27,7 @@ cipherChar() {
 
 #    alnum_only() { tr -dc '[:alnum:]'; }
 #    lower_case() { tr '[:upper:]' '[:lower:]'; }
-#    encipher()   { tr '[:lower:]' 'zyxwvutsrqponmlkjihgfedcba'; }
+#    encipher()   { tr 'a-z' 'zyxwvutsrqponmlkjihgfedcba'; }
 #    chunked()    { sed -Ee "s/.{${1:-5}}/& /g" -e 's/ $//'; }
 
 # Since I'm emulating external utilities in plain bash,
@@ -59,7 +56,7 @@ encipher() {
         # of a string is faster than a for loop.
         # Take care to use a different file descriptor.
         while IFS= read -r -n1 char <&3; do
-            printf '%s' "$(cipherChar "$char")"
+            cipherChar "$char"
         done 3< <(printf '%s' "$REPLY")
         echo
     done
@@ -76,6 +73,15 @@ chunked() {
         done
         printf '%s\n' "$chunks"
     done
+}
+
+############################################################
+decode() {
+    echo "$1" | alnum_only | lower_case | encipher
+}
+
+encode() {
+    decode "$1" | chunked 5
 }
 
 ############################################################

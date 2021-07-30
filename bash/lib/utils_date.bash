@@ -54,6 +54,12 @@ date::determineCapabilities() {
     #date::bsd() { true; }; date::exe() { /bin/date "$@"; }
     #date::bsd() { false; }
     #date::perl() { false; }
+
+    if date::gnu || date::bsd || date::perl; then
+        : # OK, good to go
+    else
+        error "I can't determine how to parse time!"
+    fi
 }
 
 ############################################################
