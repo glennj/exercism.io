@@ -1,5 +1,10 @@
 # Darts
 
+Welcome to Darts on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Write a function that returns the earned points in a single toss of a Darts game.
 
 [Darts](https://en.wikipedia.org/wiki/Darts) is a game where players
@@ -16,25 +21,16 @@ The outer circle has a radius of 10 units (This is equivalent to the total radiu
 
 Write a function that given a point in the target (defined by its `real` cartesian coordinates `x` and `y`), returns the correct amount earned by a dart landing in that point.
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh darts.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh darts.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Inspired by an exercise created by a professor Della Paolera in Argentina
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Inspired by an exercise created by a professor Della Paolera in Argentina

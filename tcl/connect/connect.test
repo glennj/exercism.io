@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 1.1.0
 package require tcltest
 namespace import ::tcltest::*
 source "connect.tcl"
@@ -30,8 +29,6 @@ proc cleanupTests {} {
 }
 
 if {$::argv0 eq [info script]} {
-
-    configure -verbose {body error msec}
 
     set cases {
         connect-1 "an empty board has no winner"

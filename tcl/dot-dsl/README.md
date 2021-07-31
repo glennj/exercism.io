@@ -1,4 +1,9 @@
-# DOT DSL
+# Dot Dsl
+
+Welcome to Dot Dsl on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 A [Domain Specific Language
 (DSL)](https://en.wikipedia.org/wiki/Domain-specific_language) is a
@@ -32,36 +37,23 @@ be an internal DSL for use only in our language.
 More information about the difference between internal and external DSLs can be
 found [here](https://martinfowler.com/bliki/DomainSpecificLanguage.html).
 
-The DOT language has a [formal specification][DOT-spec]: the tests for this
-exercise do not expect the full specification to be implemented.
+Although the DOT language has a [formal specification][DOT-spec], the tests for this exercise do not expect the full specification to be implemented.
 
-The Tcl wiki has some notes about DSLs:
-https://wiki.tcl-lang.org/page/domain-specific+language.
+The Tcl wiki has [some notes about domain-specific languages][DSL-wiki].
 
 [DOT-spec]: https://www.graphviz.org/doc/info/lang.html
-
-
-
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh dot-dsl.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh dot-dsl.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
+[DSL-wiki]: https://wiki.tcl-lang.org/page/domain-specific+language
 
 ## Source
 
-Wikipedia [https://en.wikipedia.org/wiki/DOT_(graph_description_language)](https://en.wikipedia.org/wiki/DOT_(graph_description_language))
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Wikipedia - https://en.wikipedia.org/wiki/DOT_(graph_description_language)

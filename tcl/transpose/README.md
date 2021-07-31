@@ -1,5 +1,10 @@
 # Transpose
 
+Welcome to Transpose on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given an input text output it transposed.
 
 Roughly explained, the transpose of a matrix:
@@ -58,26 +63,16 @@ In general, all characters from the input should also be present in the transpos
 That means that if a column in the input text contains only spaces on its bottom-most row(s),
 the corresponding output row should contain the spaces in its right-most column(s).
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh transpose.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh transpose.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Reddit r/dailyprogrammer challenge #270 [Easy]. [https://www.reddit.com/r/dailyprogrammer/comments/4msu2x/challenge_270_easy_transpose_the_input_text](https://www.reddit.com/r/dailyprogrammer/comments/4msu2x/challenge_270_easy_transpose_the_input_text)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Reddit r/dailyprogrammer challenge #270 [Easy]. - https://www.reddit.com/r/dailyprogrammer/comments/4msu2x/challenge_270_easy_transpose_the_input_text

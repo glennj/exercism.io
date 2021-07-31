@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 1.0.0
 package require tcltest
 namespace import ::tcltest::*
 source "diffie-hellman.tcl"
@@ -69,14 +68,21 @@ if {$::argv0 eq [info script]} {
         set publicKey [diffieHellman::publicKey $p $g $private]
     } -returnCodes ok -result 8
 
-    test dh-4 "can calculate secret key using other party's public key" -body {
+    test dh-5 "can calculate public key using aaa different privaate key" -body {
+        set p 23
+        set g 5
+        set private 15
+        set publicKey [diffieHellman::publicKey $p $g $private]
+    } -returnCodes ok -result 19
+
+    test dh-5 "can calculate secret key using other party's public key" -body {
         set p 23
         set public 19
         set private 6
         set secret [diffieHellman::secret $p $public $private]
     } -returnCodes ok -result 2
 
-    test dh-5 "key exchange" -body {
+    test dh-6 "key exchange" -body {
         set p 23
         set g 5
         set alicePrivateKey [diffieHellman::privateKey $p]

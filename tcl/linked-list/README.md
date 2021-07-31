@@ -1,5 +1,10 @@
 # Linked List
 
+Welcome to Linked List on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement a doubly linked list.
 
 Like an array, a linked list is a simple linear data structure. Several
@@ -27,26 +32,16 @@ empty list.
 
 If you want to know more about linked lists, check [Wikipedia](https://en.wikipedia.org/wiki/Linked_list).
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh linked-list.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh linked-list.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Classic computer science topic
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Classic computer science topic

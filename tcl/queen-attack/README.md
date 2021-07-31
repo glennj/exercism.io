@@ -1,5 +1,10 @@
 # Queen Attack
 
+Welcome to Queen Attack on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given the position of two queens on a chess board, indicate whether or not they
 are positioned so that they can attack each other.
 
@@ -26,26 +31,16 @@ You'd also be able to answer whether the queens can attack each other.
 In this case, that answer would be yes, they can, because both pieces
 share a diagonal.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh queen-attack.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh queen-attack.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-J Dalbey's Programming Practice problems [http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html](http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+J Dalbey's Programming Practice problems - http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html

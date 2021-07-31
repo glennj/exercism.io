@@ -1,5 +1,10 @@
 # Phone Number
 
+Welcome to Phone Number on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Clean up user-entered phone numbers so that they can be sent SMS messages.
 
 The **North American Numbering Plan (NANP)** is a telephone numbering system used by many countries in North America like the United States, Canada or Bermuda. All NANP-countries share the same international country code: `1`.
@@ -28,26 +33,16 @@ should all produce the output
 
 **Note:** As this exercise only deals with telephone numbers used in NANP-countries, only 1 is considered a valid country code.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh phone-number.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh phone-number.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Event Manager by JumpstartLab [http://tutorials.jumpstartlab.com/projects/eventmanager.html](http://tutorials.jumpstartlab.com/projects/eventmanager.html)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Event Manager by JumpstartLab - http://tutorials.jumpstartlab.com/projects/eventmanager.html

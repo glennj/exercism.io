@@ -1,5 +1,10 @@
 # Diamond
 
+Welcome to Diamond on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 The diamond kata takes as its input a letter, and outputs it in a diamond
 shape. Given a letter, it prints a diamond starting with 'A', with the
 supplied letter at the widest point.
@@ -52,26 +57,16 @@ E·······E
 ····A····
 ```
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh diamond.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh diamond.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Seb Rose [http://claysnow.co.uk/recycling-tests-in-tdd/](http://claysnow.co.uk/recycling-tests-in-tdd/)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Seb Rose - http://claysnow.co.uk/recycling-tests-in-tdd/

@@ -1,4 +1,9 @@
-# ISBN Verifier
+# Isbn Verifier
+
+Welcome to Isbn Verifier on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 The [ISBN-10 verification process](https://en.wikipedia.org/wiki/International_Standard_Book_Number) is used to validate book identification
 numbers. These normally contain dashes and look like: `3-598-21508-8`
@@ -41,25 +46,16 @@ Now, it's even trickier since the check digit of an ISBN-10 may be 'X' (represen
 
 * Generate valid ISBN, maybe even from a given starting ISBN.
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh isbn-verifier.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh isbn-verifier.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Converting a string into a number and some basic processing utilizing a relatable real world example. [https://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_check_digit_calculation](https://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_check_digit_calculation)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Converting a string into a number and some basic processing utilizing a relatable real world example. - https://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_check_digit_calculation

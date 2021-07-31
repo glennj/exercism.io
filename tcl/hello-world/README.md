@@ -1,5 +1,10 @@
 # Hello World
 
+Welcome to Hello World on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 The classical introductory exercise. Just say "Hello, World!".
 
 ["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is
@@ -14,26 +19,16 @@ The objectives are simple:
 
 If everything goes well, you will be ready to fetch your first real exercise.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh hello-world.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh hello-world.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-This is an exercise to introduce users to using Exercism [http://en.wikipedia.org/wiki/%22Hello,_world!%22_program](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program)
+### Created by
 
+- @sshine
+
+### Contributed to by
+
+- @glennj
+
+### Based on
+
+This is an exercise to introduce users to using Exercism - http://en.wikipedia.org/wiki/%22Hello,_world!%22_program

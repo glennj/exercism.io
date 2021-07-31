@@ -1,5 +1,10 @@
 # Bowling
 
+Welcome to Bowling on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Score a bowling game.
 
 Bowling is a game where players roll a heavy ball to knock down pins
@@ -60,26 +65,16 @@ support two operations:
 * `score() : int` is called only at the very end of the game.  It
   returns the total score for that game.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh bowling.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh bowling.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-The Bowling Game Kata at but UncleBob [http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata](http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+The Bowling Game Kata at but UncleBob - http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata

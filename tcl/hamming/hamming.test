@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 2.3.0
 package require tcltest
 namespace import ::tcltest::*
 source "hamming.tcl"
@@ -53,7 +52,7 @@ if {$::argv0 eq [info script]} {
     foreach {name desc first second} $errors {
         test $name $desc -body {
             hammingDistance $first $second
-        } -returnCodes error -result "left and right strands must be of equal length"
+        } -returnCodes error -result "strands must be of equal length"
     }
 
     cleanupTests

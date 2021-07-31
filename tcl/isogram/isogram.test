@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 1.7.0
 package require tcltest
 namespace import ::tcltest::*
 source "isogram.tcl"
@@ -33,7 +32,7 @@ proc booleanMatch {expected actual} {
     return [expr {
         [string is boolean -strict $expected] &&
         [string is boolean -strict $actual] &&
-        (($expected && $actual) || (!$expected && !$actual))
+        !!$expected == !!$actual
     }]
 }
 customMatch boolean booleanMatch
@@ -79,6 +78,9 @@ if {$::argv0 eq [info script]} {
 
         isogram-13 "same first and last characters"
             "angola" false
+
+        isogram-14 "word with duplicated character and with two hyphens"
+            "up-to-date" false
     }
 
     foreach {name description input result} $cases {

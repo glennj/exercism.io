@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 1.1.0
 package require tcltest
 namespace import ::tcltest::*
 source "spiral-matrix.tcl"
@@ -44,26 +43,24 @@ proc listMatch {expected actual} {
 
 if {$::argv0 eq [info script]} {
 
-    configure -verbose {body error msec}
-
     set cases {
         spiral-1 "empty spiral" 0
             {}
-        spiral-2 "trivial spiral" 1
+        spiral-1 "trivial spiral" 1
             { {1} }
-        spiral-3 "spiral of size 2" 2
+        spiral-1 "spiral of size 2" 2
             { {1 2}
               {4 3} }
-        spiral-4 "spiral of size 3" 3
+        spiral-1 "spiral of size 3" 3
             { {1 2 3}
               {8 9 4}
               {7 6 5} }
-        spiral-5 "spiral of size 4" 4
+        spiral-1 "spiral of size 4" 4
             { { 1  2  3 4}
               {12 13 14 5}
               {11 16 15 6}
               {10  9  8 7} }
-        spiral-6 "spiral of size 5" 5
+        spiral-1 "spiral of size 5" 5
             { { 1  2  3  4 5}
               {16 17 18 19 6}
               {15 24 25 20 7}
@@ -72,9 +69,9 @@ if {$::argv0 eq [info script]} {
     }
 
     foreach {name description size result} $cases {
-        test $name $description -body "
+        test $name $description -body {
             spiralMatrix $size
-        " -returnCodes ok -match list -result $result
+        } -returnCodes ok -match list -result $result
     }
 
     cleanupTests

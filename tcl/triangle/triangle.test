@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 1.2.1
 package require tcltest
 namespace import ::tcltest::*
 source "triangle.tcl"
@@ -29,14 +28,14 @@ proc cleanupTests {} {
     if {$failed} {exit 1}
 }
 
-proc booleanEqual {expected actual} {
+proc booleanMatch {expected actual} {
     return [expr {
         [string is boolean -strict $expected] &&
         [string is boolean -strict $actual] &&
-        (($expected && $actual) || (!$expected && !$actual))
+        !!$expected == !!$actual
     }]
 }
-customMatch boolean booleanEqual
+customMatch boolean booleanMatch
 
 if {$::argv0 eq [info script]} {
 
@@ -63,9 +62,9 @@ if {$::argv0 eq [info script]} {
     }
 
     foreach {name type sides result description} $cases {
-        test $name $description -body "
-            triangle::is $type {$sides}
-        " -returnCodes ok -match boolean -result $result
+        test $name $description -body {
+            triangle::is $type $sides
+        } -returnCodes ok -match boolean -result $result
     }
 
     cleanupTests

@@ -1,7 +1,6 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
-configure -verbose {error body usec}
 source "zebra-puzzle.tcl"
 
 proc fail_fast {} {

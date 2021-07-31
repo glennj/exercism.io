@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 1.1.0
 package require tcltest
 namespace import ::tcltest::*
 source "prime-factors.tcl"
@@ -34,11 +33,16 @@ if {$::argv0 eq [info script]} {
     set cases {
         pf-1 "no factors" 1 {}
         pf-2 "prime number" 2 {2}
-        pf-3 "square of a prime" 9 {3 3}
-        pf-4 "cube of a prime" 8 {2 2 2}
-        pf-5 "product of primes and non-primes" 12 {2 2 3}
-        pf-6 "product of primes" 901255 {5 17 23 461}
-        pf-7 "factors include a large prime" 93819012551 {11 9539 894119}
+        pr-3 "another prime number" 3 {3}
+        pf-4 "square of a prime" 9 {3 3}
+        pf-5 "product of first prime" 4 {2 2}
+        pf-6 "cube of a prime" 8 {2 2 2}
+        pf-7 "product of second prime" 27 {3 3 3}
+        pf-8 "product of third prime" 625 {5 5 5 5}
+        pf-9 "product of first and second prime" 6 {2 3}
+        pf-10 "product of primes and non-primes" 12 {2 2 3}
+        pf-11 "product of primes" 901255 {5 17 23 461}
+        pf-11 "factors include a large prime" 93819012551 {11 9539 894119}
     }
 
     foreach {name description number primes} $cases {

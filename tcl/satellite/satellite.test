@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 2.0.0
 package require tcltest
 namespace import ::tcltest::*
 source "satellite.tcl"

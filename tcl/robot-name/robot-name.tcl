@@ -1,4 +1,4 @@
-package require Itcl
+package require itcl
 
 # incr Tcl has 
 # * class variables => "common"

@@ -2,7 +2,6 @@
 set version null
 package require tcltest
 namespace import ::tcltest::*
-configure -verbose {error body usec}
 source "square-root.tcl"
 
 proc fail_fast {} {

@@ -1,5 +1,10 @@
 # Knapsack
 
+Welcome to Knapsack on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 In this exercise, let's try to solve a classic problem.
 
 Bob is a thief. After months of careful planning, he finally manages to
@@ -36,26 +41,16 @@ In this example, Bob should take the second and fourth item to maximize his
 value, which, in this case, is 90. He cannot get more than 90 as his
 knapsack has a weight limit of 10.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh knapsack.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh knapsack.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Wikipedia [https://en.wikipedia.org/wiki/Knapsack_problem](https://en.wikipedia.org/wiki/Knapsack_problem)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Wikipedia - https://en.wikipedia.org/wiki/Knapsack_problem

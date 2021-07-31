@@ -1,5 +1,10 @@
 # All Your Base
 
+Welcome to All Your Base on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Convert a number, represented as a sequence of digits in one base, to any other base.
 
 Implement general base conversion. Given a number in base **a**,
@@ -31,24 +36,12 @@ I think you got the idea!
 
 *Yes. Those three numbers above are exactly the same. Congratulations!*
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh all-your-base.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh all-your-base.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
+### Created by
+
+- @glennj
+
+### Contributed to by
+
+- @sshine

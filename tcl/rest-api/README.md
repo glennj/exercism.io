@@ -1,14 +1,19 @@
 # Rest Api
 
+Welcome to Rest Api on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement a RESTful API for tracking IOUs.
 
 Four roommates have a habit of borrowing money from each other frequently, and have trouble remembering who owes whom, and how much.
 
 Your task is to implement a simple [RESTful API](https://en.wikipedia.org/wiki/Representational_state_transfer) that receives [IOU](https://en.wikipedia.org/wiki/IOU)s as POST requests, and can deliver specified summary information via GET requests.
 
-### API Specification
+## API Specification
 
-#### User object
+### User object
 ```json
 {
   "name": "Adam",
@@ -25,7 +30,7 @@ Your task is to implement a simple [RESTful API](https://en.wikipedia.org/wiki/R
 }
 ```
 
-#### Methods
+### Methods
 
 | Description | HTTP Method | URL | Payload Format | Response w/o Payload | Response w/ Payload |
 | --- | --- | --- | --- | --- | --- |
@@ -33,29 +38,18 @@ Your task is to implement a simple [RESTful API](https://en.wikipedia.org/wiki/R
 | Create user | POST | /add | `{"user":<name of new user (unique)>}` | N/A | `<User object for new user>` |
 | Create IOU | POST | /iou | `{"lender":<name of lender>,"borrower":<name of borrower>,"amount":5.25}` | N/A | `{"users":<updated User objects for <lender> and <borrower> (sorted by name)>}` |
 
-### Other Resources:
+## Other Resources:
 - https://restfulapi.net/
 - Example RESTful APIs
   - [GitHub](https://developer.github.com/v3/)
   - [Reddit](https://www.reddit.com/dev/api/)
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh rest-api.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh rest-api.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
+### Created by
+
+- @glennj
+
+### Contributed to by
+
+- @sshine

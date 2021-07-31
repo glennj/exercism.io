@@ -1,5 +1,10 @@
 # Resistor Color Trio
 
+Welcome to Resistor Color Trio on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 If you want to build something using a Raspberry Pi, you'll probably use _resistors_. For this exercise, you need to know only three things about them:
 
 - Each resistor has a resistance value.
@@ -44,26 +49,16 @@ So an input of `"orange", "orange", "orange"` should return:
 
 > "33 kiloohms"
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh resistor-color-trio.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh resistor-color-trio.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Maud de Vries, Erik Schierboom [https://github.com/exercism/problem-specifications/issues/1549](https://github.com/exercism/problem-specifications/issues/1549)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Maud de Vries, Erik Schierboom - https://github.com/exercism/problem-specifications/issues/1549

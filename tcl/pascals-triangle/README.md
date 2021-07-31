@@ -1,4 +1,9 @@
-# Pascal's Triangle
+# Pascals Triangle
+
+Welcome to Pascals Triangle on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 Compute Pascal's triangle up to a given number of rows.
 
@@ -14,26 +19,16 @@ the right and left of the current position in the previous row.
 # ... etc
 ```
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh pascals-triangle.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh pascals-triangle.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Pascal's Triangle at Wolfram Math World [http://mathworld.wolfram.com/PascalsTriangle.html](http://mathworld.wolfram.com/PascalsTriangle.html)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Pascal's Triangle at Wolfram Math World - http://mathworld.wolfram.com/PascalsTriangle.html

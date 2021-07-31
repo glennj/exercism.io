@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 2.4.0
 package require tcltest
 namespace import ::tcltest::*
 source "list-ops.tcl"
@@ -33,30 +32,14 @@ if {$::argv0 eq [info script]} {
 
     set appendCases {
         list-ops-1.1 "append empty lists" {} {} {}
-        list-ops-1.1 "append empty list to list" {} {1 2 3 4} {1 2 3 4}
-        list-ops-1.1 "append non-empty lists" {1 2} {2 3 4 5} {1 2 2 3 4 5}
+        list-ops-1.2 "append list to empty list" {} {1 2 3 4} {1 2 3 4}
+        list-ops-1.3 "append empty list to list" {1 2 3 4} {} {1 2 3 4}
+        list-ops-1.4 "append non-empty lists" {1 2} {2 3 4 5} {1 2 2 3 4 5}
     }
-
     foreach {name description list1 list2 result} $appendCases {
         test $name $description -body {
             listOps::append list1 $list2
             set list1
-        } -returnCodes ok -result $result
-    }
-
-    set foldlCases {
-        list-ops-6.1 "foldl empty list" {} 2 {{x y} {expr {$x * $y}}} 2
-        list-ops-6.2
-            "foldl direction independent function applied to non-empty list"
-            {1 2 3 4} 5 {{x y} {expr {$x + $y}}} 15
-        list-ops-6.3
-            "foldl direction dependent function applied to non-empty list"
-            {2 5} 5 {{x y} {expr {$x / $y}}} 0
-    }
-
-    foreach {name description list initial func result} $foldlCases {
-        test $name $description -body {
-            listOps::foldl $list $initial $func
         } -returnCodes ok -result $result
     }
 
@@ -108,6 +91,23 @@ if {$::argv0 eq [info script]} {
         } -returnCodes ok -result $result
     }
 
+    set foldlCases {
+        list-ops-6.1 "foldl empty list" 
+            {} 2 {{acc elem} {expr {$acc * $elem}}} 2
+        list-ops-6.2
+            "foldl direction independent function applied to non-empty list"
+            {1 2 3 4} 5 {{acc elem} {expr {$acc + $elem}}} 15
+        list-ops-6.3
+            "foldl direction dependent function applied to non-empty list"
+            {2 5} 5 {{acc elem} {expr {$acc / $elem}}} 0
+    }
+
+    foreach {name description list initial func result} $foldlCases {
+        test $name $description -body {
+            listOps::foldl $list $initial $func
+        } -returnCodes ok -result $result
+    }
+
     set reverseCases {
         list-ops-7.1 "reverse empty list" {} {}
         list-ops-7.2 "reverse non-empty list" {1 3 5 7} {7 5 3 1}
@@ -123,14 +123,15 @@ if {$::argv0 eq [info script]} {
     }
 
     set foldrCases {
-        list-ops-8.1 "foldr empty list" {} 2 {{x y} {expr {$x * $y}}} 2
+        list-ops-8.1 "foldr empty list"
+            {} 2 {{elem acc} {expr {$elem * $acc}}} 2
         list-ops-8.2
           "foldr direction independent function applied to non-empty list"
-          {1 2 3 4} 5 {{x y} {expr {$x + $y}}}
+          {1 2 3 4} 5 {{elem acc} {expr {$elem + $acc}}}
           15
         list-ops-8.3
           "foldr direction dependent function applied to non-empty list"
-          {2 5} 5 {{x y} {expr {$x / $y}}} 2
+          {1 2 3 4} 24.0 {{elem acc} {expr {1.0 * $elem / $acc}}} 9.0
     }
 
     foreach {name description list initial func result} $foldrCases {

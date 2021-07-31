@@ -1,5 +1,10 @@
 # Diffie Hellman
 
+Welcome to Diffie Hellman on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Diffie-Hellman key exchange.
 
 Alice and Bob use Diffie-Hellman key exchange to share secrets.  They
@@ -37,26 +42,16 @@ Bob calculates
 The calculations produce the same result!  Alice and Bob now share
 secret s.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh diffie-hellman.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh diffie-hellman.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Wikipedia, 1024 bit key from www.cryptopp.com/wiki. [http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange](http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Wikipedia, 1024 bit key from www.cryptopp.com/wiki. - http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange

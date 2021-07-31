@@ -1,4 +1,9 @@
-# POV
+# Pov
+
+Welcome to Pov on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 Reparent a graph on a selected node.
 
@@ -37,26 +42,16 @@ a different leaf node) can be seen to follow the path 6-2-0-3-9
 This exercise involves taking an input graph and re-orientating it from the point
 of view of one of the nodes.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh pov.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh pov.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Adaptation of exercise from 4clojure [https://www.4clojure.com/](https://www.4clojure.com/)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Adaptation of exercise from 4clojure - https://www.4clojure.com/

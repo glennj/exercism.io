@@ -1,5 +1,10 @@
 # List Ops
 
+Welcome to List Ops on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement basic list operations.
 
 In functional languages list operations like `length`, `map`, and
@@ -18,8 +23,6 @@ operations you will implement include:
 * `foldl` (*given a function, a list, and initial accumulator, fold (reduce) each item into the accumulator from the left using `function(accumulator, item)`*);
 * `foldr` (*given a function, a list, and an initial accumulator, fold (reduce) each item into the accumulator from the right using `function(item, accumulator)`*);
 * `reverse` (*given a list, return a list with all the original items, but in reversed order*);
-
-## The Tcl `apply` command
 
 The test cases may look confusing. You are expected to implement this: 
 ```tcl
@@ -59,25 +62,12 @@ Using `apply` makes it simpler to pass around blocks of code.
 Ref: [`apply`](https://tcl.tk/man/tcl8.6/TclCmd/apply.htm),
 [`proc`](https://tcl.tk/man/tcl8.6/TclCmd/proc.htm).
 
-
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh list-ops.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh list-ops.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
+### Created by
+
+- @glennj
+
+### Contributed to by
+
+- @sshine

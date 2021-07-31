@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 2.7.0
 package require tcltest
 namespace import ::tcltest::*
 source "isbn-verifier.tcl"

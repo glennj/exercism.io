@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 1.2.0
 package require tcltest
 namespace import ::tcltest::*
 source "pig-latin.tcl"

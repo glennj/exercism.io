@@ -1,5 +1,10 @@
 # Allergies
 
+Welcome to Allergies on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given a person's allergy score, determine whether or not they're allergic to a given item, and their full list of allergies.
 
 An allergy test produces a single numeric score which contains the
@@ -29,26 +34,16 @@ allergens that score 256, 512, 1024, etc.).  Your program should
 ignore those components of the score.  For example, if the allergy
 score is 257, your program should only report the eggs (1) allergy.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh allergies.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh allergies.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Jumpstart Lab Warm-up [http://jumpstartlab.com](http://jumpstartlab.com)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Jumpstart Lab Warm-up - http://jumpstartlab.com

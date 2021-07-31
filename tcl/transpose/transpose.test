@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 1.1.0
 package require tcltest
 namespace import ::tcltest::*
 source "transpose.tcl"
@@ -186,6 +185,22 @@ if {$::argv0 eq [info script]} {
             "   SER"
             "    ER"
             "     R"
+        }
+
+        transpose-12 "jagged triangle" {
+            "11"
+            "2"
+            "3333"
+            "444"
+            "555555"
+            "66666"
+        } {
+            "123456"
+            "1 3456"
+            "  3456"
+            "  3 56"
+            "    56"
+            "    5"
         }
     }
 

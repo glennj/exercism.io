@@ -1,5 +1,10 @@
 # React
 
+Welcome to React on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement a basic reactive system.
 
 Reactive programming is a programming paradigm that focuses on how values
@@ -15,24 +20,12 @@ In addition, compute cells should allow for registering change notification
 callbacks.  Call a cell’s callbacks when the cell’s value in a new stable
 state has changed from the previous stable state.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh react.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh react.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
+### Created by
+
+- @glennj
+
+### Contributed to by
+
+- @sshine

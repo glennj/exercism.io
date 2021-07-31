@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 1.4.0
 package require tcltest
 namespace import ::tcltest::*
 source "two-bucket.tcl"
@@ -47,43 +46,68 @@ proc dictionaryMatch {expected actual} {
 customMatch dictionary dictionaryMatch
 
 if {$::argv0 eq [info script]} {
+    configure -verbose {body error msec}
 
     set cases {
         two-bucket-1
         "Measure using bucket one of size 3 and bucket two of size 5 - start with bucket one"
         { bucketOne 3 bucketTwo 5 goal 1 startBucket one }
         { moves 4 goalBucket one otherBucket 5 }
+        ok dictionary
 
         two-bucket-2
         "Measure using bucket one of size 3 and bucket two of size 5 - start with bucket two"
         { bucketOne 3 bucketTwo 5 goal 1 startBucket two }
         { moves 8 goalBucket two otherBucket 3 }
+        ok dictionary
 
         two-bucket-3
         "Measure using bucket one of size 7 and bucket two of size 11 - start with bucket one"
         { bucketOne 7 bucketTwo 11 goal 2 startBucket one }
         { moves 14 goalBucket one otherBucket 11 }
+        ok dictionary
 
         two-bucket-4
         "Measure using bucket one of size 7 and bucket two of size 11 - start with bucket two"
         { bucketOne 7 bucketTwo 11 goal 2 startBucket two }
         { moves 18 goalBucket two otherBucket 7 }
+        ok dictionary
 
         two-bucket-5
         "Measure one step using bucket one of size 2 and bucket two of size 3 - start with bucket two"
         { bucketOne 2 bucketTwo 3 goal 3 startBucket two }
         { moves 1 goalBucket two otherBucket 0 }
+        ok dictionary
 
         two-bucket-6
         "Measure using bucket one of size 2 and bucket two of size 3 - start with bucket one and end with bucket two"
         { bucketOne 2 bucketTwo 3 goal 3 startBucket one }
         { moves 2 goalBucket two otherBucket 2 }
+        ok dictionary
+
+        two-bucket-7
+        "Not possible to reach the goal"
+        { bucketOne 6 bucketTwo 15 goal 5 startBucket one }
+        "*impossible*"
+        error glob
+
+        two-bucket-8
+        "With the same buckets but a different goal, then it is possible"
+        { bucketOne 6 bucketTwo 15 goal 9 startBucket one }
+        { moves 10 goalBucket two otherBucket 0 }
+        ok dictionary
+
+        two-bucket-9
+        "Goal larger than both buckets is impossible"
+        { bucketOne 5 bucketTwo 7 goal 8 startBucket one }
+        "*impossible*"
+        error glob
     }
 
-    foreach {name description input result} $cases {
+    foreach {name description input result returnCode matchType} $cases {
         test $name $description -body {
             twoBucket $input
-        } -returnCodes ok -match dictionary -result $result
+        } -returnCodes $returnCode -match $matchType -result $result
     }
 
     cleanupTests

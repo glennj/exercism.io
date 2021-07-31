@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 1.6.1
 package require tcltest
 namespace import ::tcltest::*
 source "luhn.tcl"
@@ -29,14 +28,14 @@ proc cleanupTests {} {
     if {$failed} {exit 1}
 }
 
-proc booleanEqual {expected actual} {
+proc booleanMatch {expected actual} {
     return [expr {
         [string is boolean -strict $expected] &&
         [string is boolean -strict $actual] &&
-        (($expected && $actual) || (!$expected && !$actual))
+        !!$expected == !!$actual
     }]
 }
-customMatch boolean booleanEqual
+customMatch boolean booleanMatch
 
 if {$::argv0 eq [info script]} {
 
@@ -58,6 +57,8 @@ if {$::argv0 eq [info script]} {
         luhn-15 "091"                 true  "input digit 9 is correctly converted to output digit 9"
         luhn-16 "055b 444 285"        false "using ascii value for non-doubled non-digit isn't allowed"
         luhn-17 ":9"                  false "using ascii value for doubled non-digit isn't allowed"
+        luhn-18 "1 2345 6789 1234 5678 9012" false "invalid long number with an even remainder"
+        luhn-19 "59%59"               false "non-numeric, non-space char in the middle with a sum that's divisible by 10 isn't allowed"
     }
 
     foreach {name input result description} $cases {

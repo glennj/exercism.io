@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 2.0.0
 package require tcltest
 namespace import ::tcltest::*
 source "simple-cipher.tcl"
@@ -30,7 +29,6 @@ proc cleanupTests {} {
 }
 
 if {$::argv0 eq [info script]} {
-    configure -verbose {body error msec}
 
     # Using a randomly generated key
 
@@ -42,7 +40,7 @@ if {$::argv0 eq [info script]} {
         expr {$actual eq $expected}
     } -returnCodes ok -result 1
 
-    test simple-cipher-1.2 "Random key: Can encode" -body {
+    test simple-cipher-1.2 "Random key: Can decode" -body {
         set cipher [SimpleCipher new]
         set expected "aaaaaaaaaa"
         set plaintext [string range [$cipher key] 0 [string length $expected]-1]

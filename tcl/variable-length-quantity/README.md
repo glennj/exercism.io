@@ -1,5 +1,10 @@
 # Variable Length Quantity
 
+Welcome to Variable Length Quantity on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement variable length quantity encoding and decoding.
 
 The goal of this exercise is to implement [VLQ](https://en.wikipedia.org/wiki/Variable-length_quantity) encoding/decoding.
@@ -31,26 +36,16 @@ Here are examples of integers as 32-bit values, and the variable length quantiti
 0FFFFFFF          FF FF FF 7F
 ```
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh variable-length-quantity.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh variable-length-quantity.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-A poor Splice developer having to implement MIDI encoding/decoding. [https://splice.com](https://splice.com)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+A poor Splice developer having to implement MIDI encoding/decoding. - https://splice.com

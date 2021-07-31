@@ -1,5 +1,10 @@
 # Strain
 
+Welcome to Strain on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement the `keep` and `discard` operation on collections. Given a collection
 and a predicate on the collection's elements, `keep` returns a new collection
 containing those elements where the predicate is true, while `discard` returns
@@ -33,25 +38,16 @@ Keep your hands off that filter/reject/whatchamacallit functionality
 provided by your standard library!  Solve this one yourself using other
 basic tools instead.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh strain.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh strain.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Conversation with James Edward Gray II [https://twitter.com/jeg2](https://twitter.com/jeg2)
+### Created by
+
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Conversation with James Edward Gray II - https://twitter.com/jeg2

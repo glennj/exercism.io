@@ -1,5 +1,10 @@
 # Markdown
 
+Welcome to Markdown on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Refactor a Markdown parser.
 
 The markdown exercise is a refactoring exercise. There is code that parses a
@@ -14,24 +19,12 @@ It would be helpful if you made notes of what you did in your refactoring in
 comments so reviewers can see that, but it isn't strictly necessary. The most
 important thing is to make the code better!
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh markdown.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh markdown.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
+### Created by
+
+- @glennj
+
+### Contributed to by
+
+- @sshine

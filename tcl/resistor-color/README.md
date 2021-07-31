@@ -1,6 +1,22 @@
 # Resistor Color
 
-Resistors have color coded bands, where each color maps to a number. The first 2 bands of a resistor have a simple encoding scheme: each color maps to a single number.
+Welcome to Resistor Color on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
+If you want to build something using a Raspberry Pi, you'll probably use _resistors_.
+For this exercise, you need to know two things about them:
+
+* Each resistor has a resistance value.
+* Resistors are small - so small in fact that if you printed the resistance value on them, it would be hard to read.
+
+To get around this problem, manufacturers print color-coded bands onto the resistors to denote their resistance values.
+Each band has a position and a numeric value.
+
+The first 2 bands of a resistor have a simple encoding scheme: each color maps to a single number.
+
+In this exercise you are going to create a helpful program so that you don't have to remember the values of the bands.
 
 These colors are encoded as follows:
 
@@ -23,26 +39,16 @@ Mnemonics map the colors to the numbers, that, when stored as an array, happen t
 
 More information on the color encoding of resistors can be found in the [Electronic color code Wikipedia article](https://en.wikipedia.org/wiki/Electronic_color_code)
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh resistor-color.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh resistor-color.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Maud de Vries, Erik Schierboom [https://github.com/exercism/problem-specifications/issues/1458](https://github.com/exercism/problem-specifications/issues/1458)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Maud de Vries, Erik Schierboom - https://github.com/exercism/problem-specifications/issues/1458

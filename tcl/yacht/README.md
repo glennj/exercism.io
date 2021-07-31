@@ -1,6 +1,9 @@
 # Yacht
 
-# Score a single throw of dice in *Yacht*
+Welcome to Yacht on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 The dice game [Yacht](https://en.wikipedia.org/wiki/Yacht_(dice_game)) is from
 the same family as Poker Dice, Generala and particularly Yahtzee, of which it
@@ -36,26 +39,16 @@ of the category your solution should return 0. You can assume that five values
 will always be presented, and the value of each will be between one and six
 inclusively. You should not assume that the dice are ordered.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh yacht.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh yacht.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-James Kilfiger, using wikipedia [https://en.wikipedia.org/wiki/Yacht_(dice_game)](https://en.wikipedia.org/wiki/Yacht_(dice_game))
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+James Kilfiger, using wikipedia - https://en.wikipedia.org/wiki/Yacht_(dice_game)

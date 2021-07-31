@@ -1,5 +1,10 @@
 # Food Chain
 
+Welcome to Food Chain on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Generate the lyrics of the song 'I Know an Old Lady Who Swallowed a Fly'.
 
 While you could copy/paste the lyrics,
@@ -63,26 +68,16 @@ I know an old lady who swallowed a horse.
 She's dead, of course!
 ```
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh food-chain.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh food-chain.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Wikipedia [http://en.wikipedia.org/wiki/There_Was_an_Old_Lady_Who_Swallowed_a_Fly](http://en.wikipedia.org/wiki/There_Was_an_Old_Lady_Who_Swallowed_a_Fly)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Wikipedia - http://en.wikipedia.org/wiki/There_Was_an_Old_Lady_Who_Swallowed_a_Fly

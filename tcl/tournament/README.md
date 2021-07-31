@@ -1,5 +1,10 @@
 # Tournament
 
+Welcome to Tournament on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Tally the results of a small football competition.
 
 Based on an input file containing which team played against which and what the
@@ -25,9 +30,7 @@ A win earns a team 3 points. A draw earns 1. A loss earns 0.
 
 The outcome should be ordered by points, descending. In case of a tie, teams are ordered alphabetically.
 
-###
-
-Input
+## Input
 
 Your tallying program will receive input that looks like:
 
@@ -40,13 +43,13 @@ Blithering Badgers;Devastating Donkeys;loss
 Allegoric Alaskans;Courageous Californians;win
 ```
 
-The result of the match refers to the first team listed. So this line
+The result of the match refers to the first team listed. So this line:
 
 ```text
 Allegoric Alaskans;Blithering Badgers;win
 ```
 
-Means that the Allegoric Alaskans beat the Blithering Badgers.
+means that the Allegoric Alaskans beat the Blithering Badgers.
 
 This line:
 
@@ -54,7 +57,7 @@ This line:
 Courageous Californians;Blithering Badgers;loss
 ```
 
-Means that the Blithering Badgers beat the Courageous Californians.
+means that the Blithering Badgers beat the Courageous Californians.
 
 And this line:
 
@@ -62,26 +65,14 @@ And this line:
 Devastating Donkeys;Courageous Californians;draw
 ```
 
-Means that the Devastating Donkeys and Courageous Californians tied.
-
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh tournament.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh tournament.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
+means that the Devastating Donkeys and Courageous Californians tied.
 
 ## Source
 
+### Created by
+
+- @glennj
+
+### Contributed to by
+
+- @sshine

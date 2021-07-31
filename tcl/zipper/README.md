@@ -1,5 +1,10 @@
 # Zipper
 
+Welcome to Zipper on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Creating a zipper for a binary tree.
 
 [Zippers](https://en.wikipedia.org/wiki/Zipper_%28data_structure%29) are
@@ -27,29 +32,14 @@ list of child nodes) a zipper might support these operations:
   `next` node if possible otherwise to the `prev` node if possible,
   otherwise to the parent node, returns a new zipper)
 
-## Scope
-
 You'll find a Tree class already implemented for you. Your task is to write the Zipper class.
-
-
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh zipper.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh zipper.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
 
 ## Source
 
+### Created by
+
+- @glennj
+
+### Contributed to by
+
+- @sshine

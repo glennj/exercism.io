@@ -1,5 +1,10 @@
 # Bank Account
 
+Welcome to Bank Account on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Simulate a bank account supporting opening/closing, withdrawals, and deposits
 of money. Watch out for concurrent transactions!
 
@@ -26,8 +31,6 @@ it.
 
 Have fun!
 
-## Threads
-
 This exercises introduces threads to test how robust your bank account is 
 for concurrent operations. Some reading material for Tcl threads:
 
@@ -40,25 +43,12 @@ copyright 2003 © Brent Welch, Ken Jones
     * Note, this chapter states "Most binary distributions of Tcl are not thread-enabled". This is no longer the case: Tcl distributions are now built with thread support (ref [TIP 364](https://core.tcl-lang.org/tips/doc/trunk/tip/364.md))
 * [Thread Package Commands](https://tcl.tk/man/tcl8.6/ThreadCmd/contents.htm) from the Tcl documentation.
 
-
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh bank-account.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh bank-account.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
+### Created by
+
+- @glennj
+
+### Contributed to by
+
+- @sshine

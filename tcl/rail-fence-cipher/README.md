@@ -1,5 +1,10 @@
 # Rail Fence Cipher
 
+Welcome to Rail Fence Cipher on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement encoding and decoding for the rail fence cipher.
 
 The Rail Fence cipher is a form of transposition cipher that gets its name from
@@ -58,26 +63,16 @@ W . . . E . . . C . . . R . . . L . . . T . . . E
 
 If you now read along the zig-zag shape you can read the original message.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh rail-fence-cipher.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh rail-fence-cipher.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Wikipedia [https://en.wikipedia.org/wiki/Transposition_cipher#Rail_Fence_cipher](https://en.wikipedia.org/wiki/Transposition_cipher#Rail_Fence_cipher)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Wikipedia - https://en.wikipedia.org/wiki/Transposition_cipher#Rail_Fence_cipher

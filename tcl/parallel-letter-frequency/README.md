@@ -1,13 +1,16 @@
 # Parallel Letter Frequency
 
+Welcome to Parallel Letter Frequency on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Count the frequency of letters in texts using parallel computation.
 
 Parallelism is about doing things in parallel that can also be done
 sequentially. A common example is counting the frequency of letters.
 Create a function that returns the total frequency of each letter in a
 list of texts and that employs parallelism.
-
-## Threads
 
 You'll implement parallelism with threads: subdivide the input into chunks
 that code running in a thread can examine asynchronously. 
@@ -23,25 +26,12 @@ copyright 2003 © Brent Welch, Ken Jones
     * Note, this chapter states "Most binary distributions of Tcl are not thread-enabled". This is no longer the case: Tcl distributions are now built with thread support (ref [TIP 364](https://core.tcl-lang.org/tips/doc/trunk/tip/364.md))
 * [Thread Package Commands](https://tcl.tk/man/tcl8.6/ThreadCmd/contents.htm) from the Tcl documentation.
 
-
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh parallel-letter-frequency.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh parallel-letter-frequency.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
+### Created by
+
+- @glennj
+
+### Contributed to by
+
+- @sshine

@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 1.5.0
 package require tcltest
 namespace import ::tcltest::*
 source "anagram.tcl"
@@ -33,7 +32,7 @@ if {$::argv0 eq [info script]} {
 
     set cases {
         anagram-1 "no matches" diaper {hello world zombies pants} {} 
-        anagram-2 "detects two anagrams" master {stream pigeon maters} {stream maters} 
+        anagram-2 "detects two anagrams" solemn {lemons cherry melons} {lemons melons}
         anagram-3 "does not detect anagram subsets" good {dog goody} {} 
         anagram-4 "detects anagram" listen {enlists google inlets banana} {inlets} 
         anagram-5 "detects three anagrams" allergy { gallery ballerina regally clergy largely leading } {gallery regally largely} 

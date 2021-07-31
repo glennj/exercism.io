@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 1.1.0
 package require tcltest
 namespace import ::tcltest::*
 source "dnd-character.tcl"
@@ -28,6 +27,15 @@ proc cleanupTests {} {
     uplevel 1 ::tcltest::cleanupTests
     if {$failed} {exit 1}
 }
+
+proc booleanMatch {expected actual} {
+    return [expr {
+        [string is boolean -strict $expected] &&
+        [string is boolean -strict $actual] &&
+        !!$expected == !!$actual
+    }]
+}
+customMatch boolean booleanMatch
 
 if {$::argv0 eq [info script]} {
 
@@ -68,12 +76,29 @@ if {$::argv0 eq [info script]} {
         set result
     } -returnCodes ok -result true
 
-    test dnd-18 "a character has the correct attributes" -body {
+    test dnd-18 "a character is a well-formed dict" -body {
+        set character [dnd character]
+        expr {[string is list -strict $character] && [llength $character] % 2 == 0}
+    } -returnCodes ok \
+      -match boolean \
+      -result true
+
+    test dnd-19 "a character has the correct attributes" -body {
         set character [dnd character]
         lsort [dict keys $character]
     } -returnCodes ok -result {charisma constitution dexterity hitpoints intelligence strength wisdom}
 
-    test dnd-19 "characteristics have the correct values" -body {
+    test dnd-20 "each ability is only calculated once" -body {
+        set character [dnd character]
+        # pretend it's not a dict
+        set counts {}
+        foreach {name value} $character {
+            dict incr counts $name
+        }
+        lsort -stride 2 -index 0 $counts
+    } -returnCodes ok -result {charisma 1 constitution 1 dexterity 1 hitpoints 1 intelligence 1 strength 1 wisdom 1}
+
+    test dnd-21 "characteristics have the correct values" -body {
         set character [dnd character]
         dict with character {
             expr {

@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 0.1.0
 package require tcltest
 namespace import ::tcltest::*
 source "bank-account.tcl"
@@ -30,9 +29,6 @@ proc cleanupTests {} {
 }
 
 if {$::argv0 eq [info script]} {
-
-    configure -verbose {error body usec}
-
     test bank-account-1 "newly opened account has zero balance" -body {
         set account [BankAccount new]
         $account open
@@ -134,7 +130,7 @@ if {$::argv0 eq [info script]} {
 
     test bank-account-15 "adjust balance concurrently" -body {
         # In this style of using Tcl threads, we don't need
-        # to make any # thread-specific adjustments to the
+        # to make any thread-specific adjustments to the
         # BankAccount class: passing messages between threads
         # does all the locking for us transparently.
 
@@ -143,7 +139,6 @@ if {$::argv0 eq [info script]} {
         BankAccount create theAccount
         theAccount open
         theAccount deposit 123
-        set withdrawals 0
 
         # Create 1000 worker threads
         for {set i 0} {$i < 1000} {incr i} {
@@ -156,8 +151,9 @@ if {$::argv0 eq [info script]} {
                     after [expr {int(10 * rand())}]
                     thread::send -async $acctThread {
                         theAccount withdraw 5
-                        incr withdrawals
                     }
+                    # now that I've done the work, release me
+                    thread::release
                 }
                 thread::wait
             }]
@@ -170,14 +166,7 @@ if {$::argv0 eq [info script]} {
 
         # Reap them
         foreach thread $threads {
-            thread::release $thread
-        }
-
-        # Ensure all the messaging is complete:
-        # We expect the withdrawals variable to be written to 1000 times,
-        # once by each worker thread.
-        for {set i 0} {$i < 1000} {incr i} {
-            vwait withdrawals
+            thread::join $thread
         }
 
         theAccount balance

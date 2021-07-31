@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 1.7.1
 package require tcltest
 namespace import ::tcltest::*
 source "forth.tcl"
@@ -108,8 +107,10 @@ if {$::argv0 eq [info script]} {
             ": foo 5 ;\n: bar foo ;\n: foo 6 ;\nbar foo" ok {5 6}
         forth-38 "can define word that uses word with the same name"
             ": foo 10 ;\n: foo foo 1 + ;\nfoo" ok {11}
-        forth-39 "cannot redefine numbers"
+        forth-39a "cannot redefine non-negative numbers"
             ": 1 2 ;" error "illegal operation"
+        forth-39b "cannot redefine negative numbers"
+            ": -1 2 ;" error "illegal operation"
         forth-40 "errors if executing a non-existent word"
             "foo" error "undefined operation"
         forth-41 "DUP is case-insensitive"

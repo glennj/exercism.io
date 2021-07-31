@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 2.0.0
 package require tcltest
 namespace import ::tcltest::*
 source "react.tcl"
@@ -43,7 +42,6 @@ proc orderedListsMatch {expected actual} {
 customMatch listsMatch orderedListsMatch
 
 if {$::argv0 eq [info script]} {
-    configure -verbose {body error msec}
 
     test react-1 "input cells have a value" -body {
         set cell [InputCell new 10]

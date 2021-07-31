@@ -1,5 +1,10 @@
 # Two Bucket
 
+Welcome to Two Bucket on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given two buckets of different size, demonstrate how to measure an exact number of liters by strategically transferring liters of fluid between the buckets.
 
 Since this mathematical problem is fairly subject to interpretation / individual approach, the tests have been written specifically to expect one overarching solution.
@@ -23,32 +28,22 @@ Example:
 Bucket one can hold up to 7 liters, and bucket two can hold up to 11 liters. Let's say bucket one, at a given step, is holding 7 liters, and bucket two is holding 8 liters (7,8). If you empty bucket one and make no change to bucket two, leaving you with 0 liters and 8 liters respectively (0,8), that counts as one "move". Instead, if you had poured from bucket one into bucket two until bucket two was full, leaving you with 4 liters in bucket one and 11 liters in bucket two (4,11), that would count as only one "move" as well.
 
 To conclude, the only valid moves are:
-- pouring from one bucket to another
-- emptying one bucket and doing nothing to the other
-- filling one bucket and doing nothing to the other
+- pouring from either bucket to another
+- emptying either bucket and doing nothing to the other
+- filling either bucket and doing nothing to the other
 
 Written with <3 at [Fullstack Academy](http://www.fullstackacademy.com/) by Lindsay Levine.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh two-bucket.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh two-bucket.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Water Pouring Problem [http://demonstrations.wolfram.com/WaterPouringProblem/](http://demonstrations.wolfram.com/WaterPouringProblem/)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Water Pouring Problem - http://demonstrations.wolfram.com/WaterPouringProblem/

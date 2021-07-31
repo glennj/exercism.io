@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 2.4.1
 package require tcltest
 namespace import ::tcltest::*
 source "clock.tcl"

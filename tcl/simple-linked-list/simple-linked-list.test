@@ -1,5 +1,4 @@
 #!/usr/bin/env tclsh
-set version 0.1.0
 package require tcltest
 namespace import ::tcltest::*
 source "simple-linked-list.tcl"

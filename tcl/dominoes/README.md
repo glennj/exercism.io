@@ -1,5 +1,10 @@
 # Dominoes
 
+Welcome to Dominoes on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Make a chain of dominoes.
 
 Compute a way to order a given set of dominoes in such a way that they form a
@@ -14,24 +19,12 @@ For stones `[1|2]`, `[4|1]` and `[2|3]` the resulting chain is not valid: `[4|1]
 
 Some test cases may use duplicate stones in a chain solution, assume that multiple Domino sets are being used.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh dominoes.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh dominoes.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
+### Created by
+
+- @glennj
+
+### Contributed to by
+
+- @sshine

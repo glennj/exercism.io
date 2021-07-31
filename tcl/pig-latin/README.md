@@ -1,5 +1,10 @@
 # Pig Latin
 
+Welcome to Pig Latin on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement a program that translates from English to Pig Latin.
 
 Pig Latin is a made-up children's language that's intended to be
@@ -17,25 +22,16 @@ variants too.
 
 See <http://en.wikipedia.org/wiki/Pig_latin> for more details.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh pig-latin.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh pig-latin.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-The Pig Latin exercise at Test First Teaching by Ultrasaurus [https://github.com/ultrasaurus/test-first-teaching/blob/master/learn_ruby/pig_latin/](https://github.com/ultrasaurus/test-first-teaching/blob/master/learn_ruby/pig_latin/)
+### Created by
+
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+The Pig Latin exercise at Test First Teaching by Ultrasaurus - https://github.com/ultrasaurus/test-first-teaching/blob/master/learn_ruby/pig_latin/

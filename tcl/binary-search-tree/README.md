@@ -1,5 +1,10 @@
 # Binary Search Tree
 
+Welcome to Binary Search Tree on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Insert and search for numbers in a binary tree.
 
 When we need to represent sorted data, an array does not make a good
@@ -53,26 +58,16 @@ And if we then added 1, 5, and 7, it would look like this
      / \     / \
     1   3   5   7
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh binary-search-tree.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh binary-search-tree.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Josh Cheek [https://twitter.com/josh_cheek](https://twitter.com/josh_cheek)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Josh Cheek - https://twitter.com/josh_cheek

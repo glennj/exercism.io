@@ -1,5 +1,10 @@
 # Simple Cipher
 
+Welcome to Simple Cipher on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement a simple shift cipher like Caesar and a more secure substitution cipher.
 
 ## Step 1
@@ -61,7 +66,7 @@ substitution cipher a little more fault tolerant by providing a source
 of randomness and ensuring that the key contains only lowercase letters.
 
 If someone doesn't submit a key at all, generate a truly random key of
-at least 100 alphanumeric characters in length.
+at least 100 lowercase characters in length.
 
 ## Extensions
 
@@ -78,26 +83,16 @@ on Wikipedia][dh] for one of the first implementations of this scheme.
 [1]: https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Caesar_cipher_left_shift_of_3.svg/320px-Caesar_cipher_left_shift_of_3.svg.png
 [dh]: http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh simple-cipher.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh simple-cipher.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Substitution Cipher at Wikipedia [http://en.wikipedia.org/wiki/Substitution_cipher](http://en.wikipedia.org/wiki/Substitution_cipher)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Substitution Cipher at Wikipedia - http://en.wikipedia.org/wiki/Substitution_cipher

@@ -1,5 +1,10 @@
 # Meetup
 
+Welcome to Meetup on Exercism's Tcl Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Calculate the date of meetups.
 
 Typically meetups happen on the same day of the week.  In this exercise, you
@@ -26,26 +31,16 @@ Given examples of a meetup dates, each containing a month, day, year, and
 descriptor calculate the date of the actual meetup.  For example, if given
 "The first Monday of January 2017", the correct meetup date is 2017/1/2.
 
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
-
-## Running the tests
-To run the test suite, execute one of the following commands:
-
-```bash
-tclsh meetup.test            # Will stop testing after the first failure.
-RUN_ALL=1 tclsh meetup.test  # Will run all tests and report all failures.
-```
-
-## Feedback, Issues, Pull Requests
-The [exercism/tcl](https://github.com/exercism/tcl) repository on GitHub is
-the home for all of the Tcl exercises on Exercism.
-
-If you have feedback about an exercise, or want to help implementing a new
-one, head over there and create an issue.  We'll do our best to help you!
-
 ## Source
 
-Jeremy Hinegardner mentioned a Boulder meetup that happens on the Wednesteenth of every month [https://twitter.com/copiousfreetime](https://twitter.com/copiousfreetime)
+### Created by
 
+- @glennj
+
+### Contributed to by
+
+- @sshine
+
+### Based on
+
+Jeremy Hinegardner mentioned a Boulder meetup that happens on the Wednesteenth of every month - https://twitter.com/copiousfreetime
