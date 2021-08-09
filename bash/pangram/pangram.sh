@@ -3,30 +3,42 @@
 source ../lib/utils.bash
 checkBashVersion "4.0" "case conversion"
 
+# ordered by least-frequent usage:
+# https://en.wikipedia.org/wiki/Letter_frequency
+readonly Alphabet="ZQXJKVBPYGFWMUCLDRHSNIOATE"
+
 test_set_size() {
     local -A letters
-    local -l sentence=${1//[^[:alpha:]]/}
 
     for ((i = 0; i < ${#sentence}; i++)); do
         letters[${sentence:i:1}]=1
     done
+
     ((${#letters[@]} == 26)) && echo true || echo false
 }
 
 check_each_letter() {
-    local -u sentence=$1
-
-    # ordered by least-frequent usage:
-    # https://en.wikipedia.org/wiki/Letter_frequency
-
-    for c in Z Q X J K V B P Y G F W M U C L D R H S N I O A T E; do
-        if [[ ! $sentence =~ $c ]]; then
+    local letter
+    while IFS= read -r -n1 letter; do
+        if [[ ! $sentence =~ $letter ]]; then
             echo false
             return
         fi
-    done
+    done < <(printf '%s' "$Alphabet")
     echo true
 }
 
-#test_set_size "$1"
-check_each_letter "$1"
+main() {
+    local -u sentence=$1
+    sentence=${sentence//[^${Alphabet}]/}
+
+    if ((${#sentence} < 26)); then
+        # cannot possibly contain all letters
+        echo false
+    else
+        #test_set_size
+        check_each_letter
+    fi
+}
+
+main "$@"
