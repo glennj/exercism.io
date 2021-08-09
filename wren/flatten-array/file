@@ -1,0 +1,9 @@
+# Foo
+# Bar
+
+# Comment about rule on the next line
+RULE_A
+
+# Comment about rule on the next line
+# Continuation of comment
+RULE_B
