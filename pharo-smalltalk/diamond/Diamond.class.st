@@ -19,12 +19,12 @@ Diamond >> rowsLetter: letterString [
 
 	($A to: letter) withIndexDo: [ :char :i |
 		| halfRow row |
-		"build the top half"
+		"the right-hand half"
 		halfRow := spaces copy.
 		halfRow at: i put: char.
 		"the whole row"
 		row :=  halfRow allButFirst reversed , halfRow.
-		"add the row to the array in both hemispheres"
+		"add the row to the array into both hemispheres"
 		rows at: i put: row.
 		rows at: (2 * size - i) put: row ].
 
