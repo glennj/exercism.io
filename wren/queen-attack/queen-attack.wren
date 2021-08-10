@@ -49,7 +49,12 @@ class ChessPosition {
   y { _y }
   toList { [x,y] }
 
-  ==(other) { type == other.type && x == other.x && y == other.y }
+  ==(other) { 
+    return  Object.same(this, other) ||
+            ( type == other.type &&
+              x == other.x &&
+              y == other.y )
+  }
 
   valid { (0..7).contains(x) && (0..7).contains(y) }
 }
