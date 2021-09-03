@@ -7,16 +7,16 @@ Testie.test("Resistor Color") { |do, skip|
       Expect.value(Resistor.colorCode("black")).toEqual(0)
     }
 
-    do.test("White") {
+    skip.test("White") {
       Expect.value(Resistor.colorCode("white")).toEqual(9)
     }
 
-    do.test("Orange") {
+    skip.test("Orange") {
       Expect.value(Resistor.colorCode("orange")).toEqual(3)
     }
   }
 
-  do.test("Colors") {
+  skip.test("Colors") {
     Expect.value(COLORS).toEqual([
       "black",
       "brown",

@@ -10,28 +10,28 @@ Testie.test("Beer Song") { |do, skip|
       ])
     }
 
-    do.test("last generic verse") {
+    skip.test("last generic verse") {
       Expect.value(BeerSong.recite(3, 1)).toEqual([
         "3 bottles of beer on the wall, 3 bottles of beer.",
         "Take one down and pass it around, 2 bottles of beer on the wall.",
       ])
     }
 
-    do.test("verse with 2 bottles") {
+    skip.test("verse with 2 bottles") {
       Expect.value(BeerSong.recite(2, 1)).toEqual([
         "2 bottles of beer on the wall, 2 bottles of beer.",
         "Take one down and pass it around, 1 bottle of beer on the wall.",
       ])
     }
 
-    do.test("verse with 1 bottle") {
+    skip.test("verse with 1 bottle") {
       Expect.value(BeerSong.recite(1, 1)).toEqual([
         "1 bottle of beer on the wall, 1 bottle of beer.",
         "Take it down and pass it around, no more bottles of beer on the wall.",
       ])
     }
 
-    do.test("verse with 0 bottles") {
+    skip.test("verse with 0 bottles") {
       Expect.value(BeerSong.recite(0, 1)).toEqual([
         "No more bottles of beer on the wall, no more bottles of beer.",
         "Go to the store and buy some more, 99 bottles of beer on the wall.",
@@ -40,7 +40,7 @@ Testie.test("Beer Song") { |do, skip|
   }
 
   do.describe("multiple verses") {
-    do.test("first two verses") {
+    skip.test("first two verses") {
       Expect.value(BeerSong.recite(99, 2)).toEqual([
         "99 bottles of beer on the wall, 99 bottles of beer.",
         "Take one down and pass it around, 98 bottles of beer on the wall.",
@@ -50,7 +50,7 @@ Testie.test("Beer Song") { |do, skip|
       ])
     }
 
-    do.test("last three verses") {
+    skip.test("last three verses") {
       Expect.value(BeerSong.recite(2, 3)).toEqual([
         "2 bottles of beer on the wall, 2 bottles of beer.",
         "Take one down and pass it around, 1 bottle of beer on the wall.",
@@ -63,7 +63,7 @@ Testie.test("Beer Song") { |do, skip|
       ])
     }
 
-    do.test("all verses") {
+    skip.test("all verses") {
       Expect.value(BeerSong.recite(99, 100)).toEqual([
         "99 bottles of beer on the wall, 99 bottles of beer.",
         "Take one down and pass it around, 98 bottles of beer on the wall.",

@@ -38,9 +38,9 @@ It's possible to submit an incomplete solution which allows you to:
 
 If you'd like help solving the exercise, check the following pages:
 
-- The [Wren track's documentation](https://exercism.io/docs/tracks/wren)
+- The [Wren track's documentation](https://exercism.org/docs/tracks/wren)
 - [Exercism's support channel on gitter](https://gitter.im/exercism/support)
-- The [Frequently Asked Questions](https://exercism.io/docs/faq) TODO: (Required) use correct link
+- The [Frequently Asked Questions](https://exercism.org/docs/using/faqs)
 
 Should those resources not suffice, you could submit your (incomplete) solution to request mentoring.
 

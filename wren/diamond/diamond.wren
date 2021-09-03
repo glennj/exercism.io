@@ -1,5 +1,3 @@
-import "./reverse-string" for StringUtil
-
 var A = "A".bytes[0]
 
 class Diamond {
@@ -28,4 +26,8 @@ class Diamond {
       return rows
     }
   }
+}
+
+class StringUtil {
+  static reverse(s) { s.reduce([]) {|rev, c| [c] + rev}.join() }
 }

@@ -3,7 +3,7 @@ class ForthStack {
     _list = []
   }
 
-  toList { _list }
+  toList { _list[0..-1] }
 
   push(elem) { _list.add(elem) }
   pop()      { _list.removeAt(-1) }
@@ -20,9 +20,15 @@ class ForthStack {
     push(pop() + pop())
   }
 
+  negate() {
+    need(1)
+    push(pop() * -1)
+  }
+
   sub() { 
     need(2)
-    push(pop() * -1 + pop())
+    negate()
+    add()
   }
 
   mul() { 
@@ -32,9 +38,9 @@ class ForthStack {
 
   div() {
     need(2)
-    var a = pop()
-    if (a == 0) Fiber.abort("Division by zero")
-    push((pop() / a).floor)
+    var divisor = pop()
+    if (divisor == 0) Fiber.abort("Division by zero")
+    push((pop() / divisor).floor)
   }
 
   dup() {

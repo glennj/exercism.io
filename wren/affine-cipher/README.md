@@ -1,6 +1,6 @@
-# Affice Cipher
+# Affine Cipher
 
-Welcome to Affice Cipher on Exercism's Wren Track.
+Welcome to Affine Cipher on Exercism's Wren Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions

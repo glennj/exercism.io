@@ -8,18 +8,12 @@ var ALLERGENS = [
     "pollen",
     "cats",
 ]
-
+//
 class Allergies {
   construct new(value) {
-    _allergens = (0...ALLERGENS.count).reduce([]) {|list, i|
-      if (((value >> i) & 1) == 1) {
-        list.add(ALLERGENS[i])
-      }
-      return list
-    }
+    _allergens = (0...ALLERGENS.count).where {|i| ((value >> i) & 1) == 1}
+                                      .map   {|i| ALLERGENS[i]}
   }
-
-  list() {_allergens}
-
+  list() {_allergens.toList}
   allergicTo(name) {_allergens.contains(name)}
 }

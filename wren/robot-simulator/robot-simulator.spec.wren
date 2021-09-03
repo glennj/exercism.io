@@ -21,14 +21,14 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.bearing).toEqual("north")
     }
 
-    do.test("facing east") {
+    skip.test("facing east") {
       var robot = Robot.new()
       robot.place({ "direction": "east", "x": 0, "y": 0 })
 
       Expect.value(robot.bearing).toEqual("east")
     }
 
-    do.test("facing west, at origin") {
+    skip.test("facing west, at origin") {
       var robot = Robot.new()
       robot.place({ "direction": "west", "x": 0, "y": 0 })
 
@@ -36,7 +36,7 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.coordinates).toEqual([0, 0])
     }
 
-    do.test("at negative position facing south") {
+    skip.test("at negative position facing south") {
       var robot = Robot.new()
       robot.place({ "direction": "south", "x": -1, "y": -1 })
 
@@ -47,7 +47,7 @@ Testie.test("Robot") { |do, skip|
 
   do.describe("Rotating clockwise") {
 
-    do.test("changes north to east") {
+    skip.test("changes north to east") {
       var robot = Robot.new()
       robot.place({ "direction": "north", "x": 0, "y": 0 })
 
@@ -57,7 +57,7 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.coordinates).toEqual([0, 0])
     }
 
-    do.test("changes east to south") {
+    skip.test("changes east to south") {
       var robot = Robot.new()
       robot.place({ "direction": "east", "x": 0, "y": 0 })
 
@@ -67,7 +67,7 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.coordinates).toEqual([0, 0])
     }
 
-    do.test("changes south to west") {
+    skip.test("changes south to west") {
       var robot = Robot.new()
       robot.place({ "direction": "south", "x": 0, "y": 0 })
 
@@ -77,7 +77,7 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.coordinates).toEqual([0, 0])
     }
 
-    do.test("changes west to north") {
+    skip.test("changes west to north") {
       var robot = Robot.new()
       robot.place({ "direction": "west", "x": 0, "y": 0 })
 
@@ -90,7 +90,7 @@ Testie.test("Robot") { |do, skip|
 
   do.describe("Rotating counter-clockwise") {
 
-    do.test("changes north to west") {
+    skip.test("changes north to west") {
       var robot = Robot.new()
       robot.place({ "direction": "north", "x": 0, "y": 0 })
 
@@ -100,7 +100,7 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.coordinates).toEqual([0, 0])
     }
 
-    do.test("changes west to south") {
+    skip.test("changes west to south") {
       var robot = Robot.new()
       robot.place({ "direction": "west", "x": 0, "y": 0 })
 
@@ -110,7 +110,7 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.coordinates).toEqual([0, 0])
     }
 
-    do.test("changes south to east") {
+    skip.test("changes south to east") {
       var robot = Robot.new()
       robot.place({ "direction": "south", "x": 0, "y": 0 })
 
@@ -120,7 +120,7 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.coordinates).toEqual([0, 0])
     }
 
-    do.test("changes east to north") {
+    skip.test("changes east to north") {
       var robot = Robot.new()
       robot.place({ "direction": "east", "x": 0, "y": 0 })
 
@@ -132,7 +132,7 @@ Testie.test("Robot") { |do, skip|
   }
 
   do.describe("Moving forward one") {
-    do.test("advance when facing north") {
+    skip.test("advance when facing north") {
       var robot = Robot.new()
       robot.place({ "direction": "north", "x": 0, "y": 0 })
 
@@ -142,7 +142,7 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.bearing).toEqual("north")
     }
 
-    do.test("advance when facing south") {
+    skip.test("advance when facing south") {
       var robot = Robot.new()
       robot.place({ "direction": "south", "x": 0, "y": 0 })
 
@@ -152,7 +152,7 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.bearing).toEqual("south")
     }
 
-    do.test("advance when facing east") {
+    skip.test("advance when facing east") {
       var robot = Robot.new()
       robot.place({ "direction": "east", "x": 0, "y": 0 })
 
@@ -162,7 +162,7 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.bearing).toEqual("east")
     }
 
-    do.test("advance when facing west") {
+    skip.test("advance when facing west") {
       var robot = Robot.new()
       robot.place({ "direction": "west", "x": 0, "y": 0 })
 
@@ -175,7 +175,7 @@ Testie.test("Robot") { |do, skip|
 
   do.describe("Follow series of instructions") {
 
-    do.test("moving east and north from README") {
+    skip.test("moving east and north from README") {
       var robot = Robot.new()
       robot.place({ "x": 7, "y": 3, "direction": "north" })
 
@@ -185,7 +185,7 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.bearing).toEqual("west")
     }
 
-    do.test("moving west and north") {
+    skip.test("moving west and north") {
       var robot = Robot.new()
       robot.place({ "x": 0, "y": 0, "direction": "north" })
 
@@ -195,7 +195,7 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.bearing).toEqual("west")
     }
 
-    do.test("moving west and south") {
+    skip.test("moving west and south") {
       var robot = Robot.new()
       robot.place({ "x": 2, "y": -7, "direction": "east" })
 
@@ -205,7 +205,7 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.bearing).toEqual("south")
     }
 
-    do.test("moving east and north") {
+    skip.test("moving east and north") {
       var robot = Robot.new()
       robot.place({ "x": 8, "y": 4, "direction": "south" })
 
@@ -215,7 +215,7 @@ Testie.test("Robot") { |do, skip|
       Expect.value(robot.bearing).toEqual("north")
     }
 
-    do.test("instruct many robots") {
+    skip.test("instruct many robots") {
       var robot1 = Robot.new()
       var robot2 = Robot.new()
       var robot3 = Robot.new()
@@ -239,14 +239,14 @@ Testie.test("Robot") { |do, skip|
   }
 
   do.describe("Error handling") {
-    do.test("invalid robot bearing") {
+    skip.test("invalid robot bearing") {
       var robot = Robot.new()
       Expect.that {
         robot.place({ "direction": "crood", "x": 0, "y": 0 })
       }.abortsWith("Invalid input")
     }
 
-    do.test("invalid instruction") {
+    skip.test("invalid instruction") {
       var robot = Robot.new()
       Expect.that {
         robot.evaluate("LAX")
