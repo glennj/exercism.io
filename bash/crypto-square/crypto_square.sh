@@ -2,7 +2,7 @@
 
 # external tools: perl
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.1 "'printf -v array[index]'"
 
 # remove non-alphanumeric chars from input and store as lowercase

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
-source ../lib/utils_string.bash
+source ./utils.bash
+source ./utils_string.bash
 
 ############################################################
 # This uses a single call to bc.
@@ -49,7 +49,7 @@ score_throw_bc() {
 #
 score_throw_bash_only() {
     checkBashVersion 4.3 namerefs
-    source ../lib/utils_math.bash
+    source ./utils_math.bash
 
     local x=$1 y=$2
     local -i exp=0

@@ -1,5 +1,10 @@
 # Affine Cipher
 
+Welcome to Affine Cipher on Exercism's Bash Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Create an implementation of the affine cipher,
 an ancient encryption system created in the Middle East.
 
@@ -10,14 +15,14 @@ its new numeric value. Although all monoalphabetic ciphers are weak,
 the affine cypher is much stronger than the atbash cipher,
 because it has many more keys.
 
-the encryption function is:
+The encryption function is:
 
   `E(x) = (ax + b) mod m`
   -  where `x` is the letter's index from 0 - length of alphabet - 1
   -  `m` is the length of the alphabet. For the roman alphabet `m == 26`.
   -  and `a` and `b` make the key
 
-the decryption function is:
+The decryption function is:
 
   `D(y) = a^-1(y - b) mod m`
   -  where `y` is the numeric value of an encrypted letter, ie. `y = E(x)`
@@ -47,7 +52,7 @@ Ciphertext is written out in groups of fixed length, the traditional group
 size being 5 letters, and punctuation is excluded. This is to make it
 harder to guess things based on word boundaries.
 
-## Examples
+## General Examples
 
  - Encoding `test` gives `ybty` with the key a=5 b=7
  - Decoding `ybty` gives `test` with the key a=5 b=7
@@ -58,7 +63,7 @@ harder to guess things based on word boundaries.
    - gives `Error: a and m must be coprime.`
    - because a and m are not relatively prime
 
-### Examples of finding a Modular Multiplicative Inverse (MMI)
+## Examples of finding a Modular Multiplicative Inverse (MMI)
 
   - simple example:
     - `9 mod 26 = 9`
@@ -69,48 +74,20 @@ harder to guess things based on word boundaries.
     - `15 * 7 mod 26 = 105 mod 26 = 1`
     - `7` is the MMI of `15 mod 26`
 
-
-Run the tests with:
-
-```bash
-bats affine_cipher_test.sh
-```
-
-After the first test(s) pass, continue by commenting out or removing the
-`[[ $BATS_RUN_SKIPPED == true ]] || skip` 
-annotations prepending other tests.
-
-To run all tests, including the ones with `skip` annotations, run:
-
-```bash
-BATS_RUN_SKIPPED=true bats affine_cipher_test.sh
-```
-
 ## Source
 
-Wikipedia [http://en.wikipedia.org/wiki/Affine_cipher](http://en.wikipedia.org/wiki/Affine_cipher)
+### Created by
 
+- @guygastineau
 
-## External utilities
-`Bash` is a language to write "scripts" -- programs that can call
-external tools, such as
-[`sed`](https://www.gnu.org/software/sed/),
-[`awk`](https://www.gnu.org/software/gawk/),
-[`date`](https://www.gnu.org/software/coreutils/manual/html_node/date-invocation.html)
-and even programs written in other programming languages, 
-like [`Python`](https://www.python.org/).
-This track does not restrict the usage of these utilities, and as long
-as your solution is portable between systems and does not require
-installation of third party applications, feel free to use them to solve
-the exercise.
+### Contributed to by
 
-For an extra challenge, if you would like to have a better understanding
-of the language, try to re-implement the solution in pure `Bash`,
-without using any external tools. Note that there are some types of
-problems that bash cannot solve, such as performing floating point
-arithmetic and manipulating dates: for those, you must call out to an
-external tool.
+- @bkhl
+- @budmc29
+- @glennj
+- @IsaacG
+- @kotp
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others
-have completed the exercise.
+### Based on
+
+Wikipedia - http://en.wikipedia.org/wiki/Affine_cipher

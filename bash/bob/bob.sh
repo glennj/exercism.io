@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../lib/utils_string.bash
+source ./utils_string.bash
 
 # Yelling: contains a letter and no lower-case letters
 

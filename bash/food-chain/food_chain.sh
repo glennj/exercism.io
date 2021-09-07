@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.0 "associative arrays"
 
 declare -ra beasts=(fly spider bird cat dog goat cow horse)

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.0 "lower-casing parameter expansion"
 
 readonly Alphabet=$( set -- {a..z}; IFS=""; echo "$*" )

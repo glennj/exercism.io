@@ -1,5 +1,10 @@
 # Hello World
 
+Welcome to Hello World on Exercism's Bash Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 The classical introductory exercise. Just say "Hello, World!".
 
 ["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is
@@ -13,8 +18,6 @@ The objectives are simple:
 - Submit your solution and check it at the website.
 
 If everything goes well, you will be ready to fetch your first real exercise.
-
-# Welcome to Bash!
 
 Unlike many other languages here, bash is a bit of a special snowflake.
 If you are on a Mac or other unix-y platform, you almost definitely
@@ -41,7 +44,7 @@ install it from your favorite package manager, on OS X with homebrew
 this would look something like this:
 
 ```
-$ brew install bats
+$ brew install bats-core
 ==> Downloading
 https://github.com/bats-core/bats-core/archive/v1.2.0.tar.gz
 ==> Downloading from
@@ -53,49 +56,28 @@ https://codeload.github.com/bats-core/bats-core/tar.gz/v1.2.0
 seconds
 ```
 
-
-
-Run the tests with:
-
-```bash
-bats hello_world_test.sh
-```
-
-After the first test(s) pass, continue by commenting out or removing the
-`[[ $BATS_RUN_SKIPPED == true ]] || skip` 
-annotations prepending other tests.
-
-To run all tests, including the ones with `skip` annotations, run:
-
-```bash
-BATS_RUN_SKIPPED=true bats hello_world_test.sh
-```
-
 ## Source
 
-This is an exercise to introduce users to using Exercism [http://en.wikipedia.org/wiki/%22Hello,_world!%22_program](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program)
+### Contributed to by
 
+- @adelcambre
+- @bkhl
+- @budmc29
+- @coreygo
+- @glennj
+- @guygastineau
+- @IsaacG
+- @kenden
+- @kotp
+- @kytrinyx
+- @MattLewin
+- @platinumthinker
+- @quartzinquartz
+- @rootulp
+- @sjwarner-bp
+- @Smarticles101
+- @ZapAnton
 
-## External utilities
-`Bash` is a language to write "scripts" -- programs that can call
-external tools, such as
-[`sed`](https://www.gnu.org/software/sed/),
-[`awk`](https://www.gnu.org/software/gawk/),
-[`date`](https://www.gnu.org/software/coreutils/manual/html_node/date-invocation.html)
-and even programs written in other programming languages, 
-like [`Python`](https://www.python.org/).
-This track does not restrict the usage of these utilities, and as long
-as your solution is portable between systems and does not require
-installation of third party applications, feel free to use them to solve
-the exercise.
+### Based on
 
-For an extra challenge, if you would like to have a better understanding
-of the language, try to re-implement the solution in pure `Bash`,
-without using any external tools. Note that there are some types of
-problems that bash cannot solve, such as performing floating point
-arithmetic and manipulating dates: for those, you must call out to an
-external tool.
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others
-have completed the exercise.
+This is an exercise to introduce users to using Exercism - http://en.wikipedia.org/wiki/%22Hello,_world!%22_program

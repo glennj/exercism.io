@@ -2,7 +2,7 @@
 #
 # inspired by @DERPSQUID9
 
-source ../lib/utils_math.bash
+source ./utils_math.bash
 
 # sum: n(n+1)/2
 square_of_sum=$((($2 * ($2 + 1) / 2) ** 2))

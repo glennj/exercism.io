@@ -1,17 +1,9 @@
 #!/usr/bin/env bash
 
-# works with: bash 3.2.57 and up
+source ./utils.bash
+checkBashVersion 4.0 "uppercase parameter expansion"
 
 shopt -s extglob
-
-
-toUpper() {
-    if [[ ${BASH_VERSINFO[0]} -le 3 ]]; then
-        echo "$*" | tr '[:lower:]' '[:upper:]'
-    else
-        echo "${*^^}"
-    fi
-}
 
 
 # first approach, split the input into words, using
@@ -37,7 +29,7 @@ word_splitting() {
     ##    acronym+=${word:0:1}
     ##done
 
-    toUpper "$acronym"
+    echo "${acronym^^}"
 }
 
 
@@ -54,7 +46,7 @@ state_machine() {
             # state "A": looking for the next alpha
             # character to add to the acronym
             A)  if [[ $char == [[:alpha:]] ]]; then
-                    acronym+=$char
+                    acronym+=${char^}
                     state="N"
                 fi
                 ;;
@@ -70,7 +62,7 @@ state_machine() {
 
     done <<< "$1"
 
-    toUpper "$acronym"
+    echo "$acronym"
 }
 
 
@@ -82,7 +74,7 @@ state_machine() {
 regex_matching() {
 
     # Adding a leading non-letter simplifies the regex a bit.
-    # Remove apostrophes from the input.
+    # Remove apostrphoes from the input.
     local phrase=">${1//"'"/}"
     local result
 
@@ -91,7 +83,7 @@ regex_matching() {
         phrase=${BASH_REMATCH[1]}
     done
 
-    toUpper "$result"
+    echo "${result^^}"
 }
 
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../lib/utils.bash    # `assert`
+source ./utils.bash    # `assert`
 
 main() {
     local -i from_base=$1

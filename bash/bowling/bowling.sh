@@ -7,8 +7,8 @@
 # https://exercism.io/tracks/bash/exercises/bowling/solutions/7274e7c161b04100962835bae63ea518
 #
 
-source ../lib/utils.bash
-source ../lib/utils_math.bash
+source ./utils.bash
+source ./utils_math.bash
 checkBashVersion 4.3 namerefs
 
 # global vars

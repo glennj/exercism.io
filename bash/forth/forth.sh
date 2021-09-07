@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.3 "stacks (namerefs)"
-source ../lib/utils_string.bash
-source ../lib/utils_stack.bash
+source ./utils_string.bash
+source ./utils_stack.bash
 
 # I'm going to be using unquoted variables to take advantage
 # of word splitting. Disable filename expansion.

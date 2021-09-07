@@ -7,7 +7,7 @@
 # Ensure we're not polluted by environment variables
 unset {A..Z}
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.0 "case conversion"
 
 declare -u char     # upper case

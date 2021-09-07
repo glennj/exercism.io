@@ -2,78 +2,38 @@
 Benchmarking 'total'
 
 Benchmark #1: bc total
-  Time (mean ± σ):      15.2 ms ±   1.6 ms    [User: 4.2 ms, System: 5.6 ms]
-  Range (min … max):    13.5 ms …  21.5 ms    102 runs
+  Time (mean ± σ):      35.7 ms ±   7.9 ms    [User: 6.1 ms, System: 8.0 ms]
+  Range (min … max):    29.1 ms …  59.1 ms    38 runs
  
 Benchmark #2: hardcoded total
-  Time (mean ± σ):       8.1 ms ±   1.0 ms    [User: 2.0 ms, System: 2.4 ms]
-  Range (min … max):     6.8 ms …  10.5 ms    146 runs
+  Time (mean ± σ):      26.9 ms ±   5.7 ms    [User: 4.2 ms, System: 4.7 ms]
+  Range (min … max):    12.0 ms …  32.9 ms    60 runs
  
 Benchmark #3: bash_only total
-  Time (mean ± σ):     390.2 ms ±   5.5 ms    [User: 197.0 ms, System: 226.0 ms]
-  Range (min … max):   379.0 ms … 398.3 ms    10 runs
+  Time (mean ± σ):     560.3 ms ±  25.0 ms    [User: 249.0 ms, System: 338.4 ms]
+  Range (min … max):   495.4 ms … 590.5 ms    10 runs
  
 Summary
   'hardcoded total' ran
-    1.87 ± 0.31 times faster than 'bc total'
-   47.88 ± 6.07 times faster than 'bash_only total'
+    1.33 ± 0.41 times faster than 'bc total'
+   20.80 ± 4.50 times faster than 'bash_only total'
 
 ===================================
 Benchmarking 'square 63'
 
 Benchmark #1: bc 63
-  Time (mean ± σ):      15.1 ms ±   1.5 ms    [User: 3.8 ms, System: 5.5 ms]
-  Range (min … max):    12.6 ms …  18.5 ms    106 runs
+  Time (mean ± σ):      34.4 ms ±   3.9 ms    [User: 5.5 ms, System: 8.0 ms]
+  Range (min … max):    30.7 ms …  58.3 ms    51 runs
  
 Benchmark #2: hardcoded 63
-  Time (mean ± σ):       8.3 ms ±   1.3 ms    [User: 2.0 ms, System: 2.4 ms]
-  Range (min … max):     6.6 ms …  13.5 ms    134 runs
+  Time (mean ± σ):      31.9 ms ±   3.9 ms    [User: 4.6 ms, System: 5.8 ms]
+  Range (min … max):    15.2 ms …  36.1 ms    68 runs
  
 Benchmark #3: bash_only 63
-  Time (mean ± σ):     273.1 ms ± 177.7 ms    [User: 106.5 ms, System: 126.5 ms]
-  Range (min … max):   197.9 ms … 840.3 ms    13 runs
+  Time (mean ± σ):     296.7 ms ±   9.7 ms    [User: 127.2 ms, System: 174.7 ms]
+  Range (min … max):   277.9 ms … 309.1 ms    10 runs
  
 Summary
   'hardcoded 63' ran
-    1.82 ± 0.33 times faster than 'bc 63'
-   32.93 ± 22.00 times faster than 'bash_only 63'
-
-===================================
-Benchmarking 'square 2'
-
-Benchmark #1: bc 2
-  Time (mean ± σ):      15.2 ms ±   1.7 ms    [User: 3.8 ms, System: 5.6 ms]
-  Range (min … max):    12.7 ms …  18.4 ms    98 runs
- 
-Benchmark #2: hardcoded 2
-  Time (mean ± σ):       8.1 ms ±   1.3 ms    [User: 2.0 ms, System: 2.4 ms]
-  Range (min … max):     6.5 ms …  12.1 ms    155 runs
- 
-Benchmark #3: bash_only 2
-  Time (mean ± σ):      22.3 ms ±   3.4 ms    [User: 6.1 ms, System: 7.7 ms]
-  Range (min … max):    18.4 ms …  45.6 ms    83 runs
- 
-Summary
-  'hardcoded 2' ran
-    1.89 ± 0.36 times faster than 'bc 2'
-    2.77 ± 0.61 times faster than 'bash_only 2'
-
-===================================
-Benchmarking error case
-
-Benchmark #1: bc 65
-  Time (mean ± σ):       9.4 ms ±   1.2 ms    [User: 2.3 ms, System: 2.9 ms]
-  Range (min … max):     6.9 ms …  11.4 ms    132 runs
- 
-Benchmark #2: hardcoded 65
-  Time (mean ± σ):       9.3 ms ±   0.9 ms    [User: 2.3 ms, System: 2.8 ms]
-  Range (min … max):     7.1 ms …  11.6 ms    129 runs
- 
-Benchmark #3: bash_only 65
-  Time (mean ± σ):      19.8 ms ±   0.7 ms    [User: 4.8 ms, System: 5.9 ms]
-  Range (min … max):    17.2 ms …  22.4 ms    97 runs
- 
-Summary
-  'hardcoded 65' ran
-    1.01 ± 0.17 times faster than 'bc 65'
-    2.12 ± 0.23 times faster than 'bash_only 65'
+    1.08 ± 0.18 times faster than 'bc 63'
+    9.30 ± 1.19 times faster than 'bash_only 63'

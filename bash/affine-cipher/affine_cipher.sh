@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.0 "associative arrays"
-source ../lib/utils_math.bash
+source ./utils_math.bash
 
 declare -A alphaIdx
 declare -a alphabet

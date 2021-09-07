@@ -2,7 +2,7 @@
 
 # external tools: grep, sort, paste
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.0 "lower-case conversion"
 
 sorted() {

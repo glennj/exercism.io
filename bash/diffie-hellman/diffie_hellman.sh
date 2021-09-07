@@ -3,9 +3,9 @@
 # Input gets validate as ints, quoting is not a problem
 # shellcheck disable=SC2086
 
-source ../lib/utils.bash
-source ../lib/utils_math.bash
-source ../lib/utils_string.bash
+source ./utils.bash
+source ./utils_math.bash
+source ./utils_string.bash
 
 privateKey() { math::rand 2 $1; }
 publicKey()  { powmod $2 $3 $1; }

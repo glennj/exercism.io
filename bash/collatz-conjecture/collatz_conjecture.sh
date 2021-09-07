@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
-source ../lib/utils_string.bash
+source ./utils.bash
+source ./utils_string.bash
 
 if (($# != 1)) || ! str::isInt "$1" || (($1 <= 0)); then
     die "Error: Only positive numbers are allowed"

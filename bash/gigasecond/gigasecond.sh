@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
-source ../lib/utils_date.bash
+source ./utils.bash
+source ./utils_date.bash
 
 readonly gigasecond=1000000000
 readonly format="%Y-%m-%dT%H:%M:%S"

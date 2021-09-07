@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
-source ../lib/utils_string.bash
-source ../lib/utils_math.bash
+source ./utils.bash
+source ./utils_string.bash
+source ./utils_math.bash
 
 main() {
     assert "$# == 2 || $# == 4" "invalid arguments"
