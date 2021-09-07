@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
+source ./utils.bash
 
 series=$1
 declare -i span=$2

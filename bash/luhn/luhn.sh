@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
+source ./utils.bash
 
 luhn() {
     local num=$1

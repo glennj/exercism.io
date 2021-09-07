@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../lib/utils.bash    # `assert`
+source ./utils.bash    # `assert`
 
 assert "$# == 2"        "Usage: ${0#*/} <string1> <string2>"
 assert "${#1} == ${#2}" "left and right strands must be of equal length"

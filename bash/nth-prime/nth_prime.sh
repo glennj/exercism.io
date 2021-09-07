@@ -2,7 +2,7 @@
 
 # external tools: bc
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.3 namerefs
 
 # The largest concern is finding an algorithm that is not

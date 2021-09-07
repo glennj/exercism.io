@@ -2,7 +2,7 @@
 
 # shellcheck disable=SC2034,SC2219
 
-source ../lib/utils.bash
+source ./utils.bash
 
 # We're relying on the (non-)existance of 1-character
 # variables. Don't let any existing environment variables
