@@ -2,8 +2,8 @@
 
 # external tools used: sort
 
-source ../lib/utils.bash
-source ../lib/utils_math.bash
+source ./utils.bash
+source ./utils_math.bash
 checkBashVersion 4.0 "associative arrays"
 
 declare -ri SUCCESS=0 FAILURE=1

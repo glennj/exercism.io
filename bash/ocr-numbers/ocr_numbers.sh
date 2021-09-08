@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.3 "associative array index fixes"
 
 if [[ -t 0 ]]; then

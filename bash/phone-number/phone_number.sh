@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
+source ./utils.bash
 
 readonly err='Invalid number.  [1]NXX-NXX-XXXX N=2-9, X=0-9'
 

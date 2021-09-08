@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
-source ../lib/utils_math.bash
+source ./utils.bash
+source ./utils_math.bash
 
 validate() {
     local player=$1
