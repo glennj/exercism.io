@@ -1,16 +1,17 @@
 import "./armstrong-numbers" for Number
 import "wren-testie/testie" for Testie, Expect
+import "wren-testie/reporters/tap" for TapReporter
 
-Testie.test("Armstrong Numbers") { |do, skip|
+var suite = Testie.test("Armstrong Numbers", {"reporter": TapReporter}) { |do, skip|
   do.test("Zero is an Armstrong number") {
     Expect.value(Number.isArmstrong(0)).toEqual(true)
   }
 
-  skip.test("Single digit numbers are Armstrong numbers") {
+  do.test("Single digit numbers are Armstrong numbers") {
     Expect.value(Number.isArmstrong(5)).toEqual(true)
   }
 
-  skip.test("There are no 2 digit Armstrong numbers") {
+  do.test("There are no 2 digit Armstrong numbers") {
     Expect.value(Number.isArmstrong(10)).toEqual(false)
   }
 

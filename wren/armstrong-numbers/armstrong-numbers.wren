@@ -1,9 +1,8 @@
 // This iteration does not need to convert from num to string back to num
 class Number {
   static digitLength(n) {
-    var len = (n.log / 10.log).ceil
-    if (n == 10.pow(len)) len = len + 1
-    return len
+    var exp = n.log / 10.log
+    return exp == exp.ceil ? exp + 1 : exp.ceil
   }
 
   static isArmstrong(n) {
@@ -15,6 +14,7 @@ class Number {
       sum = sum + digit.pow(len)
       n = (n - digit) / 10
     }
+    System.print([input, sum])
     return sum == input
   }
 }
