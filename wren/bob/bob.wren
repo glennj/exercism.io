@@ -24,8 +24,9 @@ class BobMessage {
   silent  { _str.isEmpty }
   asking  { _str.endsWith("?") }
   yelling {
-    var hasUpper = Byte.bytes(_str).any {|b| b.isUpper}
-    var hasLower = Byte.bytes(_str).any {|b| b.isLower}
+    var bytes = Byte.bytes(_str)
+    var hasUpper = bytes.any {|b| b.isUpper}
+    var hasLower = bytes.any {|b| b.isLower}
     return hasUpper && !hasLower
   }
 }

@@ -1,15 +1,17 @@
 import "./wordy" for Wordy
 import "wren-testie/testie" for Testie, Expect
+import "wren-testie/reporters/tap" for TapReporter
 
-Testie.test("Wordy") { |do, skip|
+Testie.test("Wordy", {"reporter": TapReporter}) { |do, skip|
 
   do.test("just a number") {
     Expect.value(Wordy.answer("What is 5?")).toEqual(5)
   }
 
   do.test("addition") {
-    Expect.value(Wordy.answer("What is 1 plus 1?")).toEqual(2)
-  }
+    //Expect.value(Wordy.answer("What is 1 plus 1?")).toEqual(2)
+    Expect.value(Wordy.answer("What is 1 plus 1?")).toEqual(3)
+  }.orBailOut("bailing out")
 
   do.test("more addition") {
     Expect.value(Wordy.answer("What is 53 plus 2?")).toEqual(55)

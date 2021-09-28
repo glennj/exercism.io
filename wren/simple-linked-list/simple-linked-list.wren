@@ -15,24 +15,19 @@ class Element {
  * of the list.
  */
 class LinkedList {
-  construct new() {
-    init()
-  }
-  construct new(values) {
-    init()
-    values.each {|value| add(Element.new(value))}
-  }
+  static new() { this.new([]) }
 
-  init() {
+  construct new(values) {
     _head = null
     _count = 0
+    values.each {|value| add(Element.new(value))}
   }
 
   head  { _head }
   count { _count }
 
   add(element) {
-    if (element.type != Element) {
+    if (!(element is Element)) {
       Fiber.abort("Only add Elements to the LinkedList")
     }
     if (_head != null) element.next = _head

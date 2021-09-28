@@ -1,16 +1,14 @@
 /* Using a Map where the keys are distinct */
 
 class CustomSet {
-  construct new() {
-    empty()
-  }
-
   construct new(iterable) {
     empty()
     for (elem in iterable) {
       add(elem)
     }
   }
+
+  static new() { this.new([]) }
 
   // remove all elements
   empty() { _set = {} }

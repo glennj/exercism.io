@@ -1,19 +1,22 @@
 class QueenAttack {
-  construct new()       { validate_({}) }
-  construct new(pieces) { validate_(pieces) }
+  /* Instead of 2 constructors with a shared private method,
+   * we have 1 constructor and a static method that passes
+   * a default value.
+   */
+  static new() { this.new({}) }
 
-  validate_(pieces) {
+  construct new(pieces) { 
     // If not specified, use their starting positions
-    if (! pieces.containsKey("white")) pieces["white"] = [7,3]
     if (! pieces.containsKey("black")) pieces["black"] = [0,3]
-
-    _whitePos = ChessPosition.new(pieces["white"])
-    if (!_whitePos.valid) {
-      Fiber.abort("Queen must be placed on the board")
-    }
+    if (! pieces.containsKey("white")) pieces["white"] = [7,3]
 
     _blackPos = ChessPosition.new(pieces["black"])
     if (!_blackPos.valid) {
+      Fiber.abort("Queen must be placed on the board")
+    }
+
+    _whitePos = ChessPosition.new(pieces["white"])
+    if (!_whitePos.valid) {
       Fiber.abort("Queen must be placed on the board")
     }
 
