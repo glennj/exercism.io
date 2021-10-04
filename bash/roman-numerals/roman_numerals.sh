@@ -11,10 +11,13 @@ readonly roman=(
       [10]=X    [9]=IX    [5]=V    [4]=IV
        [1]=I
 )
+# so we don't need to hardcode the decimal values twice
+readonly values=(${!roman[@]})
 
 decimal=$1
 
-for value in 1000 900 500 400 100 90 50 40 10 9 5 4 1; do
+for ((i = ${#values[@]} - 1; i >= 0; i--)); do
+    value=${values[i]}
     while ((decimal >= value)); do
         printf "%s" "${roman[value]}"
         ((decimal -= value))

@@ -5,8 +5,8 @@
 #
 # shellcheck disable=SC2086,SC2207,SC2046
 
-source ../lib/utils.bash
-source ../lib/resistor_color.bash
+source ./utils.bash
+source ./resistor_color.bash
 
 declare -ra PREFIXES=("" kilo mega giga)
 

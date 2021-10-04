@@ -2,12 +2,12 @@
 
 # external tools used: awk
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.0 "associative arrays"
 
-secondsPerEarthYear=31557600
+readonly secondsPerEarthYear=31557600
 
-declare -A relativeOrbit=(
+readonly -A relativeOrbit=(
     [Mercury]=0.2408467
     [Venus]=0.61519726
     [Earth]=1.0

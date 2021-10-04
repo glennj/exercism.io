@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
-source ../lib/utils_string.bash
+source ./utils.bash
+source ./utils_string.bash
 
 encode() {
     local phrase=$1

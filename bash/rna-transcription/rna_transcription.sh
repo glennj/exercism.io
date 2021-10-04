@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.3 "-v test"
 
 declare -A map=([G]=C [C]=G [T]=A [A]=U)

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
-source ../lib/utils_string.bash
-source ../lib/utils_math.bash
+source ./utils.bash
+source ./utils_string.bash
+source ./utils_math.bash
 checkBashVersion 4.0 "case conversion"
 
 shopt -u nocasematch

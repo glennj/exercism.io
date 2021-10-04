@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ../lib/utils_string.bash
+source ./utils_string.bash
 
 reverse () {
     # cheating

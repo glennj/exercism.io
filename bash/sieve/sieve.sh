@@ -59,21 +59,20 @@ sieve_optimized() {
 
         # if we know this p is non-prime, no need to remove
         # multiples of it: it's already been done
-        if ${is_prime[p]}; then
+        ${is_prime[p]} || continue
 
-            # while iterating when p > 2, we know we've already
-            # handled any multiple of 2, and also that p will be
-            # odd, so we can step by 2*p (e.g. 3, 9, 15, ...)
-            ((step = p == 2 ? 2 : 2 * p))
+        # while iterating when p > 2, we know we've already
+        # handled any multiple of 2, and also that p will be
+        # odd, so we can step by 2*p (e.g. 3, 9, 15, ...)
+        ((step = p == 2 ? 2 : 2 * p))
 
-            # we can start removing multiples starting at p * p
-            # because for any multiple k*p where k < p, we have
-            # already removed those numbers as non-prime in
-            # previous iterations of p.
-            for ((i = p * p; i <= limit; i += step)); do
-                is_prime[i]=false
-            done
-        fi
+        # we can start removing multiples starting at p * p
+        # because for any multiple k*p where k < p, we have
+        # already removed those numbers as non-prime in
+        # previous iterations of p.
+        for ((i = p * p; i <= limit; i += step)); do
+            is_prime[i]=false
+        done
     done
 }
 

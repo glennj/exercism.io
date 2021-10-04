@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.0 "associative arrays, case conversion"
-source ../lib/utils_string.bash
+source ./utils_string.bash
 
 ############################################################
 # Notes on the evolution on this exercise:

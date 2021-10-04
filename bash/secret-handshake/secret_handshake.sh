@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.3 namerefs
-source ../lib/utils_array.bash
+source ./utils_array.bash
 
 readonly actions=("wink" "double blink" "close your eyes" "jump")
 

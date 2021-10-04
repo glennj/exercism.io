@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.0 "associative arrays"
 
 using_associative_array() {

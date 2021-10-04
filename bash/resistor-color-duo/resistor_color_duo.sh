@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
-source ../lib/resistor_color.bash
+source ./utils.bash
+source ./resistor_color.bash
 
 result=0
 for color in "${@:1:2}"; do

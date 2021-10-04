@@ -2,8 +2,8 @@
 
 # shellcheck disable=SC2034
 
-source ../lib/utils.bash
-source ../lib/utils_math.bash
+source ./utils.bash
+source ./utils_math.bash
 checkBashVersion 4.3 "namerefs"
 
 readonly Alphabet=({a..z})

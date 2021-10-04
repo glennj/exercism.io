@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.3 namerefs
 
 # If we were using a 2-D array with, say, n=3

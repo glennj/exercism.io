@@ -2,7 +2,7 @@
 
 # shellcheck disable=SC2086,SC2034
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.3 namerefs
 
 # gonna use globals

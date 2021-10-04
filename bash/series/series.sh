@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ../lib/utils.bash
+source ./utils.bash
 
 series=$1
 declare -i slice=$2          # non-numeric values result in 0

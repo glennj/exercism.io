@@ -40,15 +40,6 @@ checkBashVersion() {
     fi
 }
 
-# Return the major.minor Bash version as an integer:
-# 10 * major + minor
-# This will help with comparing versions using integer comparison
-# (as opposed to float comp or lexical comp)
-#
-bashversion() {
-    echo $((10 * BASH_VERSINFO[0] + BASH_VERSINFO[1] ))
-}
-
 # Emit an error message and exit
 # e.g.:  [[ $x == $y ]] || die "Incorrect value"
 #

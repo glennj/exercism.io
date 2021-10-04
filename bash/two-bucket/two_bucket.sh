@@ -2,8 +2,8 @@
 
 # Shellcheck throws plenty of warnings, none to worry about
 
-source ../lib/utils.bash
-source ../lib/utils_math.bash
+source ./utils.bash
+source ./utils_math.bash
 
 checkBashVersion 4.3 namerefs
 

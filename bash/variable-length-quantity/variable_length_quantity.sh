@@ -2,7 +2,7 @@
 
 # works with bash v3.2.57
 
-source ../lib/utils.bash
+source ./utils.bash
 
 declare -ri SHIFT=7
 declare -ri MSB=0x80    # 0b10000000, "most significant bit"

@@ -5,8 +5,8 @@
 
 # shellcheck disable=SC2086,SC2155,SC2046
 
-source ../lib/utils.bash
-source ../lib/utils_math.bash
+source ./utils.bash
+source ./utils_math.bash
 source ./bucket_class.bash
 
 solve() {

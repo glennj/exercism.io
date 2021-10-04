@@ -2,7 +2,7 @@
 
 # shellcheck disable=SC2155,SC2015
 
-source ../lib/utils.bash
+source ./utils.bash
 checkBashVersion 4.3 namerefs
 
 # print the result, and exit success
