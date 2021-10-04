@@ -15,8 +15,8 @@ sub reduce {
     my $accumulator;
     my $idx = 0;
     for my $element (@$list) {
-        $accumulator = $idx
-            ? $func->($accumulator, $element)
+        $accumulator = $idx 
+            ? $func->($accumulator, $element) 
             : $element;
         $idx++;
     }
@@ -24,7 +24,7 @@ sub reduce {
 }
 
 # all the other list ops can be implemented with `reduce`
-
+ 
 sub length {
     my ($list) = @_;
     return reduce sub {$_[0] + 1}, [0, @$list];

@@ -1,12 +1,12 @@
 package Grains;
 
 use strictures 2;
+use Exporter::Easiest 'OK => grains_on_square total_grains';
+
 use bignum;
 use Carp;
 use List::Util  qw( sum );
 
-use Exporter 'import';
-our @EXPORT_OK = qw(grains_on_square total_grains);
 
 ## no critic (ControlStructures::ProhibitNegativeExpressionsInUnlessAndUntilConditions)
 

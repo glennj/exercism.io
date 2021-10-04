@@ -1,46 +1,39 @@
 #!perl
 ## no critic (Subroutines::ProhibitBuiltinHomonyms)
 
+use 5.024;
+use strictures 2;
+
 package Clock;
+use Class::Tiny     qw/ minutes /;
 
-use strict;
-use warnings;
+sub BUILDARGS {
+    my $class = shift;
+    my ($hour, $minute) = (shift)->@{qw/hour minute/};
+    return {minutes => _normalize(($hour // 0) * 60 + ($minute // 0))};
+};
 
-our $MIN_PER_DAY = 24 * 60;
-
-sub new {
-  my ($class, $attributes) = @_;
-  $attributes->{hour} //= 0;
-  $attributes->{minute} //= 0;
-  $attributes->{m} = $attributes->{hour} * 60 + $attributes->{minute};
-  bless $attributes, $class;
-  $attributes->_normalize();
-  return $attributes;
+sub _normalize {
+    my ($minutes) = @_;
+    return $minutes % (24 * 60);
 }
 
 sub time {
-  my ($self) = @_;
-  return sprintf("%02d:%02d", $self->{hour}, $self->{minute});
-}
-
-sub _normalize {
-  my ($self) = @_;
-  $self->{m} %= $MIN_PER_DAY;
-  $self->{hour} = int($self->{m} / 60);
-  $self->{minute} = $self->{m} % 60;
-  return;
+    my ($self) = @_;
+    my $hour = int($self->{minutes} / 60);
+    my $minute = $self->{minutes} % 60;
+    return sprintf("%02d:%02d", $hour, $minute);
 }
 
 sub add_minutes {
-  my ($self, $amount) = @_;
-  $self->{m} += $amount;
-  $self->_normalize();
-  return $self;
+    my ($self, $amount) = @_;
+    $self->{minutes} = _normalize($self->{minutes} + $amount);
+    return $self;
 }
 
 sub subtract_minutes {
-  my ($self, $amount) = @_;
-  return $self->add_minutes( -$amount );
+    my ($self, $amount) = @_;
+    return $self->add_minutes( -$amount );
 }
 
 1;

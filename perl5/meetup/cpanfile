@@ -1,1 +1,8 @@
+requires 'strictures', 2;
+requires 'Exporter::Easiest';
 requires 'DateTime';
+requires 'List::MoreUtils';
+
+on test => sub {
+    requires 'Test2::V0';
+};

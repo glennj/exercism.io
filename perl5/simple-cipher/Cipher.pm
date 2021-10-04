@@ -2,8 +2,7 @@ package Cipher;
 
 ## no critic (RequireExtendedFormatting, RequireArgUnpacking)
 
-use strict;
-use warnings;
+use strictures 2;
 use 5.020;
 use Carp;
 use List::MoreUtils qw/ firstidx pairwise /;

@@ -1,9 +1,10 @@
 package TwelveDays;
-use strictures 2;
-use Exporter 'import';
-our @EXPORT_OK = qw/recite/;
 
-our @gifts = (
+use 5.024;
+use strictures 2;
+use Exporter::Easiest 'OK => recite';
+
+my @gifts = (
     [],
     ['first',    'a Partridge in a Pear Tree'],
     ['second',   'two Turtle Doves'],
@@ -30,8 +31,8 @@ sub verse {
 }
 
 sub recite {
-    my ($range) = @_;
-    return join "\n", map {verse $_} $range->{start} .. $range->{end};
+    my ($start, $end) = (shift)->@{'start', 'end'};
+    return join "\n", map {verse $_} $start .. $end;
 }
 
 1;

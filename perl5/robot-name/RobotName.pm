@@ -1,13 +1,12 @@
 package RobotName;
-use strict;
-use warnings;
-
+use strictures 2;
 use Set::Tiny;
 our $NAMES = Set::Tiny->new();
 
 sub random_name;
 
 use Class::Tiny qw(name);
+
 sub BUILDARGS  { return {name => random_name} }
 sub reset_name {
     my $self = shift;

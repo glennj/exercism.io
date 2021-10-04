@@ -1,1 +1,8 @@
-requires 'Moo';       	# https://perldoc.pl/Moo
+#requires 'Moo'; # https://perldoc.pl/Moo
+requires 'strictures', 2;
+requires 'Set::Tiny';
+requires 'Class::Tiny';
+
+on test => sub {
+    requires 'Test2::V0';
+};

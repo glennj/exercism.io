@@ -1,5 +1,10 @@
 # Bob
 
+Welcome to Bob on Exercism's Perl 5 Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Bob is a lackadaisical teenager. In conversation, his responses are very limited.
 
 Bob answers 'Sure.' if you ask him a question, such as "How are you?".
@@ -14,9 +19,26 @@ anything.
 He answers 'Whatever.' to anything else.
 
 Bob's conversational partner is a purist when it comes to written communication and always follows normal rules regarding sentence punctuation in English.
+
 ## Source
 
-Inspired by the 'Deaf Grandma' exercise in Chris Pine's Learn to Program tutorial. [http://pine.fm/LearnToProgram/?Chapter=06](http://pine.fm/LearnToProgram/?Chapter=06)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @szabgab
+
+### Contributed to by
+
+- @alexkalderimis
+- @austinlyons
+- @cite-reader
+- @darksuji
+- @kentfredric
+- @kotp
+- @kytrinyx
+- @m-dango
+- @rfilipo
+- @stonemirror
+
+### Based on
+
+Inspired by the 'Deaf Grandma' exercise in Chris Pine's Learn to Program tutorial. - http://pine.fm/LearnToProgram/?Chapter=06

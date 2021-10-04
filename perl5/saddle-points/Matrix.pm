@@ -1,10 +1,11 @@
+## no critic (RegularExpressions::RequireExtendedFormatting)
+
 package Matrix;
 
 use 5.024;
 use strictures 2;
 use List::Util  qw/ reduce min max any /;
 use List::MoreUtils qw/ firstidx /;
-## no critic (RegularExpressions::RequireExtendedFormatting)
 
 sub new {
     my ($class, $text) = @_;

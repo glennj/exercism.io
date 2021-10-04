@@ -1,29 +1,29 @@
 package AllYourBase;
+
+use 5.024;
 use strictures 2;
-use List::Util qw/ reduce any /;
+use Exporter::Easy  (OK => [qw/ rebase /]);
+use List::Util      qw/ reduce all /;
 use Carp;
 
-sub convert_base {
-    my ($from_digits, $from_base, $to_base) = @_;
+sub rebase {
+    my ($iBase, $oBase, $digits) = (shift)->@{qw/inputBase outputBase digits/};
 
-    croak 'base must be greater than 1'          if $from_base <= 1 or $to_base <= 1;
-    croak 'negative digit not allowed'           if any {$_ < 0} @$from_digits;
-    croak 'digit equal of greater than the base' if any {$_ >= $from_base} @$from_digits;
+    croak 'input base must be >= 2'  unless $iBase >= 2;
+    croak 'output base must be >= 2' unless $oBase >= 2;
+    croak 'all digits must satisfy 0 <= d < input base'
+        unless all {0 <= $_ and $_ < $iBase} @$digits;
 
-    my @r_digits = reverse @$from_digits;
-    my $decimal = reduce
-        { $a + $r_digits[$b] * ($from_base ** $b) }
-        0,
-        0 .. $#r_digits;
+    my $decimal = reduce { $a * $iBase + $b } 0, @$digits;
 
     my @to_digits;
     do {
-        my $remainder = $decimal % $to_base;
+        my $remainder = $decimal % $oBase;
         unshift @to_digits, $remainder;
-        $decimal = ( $decimal - $remainder ) / $to_base;
+        $decimal = ( $decimal - $remainder ) / $oBase;
     } while ($decimal > 0);
 
     return \@to_digits,
 }
-
+ 
 1;

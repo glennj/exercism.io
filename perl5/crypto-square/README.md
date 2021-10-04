@@ -1,5 +1,10 @@
 # Crypto Square
 
+Welcome to Crypto Square on Exercism's Perl 5 Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement the classic method for composing secret messages called a square code.
 
 Given an English text, output the encoded version of that text.
@@ -59,7 +64,7 @@ chunks with a single trailing space.
 ```
 
 Notice that were we to stack these, we could visually decode the
-cyphertext back in to the original message:
+ciphertext back in to the original message:
 
 ```text
 "imtgdvs"
@@ -71,9 +76,20 @@ cyphertext back in to the original message:
 "aohghn "
 "sseoau "
 ```
+
 ## Source
 
-J Dalbey's Programming Practice problems [http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html](http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @bistik
+
+### Contributed to by
+
+- @alexkalderimis
+- @kytrinyx
+- @m-dango
+- @rfilipo
+
+### Based on
+
+J Dalbey's Programming Practice problems - http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html

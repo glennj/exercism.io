@@ -1,6 +1,5 @@
 package Allergies;
-use strict;
-use warnings;
+use strictures 2;
 use List::Util  qw/ pairs /;
 
 our %ALLERGIES = (

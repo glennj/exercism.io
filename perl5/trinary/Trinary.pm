@@ -8,9 +8,8 @@ our $DIGITS = join '', 0..$BASE-1;
 
 sub new {
     my ($class, $num) = @_;
-    # Like how perl numberifies a string, strip first non-digit
-    # and all subsequent characters.
-    $num =~ s/[^$DIGITS].*//;
+    $num =~ s/[^$DIGITS].*//x;
+    # the object is a reference to the digit string itself.
     return bless \$num, $class;
 }
 

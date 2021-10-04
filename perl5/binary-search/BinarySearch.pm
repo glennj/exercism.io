@@ -2,19 +2,15 @@ package BinarySearch;
 
 use 5.024;
 use strictures 2;
+use Exporter::Easiest 'OK => binary_search';
 use Carp;
-use feature      'current_sub';
+use feature      'current_sub';     # provides the "__SUB__" token
 use POSIX        'ceil';
 use Scalar::Util 'looks_like_number';
 use List::Util   'all';
 
-use Exporter     'import';
-our @EXPORT_OK = qw/ binary_search /;
-
 sub binary_search {
-    my ($args) = @_;
-    my ($key, $list) = $args->@{qw/value array/};
-    croak 'Unsorted list' unless sorted($list);
+    my ($key, $list) = (shift)->@{qw/value array/};
     return binary_search_rec($key, $list, 0, $list->$#*);
 }
 
@@ -24,18 +20,13 @@ sub binary_search_rec {
 
     my $mid = ceil(($i + $j) / 2);
     my $val = $list->[$mid];
-    return $mid if equal($key, $val);
+    return $mid if eql($key, $val);
 
     ($i, $j) = less_or_eq($key, $val) ? ($i, $mid-1) : ($mid+1, $j);
     return __SUB__->($key, $list, $i, $j);
 }
 
-sub sorted {
-    my $list = shift;
-    return all { less_or_eq( $list->[$_-1], $list->[$_] ) } 1 .. $list->$#*;
-}
-
-sub equal {
+sub eql {
     my ($a, $b) = @_;
     return numeric($a, $b) ? $a == $b : $a eq $b;
 }

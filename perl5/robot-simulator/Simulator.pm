@@ -2,8 +2,7 @@
 
 package Simulator;
 
-use strict;
-use warnings;
+use strictures 2;
 use Carp;
 
 use Class::Tiny;

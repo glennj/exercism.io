@@ -3,10 +3,9 @@ package PigLatin;
 use 5.024;
 use strictures 2;
 no warnings 'experimental::smartmatch';         ## no critic (TestingAndDebugging::ProhibitNoWarnings)
+use Exporter::Easiest 'OK => translate';
 use Carp;
 
-use Exporter 'import';
-our @EXPORT_OK = qw/ translate /;
 
 sub translate {
     return join ' ', map { anslatetray($_) } split ' ', shift;

@@ -1,4 +1,9 @@
-# RNA Transcription
+# Rna Transcription
+
+Welcome to Rna Transcription on Exercism's Perl 5 Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 Given a DNA strand, return its RNA complement (per RNA transcription).
 
@@ -17,9 +22,21 @@ each nucleotide with its complement:
 * `C` -> `G`
 * `T` -> `A`
 * `A` -> `U`
+
 ## Source
 
-Hyperphysics [http://hyperphysics.phy-astr.gsu.edu/hbase/Organic/transcription.html](http://hyperphysics.phy-astr.gsu.edu/hbase/Organic/transcription.html)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @szabgab
+
+### Contributed to by
+
+- @bistik
+- @kytrinyx
+- @m-dango
+- @rfilipo
+- @yanick
+
+### Based on
+
+Hyperphysics - http://hyperphysics.phy-astr.gsu.edu/hbase/Organic/transcription.html

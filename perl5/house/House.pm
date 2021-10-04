@@ -1,7 +1,9 @@
 package House;
+
+use 5.024;
 use strictures 2;
 use List::Util qw/ reduce /;
-use Class::Tiny;
+use Exporter::Easiest 'OK => recite';
 
 our @ACTORS = (
     { who => 'house that Jack built.' },
@@ -18,17 +20,18 @@ our @ACTORS = (
     { who => 'horse and the hound and the horn', what => 'belonged to' },
 );
 
-sub verse {
-    my $n = pop() - 1;
-    return reduce
-        { $a . "that $ACTORS[$b]{what} the $ACTORS[$b-1]{who}\n" }
-        "This is the $ACTORS[$n]{who}\n",
-        reverse 1 .. $n;
+sub recite {
+    my ($from, $to) = (shift)->@{'startVerse', 'endVerse'};
+    return [map { verse($_) } $from..$to];
 }
 
-sub recite {
-    my $self = shift;
-    return join "\n", map { $self->verse($_) } 1 .. @ACTORS;
+sub verse {
+    my ($n) = @_;
+    $n -= 1;
+    return reduce
+        { $a . " that $ACTORS[$b]{what} the $ACTORS[$b-1]{who}" }
+            "This is the $ACTORS[$n]{who}",
+            reverse 1 .. $n;
 }
 
 1;

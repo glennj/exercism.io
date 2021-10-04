@@ -1,10 +1,8 @@
 package ScrabbleScore;
 
 use strictures 2;
+use Exporter::Easiest 'OK => scrabble_score';
 use List::Util qw/ sum0 /;
-
-use Exporter 'import';
-our @EXPORT_OK = qw(score);
 
 our %VALUE = (
     a => 1, b =>  3, c => 3, d => 2, e => 1,
@@ -14,9 +12,9 @@ our %VALUE = (
     u => 1, v =>  4, w => 4, x => 8, y => 4, z => 10
 );
 
-sub score {
+sub scrabble_score {
     my ($word) = @_;
-    return sum0( map {$VALUE{$_}} split //, lc $word );
+    return sum0( map {$VALUE{$_} // 0} split //, lc $word );
 }
 
 1;

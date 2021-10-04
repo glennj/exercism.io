@@ -1,5 +1,7 @@
 package SecretHandshake;
+
 use strictures 2;
+use Exporter::Easiest 'OK => handshake';
 use List::Util qw/ pairgrep pairvalues /;
 
 our @ACTS = ( 
@@ -10,16 +12,11 @@ our @ACTS = (
 );
 our $REVERSE = 0b10000;
 
-sub new {
-    my ($class, $input) = @_;
-    return bless \$input, $class;
-}
-
-sub commands {
-    my $self = shift;
-    return [] if $$self =~ /\D/;
-    my $actions = [ pairvalues pairgrep { $$self & $a } @ACTS ];
-    return ($$self & $REVERSE) ? [reverse @$actions] : $actions;
+sub handshake {
+    my $num = shift;
+    return [] if $num =~ /\D/;
+    my $actions = [ pairvalues pairgrep { $num & $a } @ACTS ];
+    return ($num & $REVERSE) ? [reverse @$actions] : $actions;
 }
 
 1;

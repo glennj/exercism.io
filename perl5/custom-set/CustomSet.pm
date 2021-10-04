@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use feature qw/ postderef /;
 
-use JSON;
+use JSON::PP;
 
 package CustomSet;
 
@@ -16,10 +16,10 @@ sub new {
 
 sub to_string {
     my ($self) = @_;
-    return JSON::encode_json([ sort $self->to_list() ]);
+    return JSON::PP::encode_json([ sort $self->to_list() ]);
 }
 
-sub to_list {
+sub to_list { 
     my ($self) = @_;
     return keys $self->%*;
 }
@@ -36,12 +36,13 @@ sub is_empty {
 
 sub is_equal {
     my ($self, $other) = @_;
-    return $self->to_string() eq $other->to_string();
+    return $self->size() == $other->size()
+        && $self->is_subset($other);
 }
 
 sub is_member {
     my ($self, $item) = @_;
-    return $self->{$item};
+    return !!$self->{$item};
 }
 
 sub add {

@@ -1,21 +1,15 @@
-package PhoneNumber;
-use strictures 2;
-use Carp;
-use List::Util  qw/ none /;
-use Exporter 'import';
-our @EXPORT_OK = qw(clean_number);
-
 ## no critic (RegularExpressions::RequireExtendedFormatting)
 
-sub clean_number {
-    return __PACKAGE__->new(shift)->tonumber;
-}
+package PhoneNumber;
 
-sub new {
-    my ($class, $num) = @_;
-    my $self = [];
-    croak "letters not permitted" if $num =~ /\p{Alpha}/;
+use strictures 2;
+use Exporter::Easiest 'OK => clean_number';
+use Carp;
+
+sub clean_number {
+    my ($num) = @_;
     $num =~ s/[-.()]/ /g;   # allowed punctuation
+    croak "letters not permitted" if $num =~ /\p{Alpha}/;
     croak "punctuations not permitted" if $num =~ /\p{Punct}/;
 
     $num =~ s/\D//g;
@@ -25,24 +19,14 @@ sub new {
         if length($num) == 11 && $num !~ /^1/;
 
     if ($num =~ /^1?(\d{3})(\d{3})(\d{4})$/) {
-        croak "area code cannot start with zero" if $1 =~ /^0/;
-        croak "area code cannot start with one"  if $1 =~ /^1/;
-        croak "exchange code cannot start with zero" if $2 =~ /^0/;
-        croak "exchange code cannot start with one"  if $2 =~ /^1/;
+        my ($area, $exch, $number) = ($1, $2, $3);
+        croak "area code cannot start with zero" if $area =~ /^0/;
+        croak "area code cannot start with one"  if $area =~ /^1/;
+        croak "exchange code cannot start with zero" if $exch =~ /^0/;
+        croak "exchange code cannot start with one"  if $exch =~ /^1/;
 
-        $self = [$1, $2, $3];  # [area code, exchange, number]
+        return "${area}${exch}${number}";
     }
-    return bless $self, $class
-}
-
-sub tonumber {
-    my ($self) = @_;
-    return join("", @$self) || undef;
-}
-
-sub tostring {
-    my ($self) = @_;
-    return @$self ? sprintf("1 (%s) %s-%s", @$self) : undef;
 }
 
 1;

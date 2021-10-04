@@ -1,21 +1,32 @@
 package Matrix;
-use strict;
-use warnings;
-use 5.024;
-use List::Util  qw/ reduce /;
-## no critic (RegularExpressions::RequireExtendedFormatting)
 
-sub new {
-    my ($class, $text) = @_;
+use 5.024;
+use strictures 2;
+use Exporter::Easiest 'OK => row column';
+use List::Util  qw/ reduce /;
+
+sub matrix {
+    my ($text) = @_;
+
+    ## no critic (RegularExpressions::RequireExtendedFormatting)
     my @rows = map { [split] } split /\n/, $text;
 
     # assume the matrix is square
-    my $cols = reduce {$a->[$b] = [map {$_->[$b]} @rows]; $a} [], 0 .. $rows[0]->$#*;
+    my $cols = reduce {$a->[$b] = [map {$_->[$b]} @rows]; $a}
+                      [],
+                      0 .. $rows[0]->$#*;
 
-    return bless [\@rows, $cols], $class;
+    return {rows => \@rows, columns => $cols};
 }
 
-sub rows    { return shift->[0]->[pop] }
-sub columns { return shift->[1]->[pop] }
+sub row {
+    my ($index, $string) = (shift)->@{'index', 'string'};
+    return matrix($string)->{rows}[$index - 1];
+}
+
+sub column {
+    my ($index, $string) = (shift)->@{'index', 'string'};
+    return matrix($string)->{columns}[$index - 1];
+}
 
 1;

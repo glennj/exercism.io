@@ -1,5 +1,6 @@
 package Accumulate;
 use strictures 2;
+use Exporter::Easiest 'OK => accumulate';
 
 sub accumulate {
     my ($input, $func) = @_;

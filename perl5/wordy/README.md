@@ -1,6 +1,19 @@
 # Wordy
 
+Welcome to Wordy on Exercism's Perl 5 Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Parse and evaluate simple math word problems returning the answer as an integer.
+
+## Iteration 0 — Numbers
+
+Problems with no operations simply evaluate to the number given.
+
+> What is 5?
+
+Evaluates to 5.
 
 ## Iteration 1 — Addition
 
@@ -43,6 +56,14 @@ left-to-right, _ignoring the typical order of operations._
 
 15  (i.e. not 9)
 
+## Iteration 4 — Errors
+
+The parser should reject:
+
+* Unsupported operations ("What is 52 cubed?")
+* Non-math questions ("Who is the President of the United States")
+* Word problems with invalid syntax ("What is 1 plus plus 2?")
+
 ## Bonus — Exponentials
 
 If you'd like, handle exponentials.
@@ -50,9 +71,19 @@ If you'd like, handle exponentials.
 > What is 2 raised to the 5th power?
 
 32
+
 ## Source
 
-Inspired by one of the generated questions in the Extreme Startup game. [https://github.com/rchatley/extreme_startup](https://github.com/rchatley/extreme_startup)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @szabgab
+
+### Contributed to by
+
+- @kytrinyx
+- @m-dango
+- @rfilipo
+
+### Based on
+
+Inspired by one of the generated questions in the Extreme Startup game. - https://github.com/rchatley/extreme_startup

@@ -1,5 +1,7 @@
-package Minesweeper;
 use strictures 2;
+
+package MinesweeperClass;
+
 use Carp;
 use List::Util  qw/ all /;
 use Class::Tiny qw/ board size /;
@@ -72,3 +74,10 @@ sub count_adjacent_bombs {
 }
 
 1;
+
+package Minesweeper;
+use Exporter::Easiest 'OK => annotate';
+sub annotate {
+    my ($lines) = @_;
+    return MinesweeperClass->new(join "\n", @$lines)->board;
+}

@@ -5,8 +5,7 @@ use Carp;
 use List::MoreUtils qw/ zip /;
 use List::Util      qw/ pairgrep /;
 
-use Exporter 'import';
-our @EXPORT_OK = qw/ hamming_distance /;
+use Exporter::Easiest 'OK => hamming_distance';
 
 sub hamming_distance {
     my @a = split //, shift;

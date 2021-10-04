@@ -1,14 +1,12 @@
 package Bob;
-use strict;
-use warnings;
-use Exporter 'import';
-our @EXPORT_OK = qw(hey);
+use strictures 2;
+use Exporter::Easiest 'OK => hey';
 
 sub hey {
     local $_ = shift;   # define the default variable for this scope
 
     my $q = /[?]\s*$/;                         # question
-    my $Y = /[[:alpha:]]/ && $_ eq uc;         # yelling
+    my $Y = /[[:upper:]]/ && ! /[[:lower:]]/;  # yelling
     my $s = /^\s*$/;                           # silence
 
     return "Calm down, I know what I'm doing!" if $q and $Y;

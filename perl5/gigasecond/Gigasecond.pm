@@ -1,11 +1,10 @@
 package Gigasecond;
 
 use strictures 2;
+use Exporter::Easiest 'OK => add_gigasecond';
+
 use DateTime;
 use DateTime::Format::ISO8601;
-
-use Exporter 'import';
-our @EXPORT_OK = qw/ add_gigasecond /;
 
 our $GIGASECOND = DateTime::Duration->new( seconds => 1_000_000_000 );
 

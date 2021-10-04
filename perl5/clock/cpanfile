@@ -2,3 +2,10 @@ recommends 'Moo';       # https://perldoc.pl/Moo
 suggests 'Mo';          # https://perldoc.pl/Mo
 suggests 'Moose';       # https://perldoc.pl/Moose
 suggests 'Class::Tiny'; # https://perldoc.pl/Class::Tiny
+
+requires 'strictures', 2;
+requires 'Class::Tiny';
+
+on test => sub {
+    requires 'Test2::V0';
+};

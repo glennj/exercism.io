@@ -1,0 +1,41 @@
+#!perl
+## no critic (Subroutines::ProhibitBuiltinHomonyms)
+
+package Clock;
+
+use strictures 2;
+use Readonly;
+use Class::Tiny qw/ minutes /;
+
+Readonly my $MINS_PER_DAY => 24 * 60;
+
+sub BUILDARGS {
+    my ( $class, $input ) = @_;
+    my $minutes = ( $input->{hour} // 0 ) * 60 + ( $input->{minute} // 0 );
+    return { minutes => _normalize($minutes) };
+}
+
+sub _normalize {
+    my ($minutes) = @_;
+    return $minutes % $MINS_PER_DAY;
+}
+
+sub time {
+    my ($self) = @_;
+    my $hour   = int( $self->{minutes} / 60 );
+    my $minute = $self->{minutes} % 60;
+    return sprintf( "%02d:%02d", $hour, $minute );
+}
+
+sub add_minutes {
+    my ( $self, $amount ) = @_;
+    $self->{minutes} = _normalize( $self->{minutes} + $amount );
+    return $self;
+}
+
+sub subtract_minutes {
+    my ( $self, $amount ) = @_;
+    return $self->add_minutes( -$amount );
+}
+
+1;

@@ -1,0 +1,6 @@
+requires 'strictures', 2;
+requires 'Exporter::Easy';
+
+on test => sub {
+    requires 'Test2::V0';
+};

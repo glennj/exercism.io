@@ -1,0 +1,3 @@
+requires 'Exporter::Easy';
+requires 'strictures', '2';
+requires 'Test2::V0';

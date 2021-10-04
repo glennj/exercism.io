@@ -1,10 +1,9 @@
 package PascalsTriangle;
 use strictures 2;
-use Exporter 'import';
-our @EXPORT_OK = qw/ pascal_rows /;
-
+use Exporter::Easiest 'OK => pascal_rows';
 use List::Util qw/ product /;
 use Memoize;
+
 memoize($_) for qw( row binom fact );
 
 sub pascal_rows {

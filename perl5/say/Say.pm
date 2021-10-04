@@ -1,9 +1,7 @@
 package Say;
 use strictures 2;
+use Exporter::Easiest 'OK => say_number';
 use Carp;
-
-sub new { return bless {english => Say(pop)}, shift }
-sub in_english { return shift->{english} }
 
 # translation of this lovely recursive solution
 # https://exercism.io/tracks/javascript/exercises/say/solutions/515ab00bc90f46b0bde3732d9317a46b
@@ -19,26 +17,26 @@ our %XTY = (
     60 => 'sixty', 70 => 'seventy', 80 => 'eighty', 90 => 'ninety'
 );
 
-sub Say {
+sub say_number {
     my $n = shift;
-    if ($n < 0)    { croak 'ArgumentError' }
+    if ($n < 0)    { croak 'input out of range' }
     if ($n < 100)  { return $SMALL[$n] 
                          || $XTY{$n}
-                         || Say($n - $n % 10) . '-' . Say($n % 10) }
-    if ($n < 1000) { return SayCompound($n, 100, 'hundred') }
-    if ($n < 1e6)  { return SayCompound($n, 1e3, 'thousand') }
-    if ($n < 1e9)  { return SayCompound($n, 1e6, 'million') }
-    if ($n < 1e12) { return SayCompound($n, 1e9, 'billion') }
-    croak 'ArgumentError';
+                         || say_number($n - $n % 10) . '-' . say_number($n % 10) }
+    if ($n < 1000) { return say_compound($n, 100, 'hundred') }
+    if ($n < 1e6)  { return say_compound($n, 1e3, 'thousand') }
+    if ($n < 1e9)  { return say_compound($n, 1e6, 'million') }
+    if ($n < 1e12) { return say_compound($n, 1e9, 'billion') }
+    croak 'input out of range';
 }
 
-sub SayCompound {
+sub say_compound {
     my ($n, $base, $word) = @_;
     my $rem = $n % $base;
     return join ' ', grep {$_} (
-        Say(($n - $rem) / $base),
+        say_number(($n - $rem) / $base),
         $word,
-        $rem && Say($rem)
+        $rem && say_number($rem)
     );
 }
 

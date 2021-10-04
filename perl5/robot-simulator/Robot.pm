@@ -2,8 +2,7 @@
 
 package Robot;
 
-use strict;
-use warnings;
+use strictures 2;
 use List::Util  qw/ none first /;
 use Carp;
 use subs 'orient';

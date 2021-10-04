@@ -1,8 +1,6 @@
 package Raindrops;
-use strict;
-use warnings;
-use Exporter 'import';
-our @EXPORT_OK = qw(raindrop);
+use strictures 2;
+use Exporter::Easiest 'OK => raindrop';
 use Tie::IxHash;
 
 tie our %SOUND, 'Tie::IxHash';
@@ -10,13 +8,13 @@ tie our %SOUND, 'Tie::IxHash';
 
 sub raindrop {
     my ($number) = @_;
-    my $pling =
-        join '',
-        map  { $_->[0] }
-        grep { $_->[1] == 0 }
-        map  { [$SOUND{$_}, $number % $_] }
-        keys %SOUND;
+    my $pling = join '',
+                map  { $_->[0] }
+                grep { $_->[1] == 0 }
+                map  { [$SOUND{$_}, $number % $_] }
+                keys %SOUND;
     return $pling || $number;
 }
 
 1;
+

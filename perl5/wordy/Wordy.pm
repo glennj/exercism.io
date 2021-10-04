@@ -1,33 +1,40 @@
+## no critic (RegularExpressions::RequireExtendedFormatting)
+
 package Wordy;
 
-## no critic (RegularExpressions::RequireExtendedFormatting)
-use strict;
-use warnings;
-use Carp;
+use strictures 2;
+use WordyLexer;
+use WordyErrors qw/ SyntaxError UnknownOperation /;
+use Exporter::Easiest 'OK => answer';
 
 sub answer {
-    local $_ = shift;
-    s/[[:punct:]]+\s*$//g;          # remove trailing punctuation
+    my $input = shift;
 
-    # replace the operators
-    s{\bmultiplied\s+by\b} {*}g;
-    s{\bdivided\s+by\b}    {/}g;
-    s{\bplus\b}            {+}g;
-    s{\bminus\b}           {-}g;
+    UnknownOperation() unless $input =~ /^What is\b/;
+    SyntaxError() unless $input =~ /\?$/;
+    $input =~ s/^What is|\?$//g;
 
-    s/\b[[:alpha:]]+\b//g;          # remove remaining words
-    $_ = join ' ', split ' ';       # normalize whitespace
+    my $stack = WordyLexer->new($input);
+    my $valid = 1;
+    my $operation;
+    my $token;
 
-    my $expr = qr/-?\d+ \D -?\d+/;
+    my $result = $stack->next();
+    SyntaxError() unless $result;
 
-    # We need at least one arithmetic expression.
-    croak 'ArgumentError' unless /$expr/;
+    while ($token = $stack->next()) {
+        if (ref $token eq 'CODE') {
+            $operation = $token;
+            $valid = 0;
+        }
+        else {
+            $result = $operation->($result, $token);
+            $valid = 1;
+        }
+    }
 
-    # This method enforces the strict left to right evaluation.
-    # We need 2 rounds of evaluation to replace the expression with its result.
-    do 1 while s/($expr)/$1/ee;
-
-    return $_;
+    SyntaxError() if not $valid;
+    return $result;
 }
 
 1;

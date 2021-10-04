@@ -1,22 +1,20 @@
 package Series;
+
+use 5.024;
 use strictures 2;
+use Exporter::Easiest 'OK => slices';
 use Carp;
 
-sub new {
-    my ($class, $input) = @_;
-    croak 'ArgumentError' if $input =~ /\D/;
-    return bless \$input, $class;
-}
+sub slices {
+    my ($series, $size) = (shift)->@{'series', 'sliceLength'};
+    my $len = length $series;
 
-sub slice {
-    my ($self, $size) = @_;
-    my $len = length $$self;
-    croak 'ArgumentError' unless 1 <= $size and $size <= $len;
-    return [
-        map { [split ''] }
-        map { substr($$self, $_, $size) }
-        0 .. ($len - $size)
-    ];
+    croak "series cannot be empty" if $len == 0;
+    croak "slice length cannot be zero" if $size == 0;
+    croak "slice length cannot be negative" if $size < 0;
+    croak "slice length cannot be greater than series length" if $size > $len;
+
+    return [map {substr($series, $_, $size)} 0 .. ($len - $size)];
 }
 
 1;
