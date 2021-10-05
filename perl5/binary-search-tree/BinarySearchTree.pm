@@ -1,20 +1,15 @@
-use 5.016;
+use 5.024;
 use strictures 2;
 use feature 'current_sub';
 
 package BST;
 use Class::Tiny qw{ data left right };
 
-sub BUILDARGS {
-    my ($class, $value) = @_;
-    return {data => $value};
-}
-
 sub insert {
     my ($self, $value) = @_;
     my $side = ($value <= $self->data) ? "left" : "right";
     if ($self->{$side}) { $self->{$side}->insert($value); } 
-    else                { $self->{$side} = (ref $self)->new($value); }
+    else                { $self->{$side} = (ref $self)->new(data => $value); }
     return $self;
 }
 
@@ -50,7 +45,7 @@ use Exporter::Easiest 'OK => tree treeSort';
 
 sub _bst {
     my @data = (shift)->@*;
-    my $tree = BST->new(shift @data);
+    my $tree = BST->new(data => shift @data);
     $tree->insert($_) for @data;
     return $tree;
 }

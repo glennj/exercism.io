@@ -4,11 +4,11 @@ use 5.024;
 use strictures 2;
 no warnings 'experimental::smartmatch';     ## no critic (TestingAndDebugging::ProhibitNoWarnings)
 
-use WordyErrors qw/ SyntaxError UnknownOperation /;
+use WordyErrors;
 use Scalar::Util qw/ looks_like_number /;
 
 ############################################################
-use Class::Tiny qw/ stack state /;
+use Class::Tiny qw/ expression stack state /;
 
 my %Operations = (
     plus       => sub { return (shift) + (shift) },
@@ -17,9 +17,11 @@ my %Operations = (
     divided    => sub { return (shift) / (shift) },
 );
 
-sub BUILDARGS {
-    my ($class, $phrase) = @_;
-    return {stack => [split ' ', $phrase], state => 'num'}
+sub BUILD {
+    my ($self) = @_;
+    $self->stack([split ' ', $self->expression]);
+    $self->state('num');
+    return;
 }
 
 sub _nextToken {
@@ -35,16 +37,16 @@ sub next {              ## no critic (Subroutines::ProhibitBuiltinHomonyms)
     for ($self->state) {
         when ('num') {
             # expecting a number
-            SyntaxError() unless looks_like_number($token);
+            SyntaxError->new->raise() unless looks_like_number($token);
             $self->state('op');
             return $token;
         }
         when ('op') {
             # not expecting a number
-            SyntaxError() if looks_like_number($token);
-            UnknownOperation() if not exists $Operations{$token};
+            SyntaxError->new->raise() if looks_like_number($token);
+            UnknownOperationError->new->raise() if not exists $Operations{$token};
             if (grep {$token eq $_} qw/multiplied divided/) {
-                UnknownOperation() if $self->_nextToken ne 'by';
+                UnknownOperationError->new->raise() if $self->_nextToken ne 'by';
             }
             $self->state('num');
             return $Operations{$token};

@@ -8,8 +8,8 @@ package Clock;
 use Class::Tiny     qw/ minutes /;
 
 sub BUILDARGS {
-    my $class = shift;
-    my ($hour, $minute) = (shift)->@{qw/hour minute/};
+    my ($class, $args) = @_;
+    my ($hour, $minute) = $args->@{qw/hour minute/};
     return {minutes => _normalize(($hour // 0) * 60 + ($minute // 0))};
 };
 

@@ -12,19 +12,6 @@ DISTRIBUTIONS
       perl 5.008001
       strict 0
       warnings 0
-  Class-Method-Modifiers-2.13
-    pathname: E/ET/ETHER/Class-Method-Modifiers-2.13.tar.gz
-    provides:
-      Class::Method::Modifiers 2.13
-    requirements:
-      B 0
-      Carp 0
-      Exporter 0
-      ExtUtils::MakeMaker 0
-      base 0
-      perl 5.006
-      strict 0
-      warnings 0
   Class-Tiny-1.008
     pathname: D/DA/DAGOLDEN/Class-Tiny-1.008.tar.gz
     provides:
@@ -34,15 +21,6 @@ DISTRIBUTIONS
       Carp 0
       ExtUtils::MakeMaker 6.17
       perl 5.006
-      strict 0
-      warnings 0
-  ExtUtils-Config-0.008
-    pathname: L/LE/LEONT/ExtUtils-Config-0.008.tar.gz
-    provides:
-      ExtUtils::Config 0.008
-    requirements:
-      Data::Dumper 0
-      ExtUtils::MakeMaker 6.30
       strict 0
       warnings 0
   ExtUtils-Depends-0.8001
@@ -55,36 +33,6 @@ DISTRIBUTIONS
       File::Spec 0
       IO::File 0
       perl 5.006
-  ExtUtils-Helpers-0.026
-    pathname: L/LE/LEONT/ExtUtils-Helpers-0.026.tar.gz
-    provides:
-      ExtUtils::Helpers 0.026
-      ExtUtils::Helpers::Unix 0.026
-      ExtUtils::Helpers::VMS 0.026
-      ExtUtils::Helpers::Windows 0.026
-    requirements:
-      Carp 0
-      Exporter 5.57
-      ExtUtils::MakeMaker 0
-      File::Basename 0
-      File::Copy 0
-      File::Spec::Functions 0
-      Text::ParseWords 3.24
-      perl 5.006
-      strict 0
-      warnings 0
-  ExtUtils-InstallPaths-0.012
-    pathname: L/LE/LEONT/ExtUtils-InstallPaths-0.012.tar.gz
-    provides:
-      ExtUtils::InstallPaths 0.012
-    requirements:
-      Carp 0
-      ExtUtils::Config 0.002
-      ExtUtils::MakeMaker 0
-      File::Spec 0
-      perl 5.006
-      strict 0
-      warnings 0
   Importer-0.026
     pathname: E/EX/EXODIST/Importer-0.026.tar.gz
     provides:
@@ -92,31 +40,6 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.008001
-  Module-Build-Tiny-0.039
-    pathname: L/LE/LEONT/Module-Build-Tiny-0.039.tar.gz
-    provides:
-      Module::Build::Tiny 0.039
-    requirements:
-      CPAN::Meta 0
-      DynaLoader 0
-      Exporter 5.57
-      ExtUtils::CBuilder 0
-      ExtUtils::Config 0.003
-      ExtUtils::Helpers 0.020
-      ExtUtils::Install 0
-      ExtUtils::InstallPaths 0.002
-      ExtUtils::ParseXS 0
-      File::Basename 0
-      File::Find 0
-      File::Path 0
-      File::Spec::Functions 0
-      Getopt::Long 2.36
-      JSON::PP 2
-      Pod::Man 0
-      TAP::Harness::Env 0
-      perl 5.006
-      strict 0
-      warnings 0
   Module-Pluggable-5.2
     pathname: S/SI/SIMONW/Module-Pluggable-5.2.tar.gz
     provides:
@@ -133,51 +56,6 @@ DISTRIBUTIONS
       if 0
       perl 5.005030
       strict 0
-  Moo-2.005004
-    pathname: H/HA/HAARG/Moo-2.005004.tar.gz
-    provides:
-      Method::Generate::Accessor undef
-      Method::Generate::BuildAll undef
-      Method::Generate::Constructor undef
-      Method::Generate::DemolishAll undef
-      Moo 2.005004
-      Moo::HandleMoose undef
-      Moo::HandleMoose::FakeConstructor undef
-      Moo::HandleMoose::FakeMetaClass undef
-      Moo::HandleMoose::_TypeMap undef
-      Moo::Object undef
-      Moo::Role 2.005004
-      Moo::_Utils undef
-      Moo::sification undef
-      oo undef
-    requirements:
-      Carp 0
-      Class::Method::Modifiers 1.10
-      Exporter 0
-      ExtUtils::MakeMaker 0
-      Role::Tiny 2.002003
-      Scalar::Util 1.00
-      Sub::Defer 2.006006
-      Sub::Quote 2.006006
-      perl 5.006
-  Readonly-2.05
-    pathname: S/SA/SANKO/Readonly-2.05.tar.gz
-    provides:
-      Readonly 2.05
-      Readonly::Array undef
-      Readonly::Hash undef
-      Readonly::Scalar undef
-    requirements:
-      Module::Build::Tiny 0.035
-      perl 5.005
-  Role-Tiny-2.002004
-    pathname: H/HA/HAARG/Role-Tiny-2.002004.tar.gz
-    provides:
-      Role::Tiny 2.002004
-      Role::Tiny::With 2.002004
-    requirements:
-      Exporter 5.57
-      perl 5.006
   Scope-Guard-0.21
     pathname: C/CH/CHOCOLATE/Scope-Guard-0.21.tar.gz
     provides:
@@ -196,15 +74,6 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Importer 0.024
       perl 5.008001
-  Sub-Quote-2.006006
-    pathname: H/HA/HAARG/Sub-Quote-2.006006.tar.gz
-    provides:
-      Sub::Defer 2.006006
-      Sub::Quote 2.006006
-    requirements:
-      ExtUtils::MakeMaker 0
-      Scalar::Util 0
-      perl 5.006
   Term-Table-0.015
     pathname: E/EX/EXODIST/Term-Table-0.015.tar.gz
     provides:

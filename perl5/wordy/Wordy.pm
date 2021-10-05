@@ -4,23 +4,23 @@ package Wordy;
 
 use strictures 2;
 use WordyLexer;
-use WordyErrors qw/ SyntaxError UnknownOperation /;
+use WordyErrors;
 use Exporter::Easiest 'OK => answer';
 
 sub answer {
     my $input = shift;
 
-    UnknownOperation() unless $input =~ /^What is\b/;
-    SyntaxError() unless $input =~ /\?$/;
+    UnknownOperationError->new->raise() unless $input =~ /^What is\b/;
+    SyntaxError->new->raise()           unless $input =~ /\?$/;
     $input =~ s/^What is|\?$//g;
 
-    my $stack = WordyLexer->new($input);
+    my $stack = WordyLexer->new(expression => $input);
     my $valid = 1;
     my $operation;
     my $token;
 
     my $result = $stack->next();
-    SyntaxError() unless $result;
+    SyntaxError->new->raise() unless $result;
 
     while ($token = $stack->next()) {
         if (ref $token eq 'CODE') {
@@ -33,7 +33,7 @@ sub answer {
         }
     }
 
-    SyntaxError() if not $valid;
+    SyntaxError->new->raise() if not $valid;
     return $result;
 }
 
