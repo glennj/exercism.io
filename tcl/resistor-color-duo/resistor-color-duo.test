@@ -1,59 +1,50 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "resistor-color-duo.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test resistor-color-duo-1.1 "Brown and black" -body {
+    resistorColor::value brown black
+} -returnCodes ok -result 10
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip resistor-color-duo-1.2
+test resistor-color-duo-1.2 "Blue and grey" -body {
+    resistorColor::value blue grey
+} -returnCodes ok -result 68
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip resistor-color-duo-1.3
+test resistor-color-duo-1.3 "Yellow and violet" -body {
+    resistorColor::value yellow violet
+} -returnCodes ok -result 47
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip resistor-color-duo-1.4
+test resistor-color-duo-1.4 "White and red" -body {
+    resistorColor::value white red
+} -returnCodes ok -result 92
 
-if {$::argv0 eq [info script]} {
+skip resistor-color-duo-1.5
+test resistor-color-duo-1.5 "Orange and orange" -body {
+    resistorColor::value orange orange
+} -returnCodes ok -result 33
 
-    set cases {
-        resistor-color-duo-1.1 {brown black}   10 "Brown and black"
-        resistor-color-duo-1.2 {blue grey}     68 "Blue and grey"
-        resistor-color-duo-1.3 {yellow violet} 47 "Yellow and violet"
-        resistor-color-duo-1.4 {orange orange} 33 "Orange and orange"
-        resistor-color-duo-1.5 {green brown orange} 51 "Ignore additional colors"
-    }
+skip resistor-color-duo-1.6
+test resistor-color-duo-1.6 "Ignore additional colors" -body {
+    resistorColor::value green brown orange
+} -returnCodes ok -result 51
 
-    foreach {name colors value description} $cases {
-        test $name $description -body {
-            resistorColor::value {*}$colors
-        } -returnCodes ok -result $value
-    }
 
-    set errorcases {
-        resistor-color-duo-2.1 {foo black} "Invalid first color"
-        resistor-color-duo-2.2 {black bar} "Invalid second color"
-    }
+skip resistor-color-duo-2.1
+test resistor-color-duo-2.1 "Invalid first color" -body {
+    resistorColor::value foo black
+} -returnCodes error -match glob -result {Invalid color*}
 
-    foreach {name colors description} $errorcases {
-        test $name $description -body {
-            resistorColor::value {*}$colors
-        } -returnCodes error -match glob -result {Invalid color*}
-    }
+skip resistor-color-duo-2.2
+test resistor-color-duo-2.2 "Invalid second color" -body {
+    resistorColor::value black bar
+} -returnCodes error -match glob -result {Invalid color*}
 
-    cleanupTests
-}
+
+cleanupTests

@@ -48,9 +48,15 @@ namespace eval markdownParser {
     }
 
     proc em {line} {
-        set words [lassign [split $line _] html]
-        foreach {emphasized plain} $words {
-            append html <em> $emphasized </em> $plain
+        set words [split $line _]
+        set html [lshift words]
+        while {![lempty $words]} {
+            # so that "hello_world" does not render as "hello<em>world</em>"
+            if {[llength $words] == 1} {
+                append html _ [lshift words]
+            } else {
+                append html <em> [lshift words] </em> [lshift words]
+            }
         }
         return $html
     }
@@ -107,4 +113,14 @@ namespace import markdownParser::parse
 # a shortcut to reference a variable in the caller's scope
 proc ref {varname} {
     uplevel 1 [list upvar 1 $varname $varname]
+}
+
+# a couple of list utility procs
+proc lempty {list} {
+    expr {[llength $list] == 0}
+}
+proc lshift {listVar} {
+    upvar 1 $listVar list
+    set list [lassign $list[set list {}] item]  ;# ref Unsharing Objects at http://wiki.tcl.tk/K
+    return $item
 }

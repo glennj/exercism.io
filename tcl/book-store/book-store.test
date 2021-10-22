@@ -1,67 +1,96 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+configure -verbose {error body msec}
+source testHelpers.tcl
+
+############################################################
 source "book-store.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
+# results expressed in units of cents.
+
+test bookstore-1 "Only a single book" -body {
+    basketCost {1}
+} -returnCodes ok -result 800
+
+skip bookstore-2
+test bookstore-2 "Two of the same book" -body {
+    basketCost {2 2}
+} -returnCodes ok -result 1600
+
+skip bookstore-3
+test bookstore-3 "Empty basket" -body {
+    basketCost {}
+} -returnCodes ok -result 0
+
+skip bookstore-4
+test bookstore-4 "Two different books" -body {
+    basketCost {1 2}
+} -returnCodes ok -result 1520
+
+skip bookstore-5
+test bookstore-5 "Three different books" -body {
+    basketCost {1 2 3}
+} -returnCodes ok -result 2160
+
+skip bookstore-6
+test bookstore-6 "Four different books" -body {
+    basketCost {1 2 3 4}
+} -returnCodes ok -result 2560
+
+skip bookstore-7
+test bookstore-7 "Five different books" -body {
+    basketCost {1 2 3 4 5}
+} -returnCodes ok -result 3000
+
+skip bookstore-8
+test bookstore-8 "Two groups of four is cheaper than group of five plus group of three" -body {
+    basketCost {1 1 2 2 3 3 4 5}
+} -returnCodes ok -result 5120
+
+skip bookstore-9
+test bookstore-9 "Two groups of four is cheaper than group of five plus group of three, alternate basket" -body {
+    basketCost {1 1 2 3 4 4 5 5}
+} -returnCodes ok -result 5120
+
+skip bookstore-10
+test bookstore-10 "Group of four plus group of two is cheaper than two groups of three" -body {
+    basketCost {1 1 2 2 3 4}
+} -returnCodes ok -result 4080
+
+skip bookstore-11
+test bookstore-11 "Two each of first 4 books and 1 copy each of rest" -body {
+    basketCost {1 1 2 2 3 3 4 4 5}
+} -returnCodes ok -result 5560
+
+skip bookstore-12
+test bookstore-12 "Two copies of each book" -body {
+    basketCost {1 1 2 2 3 3 4 4 5 5}
+} -returnCodes ok -result 6000
+
+skip bookstore-13
+test bookstore-13 "Three copies of first book and 2 each of remaining" -body {
+    basketCost {1 1 2 2 3 3 4 4 5 5 1}
+} -returnCodes ok -result 6800
+
+skip bookstore-14
+test bookstore-14 "Three each of first 2 books and 2 each of remaining books" -body {
+    basketCost {1 1 2 2 3 3 4 4 5 5 1 2}
+} -returnCodes ok -result 7520
+
+skip bookstore-15
+test bookstore-15 "Four groups of four are cheaper than two groups each of five and three" -body {
+    basketCost {1 1 2 2 3 3 4 5 1 1 2 2 3 3 4 5}
+} -returnCodes ok -result 10240
+
+
+# this may take a long time: change 0 to 1 to run this test case.
+if {1} {
+    skip bookstore-16
+    test bookstore-16 "Check that groups of four are created properly even when there are more groups of three than groups of five" -body {
+        basketCost {1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 5 5}
+    } -returnCodes ok -result 14560
 }
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
-
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
-
-if {$::argv0 eq [info script]} {
-
-    # results expressed in units of cents.
-    set cases {
-        bookstore-1 "Only a single book" {1} 800
-        bookstore-2 "Two of the same book" {2 2} 1600
-        bookstore-3 "Empty basket" {} 0
-        bookstore-4 "Two different books" {1 2} 1520
-        bookstore-5 "Three different books" {1 2 3} 2160
-        bookstore-6 "Four different books" {1 2 3 4} 2560
-        bookstore-7 "Five different books" {1 2 3 4 5} 3000
-        bookstore-8 "Two groups of four is cheaper than group of five plus group of three" 
-            {1 1 2 2 3 3 4 5} 5120
-        bookstore-9 "Two groups of four is cheaper than group of five plus group of three, alternate basket" 
-            {1 1 2 3 4 4 5 5} 5120
-        bookstore-10 "Group of four plus group of two is cheaper than two groups of three"
-            {1 1 2 2 3 4} 4080
-        bookstore-11 "Two each of first 4 books and 1 copy each of rest"
-            {1 1 2 2 3 3 4 4 5} 5560
-        bookstore-12 "Two copies of each book"
-            {1 1 2 2 3 3 4 4 5 5} 6000
-        bookstore-13 "Three copies of first book and 2 each of remaining"
-            {1 1 2 2 3 3 4 4 5 5 1} 6800
-        bookstore-14 "Three each of first 2 books and 2 each of remaining books"
-            {1 1 2 2 3 3 4 4 5 5 1 2} 7520
-        bookstore-15 "Four groups of four are cheaper than two groups each of five and three"
-            {1 1 2 2 3 3 4 5 1 1 2 2 3 3 4 5} 10240
-    }
-
-    foreach {name description basket cost} $cases {
-        test $name $description -body "
-            basketCost {$basket}
-        " -result $cost
-    }
-
-    cleanupTests
-}
+cleanupTests

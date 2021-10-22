@@ -33,6 +33,10 @@ Implement the following operations:
 
 Assume the programming language you are using does not have an implementation of complex numbers.
 
+Some of these tests require you to create new functions for the `expr` command.
+Read the Tcl [mathfunc](https://www.tcl-lang.org/man/tcl8.6/TclCmd/mathfunc.htm)
+documentation to learn how.
+
 ## Source
 
 ### Created by

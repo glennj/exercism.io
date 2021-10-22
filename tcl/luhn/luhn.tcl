@@ -12,6 +12,6 @@ proc luhn {digits} {
         incr sum $digit
         set double [expr {!$double}]
     }
-
+ 
     return [expr {$sum % 10 == 0}]
 }

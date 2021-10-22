@@ -1,137 +1,244 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "forth.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test forth-1 "numbers just get pushed onto the stack" -body {
+    evalForth "1 2 3 4 5"
+} -returnCodes ok -result {1 2 3 4 5}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip forth-2
+test forth-2 "can add two numbers" -body {
+    evalForth "1 2 +"
+} -returnCodes ok -result {3}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip forth-3
+test forth-3 "errors if there is nothing on the stack" -body {
+    evalForth "+"
+} -returnCodes error -result "empty stack"
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip forth-4
+test forth-4 "errors if there is only one value on the stack" -body {
+    evalForth "1 +"
+} -returnCodes error -result "only one value on the stack"
 
-if {$::argv0 eq [info script]} {
+skip forth-5
+test forth-5 "can subtract two numbers" -body {
+    evalForth "3 4 -"
+} -returnCodes ok -result {-1}
 
-    set cases {
-        forth-1 "numbers just get pushed onto the stack"
-            "1 2 3 4 5" ok {1 2 3 4 5}
-        forth-2 "can add two numbers"
-            "1 2 +" ok {3}
-        forth-3 "errors if there is nothing on the stack"
-            "+" error "empty stack"
-        forth-4 "errors if there is only one value on the stack"
-            "1 +" error "only one value on the stack"
-        forth-5 "can subtract two numbers"
-            "3 4 -" ok {-1}
-        forth-6 "errors if there is nothing on the stack"
-            "-" error "empty stack"
-        forth-7 "errors if there is only one value on the stack"
-            "1 -" error "only one value on the stack"
-        forth-8 "can multiply two numbers"
-            "2 4 *" ok {8}
-        forth-9 "errors if there is nothing on the stack"
-            "*" error "empty stack"
-        forth-10 "errors if there is only one value on the stack"
-            "1 *" error "only one value on the stack"
-        forth-11 "can divide two numbers"
-            "12 3 /" ok {4}
-        forth-12 "performs integer division"
-            "8 3 /" ok {2}
-        forth-13 "errors if dividing by zero"
-            "4 0 /" error "divide by zero"
-        forth-14 "errors if there is nothing on the stack"
-            "/" error "empty stack"
-        forth-15 "errors if there is only one value on the stack"
-            "1 /" error "only one value on the stack"
-        forth-16 "addition and subtraction"
-            "1 2 + 4 -" ok {-1}
-        forth-17 "multiplication and division"
-            "2 4 * 3 /" ok {2}
-        forth-18 "copies a value on the stack"
-            "1 dup" ok {1 1}
-        forth-19 "copies the top value on the stack"
-            "1 2 dup" ok {1 2 2}
-        forth-20 "errors if there is nothing on the stack"
-            "dup" error "empty stack"
-        forth-21 "removes the top value on the stack if it is the only one"
-            "1 drop" ok {}
-        forth-22 "removes the top value on the stack if it is not the only one"
-            "1 2 drop" ok {1}
-        forth-23 "errors if there is nothing on the stack"
-            "drop" error "empty stack"
-        forth-24 "swaps the top two values on the stack if they are the only ones"
-            "1 2 swap" ok {2 1}
-        forth-25 "swaps the top two values on the stack if they are not the only ones"
-            "1 2 3 swap" ok {1 3 2}
-        forth-26 "errors if there is nothing on the stack"
-            "swap" error "empty stack"
-        forth-27 "errors if there is only one value on the stack"
-            "1 swap" error "only one value on the stack"
-        forth-28 "copies the second element if there are only two"
-            "1 2 over" ok {1 2 1}
-        forth-29 "copies the second element if there are more than two"
-            "1 2 3 over" ok {1 2 3 2}
-        forth-30 "errors if there is nothing on the stack"
-            "over" error "empty stack"
-        forth-31 "errors if there is only one value on the stack"
-            "1 over" error "only one value on the stack"
-        forth-32 "can consist of built-in words"
-            ": dup-twice dup dup ;\n1 dup-twice" ok {1 1 1}
-        forth-33 "execute in the right order"
-            ": countup 1 2 3 ;\ncountup" ok {1 2 3}
-        forth-34 "can override other user-defined words"
-            ": foo dup ;\n: foo dup dup ;\n1 foo" ok {1 1 1}
-        forth-35 "can override built-in words"
-            ": swap dup ;\n1 swap" ok {1 1}
-        forth-36 "can override built-in operators"
-            ": + * ;\n3 4 +" ok {12}
-        forth-37 "can use different words with the same name"
-            ": foo 5 ;\n: bar foo ;\n: foo 6 ;\nbar foo" ok {5 6}
-        forth-38 "can define word that uses word with the same name"
-            ": foo 10 ;\n: foo foo 1 + ;\nfoo" ok {11}
-        forth-39a "cannot redefine non-negative numbers"
-            ": 1 2 ;" error "illegal operation"
-        forth-39b "cannot redefine negative numbers"
-            ": -1 2 ;" error "illegal operation"
-        forth-40 "errors if executing a non-existent word"
-            "foo" error "undefined operation"
-        forth-41 "DUP is case-insensitive"
-            "1 DUP Dup dup" ok {1 1 1 1}
-        forth-42 "DROP is case-insensitive"
-            "1 2 3 4 DROP Drop drop" ok {1}
-        forth-43 "SWAP is case-insensitive"
-            "1 2 SWAP 3 Swap 4 swap" ok {2 3 4 1}
-        forth-44 "OVER is case-insensitive"
-            "1 2 OVER Over over" ok {1 2 1 2 1}
-        forth-45 "user-defined words are case-insensitive"
-            ": foo dup ;\n1 FOO Foo foo" ok {1 1 1 1}
-        forth-46 "definitions are case-insensitive"
-            ": SWAP DUP Dup dup ;\n1 swap" ok {1 1 1 1}
-    }
+skip forth-6
+test forth-6 "errors if there is nothing on the stack" -body {
+    evalForth "-"
+} -returnCodes error -result "empty stack"
 
-    foreach {name description input status result} $cases {
-        test $name $description -body {
-            evalForth $input
-        } -returnCodes $status -result $result
-    }
+skip forth-7
+test forth-7 "errors if there is only one value on the stack" -body {
+    evalForth "1 -"
+} -returnCodes error -result "only one value on the stack"
 
-    cleanupTests
-}
+skip forth-8
+test forth-8 "can multiply two numbers" -body {
+    evalForth "2 4 *"
+} -returnCodes ok -result {8}
+
+skip forth-9
+test forth-9 "errors if there is nothing on the stack" -body {
+    evalForth "*"
+} -returnCodes error -result "empty stack"
+
+skip forth-10
+test forth-10 "errors if there is only one value on the stack" -body {
+    evalForth "1 *"
+} -returnCodes error -result "only one value on the stack"
+
+skip forth-11
+test forth-11 "can divide two numbers" -body {
+    evalForth "12 3 /"
+} -returnCodes ok -result {4}
+
+skip forth-12
+test forth-12 "performs integer division" -body {
+    evalForth "8 3 /"
+} -returnCodes ok -result {2}
+
+skip forth-13
+test forth-13 "errors if dividing by zero" -body {
+    evalForth "4 0 /"
+} -returnCodes error -result "divide by zero"
+
+skip forth-14
+test forth-14 "errors if there is nothing on the stack" -body {
+    evalForth "/"
+} -returnCodes error -result "empty stack"
+
+skip forth-15
+test forth-15 "errors if there is only one value on the stack" -body {
+    evalForth "1 /"
+} -returnCodes error -result "only one value on the stack"
+
+skip forth-16
+test forth-16 "addition and subtraction" -body {
+    evalForth "1 2 + 4 -"
+} -returnCodes ok -result {-1}
+
+skip forth-17
+test forth-17 "multiplication and division" -body {
+    evalForth "2 4 * 3 /"
+} -returnCodes ok -result {2}
+
+skip forth-18
+test forth-18 "copies a value on the stack" -body {
+    evalForth "1 dup"
+} -returnCodes ok -result {1 1}
+
+skip forth-19
+test forth-19 "copies the top value on the stack" -body {
+    evalForth "1 2 dup"
+} -returnCodes ok -result {1 2 2}
+
+skip forth-20
+test forth-20 "errors if there is nothing on the stack" -body {
+    evalForth "dup"
+} -returnCodes error -result "empty stack"
+
+skip forth-21
+test forth-21 "removes the top value on the stack if it is the only one" -body {
+    evalForth "1 drop"
+} -returnCodes ok -result {}
+
+skip forth-22
+test forth-22 "removes the top value on the stack if it is not the only one" -body {
+    evalForth "1 2 drop"
+} -returnCodes ok -result {1}
+
+skip forth-23
+test forth-23 "errors if there is nothing on the stack" -body {
+    evalForth "drop"
+} -returnCodes error -result "empty stack"
+
+skip forth-24
+test forth-24 "swaps the top two values on the stack if they are the only ones" -body {
+    evalForth "1 2 swap"
+} -returnCodes ok -result {2 1}
+
+skip forth-25
+test forth-25 "swaps the top two values on the stack if they are not the only ones" -body {
+    evalForth "1 2 3 swap"
+} -returnCodes ok -result {1 3 2}
+
+skip forth-26
+test forth-26 "errors if there is nothing on the stack" -body {
+    evalForth "swap"
+} -returnCodes error -result "empty stack"
+
+skip forth-27
+test forth-27 "errors if there is only one value on the stack" -body {
+    evalForth "1 swap"
+} -returnCodes error -result "only one value on the stack"
+
+skip forth-28
+test forth-28 "copies the second element if there are only two" -body {
+    evalForth "1 2 over"
+} -returnCodes ok -result {1 2 1}
+
+skip forth-29
+test forth-29 "copies the second element if there are more than two" -body {
+    evalForth "1 2 3 over"
+} -returnCodes ok -result {1 2 3 2}
+
+skip forth-30
+test forth-30 "errors if there is nothing on the stack" -body {
+    evalForth "over"
+} -returnCodes error -result "empty stack"
+
+skip forth-31
+test forth-31 "errors if there is only one value on the stack" -body {
+    evalForth "1 over"
+} -returnCodes error -result "only one value on the stack"
+
+skip forth-32
+test forth-32 "can consist of built-in words" -body {
+    evalForth ": dup-twice dup dup ;\n1 dup-twice"
+} -returnCodes ok -result {1 1 1}
+
+skip forth-33
+test forth-33 "execute in the right order" -body {
+    evalForth ": countup 1 2 3 ;\ncountup"
+} -returnCodes ok -result {1 2 3}
+
+skip forth-34
+test forth-34 "can override other user-defined words" -body {
+    evalForth ": foo dup ;\n: foo dup dup ;\n1 foo"
+} -returnCodes ok -result {1 1 1}
+
+skip forth-35
+test forth-35 "can override built-in words" -body {
+    evalForth ": swap dup ;\n1 swap"
+} -returnCodes ok -result {1 1}
+
+skip forth-36
+test forth-36 "can override built-in operators" -body {
+    evalForth ": + * ;\n3 4 +"
+} -returnCodes ok -result {12}
+
+skip forth-37
+test forth-37 "can use different words with the same name" -body {
+    evalForth ": foo 5 ;\n: bar foo ;\n: foo 6 ;\nbar foo"
+} -returnCodes ok -result {5 6}
+
+skip forth-38
+test forth-38 "can define word that uses word with the same name" -body {
+    evalForth ": foo 10 ;\n: foo foo 1 + ;\nfoo"
+} -returnCodes ok -result {11}
+
+skip forth-39a
+test forth-39a "cannot redefine non-negative numbers" -body {
+    evalForth ": 1 2 ;"
+} -returnCodes error -result "illegal operation"
+
+skip forth-39b
+test forth-39b "cannot redefine negative numbers" -body {
+    evalForth ": -1 2 ;"
+} -returnCodes error -result "illegal operation"
+
+skip forth-40
+test forth-40 "errors if executing a non-existent word" -body {
+    evalForth "foo"
+} -returnCodes error -result "undefined operation"
+
+skip forth-41
+test forth-41 "DUP is case-insensitive" -body {
+    evalForth "1 DUP Dup dup"
+} -returnCodes ok -result {1 1 1 1}
+
+skip forth-42
+test forth-42 "DROP is case-insensitive" -body {
+    evalForth "1 2 3 4 DROP Drop drop"
+} -returnCodes ok -result {1}
+
+skip forth-43
+test forth-43 "SWAP is case-insensitive" -body {
+    evalForth "1 2 SWAP 3 Swap 4 swap"
+} -returnCodes ok -result {2 3 4 1}
+
+skip forth-44
+test forth-44 "OVER is case-insensitive" -body {
+    evalForth "1 2 OVER Over over"
+} -returnCodes ok -result {1 2 1 2 1}
+
+skip forth-45
+test forth-45 "user-defined words are case-insensitive" -body {
+    evalForth ": foo dup ;\n1 FOO Foo foo"
+} -returnCodes ok -result {1 1 1 1}
+
+skip forth-46
+test forth-46 "definitions are case-insensitive" -body {
+    evalForth ": SWAP DUP Dup dup ;\n1 swap"
+} -returnCodes ok -result {1 1 1 1}
+
+
+cleanupTests

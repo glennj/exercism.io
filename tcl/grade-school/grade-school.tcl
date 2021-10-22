@@ -1,34 +1,41 @@
-lappend auto_path ../lib
-package require dictGetdef
+oo::class create School {
+    variable studentBody
 
-
-proc roster {students} {
-    # first, map the name to the grade: if a student has multiple
-    # grades, they will be excluded later
-    set names {}
-    foreach student $students {
-        lassign $student name grade
-        dict lappend names $name $grade
+    constructor {} {
+        my reset
     }
 
-    # then, map the grade to its students
-    set roster [dict create]
-    dict for {name grades} $names {
-        # ignore student in multiple grades
-        if {[llength $grades] > 1} then continue
-        dict lappend roster $grades $name
+    method reset {} {
+        set studentBody {}
     }
 
-    # sort the names within the grades
-    dict for {grade names} $roster {
-        dict set roster $grade [lsort $names]
+    method add {students} {
+        lmap student $students {
+            lassign $student name grade
+            if {[dict exists $studentBody $name]} {
+                string cat "false"
+            } else {
+                dict set studentBody $name $grade
+                string cat "true"
+            }
+        }
     }
 
-    # then sort the grades
-    lsort -integer -stride 2 $roster
+    method roster {} {
+        # a dict is the same as a list with an even number of elements.
+        # we can use that to sort the student body, first by name
+        # then by grade.
+        set sorted [lsort -stride 2 -index 1 -integer [
+                    lsort -stride 2 -index 0 $studentBody]
+                   ]
+        dict keys $sorted
+    }
+
+    method grade {gr} {
+        set class [dict filter $studentBody value $gr]
+        lsort [dict keys $class]
+    }
 }
 
-
-proc grade {students grade} {
-    dict getdef [roster $students] $grade {}
-}
+# this gives us the command named "school"
+School create school

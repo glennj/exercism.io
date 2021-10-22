@@ -1,167 +1,301 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "complex-numbers.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test complex-1.1 "Real part of a purely real number" -body {
+    set c [ComplexNumber new 1 0]
+    $c real
+} -returnCodes ok -result 1
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip complex-1.2
+test complex-1.2 "Real part of a purely imaginary number" -body {
+    set c [ComplexNumber new 0 1]
+    $c real
+} -returnCodes ok -result 0
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
-
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
-
-customMatch pairOfFloats pairFloatMatch
-proc pairFloatMatch {expected actual {precision 8}} {
-    lassign $expected r1 i1
-    lassign $actual   r2 i2
-    return [expr {
-        [format "%.${precision}f" $r1] == [format "%.${precision}f" $r2] &&
-        [format "%.${precision}f" $i1] == [format "%.${precision}f" $i2]
-    }]
-}
-
-if {$::argv0 eq [info script]} {
-
-    set cases {
-        complex-1.1 "Real part of a purely real number"
-            {1 0} real 1
-        complex-1.2 "Real part of a purely imaginary number"
-            {0 1} real 0
-        complex-1.3 "Real part of a number with real and imaginary part"
-            {1 2} real 1
-        complex-2.1 "Imaginary part of a purely real number"
-            {1 0} imag 0
-        complex-2.1 "Imaginary part of a purely imaginary number"
-            {0 1} imag 1
-        complex-2.1 "Imaginary part of a number with real and imaginary part"
-            {1 2} imag 2
-    }
-    foreach {name description init func result} $cases {
-        test $name $description -body {
-            set c [ComplexNumber new {*}$init]
-            $c $func
-        } -returnCodes ok -result $result
-    }
-
-    set cases {
-        complex-3.1 "Add purely real numbers"
-            {1 0} {2 0} add {3 0}
-        complex-3.2 "Add purely imaginary numbers"
-            {0 1} {0 2} add {0 3}
-        complex-3.3 "Add numbers with real and imaginary part"
-            {1 2} {3 4} add {4 6}
-
-        complex-4.1 "Subtract purely real numbers"
-            {1 0} {2 0} sub {-1 0}
-        complex-4.2 "Subtract purely imaginary numbers"
-            {0 1} {0 2} sub {0 -1}
-        complex-4.3 "Subtract numbers with real and imaginary part"
-            {1 2} {3 4} sub {-2 -2}
-
-        complex-5.1 "Multiply purely real numbers"
-            {1 0} {2 0} mul {2 0}
-        complex-5.2 "Multiply purely imaginary numbers"
-            {0 1} {0 2} mul {-2 0}
-        complex-5.3 "Multiply numbers with real and imaginary part"
-            {1 2} {3 4} mul {-5 10}
-        complex-5.4 "Imaginary unit"
-            {0 1} {0 1} mul {-1 0}
-
-        complex-6.1 "Divide purely real numbers"
-            {1 0} {2 0} div {0.5 0.0}
-        complex-6.2 "Divide purely imaginary numbers"
-            {0 1} {0 2} div {0.5 0.0}
-        complex-6.3 "Divide numbers with real and imaginary part"
-            {1 2} {3 4} div {0.44 0.08}
-    }
-    foreach {name year init1 init2 func result} $cases {
-        test $name $description -body {
-            set c1 [ComplexNumber new {*}$init1]
-            set c2 [ComplexNumber new {*}$init2]
-            [$c1 $func $c2] toList
-        } -returnCodes ok -result $result
-    }
-
-    set cases {
-        complex-7.1 "Absolute value of a positive purely real number"
-            {5 0} abs 5.0
-        complex-7.2 "Absolute value of a negative purely real number"
-            {-5 0} abs 5.0
-        complex-7.3 "Absolute value of a purely imaginary number with positive imaginary part"
-            {0 5} abs 5.0
-        complex-7.4 "Absolute value of a purely imaginary number with negative imaginary part"
-            {0 -5} abs 5.0
-        complex-7.5 "Absolute value of a number with real and imaginary part"
-            {3 4} abs 5.0
-    }
-    foreach {name description init func result} $cases {
-        test $name $description -body {
-            set c [ComplexNumber new {*}$init]
-            $c $func
-        } -returnCodes ok -result $result
-    }
-
-    set cases {
-        complex-8.1 "Conjugate a purely real number"
-            {5 0} conj {5 0}
-        complex-8.2 "Conjugate a purely imaginary number"
-            {0 5} conj {0 -5}
-        complex-8.3 "Conjugate a number with real and imaginary part"
-            {1 1} conj {1 -1}
-    }
-    foreach {name description init func result} $cases {
-        test $name $description -body {
-            set c [ComplexNumber new {*}$init]
-            [$c $func] toList
-        } -returnCodes ok -result $result
-    }
-
-    # Complex exponential function
-
-    test complex-9.1 "Euler's identity/formula" -body {
-        set pi [expr {atan(1) * 4}]
-        set c [ComplexNumber new 0 $pi]
-        set d [$c exp]
-        $d toList
-    } -returnCodes ok -match pairOfFloats -result {-1 0}
-
-    test complex-9.2 "Exponential of 0" -body {
-        set c [ComplexNumber new 0 0]
-        set d [$c exp]
-        $d toList
-    } -returnCodes ok -match pairOfFloats -result {1 0}
-
-    set e  [expr {exp(1)}]
-    test complex-9.3 "Exponential of a purely real number" -body {
-        set c [ComplexNumber new 1 0]
-        set d [$c exp]
-        $d toList
-    } -returnCodes ok -match pairOfFloats -result [list $e 0]
-
-    test complex-9.4 "Exponential of a number with real and imaginary part" -body {
-        set c [ComplexNumber new [expr {log(2)}] [expr {atan(1) * 4}]]
-        set d [$c exp]
-        $d toList
-    } -returnCodes ok -match pairOfFloats -result {-2 0}
+skip complex-1.3
+test complex-1.3 "Real part of a number with real and imaginary part" -body {
+    set c [ComplexNumber new 1 2]
+    $c real
+} -returnCodes ok -result 1
 
 
-    cleanupTests
-}
+skip complex-2.1
+test complex-2.1 "Imaginary part of a purely real number" -body {
+    set c [ComplexNumber new 1 0]
+    $c imag
+} -returnCodes ok -result 0
+
+skip complex-2.2
+test complex-2.2 "Imaginary part of a purely imaginary number" -body {
+    set c [ComplexNumber new 0 1]
+    $c imag
+} -returnCodes ok -result 1
+
+skip complex-2.3
+test complex-2.3 "Imaginary part of a number with real and imaginary part" -body {
+    set c [ComplexNumber new 1 2]
+    $c imag
+} -returnCodes ok -result 2
+
+
+skip complex-3.1
+test complex-3.1 "Add purely real numbers" -body {
+    set c1 [ComplexNumber new 1 0]
+    set c2 [ComplexNumber new 2 0]
+    [$c1 add $c2] toList
+} -returnCodes ok -result {3 0}
+
+skip complex-3.2
+test complex-3.2 "Add purely imaginary numbers" -body {
+    set c1 [ComplexNumber new 0 1]
+    set c2 [ComplexNumber new 0 2]
+    [$c1 add $c2] toList
+} -returnCodes ok -result {0 3}
+
+skip complex-3.3
+test complex-3.3 "Add numbers with real and imaginary part" -body {
+    set c1 [ComplexNumber new 1 2]
+    set c2 [ComplexNumber new 3 4]
+    [$c1 add $c2] toList
+} -returnCodes ok -result {4 6}
+
+
+skip complex-4.1
+test complex-4.1 "Subtract purely real numbers" -body {
+    set c1 [ComplexNumber new 1 0]
+    set c2 [ComplexNumber new 2 0]
+    [$c1 sub $c2] toList
+} -returnCodes ok -result {-1 0}
+
+skip complex-4.2
+test complex-4.2 "Subtract purely imaginary numbers" -body {
+    set c1 [ComplexNumber new 0 1]
+    set c2 [ComplexNumber new 0 2]
+    [$c1 sub $c2] toList
+} -returnCodes ok -result {0 -1}
+
+skip complex-4.3
+test complex-4.3 "Subtract numbers with real and imaginary part" -body {
+    set c1 [ComplexNumber new 1 2]
+    set c2 [ComplexNumber new 3 4]
+    [$c1 sub $c2] toList
+} -returnCodes ok -result {-2 -2}
+
+
+skip complex-5.1
+test complex-5.1 "Multiply purely real numbers" -body {
+    set c1 [ComplexNumber new 1 0]
+    set c2 [ComplexNumber new 2 0]
+    [$c1 mul $c2] toList
+} -returnCodes ok -result {2 0}
+
+skip complex-5.2
+test complex-5.2 "Multiply purely imaginary numbers" -body {
+    set c1 [ComplexNumber new 0 1]
+    set c2 [ComplexNumber new 0 2]
+    [$c1 mul $c2] toList
+} -returnCodes ok -result {-2 0}
+
+skip complex-5.3
+test complex-5.3 "Multiply numbers with real and imaginary part" -body {
+    set c1 [ComplexNumber new 1 2]
+    set c2 [ComplexNumber new 3 4]
+    [$c1 mul $c2] toList
+} -returnCodes ok -result {-5 10}
+
+skip complex-5.4
+test complex-5.4 "Imaginary unit" -body {
+    set c1 [ComplexNumber new 0 1]
+    set c2 [ComplexNumber new 0 1]
+    [$c1 mul $c2] toList
+} -returnCodes ok -result {-1 0}
+
+
+skip complex-6.1
+test complex-6.1 "Divide purely real numbers" -body {
+    set c1 [ComplexNumber new 1 0]
+    set c2 [ComplexNumber new 2 0]
+    [$c1 div $c2] toList
+} -returnCodes ok -result {0.5 0.0}
+
+skip complex-6.2
+test complex-6.2 "Divide purely imaginary numbers" -body {
+    set c1 [ComplexNumber new 0 1]
+    set c2 [ComplexNumber new 0 2]
+    [$c1 div $c2] toList
+} -returnCodes ok -result {0.5 0.0}
+
+skip complex-6.3
+test complex-6.3 "Divide numbers with real and imaginary part" -body {
+    set c1 [ComplexNumber new 1 2]
+    set c2 [ComplexNumber new 3 4]
+    [$c1 div $c2] toList
+} -returnCodes ok -result {0.44 0.08}
+
+
+skip complex-7.1
+test complex-7.1 "Absolute value of a positive purely real number" -body {
+    set c [ComplexNumber new 5 0]
+    $c abs
+} -returnCodes ok -result 5.0
+
+skip complex-7.2
+test complex-7.2 "Absolute value of a negative purely real number" -body {
+    set c [ComplexNumber new -5 0]
+    $c abs
+} -returnCodes ok -result 5.0
+
+skip complex-7.3
+test complex-7.3 "Absolute value of a purely imaginary number with positive imaginary part" -body {
+    set c [ComplexNumber new 0 5]
+    $c abs
+} -returnCodes ok -result 5.0
+
+skip complex-7.4
+test complex-7.4 "Absolute value of a purely imaginary number with negative imaginary part" -body {
+    set c [ComplexNumber new 0 -5]
+    $c abs
+} -returnCodes ok -result 5.0
+
+skip complex-7.5
+test complex-7.5 "Absolute value of a number with real and imaginary part" -body {
+    set c [ComplexNumber new 3 4]
+    $c abs
+} -returnCodes ok -result 5.0
+
+
+skip complex-8.1
+test complex-8.1 "Conjugate a purely real number" -body {
+    set c [ComplexNumber new 5 0]
+    [$c conj] toList
+} -returnCodes ok -result {5 0}
+
+skip complex-8.2
+test complex-8.2 "Conjugate a purely imaginary number" -body {
+    set c [ComplexNumber new 0 5]
+    [$c conj] toList
+} -returnCodes ok -result {0 -5}
+
+skip complex-8.3
+test complex-8.3 "Conjugate a number with real and imaginary part" -body {
+    set c [ComplexNumber new 1 1]
+    [$c conj] toList
+} -returnCodes ok -result {1 -1}
+
+
+# Complex exponential function
+
+skip complex-9.1
+test complex-9.1 "Euler's identity/formula" -body {
+    set pi [expr {atan(1) * 4}]
+    set c [ComplexNumber new 0 $pi]
+    set d [$c exp]
+    $d toList
+} -returnCodes ok -match pairOfFloats -result {-1 0}
+
+skip complex-9.2
+test complex-9.2 "Exponential of 0" -body {
+    set c [ComplexNumber new 0 0]
+    set d [$c exp]
+    $d toList
+} -returnCodes ok -match pairOfFloats -result {1 0}
+
+set e [expr {exp(1)}]
+
+skip complex-9.3
+test complex-9.3 "Exponential of a purely real number" -body {
+    set c [ComplexNumber new 1 0]
+    set d [$c exp]
+    $d toList
+} -returnCodes ok -match pairOfFloats -result [list $e 0]
+
+set PI [expr {atan(1) * 4}]
+
+skip complex-9.4
+test complex-9.4 "Exponential of a number with real and imaginary part" -body {
+    set c [ComplexNumber new [expr {log(2)}] $PI]
+    set d [$c exp]
+    $d toList
+} -returnCodes ok -match pairOfFloats -result {-2 0}
+
+############################################################
+# Operations between real numbers and complex numbers.
+#
+# These tests require you to write new functions for the
+# `expr` command.  The new functions will take two arguments
+# (a real number and a complex number, in some order) and
+# return a complex number.
+#
+# See https://www.tcl-lang.org/man/tcl8.6/TclCmd/mathfunc.htm
+
+skip complex-10.1
+test complex-10.1 "Add real number to complex number" -body {
+    set c [ComplexNumber new 1 2]
+    set r 5
+    set d [expr {cr_add($c, $r)}]
+    $d toList
+} -returnCodes ok -match pairOfFloats -result {6 2}
+
+skip complex-10.2
+test complex-10.2 "Add complex number to real number" -body {
+    set r 5
+    set c [ComplexNumber new 1 2]
+    set d [expr {cr_add($r, $c)}]
+    $d toList
+} -returnCodes ok -match pairOfFloats -result {6 2}
+
+skip complex-10.3
+test complex-10.3 "Subtract real number from complex number" -body {
+    set c [ComplexNumber new 5 7]
+    set r 4
+    set d [expr {cr_sub($c, $r)}]
+    $d toList
+} -returnCodes ok -match pairOfFloats -result {1 7}
+
+skip complex-10.4
+test complex-10.4 "Subtract complex number from real number" -body {
+    set r 4
+    set c [ComplexNumber new 5 7]
+    set d [expr {cr_sub($r, $c)}]
+    $d toList
+} -returnCodes ok -match pairOfFloats -result {-1 -7}
+
+skip complex-10.5
+test complex-10.5 "Multiply complex number by real number" -body {
+    set c [ComplexNumber new 2 5]
+    set r 5
+    set d [expr {cr_mul($c, $r)}]
+    $d toList
+} -returnCodes ok -match pairOfFloats -result {10 25}
+
+skip complex-10.6
+test complex-10.6 "Multiply real number by complex number" -body {
+    set c [ComplexNumber new 2 5]
+    set r 5
+    set d [expr {cr_mul($r, $c)}]
+    $d toList
+} -returnCodes ok -match pairOfFloats -result {10 25}
+
+skip complex-10.7
+test complex-10.7 "Divide complex number by real number" -body {
+    set c [ComplexNumber new 10 100]
+    set r 10
+    set d [expr {cr_div($c, $r)}]
+    $d toList
+} -returnCodes ok -match pairOfFloats -result {1 10}
+
+skip complex-10.8
+test complex-10.8 "Divide real number by complex number" -body {
+    set c [ComplexNumber new 1 1]
+    set r 5
+    set d [expr {cr_div($r, $c)}]
+    $d toList
+} -returnCodes ok -match pairOfFloats -result {2.5 -2.5}
+
+
+cleanupTests

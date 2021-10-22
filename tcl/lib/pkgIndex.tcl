@@ -8,7 +8,6 @@
 # script is sourced, the variable $dir must contain the
 # full path name of this file's directory.
 
-package ifneeded Exceptions 0.1 [list source [file join $dir exceptions.tcl]]
 package ifneeded additionalMathFunctions 0.1 [list source [file join $dir mathfunc.tcl]]
 package ifneeded controlCommands 0.1 [list source [file join $dir controlCommands.tcl]]
 package ifneeded dictGetdef 0.1 [list source [file join $dir dict.tcl]]

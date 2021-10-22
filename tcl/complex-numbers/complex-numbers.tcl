@@ -79,26 +79,25 @@ oo::class create ComplexNumber {
 }
 
 ############################################################
-# In addition to passing the tests for the exercise, add some usability
-# improvements:
-#
-# Define some math functions for `expr`
-#   cadd(first, second)
-#   csub(first, second)
-#   cmul(first, second)
-#   cdiv(first, second)
-#   cabs(first)
-#   cconj(first)
-#   cexp(first)
-#
-# Where "first" and "second" are strings of the form: _real_ "i" _imag_
-# e.g. "10i20"
+# math functions to work with reals and complexes
 
-proc ::tcl::mathfunc::cadd {u v} {[[ComplexNumber new $u] + [ComplexNumber new $v]] toString}
-proc ::tcl::mathfunc::csub {u v} {[[ComplexNumber new $u] - [ComplexNumber new $v]] toString}
-proc ::tcl::mathfunc::cmul {u v} {[[ComplexNumber new $u] * [ComplexNumber new $v]] toString}
-proc ::tcl::mathfunc::cdiv {u v} {[[ComplexNumber new $u] / [ComplexNumber new $v]] toString}
+namespace eval ::tcl::mathfunc {
+    proc cr_add {a b} {_complex_real_operation add $a $b}
+    proc cr_sub {a b} {_complex_real_operation sub $a $b}
+    proc cr_mul {a b} {_complex_real_operation mul $a $b}
+    proc cr_div {a b} {_complex_real_operation div $a $b}
 
-proc ::tcl::mathfunc::cabs  {cn} {[ComplexNumber new $cn] abs}
-proc ::tcl::mathfunc::cconj {cn} {[[ComplexNumber new $cn] conj] toString}
-proc ::tcl::mathfunc::cexp  {cn} {[[ComplexNumber new $cn] exp] toString}
+    proc _complex_real_operation {op a b} {
+        return [[_to_complex $a] $op [_to_complex $b]]
+    }
+
+    proc _to_complex {x} {
+        if {[string is double -strict $x]} {
+            return [ComplexNumber new $x]
+        } elseif {[info object isa typeof $x ComplexNumber]} {
+            return $x
+        } else {
+            error [format {expected floating-point number or ComplexNumber but got "%s"} $x]
+        }
+    }
+}
