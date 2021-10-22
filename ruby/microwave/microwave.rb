@@ -12,10 +12,7 @@ class Microwave
     # 9 minutes and 90 seconds, or 10:30 for the display.
 
     minutes, seconds = @time.divmod 100
-    if seconds >= 60
-      seconds %= 60
-      minutes += 1
-    end
-    sprintf "%02d:%02d", minutes, seconds
+    extra, seconds = seconds.divmod 60
+    sprintf "%02d:%02d", minutes + extra, seconds
   end
 end
