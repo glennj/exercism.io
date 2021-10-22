@@ -1,6 +1,8 @@
 local Set = {}
 Set.__index = Set
 setmetatable(Set, {
+    -- syntactic sugar:
+    -- `Set(1,2,3)` works like `Set:new(1,2,3,4)`
     __call = function(cls, ...) return cls:new(...) end,
 })
 

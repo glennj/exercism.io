@@ -18,7 +18,7 @@ local function find(array, search_for)
     local j = #array
 
     while i <= j do
-        local mid = i + (j - i) // 2
+        local mid = (i + j) // 2
         local val = array[mid]
 
         if search_for == val then

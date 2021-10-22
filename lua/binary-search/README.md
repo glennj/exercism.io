@@ -1,5 +1,10 @@
 # Binary Search
 
+Welcome to Binary Search on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement a binary search algorithm.
 
 Searching a sorted collection is a common task. A dictionary is a sorted
@@ -34,18 +39,16 @@ A binary search halves the number of items to check with each iteration,
 so locating an item (or determining its absence) takes logarithmic time.
 A binary search is a dichotomic divide and conquer search algorithm.
 
-## Running the tests
-
-To run the tests, run the command `busted` from within the exercise directory.
-
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
-
 ## Source
 
-Wikipedia [http://en.wikipedia.org/wiki/Binary_search_algorithm](http://en.wikipedia.org/wiki/Binary_search_algorithm)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @ryanplusplus
+
+### Contributed to by
+
+- @aarti
+
+### Based on
+
+Wikipedia - http://en.wikipedia.org/wiki/Binary_search_algorithm
