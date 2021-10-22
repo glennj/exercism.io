@@ -36,3 +36,19 @@ In order to accomodate a pull request with many many changed files, I've updated
         .filename
     ' | xargs -r bash scripts/pr
 ```
+
+---
+
+# Some useful Docker one-liners
+
+... but there's gotta be a better way...
+
+## Delete all containers
+```bash
+docker container ls -a | awk 'NR>1 {print $1}' | xargs docker container rm
+```
+
+## Delete all un-named images
+```bash
+docker image ls | awk '$1 == "<none>" {print $3}' | xargs docker image rm
+```

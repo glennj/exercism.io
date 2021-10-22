@@ -30,3 +30,7 @@ IFS=';' read -r a b c <<<"$line"
   </details>
 </details>
 
+## Ending a mentoring conversation:
+
+Have fun with the next exercise; feel free to post here if you have more comments or questions.
+

@@ -46,7 +46,7 @@ Exercises
 * [proverb](#proverb)
 * [grains](#grains)
 * [armstrong numbers](#armstrong-numbers)
-
+* [difference of squares](#difference-of-squares)
 
 Be sure to check out [the community solutions](https://exercism.io/tracks/bash/exercises/__SLUG__/solutions) to see other approaches.
 
@@ -1691,6 +1691,20 @@ yelling() {
 # ...
 elif yelling "$input" && question "$input"; then ...
 ```
+
+<!-- -->
+
+It's really important to quote the arguments to `tr`: the "bare" bracket
+expression will be used by bash for file expansion first. Try this:
+```bash
+bash -x bob.sh hello
+touch ./e
+bash -x bob.sh hello
+rm e; touch ./o
+bash -x bob.sh hello
+touch ./w
+bash -x bob.sh hello
+```
  
 <!-- ........................................................ -->
 ## grains
@@ -1699,6 +1713,38 @@ To get the formula to calculate the total, we can look at:
 
 * [summation](https://en.wikipedia.org/wiki/Summation) and
 * [geometric progression](https://en.wikipedia.org/wiki/Geometric_progression)
+
+<!-- -->
+
+bash by itself can handle this: the values for individual squares and the total all fit in a 64-bit integer. The key is print the values as _unsigned integers_.
+
+<!-- ........................................................ -->
+## difference of squares
+
+<details><summary>There are formulas to calculate the values, so 
+loops aren't strictly needed. Click for hints...</summary>
+
+The formulas for sums of powers of first _n_ numbers is given (and derived)
+at [https://brilliant.org/wiki/sum-of-n-n2-or-n3/](https://brilliant.org/wiki/sum-of-n-n2-or-n3/)
+</details>
+
+<!-- -->
+
+A nice way to implement a script that takes subcommands is:
+* put the code for the subcommand in a function named after
+  the subcommand,
+* the `main` function dispatches to the functions with a
+  `case` statement:
+    ```bash
+    case $1 in
+        subcmd1 | subcmd2 | ... | subcmdN)
+            "$1" "${@:2}"
+            ;;
+        *)  error "unknown subcommand $1" >&2
+            exit 1
+            ;;
+    esac
+    ```
 
 
 <!-- ........................................................ -->
@@ -1933,6 +1979,19 @@ files=( "${@:2}" )
 (( ${#files[@]} > 0 )) || files+=("-")
 ```
 
+<!-- -->
+
+The duplicated code blocks indicate that things can be simpler. Some tips:
+* while processing a file, you want lines that
+    1. match the pattern and invert is _off_, OR
+    1. don't match the pattern and invert is _on_
+
+* after the `while getopts` loop, it's a good idea to `shift $((OPTIND - 1))`. Then the positional parameters that remain start at `$1`.
+
+* the `nocasematch` shell option can be helpful.
+
+* with regular expression matching, the `-x` option anchors the pattern at
+  start and end of line.
 
 <!-- ........................................................ -->
 ## acronym

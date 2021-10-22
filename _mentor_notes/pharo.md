@@ -1,5 +1,12 @@
 Be sure to check out [the community solutions](https://exercism.io/tracks/pharo-smalltalk/exercises/__SLUG__/solutions) to see other approaches.
 
+## Submitting in Pharo IDE
+
+A student was able to submit, but [only the test results were sent to
+exercism, not the actual code](https://exercism.io/mentor/solutions/8e1fe71d8b7a402bb011a08335a6ab0e?iteration_idx=1#discussion-post-975220:):
+
+> reason why my code was not being submitted was that i had subclassed from #ExercismTest
+> assuming that was required. Subclassed from #Object and code shows up in exercism
 
 ## super vs self
 
@@ -110,3 +117,26 @@ expression. If you supply an expression, Smalltalk will *evaluate
 the expression first*, and use that value as the argument to `and:`.
 Here, if the year is not divisible by 4, there's no need to divide it by 100
 and then 400.
+
+<!-- ===================================================== -->
+## Exercise: space-age
+
+Instantiate an object given the **name** of a class:
+```smalltalk
+SpaceAge >> ageOnPlanet: planet at: seconds [
+	^ (self class environment at: planet asSymbol) new
+		seconds: seconds;
+		age
+]
+```
+could be:
+```smalltalk
+SpaceAge >> ageOnPlanet: planet at: seconds [
+	^ planet asClass new
+		seconds: seconds;
+		age
+]
+```
+But as [@moniquelive mentioned](https://exercism.org/mentoring/discussions/854b5ce624064dd5bc30fc9d0ba5af94):
+
+> I used `planetStr asClass new` first, but then Pharo warned me to use this call instead :)))
