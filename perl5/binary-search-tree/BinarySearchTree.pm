@@ -45,7 +45,8 @@ use Exporter::Easiest 'OK => tree treeSort';
 
 sub _bst {
     my @data = (shift)->@*;
-    my $tree = BST->new(data => shift @data);
+    my $root_value = shift @data;
+    my $tree = BST->new(data => $root_value);
     $tree->insert($_) for @data;
     return $tree;
 }
