@@ -1,13 +1,13 @@
 {
-  "name": "@exercism/javascript-two-bucket",
+  "name": "@exercism/javascript-rail-fence-cipher",
   "description": "Exercism exercises in Javascript.",
-  "author": "Katrina Owen",
+  "author": "lpizzinidev",
   "private": true,
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/exercism/javascript",
-    "directory": "exercises/practice/two-bucket"
+    "directory": "exercises/practice/rail-fence-cipher"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
