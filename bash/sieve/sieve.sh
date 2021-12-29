@@ -1,33 +1,33 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2206
 
 # Sieve of Eratosthenes
 
 sieve() {
     local -i limit=$1 i
     local -a is_prime
-    local -ia primes
+    local -a primes
+    local sieve_function=${2:-"sieve_optimized"}
 
     # create the array of candidates
     for ((i = 2; i <= limit; i++)); do
         is_prime[i]=true
     done
 
-    # un-mark the non-primes in the is_prime array
-
-    #sieve_naive
-    sieve_optimized
-    #sieve3
-
-    # extract the prime numbers
-    for ((i = 2; i <= limit; i++)); do
-        ${is_prime[i]} && primes+=($i)
-    done
+    # invoke the sieve function, and extract the prime numbers
+    "$sieve_function"
 
     echo "${primes[*]}"
-
 }
 
 # unoptimized loop
+#
+# $ time bash sieve.sh 100000 "sieve_naive" >/dev/null
+# 
+# real  0m13.827s
+# user  0m13.782s
+# sys   0m0.023s
+
 sieve_naive() {
     for ((p = 2; p <= limit; p++)); do
         # mark multiples as not prime
@@ -35,22 +35,20 @@ sieve_naive() {
             is_prime[i]=false
         done
     done
+
+    for ((i = 2; i <= limit; i++)); do
+        ${is_prime[i]} && primes+=($i)
+    done
 }
 
 # a more optimized version
 # these optimizations speed up the code a great deal:
-#
-# $ time bash sieve_unoptimized.sh 100000 >/dev/null
-#
-# real	0m17.402s
-# user	0m17.375s
-# sys	0m0.018s
-#
-# $ time bash sieve.sh 100000 >/dev/null
-#
-# real	0m2.377s
-# user	0m2.366s
-# sys	0m0.007s
+# 
+# $ time bash sieve.sh 100000 "sieve_optimized" >/dev/null
+# 
+# real  0m1.839s
+# user  0m1.822s
+# sys   0m0.009s
 
 sieve_optimized() {
     # we can stop iterating when p <= sqrt(limit), all
@@ -74,15 +72,26 @@ sieve_optimized() {
             is_prime[i]=false
         done
     done
+
+    for ((i = 2; i <= limit; i++)); do
+        ${is_prime[i]} && primes+=($i)
+    done
 }
 
-# I thought this might have been faster: mark non-primes by
-# removing them from the array, then the remaining indices
-# are the prime numbers. It is however 2x slower than the
-# "optimized" version -- I presume due to the overhead of
-# removing an element from the linked list implementation of
-# bash indexed arrays.
-sieve3() {
+# mark non-primes by removing them from the array, then the
+# remaining indices are the prime numbers. 
+#
+# This is quicker largely due to not having to loop over
+# the numbers from 2 to limit to determine the primes, it
+# just takes the array indices.
+#
+# $ time bash sieve.sh 100000 "sieve_arrayunset" >/dev/null
+# 
+# real  0m1.269s
+# user  0m1.255s
+# sys   0m0.007s
+
+sieve_arrayunset() {
     for ((p = 2; p * p <= limit; p++)); do
         if [[ -n ${is_prime[p]} ]] && ${is_prime[p]}; then
             ((step = p == 2 ? 2 : 2 * p))
@@ -91,9 +100,8 @@ sieve3() {
             done
         fi
     done
-    # output the indices and exit
-    echo "${!is_prime[*]}"
-    exit
+
+    primes=(${!is_prime[@]})
 }
 
 sieve "$@"

@@ -16,20 +16,14 @@ readonly high=(
     [60]=sixty [70]=seventy [80]=eighty [90]=ninety
 )
 
-out_of_range() {
-    echo 'input out of range' >&2
-    exit 1
-}
-
 say() {
     local -i n=$1
-    if   ((n < 0));      then out_of_range
-    elif ((n < 100));    then say_small $n
-    elif ((n < 10**3));  then say_compound $n 100 hundred
-    elif ((n < 10**6));  then say_compound $n $((10**3)) thousand
-    elif ((n < 10**9));  then say_compound $n $((10**6)) million
-    elif ((n < 10**12)); then say_compound $n $((10**9)) billion
-    else                      out_of_range
+    if ((n < 0 || n >= 10**12)); then echo 'input out of range' >&2; exit 1
+    elif ((n < 100));            then say_small $n
+    elif ((n < 10**3));          then say_compound $n 100 hundred
+    elif ((n < 10**6));          then say_compound $n $((10**3)) thousand
+    elif ((n < 10**9));          then say_compound $n $((10**6)) million
+                                 else say_compound $n $((10**9)) billion
     fi
 }
 

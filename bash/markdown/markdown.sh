@@ -15,7 +15,7 @@ close_list() {
     if $in_list; then
         html+="</ul>"
         in_list=false
-    fi
+    fi 
 }
 
 em()     { inline_style "$1"  _   em; }
@@ -76,7 +76,7 @@ main() {
         else
             close_list
 
-            if [[ $line =~ ^("#"+)[[:blank:]]+(.*) ]]; then
+            if [[ $line =~ ^("#"{1,6})[[:blank:]]+(.*) ]]; then
                 tag="h${#BASH_REMATCH[1]}"
                 html+="<$tag>${BASH_REMATCH[2]}</$tag>"
 

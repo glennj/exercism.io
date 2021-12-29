@@ -8,7 +8,7 @@ checkBashVersion 4.3 namerefs
 # print the result, and exit success
 result() {
     echo "$*"
-    exit 0
+    exit 0 
 }
 
 ############################################################

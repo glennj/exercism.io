@@ -15,7 +15,7 @@ test_set_size() {
     done
 
     ((${#letters[@]} == 26)) && echo true || echo false
-}
+} 
 
 check_each_letter() {
     local letter

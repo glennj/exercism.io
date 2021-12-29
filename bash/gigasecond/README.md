@@ -29,7 +29,6 @@ breaking the functionality.
 4. Repeat from step 1.
 5. Submit your solution (`exercism submit /path/to/file`)
 
-
 Submissions are encouraged to be general, within reason. Having said that, it's
 also important not to over-engineer a solution.
 

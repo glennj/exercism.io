@@ -4,21 +4,22 @@ source ./utils.bash
 source ./utils_string.bash
 
 ############################################################
-# This uses a single call to bc.
+# This uses a single call to bc: bc can return several results.
 score_throw_bc() {
-    checkBashVersion 4.0 "mapfile command"
-    local bools fmt
-
-    printf -v fmt 'sqrt(%s^2 + %s^2) <= %%d\n' "$@"
-    # shellcheck disable=SC2059
-    mapfile -t bools < <(printf "$fmt" 1 5 10 | bc -l)
-
-    case "${bools[*]}" in
-        "1 1 1") echo 10 ;;
-        "0 1 1") echo  5 ;;
-        "0 0 1") echo  1 ;;
-        "0 0 0") echo  0 ;;
-    esac
+    local x=$1 y=$2
+    local one five ten
+    # shellcheck disable=SC2162
+    { read one; read five; read ten; } < <(
+        bc -l << _END_
+            x = sqrt($x^2 + $y^2)
+            x <= 1
+            x <= 5
+            x <= 10
+_END_
+    )
+    ((one))  && return 10
+    ((five)) && return 5
+    ((ten))  && return 1 || return 0
 }
 
 ############################################################
@@ -115,8 +116,8 @@ main() {
     assert -C str::isFloat "$1" "arguments must be numeric"
     assert -C str::isFloat "$2" "arguments must be numeric"
 
-    score_throw_bc "$@"
     #score_throw_bash_only "$@"
+    score_throw_bc "$@"; echo $?
 }
 
 main "$@"

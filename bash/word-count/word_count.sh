@@ -78,7 +78,10 @@ for sentence in "$@"; do
 
         # we've allowed single quotes as apostrophes, but
         # we don't want leading or trailing quotes.
-        incr "$(str::trim "$word" "'")"
+        word=$(str::trim "$word" "'")
+
+        # finally, increment the count for this word
+        incr "$word"
     done
 done
 

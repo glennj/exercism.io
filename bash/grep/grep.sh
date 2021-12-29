@@ -23,8 +23,8 @@ output() {
     printf "%s\n" "${items[*]}"
 }
 
-# Determine if a line matches the pattern.
-# Relies on "nocasematch" option for case insensitivity.
+# Determine if a line matches.
+# Relies on "nocaseglob" options for case insensitivity.
 matches() {
     local line=$1 pattern=$2
     { ! inverted &&   [[ $line =~ $pattern ]]; } ||

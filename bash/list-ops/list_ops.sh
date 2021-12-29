@@ -17,7 +17,6 @@ list::append () {
     __append_lst+=("${@:2}")
 }
 
-
 # Return only the list elements that pass the given function.
 list::filter () {
     local func=$1

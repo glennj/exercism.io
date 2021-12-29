@@ -24,8 +24,10 @@ while [[ $codons =~ (...)(.*) ]]; do
     codons=${BASH_REMATCH[2]}
     protein=${map[$codon]}
     [[ -n $protein ]] || die "Invalid codon"
-    [[ $protein == STOP ]] && break
+    [[ $protein == STOP ]] && codons="" && break
     proteins+=("$protein")
 done
+
+[[ -z $codons ]] || die "Invalid codon"
 
 echo "${proteins[*]}"
