@@ -6,19 +6,19 @@ Testie.test("Sieve of Eratosthenes") { |do, skip|
     Expect.value(Sieve.new(1).primes).toEqual([])
   }
 
-  skip.test("find first prime") {
+  do.test("find first prime") {
     Expect.value(Sieve.new(2).primes).toEqual([2])
   }
 
-  skip.test("find primes up to 10") {
+  do.test("find primes up to 10") {
     Expect.value(Sieve.new(10).primes).toEqual([2, 3, 5, 7])
   }
 
-  skip.test("limit is prime") {
+  do.test("limit is prime") {
     Expect.value(Sieve.new(13).primes).toEqual([2, 3, 5, 7, 11, 13])
   }
 
-  skip.test("find primes up to 1000") {
+  do.test("find primes up to 1000") {
     var actual = Sieve.new(1000).primes
     var expected = [
       2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47,

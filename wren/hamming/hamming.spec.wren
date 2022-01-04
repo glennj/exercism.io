@@ -25,24 +25,24 @@ Testie.test("Hamming") { |do, skip|
   skip.test("disallow first strand longer") {
     Expect.that {
       Hamming.compute("AATG", "AAA")
-    }.abortsWith("left and right strands must be of equal length")
+    }.abortsWith("strands must be of equal length")
   }
 
   skip.test("disallow second strand longer") {
     Expect.that {
       Hamming.compute("ATA", "AGTG")
-    }.abortsWith("left and right strands must be of equal length")
+    }.abortsWith("strands must be of equal length")
   }
 
   skip.test("disallow left empty strand") {
     Expect.that {
       Hamming.compute("", "G")
-    }.abortsWith("left strand must not be empty")
+    }.abortsWith("strands must be of equal length")
   }
 
   skip.test("disallow right empty strand") {
     Expect.that {
       Hamming.compute("G", "")
-    }.abortsWith("right strand must not be empty")
+    }.abortsWith("strands must be of equal length")
   }
 }
