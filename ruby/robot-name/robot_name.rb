@@ -1,18 +1,32 @@
-require 'set'
+# frozen_string_literal: true
 
-# class comment
+# I can generate names for Robots
+#
+# This implementation initializes all the names up-front,
+# and maintains an index into the collection of names.
+#
+# This greatly improves performance when the names are getting
+# close to consumed.
+#   - comparing against an implementation that generates a random
+#     name then checks a set to see if it's been used, the
+#     test suite runs this code almost 10x faster.
+#
 class Robot
   attr_reader :name
 
-  def self.forget
-    # Using a class variable is suboptimal, due to "inheritence problem".
-    # I was trying to figure out how to use a class instance variable, and
-    # also to limit access to that variable to only Robot instances. I don't
-    # think Ruby can be that locked down.
-    #
-    # Sticking to simplest solution here.
+  # generate all names, store in class instance variable
+  @names = []
+  ('A'..'Z').each   do |a|
+    ('A'..'Z').each do |b|
+      0.upto(999)   do |c|
+        @names << format('%s%s%03d', a, b, c) # rubocop:disable Style/FormatStringToken
+      end
+    end
+  end
 
-    @@names = Set.new
+  def self.forget
+    @names.shuffle!
+    @idx = -1
   end
 
   forget
@@ -22,22 +36,13 @@ class Robot
   end
 
   def reset
-    @name = generate_name
+    @name = self.class.next_name
   end
 
-  private
+  def self.next_name
+    @idx += 1
+    raise 'all names in use' if @idx == @names.length
 
-  LETTERS = ('A'..'Z').to_a
-  DIGITS  = ('0'..'9').to_a
-
-  def generate_name
-    name = ''
-    loop do
-      name = LETTERS.sample + LETTERS.sample +
-             DIGITS.sample  + DIGITS.sample  + DIGITS.sample
-      break unless @@names.include? name
-    end
-    @@names.add name
-    name
+    @names[@idx]
   end
 end
