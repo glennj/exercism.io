@@ -30,31 +30,14 @@ class Robot() {
     }
 
     private fun turnLeft() {
-        orientation = when (orientation) {
-            WEST  -> SOUTH
-            SOUTH -> EAST
-            EAST  -> NORTH
-            NORTH -> WEST
-        }
+        orientation = orientation.left()
     }
 
     private fun turnRight() {
-        orientation = when (orientation) {
-            WEST  -> NORTH
-            SOUTH -> WEST
-            EAST  -> SOUTH
-            NORTH -> EAST
-        }
+        orientation = orientation.right()
     }
 
     private fun advance() {
-        var (x, y) = gridPosition
-        when (orientation) {
-            NORTH -> y++
-            EAST  -> x++
-            SOUTH -> y--
-            WEST  -> x--
-        }
-        gridPosition = GridPosition(x, y)
+        gridPosition = gridPosition.advance(orientation)
     }
 }

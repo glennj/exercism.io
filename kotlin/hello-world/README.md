@@ -1,5 +1,10 @@
 # Hello World
 
+Welcome to Hello World on Exercism's Kotlin Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 The classical introductory exercise. Just say "Hello, World!".
 
 ["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is
@@ -18,35 +23,32 @@ Since this is your first Kotlin exercise, we've included a detailed TUTORIAL.md
 file that guides you through your solution. Check it out for tips and
 assistance!
 
-
-
-## Setup
-
-Go through the setup instructions for Kotlin to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/kotlin/installation](https://exercism.io/tracks/kotlin/installation)
-
-## Making the test suite pass
-
-Execute the tests with:
-
-```bash
-$ gradlew test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore` annotation.
-
 ## Source
 
-This is an exercise to introduce users to using Exercism [http://en.wikipedia.org/wiki/%22Hello,_world!%22_program](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program)
+### Created by
 
-## Submitting Incomplete Solutions
+- @cswagner
 
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+### Contributed to by
+
+- @bneevan
+- @dector
+- @HawkiesZA
+- @jtigger
+- @katrinleinweber
+- @kytrinyx
+- @lihofm
+- @mdowds
+- @mikegehard
+- @Mouzourides
+- @nithia
+- @sdavids13
+- @sjwarner-bp
+- @SleeplessByte
+- @stkent
+- @sup95
+- @uzilan
+
+### Based on
+
+This is an exercise to introduce users to using Exercism - http://en.wikipedia.org/wiki/%22Hello,_world!%22_program

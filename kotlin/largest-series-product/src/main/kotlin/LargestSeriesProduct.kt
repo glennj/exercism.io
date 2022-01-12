@@ -10,10 +10,9 @@ class Series(digitString: String) {
 
         return when {
             span == 0 -> 1
-            digits.isEmpty() -> 1
-            else -> digits.windowed(span, step = 1) { it.product() }.max()!!
+            else -> digits.windowed(span, step = 1) { it.product() }.maxOf { it }
         }
     }
 }
 
-fun List<Int>.product(): Long = this.fold(1L) { prod, n -> prod * n }
+fun List<Int>.product(): Long = this.fold(1L) { p, n -> p * n }

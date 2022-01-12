@@ -1,4 +1,9 @@
-# ISBN Verifier
+# Isbn Verifier
+
+Welcome to Isbn Verifier on Exercism's Kotlin Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 The [ISBN-10 verification process](https://en.wikipedia.org/wiki/International_Standard_Book_Number) is used to validate book identification
 numbers. These normally contain dashes and look like: `3-598-21508-8`
@@ -40,33 +45,23 @@ Now, it's even trickier since the check digit of an ISBN-10 may be 'X' (represen
 * Generate a valid ISBN-13 from the input ISBN-10 (and maybe verify it again with a derived verifier).
 
 * Generate valid ISBN, maybe even from a given starting ISBN.
-## Setup
-
-Go through the setup instructions for Kotlin to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/kotlin/installation](https://exercism.io/tracks/kotlin/installation)
-
-## Making the test suite pass
-
-Execute the tests with:
-
-```bash
-$ gradlew test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore` annotation.
 
 ## Source
 
-Converting a string into a number and some basic processing utilizing a relatable real world example. [https://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_check_digit_calculation](https://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_check_digit_calculation)
+### Created by
 
-## Submitting Incomplete Solutions
+- @vmichalak
 
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+### Contributed to by
+
+- @dector
+- @eparovyshnaya
+- @lihofm
+- @mdowds
+- @SleeplessByte
+- @stkent
+- @uzilan
+
+### Based on
+
+Converting a string into a number and some basic processing utilizing a relatable real world example. - https://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_check_digit_calculation
