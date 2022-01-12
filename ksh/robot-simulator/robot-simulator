@@ -10,7 +10,7 @@ typeset -T Robot_t=(
     typeset -A rightTurns=([north]=east [east]=south [south]=west [west]=north)
     typeset -A  leftTurns=([north]=west [east]=north [south]=east [west]=south)
 
-    function setx         { _.x=$1; }
+#    function setx         { _.x=$1; }
     function sety         { _.y=$1; }
     function setdirection { _.direction=$1; }
 
@@ -53,9 +53,9 @@ function main {
 
     while getopts x:y:d: opt; do
         case $opt in
-            x) robot.setx "$OPTARG" || die ;;
-            y) robot.sety "$OPTARG" || die ;;
-            d) robot.setdirection "$OPTARG" || die ;;
+            x) robot.x=$OPTARG || die ;;
+            y) robot.y=$OPTARG || die ;;
+            d) robot.direction=$OPTARG || die ;;
             *) die ;;
         esac
     done

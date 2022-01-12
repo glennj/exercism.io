@@ -1,6 +1,8 @@
 #!/usr/bin/env bats
 # vim: ft=bash
 
+load bats-extra
+
 # local version: 0.1.0.0
 
 # "Create robot",
@@ -8,8 +10,8 @@
 @test "at origin facing north" {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run ksh robot-simulator
-    [[ $status -eq 0 ]]
-    [[ $output == '{"position": {"x": 0, "y": 0}, "direction": "north"}' ]]
+    assert_success
+    assert_output '{"position": {"x": 0, "y": 0}, "direction": "north"}'
 }
 
 @test "at negative position facing south" {
@@ -17,6 +19,14 @@
     run ksh robot-simulator -x -1 -y -1 -d south
     [[ $status -eq 0 ]]
     [[ $output == '{"position": {"x": -1, "y": -1}, "direction": "south"}' ]]
+}
+
+# Invalid direction
+
+@test "at origin facing fish" {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run ksh robot-simulator -d fish
+    [[ $status -ne 0 ]]
 }
 
 # "Rotating clockwise",
