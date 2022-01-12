@@ -1,5 +1,4 @@
 local nth = require('nth-prime')
---local nth = require('nth-prime-coro-plain')
 
 describe('nth-prime', function()
   local function benchmark(f)

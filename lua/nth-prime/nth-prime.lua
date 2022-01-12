@@ -1,30 +1,38 @@
-local function is_prime(n)
-    if n < 2      then return false end
-    if n == 2     then return true  end
-    if n % 2 == 0 then return false end
-    for i = 3, math.floor(math.sqrt(n)), 2 do
-        if n % i == 0 then return false end
-    end
-    return true
-end
-
+-- a coroutine wrapped in a closure
 local prime_generator = function()
+    local primes = {}
+
+    local is_prime = function(n)
+        local result = true
+        local sq = math.sqrt(n)
+        for i = 1, #primes do
+            local p = primes[i]
+            if p > sq then break end
+            if n % p == 0 then
+                result = false
+                break
+            end
+        end
+        return result
+    end
+
     return coroutine.wrap(
         function()
-            coroutine.yield(2)
-            local p = 3
-            coroutine.yield(p)
+            coroutine.yield(2)          -- first prime
+            table.insert(primes, 2)
+            local p = 3                 -- second prime
             while true do
-                repeat
+                coroutine.yield(p)
+                table.insert(primes, p)
+                repeat                  -- find the next one
                     p = p + 2
                 until is_prime(p)
-                coroutine.yield(p)
             end
         end
     ) 
 end
 
-local function nth_prime(n)
+local nth_prime = function(n)
     assert(n > 0)
 
     local next_prime = prime_generator()
