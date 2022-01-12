@@ -1,0 +1,107 @@
+interface WordCoords {
+  start: number[]
+  end: number[]
+}
+
+interface ResultObj {
+  [index: string]: WordCoords | undefined
+}
+
+type CoordsFunction = (word: string, row: string, rowNum: number, index: number) => WordCoords
+
+const strReverse = (s: string): string => s.split('').reverse().join('')
+
+export class WordSearch {
+  private readonly grid: string[]
+  private words: string[] = []
+  private result: ResultObj = {}
+
+  constructor(grid: string[]) {
+    this.grid = grid
+  }
+
+  public find(words: string[]): ResultObj {
+    this.result = {}
+    words.forEach(word => this.result[word] = undefined)
+
+    // sorted by length decreasing, so that "javascript" is found before "java"
+    this.words = words.sort((a, b) => b.length - a.length)
+
+    this.searchHorizontally()
+    this.searchVertically()
+
+    return this.result
+  }
+
+  private wordIsFound(word: string): boolean {
+    return this.result[word] !== undefined
+  }
+
+  private search(strings: string[], fn: CoordsFunction): void {
+    strings
+      .forEach((row, i) => {
+        this.words.forEach(word => {
+          if (this.result[word] === undefined) {
+            const index = row.indexOf(word)
+
+            if (index !== -1) {
+              this.result[word] = fn(word, row, i, index)
+            }
+          }
+        })
+      })
+  }
+
+  private wordCoordinates(word: string, pos: number[], delta: number[]): WordCoords {
+    return {
+      start: pos,
+      end: [
+        pos[0] + (word.length-1) * delta[0],
+        pos[1] + (word.length-1) * delta[1], 
+      ]
+    }
+  }
+
+  private searchHorizontally(): void {
+    // left to right
+    this.search(
+      this.grid,
+      (word, str, i, index) => {
+        return this.wordCoordinates(word, [i+1, index+1], [0, 1])
+      }
+    )
+
+    // right to left
+    this.search(
+      this.grid.map(row => strReverse(row)),
+      (word, str, i, index) => {
+        return this.wordCoordinates(word, [i+1, str.length - index], [0, -1])
+      }
+    )
+
+  }
+
+  private searchVertically(): void {
+    // top to bottom
+    this.search(
+      this.transposeGrid(),
+      (word, str, i, index) => {
+        return this.wordCoordinates(word, [index+1, i+1], [1, 0])
+      }
+    )
+
+    // bottom to top
+    this.search(
+      this.transposeGrid().map(col => strReverse(col)),
+      (word, str, i, index) => {
+        return this.wordCoordinates(word, [str.length - index, i+1], [-1, 0])
+      }
+    )
+  }
+
+  private transposeGrid(): string[] {
+    return this.grid[0]
+      .split('')
+      .map((_c, i) => this.grid.map(row => row[i]).join(''))
+  }
+}
