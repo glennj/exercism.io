@@ -8,7 +8,11 @@ const parse = (strand) => {
   for (const nucleotide of strand) {
     count[nucleotide] += 1;
   }
-  return Object.entries(count).sort().map(([key, val]) => val).join(' ');
+  return Object.entries(count)
+    .sort()
+    .map(([key, val]) => val)
+    .join(' ');
 };
 
-module.exports = { parse };
+// expected function name changed in some version of the tests
+module.exports = { countNucleotides: parse };

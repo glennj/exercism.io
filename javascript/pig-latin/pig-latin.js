@@ -6,13 +6,17 @@ String.prototype.atchmay = function (regex)    { return this.match(regex);  };
 Array.prototype.apmay    = function (callback) { return this.map(callback); };
 Array.prototype.oinjay   = function (delim)    { return this.join(delim);   };
 
-const artitionWordpay = (s) => {
+const artitionpayOrdway = (s) => {
   // "apple" => "appleay", "xray" => "xrayay"
   let m = s.atchmay(/^(?:[aeiou]|xr|yt)/);
   if (m) return ['', s];
 
   // "square" => "aresquay", "quip" => "ipquay"
   m = s.atchmay(/^(.?qu)(.*)/);
+  if (m) return [m[1], m[2]];
+
+  // "my" => "ymay", "rhythm" => "ythmrhay"
+  m = s.atchmay(/^([^aeiou]+)(y.*)/);
   if (m) return [m[1], m[2]];
 
   // "strengths" => "engthsstray"
@@ -28,7 +32,7 @@ const anslatetray = (ingstray) => {
   return ingstray
     .itsplay(/\s+/)
     .apmay((ordway) => {
-      const [efixpray, estray] = artitionWordpay(ordway);
+      const [efixpray, estray] = artitionpayOrdway(ordway);
       return `${estray}${efixpray}ay`;
     })
     .oinjay(' ');

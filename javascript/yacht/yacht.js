@@ -1,80 +1,23 @@
+export const score = (dice, category) => {
+  const groups = [-1, 0,0,0,0,0,0];       // dummy value for 0th index
+  dice.forEach(die => groups[die] += 1);
 
-function score(dice, category) {
-  let score = 0;
-  const groups = groupDice(dice);
-  const counts = Object.values(groups);
+  const counts   = groups.filter(c => c > 0);
+  const sum      = dice.reduce((sum, die) => sum + die);
+  const scoreFor = (die) => groups[die] * die;
 
-  switch (category) {
-    case 'ones':
-      score = scoreFor(groups, 1);
-      break;
-    case 'twos':
-      score = scoreFor(groups, 2);
-      break;
-    case 'threes':
-      score = scoreFor(groups, 3);
-      break;
-    case 'fours':
-      score = scoreFor(groups, 4);
-      break;
-    case 'fives':
-      score = scoreFor(groups, 5);
-      break;
-    case 'sixes':
-      score = scoreFor(groups, 6);
-      break;
-    case 'choice':
-      score = dice.sum();
-      break;
-    case 'yacht':
-      if (counts.length == 1) {
-        score = 50;
-      }
-      break;
-    case 'full house':
-      if (counts.length == 2 && counts.includes(3)) {
-        score = dice.sum();
-      }
-      break;
-    case 'four of a kind':
-      // can score yacht as four of a kind
-      if (counts.length <= 2) {
-        for (const die in groups) {
-          if (groups[die] >= 4) {
-            score = 4 * die;
-            break;
-          }
-        }
-      }
-      break;
-    case 'little straight':
-      if (dice.sort().join('') === '12345') {
-        score = 30;
-      }
-      break;
-    case 'big straight':
-      if (dice.sort().join('') === '23456') {
-        score = 30;
-      }
-      break;
-  }
-  return score;
-}
-
-Array.prototype.sum = function() {
-  return this.reduce((elem, sum) => elem + sum);
+  return {
+    'ones':   () => scoreFor(1),
+    'twos':   () => scoreFor(2),
+    'threes': () => scoreFor(3),
+    'fours':  () => scoreFor(4),
+    'fives':  () => scoreFor(5),
+    'sixes':  () => scoreFor(6),
+    'full house':      () => counts.length == 2 && counts.includes(3) ? sum : 0,
+    'four of a kind':  () => groups.reduce((score, count, die) => count >= 4 ? 4 * die : score, 0),
+    'little straight': () => dice.sort().join('') === '12345' ? 30 : 0,
+    'big straight':    () => dice.sort().join('') === '23456' ? 30 : 0,
+    'yacht':  () => counts.length == 1 ? 50 : 0,
+    'choice': () => sum,
+  }[category]();
 };
-
-function groupDice(dice) {
-  const groups = {};
-  for (const die of dice) {
-    groups[die] = (groups[die] || 0) + 1;
-  }
-  return groups;
-}
-
-function scoreFor(groups, die) {
-  return die * (groups[die] || 0);
-}
-
-export { score };

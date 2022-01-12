@@ -1,30 +1,29 @@
-const HEADER = 'Team                           | MP |  W |  D |  L |  P';
+const STATS = ['MP', 'W', 'D', 'L', 'P']; Object.freeze(STATS);
+
+const tableRow = (name, statistics) => [
+    name.padEnd(30),
+    ...statistics.map(s => String(s).padStart(2))
+  ].join(' | ');
+
+const header = () => tableRow('Team', STATS);
 
 /* *********************************************************** */
 class Team {
   constructor(name) {
     this.teamName = name;
-    this.w = 0;
-    this.d = 0;
-    this.l = 0;
-    this.mp = 0;
-    this.p = 0;
+    this.stats = STATS.reduce((o,s) => {o[s]=0; return o}, {});
+
   }
 
   name()   { return this.teamName; }
-  points() { return this.p; }
+  points() { return this.stats.P; }
 
-  win()  { this.w++; this.mp++; this.p += 3; }
-  draw() { this.d++; this.mp++; this.p += 1; }
-  lose() { this.l++; this.mp++; }
+  win()  { this.stats.MP++; this.stats.W++; this.stats.P += 3; }
+  draw() { this.stats.MP++; this.stats.D++; this.stats.P += 1; }
+  lose() { this.stats.MP++; this.stats.L++; }
 
   tableEntry() {
-    return this.teamName.padEnd(30)    + ' | ' +
-           String(this.mp).padStart(2) + ' | ' +
-           String(this.w).padStart(2)  + ' | ' +
-           String(this.d).padStart(2)  + ' | ' +
-           String(this.l).padStart(2)  + ' | ' +
-           String(this.p).padStart(2);
+    return tableRow(this.teamName, STATS.map(s => this.stats[s]));
   }
 }
 
@@ -59,12 +58,15 @@ class Tournament {
     return this;
   }
 
+  // The consecutive sort calls assume the javascript version
+  // implements a stable sort.
   tally() {
     const table = Object.values(this.teams)
-      .sort((a, b) => a.name() < b.name() ? -1 : (a.name() > b.name() ? 1 : 0))
-      .sort((a, b) => b.points() - a.points())
+      .sort((a, b) => a.name().localeCompare(b.name()))  // ascending
+      .sort((a, b) => -(a.points() - b.points()))        // descending
       .map(team => team.tableEntry());
-    return [HEADER].concat(table).join("\n");
+    table.unshift(header());
+    return table.join("\n");
   }
 }
 

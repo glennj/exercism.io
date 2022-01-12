@@ -10,13 +10,13 @@ const permutator = (inputArr) => {
         let curr = arr.slice();
         let next = curr.splice(i, 1);
         permute(curr.slice(), m.concat(next))
-     }
-   }
- }
+      }
+    }
+  }
 
- permute(inputArr)
+  permute(inputArr)
 
- return result;
+  return result;
 };
 
 /* ----------------------------------------------------------------

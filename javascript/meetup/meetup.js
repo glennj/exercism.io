@@ -6,7 +6,14 @@
  * ...
  * the 'teenth'  monday of the month is the monday on or after day 13 of this month
  */
-const startDay = { '1st': 1, '2nd': 8, '3rd': 15, '4th': 22, '5th': 29, 'teenth': 13 };
+const startDay = { 
+  first:   1,
+  second:  8,
+  third:  15,
+  fourth: 22,
+  fifth:  29,
+  teenth: 13
+};
 
 // get the weekday names without hardcoding.
 // TODO How to query the current locale?
@@ -33,13 +40,17 @@ const dayOnOrAfter = (year, month, dayOfWeek, startday) => {
   return date;
 };
 
-const meetupDay = (year, monthNum, weekday, nth) => {
+export const meetup = (year, monthNum, nth, weekday) => {
   const dayOfWeek = weekdays.indexOf(weekday.toLowerCase());
   if (dayOfWeek === -1) throw new Error('invalid weekday');
 
   // Month number out-of-range will not cause an error for creating dates.
   // However, a "wrong" month will mess up the logic of dayOnOrAfter.
-  if (monthNum < 0 || monthNum > 11) throw new Error('month out of range (0-11)');
+  if (monthNum < 1 || monthNum > 12) throw new Error('month out of range (1-12)');
+
+  // we're passed the monthNum where 1 is Jan and 12 is Dec.
+  // javascript uses 0 => Jan and 11 => Dec
+  monthNum -= 1;
 
   if (nth === 'last') {
     return dayOnOrAfter(year, monthNum, dayOfWeek, lastMonthDay(year, monthNum) - 6);
@@ -49,44 +60,3 @@ const meetupDay = (year, monthNum, weekday, nth) => {
   }
   throw new Error('invalid descriptor');
 };
-
-module.exports = meetupDay;
-
-
-/* community
- *
- * populate days of this month, and filter out non-Thursdays!
-
-        onst DAYS = [
-          'Sunday', 'Monday', 'Tuesday', 'Wednesday',
-          'Thursday', 'Friday', 'Saturday'
-        ];
-
-        const meetupDay = (y, m, d, s) => {
-          const numDays = new Date(y, m + 1, 0).getDate();
-          const candidates = Array(numDays).fill()
-            .map((_, i) => i + 1)
-            .filter(day => new Date(y, m, day).getDay() == DAYS.indexOf(d));
-          const date = matchSchedule(candidates, s);
-
-          if (!date) throw new Error;
-
-          return new Date(y, m, date);
-        };
-
-        const matchSchedule = (candidates, schedule) => {
-          return {
-            '1st': candidates[0],
-            '2nd': candidates[1],
-            '3rd': candidates[2],
-            '4th': candidates[3],
-            '5th': candidates[4],
-            'last': candidates[candidates.length - 1],
-            'teenth': candidates.find(d => d >= 13 && d <= 19)
-          }[schedule];
-        };
-
-        export default meetupDay;
-
- *
- */
