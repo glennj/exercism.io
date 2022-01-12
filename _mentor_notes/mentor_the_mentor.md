@@ -33,4 +33,5 @@ IFS=';' read -r a b c <<<"$line"
 ## Ending a mentoring conversation:
 
 Have fun with the next exercise; feel free to post here if you have more comments or questions.
-
+<!-- -->
+If you're satisfied with this solution, feel free to "End discussion" to finalize the mentoring process.

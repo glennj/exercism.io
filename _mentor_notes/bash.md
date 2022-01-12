@@ -30,6 +30,7 @@ TOC
     * [performance impact of subshells](#performance-impact-of-subshells)
     * [performance impact of string length](#performance-impact-of-string-length)
     * [exploring character classes](#exploring-character-classes)
+    * [bash dot files at startup](#bash-dot-files-at-startup)
 
 Exercises
 
@@ -350,6 +351,40 @@ expansion.
 
 ---
 </details>
+
+<!-- -->
+<!-- ref https://exercism.org/mentoring/discussions/32d38bfe8bef4461a98837cd1d6587b1 -->
+
+(re: student comment "remove $ which before 1st argument won't work. Still
+need to keep $ sign in arithmetic parentheses")
+
+Right, bash would have no way of knowing if you want the 1st arg or the number one.
+
+The bash manual can be frustrating to read sometimes. The wording in it is
+_very_ precise. The section on 
+[Shell Arithmetic](https://www.gnu.org/software/bash/manual/bash.html#Shell-Arithmetic)
+says:
+
+> Within an expression, shell variables may also be referenced by name
+> without using the parameter expansion syntax
+
+"shell variables" actually has a specific meaning: it excludes positional
+parameters and special parameters. 
+
+- The [Shell Parameters](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters)
+  section says:
+    > A _parameter_ is an entity that stores values. [...] A _variable_ is a
+    > parameter denoted by a `name`.
+
+- And if we look in the
+  [Definitions](https://www.gnu.org/software/bash/manual/bash.html#Definitions),
+  a `name` is defined as:
+    > A word consisting solely of letters, numbers, and underscores, and
+    > beginning with a letter or underscore. `Name`s are used as shell
+    > variable and function names. Also referred to as an `identifier`.
+
+    It's the "beginning with a letter or underscore" bit that's important
+    for variables being recognized in arithmetic expressions.
 
 <!-- -->
 
@@ -2700,3 +2735,23 @@ dec	oct	hex	char	alpha	alnum	upper	lower	word	digit	xdigit	space	blank	punct	cnt
 0	000	00	'ﬁ'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
 0	000	00	'ﬂ'	Y	Y	.	Y	Y	.	.	.	.	.	.	Y	Y
 ```
+
+<!-- -->
+
+---
+## bash dot files at startup
+
+bash processes several files when it starts up. 
+See [6.2 Bash Startup Files](https://www.gnu.org/software/bash/manual/bash.html#Bash-Startup-Files) in the manual.
+
+The trick is that each of these files may source other files, and tracing
+them manually can be a pain. To inspect (most of) them, this is a neat
+trick:
+
+```bash
+$ function source { for f do echo "> ${f@Q}"; done; builtin source "$@"; }
+$ function .      { for f do echo "> ${f@Q}"; done; builtin . "$@"; }
+$ export -f source .
+$ bash -li
+```
+You may see differences between `bash -l`, `bash -i` and `bash -li`.
