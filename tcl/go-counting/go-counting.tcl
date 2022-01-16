@@ -1,7 +1,7 @@
 # translation of Java reference solution
 # https://github.com/exercism/java/blob/master/exercises/go-counting/.meta/src/reference/java/GoCounting.java
 
-lappend auto_path ../lib
+lappend auto_path .
 package require stack
 
 proc all {elemVar elements condition} {

@@ -2,12 +2,23 @@ oo::class create ComplexNumber {
     variable a  ;# real part
     variable b  ;# imaginary part
 
+    # usage:
+    #   set c [ComplexNumber new $aNumber $anotherNumber]
+    #   set c [ComplexNumber new $aNumber]
+    #   set c [ComplexNumber new "5i8"]
+    #   set c [ComplexNumber new $anotherComplexNumber]
+    #
     constructor {real {imag 0}} {
-        if {[string match *i* $real]} {
+        if {[info object isa typeof $real ComplexNumber]} {
+            set a [$real real]
+            set b [$real imag]
+        } elseif {[string match *i* $real]} {
             lassign [split $real i] a b
-        } else {
+        } elseif {[string is double $real] && [string is double $imag]} {
             set a $real
             set b $imag
+        } else {
+            error "Invalid arguments"
         }
     }
 
@@ -78,26 +89,9 @@ oo::class create ComplexNumber {
     }
 }
 
-############################################################
-# math functions to work with reals and complexes
-
 namespace eval ::tcl::mathfunc {
-    proc cr_add {a b} {_complex_real_operation add $a $b}
-    proc cr_sub {a b} {_complex_real_operation sub $a $b}
-    proc cr_mul {a b} {_complex_real_operation mul $a $b}
-    proc cr_div {a b} {_complex_real_operation div $a $b}
-
-    proc _complex_real_operation {op a b} {
-        return [[_to_complex $a] $op [_to_complex $b]]
-    }
-
-    proc _to_complex {x} {
-        if {[string is double -strict $x]} {
-            return [ComplexNumber new $x]
-        } elseif {[info object isa typeof $x ComplexNumber]} {
-            return $x
-        } else {
-            error [format {expected floating-point number or ComplexNumber but got "%s"} $x]
-        }
-    }
+    proc cr_add {a b} {[ComplexNumber new $a] + [ComplexNumber new $b]}
+    proc cr_sub {a b} {[ComplexNumber new $a] - [ComplexNumber new $b]}
+    proc cr_mul {a b} {[ComplexNumber new $a] * [ComplexNumber new $b]}
+    proc cr_div {a b} {[ComplexNumber new $a] / [ComplexNumber new $b]}
 }

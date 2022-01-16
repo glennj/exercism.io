@@ -1,112 +1,169 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+configure -verbose {error body usec}
+configure -verbose {error body usec}
+configure -verbose {error body usec}
+configure -verbose {error body usec}
+configure -verbose {error body usec}
+configure -verbose {error body usec}
+configure -verbose {error body usec}
+configure -verbose {error body usec}
+configure -verbose {error body usec}
+configure -verbose {error body usec}
+source testHelpers.tcl
+
+############################################################
 source "protein-translation.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test proteins-1 "Empty RNA sequence results in no proteins" -body {
+    proteins ""
+} -returnCodes ok -result {}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip proteins-2
+test proteins-2 "Methionine RNA sequence" -body {
+    proteins AUG
+} -returnCodes ok -result {Methionine}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip proteins-3
+test proteins-3 "Phenylalanine RNA sequence 1" -body {
+    proteins UUU
+} -returnCodes ok -result {Phenylalanine}
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip proteins-4
+test proteins-4 "Phenylalanine RNA sequence 2" -body {
+    proteins UUC
+} -returnCodes ok -result {Phenylalanine}
 
-if {$::argv0 eq [info script]} {
-    configure -verbose {body error msec}
+skip proteins-5
+test proteins-5 "Leucine RNA sequence 1" -body {
+    proteins UUA
+} -returnCodes ok -result {Leucine}
 
-    set cases {
-        proteins-1 "Methionine RNA sequence"
-        AUG {Methionine}
+skip proteins-6
+test proteins-6 "Leucine RNA sequence 2" -body {
+    proteins UUG
+} -returnCodes ok -result {Leucine}
 
-        proteins-2 "Phenylalanine RNA sequence 1"
-        UUU {Phenylalanine}
+skip proteins-7
+test proteins-7 "Serine RNA sequence 1" -body {
+    proteins UCU
+} -returnCodes ok -result {Serine}
 
-        proteins-3 "Phenylalanine RNA sequence 2"
-        UUC {Phenylalanine}
+skip proteins-8
+test proteins-8 "Serine RNA sequence 2" -body {
+    proteins UCC
+} -returnCodes ok -result {Serine}
 
-        proteins-4 "Leucine RNA sequence 1"
-        UUA {Leucine}
+skip proteins-9
+test proteins-9 "Serine RNA sequence 3" -body {
+    proteins UCA
+} -returnCodes ok -result {Serine}
 
-        proteins-5 "Leucine RNA sequence 2"
-        UUG {Leucine}
+skip proteins-10
+test proteins-10 "Serine RNA sequence 4" -body {
+    proteins UCG
+} -returnCodes ok -result {Serine}
 
-        proteins-6 "Serine RNA sequence 1"
-        UCU {Serine}
+skip proteins-11
+test proteins-11 "Tyrosine RNA sequence 1" -body {
+    proteins UAU
+} -returnCodes ok -result {Tyrosine}
 
-        proteins-7 "Serine RNA sequence 2"
-        UCC {Serine}
+skip proteins-12
+test proteins-12 "Tyrosine RNA sequence 2" -body {
+    proteins UAC
+} -returnCodes ok -result {Tyrosine}
 
-        proteins-8 "Serine RNA sequence 3"
-        UCA {Serine}
+skip proteins-13
+test proteins-13 "Cysteine RNA sequence 1" -body {
+    proteins UGU
+} -returnCodes ok -result {Cysteine}
 
-        proteins-9 "Serine RNA sequence 4"
-        UCG {Serine}
+skip proteins-14
+test proteins-14 "Cysteine RNA sequence 2" -body {
+    proteins UGC
+} -returnCodes ok -result {Cysteine}
 
-        proteins-10 "Tyrosine RNA sequence 1"
-        UAU {Tyrosine}
+skip proteins-15
+test proteins-15 "Tryptophan RNA sequence" -body {
+    proteins UGG
+} -returnCodes ok -result {Tryptophan}
 
-        proteins-11 "Tyrosine RNA sequence 2"
-        UAC {Tyrosine}
+skip proteins-16
+test proteins-16 "STOP codon RNA sequence 1" -body {
+    proteins UAA
+} -returnCodes ok -result {}
 
-        proteins-12 "Cysteine RNA sequence 1"
-        UGU {Cysteine}
+skip proteins-17
+test proteins-17 "STOP codon RNA sequence 2" -body {
+    proteins UAG
+} -returnCodes ok -result {}
 
-        proteins-13 "Cysteine RNA sequence 2"
-        UGC {Cysteine}
+skip proteins-18
+test proteins-18 "STOP codon RNA sequence 3" -body {
+    proteins UGA
+} -returnCodes ok -result {}
 
-        proteins-14 "Tryptophan RNA sequence"
-        UGG {Tryptophan}
+skip proteins-19
+test proteins-19 "Sequence of two protein codons translates into proteins" -body {
+    proteins UUUUUU
+} -returnCodes ok -result {Phenylalanine Phenylalanine}
 
-        proteins-15 "STOP codon RNA sequence 1"
-        UAA {}
+skip proteins-20
+test proteins-20 "Sequence of two different protein codons translates into proteins" -body {
+    proteins UUAUUG
+} -returnCodes ok -result {Leucine Leucine}
 
-        proteins-16 "STOP codon RNA sequence 2"
-        UAG {}
+skip proteins-21
+test proteins-21 "Translate RNA strand into correct protein list" -body {
+    proteins AUGUUUUGG
+} -returnCodes ok -result {Methionine Phenylalanine Tryptophan}
 
-        proteins-17 "STOP codon RNA sequence 3"
-        UGA {}
+skip proteins-22
+test proteins-22 "Translation stops if STOP codon at beginning of sequence" -body {
+    proteins UAGUGG
+} -returnCodes ok -result {}
 
-        proteins-18 "Translate RNA strand into correct protein list"
-        AUGUUUUGG {Methionine Phenylalanine Tryptophan}
+skip proteins-23
+test proteins-23 "Translation stops if STOP codon at end of two-codon sequence" -body {
+    proteins UGGUAG
+} -returnCodes ok -result {Tryptophan}
 
-        proteins-19 "Translation stops if STOP codon at beginning of sequence"
-        UAGUGG {}
+skip proteins-24
+test proteins-24 "Translation stops if STOP codon at end of three-codon sequence" -body {
+    proteins AUGUUUUAA
+} -returnCodes ok -result {Methionine Phenylalanine}
 
-        proteins-20 "Translation stops if STOP codon at end of two-codon sequence"
-        UGGUAG {Tryptophan}
+skip proteins-25
+test proteins-25 "Translation stops if STOP codon in middle of three-codon sequence" -body {
+    proteins UGGUAGUGG
+} -returnCodes ok -result {Tryptophan}
 
-        proteins-21 "Translation stops if STOP codon at end of three-codon sequence"
-        AUGUUUUAA {Methionine Phenylalanine}
+skip proteins-26
+test proteins-26 "Translation stops if STOP codon in middle of six-codon sequence" -body {
+    proteins UGGUGUUAUUAAUGGUUU
+} -returnCodes ok -result {Tryptophan Cysteine Tyrosine}
 
-        proteins-22 "Translation stops if STOP codon in middle of three-codon sequence"
-        UGGUAGUGG {Tryptophan}
+skip proteins-27
+test proteins-27 "Non-existing codon can't translate" -body {
+    proteins AAA
+} -returnCodes error -result "Invalid codon"
 
-        proteins-23 "Translation stops if STOP codon in middle of six-codon sequence"
-        UGGUGUUAUUAAUGGUUU {Tryptophan Cysteine Tyrosine}
-    }
+skip proteins-28
+test proteins-28 "Unknown amino acids, not part of a codon, can't translate" -body {
+    proteins XYZ
+} -returnCodes error -result "Invalid codon"
 
-    foreach {name description strand result} $cases {
-        test $name $description -body {
-            proteins $strand
-        } -returnCodes ok -result $result
-    }
+skip proteins-29
+test proteins-29 "Incomplete RNA sequence can't translate" -body {
+    proteins AUGU
+} -returnCodes error -result "Invalid codon"
 
-    cleanupTests
-}
+skip proteins-30
+test proteins-30 "Incomplete RNA sequence can translate if valid until a STOP codon" -body {
+    proteins UUCUUCUAAUGGU
+} -returnCodes ok -result {Phenylalanine Phenylalanine}
+
+
+cleanupTests

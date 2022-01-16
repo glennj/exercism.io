@@ -16,3 +16,11 @@ dict for {planet relativeOrbit} {
     "
 }
 
+rename unknown _orig_unknown
+proc unknown {commandName args} {
+    if {[string match {on*} $commandName]} {
+        error "not a planet"
+    } else {
+        _orig_unknown $commandName {*}$args
+    }
+}

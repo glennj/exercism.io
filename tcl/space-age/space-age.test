@@ -1,57 +1,57 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+configure -verbose {error body usec}
+source testHelpers.tcl
+
+############################################################
 source "space-age.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+# Don't worry about rounding your result, we'll do it:
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+test space-age-1 "age on Earth" -body {
+    roundTo 2 [onEarth 1000000000]
+} -returnCodes ok -result 31.69
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip space-age-2
+test space-age-2 "age on Mercury" -body {
+    roundTo 2 [onMercury 2134835688]
+} -returnCodes ok -result 280.88
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip space-age-3
+test space-age-3 "age on Venus" -body {
+    roundTo 2 [onVenus 189839836]
+} -returnCodes ok -result 9.78
 
-proc roundTo {precision number} {
-    return [format {%.*f} $precision $number]
-}
+skip space-age-4
+test space-age-4 "age on Mars" -body {
+    roundTo 2 [onMars 2129871239]
+} -returnCodes ok -result 35.88
 
-if {$::argv0 eq [info script]} {
+skip space-age-5
+test space-age-5 "age on Jupiter" -body {
+    roundTo 2 [onJupiter 901876382]
+} -returnCodes ok -result 2.41
 
-    set cases {
-        space-age-1 "age on Earth"   "onEarth"   1000000000  31.69
-        space-age-1 "age on Mercury" "onMercury" 2134835688 280.88
-        space-age-1 "age on Venus"   "onVenus"    189839836   9.78
-        space-age-1 "age on Mars"    "onMars"    2129871239  35.88
-        space-age-1 "age on Jupiter" "onJupiter"  901876382   2.41
-        space-age-1 "age on Saturn"  "onSaturn"  2000000000   2.15
-        space-age-1 "age on Uranus"  "onUranus"  1210123456   0.46
-        space-age-1 "age on Neptune" "onNeptune" 1821023456   0.35
-    }
+skip space-age-6
+test space-age-6 "age on Saturn" -body {
+    roundTo 2 [onSaturn 2000000000]
+} -returnCodes ok -result 2.15
 
-    foreach {name description procname seconds result} $cases {
-        test $name $description -body {
-            set age [$procname $seconds]
-            # Don't worry about rounding your result, we'll do it:
-            roundTo 2 $age
-        } -returnCodes ok -result $result
-    }
+skip space-age-7
+test space-age-7 "age on Uranus" -body {
+    roundTo 2 [onUranus 1210123456]
+} -returnCodes ok -result 0.46
 
-    cleanupTests
-}
+skip space-age-8
+test space-age-8 "age on Neptune" -body {
+    roundTo 2 [onNeptune 1821023456]
+} -returnCodes ok -result 0.35
+
+skip space-age-9
+test space-age-9 "invalid planet causes error" -body {
+    roundTo 2 [onSun 680804807]
+} -returnCodes error -result "not a planet"
+
+
+cleanupTests

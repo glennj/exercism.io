@@ -1,64 +1,98 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "raindrops.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test raindrops-1 "sound for 1 is 1" -body {
+    raindrops 1
+} -returnCodes ok -result 1
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip raindrops-2
+test raindrops-2 "sound for 3 is Pling" -body {
+    raindrops 3
+} -returnCodes ok -result Pling
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip raindrops-3
+test raindrops-3 "sound for 5 is Plang" -body {
+    raindrops 5
+} -returnCodes ok -result Plang
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip raindrops-4
+test raindrops-4 "sound for 7 is Plong" -body {
+    raindrops 7
+} -returnCodes ok -result Plong
 
-if {$::argv0 eq [info script]} {
+skip raindrops-5
+test raindrops-5 "sound for 6 is Pling" -body {
+    raindrops 6
+} -returnCodes ok -result Pling
 
-    # test cases: test name, input value, expected output
-    set cases {
-        raindrops-1      1  1
-        raindrops-2      3  Pling
-        raindrops-3      5  Plang
-        raindrops-4      7  Plong
-        raindrops-5      6  Pling
-        raindrops-6      8  8
-        raindrops-7      9  Pling
-        raindrops-8     10  Plang
-        raindrops-9     14  Plong
-        raindrops-10    15  PlingPlang
-        raindrops-11    21  PlingPlong
-        raindrops-12    25  Plang
-        raindrops-13    27  Pling
-        raindrops-14    35  PlangPlong
-        raindrops-15    49  Plong
-        raindrops-16    52  52
-        raindrops-17   105  PlingPlangPlong
-        raindrops-18  3125  Plang
-    }
+skip raindrops-6
+test raindrops-6 "sound for 8 is 8" -body {
+    raindrops 8
+} -returnCodes ok -result 8
 
-    foreach {testName input result} $cases {
-        test $testName "
-            sound for $input is $result
-        " -body {
-            raindrops $input
-        } -returnCodes ok -result $result
-    }
+skip raindrops-7
+test raindrops-7 "sound for 9 is Pling" -body {
+    raindrops 9
+} -returnCodes ok -result Pling
 
-    cleanupTests
-}
+skip raindrops-8
+test raindrops-8 "sound for 10 is Plang" -body {
+    raindrops 10
+} -returnCodes ok -result Plang
+
+skip raindrops-9
+test raindrops-9 "sound for 14 is Plong" -body {
+    raindrops 14
+} -returnCodes ok -result Plong
+
+skip raindrops-10
+test raindrops-10 "sound for 15 is PlingPlang" -body {
+    raindrops 15
+} -returnCodes ok -result PlingPlang
+
+skip raindrops-11
+test raindrops-11 "sound for 21 is PlingPlong" -body {
+    raindrops 21
+} -returnCodes ok -result PlingPlong
+
+skip raindrops-12
+test raindrops-12 "sound for 25 is Plang" -body {
+    raindrops 25
+} -returnCodes ok -result Plang
+
+skip raindrops-13
+test raindrops-13 "sound for 27 is Pling" -body {
+    raindrops 27
+} -returnCodes ok -result Pling
+
+skip raindrops-14
+test raindrops-14 "sound for 35 is PlangPlong" -body {
+    raindrops 35
+} -returnCodes ok -result PlangPlong
+
+skip raindrops-15
+test raindrops-15 "sound for 49 is Plong" -body {
+    raindrops 49
+} -returnCodes ok -result Plong
+
+skip raindrops-16
+test raindrops-16 "sound for 52 is 52" -body {
+    raindrops 52
+} -returnCodes ok -result 52
+
+skip raindrops-17
+test raindrops-17 "sound for 105 is PlingPlangPlong" -body {
+    raindrops 105
+} -returnCodes ok -result PlingPlangPlong
+
+skip raindrops-18
+test raindrops-18 "sound for 3125 is Plang" -body {
+    raindrops 3125
+} -returnCodes ok -result Plang
+
+cleanupTests

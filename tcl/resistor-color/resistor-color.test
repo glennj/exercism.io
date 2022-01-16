@@ -1,82 +1,53 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "resistor-color.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
+
+# test colour list
+test resistor-colors "List of colors" -body {
+    resistorColor::colors
+} -returnCodes ok -match orderedLists -result {
+    black brown red orange yellow green blue violet grey white
 }
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
+# test individual colours
+set cases {
+    resistor-color-ok-1   black   0
+    resistor-color-ok-2   white   9
+    resistor-color-ok-3   orange  3
+    resistor-color-ok-4   brown   1
+    resistor-color-ok-5   red     2
+    resistor-color-ok-6   yellow  4
+    resistor-color-ok-7   green   5
+    resistor-color-ok-8   blue    6
+    resistor-color-ok-9   violet  7
+    resistor-color-ok-10  grey    8
 }
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
+skip resistor-color-ok-*
+foreach {name color value} $cases {
+    test $name "Color $color" \
+        -body [list resistorColor::colorCode $color] \
+        -returnCodes ok \
+        -result $value
 }
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
+# additional track-specific tests: error conditions
+set cases {
+    resistor-color-err-1 "beige" "Unknown color"
+    resistor-color-err-2 "bl*" "test for lsearch with glob"
 }
 
-proc orderedListsEqual {a b} {
-    if {[llength $a] != [llength $b]} then {return false}
-    foreach elemA $a elemB $b {
-        if {$elemA ne $elemB} then {return false}
-    }
-    return true
+skip resistor-color-err-*
+foreach {name color desc} $cases {
+    test $name $desc \
+        -body [list resistorColor::colorCode $color] \
+        -returnCodes error \
+        -result "Invalid color: $color"
 }
-customMatch orderedLists orderedListsEqual
 
-if {$::argv0 eq [info script]} {
-
-    test resistor-color-1 "List of colors" -body {
-        resistorColor::colors
-    } -returnCodes ok -match orderedLists -result {
-        black brown red orange yellow green blue violet grey white
-    }
-
-    set cases {
-        resistor-color-2   black   0
-        resistor-color-3   white   9
-        resistor-color-4   orange  3
-        resistor-color-5   brown   1
-        resistor-color-6   red     2
-        resistor-color-7   yellow  4
-        resistor-color-8   green   5
-        resistor-color-9   blue    6
-        resistor-color-10  violet  7
-        resistor-color-11  grey    8
-    }
-
-    foreach {name color value} $cases {
-        test $name "Color $color" \
-            -body [list resistorColor::colorCode $color] \
-            -returnCodes ok \
-            -result $value
-    }
-
-    # additional track-specific tests
-    set cases {
-        resistor-color-12 "beige" "Unknown color"
-        resistor-color-13 "bl*" "test for lsearch with glob"
-    }
-
-    foreach {name color desc} $cases {
-        test $name $desc \
-            -body [list resistorColor::colorCode $color] \
-            -returnCodes error \
-            -result "Invalid color: $color"
-    }
-
-    cleanupTests
-}
+cleanupTests

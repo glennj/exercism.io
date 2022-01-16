@@ -1,15 +1,15 @@
 # This is a very poorly specified exercise. A lot of guesswork in here.
 
 oo::class create Scale {
-    variable tonic_ 
-    variable notes_
+    variable tonic 
+    variable notes
 
-    constructor {tonic} {
-        set tonic_ $tonic
+    constructor {aTonic} {
+        set tonic $aTonic
     }
 
     method chromatic {} {
-        if {[info exists notes_]} then {return $notes_}
+        if {[info exists notes]} then {return $notes}
 
         set chromatic {
             sharps {A A# B C C# D D# E F F# G G#}
@@ -20,32 +20,40 @@ oo::class create Scale {
             flats  {d g c f bb "eb minor" F Bb Eb Ab Db "Gb major"}
         }
         set scale [expr {
-            $tonic_ in [dict get $tonics flats] ? "flats" : "sharps"
+            $tonic in [dict get $tonics flats] ? "flats" : "sharps"
         }]
-        set notes_ [dict get $chromatic $scale]
+        set notes [dict get $chromatic $scale]
 
         # rotate the notes so the tonic comes first
-        set idx [lsearch -exact $notes_ [string totitle $tonic_]]
-        set notes_ [list \
-            {*}[lrange $notes_ $idx end] \
-            {*}[lrange $notes_ 0 $idx-1] ]
+        set idx [lsearch -exact $notes [string totitle $tonic]]
+        set notes [list \
+            {*}[lrange $notes $idx end] \
+            {*}[lrange $notes 0 $idx-1] ]
 
         # what about the "XX major/minor" tonics?
         # Should the above be:
-        #    lsearch -exact $notes_ [string totitle [lindex $tonic_ 0]]
+        #    lsearch -exact $notes [string totitle [lindex $tonic 0]]
         # ?
     }
 
     method intervals {intervals} {
+        my chromatic
+        set n [llength $notes]
         set idx 0
-        lmap interval [split $intervals ""] {
-            set note [lindex [my chromatic] $idx]
-            try {
-                incr idx [dict get {m 1 M 2 A 3} $interval]
-            } trap {TCL LOOKUP DICT} {} {
-                error "invalid interval: $interval"
-            }
-            set note
+        set scale [lindex $notes $idx]
+
+        foreach interval [split $intervals ""] {
+            incr idx [my Interval $interval]
+            lappend scale [lindex $notes [expr {$idx % $n}]]
+        }
+        return $scale
+    }
+
+    method Interval {interval} {
+        try {
+            return [dict get {m 1 M 2 A 3} $interval]
+        } on error {} {
+            error "Invalid interval: $interval"
         }
     }
 }

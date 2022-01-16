@@ -1,49 +1,39 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "collatz-conjecture.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test collatz-1 "zero steps for one" -body {
+    steps 1
+} -returnCodes ok -result 0
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip collatz-2
+test collatz-2 "divide if even" -body {
+    steps 16
+} -returnCodes ok -result 4
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip collatz-3
+test collatz-3 "even and odd steps" -body {
+    steps 12
+} -returnCodes ok -result 9
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip collatz-4
+test collatz-4 "large number of even and odd steps" -body {
+    steps 1000000
+} -returnCodes ok -result 152
 
-if {$::argv0 eq [info script]} {
+skip collatz-5
+test collatz-5 "zero is an error" -body {
+    steps 0
+} -returnCodes error -result "Only positive integers are allowed"
 
-    set cases {
-    collatz-1 ok "zero steps for one" 1 0
-    collatz-2 ok "divide if even" 16 4
-    collatz-3 ok "even and odd steps" 12 9
-    collatz-4 ok "large number of even and odd steps" 1000000 152
-    collatz-5 error "zero is an error" 0 "Only positive numbers are allowed"
-    collatz-6 error "negative value is an error" -15 "Only positive numbers are allowed"
-    }
+skip collatz-6
+test collatz-6 "negative value is an error" -body {
+    steps -15
+} -returnCodes error -result "Only positive integers are allowed"
 
-    foreach {name status description input output} $cases {
-        test $name $description -body {
-            steps $input
-        } -returnCodes $status -result $output
-    }
 
-    cleanupTests
-}
+cleanupTests

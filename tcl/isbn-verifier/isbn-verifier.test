@@ -1,69 +1,100 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+configure -verbose {error body usec}
+source testHelpers.tcl
+
+############################################################
 source "isbn-verifier.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test isbn-1 "valid isbn number" -body {
+    isValid "3-598-21508-8"
+} -returnCodes ok -match boolean -result true
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip isbn-2
+test isbn-2 "invalid isbn check digit" -body {
+    isValid "3-598-21508-9"
+} -returnCodes ok -match boolean -result false
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip isbn-3
+test isbn-3 "valid isbn number with a check digit of 10" -body {
+    isValid "3-598-21507-X"
+} -returnCodes ok -match boolean -result true
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip isbn-4
+test isbn-4 "check digit is a character other than X" -body {
+    isValid "3-598-21507-A"
+} -returnCodes ok -match boolean -result false
 
-proc booleanMatch {expected actual} {
-    return [expr {
-        [string is boolean -strict $expected] &&
-        [string is boolean -strict $actual] &&
-        !!$expected == !!$actual
-    }]
-}
-customMatch boolean booleanMatch
+skip isbn-5
+test isbn-5 "invalid character in isbn" -body {
+    isValid "3-598-P1581-X"
+} -returnCodes ok -match boolean -result false
 
-if {$::argv0 eq [info script]} {
+skip isbn-6
+test isbn-6 "X is only valid as a check digit" -body {
+    isValid "3-598-2X507-9"
+} -returnCodes ok -match boolean -result false
 
-    set cases {
-        isbn-1  "3-598-21508-8"  true   "valid isbn number"
-        isbn-2  "3-598-21508-9"  false  "invalid isbn check digit"
-        isbn-3  "3-598-21507-X"  true   "valid isbn number with a check digit of 10"
-        isbn-4  "3-598-21507-A"  false  "check digit is a character other than X"
-        isbn-5  "3-598-P1581-X"  false  "invalid character in isbn"
-        isbn-6  "3-598-2X507-9"  false  "X is only valid as a check digit"
-        isbn-7  "3598215088"     true   "valid isbn without separating dashes"
-        isbn-8  "359821507X"     true   "isbn without separating dashes and X as check digit"
-        isbn-9  "359821507"      false  "isbn without check digit and dashes"
-        isbn-10 "3598215078X"    false  "too long isbn and no dashes"
-        isbn-11 "00"             false  "too short isbn"
-        isbn-12 "3-598-21507"    false  "isbn without check digit"
-        isbn-13 "3-598-21515-X"  false  "check digit of X should not be used for 0"
-        isbn-14 ""               false  "empty isbn"
-        isbn-15 "134456729"      false  "input is 9 characters"
-        isbn-16 "3132P34035"     false  "invalid characters are not ignored"
-        isbn-17 "98245726788"    false  "input is too long but contains a valid isbn"
-    }
+skip isbn-7
+test isbn-7 "valid isbn without separating dashes" -body {
+    isValid "3598215088"
+} -returnCodes ok -match boolean -result true
 
-    foreach {name input result description} $cases {
-        test $name $description \
-            -body [list isValid $input] \
-            -returnCodes ok -match boolean -result $result
-    }
+skip isbn-8
+test isbn-8 "isbn without separating dashes and X as check digit" -body {
+    isValid "359821507X"
+} -returnCodes ok -match boolean -result true
 
-    cleanupTests
-}
+skip isbn-9
+test isbn-9 "isbn without check digit and dashes" -body {
+    isValid "359821507"
+} -returnCodes ok -match boolean -result false
+
+skip isbn-10
+test isbn-10 "too long isbn and no dashes" -body {
+    isValid "3598215078X"
+} -returnCodes ok -match boolean -result false
+
+skip isbn-11
+test isbn-11 "too short isbn" -body {
+    isValid "00"
+} -returnCodes ok -match boolean -result false
+
+skip isbn-12
+test isbn-12 "isbn without check digit" -body {
+    isValid "3-598-21507"
+} -returnCodes ok -match boolean -result false
+
+skip isbn-13
+test isbn-13 "check digit of X should not be used for 0" -body {
+    isValid "3-598-21515-X"
+} -returnCodes ok -match boolean -result false
+
+skip isbn-14
+test isbn-14 "empty isbn" -body {
+    isValid ""
+} -returnCodes ok -match boolean -result false
+
+skip isbn-15
+test isbn-15 "input is 9 characters" -body {
+    isValid "134456729"
+} -returnCodes ok -match boolean -result false
+
+skip isbn-16
+test isbn-16 "invalid characters are not ignored" -body {
+    isValid "3132P34035"
+} -returnCodes ok -match boolean -result false
+
+skip isbn-17
+test isbn-17 "invalid characters are not ignored before checking length" -body {
+    isValid "3598P215088"
+} -returnCodes ok -match boolean -result false
+
+skip isbn-18
+test isbn-18 "input is too long but contains a valid isbn" -body {
+    isValid "98245726788"
+} -returnCodes ok -match boolean -result false
+
+
+cleanupTests
