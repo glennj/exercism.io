@@ -5,14 +5,13 @@ import java.util.regex.Pattern;
 
 /* Solving Alphametics brute force.
  * Performance is terrible: 
- * - the 8 letter puzzle required about 2 mins to run;
- * - the full test suite, 2h 10m.
+ * - the 8 letter puzzle required about 1 min to run;
  */
 class Alphametics {
     private final Character[] letters;
     private final String[] words;
 
-    Alphametics(String puzzle) throws UnsolvablePuzzleException {
+    Alphametics(String puzzle) {
         letters = puzzle
                 .chars()
                 .filter(Character::isUpperCase)
@@ -21,13 +20,13 @@ class Alphametics {
                 .mapToObj(c -> (char) c)
                 .toArray(Character[]::new);
 
-        if (letters.length > 10)
-            throw new UnsolvablePuzzleException();
-
         words = puzzle.split("[^\\p{Upper}]+");
     }
 
     Map<Character, Integer> solve() throws UnsolvablePuzzleException {
+        if (letters.length > 10)
+            throw new UnsolvablePuzzleException();
+
         for (Map<Character, Integer> mapping : new Permutator()) {
             if (mappingSolvesPuzzle(mapping))
                 return mapping;
