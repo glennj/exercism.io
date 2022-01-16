@@ -1,28 +1,36 @@
-type Roster = Map<string, string[]>
+type Directory = Map<string, number>
+type ClassRoom = string[]
+type Roster    = {[key: number]: ClassRoom}
 
-class GradeSchool {
-  private roster: Roster
-  constructor() { this.roster = new Map() }
+export class GradeSchool {
+  private directory: Directory
 
-  addStudent(name: string, grade: number | string): void {
-    const gradeStr = grade.toString()
-    const currentClass = this.roster.get(gradeStr) || []
-    this.roster.set(gradeStr, currentClass.concat(name).sort())
+  constructor() {
+    this.directory = new Map()
   }
 
-  studentsInGrade(grade: number | string): string[] {
-    // take a slice to return a *copy* of the array
-    return (this.roster.get(grade.toString()) || []).slice()
+  add(name: string, grade: number): void {
+    this.directory.set(name, grade)
   }
 
-  studentRoster(): Roster {
-    const deepCopy = new Map()
-    for (const [grade, students] of this.roster) {
-      // take a slice to return a *copy* of the array
-      deepCopy.set(grade, students.slice())
+  grade(grade: number): ClassRoom {
+    const students: ClassRoom = []
+    this.directory.forEach((grade_, name) => {
+      if (grade_ === grade)
+        students.push(name)
+    })
+    return students.sort()
+  }
+
+  roster(): Roster {
+    const roster: Roster = {}
+    this.directory.forEach((grade, name) => {
+      roster[grade] ??= []
+      roster[grade].push(name)
+    })
+    for (const students of Object.values(roster)) {
+      students.sort()
     }
-    return deepCopy
+    return roster
   }
 }
-
-export default GradeSchool

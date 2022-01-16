@@ -5,17 +5,17 @@ describe('color code', () => {
     expect(colorCode('black')).toEqual(0)
   })
 
-  it('White', () => {
+  xit('White', () => {
     expect(colorCode('white')).toEqual(9)
   })
 
-  it('Orange', () => {
+  xit('Orange', () => {
     expect(colorCode('orange')).toEqual(3)
   })
 })
 
 describe('Colors', () => {
-  it('returns all colors', () => {
+  xit('returns all colors', () => {
     expect(COLORS).toEqual([
       'black',
       'brown',

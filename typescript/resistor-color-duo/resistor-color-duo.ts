@@ -21,5 +21,9 @@ export class ResistorColor {
       result = 10 * result + code;
     });
     return result; 
-  };
+  }; 
+}
+
+export const decodedValue = (colors: string[]): number => {
+  return new ResistorColor(colors).value();
 }
