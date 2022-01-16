@@ -63,4 +63,5 @@ function move!(robot::Robot, script::AbstractString)
             throw(ArgumentError(script))
         end
     end
+    robot
 end

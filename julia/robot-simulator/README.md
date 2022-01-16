@@ -1,5 +1,10 @@
 # Robot Simulator
 
+Welcome to Robot Simulator on Exercism's Julia Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Write a robot simulator.
 
 A robot factory's test facility needs a program to verify robot movements.
@@ -26,13 +31,17 @@ direction it is pointing.
   - Turn left yet again
 - Say a robot starts at {7, 3} facing north. Then running this stream
   of instructions should leave it at {9, 4} facing west.
+
 ## Source
 
+### Created by
+
+- @SaschaMann
+
+### Contributed to by
+
+- @cmcaine
+
+### Based on
+
 Inspired by an interview question at a famous company.
-
-
-## Version compatibility
-This exercise has been tested on Julia versions >=1.0.
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.

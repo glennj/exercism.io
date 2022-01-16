@@ -8,8 +8,16 @@ include("robot-simulator.jl")
     @test heading(r) == NORTH
 
     r = Robot((-1, -1), SOUTH)
-    @test position(r) == Point{Int}(-1, -1)
+    @test position(r) == Point(-1, -1)
     @test heading(r) == SOUTH
+end
+
+@testset "mutating functions should return robot" begin
+    r = Robot((0, 0), NORTH)
+    @test r == turn_right!(r)
+    @test r == turn_left!(r)
+    @test r == advance!(r)
+    @test r == move!(r, "A")
 end
 
 @testset "rotate +π/2" begin
@@ -50,6 +58,13 @@ end
 end
 
 @testset "instructions" begin
+    @testset "moving east and north from README" begin
+        r = Robot((7, 3), NORTH)
+        move!(r, "RAALAL")
+        @test position(r) == Point(9, 4)
+        @test heading(r) == WEST
+    end
+
     @testset "move west and north" begin
         r = Robot((0, 0), NORTH)
         move!(r, "LAAARALA")
@@ -69,9 +84,5 @@ end
         move!(r, "LAAARRRALLLL")
         @test position(r) == Point(11, 5)
         @test heading(r) == NORTH
-    end
-    @testset "invalid instruction" begin
-        r = Robot((8, 4), SOUTH)
-        @test_throws ArgumentError move!(r, "LARX")
     end
 end
