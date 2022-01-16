@@ -1,7 +1,7 @@
 import re
 
 
-def verify(isbn):
+def is_valid(isbn):
     isbn = (isbn or "").replace('-', '')
     if not re.match(r'^\d{9}[\dX]$', isbn):
         return False

@@ -1,8 +1,10 @@
 import math
 
 
-def nth_prime(n):
-    if n <= 0:
+def prime(n):
+    if n == 0:
+        raise ValueError('there is no zeroth prime')
+    if n < 0:
         raise ValueError('n is at least 1.')
     p = prime_generator()
     i = 0

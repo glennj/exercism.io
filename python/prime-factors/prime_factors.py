@@ -1,4 +1,4 @@
-def prime_factors(n):
+def factors(n):
     factors = []
     f = 2
 

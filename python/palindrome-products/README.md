@@ -1,12 +1,17 @@
 # Palindrome Products
 
+Welcome to Palindrome Products on Exercism's Python Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Detect palindrome products in a given range.
 
 A palindromic number is a number that remains the same when its digits are
 reversed. For example, `121` is a palindromic number but `112` is not.
 
 Given a range of numbers, find the largest and smallest palindromes which
-are products of numbers within that range.
+are products of two numbers within that range.
 
 Your solution should return the largest and smallest palindromes, along with the
 factors of each within the range. If the largest or smallest palindrome has more
@@ -32,51 +37,53 @@ Given the range `[10, 99]` (both inclusive)...
 The smallest palindrome product is `121`. Its factors are `(11, 11)`.
 The largest palindrome product is `9009`. Its factors are `(91, 99)`.
 
+## Notes regarding the implementation of `smallest` and `largest`:
+
+Both functions must take two keyword arguments:
+- `max_factor`: int
+- `min_factor`: int, default 0
+
+Their return value must be a `tuple -- (value, factors)` where `value` is the
+palindrome itself, and `factors` is an `iterable` containing both factors of the
+palindrome in arbitrary order.
+
+
 ## Exception messages
 
-Sometimes it is necessary to raise an exception. When you do this, you should include a meaningful error message to
-indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. Not
-every exercise will require you to raise an exception, but for those that do, the tests will only pass if you include
-a message.
+Sometimes it is necessary to [raise an exception](https://docs.python.org/3/tutorial/errors.html#raising-exceptions). When you do this, you should always include a **meaningful error message** to indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. For situations where you know that the error source will be a certain type, you can choose to raise one of the [built in error types](https://docs.python.org/3/library/exceptions.html#base-classes), but should still include a meaningful message.
 
-To raise a message with an exception, just write it as an argument to the exception type. For example, instead of
-`raise Exception`, you should write:
+This particular exercise requires that you use the [raise statement](https://docs.python.org/3/reference/simple_stmts.html#the-raise-statement) to "throw" a `ValueError` when the `largest()` or `smallest()` function receives a pair of factors that are not in the correct range. The tests will only pass if you both `raise` the `exception` and include a message with it.
+
+To raise a `ValueError` with a message, write the message as an argument to the `exception` type:
 
 ```python
-raise Exception("Meaningful message indicating the source of the error")
+# if the max_factor is less than the min_factor
+raise ValueError("min must be <= max")
 ```
-
-## Running the tests
-
-To run the tests, run the appropriate command below ([why they are different](https://github.com/pytest-dev/pytest/issues/1629#issue-161422224)):
-
-- Python 2.7: `py.test palindrome_products_test.py`
-- Python 3.4+: `pytest palindrome_products_test.py`
-
-Alternatively, you can tell Python to run the pytest module (allowing the same command to be used regardless of Python version):
-`python -m pytest palindrome_products_test.py`
-
-### Common `pytest` options
-
-- `-v` : enable verbose output
-- `-x` : stop running tests on first failure
-- `--ff` : run failures from previous test before running other test cases
-
-For other options, see `python -m pytest -h`
-
-## Submitting Exercises
-
-Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/palindrome-products` directory.
-
-You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
-
-For more detailed information about running tests, code style and linting,
-please see [Running the Tests](http://exercism.io/tracks/python/tests).
 
 ## Source
 
-Problem 4 at Project Euler [http://projecteuler.net/problem=4](http://projecteuler.net/problem=4)
+### Created by
 
-## Submitting Incomplete Solutions
+- @sjakobi
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @AnAccountForReportingBugs
+- @behrtam
+- @BethanyG
+- @cmccandless
+- @deep110
+- @Dog
+- @emerali
+- @gabriel376
+- @ikhadykin
+- @kytrinyx
+- @N-Parsons
+- @pheanex
+- @pywkm
+- @tqa236
+
+### Based on
+
+Problem 4 at Project Euler - http://projecteuler.net/problem=4

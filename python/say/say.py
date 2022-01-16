@@ -16,13 +16,13 @@ TENS = {
 
 def say(n):
     n = int(n)
-    if n < 0:    raise ValueError('Too small.')
+    if n < 0:    raise ValueError('input out of range')
     if n < 100:  return say_small(n)
     if n < 1e3:  return say_compound(n, 100, 'hundred')
     if n < 1e6:  return say_compound(n, 1e3, 'thousand')
     if n < 1e9:  return say_compound(n, 1e6, 'million')
     if n < 1e12: return say_compound(n, 1e9, 'billion')
-    raise ValueError('Too big.')
+    else:        raise ValueError('input out of range')
 
 
 def say_small(n):
@@ -36,7 +36,5 @@ def say_compound(n, base, word):
     n, rem = divmod(n, int(base))
     saying = [say(n), word]
     if rem > 0:
-        if word == 'hundred':
-            saying += ['and']
         saying += [say(rem)]
     return " ".join(saying)

@@ -2,7 +2,7 @@
 This is not coded in python style,
 but it's very readable and compact
 '''
-def numeral(number):
+def roman(number):
     roman = ''
     while number >= 1000: roman +=  'M'; number -= 1000
     if    number >= 900:  roman += 'CM'; number -= 900

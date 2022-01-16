@@ -1,37 +1,64 @@
 import unittest
 
-import roman_numerals
+from roman_numerals import (
+    roman,
+)
 
-
-# Tests adapted from `problem-specifications//canonical-data.json` @ v1.2.0
-
+# Tests adapted from `problem-specifications//canonical-data.json`
 class RomanNumeralsTest(unittest.TestCase):
-    numerals = {
-        1: 'I',
-        2: 'II',
-        3: 'III',
-        4: 'IV',
-        5: 'V',
-        6: 'VI',
-        9: 'IX',
-        27: 'XXVII',
-        48: 'XLVIII',
-        49: 'XLIX',
-        59: 'LIX',
-        93: 'XCIII',
-        141: 'CXLI',
-        163: 'CLXIII',
-        402: 'CDII',
-        575: 'DLXXV',
-        911: 'CMXI',
-        1024: 'MXXIV',
-        3000: 'MMM',
-    }
+    def test_1_is_i(self):
+        self.assertEqual(roman(1), "I")
 
-    def test_numerals(self):
-        for arabic, numeral in self.numerals.items():
-            self.assertEqual(roman_numerals.numeral(arabic), numeral)
+    def test_2_is_ii(self):
+        self.assertEqual(roman(2), "II")
 
+    def test_3_is_iii(self):
+        self.assertEqual(roman(3), "III")
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_4_is_iv(self):
+        self.assertEqual(roman(4), "IV")
+
+    def test_5_is_v(self):
+        self.assertEqual(roman(5), "V")
+
+    def test_6_is_vi(self):
+        self.assertEqual(roman(6), "VI")
+
+    def test_9_is_ix(self):
+        self.assertEqual(roman(9), "IX")
+
+    def test_27_is_xxvii(self):
+        self.assertEqual(roman(27), "XXVII")
+
+    def test_48_is_xlviii(self):
+        self.assertEqual(roman(48), "XLVIII")
+
+    def test_49_is_xlix(self):
+        self.assertEqual(roman(49), "XLIX")
+
+    def test_59_is_lix(self):
+        self.assertEqual(roman(59), "LIX")
+
+    def test_93_is_xciii(self):
+        self.assertEqual(roman(93), "XCIII")
+
+    def test_141_is_cxli(self):
+        self.assertEqual(roman(141), "CXLI")
+
+    def test_163_is_clxiii(self):
+        self.assertEqual(roman(163), "CLXIII")
+
+    def test_402_is_cdii(self):
+        self.assertEqual(roman(402), "CDII")
+
+    def test_575_is_dlxxv(self):
+        self.assertEqual(roman(575), "DLXXV")
+
+    def test_911_is_cmxi(self):
+        self.assertEqual(roman(911), "CMXI")
+
+    def test_1024_is_mxxiv(self):
+        self.assertEqual(roman(1024), "MXXIV")
+
+    def test_3000_is_mmm(self):
+        self.assertEqual(roman(3000), "MMM")

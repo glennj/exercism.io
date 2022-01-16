@@ -1,14 +1,12 @@
-def board(grid):
+def annotate(grid):
     # Validation
     for row in grid:
-        if len(row) != len(grid[0]):
-            raise ValueError('lines are unequal')
-        if any(c not in " *" for c in row):
-            raise ValueError('illegal character')
+        if len(row) != len(grid[0]) or any(c not in " *" for c in row):
+            raise ValueError('The board is invalid with current input.')
 
     # Convert to a matrix where 0 is a space and 9 is a bomb
     counts = [
-        [0 if ch == ' ' else 9 for ch in row]
+        [0 if c == ' ' else 9 for c in row]
         for row in grid
     ]
 

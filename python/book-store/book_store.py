@@ -6,7 +6,7 @@ reductions = (1, 0, 0.05, 0.10, 0.20, 0.25)
 book_price = 800
 
 
-def calculate_total(books):
+def total(books):
     return min(map(price, get_discounts(books)))
 
 

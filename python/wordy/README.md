@@ -1,6 +1,19 @@
 # Wordy
 
+Welcome to Wordy on Exercism's Python Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Parse and evaluate simple math word problems returning the answer as an integer.
+
+## Iteration 0 — Numbers
+
+Problems with no operations simply evaluate to the number given.
+
+> What is 5?
+
+Evaluates to 5.
 
 ## Iteration 1 — Addition
 
@@ -43,6 +56,14 @@ left-to-right, _ignoring the typical order of operations._
 
 15  (i.e. not 9)
 
+## Iteration 4 — Errors
+
+The parser should reject:
+
+* Unsupported operations ("What is 52 cubed?")
+* Non-math questions ("Who is the President of the United States")
+* Word problems with invalid syntax ("What is 1 plus plus 2?")
+
 ## Bonus — Exponentials
 
 If you'd like, handle exponentials.
@@ -53,49 +74,48 @@ If you'd like, handle exponentials.
 
 ## Exception messages
 
-Sometimes it is necessary to raise an exception. When you do this, you should include a meaningful error message to
-indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. Not
-every exercise will require you to raise an exception, but for those that do, the tests will only pass if you include
-a message.
+Sometimes it is necessary to [raise an exception](https://docs.python.org/3/tutorial/errors.html#raising-exceptions). When you do this, you should always include a **meaningful error message** to indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. For situations where you know that the error source will be a certain type, you can choose to raise one of the [built in error types](https://docs.python.org/3/library/exceptions.html#base-classes), but should still include a meaningful message.
 
-To raise a message with an exception, just write it as an argument to the exception type. For example, instead of
-`raise Exception`, you should write:
+This particular exercise requires that you use the [raise statement](https://docs.python.org/3/reference/simple_stmts.html#the-raise-statement) to "throw" a `ValueError` if the question passed to `answer()` is malformed/invalid, or contains an unknown operation. The tests will only pass if you both `raise` the `exception` and include a message with it.
+
+To raise a `ValueError` with a message, write the message as an argument to the `exception` type:
 
 ```python
-raise Exception("Meaningful message indicating the source of the error")
+# if the question contains an unknown operation.
+raise ValueError("unknown operation")
+
+# if the question is malformed or invalid.
+raise ValueError("syntax error")
 ```
-
-## Running the tests
-
-To run the tests, run the appropriate command below ([why they are different](https://github.com/pytest-dev/pytest/issues/1629#issue-161422224)):
-
-- Python 2.7: `py.test wordy_test.py`
-- Python 3.4+: `pytest wordy_test.py`
-
-Alternatively, you can tell Python to run the pytest module (allowing the same command to be used regardless of Python version):
-`python -m pytest wordy_test.py`
-
-### Common `pytest` options
-
-- `-v` : enable verbose output
-- `-x` : stop running tests on first failure
-- `--ff` : run failures from previous test before running other test cases
-
-For other options, see `python -m pytest -h`
-
-## Submitting Exercises
-
-Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/wordy` directory.
-
-You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
-
-For more detailed information about running tests, code style and linting,
-please see [Running the Tests](http://exercism.io/tracks/python/tests).
 
 ## Source
 
-Inspired by one of the generated questions in the Extreme Startup game. [https://github.com/rchatley/extreme_startup](https://github.com/rchatley/extreme_startup)
+### Created by
 
-## Submitting Incomplete Solutions
+- @betegelse
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @behrtam
+- @BethanyG
+- @cmccandless
+- @Dog
+- @dvermd
+- @fluxusfrequency
+- @fortrieb
+- @Grociu
+- @ikhadykin
+- @jackattack24
+- @kytrinyx
+- @N-Parsons
+- @Nishant23
+- @parinporecha
+- @pheanex
+- @rootulp
+- @sjakobi
+- @tqa236
+- @yawpitch
+
+### Based on
+
+Inspired by one of the generated questions in the Extreme Startup game. - https://github.com/rchatley/extreme_startup

@@ -1,60 +1,101 @@
 import unittest
 
-from book_store import calculate_total
+from book_store import (
+    total,
+)
 
+# Tests adapted from `problem-specifications//canonical-data.json`
 
-# Tests adapted from `problem-specifications//canonical-data.json` @ v1.4.0
 
 class BookStoreTest(unittest.TestCase):
     def test_only_a_single_book(self):
-        self.assertEqual(calculate_total([1]), 800)
+        basket = [1]
+        self.assertEqual(total(basket), 800)
 
     def test_two_of_the_same_book(self):
-        self.assertEqual(calculate_total([2, 2]), 1600)
+        basket = [2, 2]
+        self.assertEqual(total(basket), 1600)
 
     def test_empty_basket(self):
-        self.assertEqual(calculate_total([]), 0)
+        basket = []
+        self.assertEqual(total(basket), 0)
 
     def test_two_different_books(self):
-        self.assertEqual(calculate_total([1, 2]), 1520)
+        basket = [1, 2]
+        self.assertEqual(total(basket), 1520)
 
     def test_three_different_books(self):
-        self.assertEqual(calculate_total([1, 2, 3]), 2160)
+        basket = [1, 2, 3]
+        self.assertEqual(total(basket), 2160)
 
     def test_four_different_books(self):
-        self.assertEqual(calculate_total([1, 2, 3, 4]), 2560)
+        basket = [1, 2, 3, 4]
+        self.assertEqual(total(basket), 2560)
 
     def test_five_different_books(self):
-        self.assertEqual(calculate_total([1, 2, 3, 4, 5]), 3000)
+        basket = [1, 2, 3, 4, 5]
+        self.assertEqual(total(basket), 3000)
 
-    def test_two_groups_of_4_is_cheaper_than_group_of_5_plus_group_of_3(self):
-        self.assertEqual(calculate_total([1, 1, 2, 2, 3, 3, 4, 5]), 5120)
+    def test_two_groups_of_four_is_cheaper_than_group_of_five_plus_group_of_three(self):
+        basket = [1, 1, 2, 2, 3, 3, 4, 5]
+        self.assertEqual(total(basket), 5120)
 
-    def test_two_groups_of_4_is_cheaper_than_groups_of_5_and_3(self):
-        self.assertEqual(calculate_total([1, 1, 2, 3, 4, 4, 5, 5]), 5120)
+    def test_two_groups_of_four_is_cheaper_than_groups_of_five_and_three(self):
+        basket = [1, 1, 2, 3, 4, 4, 5, 5]
+        self.assertEqual(total(basket), 5120)
 
-    def test_group_of_4_plus_group_of_2_is_cheaper_than_2_groups_of_3(self):
-        self.assertEqual(calculate_total([1, 1, 2, 2, 3, 4]), 4080)
+    def test_group_of_four_plus_group_of_two_is_cheaper_than_two_groups_of_three(self):
+        basket = [1, 1, 2, 2, 3, 4]
+        self.assertEqual(total(basket), 4080)
 
     def test_two_each_of_first_4_books_and_1_copy_each_of_rest(self):
-        self.assertEqual(calculate_total([1, 1, 2, 2, 3, 3, 4, 4, 5]), 5560)
+        basket = [1, 1, 2, 2, 3, 3, 4, 4, 5]
+        self.assertEqual(total(basket), 5560)
 
     def test_two_copies_of_each_book(self):
-        self.assertEqual(calculate_total([1, 1, 2, 2, 3, 3, 4, 4, 5, 5]), 6000)
+        basket = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5]
+        self.assertEqual(total(basket), 6000)
 
     def test_three_copies_of_first_book_and_2_each_of_remaining(self):
-        self.assertEqual(
-            calculate_total([1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 1]), 6800)
+        basket = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 1]
+        self.assertEqual(total(basket), 6800)
 
     def test_three_each_of_first_2_books_and_2_each_of_remaining_books(self):
-        self.assertEqual(
-            calculate_total([1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 1, 2]), 7520)
+        basket = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 1, 2]
+        self.assertEqual(total(basket), 7520)
 
-    def test_four_groups_of_4_are_cheaper_than_2_groups_each_of_5_and_3(self):
-        self.assertEqual(
-            calculate_total([1, 1, 2, 2, 3, 3, 4, 5, 1, 1, 2, 2, 3, 3, 4, 5]),
-            10240)
+    def test_four_groups_of_four_are_cheaper_than_two_groups_each_of_five_and_three(
+        self,
+    ):
+        basket = [1, 1, 2, 2, 3, 3, 4, 5, 1, 1, 2, 2, 3, 3, 4, 5]
+        self.assertEqual(total(basket), 10240)
+
+    def test_check_that_groups_of_four_are_created_properly_even_when_there_are_more_groups_of_three_than_groups_of_five(
+        self,
+    ):
+        basket = [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 5, 5]
+        self.assertEqual(total(basket), 14560)
+
+    def test_one_group_of_one_and_four_is_cheaper_than_one_group_of_two_and_three(self):
+        basket = [1, 1, 2, 3, 4]
+        self.assertEqual(total(basket), 3360)
+
+    def test_one_group_of_one_and_two_plus_three_groups_of_four_is_cheaper_than_one_group_of_each_size(
+        self,
+    ):
+        basket = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5]
+        self.assertEqual(total(basket), 10000)
+
+    # Additional tests for this track
+
+    def test_two_groups_of_four_and_a_group_of_five(self):
+        basket = [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5]
+        self.assertEqual(total(basket), 8120)
+
+    def test_shuffled_book_order(self):
+        basket = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3]
+        self.assertEqual(total(basket), 8120)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

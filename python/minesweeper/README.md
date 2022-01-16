@@ -1,72 +1,78 @@
 # Minesweeper
 
-Add the numbers to a minesweeper board.
+Welcome to Minesweeper on Exercism's Python Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
+Add the mine counts to a completed Minesweeper board.
 
 Minesweeper is a popular game where the user has to find the mines using
 numeric hints that indicate how many mines are directly adjacent
 (horizontally, vertically, diagonally) to a square.
 
 In this exercise you have to create some code that counts the number of
-mines adjacent to a square and transforms boards like this (where `*`
-indicates a mine):
+mines adjacent to a given empty square and replaces that square with the
+count.
 
-    +-----+
-    | * * |
-    |  *  |
-    |  *  |
-    |     |
-    +-----+
+The board is a rectangle composed of blank space (' ') characters. A mine
+is represented by an asterisk ('\*') character.
 
-into this:
+If a given space has no adjacent mines at all, leave that square blank.
 
-    +-----+
-    |1*3*1|
-    |13*31|
-    | 2*2 |
-    | 111 |
-    +-----+
+## Examples
+
+For example you may receive a 5 x 4 board like this (empty spaces are
+represented here with the '·' character for display on screen):
+
+```
+·*·*·
+··*··
+··*··
+·····
+```
+
+And your code will transform it into this:
+
+```
+1*3*1
+13*31
+·2*2·
+·111·
+```
 
 ## Exception messages
 
-Sometimes it is necessary to raise an exception. When you do this, you should include a meaningful error message to
-indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. Not
-every exercise will require you to raise an exception, but for those that do, the tests will only pass if you include
-a message.
+Sometimes it is necessary to [raise an exception](https://docs.python.org/3/tutorial/errors.html#raising-exceptions). When you do this, you should always include a **meaningful error message** to indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. For situations where you know that the error source will be a certain type, you can choose to raise one of the [built in error types](https://docs.python.org/3/library/exceptions.html#base-classes), but should still include a meaningful message.
 
-To raise a message with an exception, just write it as an argument to the exception type. For example, instead of
-`raise Exception`, you should write:
+This particular exercise requires that you use the [raise statement](https://docs.python.org/3/reference/simple_stmts.html#the-raise-statement) to "throw" a `ValueError` when the `board()` function receives malformed input. The tests will only pass if you both `raise` the `exception` and include a message with it.
+
+To raise a `ValueError` with a message, write the message as an argument to the `exception` type:
 
 ```python
-raise Exception("Meaningful message indicating the source of the error")
+# when the board receives malformed input
+raise ValueError("The board is invalid with current input.")
 ```
 
-## Running the tests
+## Source
 
-To run the tests, run the appropriate command below ([why they are different](https://github.com/pytest-dev/pytest/issues/1629#issue-161422224)):
+### Created by
 
-- Python 2.7: `py.test minesweeper_test.py`
-- Python 3.4+: `pytest minesweeper_test.py`
+- @betegelse
 
-Alternatively, you can tell Python to run the pytest module (allowing the same command to be used regardless of Python version):
-`python -m pytest minesweeper_test.py`
+### Contributed to by
 
-### Common `pytest` options
-
-- `-v` : enable verbose output
-- `-x` : stop running tests on first failure
-- `--ff` : run failures from previous test before running other test cases
-
-For other options, see `python -m pytest -h`
-
-## Submitting Exercises
-
-Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/minesweeper` directory.
-
-You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
-
-For more detailed information about running tests, code style and linting,
-please see [Running the Tests](http://exercism.io/tracks/python/tests).
-
-## Submitting Incomplete Solutions
-
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @alexpjohnson
+- @behrtam
+- @BethanyG
+- @cmccandless
+- @Dog
+- @fluxusfrequency
+- @ikhadykin
+- @kytrinyx
+- @N-Parsons
+- @peterblazejewicz
+- @pheanex
+- @sjakobi
+- @smalley
+- @tqa236

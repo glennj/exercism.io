@@ -5,6 +5,10 @@ class Clock(object):
         self.minute = (60 * hour + minute) % self.MINS_PER_DAY
 
     def __repr__(self):
+        hm = "%d, %d" % divmod(self.minute, 60)
+        return f"{type(self).__name__}({hm})"
+
+    def __str__(self):
         return "%02d:%02d" % divmod(self.minute, 60)
 
     def __eq__(self, other):

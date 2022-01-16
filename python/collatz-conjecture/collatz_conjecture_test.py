@@ -1,42 +1,39 @@
 import unittest
 
-from collatz_conjecture import collatz_steps
+from collatz_conjecture import (
+    steps,
+)
 
+# Tests adapted from `problem-specifications//canonical-data.json`
 
-# Tests adapted from `problem-specifications//canonical-data.json` @ v1.2.1
 
 class CollatzConjectureTest(unittest.TestCase):
-
     def test_zero_steps_for_one(self):
-        self.assertEqual(collatz_steps(1), 0)
+
+        self.assertEqual(steps(1), 0)
 
     def test_divide_if_even(self):
-        self.assertEqual(collatz_steps(16), 4)
+
+        self.assertEqual(steps(16), 4)
 
     def test_even_and_odd_steps(self):
-        self.assertEqual(collatz_steps(12), 9)
+
+        self.assertEqual(steps(12), 9)
 
     def test_large_number_of_even_and_odd_steps(self):
-        self.assertEqual(collatz_steps(1000000), 152)
 
-    def test_zero_is_invalid_input(self):
-        with self.assertRaisesWithMessage(ValueError):
-            collatz_steps(0)
+        self.assertEqual(steps(1000000), 152)
 
-    def test_negative_number_is_invalid_input(self):
-        with self.assertRaisesWithMessage(ValueError):
-            collatz_steps(-15)
+    def test_zero_is_an_error(self):
 
-    # Utility functions
-    def setUp(self):
-        try:
-            self.assertRaisesRegex
-        except AttributeError:
-            self.assertRaisesRegex = self.assertRaisesRegexp
+        with self.assertRaises(ValueError) as err:
+            steps(0)
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "Only positive numbers are allowed")
 
-    def assertRaisesWithMessage(self, exception):
-        return self.assertRaisesRegex(exception, r".+")
+    def test_negative_value_is_an_error(self):
 
-
-if __name__ == '__main__':
-    unittest.main()
+        with self.assertRaises(ValueError) as err:
+            steps(-15)
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "Only positive numbers are allowed")

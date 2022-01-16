@@ -1,8 +1,8 @@
-def on_square(integer_number):
+def square(integer_number):
     if not 1 <= integer_number <= 64:
-        raise ValueError('Invalid square.')
+        raise ValueError('square must be between 1 and 64')
     return 1 << (integer_number - 1)
 
 
-def total_after(integer_number):
-    return (on_square(integer_number) << 1) - 1
+def total():
+    return (1 << 64) - 1

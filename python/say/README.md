@@ -1,5 +1,10 @@
 # Say
 
+Welcome to Say on Exercism's Python Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given a number from 0 to 999,999,999,999, spell out that number in English.
 
 ## Step 1
@@ -64,49 +69,42 @@ Use _and_ (correctly) when spelling out the number in English:
 
 ## Exception messages
 
-Sometimes it is necessary to raise an exception. When you do this, you should include a meaningful error message to
-indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. Not
-every exercise will require you to raise an exception, but for those that do, the tests will only pass if you include
-a message.
+Sometimes it is necessary to [raise an exception](https://docs.python.org/3/tutorial/errors.html#raising-exceptions). When you do this, you should always include a **meaningful error message** to indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. For situations where you know that the error source will be a certain type, you can choose to raise one of the [built in error types](https://docs.python.org/3/library/exceptions.html#base-classes), but should still include a meaningful message.
 
-To raise a message with an exception, just write it as an argument to the exception type. For example, instead of
-`raise Exception`, you should write:
+This particular exercise requires that you use the [raise statement](https://docs.python.org/3/reference/simple_stmts.html#the-raise-statement) to "throw" a `ValueError` if the number input to `say()` is out of range. The tests will only pass if you both `raise` the `exception` and include a message with it.
+
+To raise a `ValueError` with a message, write the message as an argument to the `exception` type:
 
 ```python
-raise Exception("Meaningful message indicating the source of the error")
+# if the number is negative
+raise ValueError("input out of range")
+
+# if the number is larger than 999,999,999,99
+raise ValueError("input out of range")
 ```
-
-## Running the tests
-
-To run the tests, run the appropriate command below ([why they are different](https://github.com/pytest-dev/pytest/issues/1629#issue-161422224)):
-
-- Python 2.7: `py.test say_test.py`
-- Python 3.4+: `pytest say_test.py`
-
-Alternatively, you can tell Python to run the pytest module (allowing the same command to be used regardless of Python version):
-`python -m pytest say_test.py`
-
-### Common `pytest` options
-
-- `-v` : enable verbose output
-- `-x` : stop running tests on first failure
-- `--ff` : run failures from previous test before running other test cases
-
-For other options, see `python -m pytest -h`
-
-## Submitting Exercises
-
-Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/say` directory.
-
-You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
-
-For more detailed information about running tests, code style and linting,
-please see [Running the Tests](http://exercism.io/tracks/python/tests).
 
 ## Source
 
-A variation on JavaRanch CattleDrive, exercise 4a [http://www.javaranch.com/say.jsp](http://www.javaranch.com/say.jsp)
+### Created by
 
-## Submitting Incomplete Solutions
+- @behrtam
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @AndrejTS
+- @cmccandless
+- @csabella
+- @Dog
+- @fortrieb
+- @gabriellhrn
+- @ikhadykin
+- @mandel01
+- @N-Parsons
+- @pheanex
+- @pranasziaukas
+- @tqa236
+- @tsamoglou
+
+### Based on
+
+A variation on JavaRanch CattleDrive, exercise 4a - http://www.javaranch.com/say.jsp

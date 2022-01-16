@@ -17,12 +17,12 @@ START_DAY = {
 }
 
 
-def meetup_day(year, month, day_of_the_week, which):
+def meetup(year, month, which, week_day):
     if which not in START_DAY:
         raise MeetupDayException(f'What is {which}?')
 
-    if day_of_the_week not in day_name:
-        raise MeetupDayException(f'Unknown day: {day_of_the_week}')
+    if week_day not in day_name:
+        raise MeetupDayException(f'Unknown day: {week_day}')
 
     start_day = START_DAY[which] or monthrange(year, month)[1] - 6
 
@@ -30,9 +30,9 @@ def meetup_day(year, month, day_of_the_week, which):
     # ValueError: day is out of range for month
     try:
         start_day_wday = weekday(year, month, start_day)
-        wanted_wday = list(day_name).index(day_of_the_week)
+        wanted_wday = list(day_name).index(week_day)
         delta = (wanted_wday - start_day_wday) % 7
         return date(year, month, start_day + delta)
 
-    except ValueError as e:
-        raise MeetupDayException(e)
+    except ValueError:
+        raise MeetupDayException("That day does not exist.")

@@ -1,63 +1,75 @@
 import unittest
 
-from binary_search import binary_search
+from binary_search import (
+    find,
+)
 
-# Tests adapted from `problem-specifications//canonical-data.json` @ v1.3.0
+# Tests adapted from `problem-specifications//canonical-data.json`
 
 
 class BinarySearchTest(unittest.TestCase):
-    def test_finds_value_in_array_with_one_element(self):
-        self.assertEqual(binary_search([6], 6), 0)
+    def test_finds_a_value_in_an_array_with_one_element(self):
 
-    def test_finds_value_in_middle_of_array(self):
-        self.assertEqual(binary_search([1, 3, 4, 6, 8, 9, 11], 6), 3)
+        self.assertEqual(find([6], 6), 0)
 
-    def test_finds_value_at_beginning_of_array(self):
-        self.assertEqual(binary_search([1, 3, 4, 6, 8, 9, 11], 1), 0)
+    def test_finds_a_value_in_the_middle_of_an_array(self):
 
-    def test_finds_value_at_end_of_array(self):
-        self.assertEqual(binary_search([1, 3, 4, 6, 8, 9, 11], 11), 6)
+        self.assertEqual(find([1, 3, 4, 6, 8, 9, 11], 6), 3)
 
-    def test_finds_value_in_array_of_odd_length(self):
+    def test_finds_a_value_at_the_beginning_of_an_array(self):
+
+        self.assertEqual(find([1, 3, 4, 6, 8, 9, 11], 1), 0)
+
+    def test_finds_a_value_at_the_end_of_an_array(self):
+
+        self.assertEqual(find([1, 3, 4, 6, 8, 9, 11], 11), 6)
+
+    def test_finds_a_value_in_an_array_of_odd_length(self):
+
         self.assertEqual(
-            binary_search([1, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 634],
-                          144), 9)
+            find([1, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 634], 144), 9
+        )
 
-    def test_finds_value_in_array_of_even_length(self):
-        self.assertEqual(
-            binary_search([1, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377], 21),
-            5)
+    def test_finds_a_value_in_an_array_of_even_length(self):
 
-    def test_identifies_value_missing(self):
-        with self.assertRaisesWithMessage(ValueError):
-            binary_search([1, 3, 4, 6, 8, 9, 11], 7)
+        self.assertEqual(find([1, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377], 21), 5)
 
-    def test_value_smaller_than_arrays_minimum(self):
-        with self.assertRaisesWithMessage(ValueError):
-            binary_search([1, 3, 4, 6, 8, 9, 11], 0)
+    def test_identifies_that_a_value_is_not_included_in_the_array(self):
 
-    def test_value_larger_than_arrays_maximum(self):
-        with self.assertRaisesWithMessage(ValueError):
-            binary_search([1, 3, 4, 6, 8, 9, 11], 13)
+        with self.assertRaises(ValueError) as err:
+            find([1, 3, 4, 6, 8, 9, 11], 7)
 
-    def test_empty_array(self):
-        with self.assertRaisesWithMessage(ValueError):
-            binary_search([], 1)
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "value not in array")
 
-    def test_nothing_is_found_when_left_and_right_bounds_cross(self):
-        with self.assertRaisesWithMessage(ValueError):
-            binary_search([1, 2], 0)
+    def test_a_value_smaller_than_the_array_s_smallest_value_is_not_found(self):
 
-    # Utility functions
-    def setUp(self):
-        try:
-            self.assertRaisesRegex
-        except AttributeError:
-            self.assertRaisesRegex = self.assertRaisesRegexp
+        with self.assertRaises(ValueError) as err:
+            find([1, 3, 4, 6, 8, 9, 11], 0)
 
-    def assertRaisesWithMessage(self, exception):
-        return self.assertRaisesRegex(exception, r".+")
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "value not in array")
 
+    def test_a_value_larger_than_the_array_s_largest_value_is_not_found(self):
 
-if __name__ == '__main__':
-    unittest.main()
+        with self.assertRaises(ValueError) as err:
+            find([1, 3, 4, 6, 8, 9, 11], 13)
+
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "value not in array")
+
+    def test_nothing_is_found_in_an_empty_array(self):
+
+        with self.assertRaises(ValueError) as err:
+            find([], 1)
+
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "value not in array")
+
+    def test_nothing_is_found_when_the_left_and_right_bounds_cross(self):
+
+        with self.assertRaises(ValueError) as err:
+            find([1, 2], 0)
+
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "value not in array")

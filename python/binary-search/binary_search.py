@@ -1,4 +1,4 @@
-def binary_search(list_of_numbers, number):
+def find(list_of_numbers, number):
     i = 0
     j = len(list_of_numbers) - 1
     while i <= j:
@@ -9,4 +9,4 @@ def binary_search(list_of_numbers, number):
             j = mid - 1
         else:
             i = mid + 1
-    raise ValueError('not found')
+    raise ValueError('value not in array')

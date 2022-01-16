@@ -1,9 +1,9 @@
 import sys
 
 
-def find_minimum_coins(amount, coins):
+def find_fewest_coins(coins, amount):
     if amount < 0:
-        raise ValueError("Can't make negative change.")
+        raise ValueError("target can't be negative")
     _, S = change(amount, coins)
     return make_change(amount, coins, S)
 
@@ -41,7 +41,7 @@ def change(amount, coins):
 def make_change(amount, coins, S):
     change = []
     if S[amount] is None:
-        raise ValueError("Can't make that change with those coins.")
+        raise ValueError("can't make target with given coins")
     while amount > 0:
         coin = coins[S[amount]]
         change.append(coin)

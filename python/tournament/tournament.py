@@ -17,10 +17,13 @@ class Team:
     def points(self):
         return 3 * self.wins + self.draws
 
+    def played(self):
+        return self.wins + self.losses + self.draws
+
     def standings_data(self):
         return [
             self.name,
-            self.wins + self.losses + self.draws,
+            self.played(),
             self.wins,
             self.draws,
             self.losses,
@@ -29,7 +32,7 @@ class Team:
 
     def __lt__(self, other):
         ''' for sorting:
-        I am "less than" him if:
+        I am "less than" the other if:
           - I have more points, or
           - we have same points, but my name sorts first
         '''
@@ -44,16 +47,14 @@ def tally(tournament_results):
 
 def format_standings(teams):
     fmt = '{:<30} | {:>2} | {:>2} | {:>2} | {:>2} | {:>2}'
-    standings = [fmt.format('Team', 'MP', 'W', 'D', 'L', 'P')]
-    for team in sorted(teams):
-        standings += [fmt.format(*team.standings_data())]
-    return "\n".join(standings)
+    return [fmt.format('Team', 'MP', 'W', 'D', 'L', 'P')] \
+         + [fmt.format(*team.standings_data()) for team in sorted(teams)]
 
 
 def parse_results(tournament_results):
     teams = {}
 
-    for item in tournament_results.split("\n"):
+    for item in tournament_results:
         fields = item.split(";")
         if len(fields) != 3:
             continue

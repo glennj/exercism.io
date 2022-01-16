@@ -1,7 +1,7 @@
 SUBLIST, SUPERLIST, EQUAL, UNEQUAL = range(4)
 
 
-def check_lists(a, b):
+def sublist(a, b):
     if len(a) == len(b):
         return EQUAL if is_sublist(a, b) else UNEQUAL
     if len(a) < len(b):

@@ -1,45 +1,44 @@
 from math import floor, ceil
-import sys
 
 
-def largest_palindrome(max_factor, min_factor):
-    return palindrome_products(max_factor, min_factor)[1]
+def smallest(max_factor, min_factor):
+    validate(min_factor, max_factor)
+
+    factors  = range(min_factor, max_factor + 1)
+    products = range(pow(min_factor, 2), pow(max_factor, 2) + 1)
+
+    return palindrome_products(products, factors)
 
 
-def smallest_palindrome(max_factor, min_factor):
-    return palindrome_products(max_factor, min_factor)[0]
+def largest(max_factor, min_factor):
+    validate(min_factor, max_factor)
+
+    factors  = range(min_factor, max_factor + 1)
+    # this range is descending, to find the largest faster
+    products = range(pow(max_factor, 2), pow(min_factor, 2) - 1, -1)
+
+    return palindrome_products(products, factors)
 
 
-def palindrome_products(maxf, minf):
+def validate(minf, maxf):
     if minf > maxf:
-        raise ValueError('min > max!')
+        raise ValueError('min must be <= max')
 
-    '''
-    don't need to store **all** the palindrome products,
-    just the min and max
-    '''
-    max_prod = -1
-    max_result = (None, [])
-    min_prod = sys.maxsize
-    min_result = (None, [])
 
-    for i in range(minf, maxf+1):
-        for j in range(i, maxf+1):
-            prod = i * j
-            if is_palindrome(prod):
-                if prod < min_prod:
-                    min_prod = prod
-                    min_result = (prod, set())
-                if prod == min_prod:
-                    min_result[1].add((i,j))
+def palindrome_products(products, factors):
+    for product in products:
+        if is_palindrome(product):
+            pairs = []
+            for i in factors:
+                j, rem = divmod(product, i)
+                if rem == 0 and j in factors:
+                    pairs.append([i, j])
+            if len(pairs) != 0:
+                # the first one found is the smallest/largest,
+                # so we can return immediately
+                return (product, pairs)
 
-                if prod > max_prod:
-                    max_prod = prod
-                    max_result = (prod, set())
-                if prod == max_prod:
-                    max_result[1].add((i,j))
-
-    return (min_result, max_result)
+    return (None, [])
 
 
 def is_palindrome(number):

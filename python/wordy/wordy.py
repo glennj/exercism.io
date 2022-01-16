@@ -15,17 +15,14 @@ ops_patt = re.compile(ops)
 eqn_patt = re.compile(eqn)
 
 
-def calculate(question):
-    if not re.search(r'\d+\?$', question):
-        raise ValueError('Ill-formatted question')
-
+def answer(question):
     while True:
         if not re.search(ops_patt, question):
             break
 
         m = re.search(eqn_patt, question)
         if not m:
-            raise ValueError('Missing operands')
+            raise ValueError('unknown operation')
 
         eqn, a, op, b = [m.group(i) for i in range(1, 5)]
         val = operations[op](int(a), int(b))
@@ -35,5 +32,5 @@ def calculate(question):
         if next_chars == '?':
             return int(answer)
         else:
-            raise ValueError('Unimplemented operation: ' + next_chars)
+            raise ValueError('unknown operation')
     raise ValueError('no digits')
