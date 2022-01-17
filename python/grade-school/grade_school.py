@@ -4,16 +4,28 @@ from functools import reduce
 
 class School(object):
     def __init__(self):
-        self.classes = defaultdict(list)
+        self.directory = {}
+        self.was_added = []
 
     def add_student(self, name, grade):
-        self.classes[grade] = sorted(self.classes[grade] + [name])
+        if name in self.directory:
+            self.was_added.append(False)
+        else:
+            self.directory[name] = grade
+            self.was_added.append(True)
 
     def roster(self):
-        def build_student_body(sb, grade):
-            return sb + self.grade(grade)
-
-        return reduce(build_student_body, sorted(self.classes), [])
+        roster = []
+        for grade in sorted(set(self.directory.values())):
+            roster += self.grade(grade)
+        return roster
 
     def grade(self, grade_number):
-        return self.classes[grade_number].copy()
+        names = [
+            name for name, grade in self.directory.items()
+                 if grade == grade_number
+        ]
+        return sorted(names)
+
+    def added(self):
+        return self.was_added

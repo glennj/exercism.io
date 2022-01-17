@@ -23,7 +23,7 @@ class Tree(object):
     def from_pov(self, from_label):
         path = self.path_from_root(from_label)
         if not path:
-            raise ValueError('No such node: ' + from_label)
+            raise ValueError('Tree could not be reoriented')
         '''
         Now, reparent: follow the path, removing the node
         from its parent's children, and adding the
@@ -46,11 +46,11 @@ class Tree(object):
     def path_to(self, from_label, to_label):
         from_path = self.path_from_root(from_label)
         if not from_path:
-            raise ValueError('No such node: ' + from_label)
+            raise ValueError('Tree could not be reoriented')
 
         to_path = self.path_from_root(to_label)
         if not to_path:
-            raise ValueError('No such node: ' + to_label)
+            raise ValueError('No path found')
 
         from_path, to_path = common_root(from_path, to_path)
         from_path.reverse()

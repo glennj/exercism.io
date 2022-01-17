@@ -8,29 +8,51 @@ operations = {
     'divided by': operator.floordiv
 }
 
-ops = r'\b' + '|'.join(operations.keys()) + r'\b'
-eqn = r'(?<=\s)((-?\d+)\s+(' + ops + r')\s+(-?\d+))'
+regex = {
+    'number': re.compile(r'-?\d+'),
+    'operator': re.compile(f'(?:{"|".join(operations.keys())})\\b')
+}
 
-ops_patt = re.compile(ops)
-eqn_patt = re.compile(eqn)
+
+def get_number(question):
+    m = regex['number'].match(question)
+    if not m:
+        raise ValueError("syntax error")
+    return [question.removeprefix(m.group(0)).lstrip(), int(m.group(0))]
+
+
+def get_operation(question):
+    m = regex['operator'].match(question)
+    if not m:
+        raise ValueError("unknown operation")
+    return [question.removeprefix(m.group(0)).lstrip(), operations[m.group(0)]]
+
+
+def prepare_question(question):
+    q = question.lower().strip().removesuffix("?")
+
+    # every valid question starts with "What is"
+    prefix = "what is"
+    if not q.startswith(prefix):
+        raise ValueError("unknown operation")
+
+    return q.removeprefix(prefix).lstrip()
 
 
 def answer(question):
-    while True:
-        if not re.search(ops_patt, question):
-            break
+    q = prepare_question(question)
 
-        m = re.search(eqn_patt, question)
-        if not m:
-            raise ValueError('unknown operation')
+    # the question should start with a number
+    q, result = get_number(q)
 
-        eqn, a, op, b = [m.group(i) for i in range(1, 5)]
-        val = operations[op](int(a), int(b))
-        question = question.replace(eqn, str(val))
+    while len(q) > 0:
+        # can't have a number followed by a number
+        if regex['number'].match(q):
+            raise ValueError("syntax error")
 
-    for answer, next_chars in re.findall(r'(-?\d+)(\?$|\s+[a-z]*)', question):
-        if next_chars == '?':
-            return int(answer)
-        else:
-            raise ValueError('unknown operation')
-    raise ValueError('no digits')
+        q, operation = get_operation(q)
+        q, num = get_number(q)
+
+        result = operation(result, num)
+
+    return result

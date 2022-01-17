@@ -1,5 +1,10 @@
 # Queen Attack
 
+Welcome to Queen Attack on Exercism's Python Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given the position of two queens on a chess board, indicate whether or not they
 are positioned so that they can attack each other.
 
@@ -28,49 +33,54 @@ share a diagonal.
 
 ## Exception messages
 
-Sometimes it is necessary to raise an exception. When you do this, you should include a meaningful error message to
-indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. Not
-every exercise will require you to raise an exception, but for those that do, the tests will only pass if you include
-a message.
+Sometimes it is necessary to [raise an exception](https://docs.python.org/3/tutorial/errors.html#raising-exceptions). When you do this, you should always include a **meaningful error message** to indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. For situations where you know that the error source will be a certain type, you can choose to raise one of the [built in error types](https://docs.python.org/3/library/exceptions.html#base-classes), but should still include a meaningful message.
 
-To raise a message with an exception, just write it as an argument to the exception type. For example, instead of
-`raise Exception`, you should write:
+This particular exercise requires that you use the [raise statement](https://docs.python.org/3/reference/simple_stmts.html#the-raise-statement) to "throw" `ValueErrors` if the `Queen` constructor is passed numbers that are negative, or numbers that are not a valid row or column.  The tests will only pass if you both `raise` the `exception` and include a message with it. You also should `raise` a `ValueError` if both the queens passed to the `can_attack()` method are on the same location.
+
+To raise a `ValueError` with a message, write the message as an argument to the `exception` type:
 
 ```python
-raise Exception("Meaningful message indicating the source of the error")
+# if the row parameter is negative
+raise ValueError("row not positive")
+
+# if the row parameter is not on the defined board
+raise ValueError("row not on board")
+
+# if the column parameter is negative
+raise ValueError("column not positive")
+
+# if the column parameter is not on the defined board
+raise ValueError("column not on board")
+
+# if both the queens are on the same location
+raise ValueError("Invalid queen position: both queens in the same square")
 ```
-
-## Running the tests
-
-To run the tests, run the appropriate command below ([why they are different](https://github.com/pytest-dev/pytest/issues/1629#issue-161422224)):
-
-- Python 2.7: `py.test queen_attack_test.py`
-- Python 3.4+: `pytest queen_attack_test.py`
-
-Alternatively, you can tell Python to run the pytest module (allowing the same command to be used regardless of Python version):
-`python -m pytest queen_attack_test.py`
-
-### Common `pytest` options
-
-- `-v` : enable verbose output
-- `-x` : stop running tests on first failure
-- `--ff` : run failures from previous test before running other test cases
-
-For other options, see `python -m pytest -h`
-
-## Submitting Exercises
-
-Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/queen-attack` directory.
-
-You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
-
-For more detailed information about running tests, code style and linting,
-please see [Running the Tests](http://exercism.io/tracks/python/tests).
 
 ## Source
 
-J Dalbey's Programming Practice problems [http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html](http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html)
+### Created by
 
-## Submitting Incomplete Solutions
+- @betegelse
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @beatorizu
+- @behrtam
+- @BethanyG
+- @cmccandless
+- @denislooby
+- @Dog
+- @fortrieb
+- @ikhadykin
+- @jnaulty
+- @kytrinyx
+- @N-Parsons
+- @olufotebig
+- @pheanex
+- @sjakobi
+- @tqa236
+- @xitanggg
+
+### Based on
+
+J Dalbey's Programming Practice problems - http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html

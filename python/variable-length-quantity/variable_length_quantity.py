@@ -19,7 +19,7 @@ def encode(numbers):
 
 def decode(bytes_):
     if bytes_[-1] & MSB != 0:
-        raise ValueError('incomplete byte sequence')
+        raise ValueError('incomplete sequence')
     numbers = []
     num = 0
     for byte in bytes_:

@@ -1,4 +1,4 @@
-def hey(phrase):
+def response(phrase):
     phrase = phrase.rstrip()
 
     shouting = phrase.isupper()

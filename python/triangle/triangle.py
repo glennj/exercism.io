@@ -1,12 +1,12 @@
-def is_equilateral(sides):
+def equilateral(sides):
     return classify(sides) == 'equilateral'
 
 
-def is_isosceles(sides):
+def isosceles(sides):
     return classify(sides) in ('isosceles', 'equilateral')
 
 
-def is_scalene(sides):
+def scalene(sides):
     return classify(sides) == 'scalene'
 
 

@@ -1,10 +1,10 @@
 def tree_from_traversals(preorder, inorder):
     if len(preorder) != len(inorder):
-        raise ValueError('orderings must be same length')
+        raise ValueError('traversals must have the same length')
     if set(preorder) != set(inorder):
-        raise ValueError('orderings must have same elements')
+        raise ValueError('traversals must have the same elements')
     if len(preorder) != len(set(preorder)):
-        raise ValueError('no repeated elements')
+        raise ValueError('traversals must contain unique items')
     return build_tree(preorder, inorder)
 
 

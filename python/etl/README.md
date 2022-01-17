@@ -1,8 +1,13 @@
-# ETL
+# Etl
+
+Welcome to Etl on Exercism's Python Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 We are going to do the `Transform` step of an Extract-Transform-Load.
 
-### ETL
+## ETL
 
 Extract-Transform-Load (ETL) is a fancy way of saying, "We have some crufty, legacy data over in this system, and now we need it in this shiny new system over here, so
 we're going to migrate this."
@@ -11,9 +16,9 @@ we're going to migrate this."
 once." That's then typically followed by much forehead slapping and
 moaning about how stupid we could possibly be.)
 
-### The goal
+## The goal
 
-We're going to extract some scrabble scores from a legacy system.
+We're going to extract some Scrabble scores from a legacy system.
 
 The old system stored a list of letters per score:
 
@@ -25,7 +30,7 @@ The old system stored a list of letters per score:
 - 8 points: "J", "X",
 - 10 points: "Q", "Z",
 
-The shiny new scrabble system instead stores the score per letter, which
+The shiny new Scrabble system instead stores the score per letter, which
 makes it much faster and easier to calculate the score for a word. It
 also stores the letters in lower-case regardless of the case of the
 input letters:
@@ -39,58 +44,32 @@ input letters:
 Your mission, should you choose to accept it, is to transform the legacy data
 format to the shiny new format.
 
-### Notes
+## Notes
 
 A final note about scoring, Scrabble is played around the world in a
 variety of languages, each with its own unique scoring table. For
 example, an "E" is scored at 2 in the Māori-language version of the
 game while being scored at 4 in the Hawaiian-language version.
 
-## Exception messages
-
-Sometimes it is necessary to raise an exception. When you do this, you should include a meaningful error message to
-indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. Not
-every exercise will require you to raise an exception, but for those that do, the tests will only pass if you include
-a message.
-
-To raise a message with an exception, just write it as an argument to the exception type. For example, instead of
-`raise Exception`, you should write:
-
-```python
-raise Exception("Meaningful message indicating the source of the error")
-```
-
-## Running the tests
-
-To run the tests, run the appropriate command below ([why they are different](https://github.com/pytest-dev/pytest/issues/1629#issue-161422224)):
-
-- Python 2.7: `py.test etl_test.py`
-- Python 3.4+: `pytest etl_test.py`
-
-Alternatively, you can tell Python to run the pytest module (allowing the same command to be used regardless of Python version):
-`python -m pytest etl_test.py`
-
-### Common `pytest` options
-
-- `-v` : enable verbose output
-- `-x` : stop running tests on first failure
-- `--ff` : run failures from previous test before running other test cases
-
-For other options, see `python -m pytest -h`
-
-## Submitting Exercises
-
-Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/etl` directory.
-
-You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
-
-For more detailed information about running tests, code style and linting,
-please see [Running the Tests](http://exercism.io/tracks/python/tests).
-
 ## Source
 
-The Jumpstart Lab team [http://jumpstartlab.com](http://jumpstartlab.com)
+### Contributed to by
 
-## Submitting Incomplete Solutions
+- @alirezaghey
+- @behrtam
+- @cmccandless
+- @Dog
+- @etrepum
+- @ikhadykin
+- @kytrinyx
+- @lowks
+- @Mofeywalker
+- @N-Parsons
+- @pheanex
+- @sjakobi
+- @tqa236
+- @yawpitch
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Based on
+
+The Jumpstart Lab team - http://jumpstartlab.com

@@ -3,7 +3,7 @@ import math
 
 def classify(number):
     if number < 1:
-        raise ValueError('Positive numbers only.')
+        raise ValueError('Classification is only possible for positive integers.')
 
     factors = set()
     for i in range(1, 1+math.floor(math.sqrt(number))):

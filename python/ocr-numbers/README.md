@@ -1,9 +1,12 @@
-# OCR Numbers
+# Ocr Numbers
+
+Welcome to Ocr Numbers on Exercism's Python Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 Given a 3 x 4 grid of pipes, underscores, and spaces, determine which number is
 represented, or whether it is garbled.
-
-# Step One
 
 To begin with, convert a simple binary font to a string containing 0 or 1.
 
@@ -31,11 +34,7 @@ If the input is the correct size, but not recognizable, your program should retu
 
 If the input is the incorrect size, your program should return an error.
 
-# Step Two
-
 Update your program to recognize multi-character binary strings, replacing garbled numbers with ?
-
-# Step Three
 
 Update your program to recognize all numbers 0 through 9, both individually and as part of a larger string.
 
@@ -56,8 +55,6 @@ Is converted to "2"
 ```
 
 Is converted to "1234567890"
-
-# Step Four
 
 Update your program to handle multiple numbers, one per line. When converting several lines, join the lines with commas.
 
@@ -80,49 +77,41 @@ Is converted to "123,456,789"
 
 ## Exception messages
 
-Sometimes it is necessary to raise an exception. When you do this, you should include a meaningful error message to
-indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. Not
-every exercise will require you to raise an exception, but for those that do, the tests will only pass if you include
-a message.
+Sometimes it is necessary to [raise an exception](https://docs.python.org/3/tutorial/errors.html#raising-exceptions). When you do this, you should always include a **meaningful error message** to indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. For situations where you know that the error source will be a certain type, you can choose to raise one of the [built in error types](https://docs.python.org/3/library/exceptions.html#base-classes), but should still include a meaningful message.
 
-To raise a message with an exception, just write it as an argument to the exception type. For example, instead of
-`raise Exception`, you should write:
+This particular exercise requires that you use the [raise statement](https://docs.python.org/3/reference/simple_stmts.html#the-raise-statement) to "throw" a `ValueError` when the `convert()` function receives a string that isn't a valid OCR number. The tests will only pass if you both `raise` the `exception` and include a message with it.
+
+To raise a `ValueError` with a message, write the message as an argument to the `exception` type:
 
 ```python
-raise Exception("Meaningful message indicating the source of the error")
+# when the rows aren't multiples of 4
+raise ValueError("Number of input lines is not a multiple of four")
+
+# when the columns aren't multiples of 3
+raise ValueError("Number of input columns is not a multiple of three")
 ```
-
-## Running the tests
-
-To run the tests, run the appropriate command below ([why they are different](https://github.com/pytest-dev/pytest/issues/1629#issue-161422224)):
-
-- Python 2.7: `py.test ocr_numbers_test.py`
-- Python 3.4+: `pytest ocr_numbers_test.py`
-
-Alternatively, you can tell Python to run the pytest module (allowing the same command to be used regardless of Python version):
-`python -m pytest ocr_numbers_test.py`
-
-### Common `pytest` options
-
-- `-v` : enable verbose output
-- `-x` : stop running tests on first failure
-- `--ff` : run failures from previous test before running other test cases
-
-For other options, see `python -m pytest -h`
-
-## Submitting Exercises
-
-Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/ocr-numbers` directory.
-
-You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
-
-For more detailed information about running tests, code style and linting,
-please see [Running the Tests](http://exercism.io/tracks/python/tests).
 
 ## Source
 
-Inspired by the Bank OCR kata [http://codingdojo.org/cgi-bin/wiki.pl?KataBankOCR](http://codingdojo.org/cgi-bin/wiki.pl?KataBankOCR)
+### Created by
 
-## Submitting Incomplete Solutions
+- @betegelse
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @behrtam
+- @cjchallis
+- @cmccandless
+- @Dog
+- @emerali
+- @ikhadykin
+- @kytrinyx
+- @N-Parsons
+- @parthsharma2
+- @pheanex
+- @sjakobi
+- @tqa236
+
+### Based on
+
+Inspired by the Bank OCR kata - http://codingdojo.org/cgi-bin/wiki.pl?KataBankOCR

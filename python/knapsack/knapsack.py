@@ -13,7 +13,7 @@ We can define m[i,w] recursively as follows:
     m[i,w] = max (m[i−1,w], m[i−1, w − w_{i}] + v_{i}) if w_{i} ⩽ w
 '''
 
-def solve_knapsack(max_weight, items):
+def maximum_value(max_weight, items):
     '''
     // Input:
     // Values (stored in array v)

@@ -1,10 +1,15 @@
 # Space Age
 
+Welcome to Space Age on Exercism's Python Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given an age in seconds, calculate how old someone would be on:
 
-   - Earth: orbital period 365.25 Earth days, or 31557600 seconds
    - Mercury: orbital period 0.2408467 Earth years
    - Venus: orbital period 0.61519726 Earth years
+   - Earth: orbital period 1.0 Earth years, 365.25 Earth days, or 31557600 seconds
    - Mars: orbital period 1.8808158 Earth years
    - Jupiter: orbital period 11.862615 Earth years
    - Saturn: orbital period 29.447498 Earth years
@@ -17,51 +22,25 @@ be able to say that they're 31.69 Earth-years old.
 If you're wondering why Pluto didn't make the cut, go watch [this
 youtube video](http://www.youtube.com/watch?v=Z_2gbGXzFbs).
 
-## Exception messages
-
-Sometimes it is necessary to raise an exception. When you do this, you should include a meaningful error message to
-indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. Not
-every exercise will require you to raise an exception, but for those that do, the tests will only pass if you include
-a message.
-
-To raise a message with an exception, just write it as an argument to the exception type. For example, instead of
-`raise Exception`, you should write:
-
-```python
-raise Exception("Meaningful message indicating the source of the error")
-```
-
-## Running the tests
-
-To run the tests, run the appropriate command below ([why they are different](https://github.com/pytest-dev/pytest/issues/1629#issue-161422224)):
-
-- Python 2.7: `py.test space_age_test.py`
-- Python 3.4+: `pytest space_age_test.py`
-
-Alternatively, you can tell Python to run the pytest module (allowing the same command to be used regardless of Python version):
-`python -m pytest space_age_test.py`
-
-### Common `pytest` options
-
-- `-v` : enable verbose output
-- `-x` : stop running tests on first failure
-- `--ff` : run failures from previous test before running other test cases
-
-For other options, see `python -m pytest -h`
-
-## Submitting Exercises
-
-Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/space-age` directory.
-
-You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
-
-For more detailed information about running tests, code style and linting,
-please see [Running the Tests](http://exercism.io/tracks/python/tests).
-
 ## Source
 
-Partially inspired by Chapter 1 in Chris Pine's online Learn to Program tutorial. [http://pine.fm/LearnToProgram/?Chapter=01](http://pine.fm/LearnToProgram/?Chapter=01)
+### Contributed to by
 
-## Submitting Incomplete Solutions
+- @abhijitparida
+- @behrtam
+- @cmccandless
+- @crsmi
+- @Dog
+- @gabriel376
+- @gabriellhrn
+- @ikhadykin
+- @kytrinyx
+- @lowks
+- @N-Parsons
+- @pheanex
+- @sjakobi
+- @tqa236
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Based on
+
+Partially inspired by Chapter 1 in Chris Pine's online Learn to Program tutorial. - http://pine.fm/LearnToProgram/?Chapter=01

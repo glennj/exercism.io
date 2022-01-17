@@ -1,7 +1,7 @@
 import re
 
 
-def count(ascii_diagram):
+def rectangles(ascii_diagram):
     vertices = [
         (r, c)
         for r, row in enumerate(ascii_diagram)

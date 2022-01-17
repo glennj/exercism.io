@@ -1,12 +1,18 @@
 # Spiral Matrix
 
+Welcome to Spiral Matrix on Exercism's Python Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given the size, return a square matrix of numbers in spiral order.
 
 The matrix should be filled with natural numbers, starting from 1
 in the top-left corner, increasing in an inward, clockwise spiral order,
 like these examples:
 
-###### Spiral matrix of size 3
+## Examples
+### Spiral matrix of size 3
 
 ```text
 1 2 3
@@ -14,7 +20,7 @@ like these examples:
 7 6 5
 ```
 
-###### Spiral matrix of size 4
+### Spiral matrix of size 4
 
 ```text
  1  2  3 4
@@ -23,49 +29,20 @@ like these examples:
 10  9  8 7
 ```
 
-
-## Exception messages
-
-Sometimes it is necessary to raise an exception. When you do this, you should include a meaningful error message to
-indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. Not
-every exercise will require you to raise an exception, but for those that do, the tests will only pass if you include
-a message.
-
-To raise a message with an exception, just write it as an argument to the exception type. For example, instead of
-`raise Exception`, you should write:
-
-```python
-raise Exception("Meaningful message indicating the source of the error")
-```
-
-## Running the tests
-
-To run the tests, run `pytest spiral_matrix_test.py`
-
-Alternatively, you can tell Python to run the pytest module:
-`python -m pytest spiral_matrix_test.py`
-
-### Common `pytest` options
-
-- `-v` : enable verbose output
-- `-x` : stop running tests on first failure
-- `--ff` : run failures from previous test before running other test cases
-
-For other options, see `python -m pytest -h`
-
-## Submitting Exercises
-
-Note that, when trying to submit an exercise, make sure the solution is in the `$EXERCISM_WORKSPACE/python/spiral-matrix` directory.
-
-You can find your Exercism workspace by running `exercism debug` and looking for the line that starts with `Workspace`.
-
-For more detailed information about running tests, code style and linting,
-please see [Running the Tests](http://exercism.io/tracks/python/tests).
-
 ## Source
 
-Reddit r/dailyprogrammer challenge #320 [Easy] Spiral Ascension. [https://www.reddit.com/r/dailyprogrammer/comments/6i60lr/20170619_challenge_320_easy_spiral_ascension/](https://www.reddit.com/r/dailyprogrammer/comments/6i60lr/20170619_challenge_320_easy_spiral_ascension/)
+### Created by
 
-## Submitting Incomplete Solutions
+- @chgraef
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @cmccandless
+- @crsmi
+- @Dog
+- @Grociu
+- @tqa236
+
+### Based on
+
+Reddit r/dailyprogrammer challenge #320 [Easy] Spiral Ascension. - https://www.reddit.com/r/dailyprogrammer/comments/6i60lr/20170619_challenge_320_easy_spiral_ascension/

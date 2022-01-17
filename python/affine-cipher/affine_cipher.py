@@ -37,7 +37,7 @@ def decode(ciphered_text, a, b):
 
 def validate_key(a):
     if gcd(a, len(alphabet)) != 1:
-        raise ValueError('key A and alphabet size must be coprime')
+        raise ValueError('a and m must be coprime.')
 
 
 def mmi(a, m):

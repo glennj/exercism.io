@@ -9,7 +9,7 @@ class Stack(list):
     ''' Redefining list.pop '''
     def pop(self, num=1):
         if len(self) < num:
-            raise StackUnderflowError('not enough')
+            raise StackUnderflowError('Insufficient number of items in stack')
         values = self[-num:]
         del self[-num:]
         return values if num > 1 else values[0]
@@ -32,7 +32,7 @@ def evaluate(input_data):
         words = cmd.upper().split()
         while len(words) > 0:
             word = words.pop(0)
-            if word.isdecimal():
+            if is_number(word):
                 stack.push(int(word))
             elif word in macros:
                 words = macros[word] + words
@@ -60,13 +60,21 @@ def evaluate(input_data):
                 a, b = stack.pop(num=2)
                 stack.push(a, b, a)
             else:
-                raise ValueError('unknown command ' + word)
+                raise ValueError('undefined operation')
     return stack
+
+
+def is_number(word):
+    try:
+        num = int(word)
+        return True
+    except ValueError:
+        return False
 
 
 def check_div_by_zero(stack):
     if len(stack) > 0 and stack.peek() == 0:
-        raise ZeroDivisionError('division by zero')
+        raise ZeroDivisionError('divide by zero')
 
 
 def binary_op(stack, func):
@@ -76,8 +84,8 @@ def binary_op(stack, func):
 
 def record_macro(words, macros):
     name = words.pop(0)
-    if name.isdecimal():
-        raise ValueError('cannot redefine numbers')
+    if is_number(name):
+        raise ValueError('illegal operation')
     if words[-1] != ';':
         raise ValueError('macro not terminated with ;')
     words.pop()

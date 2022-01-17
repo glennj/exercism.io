@@ -36,12 +36,9 @@ def scan_ocr_line(line):
 
 def validate(grid):
     if len(grid) % H != 0:
-        raise ValueError(f'height not a multiple of {H}')
+        raise ValueError('Number of input lines is not a multiple of four')
     ocr_lines = [grid[i:i+H] for i in range(0, len(grid), H)]
-    for line in ocr_lines:
-        lengths = set(map(len, line))
-        if len(lengths) != 1:
-            raise ValueError('all lines not equal')
-        if lengths.pop() % W != 0:
-            raise ValueError(f'width not a multiple of {W}')
+    for lines in ocr_lines:
+        if any(map(lambda x: len(x) % W != 0, lines)):
+            raise ValueError(f'Number of input columns is not a multiple of three')
     return ocr_lines

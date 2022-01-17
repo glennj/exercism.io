@@ -17,7 +17,7 @@ class Allergies(object):
             if (score & (1 << i)) != 0
         ]
 
-    def is_allergic_to(self, item):
+    def allergic_to(self, item):
         return item in self.allergies
 
     @property

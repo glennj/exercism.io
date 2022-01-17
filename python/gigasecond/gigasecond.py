@@ -2,5 +2,5 @@ import datetime
 
 GIGASECOND = datetime.timedelta(seconds=1e9)
 
-def add_gigasecond(moment):
+def add(moment):
     return moment + GIGASECOND

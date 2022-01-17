@@ -6,11 +6,14 @@ def product(nums):
 
 
 def largest_product(series, size):
+    if size > len(series):
+        raise ValueError("span must be smaller than string length")
+
     if series != "" and not series.isdecimal():
-        raise ValueError('Invalid series')
+        raise ValueError('digits input must only contain digits')
 
     if size < 0:
-        raise ValueError('Invalid size')
+        raise ValueError('span must be greater than zero')
 
     # max() throws ValueError on empty sequence
     # `series == ""` and `size == 0` edge cases are handled

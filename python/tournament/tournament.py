@@ -47,6 +47,10 @@ def tally(tournament_results):
 
 def format_standings(teams):
     fmt = '{:<30} | {:>2} | {:>2} | {:>2} | {:>2} | {:>2}'
+    #standings = [fmt.format('Team', 'MP', 'W', 'D', 'L', 'P')]
+    #for team in sorted(teams):
+    #    standings += [fmt.format(*team.standings_data())]
+    #return standings
     return [fmt.format('Team', 'MP', 'W', 'D', 'L', 'P')] \
          + [fmt.format(*team.standings_data()) for team in sorted(teams)]
 

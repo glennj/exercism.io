@@ -15,24 +15,48 @@ class ComplexNumber(object):
         return self.i
 
     def __eq__(self, other):
-        return self.r == other.r and self.i == other.i
+        return type(self) == type(other) and self.r == other.r and self.i == other.i
 
     def __add__(self, other):
-        return ComplexNumber(self.r + other.r, self.i + other.i)
+        if type(self) == type(other):
+            return ComplexNumber(self.r + other.r, self.i + other.i)
+        else:
+            return self + ComplexNumber(other, 0)
 
-    def __mul__(self, other):
-        r = self.r * other.r - self.i * other.i
-        i = self.i * other.r + self.r * other.i
-        return ComplexNumber(r, i)
+    def __radd__(self, other):
+        return ComplexNumber(other, 0) + self
 
     def __sub__(self, other):
-        return ComplexNumber(self.r - other.r, self.i - other.i)
+        if type(self) == type(other):
+            return ComplexNumber(self.r - other.r, self.i - other.i)
+        else:
+            return self - ComplexNumber(other, 0)
+
+    def __rsub__(self, other):
+        return ComplexNumber(other, 0) - self
+
+    def __mul__(self, other):
+        if type(self) == type(other):
+            r = self.r * other.r - self.i * other.i
+            i = self.i * other.r + self.r * other.i
+            return ComplexNumber(r, i)
+        else:
+            return self * ComplexNumber(other, 0)
+
+    def __rmul__(self, other):
+        return ComplexNumber(other, 0) * self
 
     def __truediv__(self, other):
-        denom = other.r**2 + other.i**2
-        r = (self.r * other.r + self.i * other.i) / denom
-        i = (self.i * other.r - self.r * other.i) / denom
-        return ComplexNumber(r, i)
+        if type(self) == type(other):
+            denom = other.r**2 + other.i**2
+            r = (self.r * other.r + self.i * other.i) / denom
+            i = (self.i * other.r - self.r * other.i) / denom
+            return ComplexNumber(r, i)
+        else:
+            return self / ComplexNumber(other, 0)
+
+    def __rtruediv__(self, other):
+        return ComplexNumber(other, 0) / self
 
     def __abs__(self):
         return math.sqrt(self.r**2 + self.i**2)

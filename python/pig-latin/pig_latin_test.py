@@ -1,9 +1,11 @@
 import unittest
 
-from pig_latin import translate
+from pig_latin import (
+    translate,
+)
 
+# Tests adapted from `problem-specifications//canonical-data.json`
 
-# Tests adapted from `problem-specifications//canonical-data.json` @ v1.2.0
 
 class PigLatinTest(unittest.TestCase):
     def test_word_beginning_with_a(self):
@@ -73,5 +75,5 @@ class PigLatinTest(unittest.TestCase):
         self.assertEqual(translate("quick fast run"), "ickquay astfay unray")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

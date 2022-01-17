@@ -113,5 +113,5 @@ def singleton_ingredients(dishes, intersection):
     The function should return a `set` of ingredients that only appear in a single dish.
     """
 
-    all_ingredients = set.union(*dishes)
+    all_ingredients = compile_ingredients(dishes)
     return all_ingredients - intersection

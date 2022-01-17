@@ -2,7 +2,7 @@ import re
 from collections import defaultdict
 
 
-def word_count(phrase):
+def count_words(phrase):
     count = defaultdict(int)
 
     # Specifically remove underscores. If python regular
