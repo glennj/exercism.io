@@ -24,7 +24,7 @@ def solve(puzzle):
         '''
 
     # no solution
-    return {}
+    return None
 
 
 def digitize(words, values):
@@ -37,10 +37,3 @@ def digitize(words, values):
             reduce(lambda n, c: n*10 + values[c], word, 0)
         )
     return numbers
-
-
-'''
-* full test suite runs in about 62 sec on my slow VM
-  - a very similar ruby implementationtook 163 sec
-* the "slow" version ran in 467 sec
-'''
