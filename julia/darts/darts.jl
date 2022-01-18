@@ -1,5 +1,4 @@
 function score(x, y)
-	return dist > 10 ? 0 : (dist > 5 ? 1 : ( dist > 1 ? 5 : 10 ))
     dist = hypot(x, y)
     if dist ≤ 1
         10

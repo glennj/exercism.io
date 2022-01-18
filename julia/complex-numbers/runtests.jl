@@ -1,5 +1,3 @@
-# canonical data version: 1.3.0
-
 using Test
 
 include("complex-numbers.jl")
@@ -30,7 +28,7 @@ include("complex-numbers.jl")
     @testset "Division" begin
         @test ComplexNumber(1, 0) / ComplexNumber(2, 0) == ComplexNumber(0.5, 0)
         @test ComplexNumber(0, 1) / ComplexNumber(0, 2) == ComplexNumber(0.5, 0)
-        @test ComplexNumber(1, 2) / ComplexNumber(3, 4) == ComplexNumber(0.44, 0.08)
+        @test ComplexNumber(1, 2) / ComplexNumber(3, 4) ≈ ComplexNumber(0.44, 0.08)
     end
 end
 
@@ -62,16 +60,16 @@ end
 
 # Bonus A
 @testset "Complex exponential" begin
-    @test exp(ComplexNumber(0, π)) ≈ ComplexNumber(-1, 0)
-    @test exp(ComplexNumber(0, 0)) == ComplexNumber(1, 0)
-    @test exp(ComplexNumber(1, 0)) ≈ ComplexNumber(ℯ, 0)
-    @test exp(ComplexNumber(log(2), π)) ≈ ComplexNumber(-2, 0)
+    @test_skip exp(ComplexNumber(0, π)) ≈ ComplexNumber(-1, 0)
+    @test_skip exp(ComplexNumber(0, 0)) == ComplexNumber(1, 0)
+    @test_skip exp(ComplexNumber(1, 0)) ≈ ComplexNumber(ℯ, 0)
+    @test_skip exp(ComplexNumber(log(2), π)) ≈ ComplexNumber(-2, 0)
 end
 
 # Bonus B
 @testset "Syntax sugar jm" begin
-    @test ComplexNumber(0, 1)  == jm
-    @test ComplexNumber(1, 0)  == 1 + 0jm
-    @test ComplexNumber(1, 1)  == 1 + 1jm
-    @test ComplexNumber(-1, 0) == jm^2
+    @test_skip ComplexNumber(0, 1)  == jm
+    @test_skip ComplexNumber(1, 0)  == 1 + 0jm
+    @test_skip ComplexNumber(1, 1)  == 1 + 1jm
+    @test_skip ComplexNumber(-1, 0) == jm^2
 end

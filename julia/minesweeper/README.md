@@ -1,5 +1,10 @@
 # Minesweeper
 
+Welcome to Minesweeper on Exercism's Julia Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Add the mine counts to a completed Minesweeper board.
 
 Minesweeper is a popular game where the user has to find the mines using
@@ -36,8 +41,13 @@ And your code will transform it into this:
 ·111·
 ```
 
-## Version compatibility
-This exercise has been tested on Julia versions >=1.0.
+## Source
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Created by
+
+- @abhishalya
+
+### Contributed to by
+
+- @SaschaMann
+- @logankilpatrick

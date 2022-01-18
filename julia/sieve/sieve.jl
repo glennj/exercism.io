@@ -10,5 +10,5 @@ function sieve(limit::Integer)
         end
         i += 1
     end
-    filter(!iszero, sieve)
+    filter(i -> i != nonprime, sieve)
 end

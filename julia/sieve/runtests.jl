@@ -18,10 +18,6 @@ end
     @test sieve(13) == [2, 3, 5, 7, 11, 13]
 end
 
-@testset "limit is square of a prime" begin
-    @test sieve(25) == [2, 3, 5, 7, 11, 13, 17, 19, 23]
-end
-
 @testset "find primes up to 1000" begin
     @test sieve(1000) ==  [
         2,   3,   5,   7,   11,  13,  17,  19,  23,  29,  31,  37,  41,

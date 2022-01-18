@@ -1,5 +1,3 @@
-# canonical data version: 1.2.0
-
 using Test
 
 include("reverse-string.jl")
@@ -31,4 +29,15 @@ end
 
 @testset "reversing a string twice" begin
     @test myreverse(myreverse("gift")) == "gift"
+end
+
+@testset "emoji" begin
+    @test myreverse("hi 🐱") == "🐱 ih"
+end
+
+if @isdefined(TEST_GRAPHEMES)
+    @eval @testset "graphemes" begin
+        @test myreverse("as⃝df̅") == "f̅ds⃝a"
+        @test myreverse("hi 👋🏾") == "👋🏾 ih"
+    end
 end

@@ -1,5 +1,10 @@
 # Trinary
 
+Welcome to Trinary on Exercism's Julia Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Convert a trinary number, represented as a string (e.g. '102012'), to its
 decimal equivalent using first principles.
 
@@ -20,13 +25,18 @@ is the 3's place, the third to last is the 9's place, etc.
 
 If your language provides a method in the standard library to perform the
 conversion, pretend it doesn't exist and implement it yourself.
+
 ## Source
 
-All of Computer Science [http://www.wolframalpha.com/input/?i=binary&a=*C.binary-_*MathWorld-](http://www.wolframalpha.com/input/?i=binary&a=*C.binary-_*MathWorld-)
+### Created by
 
+- @andrej-makarov-skrt
 
-## Version compatibility
-This exercise has been tested on Julia versions >=1.0.
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @cmcaine
+- @SaschaMann
+
+### Based on
+
+All of Computer Science - http://www.wolframalpha.com/input/?i=binary&a=*C.binary-_*MathWorld-

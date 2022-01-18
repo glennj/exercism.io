@@ -1,5 +1,10 @@
 # Custom Set
 
+Welcome to Custom Set on Exercism's Julia Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Create a custom set type.
 
 Sometimes it is necessary to define a custom data structure of some
@@ -11,10 +16,8 @@ The tests require a constructor that takes an array. The internals of your custo
 
 Certain methods have a unicode operator equivalent. E.g. `intersect(CustomSet([1, 2, 3, 4]), CustomSet([]))` is equivalent to `CustomSet([1, 2, 3, 4]) ∩ CustomSet([])`.
 
+## Source
 
+### Created by
 
-## Version compatibility
-This exercise has been tested on Julia versions >=1.0.
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @SaschaMann

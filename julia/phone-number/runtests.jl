@@ -2,7 +2,6 @@ using Test
 
 include("phone-number.jl")
 
-
 # Tests adapted from `problem-specifications//canonical-data.json` @ v1.2.0
 # Returns the cleaned phone number as a digit string if given number is valid,
 # else returns `nothing`.
@@ -19,6 +18,7 @@ const valid_11digit_num = (
         "+1 (223) 456-7890",
 )
 const invalid_num = (
+        "123456789",
         "1223456789",
         "22234567890",
         "321234567890",
@@ -28,6 +28,10 @@ const invalid_num = (
         "(123) 456-7890",
         "(223) 056-7890",
         "(223) 156-7890",
+        "1 (023) 456-7890",
+        "1 (123) 456-7890",
+        "1 (223) 056-7890",
+        "1 (223) 156-7890",
 )
 
 @testset "clean 10-digit number" begin
@@ -44,6 +48,6 @@ end
 
 @testset "detect invalid number" begin
     @testset "$number" for number in invalid_num
-        @test clean(number) == nothing
+        @test_throws ArgumentError clean(number)
     end
 end

@@ -33,9 +33,3 @@ function annotate(minefield)
 
     return result
 end
-
-"""
-nice community solution
-
-https://exercism.io/tracks/julia/exercises/minesweeper/solutions/2c776b090173426eb160cea17a85e536
-"""

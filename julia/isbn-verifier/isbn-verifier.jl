@@ -4,7 +4,7 @@ struct ISBN <: AbstractString
     isbn::AbstractString
 
     function ISBN(s::AbstractString)
-        isvalid(ISBN, s) || throw(ArgumentError(s))
+        isvalid(ISBN, s) || throw(DomainError(s))
         new(replace(s, "-" => ""))
     end
 end

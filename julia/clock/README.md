@@ -1,5 +1,10 @@
 # Clock
 
+Welcome to Clock on Exercism's Julia Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement a clock that handles times without dates.
 
 You should be able to add and subtract minutes to it.
@@ -7,11 +12,15 @@ You should be able to add and subtract minutes to it.
 Two clocks that represent the same time should be equal to each other.
 
 ## Source
-Pairing session with Erin Drummond [https://twitter.com/ebdrummond](https://twitter.com/ebdrummond)
 
+### Created by
 
-## Version compatibility
-This exercise has been tested on Julia versions >=1.0.
+- @SaschaMann
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @cmcaine
+
+### Based on
+
+Pairing session with Erin Drummond - https://twitter.com/ebdrummond

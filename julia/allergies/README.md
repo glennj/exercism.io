@@ -1,5 +1,10 @@
 # Allergies
 
+Welcome to Allergies on Exercism's Julia Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given a person's allergy score, determine whether or not they're allergic to a given item, and their full list of allergies.
 
 An allergy test produces a single numeric score which contains the
@@ -31,10 +36,15 @@ score is 257, your program should only report the eggs (1) allergy.
 
 ## Source
 
-Jumpstart Lab Warm-up [http://jumpstartlab.com](http://jumpstartlab.com)
+### Created by
 
-## Version compatibility
-This exercise has been tested on Julia versions >=1.0.
+- @DarkoGNU
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @miguelraz
+- @SaschaMann
+
+### Based on
+
+Jumpstart Lab Warm-up - http://jumpstartlab.com

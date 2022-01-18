@@ -1,5 +1,10 @@
 # Resistor Color Trio
 
+Welcome to Resistor Color Trio on Exercism's Julia Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 If you want to build something using a Raspberry Pi, you'll probably use _resistors_. For this exercise, you need to know only three things about them:
 
 - Each resistor has a resistance value.
@@ -46,10 +51,17 @@ So an input of `"orange", "orange", "orange"` should return:
 
 ## Source
 
-Maud de Vries, Erik Schierboom [https://github.com/exercism/problem-specifications/issues/1549](https://github.com/exercism/problem-specifications/issues/1549)
+### Created by
 
-## Version compatibility
-This exercise has been tested on Julia versions >=1.0.
+- @soumitradev
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @cmcaine
+- @miguelraz
+- @ScottPJones
+- @SaschaMann
+
+### Based on
+
+Maud de Vries, Erik Schierboom - https://github.com/exercism/problem-specifications/issues/1549

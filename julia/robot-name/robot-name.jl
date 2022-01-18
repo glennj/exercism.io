@@ -27,6 +27,9 @@ mutable struct Robot
     end
 end
 
+function name(instance::Robot)
+    instance.name
+end
 
 function reset!(instance::Robot)
     instance.name = randname()

@@ -1,4 +1,9 @@
-# D&D Character
+# Dnd Character
+
+Welcome to Dnd Character on Exercism's Julia Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 For a game of [Dungeons & Dragons][DND], each player starts by generating a
 character they can play with. This character has, among other things, six
@@ -34,10 +39,14 @@ programming languages are designed to roll dice. One such language is [Troll].
 
 ## Source
 
-Simon Shine, Erik Schierboom [https://github.com/exercism/problem-specifications/issues/616#issuecomment-437358945](https://github.com/exercism/problem-specifications/issues/616#issuecomment-437358945)
+### Created by
 
-## Version compatibility
-This exercise has been tested on Julia versions >=1.0.
+- @leo60228
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @SaschaMann
+
+### Based on
+
+Simon Shine, Erik Schierboom - https://github.com/exercism/problem-specifications/issues/616#issuecomment-437358945

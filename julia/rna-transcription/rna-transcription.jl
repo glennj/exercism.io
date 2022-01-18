@@ -12,6 +12,4 @@ function to_rna(dna::AbstractString)
     end
 
     map(transcribe, dna) |> join
-    # the join is not strictly necessary: a string is a
-    # collecion of chars, which is what the map returns
 end
