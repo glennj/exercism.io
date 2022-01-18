@@ -11,7 +11,6 @@ describe('sublist', function()
 
   it('should consider a list to be a sublist of itself', function()
     assert.equal(true, is_sublist({ 1, 2, 3 }, { 1, 2, 3 }))
-    assert.equal(false, is_sublist({ 1, 2, 3 }, { 11, 2, 3 }))
   end)
 
   it('should not consider a subset to be a sublist', function()

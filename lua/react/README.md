@@ -1,5 +1,10 @@
 # React
 
+Welcome to React on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement a basic reactive system.
 
 Reactive programming is a programming paradigm that focuses on how values
@@ -15,14 +20,8 @@ In addition, compute cells should allow for registering change notification
 callbacks.  Call a cell’s callbacks when the cell’s value in a new stable
 state has changed from the previous stable state.
 
-## Running the tests
+## Source
 
-To run the tests, run the command `busted` from within the exercise directory.
+### Created by
 
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @ryanplusplus

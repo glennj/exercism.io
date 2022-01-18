@@ -1,32 +1,36 @@
 # Robot Name
 
+Welcome to Robot Name on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Manage robot factory settings.
 
-When robots come off the factory floor, they have no name.
+When a robot comes off the factory floor, it has no name.
 
-The first time you boot them up, a random name is generated in the format
+The first time you turn on a robot, a random name is generated in the format
 of two uppercase letters followed by three digits, such as RX837 or BC811.
 
 Every once in a while we need to reset a robot to its factory settings,
-which means that their name gets wiped. The next time you ask, it will
+which means that its name gets wiped. The next time you ask, that robot will
 respond with a new random name.
 
 The names must be random: they should not follow a predictable sequence.
-Random names means a risk of collisions. Your solution must ensure that
+Using random names means a risk of collisions. Your solution must ensure that
 every existing robot has a unique name.
-
-## Running the tests
-
-To run the tests, run the command `busted` from within the exercise directory.
-
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
 
 ## Source
 
-A debugging session with Paul Blackwell at gSchool. [http://gschool.it](http://gschool.it)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @aarti
+
+### Contributed to by
+
+- @etandel
+- @ryanplusplus
+
+### Based on
+
+A debugging session with Paul Blackwell at gSchool.

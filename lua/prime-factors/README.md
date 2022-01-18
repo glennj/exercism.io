@@ -1,5 +1,10 @@
 # Prime Factors
 
+Welcome to Prime Factors on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Compute the prime factors of a given natural number.
 
 A prime number is only evenly divisible by itself and 1.
@@ -29,18 +34,18 @@ You can check this yourself:
 - = 60
 - Success!
 
-## Running the tests
-
-To run the tests, run the command `busted` from within the exercise directory.
-
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
-
 ## Source
 
-The Prime Factors Kata by Uncle Bob [http://butunclebob.com/ArticleS.UncleBob.ThePrimeFactorsKata](http://butunclebob.com/ArticleS.UncleBob.ThePrimeFactorsKata)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @aarti
+
+### Contributed to by
+
+- @etandel
+- @kytrinyx
+- @ryanplusplus
+
+### Based on
+
+The Prime Factors Kata by Uncle Bob - http://butunclebob.com/ArticleS.UncleBob.ThePrimeFactorsKata

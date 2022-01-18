@@ -1,5 +1,4 @@
 local PhoneNumber = {}
-PhoneNumber.__index = PhoneNumber
 
 local nanp_pattern = '^1?(' .. string.rep('%d', 10) .. ')$'
 local default_number = string.rep('0', 10)
@@ -11,8 +10,7 @@ local default_number = string.rep('0', 10)
 function PhoneNumber:new(string)
     local phone = {}
     setmetatable(phone, self)
-    --self.__index = self
-    --setmetatable(phone, { __index = self })
+    self.__index = self
 
     string = (string or ""):gsub('%D', '')
     phone.number = string:match(nanp_pattern) or default_number

@@ -1,5 +1,10 @@
 # Rail Fence Cipher
 
+Welcome to Rail Fence Cipher on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement encoding and decoding for the rail fence cipher.
 
 The Rail Fence cipher is a form of transposition cipher that gets its name from
@@ -58,18 +63,16 @@ W . . . E . . . C . . . R . . . L . . . T . . . E
 
 If you now read along the zig-zag shape you can read the original message.
 
-## Running the tests
-
-To run the tests, run the command `busted` from within the exercise directory.
-
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
-
 ## Source
 
-Wikipedia [https://en.wikipedia.org/wiki/Transposition_cipher#Rail_Fence_cipher](https://en.wikipedia.org/wiki/Transposition_cipher#Rail_Fence_cipher)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @ryanplusplus
+
+### Contributed to by
+
+- @aarti
+
+### Based on
+
+Wikipedia - https://en.wikipedia.org/wiki/Transposition_cipher#Rail_Fence_cipher

@@ -1,23 +1,28 @@
 # Anagram
 
-Given a word and a list of possible anagrams, select the correct sublist.
+Welcome to Anagram on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
+An anagram is a rearrangement of letters to form a new word.
+Given a word and a list of candidates, select the sublist of anagrams of the given word.
 
 Given `"listen"` and a list of candidates like `"enlists" "google"
 "inlets" "banana"` the program should return a list containing
 `"inlets"`.
 
-## Running the tests
-
-To run the tests, run the command `busted` from within the exercise directory.
-
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
-
 ## Source
 
-Inspired by the Extreme Startup game [https://github.com/rchatley/extreme_startup](https://github.com/rchatley/extreme_startup)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @aarti
+
+### Contributed to by
+
+- @kytrinyx
+- @ryanplusplus
+
+### Based on
+
+Inspired by the Extreme Startup game - https://github.com/rchatley/extreme_startup

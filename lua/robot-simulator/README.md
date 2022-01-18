@@ -1,5 +1,10 @@
 # Robot Simulator
 
+Welcome to Robot Simulator on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Write a robot simulator.
 
 A robot factory's test facility needs a program to verify robot movements.
@@ -27,18 +32,16 @@ direction it is pointing.
 - Say a robot starts at {7, 3} facing north. Then running this stream
   of instructions should leave it at {9, 4} facing west.
 
-## Running the tests
-
-To run the tests, run the command `busted` from within the exercise directory.
-
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
-
 ## Source
 
-Inspired by an interview question at a famous company.
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @ryanplusplus
+
+### Contributed to by
+
+- @aarti
+
+### Based on
+
+Inspired by an interview question at a famous company.

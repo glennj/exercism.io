@@ -1,4 +1,5 @@
 local Split = require("split")      -- https://luarocks.org/modules/telemachus/split
+                                    -- luarocks install split
 local split = Split.split
 local each  = Split.each
 

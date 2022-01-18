@@ -1,5 +1,10 @@
 # Food Chain
 
+Welcome to Food Chain on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Generate the lyrics of the song 'I Know an Old Lady Who Swallowed a Fly'.
 
 While you could copy/paste the lyrics,
@@ -63,18 +68,18 @@ I know an old lady who swallowed a horse.
 She's dead, of course!
 ```
 
-## Running the tests
-
-To run the tests, run the command `busted` from within the exercise directory.
-
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
-
 ## Source
 
-Wikipedia [http://en.wikipedia.org/wiki/There_Was_an_Old_Lady_Who_Swallowed_a_Fly](http://en.wikipedia.org/wiki/There_Was_an_Old_Lady_Who_Swallowed_a_Fly)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @aarti
+
+### Contributed to by
+
+- @etandel
+- @kytrinyx
+- @ryanplusplus
+
+### Based on
+
+Wikipedia - http://en.wikipedia.org/wiki/There_Was_an_Old_Lady_Who_Swallowed_a_Fly

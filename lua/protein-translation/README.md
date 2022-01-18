@@ -1,5 +1,10 @@
 # Protein Translation
 
+Welcome to Protein Translation on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Translate RNA sequences into proteins.
 
 RNA can be broken into three nucleotide sequences called codons, and then translated to a polypeptide like so:
@@ -20,11 +25,11 @@ All subsequent codons after are ignored, like this:
 
 RNA: `"AUGUUUUCUUAAAUG"` =>
 
-Codons: `"AUG", "UUU", "UCU", "UAG", "AUG"` =>
+Codons: `"AUG", "UUU", "UCU", "UAA", "AUG"` =>
 
 Protein: `"Methionine", "Phenylalanine", "Serine"`
 
-Note the stop codon terminates the translation and the final methionine is not translated into the protein sequence.
+Note the stop codon `"UAA"` terminates the translation and the final methionine is not translated into the protein sequence.
 
 Below are the codons and resulting Amino Acids needed for the exercise.
 
@@ -41,18 +46,16 @@ UAA, UAG, UGA         | STOP
 
 Learn more about [protein translation on Wikipedia](http://en.wikipedia.org/wiki/Translation_(biology))
 
-## Running the tests
-
-To run the tests, run the command `busted` from within the exercise directory.
-
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
-
 ## Source
 
-Tyler Long
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @ryanplusplus
+
+### Contributed to by
+
+- @aarti
+
+### Based on
+
+Tyler Long

@@ -1,4 +1,9 @@
-# Pascal's Triangle
+# Pascals Triangle
+
+Welcome to Pascals Triangle on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 Compute Pascal's triangle up to a given number of rows.
 
@@ -14,18 +19,16 @@ the right and left of the current position in the previous row.
 # ... etc
 ```
 
-## Running the tests
-
-To run the tests, run the command `busted` from within the exercise directory.
-
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
-
 ## Source
 
-Pascal's Triangle at Wolfram Math World [http://mathworld.wolfram.com/PascalsTriangle.html](http://mathworld.wolfram.com/PascalsTriangle.html)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @ryanplusplus
+
+### Contributed to by
+
+- @aarti
+
+### Based on
+
+Pascal's Triangle at Wolfram Math World - http://mathworld.wolfram.com/PascalsTriangle.html

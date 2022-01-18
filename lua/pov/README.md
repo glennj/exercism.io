@@ -1,4 +1,9 @@
-# POV
+# Pov
+
+Welcome to Pov on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 Reparent a graph on a selected node.
 
@@ -37,18 +42,12 @@ a different leaf node) can be seen to follow the path 6-2-0-3-9
 This exercise involves taking an input graph and re-orientating it from the point
 of view of one of the nodes.
 
-## Running the tests
-
-To run the tests, run the command `busted` from within the exercise directory.
-
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
-
 ## Source
 
-Adaptation of exercise from 4clojure [https://www.4clojure.com/](https://www.4clojure.com/)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @ryanplusplus
+
+### Based on
+
+Adaptation of exercise from 4clojure - https://www.4clojure.com/

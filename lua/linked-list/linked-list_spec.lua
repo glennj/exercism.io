@@ -110,5 +110,4 @@ describe('linked-list', function()
     list:delete(10)
     assert.equal(0, list:count())
   end)
---]]
 end)

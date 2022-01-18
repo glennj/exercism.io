@@ -1,5 +1,10 @@
 # All Your Base
 
+Welcome to All Your Base on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Convert a number, represented as a sequence of digits in one base, to any other base.
 
 Implement general base conversion. Given a number in base **a**,
@@ -31,14 +36,12 @@ I think you got the idea!
 
 *Yes. Those three numbers above are exactly the same. Congratulations!*
 
-## Running the tests
+## Source
 
-To run the tests, run the command `busted` from within the exercise directory.
+### Created by
 
-## Further information
+- @ryanplusplus
 
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @aarti

@@ -1,5 +1,4 @@
 local BinarySearchTree = require('binary-search-tree')
---local dbg=require('debugger')
 
 describe('binary-search-tree', function()
   it('should maintain a value for each node', function()
@@ -76,6 +75,4 @@ describe('binary-search-tree', function()
 
     assert.same(expected, actual)
   end)
---[[
---]]
 end)

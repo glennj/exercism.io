@@ -1,5 +1,10 @@
 # Flatten Array
 
+Welcome to Flatten Array on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Take a nested list and return a single flattened list with all values except nil/null.
 
 The challenge is to write a function that accepts an arbitrarily-deep nested list-like structure and returns a flattened structure without any nil/null values.
@@ -10,18 +15,12 @@ input: [1,[2,3,null,4],[null],5]
 
 output: [1,2,3,4,5]
 
-## Running the tests
-
-To run the tests, run the command `busted` from within the exercise directory.
-
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
-
 ## Source
 
-Interview Question [https://reference.wolfram.com/language/ref/Flatten.html](https://reference.wolfram.com/language/ref/Flatten.html)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @ryanplusplus
+
+### Based on
+
+Interview Question - https://reference.wolfram.com/language/ref/Flatten.html

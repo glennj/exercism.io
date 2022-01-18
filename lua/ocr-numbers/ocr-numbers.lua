@@ -1,4 +1,5 @@
 local split = require("split")  -- https://luarocks.org/modules/telemachus/split
+                                -- luarocks install split
 
 local DIGIT_STRINGS = {
   [' _ | ||_|   '] = 0, ['     |  |   '] = 1,

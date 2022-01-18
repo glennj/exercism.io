@@ -1,4 +1,9 @@
-# RNA Transcription
+# Rna Transcription
+
+Welcome to Rna Transcription on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 Given a DNA strand, return its RNA complement (per RNA transcription).
 
@@ -18,18 +23,18 @@ each nucleotide with its complement:
 * `T` -> `A`
 * `A` -> `U`
 
-## Running the tests
-
-To run the tests, run the command `busted` from within the exercise directory.
-
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
-
 ## Source
 
-Rosalind [http://rosalind.info/problems/rna](http://rosalind.info/problems/rna)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @aarti
+
+### Contributed to by
+
+- @etandel
+- @kytrinyx
+- @ryanplusplus
+
+### Based on
+
+Hyperphysics - http://hyperphysics.phy-astr.gsu.edu/hbase/Organic/transcription.html

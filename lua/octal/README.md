@@ -1,5 +1,10 @@
 # Octal
 
+Welcome to Octal on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Convert an octal number, represented as a string (e.g. '1735263'), to its
 decimal equivalent using first principles (i.e. no, you may not use built-in or
 external libraries to accomplish the conversion).
@@ -46,18 +51,16 @@ So:
  = 155
 ```
 
-## Running the tests
-
-To run the tests, run the command `busted` from within the exercise directory.
-
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
-
 ## Source
 
-All of Computer Science [http://www.wolframalpha.com/input/?i=base+8](http://www.wolframalpha.com/input/?i=base+8)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @ryanplusplus
+
+### Contributed to by
+
+- @aarti
+
+### Based on
+
+All of Computer Science - http://www.wolframalpha.com/input/?i=base+8

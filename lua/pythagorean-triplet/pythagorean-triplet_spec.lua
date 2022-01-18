@@ -57,7 +57,7 @@ describe('pythagorean-triplet', function()
         sort(triplets_with_sum(840))
       )
     end)
---[[
+
     it('finds triplets whose sum is a large number (30000)', function()
       assert.same(
         {
@@ -70,6 +70,5 @@ describe('pythagorean-triplet', function()
         sort(triplets_with_sum(30000))
       )
     end)
---]]
   end)
 end)

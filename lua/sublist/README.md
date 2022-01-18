@@ -1,5 +1,10 @@
 # Sublist
 
+Welcome to Sublist on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given two lists determine if the first list is contained within the second
 list, if the second list is contained within the first list, if both lists are
 contained within each other or if none of these are true.
@@ -17,14 +22,12 @@ Examples:
  * A = [1, 2, 3, 4, 5], B = [2, 3, 4], A is a superlist of B
  * A = [1, 2, 4], B = [1, 2, 3, 4, 5], A is not a superlist of, sublist of or equal to B
 
-## Running the tests
+## Source
 
-To run the tests, run the command `busted` from within the exercise directory.
+### Created by
 
-## Further information
+- @ryanplusplus
 
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @aarti

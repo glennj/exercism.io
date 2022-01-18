@@ -13,5 +13,5 @@ local diamond = function (char)
     end
     return table.concat(lines)
 end
-
+ 
 return diamond

@@ -1,5 +1,10 @@
 # Bowling
 
+Welcome to Bowling on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Score a bowling game.
 
 Bowling is a game where players roll a heavy ball to knock down pins
@@ -60,18 +65,16 @@ support two operations:
 * `score() : int` is called only at the very end of the game.  It
   returns the total score for that game.
 
-## Running the tests
-
-To run the tests, run the command `busted` from within the exercise directory.
-
-## Further information
-
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
-
 ## Source
 
-The Bowling Game Kata at but UncleBob [http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata](http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @ryanplusplus
+
+### Contributed to by
+
+- @aarti
+
+### Based on
+
+The Bowling Game Kata at but UncleBob - http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata

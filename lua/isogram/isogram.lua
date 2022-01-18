@@ -1,4 +1,5 @@
 local Set = require("Set")  -- https://wscherphof.github.io/lua-set/ 
+                            -- luarocks install set
 
 local function is_isogram(input)
     -- remove all non-alpha

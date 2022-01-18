@@ -1,5 +1,10 @@
 # Bank Account
 
+Welcome to Bank Account on Exercism's Lua Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Simulate a bank account supporting opening/closing, withdrawals, and deposits
 of money. Watch out for concurrent transactions!
 
@@ -26,14 +31,13 @@ it.
 
 Have fun!
 
-## Running the tests
+## Source
 
-To run the tests, run the command `busted` from within the exercise directory.
+### Created by
 
-## Further information
+- @ryanplusplus
 
-For more detailed information about the Lua track, including how to get help if
-you're having trouble, please visit the exercism.io [Lua language page](http://exercism.io/tracks/lua/about).
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @aarti
+- @refacto

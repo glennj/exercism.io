@@ -855,15 +855,4 @@ describe('meetup', function()
       day = 'Friday'
     }))
   end)
-
-  it('mistyped day', function()
-    assert.has_error(function()
-    return meetup({
-      year = 2012,
-      month = 12,
-      week = 'first',
-      day = 'Fooday'
-    })
-    end)
-  end)
 end)
