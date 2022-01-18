@@ -1,71 +1,104 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "triangle.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test triangle-1 "equilateral: all sides are equal" -body {
+     triangle::is equilateral {2 2 2} 
+} -returnCodes ok -match boolean -result true
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip triangle-2
+test triangle-2 "equilateral: any side is unequal" -body {
+     triangle::is equilateral {2 3 2} 
+} -returnCodes ok -match boolean -result false
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip triangle-3
+test triangle-3 "equilateral: no sides are equal" -body {
+     triangle::is equilateral {5 4 6} 
+} -returnCodes ok -match boolean -result false
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip triangle-4
+test triangle-4 "equilateral: all zero sides is not a triangle" -body {
+     triangle::is equilateral {0 0 0} 
+} -returnCodes ok -match boolean -result false
 
-proc booleanMatch {expected actual} {
-    return [expr {
-        [string is boolean -strict $expected] &&
-        [string is boolean -strict $actual] &&
-        !!$expected == !!$actual
-    }]
-}
-customMatch boolean booleanMatch
+skip triangle-5
+test triangle-5 "equilateral: sides may be floats" -body {
+     triangle::is equilateral {0.5 0.5 0.5} 
+} -returnCodes ok -match boolean -result true
 
-if {$::argv0 eq [info script]} {
+skip triangle-6
+test triangle-6 "isosceles: last two sides are equal" -body {
+     triangle::is isosceles {3 4 4} 
+} -returnCodes ok -match boolean -result true
 
-    set cases {
-        triangle-1  equilateral {2 2 2} true "equilateral: all sides are equal"
-        triangle-2  equilateral {2 3 2} false "equilateral: any side is unequal"
-        triangle-3  equilateral {5 4 6} false "equilateral: no sides are equal"
-        triangle-4  equilateral {0 0 0} false "equilateral: all zero sides is not a triangle"
-        triangle-5  equilateral {0.5 0.5 0.5} true "equilateral: sides may be floats"
-        triangle-6  isosceles   {3 4 4} true "isosceles: last two sides are equal"
-        triangle-7  isosceles   {4 4 3} true "isosceles: first two sides are equal"
-        triangle-8  isosceles   {4 3 4} true "isosceles: first and last sides are equal"
-        triangle-9  isosceles   {4 4 4} true "isosceles: equilateral triangles are also isosceles"
-        triangle-10 isosceles   {2 3 4} false "isosceles: no sides are equal"
-        triangle-11 isosceles   {1 1 3} false "isosceles: first triangle inequality violation"
-        triangle-12 isosceles   {1 3 1} false "isosceles: second triangle inequality violation"
-        triangle-13 isosceles   {3 1 1} false "isosceles: third triangle inequality violation"
-        triangle-14 isosceles   {0.5 0.4 0.5} true  "isosceles: sides may be floats"
-        triangle-15 scalene     {5 4 6} true "scalene: no sides are equal"
-        triangle-16 scalene     {4 4 4} false "scalene: all sides are equal"
-        triangle-17 scalene     {4 4 3} false "scalene: two sides are equal"
-        triangle-18 scalene     {7 3 2} false "scalene: may not violate triangle inequality"
-        triangle-19 scalene     {0.5 0.4 0.6} true "scalene: sides may be floats"
-    }
+skip triangle-7
+test triangle-7 "isosceles: first two sides are equal" -body {
+     triangle::is isosceles {4 4 3} 
+} -returnCodes ok -match boolean -result true
 
-    foreach {name type sides result description} $cases {
-        test $name $description -body {
-            triangle::is $type $sides
-        } -returnCodes ok -match boolean -result $result
-    }
+skip triangle-8
+test triangle-8 "isosceles: first and last sides are equal" -body {
+     triangle::is isosceles {4 3 4} 
+} -returnCodes ok -match boolean -result true
 
-    cleanupTests
-}
+skip triangle-9
+test triangle-9 "isosceles: equilateral triangles are also isosceles" -body {
+     triangle::is isosceles {4 4 4} 
+} -returnCodes ok -match boolean -result true
+
+skip triangle-10
+test triangle-10 "isosceles: no sides are equal" -body {
+     triangle::is isosceles {2 3 4} 
+} -returnCodes ok -match boolean -result false
+
+skip triangle-11
+test triangle-11 "isosceles: first triangle inequality violation" -body {
+     triangle::is isosceles {1 1 3} 
+} -returnCodes ok -match boolean -result false
+
+skip triangle-12
+test triangle-12 "isosceles: second triangle inequality violation" -body {
+     triangle::is isosceles {1 3 1} 
+} -returnCodes ok -match boolean -result false
+
+skip triangle-13
+test triangle-13 "isosceles: third triangle inequality violation" -body {
+     triangle::is isosceles {3 1 1} 
+} -returnCodes ok -match boolean -result false
+
+skip triangle-14
+test triangle-14 "isosceles: sides may be floats" -body {
+     triangle::is isosceles {0.5 0.4 0.5} 
+} -returnCodes ok -match boolean -result true 
+
+skip triangle-15
+test triangle-15 "scalene: no sides are equal" -body {
+     triangle::is scalene {5 4 6} 
+} -returnCodes ok -match boolean -result true
+
+skip triangle-16
+test triangle-16 "scalene: all sides are equal" -body {
+     triangle::is scalene {4 4 4} 
+} -returnCodes ok -match boolean -result false
+
+skip triangle-17
+test triangle-17 "scalene: two sides are equal" -body {
+     triangle::is scalene {4 4 3} 
+} -returnCodes ok -match boolean -result false
+
+skip triangle-18
+test triangle-18 "scalene: may not violate triangle inequality" -body {
+     triangle::is scalene {7 3 2} 
+} -returnCodes ok -match boolean -result false
+
+skip triangle-19
+test triangle-19 "scalene: sides may be floats" -body {
+     triangle::is scalene {0.5 0.4 0.6} 
+} -returnCodes ok -match boolean -result true
+
+
+cleanupTests

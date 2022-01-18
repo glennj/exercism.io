@@ -1,183 +1,167 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "simple-linked-list.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test linked-list-1.1 "element" -body {
+    set node [Node new 1]
+    $node datum
+} -returnCodes ok -result 1
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip linked-list-1.2
+test linked-list-1.2 "element with different value" -body {
+    set node [Node new 5]
+    $node datum
+} -returnCodes ok -result 5
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+# Tcl does not have a "nil/null/None" value type.
+# The empty string is often used as the "empty" value.
+skip linked-list-1.3
+test linked-list-1.3 "element next" -body {
+    set node [Node new 1]
+    $node next
+} -returnCodes ok -result ""
+
+skip linked-list-1.4
+test linked-list-1.4 "element next can be assigned" -body {
+    set first [Node new 1]
+    set second [Node new 2]
+    $first next $second
+    # objects have the same name
+    expr {[$first next] eq $second}
+} -returnCodes ok -match boolean -result true
+
+skip linked-list-2.1
+test linked-list-2.1 "list push" -body {
+    set element [Node new 1]
+    set list [SimpleLinkedList new]
+    # push should return [self]
+    set returnValue [$list push $element]
+    # objects have the same name
+    expr {$list eq $returnValue}
+} -returnCodes ok -match boolean -result true
+
+skip linked-list-2.2
+test linked-list-2.2 "list pop" -body {
+    set element [Node new 1]
+    set list [SimpleLinkedList new]
+    $list push $element
+    # objects have the same name
+    expr {[$list pop] eq $element}
+} -returnCodes ok -match boolean -result true
+
+skip linked-list-2.3
+test linked-list-2.3 "list pop empty" -body {
+    set list [SimpleLinkedList new]
+    $list pop
+} -returnCodes ok -result ""
+
+skip linked-list-2.4
+test linked-list-2.4 "list pop last-in-first-out" -body {
+    set first [Node new 1]
+    set second [Node new 2]
+    set list [SimpleLinkedList new]
+    [$list push $first] push $second
+    expr {[$list pop] eq $second}
+} -returnCodes ok -match boolean -result true
+
+skip linked-list-3.1
+test linked-list-3.1 "linked list iteration" -body {
+    set list [SimpleLinkedList new]
+    $list push [Node new 1]
+    $list push [Node new 2]
+    $list push [Node new 3]
+    set result {}
+    $list foreach node {
+        lappend result [expr {2 * [$node datum]}]
     }
-}
+    set result
+} -returnCodes ok -result {6 4 2}
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip linked-list-3.2
+test linked-list-3.2 "empty list iteration" -body {
+    set list [SimpleLinkedList new]
+    set result {}
+    $list foreach node {
+        lappend result [expr {2 * [$node datum]}]
+    }
+    set result
+} -returnCodes ok -result {}
 
-proc booleanMatch {expected actual} {
-    return [expr {
-        [string is boolean -strict $expected] &&
-        [string is boolean -strict $actual] &&
-        (($expected && $actual) || (!$expected && !$actual))
-    }]
-}
-customMatch boolean booleanMatch
+skip linked-list-4.1
+test linked-list-4.1 "empty list as list" -body {
+    set list [SimpleLinkedList new]
+    $list toList
+} -returnCodes ok -result {}
 
+skip linked-list-4.2
+test linked-list-4.2 "single element as list" -body {
+    set list [SimpleLinkedList new]
+    $list push [Node new 1]
+    $list toList
+} -returnCodes ok -result {1}
 
-if {$::argv0 eq [info script]} {
+skip linked-list-4.3
+test linked-list-4.3 "linked list as list" -body {
+    set list [SimpleLinkedList new]
+    $list push [Node new 1]
+    $list push [Node new 2]
+    $list push [Node new 3]
+    $list toList
+} -returnCodes ok -result {3 2 1}
 
-    test linked-list-1.1 "element" -body {
-        set node [Node new 1]
-        $node datum
-    } -returnCodes ok -result 1
+skip linked-list-5.1
+test linked-list-5.1 "populate linked list from list" -body {
+    set list [SimpleLinkedList new {1 2 3}]
+    $list toList
+} -returnCodes ok -result {3 2 1}
 
-    test linked-list-1.2 "element with different value" -body {
-        set node [Node new 5]
-        $node datum
-    } -returnCodes ok -result 5
+skip linked-list-5.2
+test linked-list-5.2 "populated from list still composed of Nodes" -body {
+    set list [SimpleLinkedList new {1 2 3}]
+    set elem [$list pop]
+    info object class $elem
+} -returnCodes ok -match glob -result {*Node}
 
-    # Tcl does not have a "nil/null/None" value type.
-    # The empty string is often used as the "empty" value.
-    test linked-list-1.3 "element next" -body {
-        set node [Node new 1]
-        $node next
-    } -returnCodes ok -result ""
+skip linked-list-5.3
+test linked-list-5.3 "populated from list still acts as LIFO" -body {
+    set list [SimpleLinkedList new {1 2 3}]
+    set elem [$list pop]
+    $elem datum
+} -returnCodes ok -result 3
 
-    test linked-list-1.4 "element next can be assigned" -body {
-        set first [Node new 1]
-        set second [Node new 2]
-        $first next $second
-        # objects have the same name
-        expr {[$first next] eq $second}
-    } -returnCodes ok -match boolean -result true
+skip linked-list-5.4
+test linked-list-5.4 "one to ten" -body {
+    set list [SimpleLinkedList new {1 2 3 4 5 6 7 8 9 10}]
+    $list toList
+} -returnCodes ok -result {10 9 8 7 6 5 4 3 2 1}
 
-    test linked-list-2.1 "list push" -body {
-        set element [Node new 1]
-        set list [SimpleLinkedList new]
-        # push should return [self]
-        set returnValue [$list push $element]
-        # objects have the same name
-        expr {$list eq $returnValue}
-    } -returnCodes ok -match boolean -result true
+skip linked-list-6.1
+test linked-list-6.1 "in-place reverse" -body {
+    set list [SimpleLinkedList new]
+    $list push [Node new 1]
+    $list push [Node new 2]
+    $list push [Node new 3]
+    [$list reverse] toList
+} -returnCodes ok -result {1 2 3}
 
-    test linked-list-2.2 "list pop" -body {
-        set element [Node new 1]
-        set list [SimpleLinkedList new]
-        $list push $element
-        # objects have the same name
-        expr {[$list pop] eq $element}
-    } -returnCodes ok -match boolean -result true
+skip linked-list-6.2
+test linked-list-6.2 "reversed list contains the same nodes" -body {
+    set first [Node new 1]
+    set second [Node new 2]
+    set list [SimpleLinkedList new]
+    [$list push $first] push $second
+    $list reverse
+    expr {[$list pop] eq $first && [$list pop] eq $second}
+} -returnCodes ok -match boolean -result true
 
-    test linked-list-2.3 "list pop empty" -body {
-        set list [SimpleLinkedList new]
-        $list pop
-    } -returnCodes ok -result ""
+skip linked-list-6.3
+test linked-list-6.3 "reverse empty list" -body {
+    set list [SimpleLinkedList new]
+    expr {$list eq [$list reverse]}
+} -returnCodes ok -match boolean -result true
 
-    test linked-list-2.4 "list pop last-in-first-out" -body {
-        set first [Node new 1]
-        set second [Node new 2]
-        set list [SimpleLinkedList new]
-        [$list push $first] push $second
-        expr {[$list pop] eq $second}
-    } -returnCodes ok -match boolean -result true
-
-    test linked-list-3.1 "linked list iteration" -body {
-        set list [SimpleLinkedList new]
-        $list push [Node new 1]
-        $list push [Node new 2]
-        $list push [Node new 3]
-        set result {}
-        $list foreach node {
-            lappend result [expr {2 * [$node datum]}]
-        }
-        set result
-    } -returnCodes ok -result {6 4 2}
-
-    test linked-list-3.2 "empty list iteration" -body {
-        set list [SimpleLinkedList new]
-        set result {}
-        $list foreach node {
-            lappend result [expr {2 * [$node datum]}]
-        }
-        set result
-    } -returnCodes ok -result {}
-
-    test linked-list-4.1 "empty list as list" -body {
-        set list [SimpleLinkedList new]
-        $list toList
-    } -returnCodes ok -result {}
-
-    test linked-list-4.2 "single element as list" -body {
-        set list [SimpleLinkedList new]
-        $list push [Node new 1]
-        $list toList
-    } -returnCodes ok -result {1}
-
-    test linked-list-4.3 "linked list as list" -body {
-        set list [SimpleLinkedList new]
-        $list push [Node new 1]
-        $list push [Node new 2]
-        $list push [Node new 3]
-        $list toList
-    } -returnCodes ok -result {3 2 1}
-
-    test linked-list-5.1 "populate linked list from list" -body {
-        set list [SimpleLinkedList new {1 2 3}]
-        $list toList
-    } -returnCodes ok -result {3 2 1}
-
-    test linked-list-5.2 "populated from list still composed of Nodes" -body {
-        set list [SimpleLinkedList new {1 2 3}]
-        set elem [$list pop]
-        info object class $elem
-    } -returnCodes ok -match glob -result {*Node}
-
-    test linked-list-5.3 "populated from list still acts as LIFO" -body {
-        set list [SimpleLinkedList new {1 2 3}]
-        set elem [$list pop]
-        $elem datum
-    } -returnCodes ok -result 3
-
-    test linked-list-5.4 "one to ten" -body {
-        set list [SimpleLinkedList new {1 2 3 4 5 6 7 8 9 10}]
-        $list toList
-    } -returnCodes ok -result {10 9 8 7 6 5 4 3 2 1}
-
-    test linked-list-6.1 "in-place reverse" -body {
-        set list [SimpleLinkedList new]
-        $list push [Node new 1]
-        $list push [Node new 2]
-        $list push [Node new 3]
-        [$list reverse] toList
-    } -returnCodes ok -result {1 2 3}
-
-    test linked-list-6.2 "reversed list contains the same nodes" -body {
-        set first [Node new 1]
-        set second [Node new 2]
-        set list [SimpleLinkedList new]
-        [$list push $first] push $second
-        $list reverse
-        expr {[$list pop] eq $first && [$list pop] eq $second}
-    } -returnCodes ok -match boolean -result true
-
-    test linked-list-6.3 "reverse empty list" -body {
-        set list [SimpleLinkedList new]
-        expr {$list eq [$list reverse]}
-    } -returnCodes ok -match boolean -result true
-
-    cleanupTests
-}
+cleanupTests

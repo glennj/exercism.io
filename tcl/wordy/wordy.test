@@ -1,73 +1,125 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "wordy.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test wordy-1.1 "just a number" -body {
+    answer "What is 5?"
+} -returnCodes ok -result 5
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip wordy-1.2
+test wordy-1.2 "addition" -body {
+    answer "What is 1 plus 1?"
+} -returnCodes ok -result 2
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip wordy-1.3
+test wordy-1.3 "more addition" -body {
+    answer "What is 53 plus 2?"
+} -returnCodes ok -result 55
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip wordy-1.4
+test wordy-1.4 "addition with negative numbers" -body {
+    answer "What is -1 plus -10?"
+} -returnCodes ok -result -11
 
-if {$::argv0 eq [info script]} {
+skip wordy-1.5
+test wordy-1.5 "large addition" -body {
+    answer "What is 123 plus 45678?"
+} -returnCodes ok -result 45801
 
-    set cases {
-        wordy-1.1 "just a number" "What is 5?" 5
-        wordy-1.2 "addition" "What is 1 plus 1?" 2
-        wordy-1.3 "more addition" "What is 53 plus 2?" 55
-        wordy-1.4 "addition with negative numbers" "What is -1 plus -10?" -11
-        wordy-1.5 "large addition" "What is 123 plus 45678?" 45801
-        wordy-1.6 "subtraction" "What is 4 minus -12?" 16
-        wordy-1.7 "multiplication" "What is -3 multiplied by 25?" -75
-        wordy-1.8 "division" "What is 33 divided by -3?" -11
-        wordy-1.9 "multiple additions" "What is 1 plus 1 plus 1?" 3
-        wordy-1.10 "addition and subtraction" "What is 1 plus 5 minus -2?" 8
-        wordy-1.11 "multiple subtraction" "What is 20 minus 4 minus 13?" 3
-        wordy-1.12 "subtraction then addition" "What is 17 minus 6 plus 3?" 14
-        wordy-1.13 "multiple multiplication" "What is 2 multiplied by -2 multiplied by 3?" -12
-        wordy-1.14 "addition and multiplication" "What is -3 plus 7 multiplied by -2?" -8
-        wordy-1.15 "multiple division" "What is -12 divided by 2 divided by -3?" 2
-    }
-    foreach {name description question result} $cases {
-        test $name $description -body {
-            answer $question
-        } -returnCodes ok -result $result
-    }
+skip wordy-1.6
+test wordy-1.6 "subtraction" -body {
+    answer "What is 4 minus -12?"
+} -returnCodes ok -result 16
 
-    set error_cases {
-        wordy-2.1 "unknown operation" "What is 52 cubed?" "unknown operation"
-        wordy-2.2 "Non math question" "Who is the President of the United States?" "unknown operation"
-        wordy-2.3 "reject problem missing an operand" "What is 1 plus?" "syntax error"
-        wordy-2.4 "reject problem with no operands or operators" "What is?" "syntax error"
-        wordy-2.5 "reject two operations in a row" "What is 1 plus plus 2?" "syntax error"
-        wordy-2.6 "reject two numbers in a row" "What is 1 plus 2 1?" "syntax error"
-        wordy-2.7 "reject postfix notation" "What is 1 2 plus?" "syntax error"
-        wordy-2.8 "reject prefix notation" "What is plus 1 2?" "syntax error"
-    }
-    foreach {name description question result} $error_cases {
-        test $name $description -body {
-            answer $question
-        } -returnCodes error -result $result
-    }
+skip wordy-1.7
+test wordy-1.7 "multiplication" -body {
+    answer "What is -3 multiplied by 25?"
+} -returnCodes ok -result -75
 
-    cleanupTests
-}
+skip wordy-1.8
+test wordy-1.8 "division" -body {
+    answer "What is 33 divided by -3?"
+} -returnCodes ok -result -11
+
+skip wordy-1.9
+test wordy-1.9 "multiple additions" -body {
+    answer "What is 1 plus 1 plus 1?"
+} -returnCodes ok -result 3
+
+skip wordy-1.10
+test wordy-1.10 "addition and subtraction" -body {
+    answer "What is 1 plus 5 minus -2?"
+} -returnCodes ok -result 8
+
+skip wordy-1.11
+test wordy-1.11 "multiple subtraction" -body {
+    answer "What is 20 minus 4 minus 13?"
+} -returnCodes ok -result 3
+
+skip wordy-1.12
+test wordy-1.12 "subtraction then addition" -body {
+    answer "What is 17 minus 6 plus 3?"
+} -returnCodes ok -result 14
+
+skip wordy-1.13
+test wordy-1.13 "multiple multiplication" -body {
+    answer "What is 2 multiplied by -2 multiplied by 3?"
+} -returnCodes ok -result -12
+
+skip wordy-1.14
+test wordy-1.14 "addition and multiplication" -body {
+    answer "What is -3 plus 7 multiplied by -2?"
+} -returnCodes ok -result -8
+
+skip wordy-1.15
+test wordy-1.15 "multiple division" -body {
+    answer "What is -12 divided by 2 divided by -3?"
+} -returnCodes ok -result 2
+
+
+skip wordy-2.1
+test wordy-2.1 "unknown operation" -body {
+    answer "What is 52 cubed?"
+} -returnCodes error -result "unknown operation"
+
+skip wordy-2.2
+test wordy-2.2 "Non math question" -body {
+    answer "Who is the President of the United States?"
+} -returnCodes error -result "unknown operation"
+
+skip wordy-2.3
+test wordy-2.3 "reject problem missing an operand" -body {
+    answer "What is 1 plus?"
+} -returnCodes error -result "syntax error"
+
+skip wordy-2.4
+test wordy-2.4 "reject problem with no operands or operators" -body {
+    answer "What is?"
+} -returnCodes error -result "syntax error"
+
+skip wordy-2.5
+test wordy-2.5 "reject two operations in a row" -body {
+    answer "What is 1 plus plus 2?"
+} -returnCodes error -result "syntax error"
+
+skip wordy-2.6
+test wordy-2.6 "reject two numbers in a row" -body {
+    answer "What is 1 plus 2 1?"
+} -returnCodes error -result "syntax error"
+
+skip wordy-2.7
+test wordy-2.7 "reject postfix notation" -body {
+    answer "What is 1 2 plus?"
+} -returnCodes error -result "syntax error"
+
+skip wordy-2.8
+test wordy-2.8 "reject prefix notation" -body {
+    answer "What is plus 1 2?"
+} -returnCodes error -result "syntax error"
+
+
+cleanupTests

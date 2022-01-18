@@ -1,250 +1,225 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "react.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test react-1 "input cells have a value" -body {
+    set cell [InputCell new 10]
+    $cell value
+} -result 10
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip react-2
+test react-2 "an input cell's value can be set" -body {
+    set cell [InputCell new 4]
+    $cell setValue 20
+    $cell value
+} -result 20
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip react-3
+test react-3 "compute cells calculate initial value" -body {
+    set input [InputCell new 1]
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+    # For more details about the last argument to "new" means,
+    # see the documentation for the [apply] command:
+    # https://tcl.tk/man/tcl8.6/TclCmd/apply.htm
 
-proc orderedListsMatch {expected actual} {
-    if {[llength $expected] != [llength $actual]} {
-        return false
-    }
-    foreach e $expected a $actual {
-        if {$e != $a} {
-            return false
-        }
-    }
-    return true
-}
-customMatch listsMatch orderedListsMatch
+    set compute [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] + 1}
+    }}]
+    $compute value
+} -result 2
 
-if {$::argv0 eq [info script]} {
+skip react-4
+test react-4 "compute cells take inputs in the right order" -body {
+    set input1 [InputCell new 1]
+    set input2 [InputCell new 2]
+    set compute [ComputeCell new [list $input1 $input2] {{inputs} {
+        expr {[lindex $inputs 0] + [lindex $inputs 1] * 10}
+    }}]
+    $compute value
+} -result 21
 
-    test react-1 "input cells have a value" -body {
-        set cell [InputCell new 10]
-        $cell value
-    } -result 10
+skip react-5
+test react-5 "compute cells update value when dependencies are changed" -body {
+    set input [InputCell new 1]
+    set compute [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] + 1}
+    }}]
+    $input setValue 3
+    $compute value
+} -result 4
 
-    test react-2 "an input cell's value can be set" -body {
-        set cell [InputCell new 4]
-        $cell setValue 20
-        $cell value
-    } -result 20
+skip react-6
+test react-6 "compute cells can depend on other compute cells" -body {
+    set input [InputCell new 1]
+    set times2 [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] * 2}
+    }}]
+    set times30 [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] * 30}
+    }}]
+    set output [ComputeCell new [list $times2 $times30] {{inputs} {
+        expr {[lindex $inputs 0] + [lindex $inputs 1]}
+    }}]
 
-    test react-3 "compute cells calculate initial value" -body {
-        set input [InputCell new 1]
+    set before [$output value]
+    $input setValue 3
+    set after [$output value]
 
-        # For more details about the last argument to "new" means,
-        # see the documentation for the [apply] command:
-        # https://tcl.tk/man/tcl8.6/TclCmd/apply.htm
+    list $before $after
+} -result {32 96}
 
-        set compute [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] + 1}
-        }}]
-        $compute value
-    } -result 2
+skip react-7
+test react-7 "compute cells fire callbacks" -body {
+    set input [InputCell new 1]
+    set output [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] + 1}
+    }}]
 
-    test react-4 "compute cells take inputs in the right order" -body {
-        set input1 [InputCell new 1]
-        set input2 [InputCell new 2]
-        set compute [ComputeCell new [list $input1 $input2] {{inputs} {
-            expr {[lindex $inputs 0] + [lindex $inputs 1] * 10}
-        }}]
-        $compute value
-    } -result 21
+    set callback [$output addCallback {{cell} {$cell value}}]
 
-    test react-5 "compute cells update value when dependencies are changed" -body {
-        set input [InputCell new 1]
-        set compute [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] + 1}
-        }}]
-        $input setValue 3
-        $compute value
-    } -result 4
+    $input setValue 3
+    $callback value
+} -result {4}
 
-    test react-6 "compute cells can depend on other compute cells" -body {
-        set input [InputCell new 1]
-        set times2 [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] * 2}
-        }}]
-        set times30 [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] * 30}
-        }}]
-        set output [ComputeCell new [list $times2 $times30] {{inputs} {
-            expr {[lindex $inputs 0] + [lindex $inputs 1]}
-        }}]
+skip react-8
+test react-8 "callback cells only fire on change" -body {
+    set input [InputCell new 1]
+    set output [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] < 3 ? 111 : 222}
+    }}]
 
-        set before [$output value]
-        $input setValue 3
-        set after [$output value]
+    set callback [$output addCallback {{cell} {$cell value}}]
 
-        list $before $after
-    } -result {32 96}
+    $input setValue 2
+    set stage1 [$callback value]
 
-    test react-7 "compute cells fire callbacks" -body {
-        set input [InputCell new 1]
-        set output [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] + 1}
-        }}]
+    $input setValue 3
+    set stage2 [$callback value]
 
-        set callback [$output addCallback {{cell} {$cell value}}]
+    list $stage1 $stage2
+} -match orderedLists -result {{} {222}}
 
-        $input setValue 3
-        $callback value
-    } -result {4}
+skip react-9
+test react-9 "callbacks do not report already reported values" -body {
+    set input [InputCell new 1]
+    set output [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] + 1}
+    }}]
 
-    test react-8 "callback cells only fire on change" -body {
-        set input [InputCell new 1]
-        set output [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] < 3 ? 111 : 222}
-        }}]
+    set callback [$output addCallback {{cell} {$cell value}}]
 
-        set callback [$output addCallback {{cell} {$cell value}}]
+    $input setValue 2
+    set stage1 [$callback value]
 
-        $input setValue 2
-        set stage1 [$callback value]
+    $input setValue 3
+    set stage2 [$callback value]
 
-        $input setValue 3
-        set stage2 [$callback value]
+    list $stage1 $stage2
+} -result {3 4}
 
-        list $stage1 $stage2
-    } -match listsMatch -result {{} {222}}
+skip react-10
+test react-10 "callbacks can fire from multiple cells" -body {
+    set input [InputCell new 1]
+    set plus1 [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] + 1}
+    }}]
+    set minus1 [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] - 1}
+    }}]
 
-    test react-9 "callbacks do not report already reported values" -body {
-        set input [InputCell new 1]
-        set output [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] + 1}
-        }}]
+    set callback1 [$plus1 addCallback {{cell} {$cell value}}]
+    set callback2 [$minus1 addCallback {{cell} {$cell value}}]
 
-        set callback [$output addCallback {{cell} {$cell value}}]
+    $input setValue 10
+    list [$callback1 value] [$callback2 value]
+} -result {11 9}
 
-        $input setValue 2
-        set stage1 [$callback value]
+skip react-11
+test react-11 "callbacks can be added and removed" -body {
+    set input [InputCell new 11]
+    set output [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] + 1}
+    }}]
 
-        $input setValue 3
-        set stage2 [$callback value]
+    set callback1 [$output addCallback {{cell} {$cell value}}]
+    set callback2 [$output addCallback {{cell} {$cell value}}]
 
-        list $stage1 $stage2
-    } -result {3 4}
+    $input setValue 31
+    set before [list [$callback1 value] [$callback2 value]]
 
-    test react-10 "callbacks can fire from multiple cells" -body {
-        set input [InputCell new 1]
-        set plus1 [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] + 1}
-        }}]
-        set minus1 [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] - 1}
-        }}]
+    $output removeCallback $callback1
+    set callback3 [$output addCallback {{cell} {$cell value}}]
 
-        set callback1 [$plus1 addCallback {{cell} {$cell value}}]
-        set callback2 [$minus1 addCallback {{cell} {$cell value}}]
+    $input setValue 41
+    set after [list [$callback1 value] [$callback2 value] [$callback3 value]]
 
-        $input setValue 10
-        list [$callback1 value] [$callback2 value]
-    } -result {11 9}
+    list $before $after
+} -result {{32 32} {32 42 42}}
 
-    test react-11 "callbacks can be added and removed" -body {
-        set input [InputCell new 11]
-        set output [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] + 1}
-        }}]
+skip react-12
+test react-12 "removing a callback multiple times doesn't interfere with other callbacks" -body {
+    set input [InputCell new 11]
+    set output [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] + 1}
+    }}]
 
-        set callback1 [$output addCallback {{cell} {$cell value}}]
-        set callback2 [$output addCallback {{cell} {$cell value}}]
+    set callback1 [$output addCallback {{cell} {$cell value}}]
+    set callback2 [$output addCallback {{cell} {$cell value}}]
+    $output removeCallback $callback1
+    $output removeCallback $callback1
+    $output removeCallback $callback1
 
-        $input setValue 31
-        set before [list [$callback1 value] [$callback2 value]]
+    $input setValue 2
+    list [$callback1 value] [$callback2 value]
+} -result {{} 3}
 
-        $output removeCallback $callback1
-        set callback3 [$output addCallback {{cell} {$cell value}}]
+skip react-13
+test react-13 "callbacks should only be called once even if multiple dependencies change" -body {
+    set input [InputCell new 1]
+    set plus1 [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] + 1}
+    }}]
+    set minus1a [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] - 1}
+    }}]
+    set minus1b [ComputeCell new [list $minus1a] {{inputs} {
+        expr {[lindex $inputs 0] - 1}
+    }}]
+    set output [ComputeCell new [list $plus1 $minus1b] {{inputs} {
+        expr {[lindex $inputs 0] * [lindex $inputs 1]}
+    }}]
+    set callback [$output addCallback {{cell} {$cell value}}]
 
-        $input setValue 41
-        set after [list [$callback1 value] [$callback2 value] [$callback3 value]]
+    $input setValue 4
+    $callback value
+} -result 10
 
-        list $before $after
-    } -result {{32 32} {32 42 42}}
+skip react-14
+test react-14 "callbacks should not be called if dependencies change but output value doesn't change" -body {
+    set input [InputCell new 1]
+    set plus1 [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] + 1}
+    }}]
+    set minus1 [ComputeCell new [list $input] {{inputs} {
+        expr {[lindex $inputs 0] - 1}
+    }}]
+    set always2 [ComputeCell new [list $plus1 $minus1] {{inputs} {
+        expr {[lindex $inputs 0] - [lindex $inputs 1]}
+    }}]
+    set callback [$always2 addCallback {{cell} {$cell value}}]
 
-    test react-12 "removing a callback multiple times doesn't interfere with other callbacks" -body {
-        set input [InputCell new 11]
-        set output [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] + 1}
-        }}]
+    $input setValue 2
+    lappend result [$callback value]
+    $input setValue 3
+    lappend result [$callback value]
+    $input setValue 4
+    lappend result [$callback value]
+    $input setValue 5
+    lappend result [$callback value]
+} -result {{} {} {} {}}
 
-        set callback1 [$output addCallback {{cell} {$cell value}}]
-        set callback2 [$output addCallback {{cell} {$cell value}}]
-        $output removeCallback $callback1
-        $output removeCallback $callback1
-        $output removeCallback $callback1
-
-        $input setValue 2
-        list [$callback1 value] [$callback2 value]
-    } -result {{} 3}
-
-    test react-13 "callbacks should only be called once even if multiple dependencies change" -body {
-        set input [InputCell new 1]
-        set plus1 [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] + 1}
-        }}]
-        set minus1a [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] - 1}
-        }}]
-        set minus1b [ComputeCell new [list $minus1a] {{inputs} {
-            expr {[lindex $inputs 0] - 1}
-        }}]
-        set output [ComputeCell new [list $plus1 $minus1b] {{inputs} {
-            expr {[lindex $inputs 0] * [lindex $inputs 1]}
-        }}]
-        set callback [$output addCallback {{cell} {$cell value}}]
-
-        $input setValue 4
-        $callback value
-    } -result 10
-
-    test react-14 "callbacks should not be called if dependencies change but output value doesn't change" -body {
-        set input [InputCell new 1]
-        set plus1 [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] + 1}
-        }}]
-        set minus1 [ComputeCell new [list $input] {{inputs} {
-            expr {[lindex $inputs 0] - 1}
-        }}]
-        set always2 [ComputeCell new [list $plus1 $minus1] {{inputs} {
-            expr {[lindex $inputs 0] - [lindex $inputs 1]}
-        }}]
-        set callback [$always2 addCallback {{cell} {$cell value}}]
-
-        $input setValue 2
-        lappend result [$callback value]
-        $input setValue 3
-        lappend result [$callback value]
-        $input setValue 4
-        lappend result [$callback value]
-        $input setValue 5
-        lappend result [$callback value]
-    } -result {{} {} {} {}}
-
-    cleanupTests
-}
+cleanupTests

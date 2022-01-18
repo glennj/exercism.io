@@ -1,138 +1,314 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "meetup.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+# "teenth"
+test meetup-1 "monteenth of May 2013" -body {
+    meetup 2013 5 teenth Monday
+} -returnCodes ok -result 2013-05-13
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip *
+test meetup-2 "monteenth of August 2013" -body {
+    meetup 2013 8 teenth Monday
+} -returnCodes ok -result 2013-08-19
+test meetup-3 "monteenth of September 2013" -body {
+    meetup 2013 9 teenth Monday
+} -returnCodes ok -result 2013-09-16
+test meetup-4 "tuesteenth of March 2013" -body {
+    meetup 2013 3 teenth Tuesday
+} -returnCodes ok -result 2013-03-19
+test meetup-5 "tuesteenth of April 2013" -body {
+    meetup 2013 4 teenth Tuesday
+} -returnCodes ok -result 2013-04-16
+test meetup-6 "tuesteenth of August 2013" -body {
+    meetup 2013 8 teenth Tuesday
+} -returnCodes ok -result 2013-08-13
+test meetup-7 "wednesteenth of January 2013" -body {
+    meetup 2013 1 teenth Wednesday
+} -returnCodes ok -result 2013-01-16
+test meetup-8 "wednesteenth of February 2013" -body {
+    meetup 2013 2 teenth Wednesday
+} -returnCodes ok -result 2013-02-13
+test meetup-9 "wednesteenth of June 2013" -body {
+    meetup 2013 6 teenth Wednesday
+} -returnCodes ok -result 2013-06-19
+test meetup-10 "thursteenth of May 2013" -body {
+    meetup 2013 5 teenth Thursday
+} -returnCodes ok -result 2013-05-16
+test meetup-11 "thursteenth of June 2013" -body {
+    meetup 2013 6 teenth Thursday
+} -returnCodes ok -result 2013-06-13
+test meetup-12 "thursteenth of September 2013" -body {
+    meetup 2013 9 teenth Thursday
+} -returnCodes ok -result 2013-09-19
+test meetup-13 "friteenth of April 2013" -body {
+    meetup 2013 4 teenth Friday
+} -returnCodes ok -result 2013-04-19
+test meetup-14 "friteenth of August 2013" -body {
+    meetup 2013 8 teenth Friday
+} -returnCodes ok -result 2013-08-16
+test meetup-15 "friteenth of September 2013" -body {
+    meetup 2013 9 teenth Friday
+} -returnCodes ok -result 2013-09-13
+test meetup-16 "saturteenth of February 2013" -body {
+    meetup 2013 2 teenth Saturday
+} -returnCodes ok -result 2013-02-16
+test meetup-17 "saturteenth of April 2013" -body {
+    meetup 2013 4 teenth Saturday
+} -returnCodes ok -result 2013-04-13
+test meetup-18 "saturteenth of October 2013" -body {
+    meetup 2013 10 teenth Saturday
+} -returnCodes ok -result 2013-10-19
+test meetup-19 "sunteenth of May 2013" -body {
+    meetup 2013 5 teenth Sunday
+} -returnCodes ok -result 2013-05-19
+test meetup-20 "sunteenth of June 2013" -body {
+    meetup 2013 6 teenth Sunday
+} -returnCodes ok -result 2013-06-16
+test meetup-21 "sunteenth of October 2013" -body {
+    meetup 2013 10 teenth Sunday
+} -returnCodes ok -result 2013-10-13
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+# first
+skip *
+test meetup-22 "first Monday of March 2013" -body {
+    meetup 2013 3 first Monday
+} -returnCodes ok -result 2013-03-04
+test meetup-23 "first Monday of April 2013" -body {
+    meetup 2013 4 first Monday
+} -returnCodes ok -result 2013-04-01
+test meetup-24 "first Tuesday of May 2013" -body {
+    meetup 2013 5 first Tuesday
+} -returnCodes ok -result 2013-05-07
+test meetup-25 "first Tuesday of June 2013" -body {
+    meetup 2013 6 first Tuesday
+} -returnCodes ok -result 2013-06-04
+test meetup-26 "first Wednesday of July 2013" -body {
+    meetup 2013 7 first Wednesday
+} -returnCodes ok -result 2013-07-03
+test meetup-27 "first Wednesday of August 2013" -body {
+    meetup 2013 8 first Wednesday
+} -returnCodes ok -result 2013-08-07
+test meetup-28 "first Thursday of September 2013" -body {
+    meetup 2013 9 first Thursday
+} -returnCodes ok -result 2013-09-05
+test meetup-29 "first Thursday of October 2013" -body {
+    meetup 2013 10 first Thursday
+} -returnCodes ok -result 2013-10-03
+test meetup-30 "first Friday of November 2013" -body {
+    meetup 2013 11 first Friday
+} -returnCodes ok -result 2013-11-01
+test meetup-31 "first Friday of December 2013" -body {
+    meetup 2013 12 first Friday
+} -returnCodes ok -result 2013-12-06
+test meetup-32 "first Saturday of January 2013" -body {
+    meetup 2013 1 first Saturday
+} -returnCodes ok -result 2013-01-05
+test meetup-33 "first Saturday of February 2013" -body {
+    meetup 2013 2 first Saturday
+} -returnCodes ok -result 2013-02-02
+test meetup-34 "first Sunday of March 2013" -body {
+    meetup 2013 3 first Sunday
+} -returnCodes ok -result 2013-03-03
+test meetup-35 "first Sunday of April 2013" -body {
+    meetup 2013 4 first Sunday
+} -returnCodes ok -result 2013-04-07
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+# second
+skip *
+test meetup-36 "second Monday of March 2013" -body {
+    meetup 2013 3 second Monday
+} -returnCodes ok -result 2013-03-11
+test meetup-37 "second Monday of April 2013" -body {
+    meetup 2013 4 second Monday
+} -returnCodes ok -result 2013-04-08
+test meetup-38 "second Tuesday of May 2013" -body {
+    meetup 2013 5 second Tuesday
+} -returnCodes ok -result 2013-05-14
+test meetup-39 "second Tuesday of June 2013" -body {
+    meetup 2013 6 second Tuesday
+} -returnCodes ok -result 2013-06-11
+test meetup-40 "second Wednesday of July 2013" -body {
+    meetup 2013 7 second Wednesday
+} -returnCodes ok -result 2013-07-10
+test meetup-41 "second Wednesday of August 2013" -body {
+    meetup 2013 8 second Wednesday
+} -returnCodes ok -result 2013-08-14
+test meetup-42 "second Thursday of September 2013" -body {
+    meetup 2013 9 second Thursday
+} -returnCodes ok -result 2013-09-12
+test meetup-43 "second Thursday of October 2013" -body {
+    meetup 2013 10 second Thursday
+} -returnCodes ok -result 2013-10-10
+test meetup-44 "second Friday of November 2013" -body {
+    meetup 2013 11 second Friday
+} -returnCodes ok -result 2013-11-08
+test meetup-45 "second Friday of December 2013" -body {
+    meetup 2013 12 second Friday
+} -returnCodes ok -result 2013-12-13
+test meetup-46 "second Saturday of January 2013" -body {
+    meetup 2013 1 second Saturday
+} -returnCodes ok -result 2013-01-12
+test meetup-47 "second Saturday of February 2013" -body {
+    meetup 2013 2 second Saturday
+} -returnCodes ok -result 2013-02-09
+test meetup-48 "second Sunday of March 2013" -body {
+    meetup 2013 3 second Sunday
+} -returnCodes ok -result 2013-03-10
+test meetup-49 "second Sunday of April 2013" -body {
+    meetup 2013 4 second Sunday
+} -returnCodes ok -result 2013-04-14
 
-if {$::argv0 eq [info script]} {
+# third
+skip *
+test meetup-50 "third Monday of March 2013" -body {
+    meetup 2013 3 third Monday
+} -returnCodes ok -result 2013-03-18
+test meetup-51 "third Monday of April 2013" -body {
+    meetup 2013 4 third Monday
+} -returnCodes ok -result 2013-04-15
+test meetup-52 "third Tuesday of May 2013" -body {
+    meetup 2013 5 third Tuesday
+} -returnCodes ok -result 2013-05-21
+test meetup-53 "third Tuesday of June 2013" -body {
+    meetup 2013 6 third Tuesday
+} -returnCodes ok -result 2013-06-18
+test meetup-54 "third Wednesday of July 2013" -body {
+    meetup 2013 7 third Wednesday
+} -returnCodes ok -result 2013-07-17
+test meetup-55 "third Wednesday of August 2013" -body {
+    meetup 2013 8 third Wednesday
+} -returnCodes ok -result 2013-08-21
+test meetup-56 "third Thursday of September 2013" -body {
+    meetup 2013 9 third Thursday
+} -returnCodes ok -result 2013-09-19
+test meetup-57 "third Thursday of October 2013" -body {
+    meetup 2013 10 third Thursday
+} -returnCodes ok -result 2013-10-17
+test meetup-58 "third Friday of November 2013" -body {
+    meetup 2013 11 third Friday
+} -returnCodes ok -result 2013-11-15
+test meetup-59 "third Friday of December 2013" -body {
+    meetup 2013 12 third Friday
+} -returnCodes ok -result 2013-12-20
+test meetup-60 "third Saturday of January 2013" -body {
+    meetup 2013 1 third Saturday
+} -returnCodes ok -result 2013-01-19
+test meetup-61 "third Saturday of February 2013" -body {
+    meetup 2013 2 third Saturday
+} -returnCodes ok -result 2013-02-16
+test meetup-62 "third Sunday of March 2013" -body {
+    meetup 2013 3 third Sunday
+} -returnCodes ok -result 2013-03-17
+test meetup-63 "third Sunday of April 2013" -body {
+    meetup 2013 4 third Sunday
+} -returnCodes ok -result 2013-04-21
 
-    set cases {
-        meetup-1 "monteenth of May 2013"              2013  5 teenth Monday     2013-05-13
-        meetup-2 "monteenth of August 2013"           2013  8 teenth Monday     2013-08-19
-        meetup-3 "monteenth of September 2013"        2013  9 teenth Monday     2013-09-16
-        meetup-4 "tuesteenth of March 2013"           2013  3 teenth Tuesday    2013-03-19
-        meetup-5 "tuesteenth of April 2013"           2013  4 teenth Tuesday    2013-04-16
-        meetup-6 "tuesteenth of August 2013"          2013  8 teenth Tuesday    2013-08-13
-        meetup-7 "wednesteenth of January 2013"       2013  1 teenth Wednesday  2013-01-16
-        meetup-8 "wednesteenth of February 2013"      2013  2 teenth Wednesday  2013-02-13
-        meetup-9 "wednesteenth of June 2013"          2013  6 teenth Wednesday  2013-06-19
-        meetup-10 "thursteenth of May 2013"           2013  5 teenth Thursday   2013-05-16
-        meetup-11 "thursteenth of June 2013"          2013  6 teenth Thursday   2013-06-13
-        meetup-12 "thursteenth of September 2013"     2013  9 teenth Thursday   2013-09-19
-        meetup-13 "friteenth of April 2013"           2013  4 teenth Friday     2013-04-19
-        meetup-14 "friteenth of August 2013"          2013  8 teenth Friday     2013-08-16
-        meetup-15 "friteenth of September 2013"       2013  9 teenth Friday     2013-09-13
-        meetup-16 "saturteenth of February 2013"      2013  2 teenth Saturday   2013-02-16
-        meetup-17 "saturteenth of April 2013"         2013  4 teenth Saturday   2013-04-13
-        meetup-18 "saturteenth of October 2013"       2013 10 teenth Saturday   2013-10-19
-        meetup-19 "sunteenth of May 2013"             2013  5 teenth Sunday     2013-05-19
-        meetup-20 "sunteenth of June 2013"            2013  6 teenth Sunday     2013-06-16
-        meetup-21 "sunteenth of October 2013"         2013 10 teenth Sunday     2013-10-13
-        meetup-22 "first Monday of March 2013"        2013  3 first  Monday     2013-03-04
-        meetup-23 "first Monday of April 2013"        2013  4 first  Monday     2013-04-01
-        meetup-24 "first Tuesday of May 2013"         2013  5 first  Tuesday    2013-05-07
-        meetup-25 "first Tuesday of June 2013"        2013  6 first  Tuesday    2013-06-04
-        meetup-26 "first Wednesday of July 2013"      2013  7 first  Wednesday  2013-07-03
-        meetup-27 "first Wednesday of August 2013"    2013  8 first  Wednesday  2013-08-07
-        meetup-28 "first Thursday of September 2013"  2013  9 first  Thursday   2013-09-05
-        meetup-29 "first Thursday of October 2013"    2013 10 first  Thursday   2013-10-03
-        meetup-30 "first Friday of November 2013"     2013 11 first  Friday     2013-11-01
-        meetup-31 "first Friday of December 2013"     2013 12 first  Friday     2013-12-06
-        meetup-32 "first Saturday of January 2013"    2013  1 first  Saturday   2013-01-05
-        meetup-33 "first Saturday of February 2013"   2013  2 first  Saturday   2013-02-02
-        meetup-34 "first Sunday of March 2013"        2013  3 first  Sunday     2013-03-03
-        meetup-35 "first Sunday of April 2013"        2013  4 first  Sunday     2013-04-07
-        meetup-36 "second Monday of March 2013"       2013  3 second Monday     2013-03-11
-        meetup-37 "second Monday of April 2013"       2013  4 second Monday     2013-04-08
-        meetup-38 "second Tuesday of May 2013"        2013  5 second Tuesday    2013-05-14
-        meetup-39 "second Tuesday of June 2013"       2013  6 second Tuesday    2013-06-11
-        meetup-40 "second Wednesday of July 2013"     2013  7 second Wednesday  2013-07-10
-        meetup-41 "second Wednesday of August 2013"   2013  8 second Wednesday  2013-08-14
-        meetup-42 "second Thursday of September 2013" 2013  9 second Thursday   2013-09-12
-        meetup-43 "second Thursday of October 2013"   2013 10 second Thursday   2013-10-10
-        meetup-44 "second Friday of November 2013"    2013 11 second Friday     2013-11-08
-        meetup-45 "second Friday of December 2013"    2013 12 second Friday     2013-12-13
-        meetup-46 "second Saturday of January 2013"   2013  1 second Saturday   2013-01-12
-        meetup-47 "second Saturday of February 2013"  2013  2 second Saturday   2013-02-09
-        meetup-48 "second Sunday of March 2013"       2013  3 second Sunday     2013-03-10
-        meetup-49 "second Sunday of April 2013"       2013  4 second Sunday     2013-04-14
-        meetup-50 "third Monday of March 2013"        2013  3 third  Monday     2013-03-18
-        meetup-51 "third Monday of April 2013"        2013  4 third  Monday     2013-04-15
-        meetup-52 "third Tuesday of May 2013"         2013  5 third  Tuesday    2013-05-21
-        meetup-53 "third Tuesday of June 2013"        2013  6 third  Tuesday    2013-06-18
-        meetup-54 "third Wednesday of July 2013"      2013  7 third  Wednesday  2013-07-17
-        meetup-55 "third Wednesday of August 2013"    2013  8 third  Wednesday  2013-08-21
-        meetup-56 "third Thursday of September 2013"  2013  9 third  Thursday   2013-09-19
-        meetup-57 "third Thursday of October 2013"    2013 10 third  Thursday   2013-10-17
-        meetup-58 "third Friday of November 2013"     2013 11 third  Friday     2013-11-15
-        meetup-59 "third Friday of December 2013"     2013 12 third  Friday     2013-12-20
-        meetup-60 "third Saturday of January 2013"    2013  1 third  Saturday   2013-01-19
-        meetup-61 "third Saturday of February 2013"   2013  2 third  Saturday   2013-02-16
-        meetup-62 "third Sunday of March 2013"        2013  3 third  Sunday     2013-03-17
-        meetup-63 "third Sunday of April 2013"        2013  4 third  Sunday     2013-04-21
-        meetup-64 "fourth Monday of March 2013"       2013  3 fourth Monday     2013-03-25
-        meetup-65 "fourth Monday of April 2013"       2013  4 fourth Monday     2013-04-22
-        meetup-66 "fourth Tuesday of May 2013"        2013  5 fourth Tuesday    2013-05-28
-        meetup-67 "fourth Tuesday of June 2013"       2013  6 fourth Tuesday    2013-06-25
-        meetup-68 "fourth Wednesday of July 2013"     2013  7 fourth Wednesday  2013-07-24
-        meetup-69 "fourth Wednesday of August 2013"   2013  8 fourth Wednesday  2013-08-28
-        meetup-70 "fourth Thursday of September 2013" 2013  9 fourth Thursday   2013-09-26
-        meetup-71 "fourth Thursday of October 2013"   2013 10 fourth Thursday   2013-10-24
-        meetup-72 "fourth Friday of November 2013"    2013 11 fourth Friday     2013-11-22
-        meetup-73 "fourth Friday of December 2013"    2013 12 fourth Friday     2013-12-27
-        meetup-74 "fourth Saturday of January 2013"   2013  1 fourth Saturday   2013-01-26
-        meetup-75 "fourth Saturday of February 2013"  2013  2 fourth Saturday   2013-02-23
-        meetup-76 "fourth Sunday of March 2013"       2013  3 fourth Sunday     2013-03-24
-        meetup-77 "fourth Sunday of April 2013"       2013  4 fourth Sunday     2013-04-28
-        meetup-78 "last Monday of March 2013"         2013  3 last   Monday     2013-03-25
-        meetup-79 "last Monday of April 2013"         2013  4 last   Monday     2013-04-29
-        meetup-80 "last Tuesday of May 2013"          2013  5 last   Tuesday    2013-05-28
-        meetup-81 "last Tuesday of June 2013"         2013  6 last   Tuesday    2013-06-25
-        meetup-82 "last Wednesday of July 2013"       2013  7 last   Wednesday  2013-07-31
-        meetup-83 "last Wednesday of August 2013"     2013  8 last   Wednesday  2013-08-28
-        meetup-84 "last Thursday of September 2013"   2013  9 last   Thursday   2013-09-26
-        meetup-85 "last Thursday of October 2013"     2013 10 last   Thursday   2013-10-31
-        meetup-86 "last Friday of November 2013"      2013 11 last   Friday     2013-11-29
-        meetup-87 "last Friday of December 2013"      2013 12 last   Friday     2013-12-27
-        meetup-88 "last Saturday of January 2013"     2013  1 last   Saturday   2013-01-26
-        meetup-89 "last Saturday of February 2013"    2013  2 last   Saturday   2013-02-23
-        meetup-90 "last Sunday of March 2013"         2013  3 last   Sunday     2013-03-31
-        meetup-91 "last Sunday of April 2013"         2013  4 last   Sunday     2013-04-28
-        meetup-92 "last Wednesday of February 2012"   2012  2 last   Wednesday  2012-02-29
-        meetup-93 "last Wednesday of December 2014"   2014 12 last   Wednesday  2014-12-31
-        meetup-94 "last Sunday of February 2015"      2015  2 last   Sunday     2015-02-22
-        meetup-95 "first Friday of December 2012"     2012 12 first  Friday     2012-12-07
-    }
+# fourth
+skip *
+test meetup-64 "fourth Monday of March 2013" -body {
+    meetup 2013 3 fourth Monday
+} -returnCodes ok -result 2013-03-25
+test meetup-65 "fourth Monday of April 2013" -body {
+    meetup 2013 4 fourth Monday
+} -returnCodes ok -result 2013-04-22
+test meetup-66 "fourth Tuesday of May 2013" -body {
+    meetup 2013 5 fourth Tuesday
+} -returnCodes ok -result 2013-05-28
+test meetup-67 "fourth Tuesday of June 2013" -body {
+    meetup 2013 6 fourth Tuesday
+} -returnCodes ok -result 2013-06-25
+test meetup-68 "fourth Wednesday of July 2013" -body {
+    meetup 2013 7 fourth Wednesday
+} -returnCodes ok -result 2013-07-24
+test meetup-69 "fourth Wednesday of August 2013" -body {
+    meetup 2013 8 fourth Wednesday
+} -returnCodes ok -result 2013-08-28
+test meetup-70 "fourth Thursday of September 2013" -body {
+    meetup 2013 9 fourth Thursday
+} -returnCodes ok -result 2013-09-26
+test meetup-71 "fourth Thursday of October 2013" -body {
+    meetup 2013 10 fourth Thursday
+} -returnCodes ok -result 2013-10-24
+test meetup-72 "fourth Friday of November 2013" -body {
+    meetup 2013 11 fourth Friday
+} -returnCodes ok -result 2013-11-22
+test meetup-73 "fourth Friday of December 2013" -body {
+    meetup 2013 12 fourth Friday
+} -returnCodes ok -result 2013-12-27
+test meetup-74 "fourth Saturday of January 2013" -body {
+    meetup 2013 1 fourth Saturday
+} -returnCodes ok -result 2013-01-26
+test meetup-75 "fourth Saturday of February 2013" -body {
+    meetup 2013 2 fourth Saturday
+} -returnCodes ok -result 2013-02-23
+test meetup-76 "fourth Sunday of March 2013" -body {
+    meetup 2013 3 fourth Sunday
+} -returnCodes ok -result 2013-03-24
+test meetup-77 "fourth Sunday of April 2013" -body {
+    meetup 2013 4 fourth Sunday
+} -returnCodes ok -result 2013-04-28
 
-    foreach {name description year month week weekday result} $cases {
-        test $name $description -body "
-            meetup $year $month $week $weekday
-        " -returnCodes ok -result $result
-    }
+# last
+skip *
+test meetup-78 "last Monday of March 2013" -body {
+    meetup 2013 3 last Monday
+} -returnCodes ok -result 2013-03-25
+test meetup-79 "last Monday of April 2013" -body {
+    meetup 2013 4 last Monday
+} -returnCodes ok -result 2013-04-29
+test meetup-80 "last Tuesday of May 2013" -body {
+    meetup 2013 5 last Tuesday
+} -returnCodes ok -result 2013-05-28
+test meetup-81 "last Tuesday of June 2013" -body {
+    meetup 2013 6 last Tuesday
+} -returnCodes ok -result 2013-06-25
+test meetup-82 "last Wednesday of July 2013" -body {
+    meetup 2013 7 last Wednesday
+} -returnCodes ok -result 2013-07-31
+test meetup-83 "last Wednesday of August 2013" -body {
+    meetup 2013 8 last Wednesday
+} -returnCodes ok -result 2013-08-28
+test meetup-84 "last Thursday of September 2013" -body {
+    meetup 2013 9 last Thursday
+} -returnCodes ok -result 2013-09-26
+test meetup-85 "last Thursday of October 2013" -body {
+    meetup 2013 10 last Thursday
+} -returnCodes ok -result 2013-10-31
+test meetup-86 "last Friday of November 2013" -body {
+    meetup 2013 11 last Friday
+} -returnCodes ok -result 2013-11-29
+test meetup-87 "last Friday of December 2013" -body {
+    meetup 2013 12 last Friday
+} -returnCodes ok -result 2013-12-27
+test meetup-88 "last Saturday of January 2013" -body {
+    meetup 2013 1 last Saturday
+} -returnCodes ok -result 2013-01-26
+test meetup-89 "last Saturday of February 2013" -body {
+    meetup 2013 2 last Saturday
+} -returnCodes ok -result 2013-02-23
+test meetup-90 "last Sunday of March 2013" -body {
+    meetup 2013 3 last Sunday
+} -returnCodes ok -result 2013-03-31
+test meetup-91 "last Sunday of April 2013" -body {
+    meetup 2013 4 last Sunday
+} -returnCodes ok -result 2013-04-28
+test meetup-92 "last Wednesday of February 2012" -body {
+    meetup 2012 2 last Wednesday
+} -returnCodes ok -result 2012-02-29
+test meetup-93 "last Wednesday of December 2014" -body {
+    meetup 2014 12 last Wednesday
+} -returnCodes ok -result 2014-12-31
+test meetup-94 "last Sunday of February 2015" -body {
+    meetup 2015 2 last Sunday
+} -returnCodes ok -result 2015-02-22
+test meetup-95 "first Friday of December 2012" -body {
+    meetup 2012 12 first Friday
+} -returnCodes ok -result 2012-12-07
 
-    cleanupTests
-}
+
+cleanupTests

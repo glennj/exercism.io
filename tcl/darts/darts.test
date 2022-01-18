@@ -1,56 +1,74 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "darts.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test darts-1 "Missed target" -body {
+    score -9 9
+} -returnCodes ok -result 0
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip darts-2
+test darts-2 "On the outer circle" -body {
+    score 0 10
+} -returnCodes ok -result 1
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip darts-3
+test darts-3 "On the middle circle" -body {
+    score -5 0
+} -returnCodes ok -result 5
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip darts-4
+test darts-4 "On the inner circle" -body {
+    score 0 -1
+} -returnCodes ok -result 10
 
-if {$::argv0 eq [info script]} {
+skip darts-5
+test darts-5 "Exactly on centre" -body {
+    score 0 0
+} -returnCodes ok -result 10
 
-    set cases {
-        darts-1 "Missed target" -9 9 0
-        darts-2 "On the outer circle" 0 10 1
-        darts-3 "On the middle circle" -5 0 5
-        darts-4 "On the inner circle" 0 -1 10
-        darts-5 "Exactly on centre" 0 0 10
-        darts-6 "Near the centre" -0.1 -0.1 10
-        darts-7 "Just within the inner circle" 0.7 0.7 10
-        darts-8 "Just outside the inner circle" 0.8 -0.8 5
-        darts-9 "Just within the middle circle" -3.5 3.5 5
-        darts-10 "Just outside the middle circle" -3.6 -3.6 1
-        darts-11 "Just within the outer circle" -7.0 7.0 1
-        darts-12 "Just outside the outer circle" 7.1 -7.1 0
-        darts-13 "Asymmetric position between the inner and middle circles" 0.5 -4 5
-    }
+skip darts-6
+test darts-6 "Near the centre" -body {
+    score -0.1 -0.1
+} -returnCodes ok -result 10
 
-    foreach {name description x y value} $cases {
-        test $name $description -body {
-            score $x $y
-        } -returnCodes ok -result $value
-    }
+skip darts-7
+test darts-7 "Just within the inner circle" -body {
+    score 0.7 0.7
+} -returnCodes ok -result 10
 
-    cleanupTests
-}
+skip darts-8
+test darts-8 "Just outside the inner circle" -body {
+    score 0.8 -0.8
+} -returnCodes ok -result 5
+
+skip darts-9
+test darts-9 "Just within the middle circle" -body {
+    score -3.5 3.5
+} -returnCodes ok -result 5
+
+skip darts-10
+test darts-10 "Just outside the middle circle" -body {
+    score -3.6 -3.6
+} -returnCodes ok -result 1
+
+skip darts-11
+test darts-11 "Just within the outer circle" -body {
+    score -7.0 7.0
+} -returnCodes ok -result 1
+
+skip darts-12
+test darts-12 "Just outside the outer circle" -body {
+    score 7.1 -7.1
+} -returnCodes ok -result 0
+
+skip darts-13
+test darts-13 "Asymmetric position between the inner and middle circles" -body {
+    score 0.5 -4
+} -returnCodes ok -result 5
+
+
+cleanupTests

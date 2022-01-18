@@ -1,89 +1,72 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "matrix.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+# row tests
+test matrix-1.1 "extract row from one number matrix" -body {
+    set matrix [matrixFrom "1"]
+    row $matrix 1
+} -returnCodes ok -result {1}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip matrix-1.2
+test matrix-1.2 "can extract row" -body {
+    set matrix [matrixFrom "1 2\n3 4"] 
+    row $matrix 2
+} -returnCodes ok -result {3 4}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip matrix-1.3
+test matrix-1.3 "extract row where numbers have different widths" -body {
+    set matrix [matrixFrom "1 2\n10 20"]   
+    row $matrix 2
+} -returnCodes ok -result {10 20}
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip matrix-1.4
+test matrix-1.4 "can extract row from non-square matrix" -body {
+    set matrix [matrixFrom "1 2 3\n4 5 6\n7 8 9\n8 7 6"]   
+    row $matrix 3
+} -returnCodes ok -result {7 8 9}
 
-if {$::argv0 eq [info script]} {
-
-    # row tests
-    test matrix-1.1 "extract row from one number matrix" -body {
-        set matrix [matrixFrom "1"]
-        row $matrix 1
-    } -returnCodes ok -result {1}
-
-    test matrix-1.2 "can extract row" -body {
-        set matrix [matrixFrom "1 2\n3 4"] 
-        row $matrix 2
-    } -returnCodes ok -result {3 4}
-
-    test matrix-1.3 "extract row where numbers have different widths" -body {
-        set matrix [matrixFrom "1 2\n10 20"]   
-        row $matrix 2
-    } -returnCodes ok -result {10 20}
-
-    test matrix-1.4 "can extract row from non-square matrix" -body {
-        set matrix [matrixFrom "1 2 3\n4 5 6\n7 8 9\n8 7 6"]   
-        row $matrix 3
-    } -returnCodes ok -result {7 8 9}
-
-    test matrix-1.5 "can extract row from non-square matrix with no corresponding column" -body {
-        set matrix [matrixFrom "1 2 3\n4 5 6\n7 8 9\n8 7 6"]   
-        row $matrix 4
-    } -returnCodes ok -result {8 7 6}
+skip matrix-1.5
+test matrix-1.5 "can extract row from non-square matrix with no corresponding column" -body {
+    set matrix [matrixFrom "1 2 3\n4 5 6\n7 8 9\n8 7 6"]   
+    row $matrix 4
+} -returnCodes ok -result {8 7 6}
 
 
-    # column tests
-    test matrix-2.1 "extract column from one number matrix" -body {
-        set matrix [matrixFrom "1"]    
-        column $matrix 1
-    } -returnCodes ok -result {1}
+# column tests
+skip matrix-2.1
+test matrix-2.1 "extract column from one number matrix" -body {
+    set matrix [matrixFrom "1"]    
+    column $matrix 1
+} -returnCodes ok -result {1}
 
-    test matrix-2.2 "can extract column" -body {
-        set matrix [matrixFrom "1 2 3\n4 5 6\n7 8 9"]  
-        column $matrix 3
-    } -returnCodes ok -result {3 6 9}
+skip matrix-2.2
+test matrix-2.2 "can extract column" -body {
+    set matrix [matrixFrom "1 2 3\n4 5 6\n7 8 9"]  
+    column $matrix 3
+} -returnCodes ok -result {3 6 9}
 
-    test matrix-2.3 "can extract column from non-square matrix" -body {
-        set matrix [matrixFrom "1 2 3\n4 5 6\n7 8 9\n8 7 6"]   
-        column $matrix 3
-    } -returnCodes ok -result {3 6 9 6}
+skip matrix-2.3
+test matrix-2.3 "can extract column from non-square matrix" -body {
+    set matrix [matrixFrom "1 2 3\n4 5 6\n7 8 9\n8 7 6"]   
+    column $matrix 3
+} -returnCodes ok -result {3 6 9 6}
 
-    test matrix-2.4 "can extract column from non-square matrix with no corresponding row" -body {
-        set matrix [matrixFrom "1 2 3 4\n5 6 7 8\n9 8 7 6"]
-        column $matrix 4
-    } -returnCodes ok -result {4 8 6}
+skip matrix-2.4
+test matrix-2.4 "can extract column from non-square matrix with no corresponding row" -body {
+    set matrix [matrixFrom "1 2 3 4\n5 6 7 8\n9 8 7 6"]
+    column $matrix 4
+} -returnCodes ok -result {4 8 6}
 
-    test matrix-2.5 "extract column where numbers have different widths" -body {
-        set matrix [matrixFrom "89 1903 3\n18 3 1\n9 4 800"]   
-        column $matrix 2
-    } -returnCodes ok -result {1903 3 4}
+skip matrix-2.5
+test matrix-2.5 "extract column where numbers have different widths" -body {
+    set matrix [matrixFrom "89 1903 3\n18 3 1\n9 4 800"]   
+    column $matrix 2
+} -returnCodes ok -result {1903 3 4}
 
 
-    cleanupTests
-}
-
+cleanupTests

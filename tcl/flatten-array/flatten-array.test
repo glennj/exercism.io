@@ -1,70 +1,44 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "flatten-array.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test flatten-1 "no nesting" -body {
+    flatten {0 1 2}
+} -returnCodes ok -result {0 1 2}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip flatten-2
+test flatten-2 "flattens array with just integers present" -body {
+    flatten {1 {2 3 4 5 6 7} 8}
+} -returnCodes ok -result {1 2 3 4 5 6 7 8}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip flatten-3
+test flatten-3 "5 level nesting" -body {
+    flatten {0 2 {{2 3} 8 100 4 {{{50}}}} -2}
+} -returnCodes ok -result {0 2 2 3 8 100 4 50 -2}
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip flatten-4
+test flatten-4 "6 level nesting" -body {
+    flatten {1 {2 {{3}} {4 {{5}}} 6 7} 8}
+} -returnCodes ok -result {1 2 3 4 5 6 7 8}
 
-if {$::argv0 eq [info script]} {
+skip flatten-5
+test flatten-5 "6 level nest list with null values" -body {
+    flatten {0 2 {{2 3} 8 {{100}} "" {{""}}} -2}
+} -returnCodes ok -result {0 2 2 3 8 100 -2}
 
-    set cases {
-        flatten-1 "no nesting"
-            {0 1 2}
-            {0 1 2}
+skip flatten-6
+test flatten-6 "all values in nested list are null" -body {
+    flatten {"" {{{""}}} "" "" {{"" ""} ""} ""}
+} -returnCodes ok -result {}
 
-        flatten-2 "flattens array with just integers present"
-            {1 {2 3 4 5 6 7} 8}
-            {1 2 3 4 5 6 7 8}
+skip flatten-7
+test flatten-7 "Tcl can't differentiate between a list and a string" -body {
+    flatten {foo bar {baz "a string with spaces"}}
+} -returnCodes ok -result {foo bar baz a string with spaces}
 
-        flatten-3 "5 level nesting"
-            {0 2 {{2 3} 8 100 4 {{{50}}}} -2}
-            {0 2 2 3 8 100 4 50 -2}
 
-        flatten-4 "6 level nesting"
-            {1 {2 {{3}} {4 {{5}}} 6 7} 8}
-            {1 2 3 4 5 6 7 8}
-
-        flatten-5 "6 level nest list with null values"
-            {0 2 {{2 3} 8 {{100}} "" {{""}}} -2}
-            {0 2 2 3 8 100 -2}
-
-        flatten-6 "all values in nested list are null"
-            {"" {{{""}}} "" "" {{"" ""} ""} ""}
-            {}
-
-        flatten-7 "Tcl can't differentiate between a list and a string"
-            {foo bar {baz "a string with spaces"}}
-            {foo bar baz a string with spaces}
-    }
-
-    foreach {name description input output} $cases {
-        test $name $description -body {
-            flatten $input
-        } -returnCodes ok -result $output
-    }
-
-    cleanupTests
-}
+cleanupTests

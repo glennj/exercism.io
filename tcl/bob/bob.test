@@ -1,118 +1,134 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "bob.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test bob-1  "stating something" -body {
+    heyBob "Tom-ay-to, tom-aaaah-to."
+} -returnCodes ok -result "Whatever."
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip bob-2
+test bob-2  "shouting" -body {
+    heyBob "WATCH OUT!"
+} -returnCodes ok -result "Whoa, chill out!"
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip bob-3
+test bob-3  "shouting gibberish" -body {
+    heyBob "FCECDFCAAB"
+} -returnCodes ok -result "Whoa, chill out!"
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip bob-4
+test bob-4  "asking a question" -body {
+    heyBob "Does this cryogenic chamber make me look fat?"
+} -returnCodes ok -result "Sure."
 
-if {$::argv0 eq [info script]} {
+skip bob-5
+test bob-5  "asking a numeric question" -body {
+    heyBob "You are, what, like 15?"
+} -returnCodes ok -result "Sure."
 
-    set cases {
-        bob-1  "stating something" \
-                "Tom-ay-to, tom-aaaah-to." \
-                "Whatever."
-        bob-2  "shouting" \
-                "WATCH OUT!" \
-                "Whoa, chill out!"
-        bob-3  "shouting gibberish" \
-                "FCECDFCAAB" \
-                "Whoa, chill out!"
-        bob-4  "asking a question" \
-                "Does this cryogenic chamber make me look fat?" \
-                "Sure."
-        bob-5  "asking a numeric question" \
-                "You are, what, like 15?" \
-                "Sure."
-        bob-6  "asking gibberish" \
-                "fffbbcbeab?" \
-                "Sure."
-        bob-7  "talking forcefully" \
-                "Hi there!" \
-                "Whatever."
-        bob-8  "using acronyms in regular speech" \
-                "It's OK if you don't want to go work for NASA." \
-                "Whatever."
-        bob-9  "forceful question" \
-                "WHAT'S GOING ON?" \
-                "Calm down, I know what I'm doing!"
-        bob-10 "shouting numbers" \
-                "1, 2, 3 GO!" \
-                "Whoa, chill out!"
-        bob-11 "no letters" \
-                "1, 2, 3" \
-                "Whatever."
-        bob-12 "question with no letters" \
-                "4?" \
-                "Sure."
-        bob-13 "shouting with special characters" \
-                "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!" \
-                "Whoa, chill out!"
-        bob-14 "shouting with no exclamation mark" \
-                "I HATE THE DENTIST" \
-                "Whoa, chill out!"
-        bob-15 "statement containing question mark" \
-                "Ending with ? means a question." \
-                "Whatever."
-        bob-16 "non-letters with question" \
-                ":) ?" \
-                "Sure."
-        bob-17 "prattling on" \
-                "Wait! Hang on. Are you going to be OK?" \
-                "Sure."
-        bob-18 "silence" \
-                "" \
-                "Fine. Be that way!"
-        bob-19 "prolonged silence" \
-                "          " \
-                "Fine. Be that way!"
-        bob-20 "alternate silence" \
-                "\t\t\t\t\t\t\t\t\t\t" \
-                "Fine. Be that way!"
-        bob-21 "multiple line question" \
-                "\nDoes this cryogenic chamber make me look fat?\nNo." \
-                "Whatever."
-        bob-22 "starting with whitespace" \
-                "         hmmmmmmm..." \
-                "Whatever."
-        bob-23 "ending with whitespace" \
-                "Okay if like my  spacebar  quite a bit?   " \
-                "Sure."
-        bob-24 "other whitespace" \
-                "\n\r \t" \
-                "Fine. Be that way!"
-        bob-25 "non-question ending with whitespace" \
-                "This is a statement ending with whitespace      " \
-                "Whatever."
-    }
+skip bob-6
+test bob-6  "asking gibberish" -body {
+    heyBob "fffbbcbeab?"
+} -returnCodes ok -result "Sure."
 
-    foreach {name description phrase response} $cases {
-        test $name $description -body {
-            heyBob $phrase
-        } -returnCodes ok -result $response
-    }
+skip bob-7
+test bob-7  "talking forcefully" -body {
+    heyBob "Hi there!"
+} -returnCodes ok -result "Whatever."
 
-    cleanupTests
-}
+skip bob-8
+test bob-8  "using acronyms in regular speech" -body {
+    heyBob "It's OK if you don't want to go work for NASA."
+} -returnCodes ok -result "Whatever."
+
+skip bob-9
+test bob-9  "forceful question" -body {
+    heyBob "WHAT'S GOING ON?"
+} -returnCodes ok -result "Calm down, I know what I'm doing!"
+
+skip bob-10
+test bob-10 "shouting numbers" -body {
+    heyBob "1, 2, 3 GO!"
+} -returnCodes ok -result "Whoa, chill out!"
+
+skip bob-11
+test bob-11 "no letters" -body {
+    heyBob "1, 2, 3"
+} -returnCodes ok -result "Whatever."
+
+skip bob-12
+test bob-12 "question with no letters" -body {
+    heyBob "4?"
+} -returnCodes ok -result "Sure."
+
+skip bob-13
+test bob-13 "shouting with special characters" -body {
+    heyBob "ZOMG THE %^*@#\$(*^ ZOMBIES ARE COMING!!11!!1!"
+} -returnCodes ok -result "Whoa, chill out!"
+
+skip bob-14
+test bob-14 "shouting with no exclamation mark" -body {
+    heyBob "I HATE THE DENTIST"
+} -returnCodes ok -result "Whoa, chill out!"
+
+skip bob-15
+test bob-15 "statement containing question mark" -body {
+    heyBob "Ending with ? means a question."
+} -returnCodes ok -result "Whatever."
+
+skip bob-16
+test bob-16 "non-letters with question" -body {
+    heyBob ":) ?"
+} -returnCodes ok -result "Sure."
+
+skip bob-17
+test bob-17 "prattling on" -body {
+    heyBob "Wait! Hang on. Are you going to be OK?"
+} -returnCodes ok -result "Sure."
+
+skip bob-18
+test bob-18 "silence" -body {
+    heyBob ""
+} -returnCodes ok -result "Fine. Be that way!"
+
+skip bob-19
+test bob-19 "prolonged silence" -body {
+    heyBob "          "
+} -returnCodes ok -result "Fine. Be that way!"
+
+skip bob-20
+test bob-20 "alternate silence" -body {
+    heyBob "\t\t\t\t\t\t\t\t\t\t"
+} -returnCodes ok -result "Fine. Be that way!"
+
+skip bob-21
+test bob-21 "multiple line question" -body {
+    heyBob "\nDoes this cryogenic chamber make me look fat?\nNo."
+} -returnCodes ok -result "Whatever."
+
+skip bob-22
+test bob-22 "starting with whitespace" -body {
+    heyBob "         hmmmmmmm..."
+} -returnCodes ok -result "Whatever."
+
+skip bob-23
+test bob-23 "ending with whitespace" -body {
+    heyBob "Okay if like my  spacebar  quite a bit?   "
+} -returnCodes ok -result "Sure."
+
+skip bob-24
+test bob-24 "other whitespace" -body {
+    heyBob "\n\r \t"
+} -returnCodes ok -result "Fine. Be that way!"
+
+skip bob-25
+test bob-25 "non-question ending with whitespace" -body {
+    heyBob "This is a statement ending with whitespace      "
+} -returnCodes ok -result "Whatever."
+
+
+cleanupTests

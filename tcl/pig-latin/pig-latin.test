@@ -1,65 +1,119 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "pig-latin.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test pig-latin-1 "word beginning with a" -body {
+    translate "apple"
+} -returnCodes ok -result "appleay"
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip pig-latin-2
+test pig-latin-2 "word beginning with e" -body {
+    translate "ear"
+} -returnCodes ok -result "earay"
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip pig-latin-3
+test pig-latin-3 "word beginning with i" -body {
+    translate "igloo"
+} -returnCodes ok -result "iglooay"
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip pig-latin-4
+test pig-latin-4 "word beginning with o" -body {
+    translate "object"
+} -returnCodes ok -result "objectay"
 
-if {$::argv0 eq [info script]} {
+skip pig-latin-5
+test pig-latin-5 "word beginning with u" -body {
+    translate "under"
+} -returnCodes ok -result "underay"
 
-    set cases {
-        pig-latin-1 "word beginning with a" "apple" "appleay"
-        pig-latin-2 "word beginning with e" "ear" "earay"
-        pig-latin-3 "word beginning with i" "igloo" "iglooay"
-        pig-latin-4 "word beginning with o" "object" "objectay"
-        pig-latin-5 "word beginning with u" "under" "underay"
-        pig-latin-6 "word beginning with a vowel and followed by a qu" "equal" "equalay"
-        pig-latin-7 "word beginning with p" "pig" "igpay"
-        pig-latin-8 "word beginning with k" "koala" "oalakay"
-        pig-latin-9 "word beginning with x" "xenon" "enonxay"
-        pig-latin-10 "word beginning with q without a following u" "qat" "atqay"
-        pig-latin-11 "word beginning with ch" "chair" "airchay"
-        pig-latin-12 "word beginning with qu" "queen" "eenquay"
-        pig-latin-13 "word beginning with qu and a preceding consonant" "square" "aresquay"
-        pig-latin-14 "word beginning with th" "therapy" "erapythay"
-        pig-latin-15 "word beginning with thr" "thrush" "ushthray"
-        pig-latin-16 "word beginning with sch" "school" "oolschay"
-        pig-latin-17 "word beginning with yt" "yttria" "yttriaay"
-        pig-latin-18 "word beginning with xr" "xray" "xrayay"
-        pig-latin-19 "y is treated like a consonant at the beginning of a word" "yellow" "ellowyay"
-        pig-latin-20 "y is treated like a vowel at the end of a consonant cluster" "rhythm" "ythmrhay"
-        pig-latin-21 "y as second letter in two letter word" "my" "ymay"
-        pig-latin-22 "a whole phrase" "quick fast run" "ickquay astfay unray"
-    }
+skip pig-latin-6
+test pig-latin-6 "word beginning with a vowel and followed by a qu" -body {
+    translate "equal"
+} -returnCodes ok -result "equalay"
 
-    foreach {name description input output} $cases {
-        test $name $description -body {
-            translate $input
-        } -returnCodes ok -result $output
-    }
+skip pig-latin-7
+test pig-latin-7 "word beginning with p" -body {
+    translate "pig"
+} -returnCodes ok -result "igpay"
 
-    cleanupTests
-}
+skip pig-latin-8
+test pig-latin-8 "word beginning with k" -body {
+    translate "koala"
+} -returnCodes ok -result "oalakay"
+
+skip pig-latin-9
+test pig-latin-9 "word beginning with x" -body {
+    translate "xenon"
+} -returnCodes ok -result "enonxay"
+
+skip pig-latin-10
+test pig-latin-10 "word beginning with q without a following u" -body {
+    translate "qat"
+} -returnCodes ok -result "atqay"
+
+skip pig-latin-11
+test pig-latin-11 "word beginning with ch" -body {
+    translate "chair"
+} -returnCodes ok -result "airchay"
+
+skip pig-latin-12
+test pig-latin-12 "word beginning with qu" -body {
+    translate "queen"
+} -returnCodes ok -result "eenquay"
+
+skip pig-latin-13
+test pig-latin-13 "word beginning with qu and a preceding consonant" -body {
+    translate "square"
+} -returnCodes ok -result "aresquay"
+
+skip pig-latin-14
+test pig-latin-14 "word beginning with th" -body {
+    translate "therapy"
+} -returnCodes ok -result "erapythay"
+
+skip pig-latin-15
+test pig-latin-15 "word beginning with thr" -body {
+    translate "thrush"
+} -returnCodes ok -result "ushthray"
+
+skip pig-latin-16
+test pig-latin-16 "word beginning with sch" -body {
+    translate "school"
+} -returnCodes ok -result "oolschay"
+
+skip pig-latin-17
+test pig-latin-17 "word beginning with yt" -body {
+    translate "yttria"
+} -returnCodes ok -result "yttriaay"
+
+skip pig-latin-18
+test pig-latin-18 "word beginning with xr" -body {
+    translate "xray"
+} -returnCodes ok -result "xrayay"
+
+skip pig-latin-19
+test pig-latin-19 "y is treated like a consonant at the beginning of a word" -body {
+    translate "yellow"
+} -returnCodes ok -result "ellowyay"
+
+skip pig-latin-20
+test pig-latin-20 "y is treated like a vowel at the end of a consonant cluster" -body {
+    translate "rhythm"
+} -returnCodes ok -result "ythmrhay"
+
+skip pig-latin-21
+test pig-latin-21 "y as second letter in two letter word" -body {
+    translate "my"
+} -returnCodes ok -result "ymay"
+
+skip pig-latin-22
+test pig-latin-22 "a whole phrase" -body {
+    translate "quick fast run"
+} -returnCodes ok -result "ickquay astfay unray"
+
+
+cleanupTests

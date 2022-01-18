@@ -1,51 +1,54 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "difference-of-squares.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test squares-1 "square of sum 1" -body {
+    squareOfSum 1
+} -returnCodes ok -result 1
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip squares-2
+test squares-2 "square of sum 5" -body {
+    squareOfSum 5
+} -returnCodes ok -result 225
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip squares-3
+test squares-3 "square of sum 100" -body {
+    squareOfSum 100
+} -returnCodes ok -result 25502500
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip squares-4
+test squares-4 "sum of squares 1" -body {
+    sumOfSquares 1
+} -returnCodes ok -result 1
 
-if {$::argv0 eq [info script]} {
+skip squares-5
+test squares-5 "sum of squares 5" -body {
+    sumOfSquares 5
+} -returnCodes ok -result 55
 
-    set cases {
-        squares-1 "square of sum 1" squareOfSum 1 1
-        squares-2 "square of sum 5" squareOfSum 5 225
-        squares-3 "square of sum 100" squareOfSum 100 25502500
-        squares-4 "sum of squares 1" sumOfSquares 1 1
-        squares-5 "sum of squares 5" sumOfSquares 5 55
-        squares-6 "sum of squares 100" sumOfSquares 100 338350
-        squares-7 "difference of squares 1" differenceOfSquares 1 0
-        squares-8 "difference of squares 5" differenceOfSquares 5 170
-        squares-9 "difference of squares 100" differenceOfSquares 100 25164150
-    }
-    foreach {name description func input output} $cases {
-        test $name $description -body {
-            $func $input
-        } -returnCodes ok -result $output
-    }
+skip squares-6
+test squares-6 "sum of squares 100" -body {
+    sumOfSquares 100
+} -returnCodes ok -result 338350
 
-    cleanupTests
-}
+skip squares-7
+test squares-7 "difference of squares 1" -body {
+    differenceOfSquares 1
+} -returnCodes ok -result 0
+
+skip squares-8
+test squares-8 "difference of squares 5" -body {
+    differenceOfSquares 5
+} -returnCodes ok -result 170
+
+skip squares-9
+test squares-9 "difference of squares 100" -body {
+    differenceOfSquares 100
+} -returnCodes ok -result 25164150
+
+
+cleanupTests

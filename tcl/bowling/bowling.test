@@ -1,150 +1,272 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "bowling.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
-
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
-
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+test bowling-1.1 "should be able to score a game with all zeros" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} {
+        $game roll $roll
     }
-}
+    $game score
+} -returnCodes ok -result 0
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
-
-if {$::argv0 eq [info script]} {
-
-    set score_cases {
-        bowling-1.1 "should be able to score a game with all zeros"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} 0
-        bowling-1.2 "should be able to score a game with no strikes or spares"
-            {3 6 3 6 3 6 3 6 3 6 3 6 3 6 3 6 3 6 3 6} 90
-        bowling-1.3 "a spare followed by zeros is worth ten points"
-            {6 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} 10
-        bowling-1.4 "points scored in the roll after a spare are counted twice"
-            {6 4 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} 16
-        bowling-1.5 "consecutive spares each get a one roll bonus"
-            {5 5 3 7 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} 31
-        bowling-1.6 "a spare in the last frame gets a one roll bonus that is counted once"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 3 7} 17
-        bowling-1.7 "a strike earns ten points in a frame with a single roll"
-            {10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} 10
-        bowling-1.8 "points scored in the two rolls after a strike are counted twice as a bonus"
-            {10 5 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} 26
-        bowling-1.9 "consecutive strikes each get the two roll bonus"
-            {10 10 10 5 3 0 0 0 0 0 0 0 0 0 0 0 0} 81
-        bowling-1.10 "a strike in the last frame gets a two roll bonus that is counted once"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 7 1} 18
-        bowling-1.11 "rolling a spare with the two roll bonus does not get a bonus roll"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 7 3} 20
-        bowling-1.12 "strikes with the two roll bonus do not get bonus rolls"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 10 10} 30
-        bowling-1.13 "a strike with the one roll bonus after a spare in the last frame does not get a bonus"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 3 10} 20
-        bowling-1.14 "all strikes is a perfect game"
-            {10 10 10 10 10 10 10 10 10 10 10 10} 300
-        bowling-1.15 "two bonus rolls after a strike in the last frame can score more than 10 points if one is a strike"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 10 6} 26
+skip bowling-1.2
+test bowling-1.2 "should be able to score a game with no strikes or spares" -body {
+    set game [Bowling new]
+    foreach roll {3 6 3 6 3 6 3 6 3 6 3 6 3 6 3 6 3 6 3 6} {
+        $game roll $roll
     }
+    $game score
+} -returnCodes ok -result 90
 
-    foreach {name description rolls result} $score_cases {
-        test $name $description -body {
-            set game [Bowling new]
-            foreach roll $rolls {
-                $game roll $roll
-            }
-            $game score
-        } -returnCodes ok -result $result
+skip bowling-1.3
+test bowling-1.3 "a spare followed by zeros is worth ten points" -body {
+    set game [Bowling new]
+    foreach roll {6 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} {
+        $game roll $roll
     }
+    $game score
+} -returnCodes ok -result 10
 
-
-    set roll_error_cases {
-        bowling-2.1 "rolls cannot score negative points"
-            {} -1
-            "Negative roll is invalid"
-        bowling-2.2 "a roll cannot score more than 10 points"
-            {} 11
-            "Pin count exceeds pins on the lane"
-        bowling-2.3 "two rolls in a frame cannot score more than 10 points"
-            {5} 6
-            "Pin count exceeds pins on the lane"
-        bowling-2.4 "bonus roll after a strike in the last frame cannot score more than 10 points"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10} 11
-            "Pin count exceeds pins on the lane"
-        bowling-2.5 "two bonus rolls after a strike in the last frame cannot score more than 10 points"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 5} 6
-            "Pin count exceeds pins on the lane"
-        bowling-2.6 "the second bonus rolls after a strike in the last frame cannot be a strike if the first one is not a strike"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 6} 10
-            "Pin count exceeds pins on the lane"
-        bowling-2.7 "second bonus roll after a strike in the last frame cannot score more than 10 points"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 10} 11
-            "Pin count exceeds pins on the lane"
-        bowling-2.8 "cannot roll if game already has ten frames"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} 0
-            "Cannot roll after game is over"
-        bowling-2.9 "cannot roll after bonus roll for spare"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 3 2} 2
-            "Cannot roll after game is over"
-        bowling-2.10 "cannot roll after bonus rolls for strike"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 3 2} 2
-            "Cannot roll after game is over"
+skip bowling-1.4
+test bowling-1.4 "points scored in the roll after a spare are counted twice" -body {
+    set game [Bowling new]
+    foreach roll {6 4 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} {
+        $game roll $roll
     }
+    $game score
+} -returnCodes ok -result 16
 
-    foreach {name description rolls nextRoll result} $roll_error_cases {
-        test $name $description -body {
-            set game [Bowling new]
-            foreach roll $rolls {
-                $game roll $roll
-            }
-            $game roll $nextRoll
-        } -returnCodes error -result $result
+skip bowling-1.5
+test bowling-1.5 "consecutive spares each get a one roll bonus" -body {
+    set game [Bowling new]
+    foreach roll {5 5 3 7 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} {
+        $game roll $roll
     }
+    $game score
+} -returnCodes ok -result 31
 
-
-    set score_error_cases {
-        bowling-3.1 "an unstarted game cannot be scored"
-            {}
-            "Score cannot be taken until the end of the game"
-        bowling-3.2 "an incomplete game cannot be scored"
-            {0 0}
-            "Score cannot be taken until the end of the game"
-        bowling-3.3 "bonus rolls for a strike in the last frame must be rolled before score can be calculated"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10}
-            "Score cannot be taken until the end of the game"
-        bowling-3.4 "both bonus rolls for a strike in the last frame must be rolled before score can be calculated"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 10}
-            "Score cannot be taken until the end of the game"
-        bowling-3.5 "bonus roll for a spare in the last frame must be rolled before score can be calculated"
-            {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 3}
-            "Score cannot be taken until the end of the game"
+skip bowling-1.6
+test bowling-1.6 "a spare in the last frame gets a one roll bonus that is counted once" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 3 7} {
+        $game roll $roll
     }
+    $game score
+} -returnCodes ok -result 17
 
-    foreach {name description rolls result} $score_error_cases {
-        test $name $description -body {
-            set game [Bowling new]
-            foreach roll $rolls {
-                $game roll $roll
-            }
-            $game score
-        } -returnCodes error -result $result
+skip bowling-1.7
+test bowling-1.7 "a strike earns ten points in a frame with a single roll" -body {
+    set game [Bowling new]
+    foreach roll {10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} {
+        $game roll $roll
     }
+    $game score
+} -returnCodes ok -result 10
 
-    cleanupTests
-}
+skip bowling-1.8
+test bowling-1.8 "points scored in the two rolls after a strike are counted twice as a bonus" -body {
+    set game [Bowling new]
+    foreach roll {10 5 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} {
+        $game roll $roll
+    }
+    $game score
+} -returnCodes ok -result 26
+
+skip bowling-1.9
+test bowling-1.9 "consecutive strikes each get the two roll bonus" -body {
+    set game [Bowling new]
+    foreach roll {10 10 10 5 3 0 0 0 0 0 0 0 0 0 0 0 0} {
+        $game roll $roll
+    }
+    $game score
+} -returnCodes ok -result 81
+
+skip bowling-1.10
+test bowling-1.10 "a strike in the last frame gets a two roll bonus that is counted once" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 7 1} {
+        $game roll $roll
+    }
+    $game score
+} -returnCodes ok -result 18
+
+skip bowling-1.11
+test bowling-1.11 "rolling a spare with the two roll bonus does not get a bonus roll" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 7 3} {
+        $game roll $roll
+    }
+    $game score
+} -returnCodes ok -result 20
+
+skip bowling-1.12
+test bowling-1.12 "strikes with the two roll bonus do not get bonus rolls" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 10 10} {
+        $game roll $roll
+    }
+    $game score
+} -returnCodes ok -result 30
+
+skip bowling-1.13
+test bowling-1.13 "a strike with the one roll bonus after a spare in the last frame does not get a bonus" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 3 10} {
+        $game roll $roll
+    }
+    $game score
+} -returnCodes ok -result 20
+
+skip bowling-1.14
+test bowling-1.14 "all strikes is a perfect game" -body {
+    set game [Bowling new]
+    foreach roll {10 10 10 10 10 10 10 10 10 10 10 10} {
+        $game roll $roll
+
+    }
+    $game score
+} -returnCodes ok -result 300
+
+skip bowling-1.15
+test bowling-1.15 "two bonus rolls after a strike in the last frame can score more than 10 points if one is a strike" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 10 6} {
+        $game roll $roll
+    }
+    $game score
+} -returnCodes ok -result 26
+
+
+skip bowling-2.1
+test bowling-2.1 "rolls cannot score negative points" -body {
+    set game [Bowling new]
+    $game roll -1
+} -returnCodes error -result "Negative roll is invalid"
+
+skip bowling-2.2
+test bowling-2.2 "a roll cannot score more than 10 points" -body {
+    set game [Bowling new]
+    $game roll 11
+} -returnCodes error -result "Pin count exceeds pins on the lane"
+
+skip bowling-2.3
+test bowling-2.3 "two rolls in a frame cannot score more than 10 points" -body {
+    set game [Bowling new]
+    $game roll 5
+    $game roll 6
+} -returnCodes error -result "Pin count exceeds pins on the lane"
+
+skip bowling-2.4
+test bowling-2.4 "bonus roll after a strike in the last frame cannot score more than 10 points" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10} {
+        $game roll $roll
+    }
+    $game roll 11
+} -returnCodes error -result "Pin count exceeds pins on the lane"
+
+skip bowling-2.5
+test bowling-2.5 "two bonus rolls after a strike in the last frame cannot score more than 10 points" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 5} {
+        $game roll $roll
+    }
+    $game roll 6
+} -returnCodes error -result "Pin count exceeds pins on the lane"
+
+skip bowling-2.6
+test bowling-2.6 "the second bonus rolls after a strike in the last frame cannot be a strike if the first one is not a strike" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 6} {
+        $game roll $roll
+    }
+    $game roll 10
+} -returnCodes error -result "Pin count exceeds pins on the lane"
+
+skip bowling-2.7
+test bowling-2.7 "second bonus roll after a strike in the last frame cannot score more than 10 points" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 10} {
+        $game roll $roll
+    }
+    $game roll 11
+} -returnCodes error -result "Pin count exceeds pins on the lane"
+
+skip bowling-2.8
+test bowling-2.8 "cannot roll if game already has ten frames" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0} {
+        $game roll $roll
+    }
+    $game roll 0
+} -returnCodes error -result "Cannot roll after game is over"
+
+skip bowling-2.9
+test bowling-2.9 "cannot roll after bonus roll for spare" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 3 2} {
+        $game roll $roll
+    }
+    $game roll 2
+} -returnCodes error -result "Cannot roll after game is over"
+
+skip bowling-2.10
+test bowling-2.10 "cannot roll after bonus rolls for strike" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 3 2} {
+        $game roll $roll
+    }
+    $game roll 2
+} -returnCodes error -result "Cannot roll after game is over"
+
+
+
+skip bowling-3.1
+test bowling-3.1 "an unstarted game cannot be scored" -body {
+    set game [Bowling new]
+    $game score
+} -returnCodes error -result "Score cannot be taken until the end of the game"
+
+skip bowling-3.2
+test bowling-3.2 "an incomplete game cannot be scored" -body {
+    set game [Bowling new]
+    foreach roll {0 0} {
+        $game roll $roll
+    }
+    $game score
+} -returnCodes error -result "Score cannot be taken until the end of the game"
+
+skip bowling-3.3
+test bowling-3.3 "bonus rolls for a strike in the last frame must be rolled before score can be calculated" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10} {
+        $game roll $roll
+    }
+    $game score
+} -returnCodes error -result "Score cannot be taken until the end of the game"
+
+skip bowling-3.4
+test bowling-3.4 "both bonus rolls for a strike in the last frame must be rolled before score can be calculated" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 10} {
+        $game roll $roll
+    }
+    $game score
+} -returnCodes error -result "Score cannot be taken until the end of the game"
+
+skip bowling-3.5
+test bowling-3.5 "bonus roll for a spare in the last frame must be rolled before score can be calculated" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 3} {
+        $game roll $roll
+    }
+    $game score
+} -returnCodes error -result "Score cannot be taken until the end of the game"
+
+
+cleanupTests

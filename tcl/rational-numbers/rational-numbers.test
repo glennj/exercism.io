@@ -1,214 +1,300 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "rational-numbers.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+# reduced upon creation
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+test rat-1.1 "Reduce a positive rational number to lowest terms" -body {
+    set r [Rational new 2 4]
+    $r toString
+} -returnCodes ok -result "1/2"
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip rat-1.2
+test rat-1.2 "Reduce a negative rational number to lowest terms" -body {
+    set r [Rational new -4 6]
+    $r toString
+} -returnCodes ok -result "-2/3"
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip rat-1.3
+test rat-1.3 "Reduce a rational number with a negative denominator to lowest terms" -body {
+    set r [Rational new 3 -9]
+    $r toString
+} -returnCodes ok -result "-1/3"
 
-proc doubleMatch {expected actual} {
-    set f {n {format "%.8f" $n}}
-    return [expr {[apply $f $expected] eq [apply $f $actual]}]
-}
-customMatch double doubleMatch
+skip rat-1.4
+test rat-1.4 "Reduce zero to lowest terms" -body {
+    set r [Rational new 0 6]
+    $r toString
+} -returnCodes ok -result "0/1"
 
-if {$::argv0 eq [info script]} {
+skip rat-1.5
+test rat-1.5 "Reduce an integer to lowest terms" -body {
+    set r [Rational new -14 7]
+    $r toString
+} -returnCodes ok -result "-2/1"
 
-    # reduced upon creation
-    set cases {
-        rat-1.1 "Reduce a positive rational number to lowest terms"
-            {2 4} "1/2"
-        rat-1.2 "Reduce a negative rational number to lowest terms"
-            {-4 6} "-2/3"
-        rat-1.3 "Reduce a rational number with a negative denominator to lowest terms"
-            {3 -9} "-1/3"
-        rat-1.4 "Reduce zero to lowest terms"
-            {0 6} "0/1"
-        rat-1.5 "Reduce an integer to lowest terms"
-            {-14 7} "-2/1"
-        rat-1.6 "Reduce one to lowest terms"
-            {13 13} "1/1"
-    }
-    foreach {name description input output} $cases {
-        test $name $description -body {
-            set r [Rational new {*}$input]
-            $r toString
-        } -returnCodes ok -result $output
-    }
+skip rat-1.6
+test rat-1.6 "Reduce one to lowest terms" -body {
+    set r [Rational new 13 13]
+    $r toString
+} -returnCodes ok -result "1/1"
 
-    set cases {
-        rat-10.1 "Reciprocal of positive rational"
-            {2 6} "3/1"
-        rat-10.2 "Reciprocal of negative rational"
-            {-12 3} "-1/4"
-        rat-10.3 "Reciprocal of one"
-            {2 2} "1/1"
-        rat-10.4 "Reciprocal of zero"
-            {0 2} "1/0"
-    }
-    foreach {name description rat output} $cases {
-        test $name $description -body {
-            set r [Rational new {*}$rat]
-            [$r recip] toString
-        } -returnCodes ok -result $output
-    }
+skip rat-10.1
+test rat-10.1 "Reciprocal of positive rational" -body {
+    set r [Rational new 2 6]
+    [$r recip] toString
+} -returnCodes ok -result "3/1"
 
-    set cases {
-        rat-2.1 "Add two positive rational numbers"
-            {1 2} {2 3} "7/6"
-        rat-2.2 "Add a positive rational number and a negative rational number"
-            {1 2} {-2 3} "-1/6"
-        rat-2.3 "Add two negative rational numbers"
-            {-1 2} {-2 3} "-7/6"
-        rat-2.4 "Add a rational number to its additive inverse"
-            {1 2} {-1 2} "0/1"
-    }
-    foreach {name description inp1 inp2 output} $cases {
-        test $name $description -body {
-            set r1 [Rational new {*}$inp1]
-            set r2 [Rational new {*}$inp2]
-            [$r1 add $r2] toString
-        } -returnCodes ok -result $output
-    }
+skip rat-10.2
+test rat-10.2 "Reciprocal of negative rational" -body {
+    set r [Rational new -12 3]
+    [$r recip] toString
+} -returnCodes ok -result "-1/4"
 
-    set cases {
-        rat-3.1 "Subtract two positive rational numbers"
-            {1 2} {2 3} "-1/6"
-        rat-3.2 "Subtract a positive rational number and a negative rational number"
-            {1 2} {-2 3} "7/6"
-        rat-3.3 "Subtract two negative rational numbers"
-            {-1 2} {-2 3} "1/6"
-        rat-3.4 "Subtract a rational number from itself"
-            {1 2} {1 2} "0/1"
-    }
-    foreach {name description inp1 inp2 output} $cases {
-        test $name $description -body {
-            set r1 [Rational new {*}$inp1]
-            set r2 [Rational new {*}$inp2]
-            [$r1 sub $r2] toString
-        } -returnCodes ok -result $output
-    }
+skip rat-10.3
+test rat-10.3 "Reciprocal of one" -body {
+    set r [Rational new 2 2]
+    [$r recip] toString
+} -returnCodes ok -result "1/1"
 
-    set cases {
-        rat-4.1 "Multiply two positive rational numbers"
-            {1 2} {2 3} "1/3"
-        rat-4.2 "Multiply a negative rational number by a positive rational number"
-            {-1 2} {2 3} "-1/3"
-        rat-4.3 "Multiply two negative rational numbers"
-            {-1 2} {-2 3} "1/3"
-        rat-4.4 "Multiply a rational number by its reciprocal"
-            {1 2} {2 1} "1/1"
-        rat-4.5 "Multiply a rational number by 1"
-            {1 2} {1 1} "1/2"
-        rat-4.6 "Multiply a rational number by 0"
-            {1 2} {0 1} "0/1"
-    }
-    foreach {name description inp1 inp2 output} $cases {
-        test $name $description -body {
-            set r1 [Rational new {*}$inp1]
-            set r2 [Rational new {*}$inp2]
-            [$r1 mul $r2] toString
-        } -returnCodes ok -result $output
-    }
+skip rat-10.4
+test rat-10.4 "Reciprocal of zero" -body {
+    set r [Rational new 0 2]
+    [$r recip] toString
+} -returnCodes ok -result "1/0"
 
-    set cases {
-        rat-5.1 "Divide two positive rational numbers"
-            {1 2} {2 3} "3/4"
-        rat-5.2 "Divide a positive rational number by a negative rational number"
-            {1 2} {-2 3} "-3/4"
-        rat-5.3 "Divide two negative rational numbers"
-            {-1 2} {-2 3} "3/4"
-        rat-5.4 "Divide a rational number by 1"
-            {1 2} {1 1} "1/2"
-    }
-    foreach {name description inp1 inp2 output} $cases {
-        test $name $description -body {
-            set r1 [Rational new {*}$inp1]
-            set r2 [Rational new {*}$inp2]
-            [$r1 div $r2] toString
-        } -returnCodes ok -result $output
-    }
 
-    set cases {
-        rat-6.1 "Absolute value of a positive rational number"
-            {1 2} "1/2"
-        rat-6.2 "Absolute value of a positive rational number with negative numerator and denominator"
-            {-1 -2} "1/2"
-        rat-6.3 "Absolute value of a negative rational number"
-            {-1 2} "1/2"
-        rat-6.4 "Absolute value of a negative rational number with negative denominator"
-            {1 -2} "1/2"
-        rat-6.5 "Absolute value of zero"
-            {0 1} "0/1"
-    }
-    foreach {name description rat output} $cases {
-        test $name $description -body {
-            set r [Rational new {*}$rat]
-            [$r abs] toString
-        } -returnCodes ok -result $output
-    }
+skip rat-2.1
+test rat-2.1 "Add two positive rational numbers" -body {
+    set r1 [Rational new 1 2]
+    set r2 [Rational new 2 3]
+    [$r1 add $r2] toString
+} -returnCodes ok -result "7/6"
 
-    set cases {
-        rat-7.1 "Raise a positive rational number to a positive integer power"
-            {1 2} 3 "1/8"
-        rat-7.2 "Raise a negative rational number to a positive integer power"
-            {-1 2} 3 "-1/8"
-        rat-7.3 "Raise zero to an integer power"
-            {0 1} 5 "0/1"
-        rat-7.4 "Raise one to an integer power"
-            {1 1} 4 "1/1"
-        rat-7.5 "Raise a positive rational number to the power of zero"
-            {1 2} 0 "1/1"
-        rat-7.6 "Raise a negative rational number to the power of zero"
-            {-1 2} 0 "1/1"
-        rat-7.7 "Raise a positive rational number to a negative integer power"
-            {4 1} -2 "1/16"
-    }
-    foreach {name description rat power output} $cases {
-        test $name $description -body {
-            set r [Rational new {*}$rat]
-            [$r pow $power] toString
-        } -returnCodes ok -result $output
-    }
+skip rat-2.2
+test rat-2.2 "Add a positive rational number and a negative rational number" -body {
+    set r1 [Rational new 1 2]
+    set r2 [Rational new -2 3]
+    [$r1 add $r2] toString
+} -returnCodes ok -result "-1/6"
 
-    set cases {
-        rat-8.1 "Raise a real number to a positive rational number"
-            8 {4 3} 16.0
-        rat-8.2 "Raise a real number to a negative rational number"
-            9 {-1 2} 0.3333333333333333
-        rat-8.3 "Raise a real number to a zero rational number"
-            2 {0 1} 1.0
-        rat-8.3 "Raise a real number to an infinite rational number"
-            2 {1 0} "Inf"
-    }
-    foreach {name description n rat output} $cases {
-        test $name $description -body {
-            set r [Rational new {*}$rat]
-            $r exprational $n
-        } -returnCodes ok -match double -result $output
-    }
+skip rat-2.3
+test rat-2.3 "Add two negative rational numbers" -body {
+    set r1 [Rational new -1 2]
+    set r2 [Rational new -2 3]
+    [$r1 add $r2] toString
+} -returnCodes ok -result "-7/6"
 
-    cleanupTests
-}
+skip rat-2.4
+test rat-2.4 "Add a rational number to its additive inverse" -body {
+    set r1 [Rational new 1 2]
+    set r2 [Rational new -1 2]
+    [$r1 add $r2] toString
+} -returnCodes ok -result "0/1"
+
+
+skip rat-3.1
+test rat-3.1 "Subtract two positive rational numbers" -body {
+    set r1 [Rational new 1 2]
+    set r2 [Rational new 2 3]
+    [$r1 sub $r2] toString
+} -returnCodes ok -result "-1/6"
+
+skip rat-3.2
+test rat-3.2 "Subtract a positive rational number and a negative rational number" -body {
+    set r1 [Rational new 1 2]
+    set r2 [Rational new -2 3]
+    [$r1 sub $r2] toString
+} -returnCodes ok -result "7/6"
+
+skip rat-3.3
+test rat-3.3 "Subtract two negative rational numbers" -body {
+    set r1 [Rational new -1 2]
+    set r2 [Rational new -2 3]
+    [$r1 sub $r2] toString
+} -returnCodes ok -result "1/6"
+
+skip rat-3.4
+test rat-3.4 "Subtract a rational number from itself" -body {
+    set r1 [Rational new 1 2]
+    set r2 [Rational new 1 2]
+    [$r1 sub $r2] toString
+} -returnCodes ok -result "0/1"
+
+
+skip rat-4.1
+test rat-4.1 "Multiply two positive rational numbers" -body {
+    set r1 [Rational new 1 2]
+    set r2 [Rational new 2 3]
+    [$r1 mul $r2] toString
+} -returnCodes ok -result "1/3"
+
+skip rat-4.2
+test rat-4.2 "Multiply a negative rational number by a positive rational number" -body {
+    set r1 [Rational new -1 2]
+    set r2 [Rational new 2 3]
+    [$r1 mul $r2] toString
+} -returnCodes ok -result "-1/3"
+
+skip rat-4.3
+test rat-4.3 "Multiply two negative rational numbers" -body {
+    set r1 [Rational new -1 2]
+    set r2 [Rational new -2 3]
+    [$r1 mul $r2] toString
+} -returnCodes ok -result "1/3"
+
+skip rat-4.4
+test rat-4.4 "Multiply a rational number by its reciprocal" -body {
+    set r1 [Rational new 1 2]
+    set r2 [Rational new 2 1]
+    [$r1 mul $r2] toString
+} -returnCodes ok -result "1/1"
+
+skip rat-4.5
+test rat-4.5 "Multiply a rational number by 1" -body {
+    set r1 [Rational new 1 2]
+    set r2 [Rational new 1 1]
+    [$r1 mul $r2] toString
+} -returnCodes ok -result "1/2"
+
+skip rat-4.6
+test rat-4.6 "Multiply a rational number by 0" -body {
+    set r1 [Rational new 1 2]
+    set r2 [Rational new 0 1]
+    [$r1 mul $r2] toString
+} -returnCodes ok -result "0/1"
+
+
+skip rat-5.1
+test rat-5.1 "Divide two positive rational numbers" -body {
+    set r1 [Rational new 1 2]
+    set r2 [Rational new 2 3]
+    [$r1 div $r2] toString
+} -returnCodes ok -result "3/4"
+
+skip rat-5.2
+test rat-5.2 "Divide a positive rational number by a negative rational number" -body {
+    set r1 [Rational new 1 2]
+    set r2 [Rational new -2 3]
+    [$r1 div $r2] toString
+} -returnCodes ok -result "-3/4"
+
+skip rat-5.3
+test rat-5.3 "Divide two negative rational numbers" -body {
+    set r1 [Rational new -1 2]
+    set r2 [Rational new -2 3]
+    [$r1 div $r2] toString
+} -returnCodes ok -result "3/4"
+
+skip rat-5.4
+test rat-5.4 "Divide a rational number by 1" -body {
+    set r1 [Rational new 1 2]
+    set r2 [Rational new 1 1]
+    [$r1 div $r2] toString
+} -returnCodes ok -result "1/2"
+
+
+skip rat-6.1
+test rat-6.1 "Absolute value of a positive rational number" -body {
+    set r [Rational new 1 2]
+    [$r abs] toString
+} -returnCodes ok -result "1/2"
+
+skip rat-6.2
+test rat-6.2 "Absolute value of a positive rational number with negative numerator and denominator" -body {
+    set r [Rational new -1 -2]
+    [$r abs] toString
+} -returnCodes ok -result "1/2"
+
+skip rat-6.3
+test rat-6.3 "Absolute value of a negative rational number" -body {
+    set r [Rational new -1 2]
+    [$r abs] toString
+} -returnCodes ok -result "1/2"
+
+skip rat-6.4
+test rat-6.4 "Absolute value of a negative rational number with negative denominator" -body {
+    set r [Rational new 1 -2]
+    [$r abs] toString
+} -returnCodes ok -result "1/2"
+
+skip rat-6.5
+test rat-6.5 "Absolute value of zero" -body {
+    set r [Rational new 0 1]
+    [$r abs] toString
+} -returnCodes ok -result "0/1"
+
+
+skip rat-7.1
+test rat-7.1 "Raise a positive rational number to a positive integer power" -body {
+    set r [Rational new 1 2]
+    [$r pow 3] toString
+} -returnCodes ok -result "1/8"
+
+skip rat-7.2
+test rat-7.2 "Raise a negative rational number to a positive integer power" -body {
+    set r [Rational new -1 2]
+    [$r pow 3] toString
+} -returnCodes ok -result "-1/8"
+
+skip rat-7.3
+test rat-7.3 "Raise zero to an integer power" -body {
+    set r [Rational new 0 1]
+    [$r pow 5] toString
+} -returnCodes ok -result "0/1"
+
+skip rat-7.4
+test rat-7.4 "Raise one to an integer power" -body {
+    set r [Rational new 1 1]
+    [$r pow 4] toString
+} -returnCodes ok -result "1/1"
+
+skip rat-7.5
+test rat-7.5 "Raise a positive rational number to the power of zero" -body {
+    set r [Rational new 1 2]
+    [$r pow 0] toString
+} -returnCodes ok -result "1/1"
+
+skip rat-7.6
+test rat-7.6 "Raise a negative rational number to the power of zero" -body {
+    set r [Rational new -1 2]
+    [$r pow 0] toString
+} -returnCodes ok -result "1/1"
+
+skip rat-7.7
+test rat-7.7 "Raise a positive rational number to a negative integer power" -body {
+    set r [Rational new 4 1]
+    [$r pow -2] toString
+} -returnCodes ok -result "1/16"
+
+
+skip rat-8.1
+test rat-8.1 "Raise a real number to a positive rational number" -body {
+    set r [Rational new 4 3]
+    $r exprational 8
+} -returnCodes ok -match double -result 16.0
+
+skip rat-8.2
+test rat-8.2 "Raise a real number to a negative rational number" -body {
+    set r [Rational new -1 2]
+    $r exprational 9
+} -returnCodes ok -match double -result 0.3333333333333333
+
+skip rat-8.3
+test rat-8.3 "Raise a real number to a zero rational number" -body {
+    set r [Rational new 0 1]
+    $r exprational 2
+} -returnCodes ok -match double -result 1.0
+
+skip rat-8.3
+test rat-8.3 "Raise a real number to an infinite rational number" -body {
+    set r [Rational new 1 0]
+    $r exprational 2
+} -returnCodes ok -match double -result "Inf"
+
+
+cleanupTests

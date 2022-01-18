@@ -1,140 +1,127 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "rectangles.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test rect-1 "no rows" -body {
+    rectangles {}
+} -result 0
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip rect-2
+test rect-2 "no columns" -body {
+    rectangles {""}
+} -result 0
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+skip rect-3
+test rect-3 "no rectangles" -body {
+    rectangles {" "}
+} -result 0
+
+skip rect-4
+test rect-4 "one rectangle" -body {
+    rectangles {
+        "+-+"
+        "| |"
+        "+-+"
     }
-}
+} -result 1
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip rect-5
+test rect-5 "two rectangles without shared parts" -body {
+    rectangles {
+        "  +-+"
+        "  | |"
+        "+-+-+"
+        "| |  "
+        "+-+  "
+    }
+} -result 2
 
-if {$::argv0 eq [info script]} {
-
-    test rect-1 "no rows" -body {
-        rectangles {}
-    } -result 0
-
-    test rect-2 "no columns" -body {
-        rectangles {""}
-    } -result 0
-
-    test rect-3 "no rectangles" -body {
-        rectangles {" "}
-    } -result 0
-
-    test rect-4 "one rectangle" -body {
-        rectangles {
-            "+-+"
-            "| |"
-            "+-+"
-        }
-    } -result 1
-
-    test rect-5 "two rectangles without shared parts" -body {
-        rectangles {
-            "  +-+"
-            "  | |"
-            "+-+-+"
-            "| |  "
-            "+-+  "
-        }
-    } -result 2
-
-    test rect-6 "five rectangles with shared parts" -body {
-        rectangles {
-            "  +-+"
-            "  | |"
-            "+-+-+"
-            "| | |"
-            "+-+-+"
-        }
-    } -result 5
+skip rect-6
+test rect-6 "five rectangles with shared parts" -body {
+    rectangles {
+        "  +-+"
+        "  | |"
+        "+-+-+"
+        "| | |"
+        "+-+-+"
+    }
+} -result 5
 
 
-    test rect-7 "rectangle of height 1 is counted" -body {
-        rectangles {
-            "+--+"
-            "+--+"
-        }
-    } -result 1
+skip rect-7
+test rect-7 "rectangle of height 1 is counted" -body {
+    rectangles {
+        "+--+"
+        "+--+"
+    }
+} -result 1
 
-    test rect-8 "rectangle of width 1 is counted" -body {
-        rectangles {
-            "++"
-            "||"
-            "++"
-        }
-    } -result 1
+skip rect-8
+test rect-8 "rectangle of width 1 is counted" -body {
+    rectangles {
+        "++"
+        "||"
+        "++"
+    }
+} -result 1
 
-    test rect-9 "1x1 square is counted" -body {
-        rectangles {
-            "++"
-            "++"
-        }
-    } -result 1
+skip rect-9
+test rect-9 "1x1 square is counted" -body {
+    rectangles {
+        "++"
+        "++"
+    }
+} -result 1
 
-    test rect-10 "only complete rectangles are counted" -body {
-        rectangles {
-            "  +-+"
-            "    |"
-            "+-+-+"
-            "| | -"
-            "+-+-+"
-        }
-    } -result 1
+skip rect-10
+test rect-10 "only complete rectangles are counted" -body {
+    rectangles {
+        "  +-+"
+        "    |"
+        "+-+-+"
+        "| | -"
+        "+-+-+"
+    }
+} -result 1
 
-    test rect-11 "rectangles can be of different sizes" -body {
-        rectangles {
-            "+------+----+"
-            "|      |    |"
-            "+---+--+    |"
-            "|   |       |"
-            "+---+-------+"
-        }
-    } -result 3
+skip rect-11
+test rect-11 "rectangles can be of different sizes" -body {
+    rectangles {
+        "+------+----+"
+        "|      |    |"
+        "+---+--+    |"
+        "|   |       |"
+        "+---+-------+"
+    }
+} -result 3
 
-    test rect-12 "corner is required for a rectangle to be complete" -body {
-        rectangles {
-            "+------+----+"
-            "|      |    |"
-            "+------+    |"
-            "|   |       |"
-            "+---+-------+"
-        }
-    } -result 2
+skip rect-12
+test rect-12 "corner is required for a rectangle to be complete" -body {
+    rectangles {
+        "+------+----+"
+        "|      |    |"
+        "+------+    |"
+        "|   |       |"
+        "+---+-------+"
+    }
+} -result 2
 
-    test rect-13 "large input with many rectangles" -body {
-        rectangles {
-            "+---+--+----+"
-            "|   +--+----+"
-            "+---+--+    |"
-            "|   +--+----+"
-            "+---+--+--+-+"
-            "+---+--+--+-+"
-            "+------+  | |"
-            "          +-+"
-        }
-    } -result 60
+skip rect-13
+test rect-13 "large input with many rectangles" -body {
+    rectangles {
+        "+---+--+----+"
+        "|   +--+----+"
+        "+---+--+    |"
+        "|   +--+----+"
+        "+---+--+--+-+"
+        "+---+--+--+-+"
+        "+------+  | |"
+        "          +-+"
+    }
+} -result 60
 
-    cleanupTests
-}
+cleanupTests

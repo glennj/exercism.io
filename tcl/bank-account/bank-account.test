@@ -1,177 +1,169 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+# configure -verbose {body error usec}
+
+############################################################
 source "bank-account.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test bank-account-1 "newly opened account has zero balance" -body {
+    set account [BankAccount new]
+    $account open
+    $account balance
+} -returnCodes ok -result 0
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip bank-account-2
+test bank-account-2 "can deposit money" -body {
+    set account [BankAccount new]
+    $account open
+    $account deposit 100
+    $account balance
+} -returnCodes ok -result 100
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip bank-account-3
+test bank-account-3 "can deposit money sequentially" -body {
+    set account [BankAccount new]
+    $account open
+    $account deposit 100
+    $account deposit 50
+    $account balance
+} -returnCodes ok -result 150
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip bank-account-4
+test bank-account-4 "can withdraw money" -body {
+    set account [BankAccount new]
+    $account open
+    $account deposit 100
+    $account withdraw 50
+    $account balance
+} -returnCodes ok -result 50
 
-if {$::argv0 eq [info script]} {
-    test bank-account-1 "newly opened account has zero balance" -body {
-        set account [BankAccount new]
-        $account open
-        $account balance
-    } -returnCodes ok -result 0
+skip bank-account-5
+test bank-account-5 "can withdraw money sequentially" -body {
+    set account [BankAccount new]
+    $account open
+    $account deposit 100
+    $account withdraw 20
+    $account withdraw 80
+    $account balance
+} -returnCodes ok -result 0
 
-    test bank-account-2 "can deposit money" -body {
-        set account [BankAccount new]
-        $account open
-        $account deposit 100
-        $account balance
-    } -returnCodes ok -result 100
+skip bank-account-6
+test bank-account-6 "checking balance of closed account throws error" -body {
+    set account [BankAccount new]
+    $account open
+    $account close
+    $account balance
+} -returnCodes error -match glob -result "*account is not open*"
 
-    test bank-account-3 "can deposit money sequentially" -body {
-        set account [BankAccount new]
-        $account open
-        $account deposit 100
-        $account deposit 50
-        $account balance
-    } -returnCodes ok -result 150
+skip bank-account-7
+test bank-account-7 "deposit into closed account" -body {
+    set account [BankAccount new]
+    $account open
+    $account close
+    $account deposit 50
+} -returnCodes error -match glob -result "*account is not open*"
 
-    test bank-account-4 "can withdraw money" -body {
-        set account [BankAccount new]
-        $account open
-        $account deposit 100
-        $account withdraw 50
-        $account balance
-    } -returnCodes ok -result 50
+skip bank-account-8
+test bank-account-8 "withdraw from closed account" -body {
+    set account [BankAccount new]
+    $account open
+    $account close
+    $account withdraw 50
+} -returnCodes error -match glob -result "*account is not open*"
 
-    test bank-account-5 "can withdraw money sequentially" -body {
-        set account [BankAccount new]
-        $account open
-        $account deposit 100
-        $account withdraw 20
-        $account withdraw 80
-        $account balance
-    } -returnCodes ok -result 0
+skip bank-account-9
+test bank-account-9 "close already closed account" -body {
+    set account [BankAccount new]
+    $account close
+} -returnCodes error -match glob -result "*account is not open*"
 
-    test bank-account-6 "checking balance of closed account throws error" -body {
-        set account [BankAccount new]
-        $account open
-        $account close
-        $account balance
-    } -returnCodes error -match glob -result "*account is not open*"
+skip bank-account-10
+test bank-account-10 "open already opened account" -body {
+    set account [BankAccount new]
+    $account open
+    $account open
+} -returnCodes error -match glob -result "*account is already open*"
 
-    test bank-account-7 "deposit into closed account" -body {
-        set account [BankAccount new]
-        $account open
-        $account close
-        $account deposit 50
-    } -returnCodes error -match glob -result "*account is not open*"
+skip bank-account-11
+test bank-account-11 "reopened account does not retain balance" -body {
+    set account [BankAccount new]
+    $account open
+    $account deposit 50
+    $account close
+    $account open
+    $account balance
+} -returnCodes ok -result 0
 
-    test bank-account-8 "withdraw from closed account" -body {
-        set account [BankAccount new]
-        $account open
-        $account close
-        $account withdraw 50
-    } -returnCodes error -match glob -result "*account is not open*"
+skip bank-account-12
+test bank-account-12 "cannot withdraw more than deposited" -body {
+    set account [BankAccount new]
+    $account open
+    $account deposit 25
+    $account withdraw 50
+} -returnCodes error -match glob -result "*insufficient funds*"
 
-    test bank-account-9 "close already closed account" -body {
-        set account [BankAccount new]
-        $account close
-    } -returnCodes error -match glob -result "*account is not open*"
+skip bank-account-13
+test bank-account-13 "cannot withdraw negative" -body {
+    set account [BankAccount new]
+    $account open
+    $account deposit 100
+    $account withdraw -50
+} -returnCodes error -match glob -result "*invalid amount*"
 
-    test bank-account-10 "open already opened account" -body {
-        set account [BankAccount new]
-        $account open
-        $account open
-    } -returnCodes error -match glob -result "*account is already open*"
+skip bank-account-14
+test bank-account-14 "cannot deposit negative" -body {
+    set account [BankAccount new]
+    $account open
+    $account deposit -50
+} -returnCodes error -match glob -result "*invalid amount*"
 
-    test bank-account-11 "reopened account does not retain balance" -body {
-        set account [BankAccount new]
-        $account open
-        $account deposit 50
-        $account close
-        $account open
-        $account balance
-    } -returnCodes ok -result 0
+skip bank-account-15
+test bank-account-15 "adjust balance concurrently" -body {
+    # In this style of using Tcl threads, we don't need
+    # to make any thread-specific adjustments to the
+    # BankAccount class: passing messages between threads
+    # does all the locking for us transparently.
 
-    test bank-account-12 "cannot withdraw more than deposited" -body {
-        set account [BankAccount new]
-        $account open
-        $account deposit 25
-        $account withdraw 50
-    } -returnCodes error -match glob -result "*insufficient funds*"
+    package require Thread
 
-    test bank-account-13 "cannot withdraw negative" -body {
-        set account [BankAccount new]
-        $account open
-        $account deposit 100
-        $account withdraw -50
-    } -returnCodes error -match glob -result "*invalid amount*"
+    BankAccount create theAccount
+    theAccount open
+    theAccount deposit 123
 
-    test bank-account-14 "cannot deposit negative" -body {
-        set account [BankAccount new]
-        $account open
-        $account deposit -50
-    } -returnCodes error -match glob -result "*invalid amount*"
-
-    test bank-account-15 "adjust balance concurrently" -body {
-        # In this style of using Tcl threads, we don't need
-        # to make any thread-specific adjustments to the
-        # BankAccount class: passing messages between threads
-        # does all the locking for us transparently.
-
-        package require Thread
-
-        BankAccount create theAccount
-        theAccount open
-        theAccount deposit 123
-
-        # Create 1000 worker threads
-        for {set i 0} {$i < 1000} {incr i} {
-            lappend threads [thread::create -joinable {
-                proc doWork {acctThread} {
-                    thread::send -async $acctThread {
-                        theAccount deposit 5
-                    }
-                    # wait a few milliseconds
-                    after [expr {int(10 * rand())}]
-                    thread::send -async $acctThread {
-                        theAccount withdraw 5
-                    }
-                    # now that I've done the work, release me
-                    thread::release
+    # Create 1000 worker threads
+    for {set i 0} {$i < 1000} {incr i} {
+        lappend threads [thread::create -joinable {
+            proc doWork {acctThread} {
+                thread::send -async $acctThread {
+                    theAccount deposit 5
                 }
-                thread::wait
-            }]
-        }
+                # wait a few milliseconds
+                after [expr {int(10 * rand())}]
+                thread::send -async $acctThread {
+                    theAccount withdraw 5
+                }
+                # now that I've done the work, release me
+                thread::release
+            }
+            thread::wait
+        }]
+    }
 
-        # Launch them
-        foreach thread $threads {
-            thread::send -async $thread [list doWork [thread::id]]
-        }
+    # Launch them
+    foreach thread $threads {
+        thread::send -async $thread [list doWork [thread::id]]
+    }
 
-        # Reap them
-        foreach thread $threads {
-            thread::join $thread
-        }
+    # Reap them
+    foreach thread $threads {
+        thread::join $thread
+    }
 
-        theAccount balance
+    theAccount balance
 
-    } -returnCodes ok -result 123
+} -returnCodes ok -result 123
 
-    cleanupTests
-}
+cleanupTests

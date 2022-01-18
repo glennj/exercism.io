@@ -1,144 +1,130 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "list-ops.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+# append
+test list-ops-1.1 "append empty lists" -body {
+    set list1 {}
+    listOps::append list1 {}
+    set list1
+} -returnCodes ok -result {}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip list-ops-1.*
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+test list-ops-1.2 "append list to empty list" -body {
+    set list1 {}
+    listOps::append list1 {1 2 3 4}
+    set list1
+} -returnCodes ok -result {1 2 3 4}
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+test list-ops-1.3 "append empty list to list" -body {
+    set list1 {1 2 3 4}
+    listOps::append list1 {}
+    set list1
+} -returnCodes ok -result {1 2 3 4}
 
-if {$::argv0 eq [info script]} {
+test list-ops-1.4 "append non-empty lists" -body {
+    set list1 {1 2}
+    listOps::append list1 {2 3 4 5}
+    set list1
+} -returnCodes ok -result {1 2 2 3 4 5}
 
-    set appendCases {
-        list-ops-1.1 "append empty lists" {} {} {}
-        list-ops-1.2 "append list to empty list" {} {1 2 3 4} {1 2 3 4}
-        list-ops-1.3 "append empty list to list" {1 2 3 4} {} {1 2 3 4}
-        list-ops-1.4 "append non-empty lists" {1 2} {2 3 4 5} {1 2 2 3 4 5}
-    }
-    foreach {name description list1 list2 result} $appendCases {
-        test $name $description -body {
-            listOps::append list1 $list2
-            set list1
-        } -returnCodes ok -result $result
-    }
+#concat
+skip list-ops-2.*
 
-    set concatCases {
-        list-ops-2.1 "concat empty list" {} {}
-        list-ops-2.2 "concat list of lists" {{1 2} {3} {} {4 5 6}} {1 2 3 4 5 6}
-        list-ops-2.3
-            "concat list of nested lists"
-            {{{1} {2}} {{3}} {{}} {{4 5 6}}}
-            {1 2 3 {} {4 5 6}}
-    }
+test list-ops-2.1 "concat empty list" -body {
+    listOps::concat {}
+} -returnCodes ok -result {}
 
-    foreach {name description lists result} $concatCases {
-        test $name $description -body {
-            listOps::concat $lists
-        } -returnCodes ok -result $result
-    }
+test list-ops-2.2 "concat list of lists" -body {
+    listOps::concat {{1 2} {3} {} {4 5 6}}
+} -returnCodes ok -result {1 2 3 4 5 6}
 
-    set filterCases {
-        list-ops-3.1 "filter empty list" {} {x {expr {$x % 2 == 1}}} {}
-        list-ops-3.2 "filter non-empty list" {1 2 3 5} {x {expr {$x % 2 == 1}}} {1 3 5}
-    }
+test list-ops-2.3 "concat list of nested lists" -body {
+    listOps::concat {{{1} {2}} {{3}} {{}} {{4 5 6}}}
+} -returnCodes ok -result {1 2 3 {} {4 5 6}}
 
-    foreach {name description list func result} $filterCases {
-        test $name $description -body {
-            listOps::filter $list $func
-        } -returnCodes ok -result $result
-    }
+# filter
+skip list-ops-3.*
 
-    set lengthCases {
-        list-ops-4.1 "length empty list" {} 0
-        list-ops-4.2 "length non-empty list" {1 2 3 4} 4
-    }
+test list-ops-3.1 "filter empty list" -body {
+    listOps::filter {} {x {expr {$x % 2 == 1}}}
+} -returnCodes ok -result {}
 
-    foreach {name description list result} $lengthCases {
-        test $name $description -body {
-            listOps::length $list
-        } -returnCodes ok -result $result
-    }
+test list-ops-3.2 "filter non-empty list" -body {
+    listOps::filter {1 2 3 5} {x {expr {$x % 2 == 1}}}
+} -returnCodes ok -result {1 3 5}
 
-    set mapCases {
-        list-ops-5.1 "map empty list" {} {x {expr {$x + 1}}} {}
-        list-ops-5.2 "map non-empty list" {1 3 5 7} {x {expr {$x + 1}}} {2 4 6 8}
-    }
+# length
+skip list-ops-4.*
 
-    foreach {name description list func result} $mapCases {
-        test $name $description -body {
-            listOps::map $list $func
-        } -returnCodes ok -result $result
-    }
+test list-ops-4.1 "length empty list" -body {
+    listOps::length {}
+} -returnCodes ok -result 0
 
-    set foldlCases {
-        list-ops-6.1 "foldl empty list" 
-            {} 2 {{acc elem} {expr {$acc * $elem}}} 2
-        list-ops-6.2
-            "foldl direction independent function applied to non-empty list"
-            {1 2 3 4} 5 {{acc elem} {expr {$acc + $elem}}} 15
-        list-ops-6.3
-            "foldl direction dependent function applied to non-empty list"
-            {2 5} 5 {{acc elem} {expr {$acc / $elem}}} 0
-    }
+test list-ops-4.2 "length non-empty list" -body {
+    listOps::length {1 2 3 4}
+} -returnCodes ok -result 4
 
-    foreach {name description list initial func result} $foldlCases {
-        test $name $description -body {
-            listOps::foldl $list $initial $func
-        } -returnCodes ok -result $result
-    }
+# map
+skip list-ops-5.*
 
-    set reverseCases {
-        list-ops-7.1 "reverse empty list" {} {}
-        list-ops-7.2 "reverse non-empty list" {1 3 5 7} {7 5 3 1}
-        list-ops-7.3
-            "reverse list of lists is not flattened"
-            {{1 2} {3} {} {4 5 6}} {{4 5 6} {} 3 {1 2}}
-    }
+test list-ops-5.1 "map empty list" -body {
+    listOps::map {} {x {expr {$x + 1}}}
+} -returnCodes ok -result {}
 
-    foreach {name description list result} $reverseCases {
-        test $name $description -body {
-            listOps::reverse $list
-        } -returnCodes ok -result $result
-    }
+test list-ops-5.2 "map non-empty list" -body {
+    listOps::map {1 3 5 7} {x {expr {$x + 1}}}
+} -returnCodes ok -result {2 4 6 8}
 
-    set foldrCases {
-        list-ops-8.1 "foldr empty list"
-            {} 2 {{elem acc} {expr {$elem * $acc}}} 2
-        list-ops-8.2
-          "foldr direction independent function applied to non-empty list"
-          {1 2 3 4} 5 {{elem acc} {expr {$elem + $acc}}}
-          15
-        list-ops-8.3
-          "foldr direction dependent function applied to non-empty list"
-          {1 2 3 4} 24.0 {{elem acc} {expr {1.0 * $elem / $acc}}} 9.0
-    }
+# foldl
+skip list-ops-6.*
 
-    foreach {name description list initial func result} $foldrCases {
-        test $name $description -body {
-            listOps::foldr $list $initial $func
-        } -returnCodes ok -result $result
-    }
+test list-ops-6.1 "foldl empty list" -body {
+    listOps::foldl {} 2 {{acc elem} {expr {$acc * $elem}}}
+} -returnCodes ok -result 2
 
-    cleanupTests
-}
+test list-ops-6.2 "foldl direction independent function applied to non-empty list" -body {
+    listOps::foldl {1 2 3 4} 5 {{acc elem} {expr {$acc + $elem}}}
+} -returnCodes ok -result 15
+
+test list-ops-6.3 "foldl direction dependent function applied to non-empty list" -body {
+    listOps::foldl {2 5} 5 {{acc elem} {expr {$acc / $elem}}}
+} -returnCodes ok -result 0
+
+# reverse
+skip list-ops-7.*
+
+test list-ops-7.1 "reverse empty list" -body {
+    listOps::reverse {}
+} -returnCodes ok -result {}
+
+test list-ops-7.2 "reverse non-empty list" -body {
+    listOps::reverse {1 3 5 7}
+} -returnCodes ok -result {7 5 3 1}
+
+test list-ops-7.3 "reverse list of lists is not flattened" -body {
+    listOps::reverse {{1 2} {3} {} {4 5 6}}
+} -returnCodes ok -result {{4 5 6} {} 3 {1 2}}
+
+# foldr
+skip list-ops-8.*
+
+test list-ops-8.1 "foldr empty list" -body {
+    listOps::foldr {} 2 {{elem acc} {expr {$elem * $acc}}}
+} -returnCodes ok -result 2
+
+test list-ops-8.2 "foldr direction independent function applied to non-empty list" -body {
+    listOps::foldr {1 2 3 4} 5 {{elem acc} {expr {$elem + $acc}}}
+} -returnCodes ok -result 15
+
+test list-ops-8.3 "foldr direction dependent function applied to non-empty list" -body {
+    listOps::foldr {1 2 3 4} 24.0 {{elem acc} {expr {1.0 * $elem / $acc}}}
+} -returnCodes ok -result 9.0
+
+
+cleanupTests

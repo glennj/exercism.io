@@ -1,132 +1,124 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "twelve-days.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+# individual verse tests
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+test twelve-days-1.1 "first day a partridge in a pear tree" \
+    -body { verse 1 } \
+    -returnCodes ok \
+    -result "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree."
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip twelve-days-1.2
+test twelve-days-1.2 "second day two turtle doves" \
+    -body { verse 2 } \
+    -returnCodes ok \
+    -result "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree."
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip twelve-days-1.3
+test twelve-days-1.3 "third day three french hens" \
+    -body { verse 3 } \
+    -returnCodes ok \
+    -result "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
 
-if {$::argv0 eq [info script]} {
+skip twelve-days-1.4
+test twelve-days-1.4 "fourth day four calling birds" \
+    -body { verse 4 } \
+    -returnCodes ok \
+    -result "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
 
-    set verseCases {
-        twelve-days-1.1 "first day a partridge in a pear tree"
-        1
+skip twelve-days-1.5
+test twelve-days-1.5 "fifth day five gold rings" \
+    -body { verse 5 } \
+    -returnCodes ok \
+    -result "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+skip twelve-days-1.6
+test twelve-days-1.6 "sixth day six geese-a-laying" \
+    -body { verse 6 } \
+    -returnCodes ok \
+    -result "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+skip twelve-days-1.7
+test twelve-days-1.7 "seventh day seven swans-a-swimming" \
+    -body { verse 7 } \
+    -returnCodes ok \
+    -result "On the seventh day of Christmas my true love gave to me: seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+skip twelve-days-1.8
+test twelve-days-1.8 "eighth day eight maids-a-milking" \
+    -body { verse 8 } \
+    -returnCodes ok \
+    -result "On the eighth day of Christmas my true love gave to me: eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+skip twelve-days-1.9
+test twelve-days-1.9 "ninth day nine ladies dancing" \
+    -body { verse 9 } \
+    -returnCodes ok \
+    -result "On the ninth day of Christmas my true love gave to me: nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+skip twelve-days-1.10
+test twelve-days-1.10 "tenth day ten lords-a-leaping" \
+    -body { verse 10 } \
+    -returnCodes ok \
+    -result "On the tenth day of Christmas my true love gave to me: ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+skip twelve-days-1.11
+test twelve-days-1.11 "eleventh day eleven pipers piping" \
+    -body { verse 11 } \
+    -returnCodes ok \
+    -result "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+skip twelve-days-1.12
+test twelve-days-1.12 "twelfth day twelve drummers drumming" \
+    -body { verse 12 } \
+    -returnCodes ok \
+    -result "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+
+############################################################
+# song tests
+
+skip twelve-days-2.1
+test twelve-days-2.1 "sing first three verses" \
+    -body { sing 1 3 } \
+    -returnCodes ok \
+    -result [join {
         "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree."
-
-        twelve-days-1.2 "second day two turtle doves"
-        2
         "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree."
-
-        twelve-days-1.3 "third day three french hens"
-        3
         "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+    } \n]
 
-        twelve-days-1.4 "fourth day four calling birds"
-        4
+skip twelve-days-2.2
+test twelve-days-2.2 "sing three verses from the middle" \
+    -body { sing 4 6 } \
+    -returnCodes ok \
+    -result [join {
         "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-        twelve-days-1.5 "fifth day five gold rings"
-        5
         "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-        twelve-days-1.6 "sixth day six geese-a-laying"
-        6
         "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+    } \n]
 
-        twelve-days-1.7 "seventh day seven swans-a-swimming"
-        7
+skip twelve-days-2.3
+test twelve-days-2.3 "sing the whole song" \
+    -body { sing 1 12 } \
+    -returnCodes ok \
+    -result [join {
+        "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree."
+        "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree."
+        "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+        "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+        "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+        "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
         "On the seventh day of Christmas my true love gave to me: seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-        twelve-days-1.8 "eighth day eight maids-a-milking"
-        8
         "On the eighth day of Christmas my true love gave to me: eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-        twelve-days-1.9 "ninth day nine ladies dancing"
-        9
         "On the ninth day of Christmas my true love gave to me: nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-        twelve-days-1.10 "tenth day ten lords-a-leaping"
-        10
         "On the tenth day of Christmas my true love gave to me: ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-        twelve-days-1.11 "eleventh day eleven pipers piping"
-        11
         "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-
-        twelve-days-1.12 "twelfth day twelve drummers drumming"
-        12
         "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-    }
+    } \n]
 
-    foreach {name description verseNum lyric} $verseCases {
-        test $name $description -body {
-            verse $verseNum
-        } -returnCodes ok -result $lyric
-    }
-
-    set rangeCases {
-        twelve-days-2.1 "sing first three verses"
-        1 3
-        {
-            "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree."
-            "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree."
-            "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-        }
-
-        twelve-days-2.2 "sing three verses from the middle"
-        4 6
-        {
-            "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-        }
-
-        twelve-days-2.3 "sing the whole song"
-        1 12
-        {
-            "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree."
-            "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree."
-            "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            "On the seventh day of Christmas my true love gave to me: seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            "On the eighth day of Christmas my true love gave to me: eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            "On the ninth day of Christmas my true love gave to me: nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            "On the tenth day of Christmas my true love gave to me: ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-        }
-    }
-
-    foreach {name description from to lyrics} $rangeCases {
-        set song [join $lyrics \n]
-        test $name $description -body {
-            sing $from $to
-        } -returnCodes ok -result $song
-    }
-
-    cleanupTests
-}
+cleanupTests

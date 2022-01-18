@@ -43,6 +43,17 @@ copyright 2003 © Brent Welch, Ken Jones
     * Note, this chapter states "Most binary distributions of Tcl are not thread-enabled". This is no longer the case: Tcl distributions are now built with thread support (ref [TIP 364](https://core.tcl-lang.org/tips/doc/trunk/tip/364.md))
 * [Thread Package Commands](https://tcl.tk/man/tcl8.6/ThreadCmd/contents.htm) from the Tcl documentation.
 
+## Installation
+
+Some Tcl distributions do not include Tcl's Thread package by default: it may need to be install separately.
+Verify with
+```bash
+$ echo 'package require Thread' | tclsh
+```
+If that produces _no output_ then the Thread package is already installed.
+
+Execute `apt install tcl-thread` (or `dnf install tcl-thread`) as required.
+
 ## Source
 
 ### Created by

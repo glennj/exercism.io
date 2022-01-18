@@ -1,108 +1,94 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "simple-cipher.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+# Using a randomly generated key
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+test simple-cipher-1.1 "Random key: Can encode" -body {
+    set cipher [SimpleCipher new]
+    set plaintext "aaaaaaaaaa"
+    set expected [string range [$cipher key] 0 [string length $plaintext]-1]
+    set actual [$cipher encode $plaintext]
+    expr {$actual eq $expected}
+} -returnCodes ok -result 1
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip simple-cipher-1.2
+test simple-cipher-1.2 "Random key: Can decode" -body {
+    set cipher [SimpleCipher new]
+    set expected "aaaaaaaaaa"
+    set plaintext [string range [$cipher key] 0 [string length $expected]-1]
+    set actual [$cipher decode $plaintext]
+    expr {$actual eq $expected}
+} -returnCodes ok -result 1
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip simple-cipher-1.3
+test simple-cipher-1.3 "Random key: Is reversible" -body {
+    set cipher [SimpleCipher new]
+    set plaintext "abcdefghij"
+    set roundtrip [$cipher decode [$cipher encode $plaintext]]
+    expr {$plaintext eq $roundtrip}
+} -returnCodes ok -result 1
 
-if {$::argv0 eq [info script]} {
-
-    # Using a randomly generated key
-
-    test simple-cipher-1.1 "Random key: Can encode" -body {
-        set cipher [SimpleCipher new]
-        set plaintext "aaaaaaaaaa"
-        set expected [string range [$cipher key] 0 [string length $plaintext]-1]
-        set actual [$cipher encode $plaintext]
-        expr {$actual eq $expected}
-    } -returnCodes ok -result 1
-
-    test simple-cipher-1.2 "Random key: Can decode" -body {
-        set cipher [SimpleCipher new]
-        set expected "aaaaaaaaaa"
-        set plaintext [string range [$cipher key] 0 [string length $expected]-1]
-        set actual [$cipher decode $plaintext]
-        expr {$actual eq $expected}
-    } -returnCodes ok -result 1
-
-    test simple-cipher-1.3 "Random key: Is reversible" -body {
-        set cipher [SimpleCipher new]
-        set plaintext "abcdefghij"
-        set roundtrip [$cipher decode [$cipher encode $plaintext]]
-        expr {$plaintext eq $roundtrip}
-    } -returnCodes ok -result 1
-
-    test simple-cipher-1.4 "Key is made only of lowercase letters" -body {
-        set cipher [SimpleCipher new]
-        $cipher key
-    } -returnCodes ok -match regexp -result {^[a-z]+$}
+skip simple-cipher-1.4
+test simple-cipher-1.4 "Key is made only of lowercase letters" -body {
+    set cipher [SimpleCipher new]
+    $cipher key
+} -returnCodes ok -match regexp -result {^[a-z]+$}
 
 
-    # Substitution cipher
+# Substitution cipher
 
-    test simple-cipher-2.1 "Can encode" -body {
-        set cipher [SimpleCipher new "abcdefghij"]
-        $cipher encode "aaaaaaaaaa"
-    } -returnCodes ok -result "abcdefghij"
+skip simple-cipher-2.1
+test simple-cipher-2.1 "Can encode" -body {
+    set cipher [SimpleCipher new "abcdefghij"]
+    $cipher encode "aaaaaaaaaa"
+} -returnCodes ok -result "abcdefghij"
 
-    test simple-cipher-2.2 "Can decode" -body {
-        set cipher [SimpleCipher new "abcdefghij"]
-        $cipher decode "abcdefghij"
-    } -returnCodes ok -result "aaaaaaaaaa"
+skip simple-cipher-2.2
+test simple-cipher-2.2 "Can decode" -body {
+    set cipher [SimpleCipher new "abcdefghij"]
+    $cipher decode "abcdefghij"
+} -returnCodes ok -result "aaaaaaaaaa"
 
-    test simple-cipher-2.3 "Is reversible" -body {
-        set cipher [SimpleCipher new "abcdefghij"]
-        $cipher decode [$cipher encode "abcdefghij"]
-    } -returnCodes ok -result "abcdefghij"
+skip simple-cipher-2.3
+test simple-cipher-2.3 "Is reversible" -body {
+    set cipher [SimpleCipher new "abcdefghij"]
+    $cipher decode [$cipher encode "abcdefghij"]
+} -returnCodes ok -result "abcdefghij"
 
-    test simple-cipher-2.4 "Can double shift encode" -body {
-        set cipher [SimpleCipher new "iamapandabear"]
-        $cipher encode "iamapandabear"
-    } -returnCodes ok -result "qayaeaagaciai"
+skip simple-cipher-2.4
+test simple-cipher-2.4 "Can double shift encode" -body {
+    set cipher [SimpleCipher new "iamapandabear"]
+    $cipher encode "iamapandabear"
+} -returnCodes ok -result "qayaeaagaciai"
 
-    test simple-cipher-2.5 "Can wrap on encode" -body {
-        set cipher [SimpleCipher new "abcdefghij"]
-        $cipher encode "zzzzzzzzzz"
-    } -returnCodes ok -result "zabcdefghi"
+skip simple-cipher-2.5
+test simple-cipher-2.5 "Can wrap on encode" -body {
+    set cipher [SimpleCipher new "abcdefghij"]
+    $cipher encode "zzzzzzzzzz"
+} -returnCodes ok -result "zabcdefghi"
 
-    test simple-cipher-2.6 "Can wrap on decode" -body {
-        set cipher [SimpleCipher new "abcdefghij"]
-        $cipher decode "zabcdefghi"
-    } -returnCodes ok -result "zzzzzzzzzz"
+skip simple-cipher-2.6
+test simple-cipher-2.6 "Can wrap on decode" -body {
+    set cipher [SimpleCipher new "abcdefghij"]
+    $cipher decode "zabcdefghi"
+} -returnCodes ok -result "zzzzzzzzzz"
 
-    test simple-cipher-2.7 "Can encode messages longer than the key" -body {
-        set cipher [SimpleCipher new "abc"]
-        $cipher encode "iamapandabear"
-    } -returnCodes ok -result "iboaqcnecbfcr"
+skip simple-cipher-2.7
+test simple-cipher-2.7 "Can encode messages longer than the key" -body {
+    set cipher [SimpleCipher new "abc"]
+    $cipher encode "iamapandabear"
+} -returnCodes ok -result "iboaqcnecbfcr"
 
-    test simple-cipher-2.8 "Can decode messages longer than the key" -body {
-        set cipher [SimpleCipher new "abc"]
-        $cipher decode "iboaqcnecbfcr"
-    } -returnCodes ok -result "iamapandabear"
-    
+skip simple-cipher-2.8
+test simple-cipher-2.8 "Can decode messages longer than the key" -body {
+    set cipher [SimpleCipher new "abc"]
+    $cipher decode "iboaqcnecbfcr"
+} -returnCodes ok -result "iamapandabear"
 
-    cleanupTests
-}
+
+cleanupTests

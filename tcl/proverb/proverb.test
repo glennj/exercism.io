@@ -1,90 +1,59 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "proverb.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
+test proverb-1 "zero pieces" -body {
+    recite {}
+} -returnCodes ok -match orderedLists -result {}
+
+skip proverb-2
+test proverb-2 "one piece" -body {
+    recite { nail }
+} -returnCodes ok -match orderedLists -result { "And all for the want of a nail." }
+
+skip proverb-3
+test proverb-3 "two pieces" -body {
+    recite { nail shoe }
+} -returnCodes ok -match orderedLists -result {
+    "For want of a nail the shoe was lost."
+    "And all for the want of a nail." 
 }
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
+skip proverb-4
+test proverb-4 "three pieces" -body {
+    recite { nail shoe horse }
+} -returnCodes ok -match orderedLists -result {
+    "For want of a nail the shoe was lost."
+    "For want of a shoe the horse was lost."
+    "And all for the want of a nail." 
 }
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
+skip proverb-5
+test proverb-5 "full proverb" -body {
+    recite { nail shoe horse rider message battle kingdom }
+} -returnCodes ok -match orderedLists -result {
+    "For want of a nail the shoe was lost."
+    "For want of a shoe the horse was lost."
+    "For want of a horse the rider was lost."
+    "For want of a rider the message was lost."
+    "For want of a message the battle was lost."
+    "For want of a battle the kingdom was lost."
+    "And all for the want of a nail." 
 }
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
-customMatch list listMatch
-proc listMatch {expected actual} {
-    if {[llength $expected] != [llength $actual]} {
-        return false
-    }
-    foreach e $expected a $actual {
-        if {$e ne $a} {
-            return false
-        }
-    }
-    return true
+skip proverb-6
+test proverb-6 "four pieces modernized" -body {
+    recite { pin gun soldier battle }
+} -returnCodes ok -match orderedLists -result {
+    "For want of a pin the gun was lost."
+    "For want of a gun the soldier was lost."
+    "For want of a soldier the battle was lost."
+    "And all for the want of a pin." 
 }
 
 
-if {$::argv0 eq [info script]} {
-
-    set cases {
-        proverb-1 "zero pieces"
-            {} {}
-
-        proverb-2 "one piece"
-            { nail }
-            { "And all for the want of a nail." }
-
-        proverb-3 "two pieces"
-            { nail shoe }
-            { "For want of a nail the shoe was lost."
-              "And all for the want of a nail." }
-
-        proverb-4 "three pieces"
-            { nail shoe horse }
-            { "For want of a nail the shoe was lost."
-              "For want of a shoe the horse was lost."
-              "And all for the want of a nail." }
-
-        proverb-5 "full proverb"
-            { nail shoe horse rider message battle kingdom }
-            { "For want of a nail the shoe was lost."
-              "For want of a shoe the horse was lost."
-              "For want of a horse the rider was lost."
-              "For want of a rider the message was lost."
-              "For want of a message the battle was lost."
-              "For want of a battle the kingdom was lost."
-              "And all for the want of a nail." }
-
-        proverb-6 "four pieces modernized"
-            { pin gun soldier battle }
-            { "For want of a pin the gun was lost."
-              "For want of a gun the soldier was lost."
-              "For want of a soldier the battle was lost."
-              "And all for the want of a pin." }
-    }
-
-    foreach {name description items result} $cases {
-        test $name $description -body {
-            recite $items
-        } -returnCodes ok -match list -result $result
-    }
-
-    cleanupTests
-}
+cleanupTests

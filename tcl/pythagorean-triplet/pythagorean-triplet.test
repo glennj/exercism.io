@@ -1,93 +1,67 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "pythagorean-triplet.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
+test triplets-1 "triplets whose sum is 12" -body {
+    tripletsWithSum 12 
+} -returnCodes ok -match unorderedLists -result {
+    {3 4 5}
 }
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
+skip triplets-2
+test triplets-2 "triplets whose sum is 108" -body {
+    tripletsWithSum 108
+} -returnCodes ok -match unorderedLists -result {
+    {27 36 45}
 }
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
+skip triplets-3
+test triplets-3 "triplets whose sum is 1000" -body {
+    tripletsWithSum 1000
+} -returnCodes ok -match unorderedLists -result {
+    {200 375 425}
 }
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
+skip triplets-4
+test triplets-4 "no matching triplets for 1001" -body {
+    tripletsWithSum 1001
+} -returnCodes ok -match unorderedLists -result {}
+
+skip triplets-5
+test triplets-5 "returns all matching triplets" -body {
+    tripletsWithSum 90
+} -returnCodes ok -match unorderedLists -result {
+    {9 40 41}
+    {15 36 39}
 }
 
-customMatch unorderedList unorderedListMatch
-proc unorderedListMatch {expected actual} {
-    if {[llength $expected] != [llength $actual]} {
-        return false
-    }
-    foreach elem $expected {
-        if {[lsearch -exact $actual $elem] == -1} {
-            return false
-        }
-    }
-    return true
+skip triplets-6
+test triplets-6 "several matching triplets" -body {
+    tripletsWithSum 840
+} -returnCodes ok -match unorderedLists -result {
+    {40 399 401}
+    {56 390 394}
+    {105 360 375}
+    {120 350 370}
+    {140 336 364}
+    {168 315 357}
+    {210 280 350}
+    {240 252 348}
 }
 
-if {$::argv0 eq [info script]} {
-
-    set cases {
-        triplets-1 "triplets whose sum is 12" 12 {
-            {3 4 5}
-        }
-
-        triplets-2 "triplets whose sum is 108" 108 {
-            {27 36 45}
-        }
-
-        triplets-3 "triplets whose sum is 1000" 1000 {
-            {200 375 425}
-        }
-
-        triplets-4 "no matching triplets for 1001" 1001 {}
-
-        triplets-5 "returns all matching triplets" 90 {
-            {9 40 41}
-            {15 36 39}
-        }
-
-        triplets-6 "several matching triplets" 840 {
-            {40 399 401}
-            {56 390 394}
-            {105 360 375}
-            {120 350 370}
-            {140 336 364}
-            {168 315 357}
-            {210 280 350}
-            {240 252 348}
-        }
-
-        triplets-7 "triplets for large number" 30000 {
-            {1200 14375 14425}
-            {1875 14000 14125}
-            {5000 12000 13000}
-            {6000 11250 12750}
-            {7500 10000 12500}
-        }
-    }
-
-    foreach {name description perimeter result} $cases {
-        test $name $description -body {
-            tripletsWithSum $perimeter
-        } -returnCodes ok -match unorderedList -result $result
-    }
-
-    cleanupTests
+skip triplets-7
+test triplets-7 "triplets for large number" -body {
+    tripletsWithSum 30000
+} -returnCodes ok -match unorderedLists -result {
+    {1200 14375 14425}
+    {1875 14000 14125}
+    {5000 12000 13000}
+    {6000 11250 12750}
+    {7500 10000 12500}
 }
+
+cleanupTests

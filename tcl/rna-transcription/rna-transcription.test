@@ -1,47 +1,32 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "rna-transcription.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test rna-transcription-1 "Empty RNA sequence" \
+    -body {to-rna ""} -result ""
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip rna-transcription-2
+test rna-transcription-2 "RNA complement of cytosine is guanine" \
+    -body {to-rna "C"} -result "G"
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip rna-transcription-3
+test rna-transcription-3 "RNA complement of guanine is cytosine" \
+    -body {to-rna "G"} -result "C"
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip rna-transcription-4
+test rna-transcription-4 "RNA complement of thymine is adenine" \
+    -body {to-rna "T"} -result "A"
 
-if {$::argv0 eq [info script]} {
+skip rna-transcription-5
+test rna-transcription-5 "RNA complement of adenine is uracil" \
+    -body {to-rna "A"} -result "U"
 
-    set cases {
-        rna-transcription-1 ""  ""  "Empty RNA sequence"
-        rna-transcription-2 "C" "G" "RNA complement of cytosine is guanine"
-        rna-transcription-3 "G" "C" "RNA complement of guanine is cytosine"
-        rna-transcription-4 "T" "A" "RNA complement of thymine is adenine"
-        rna-transcription-5 "A" "U" "RNA complement of adenine is uracil"
-        rna-transcription-6 "ACGTGGTCTTAA" "UGCACCAGAAUU" "RNA complement"
-    }
+skip rna-transcription-6
+test rna-transcription-6 "RNA complement" \
+    -body {to-rna "ACGTGGTCTTAA"} -result "UGCACCAGAAUU"
 
-    foreach {name dna rna description} $cases {
-        test $name $description -body "to-rna \"$dna\"" -result $rna
-    }
-
-    cleanupTests
-}
+cleanupTests

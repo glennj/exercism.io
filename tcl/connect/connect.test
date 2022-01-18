@@ -1,118 +1,114 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "connect.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
-
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
-
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+test connect-1 "an empty board has no winner" -body {
+    winner {
+        ". . . . ."
+        " . . . . ."
+        "  . . . . ."
+        "   . . . . ."
+        "    . . . . ."
     }
-}
+} -returnCodes ok -result ""
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
-
-if {$::argv0 eq [info script]} {
-
-    set cases {
-        connect-1 "an empty board has no winner"
-        {
-          ". . . . ."
-          " . . . . ."
-          "  . . . . ."
-          "   . . . . ."
-          "    . . . . ."
-        } ""
-        connect-2 "X can win on a 1x1 board"
-        {
-          "X"
-        } "X"
-        connect-3 "O can win on a 1x1 board"
-        {
-          "O"
-        } "O"
-        connect-4 "only edges does not make a winner"
-        {
-          "O O O X"
-          " X . . X"
-          "  X . . X"
-          "   X O O O"
-        } ""
-        connect-5 "illegal diagonal does not make a winner"
-        {
-          "X O . ."
-          " O X X X"
-          "  O X O ."
-          "   . O X ."
-          "    X X O O"
-        } ""
-        connect-6 "nobody wins crossing adjacent angles"
-        {
-          "X . . ."
-          " . X O ."
-          "  O . X O"
-          "   . O . X"
-          "    . . O ."
-        } ""
-        connect-7 "X wins crossing from left to right"
-        {
-          ". O . ."
-          " O X X X"
-          "  O X O ."
-          "   X X O X"
-          "    . O X ."
-        } "X"
-        connect-8 "O wins crossing from top to bottom"
-        {
-          ". O . ."
-          " O X X X"
-          "  O O O ."
-          "   X X O X"
-          "    . O X ."
-        } "O"
-        connect-9 "X wins using a convoluted path"
-        {
-          ". X X . ."
-          " X . X . X"
-          "  . X . X ."
-          "   . X X . ."
-          "    O O O O O"
-        } "X"
-        connect-10 "X wins using a spiral path"
-        {
-          "O X X X X X X X X"
-          " O X O O O O O O O"
-          "  O X O X X X X X O"
-          "   O X O X O O O X O"
-          "    O X O X X X O X O"
-          "     O X O O O X O X O"
-          "      O X X X X X O X O"
-          "       O O O O O O O X O"
-          "        X X X X X X X X O"
-        } "X"
+skip connect-2
+test connect-2 "X can win on a 1x1 board" -body {
+    winner {
+        "X"
     }
+} -returnCodes ok -result "X"
 
-    foreach {name description board winner} $cases {
-        test $name $description -body {
-            winner $board
-        } -returnCodes ok -result $winner
+skip connect-3
+test connect-3 "O can win on a 1x1 board" -body {
+    winner {
+        "O"
     }
+} -returnCodes ok -result "O"
 
-    cleanupTests
-}
+skip connect-4
+test connect-4 "only edges does not make a winner" -body {
+    winner {
+        "O O O X"
+        " X . . X"
+        "  X . . X"
+        "   X O O O"
+    }
+} -returnCodes ok -result ""
+
+skip connect-5
+test connect-5 "illegal diagonal does not make a winner" -body {
+    winner {
+        "X O . ."
+        " O X X X"
+        "  O X O ."
+        "   . O X ."
+        "    X X O O"
+    }
+} -returnCodes ok -result ""
+
+skip connect-6
+test connect-6 "nobody wins crossing adjacent angles" -body {
+    winner {
+        "X . . ."
+        " . X O ."
+        "  O . X O"
+        "   . O . X"
+        "    . . O ."
+    }
+} -returnCodes ok -result ""
+
+skip connect-7
+test connect-7 "X wins crossing from left to right" -body {
+    winner {
+        ". O . ."
+        " O X X X"
+        "  O X O ."
+        "   X X O X"
+        "    . O X ."
+    }
+} -returnCodes ok -result "X"
+
+skip connect-8
+test connect-8 "O wins crossing from top to bottom" -body {
+    winner {
+        ". O . ."
+        " O X X X"
+        "  O O O ."
+        "   X X O X"
+        "    . O X ."
+    }
+} -returnCodes ok -result "O"
+
+skip connect-9
+test connect-9 "X wins using a convoluted path" -body {
+    winner {
+        ". X X . ."
+        " X . X . X"
+        "  . X . X ."
+        "   . X X . ."
+        "    O O O O O"
+    }
+} -returnCodes ok -result "X"
+
+skip connect-10
+test connect-10 "X wins using a spiral path" -body {
+    winner {
+        "O X X X X X X X X"
+        " O X O O O O O O O"
+        "  O X O X X X X X O"
+        "   O X O X O O O X O"
+        "    O X O X X X O X O"
+        "     O X O O O X O X O"
+        "      O X X X X X O X O"
+        "       O O O O O O O X O"
+        "        X X X X X X X X O"
+    }
+} -returnCodes ok -result "X"
+
+
+cleanupTests

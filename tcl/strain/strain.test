@@ -1,111 +1,99 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "strain.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test strain-1.1 "empty keep" -body {
+    keep e {} {expr {$e < 10}}
+} -returnCodes ok -result {}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip strain-1.2
+test strain-1.2 "keep everything" -body {
+    keep e {1 2 3} {expr {$e < 10}}
+} -returnCodes ok -result {1 2 3}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+skip strain-1.3
+test strain-1.3 "keep nothing" -body {
+    keep e {1 2 3} {expr {$e > 10}}
+} -returnCodes ok -result {}
+
+skip strain-1.4
+test strain-1.4 "keep odd" -body {
+    keep e {1 2 3 4} {expr {$e % 2 == 1}}
+} -returnCodes ok -result {1 3}
+
+skip strain-1.5
+test strain-1.5 "keep even" -body {
+    keep e {1 2 3 4} {expr {$e % 2 == 0}}
+} -returnCodes ok -result {2 4}
+
+skip strain-1.6
+test strain-1.6 "keep z strings" -body {
+    set words {apple zebra banana zombies cherimoya zelot}
+    keep word $words {string match {z*} $word}
+} -returnCodes ok -result {zebra zombies zelot}
+
+skip strain-1.7
+test strain-1.7 "keep lists" -body {
+    set rows {
+        {1 2 3}
+        {5 5 5}
+        {5 1 2}
+        {2 1 2}
+        {1 5 2}
+        {2 2 1}
+        {1 2 5}
     }
-}
-
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
-
-if {$::argv0 eq [info script]} {
-
-    test strain-1.1 "empty keep" -body {
-        keep e {} {expr {$e < 10}}
-    } -returnCodes ok -result {}
-
-    test strain-1.2 "keep everything" -body {
-        keep e {1 2 3} {expr {$e < 10}}
-    } -returnCodes ok -result {1 2 3}
-
-    test strain-1.3 "keep nothing" -body {
-        keep e {1 2 3} {expr {$e > 10}}
-    } -returnCodes ok -result {}
-
-    test strain-1.4 "keep odd" -body {
-        keep e {1 2 3 4} {expr {$e % 2 == 1}}
-    } -returnCodes ok -result {1 3}
-
-    test strain-1.5 "keep even" -body {
-        keep e {1 2 3 4} {expr {$e % 2 == 0}}
-    } -returnCodes ok -result {2 4}
-
-    test strain-1.6 "keep z strings" -body {
-        set words {apple zebra banana zombies cherimoya zelot}
-        keep word $words {string match {z*} $word}
-    } -returnCodes ok -result {zebra zombies zelot}
-
-    test strain-1.7 "keep lists" -body {
-        set rows {
-            {1 2 3}
-            {5 5 5}
-            {5 1 2}
-            {2 1 2}
-            {1 5 2}
-            {2 2 1}
-            {1 2 5}
-        }
-        keep row $rows {expr {5 in $row}}
-    } -returnCodes ok -result {{5 5 5} {5 1 2} {1 5 2} {1 2 5}}
+    keep row $rows {expr {5 in $row}}
+} -returnCodes ok -result {{5 5 5} {5 1 2} {1 5 2} {1 2 5}}
 
 
-    test strain-2.1 "empty discard" -body {
-        discard e {} {expr {$e < 10}}
-    } -returnCodes ok -result {}
+skip strain-2.1
+test strain-2.1 "empty discard" -body {
+    discard e {} {expr {$e < 10}}
+} -returnCodes ok -result {}
 
-    test strain-2.2 "discard everything" -body {
-        discard e {1 2 3} {expr {$e < 10}}
-    } -returnCodes ok -result {}
+skip strain-2.2
+test strain-2.2 "discard everything" -body {
+    discard e {1 2 3} {expr {$e < 10}}
+} -returnCodes ok -result {}
 
-    test strain-2.3 "discard nothing" -body {
-        discard e {1 2 3} {expr {$e > 10}}
-    } -returnCodes ok -result {1 2 3}
+skip strain-2.3
+test strain-2.3 "discard nothing" -body {
+    discard e {1 2 3} {expr {$e > 10}}
+} -returnCodes ok -result {1 2 3}
 
-    test strain-2.4 "discard odd" -body {
-        discard e {1 2 3 4} {expr {$e % 2 == 1}}
-    } -returnCodes ok -result {2 4}
+skip strain-2.4
+test strain-2.4 "discard odd" -body {
+    discard e {1 2 3 4} {expr {$e % 2 == 1}}
+} -returnCodes ok -result {2 4}
 
-    test strain-2.5 "discard even" -body {
-        discard e {1 2 3 4} {expr {$e % 2 == 0}}
-    } -returnCodes ok -result {1 3}
+skip strain-2.5
+test strain-2.5 "discard even" -body {
+    discard e {1 2 3 4} {expr {$e % 2 == 0}}
+} -returnCodes ok -result {1 3}
 
-    test strain-2.6 "discard z strings" -body {
-        set words {apple zebra banana zombies cherimoya zelot}
-        discard word $words {string match {z*} $word}
-    } -returnCodes ok -result {apple banana cherimoya}
+skip strain-2.6
+test strain-2.6 "discard z strings" -body {
+    set words {apple zebra banana zombies cherimoya zelot}
+    discard word $words {string match {z*} $word}
+} -returnCodes ok -result {apple banana cherimoya}
 
-    test strain-2.7 "discard lists" -body {
-        set rows {
-            {1 2 3}
-            {5 5 5}
-            {5 1 2}
-            {2 1 2}
-            {1 5 2}
-            {2 2 1}
-            {1 2 5}
-        }
-        discard row $rows {expr {5 in $row}}
-    } -returnCodes ok -result {{1 2 3} {2 1 2} {2 2 1}}
+skip strain-2.7
+test strain-2.7 "discard lists" -body {
+    set rows {
+        {1 2 3}
+        {5 5 5}
+        {5 1 2}
+        {2 1 2}
+        {1 5 2}
+        {2 2 1}
+        {1 2 5}
+    }
+    discard row $rows {expr {5 in $row}}
+} -returnCodes ok -result {{1 2 3} {2 1 2} {2 2 1}}
 
-    cleanupTests
-}
+cleanupTests

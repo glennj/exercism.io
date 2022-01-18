@@ -1,214 +1,213 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "transpose.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test transpose-1 "empty string" -body {
+    transpose {}
+} -returnCodes OK -match orderedLists -result {}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip transpose-2
+test transpose-2 "two characters in a row" -body {
+    transpose {"A1"}
+} -returnCodes OK -match orderedLists -result {"A" "1"}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+skip transpose-3
+test transpose-3 "two characters in a column" -body {
+    transpose {
+        "A"
+        "1"
     }
+} -returnCodes OK -match orderedLists -result {
+    "A1"
 }
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
+skip transpose-4
+test transpose-4 "simple" -body {
+    transpose {
+        "ABC"
+        "123"
+    }
+} -returnCodes OK -match orderedLists -result {
+    "A1"
+    "B2"
+    "C3"
 }
 
-customMatch list orderedListsMatch
-proc orderedListsMatch {expected actual} {
-    if {[llength $expected] != [llength $actual]} {
-        return false
+skip transpose-5
+test transpose-5 "single line" -body {
+    transpose {
+        "Single line."
     }
-    foreach e $expected a $actual {
-        if {$e != $a} {
-            return false
-        }
+} -returnCodes OK -match orderedLists -result {
+    "S"
+    "i"
+    "n"
+    "g"
+    "l"
+    "e"
+    " "
+    "l"
+    "i"
+    "n"
+    "e"
+    "."
+}
+
+skip transpose-6
+test transpose-6 "first line longer than second line" -body {
+    transpose {
+        "The fourth line."
+        "The fifth line."
     }
-    return true
+} -returnCodes OK -match orderedLists -result {
+    "TT"
+    "hh"
+    "ee"
+    "  "
+    "ff"
+    "oi"
+    "uf"
+    "rt"
+    "th"
+    "h "
+    " l"
+    "li"
+    "in"
+    "ne"
+    "e."
+    "."
+}
+
+skip transpose-7
+test transpose-7 "second line longer than first line" -body {
+    transpose {
+        "The first line."
+        "The second line."
+    }
+} -returnCodes OK -match orderedLists -result {
+    "TT"
+    "hh"
+    "ee"
+    "  "
+    "fs"
+    "ie"
+    "rc"
+    "so"
+    "tn"
+    " d"
+    "l "
+    "il"
+    "ni"
+    "en"
+    ".e"
+    " ."
+}
+
+skip transpose-8
+test transpose-8 "mixed line length" -body {
+    transpose {
+        "The longest line."
+        "A long line."
+        "A longer line."
+        "A line."
+    }
+} -returnCodes OK -match orderedLists -result {
+    "TAAA"
+    "h   "
+    "elll"
+    " ooi"
+    "lnnn"
+    "ogge"
+    "n e."
+    "glr"
+    "ei "
+    "snl"
+    "tei"
+    " .n"
+    "l e"
+    "i ."
+    "n"
+    "e"
+    "."
+}
+
+skip transpose-9
+test transpose-9 "square" -body {
+    transpose {
+        "HEART"
+        "EMBER"
+        "ABUSE"
+        "RESIN"
+        "TREND"
+    }
+} -returnCodes OK -match orderedLists -result {
+    "HEART"
+    "EMBER"
+    "ABUSE"
+    "RESIN"
+    "TREND"
+}
+
+skip transpose-10
+test transpose-10 "rectangle" -body {
+    transpose {
+        "FRACTURE"
+        "OUTLINED"
+        "BLOOMING"
+        "SEPTETTE"
+    }
+} -returnCodes OK -match orderedLists -result {
+    "FOBS"
+    "RULE"
+    "ATOP"
+    "CLOT"
+    "TIME"
+    "UNIT"
+    "RENT"
+    "EDGE"
+}
+
+skip transpose-11
+test transpose-11 "triangle" -body {
+    transpose {
+        "T"
+        "EE"
+        "AAA"
+        "SSSS"
+        "EEEEE"
+        "RRRRRR"
+    }
+} -returnCodes OK -match orderedLists -result {
+    "TEASER"
+    " EASER"
+    "  ASER"
+    "   SER"
+    "    ER"
+    "     R"
+}
+
+skip transpose-12
+test transpose-12 "jagged triangle" -body {
+    transpose {
+        "11"
+        "2"
+        "3333"
+        "444"
+        "555555"
+        "66666"
+    }
+} -returnCodes OK -match orderedLists -result {
+    "123456"
+    "1 3456"
+    "  3456"
+    "  3 56"
+    "    56"
+    "    5"
 }
 
 
-if {$::argv0 eq [info script]} {
-
-    set cases {
-        transpose-1 "empty string" {} {}
-        transpose-2 "two characters in a row" {"A1"} {"A" "1"}
-        transpose-3 "two characters in a column" {
-            "A"
-            "1"
-        } {
-            "A1"
-        }
-        transpose-4 "simple" {
-            "ABC"
-            "123"
-        } {
-            "A1"
-            "B2"
-            "C3"
-        }
-        transpose-5 "single line" {
-            "Single line."
-        } {
-            "S"
-            "i"
-            "n"
-            "g"
-            "l"
-            "e"
-            " "
-            "l"
-            "i"
-            "n"
-            "e"
-            "."
-        }
-        transpose-6 "first line longer than second line" {
-            "The fourth line."
-            "The fifth line."
-        } {
-            "TT"
-            "hh"
-            "ee"
-            "  "
-            "ff"
-            "oi"
-            "uf"
-            "rt"
-            "th"
-            "h "
-            " l"
-            "li"
-            "in"
-            "ne"
-            "e."
-            "."
-        }
-        transpose-7 "second line longer than first line" {
-            "The first line."
-            "The second line."
-        } {
-            "TT"
-            "hh"
-            "ee"
-            "  "
-            "fs"
-            "ie"
-            "rc"
-            "so"
-            "tn"
-            " d"
-            "l "
-            "il"
-            "ni"
-            "en"
-            ".e"
-            " ."
-        }
-        transpose-8 "mixed line length" {
-            "The longest line."
-            "A long line."
-            "A longer line."
-            "A line."
-        } {
-            "TAAA"
-            "h   "
-            "elll"
-            " ooi"
-            "lnnn"
-            "ogge"
-            "n e."
-            "glr"
-            "ei "
-            "snl"
-            "tei"
-            " .n"
-            "l e"
-            "i ."
-            "n"
-            "e"
-            "."
-        }
-        transpose-9 "square" {
-            "HEART"
-            "EMBER"
-            "ABUSE"
-            "RESIN"
-            "TREND"
-        } {
-            "HEART"
-            "EMBER"
-            "ABUSE"
-            "RESIN"
-            "TREND"
-        }
-        transpose-10 "rectangle" {
-            "FRACTURE"
-            "OUTLINED"
-            "BLOOMING"
-            "SEPTETTE"
-        } {
-            "FOBS"
-            "RULE"
-            "ATOP"
-            "CLOT"
-            "TIME"
-            "UNIT"
-            "RENT"
-            "EDGE"
-        }
-        transpose-11 "triangle" {
-            "T"
-            "EE"
-            "AAA"
-            "SSSS"
-            "EEEEE"
-            "RRRRRR"
-        } {
-            "TEASER"
-            " EASER"
-            "  ASER"
-            "   SER"
-            "    ER"
-            "     R"
-        }
-
-        transpose-12 "jagged triangle" {
-            "11"
-            "2"
-            "3333"
-            "444"
-            "555555"
-            "66666"
-        } {
-            "123456"
-            "1 3456"
-            "  3456"
-            "  3 56"
-            "    56"
-            "    5"
-        }
-    }
-
-    foreach {name description lines result} $cases {
-        test $name $description -body {
-            transpose $lines
-        } -returnCodes ok -match list -result $result
-    }
-
-    cleanupTests
-}
+cleanupTests

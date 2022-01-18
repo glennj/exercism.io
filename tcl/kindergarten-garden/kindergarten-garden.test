@@ -1,95 +1,94 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "kindergarten-garden.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test kg-1.1 "garden with single student" -body {
+    plants "RC\nGG" "Alice"
+} -returnCodes ok -result {radishes clover grass grass}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip kg-1.2
+test kg-1.2 "different garden with single student" -body {
+    plants "VC\nRC" "Alice"
+} -returnCodes ok -result {violets clover radishes clover}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip kg-1.3
+test kg-1.3 "garden with two students" -body {
+    plants "VVCG\nVVRC" "Bob"
+} -returnCodes ok -result {clover grass radishes clover}
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip kg-1.4
+test kg-1.4 "second student's garden" -body {
+    plants "VVCCGG\nVVCCGG" "Bob"
+} -returnCodes ok -result {clover clover clover clover}
 
-if {$::argv0 eq [info script]} {
+skip kg-1.5
+test kg-1.5 "third student's garden" -body {
+    plants "VVCCGG\nVVCCGG" "Charlie"
+} -returnCodes ok -result {grass grass grass grass}
 
-    set cases {
-        kg-1.1 "garden with single student"
-            "RC\nGG" 
-            "Alice" {radishes clover grass grass}
-        kg-1.2 "different garden with single student"
-            "VC\nRC" 
-            "Alice" {violets clover radishes clover}
-        kg-1.3 "garden with two students"
-            "VVCG\nVVRC" 
-            "Bob" {clover grass radishes clover}
-        kg-1.4 "second student's garden"
-            "VVCCGG\nVVCCGG" 
-            "Bob" {clover clover clover clover}
-        kg-1.5 "third student's garden"
-            "VVCCGG\nVVCCGG" 
-            "Charlie" {grass grass grass grass}
 
-        kg-2.1 "for Alice, first student's garden"
-            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
-            "Alice" {violets radishes violets radishes}
-        kg-2.2 "for Bob, second student's garden"
-            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
-            "Bob" {clover grass clover clover}
-        kg-2.3 "for Charlie"
-            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
-            "Charlie" {violets violets clover grass}
-        kg-2.4 "for David"
-            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
-            "David" {radishes violets clover radishes}
-        kg-2.5 "for Eve"
-            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
-            "Eve" {clover grass radishes grass}
-        kg-2.6 "for Fred"
-            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
-            "Fred" {grass clover violets clover}
-        kg-2.7 "for Ginny"
-            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
-            "Ginny" {clover grass grass clover}
-        kg-2.8 "for Harriet"
-            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
-            "Harriet" {violets radishes radishes violets}
-        kg-2.9 "for Ileana"
-            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
-            "Ileana" {grass clover violets clover}
-        kg-2.10 "for Joseph"
-            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
-            "Joseph" {violets clover violets grass}
-        kg-2.11 "for Kincaid, second to last student's garden"
-            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
-            "Kincaid" {grass clover clover grass}
-        kg-2.12 "for Larry, last student's garden"
-            "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 
-            "Larry" {grass violets clover violets}
-    }
+skip kg-2.1
+test kg-2.1 "for Alice, first student's garden" -body {
+    plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" "Alice"
+} -returnCodes ok -result {violets radishes violets radishes}
 
-    foreach {name description diagram student result} $cases {
-        test $name $description -body {
-            plants $diagram $student
-        } -returnCodes ok -result $result
-    }
+skip kg-2.2
+test kg-2.2 "for Bob, second student's garden" -body {
+    plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" "Bob"
+} -returnCodes ok -result {clover grass clover clover}
 
-    cleanupTests
-}
+skip kg-2.3
+test kg-2.3 "for Charlie" -body {
+    plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" "Charlie"
+} -returnCodes ok -result {violets violets clover grass}
+
+skip kg-2.4
+test kg-2.4 "for David" -body {
+    plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" "David"
+} -returnCodes ok -result {radishes violets clover radishes}
+
+skip kg-2.5
+test kg-2.5 "for Eve" -body {
+    plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" "Eve"
+} -returnCodes ok -result {clover grass radishes grass}
+
+skip kg-2.6
+test kg-2.6 "for Fred" -body {
+    plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" "Fred"
+} -returnCodes ok -result {grass clover violets clover}
+
+skip kg-2.7
+test kg-2.7 "for Ginny" -body {
+    plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" "Ginny"
+} -returnCodes ok -result {clover grass grass clover}
+
+skip kg-2.8
+test kg-2.8 "for Harriet" -body {
+    plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" "Harriet"
+} -returnCodes ok -result {violets radishes radishes violets}
+
+skip kg-2.9
+test kg-2.9 "for Ileana" -body {
+    plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" "Ileana"
+} -returnCodes ok -result {grass clover violets clover}
+
+skip kg-2.10
+test kg-2.10 "for Joseph" -body {
+    plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" "Joseph"
+} -returnCodes ok -result {violets clover violets grass}
+
+skip kg-2.11
+test kg-2.11 "for Kincaid, second to last student's garden" -body {
+    plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" "Kincaid"
+} -returnCodes ok -result {grass clover clover grass}
+
+skip kg-2.12
+test kg-2.12 "for Larry, last student's garden" -body {
+    plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" "Larry"
+} -returnCodes ok -result {grass violets clover violets}
+
+cleanupTests

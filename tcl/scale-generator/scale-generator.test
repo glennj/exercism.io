@@ -1,7 +1,6 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
-configure -verbose {error body usec}
 source testHelpers.tcl
 
 ############################################################
@@ -141,12 +140,5 @@ test scale-17 "Enigmatic" -body {
 } -returnCodes ok -match orderedLists -result {
     G G# B C# D# F F# G
 }
-
-skip scale-e1
-test scale-e1 "incorrect interval" -body {
-    set scale [Scale new G]
-    $scale intervals "mABMMmm"
-} -returnCodes error -match glob -result "Invalid interval*"
-
 
 cleanupTests

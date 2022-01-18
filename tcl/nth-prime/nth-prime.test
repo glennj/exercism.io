@@ -1,48 +1,34 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "nth-prime.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test nth-prime-1 "first prime" -body {
+    nthPrime 1
+} -returnCodes ok -result 2
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip nth-prime-2
+test nth-prime-2 "second prime" -body {
+    nthPrime 2
+} -returnCodes ok -result 3
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip nth-prime-3
+test nth-prime-3 "sixth prime" -body {
+    nthPrime 6
+} -returnCodes ok -result 13
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip nth-prime-4
+test nth-prime-4 "big prime" -body {
+    nthPrime 10001
+} -returnCodes ok -result 104743
 
-if {$::argv0 eq [info script]} {
+skip nth-prime-5
+test nth-prime-5 "no zeroth prime" -body {
+    nthPrime 0
+} -returnCodes error -result "there is no zeroth prime" 
 
-    set cases {
-        nth-prime "first prime"     ok     1 2
-        nth-prime "second prime"    ok     2 3
-        nth-prime "sixth prime"     ok     6 13
-        nth-prime "big prime"       ok 10001 104743
-        nth-prime "no zeroth prime" error  0 "there is no zeroth prime" 
-    }
 
-    foreach {name description status index prime} $cases {
-        test $name $description -body {
-            nthPrime $index
-        } -returnCodes $status -result $prime
-    }
-
-    cleanupTests
-}
+cleanupTests

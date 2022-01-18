@@ -1,150 +1,119 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "robot-name.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+#configure -verbose {body error msec}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+test robot-1 "can create a robot" -setup {
+    resetRobotNames
+} -body {
+    set robot [Robot new]
+    expr {$robot eq ""}
+} -returnCodes ok -match boolean -result no
+    
+skip robot-2
+test robot-2 "robot has a name" -setup {
+    resetRobotNames
+} -body {
+    set robot [Robot new]
+    $robot name
+} -returnCodes ok -match robotName -result true
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+skip robot-3
+test robot-3 "name sticks" -setup {
+    resetRobotNames
+} -body {
+    set robot [Robot new]
+    set theName [$robot name]
+    expr {$theName eq [$robot name]}
+} -returnCodes ok -match boolean -result true
+
+skip robot-4
+test robot-4 "reset changes name" -setup {
+    resetRobotNames
+} -body {
+    set robot [Robot new]
+    set theName [$robot name]
+    $robot reset
+    expr {$theName eq [$robot name]}
+} -returnCodes ok -match boolean -result false
+
+skip robot-5
+test robot-5 "reset before name called does not cause an error" -setup {
+    resetRobotNames
+} -body {
+    set robot [Robot new]
+    $robot reset
+    $robot name
+} -returnCodes ok -match robotName -result true
+
+skip robot-6
+test robot-6 "reset multiple times" -setup {
+    resetRobotNames
+} -body {
+    set robot [Robot new]
+    set names [dict create]
+    foreach i {1 2 3 4 5} {
+        $robot reset
+        dict set names [$robot name] $i
     }
-}
+    expr {[dict size $names] == 5}
+} -returnCodes ok -match boolean -result true
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip robot-7
+test robot-7 "different robots have different names" -setup {
+    resetRobotNames
+} -body {
+    set r1 [Robot new]
+    set r2 [Robot new]
+    expr {[$r1 name] eq [$r2 name]}
+} -returnCodes ok -match boolean -result false
 
-proc booleanMatch {expected actual} {
-    return [expr {
-        [string is boolean -strict $expected] &&
-        [string is boolean -strict $actual] &&
-        !!$expected == !!$actual
-    }]
-}
-customMatch boolean booleanMatch
+skip robot-8
+test robot-8 "different name when chosen name is taken" -setup {
+    resetRobotNames
+} -body {
+    # this test assumes you're using ::tcl::mathfunc::rand
+    # as the source of randomness
+    set seed 1234
+    expr {srand($seed)}
+    set r1 [Robot new]
+    expr {srand($seed)}
+    set r2 [Robot new]
+    expr {[$r1 name] eq [$r2 name]}
+} -returnCodes ok -match boolean -result false
 
-proc robotNameMatch {expected actual} {
-    set re {^[[:upper:]]{2}[[:digit:]]{3}$}
-    booleanMatch $expected [regexp $re $actual]
-}
-customMatch robotName robotNameMatch
+skip robot-9
+test robot-9 "generate lots of robots" -setup {
+    resetRobotNames
+} -body {
+    set iterations 100000
+    set seenNames {}
+    for {set i 0} {$i < $iterations} {incr i} {
+        dict incr seenNames [[Robot new] name]
+    }
+    expr {[dict size $seenNames] == $iterations}
+} -returnCodes ok -match boolean -result true
 
-
-if {$::argv0 eq [info script]} {
-    configure -verbose {body error msec}
-
-    test robot-1 "can create a robot" -setup {
-        resetRobotNames
-    } -body {
+skip robot-10
+test robot-10 "generate all robots" -setup {
+    resetRobotNames
+} -body {
+    set start [clock milliseconds]
+    set limit [expr {$start + 60 * 1000}] ;# abort after 60 seconds
+    set seenNames {}
+    for {set i 0} {$i < 676000} {incr i} {
         set robot [Robot new]
-        expr {$robot eq ""}
-    } -returnCodes ok -match boolean -result no
-        
-    test robot-2 "robot has a name" -setup {
-        resetRobotNames
-    } -body {
-        set robot [Robot new]
-        $robot name
-    } -returnCodes ok -match robotName -result true
-
-    test robot-3 "name sticks" -setup {
-        resetRobotNames
-    } -body {
-        set robot [Robot new]
-        set theName [$robot name]
-        expr {$theName eq [$robot name]}
-    } -returnCodes ok -match boolean -result true
-
-    test robot-4 "reset changes name" -setup {
-        resetRobotNames
-    } -body {
-        set robot [Robot new]
-        set theName [$robot name]
-        $robot reset
-        expr {$theName eq [$robot name]}
-    } -returnCodes ok -match boolean -result false
-
-    test robot-5 "reset before name called does not cause an error" -setup {
-        resetRobotNames
-    } -body {
-        set robot [Robot new]
-        $robot reset
-        $robot name
-    } -returnCodes ok -match robotName -result true
-
-    test robot-6 "reset multiple times" -setup {
-        resetRobotNames
-    } -body {
-        set robot [Robot new]
-        set names [dict create]
-        foreach i {1 2 3 4 5} {
-            $robot reset
-            dict set names [$robot name] $i
+        if {[clock milliseconds] > $limit} {
+            error "time out"
         }
-        expr {[dict size $names] == 5}
-    } -returnCodes ok -match boolean -result true
+        dict incr seenNames [$robot name]
+    }
+    expr {[dict size $seenNames] == 676000}
+} -returnCodes ok -match boolean -result true
 
-    test robot-7 "different robots have different names" -setup {
-        resetRobotNames
-    } -body {
-        set r1 [Robot new]
-        set r2 [Robot new]
-        expr {[$r1 name] eq [$r2 name]}
-    } -returnCodes ok -match boolean -result false
-
-    test robot-8 "different name when chosen name is taken" -setup {
-        resetRobotNames
-    } -body {
-        # this test assumes you're using ::tcl::mathfunc::rand
-        # as the source of randomness
-        set seed 1234
-        expr {srand($seed)}
-        set r1 [Robot new]
-        expr {srand($seed)}
-        set r2 [Robot new]
-        expr {[$r1 name] eq [$r2 name]}
-    } -returnCodes ok -match boolean -result false
-
-    test robot-9 "generate lots of robots" -setup {
-        resetRobotNames
-    } -body {
-        set iterations 100000
-        set seenNames {}
-        for {set i 0} {$i < $iterations} {incr i} {
-            dict incr seenNames [[Robot new] name]
-        }
-        expr {[dict size $seenNames] == $iterations}
-    } -returnCodes ok -match boolean -result true
-
-    test robot-10 "generate all robots" -setup {
-        resetRobotNames
-    } -body {
-        set start [clock milliseconds]
-        set limit [expr {$start + 60 * 1000}] ;# abort after 60 seconds
-        set seenNames {}
-        for {set i 0} {$i < 676000} {incr i} {
-            set robot [Robot new]
-            if {[clock milliseconds] > $limit} {
-                error "time out"
-            }
-            dict incr seenNames [$robot name]
-        }
-        expr {[dict size $seenNames] == 676000}
-    } -returnCodes ok -match boolean -result true
-
-    cleanupTests
-}
+cleanupTests

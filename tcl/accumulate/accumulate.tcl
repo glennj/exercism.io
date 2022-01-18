@@ -6,9 +6,10 @@
 #
 proc accumulate {varname values body} {
     upvar 1 $varname elem
-    set result [list]
+    set result {} 
     foreach elem $values {
         lappend result [uplevel 1 $body]
     }
     return $result
 }
+ 

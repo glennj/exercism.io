@@ -1,75 +1,153 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "yacht.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test yacht-1 "Yacht" -body {
+    score {5 5 5 5 5} "yacht"
+} -returnCodes ok -result 50
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip yacht-2
+test yacht-2 "Not Yacht" -body {
+    score {1 3 3 2 5} "yacht"
+} -returnCodes ok -result 0
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip yacht-3
+test yacht-3 "Ones" -body {
+    score {1 1 1 3 5} "ones"
+} -returnCodes ok -result 3
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip yacht-4
+test yacht-4 "Ones, out of order" -body {
+    score {3 1 1 5 1} "ones"
+} -returnCodes ok -result 3
 
-if {$::argv0 eq [info script]} {
+skip yacht-5
+test yacht-5 "No ones" -body {
+    score {4 3 6 5 5} "ones"
+} -returnCodes ok -result 0
 
-    set cases {
-        yacht-1  {5 5 5 5 5} "yacht"           50 "Yacht"
-        yacht-2  {1 3 3 2 5} "yacht"            0 "Not Yacht"
-        yacht-3  {1 1 1 3 5} "ones"             3 "Ones"
-        yacht-4  {3 1 1 5 1} "ones"             3 "Ones, out of order"
-        yacht-5  {4 3 6 5 5} "ones"             0 "No ones"
-        yacht-6  {2 3 4 5 6} "twos"             2 "Twos"
-        yacht-7  {1 4 1 4 1} "fours"            8 "Fours"
-        yacht-8  {3 3 3 3 3} "threes"          15 "Yacht counted as threes"
-        yacht-9  {3 3 3 3 3} "fives"            0 "Yacht of 3s counted as fives"
-        yacht-10 {2 3 4 5 6} "sixes"            6 "Sixes"
-        yacht-11 {2 2 4 4 4} "full house"      16 "Full house two small, three big"
-        yacht-12 {5 3 3 5 3} "full house"      19 "Full house three small, two big"
-        yacht-13 {2 2 4 4 5} "full house"       0 "Two pair is not a full house"
-        yacht-14 {1 4 4 4 4} "full house"       0 "Four of a kind is not a full house"
-        yacht-15 {2 2 2 2 2} "full house"       0 "Yacht is not a full house"
-        yacht-16 {6 6 4 6 6} "four of a kind"  24 "Four of a Kind"
-        yacht-17 {3 3 3 3 3} "four of a kind"  12 "Yacht can be scored as Four of a Kind"
-        yacht-18 {3 3 3 5 5} "four of a kind"   0 "Full house is not Four of a Kind"
-        yacht-19 {3 5 4 1 2} "little straight" 30 "Little Straight"
-        yacht-20 {1 2 3 4 5} "big straight"     0 "Little Straight as Big Straight"
-        yacht-21 {1 1 2 3 4} "little straight"  0 "Four in order but not a little straight"
-        yacht-22 {1 2 3 4 6} "little straight"  0 "No pairs but not a little straight"
-        yacht-23 {1 1 3 4 5} "little straight"  0 "Minimum is 1, maximum is 5, but not a little straight"
-        yacht-24 {4 6 2 5 3} "big straight"    30 "Big Straight"
-        yacht-25 {6 5 4 3 2} "little straight"  0 "Big Straight as little straight"
-        yacht-26 {6 5 4 3 1} "big straight"     0 "No pairs but not a big straight"
-        yacht-27 {3 3 5 6 6} "choice"          23 "Choice"
-        yacht-28 {2 2 2 2 2} "choice"          10 "Yacht as choice"
-    }
+skip yacht-6
+test yacht-6 "Twos" -body {
+    score {2 3 4 5 6} "twos"
+} -returnCodes ok -result 2
 
-    foreach {name dice category score description} $cases {
-        test $name $description -body [list \
-            score $dice $category \
-        ] -returnCodes ok -result $score
-    }
+skip yacht-7
+test yacht-7 "Fours" -body {
+    score {1 4 1 4 1} "fours"
+} -returnCodes ok -result 8
 
-    test yacht-29 "Invalid category" -body {
-        score {2 2 3 3 4} "two pairs"
-    } -returnCodes error -result "Invalid category"
+skip yacht-8
+test yacht-8 "Yacht counted as threes" -body {
+    score {3 3 3 3 3} "threes"
+} -returnCodes ok -result 15
 
-    cleanupTests
-}
+skip yacht-9
+test yacht-9 "Yacht of 3s counted as fives" -body {
+    score {3 3 3 3 3} "fives"
+} -returnCodes ok -result 0
+
+skip yacht-10
+test yacht-10 "Sixes" -body {
+    score {2 3 4 5 6} "sixes"
+} -returnCodes ok -result 6
+
+skip yacht-11
+test yacht-11 "Full house two small, three big" -body {
+    score {2 2 4 4 4} "full house"
+} -returnCodes ok -result 16
+
+skip yacht-12
+test yacht-12 "Full house three small, two big" -body {
+    score {5 3 3 5 3} "full house"
+} -returnCodes ok -result 19
+
+skip yacht-13
+test yacht-13 "Two pair is not a full house" -body {
+    score {2 2 4 4 5} "full house"
+} -returnCodes ok -result 0
+
+skip yacht-14
+test yacht-14 "Four of a kind is not a full house" -body {
+    score {1 4 4 4 4} "full house"
+} -returnCodes ok -result 0
+
+skip yacht-15
+test yacht-15 "Yacht is not a full house" -body {
+    score {2 2 2 2 2} "full house"
+} -returnCodes ok -result 0
+
+skip yacht-16
+test yacht-16 "Four of a Kind" -body {
+    score {6 6 4 6 6} "four of a kind"
+} -returnCodes ok -result 24
+
+skip yacht-17
+test yacht-17 "Yacht can be scored as Four of a Kind" -body {
+    score {3 3 3 3 3} "four of a kind"
+} -returnCodes ok -result 12
+
+skip yacht-18
+test yacht-18 "Full house is not Four of a Kind" -body {
+    score {3 3 3 5 5} "four of a kind"
+} -returnCodes ok -result 0
+
+skip yacht-19
+test yacht-19 "Little Straight" -body {
+    score {3 5 4 1 2} "little straight"
+} -returnCodes ok -result 30
+
+skip yacht-20
+test yacht-20 "Little Straight as Big Straight" -body {
+    score {1 2 3 4 5} "big straight"
+} -returnCodes ok -result 0
+
+skip yacht-21
+test yacht-21 "Four in order but not a little straight" -body {
+    score {1 1 2 3 4} "little straight"
+} -returnCodes ok -result 0
+
+skip yacht-22
+test yacht-22 "No pairs but not a little straight" -body {
+    score {1 2 3 4 6} "little straight"
+} -returnCodes ok -result 0
+
+skip yacht-23
+test yacht-23 "Minimum is 1, maximum is 5, but not a little straight" -body {
+    score {1 1 3 4 5} "little straight"
+} -returnCodes ok -result 0
+
+skip yacht-24
+test yacht-24 "Big Straight" -body {
+    score {4 6 2 5 3} "big straight"
+} -returnCodes ok -result 30
+
+skip yacht-25
+test yacht-25 "Big Straight as little straight" -body {
+    score {6 5 4 3 2} "little straight"
+} -returnCodes ok -result 0
+
+skip yacht-26
+test yacht-26 "No pairs but not a big straight" -body {
+    score {6 5 4 3 1} "big straight"
+} -returnCodes ok -result 0
+
+skip yacht-27
+test yacht-27 "Choice" -body {
+    score {3 3 5 6 6} "choice"
+} -returnCodes ok -result 23
+
+skip yacht-28
+test yacht-28 "Yacht as choice" -body {
+    score {2 2 2 2 2} "choice"
+} -returnCodes ok -result 10
+
+skip yacht-29
+test yacht-29 "Invalid category" -body {
+    score {2 2 3 3 4} "two pairs"
+} -returnCodes error -result "Invalid category"
+
+cleanupTests

@@ -1,66 +1,82 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "atbash-cipher.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+# encode
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+test atbash-1.1 "encode yes" -body {
+    atbash encode "yes"
+} -returnCodes ok -result "bvh"
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip atbash-1.2
+test atbash-1.2 "encode no" -body {
+    atbash encode "no"
+} -returnCodes ok -result "ml"
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip atbash-1.3
+test atbash-1.3 "encode OMG" -body {
+    atbash encode "OMG"
+} -returnCodes ok -result "lnt"
 
-if {$::argv0 eq [info script]} {
+skip atbash-1.4
+test atbash-1.4 "encode spaces" -body {
+    atbash encode "O M G"
+} -returnCodes ok -result "lnt"
 
-    set encode_cases {
-        atbash-1.1 "encode yes" "yes" "bvh"
-        atbash-1.2 "encode no" "no" "ml"
-        atbash-1.3 "encode OMG" "OMG" "lnt"
-        atbash-1.4 "encode spaces" "O M G" "lnt"
-        atbash-1.5 "encode mindblowingly" "mindblowingly" "nrmwy oldrm tob"
-        atbash-1.6 "encode numbers" "Testing,1 2 3, testing." "gvhgr mt123 gvhgr mt"
-        atbash-1.7 "encode deep thought" "Truth is fiction." "gifgs rhurx grlm"
-        atbash-1.8 "encode all the letters" "The quick brown fox jumps over the lazy dog." "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt"
-    }
+skip atbash-1.5
+test atbash-1.5 "encode mindblowingly" -body {
+    atbash encode "mindblowingly"
+} -returnCodes ok -result "nrmwy oldrm tob"
 
-    foreach {name description input output} $encode_cases {
-        test $name $description -body {
-            atbash encode $input
-        } -returnCodes ok -result $output
-    }
+skip atbash-1.6
+test atbash-1.6 "encode numbers" -body {
+    atbash encode "Testing,1 2 3, testing."
+} -returnCodes ok -result "gvhgr mt123 gvhgr mt"
 
-    set decode_cases {
-        atbash-2.1 "decode exercism" "vcvix rhn" "exercism"
-        atbash-2.2 "decode a sentence" "zmlyh gzxov rhlug vmzhg vkkrm thglm v" "anobstacleisoftenasteppingstone"
-        atbash-2.3 "decode numbers" "gvhgr mt123 gvhgr mt" "testing123testing"
-        atbash-2.4 "decode all the letters" "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt" "thequickbrownfoxjumpsoverthelazydog"
-        atbash-2.5 "decode with too many spaces" "vc vix    r hn" "exercism"
-        atbash-2.6 "decode with no spaces" "zmlyhgzxovrhlugvmzhgvkkrmthglmv" "anobstacleisoftenasteppingstone"
-    }
+skip atbash-1.7
+test atbash-1.7 "encode deep thought" -body {
+    atbash encode "Truth is fiction."
+} -returnCodes ok -result "gifgs rhurx grlm"
 
-    foreach {name description input output} $decode_cases {
-        test $name $description -body {
-            atbash decode $input
-        } -returnCodes ok -result $output
-    }
+skip atbash-1.8
+test atbash-1.8 "encode all the letters" -body {
+    atbash encode "The quick brown fox jumps over the lazy dog."
+} -returnCodes ok -result "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt"
 
-    cleanupTests
-}
+# decode
+
+skip atbash-2.1
+test atbash-2.1 "decode exercism" -body {
+    atbash decode "vcvix rhn"
+} -returnCodes ok -result "exercism"
+
+skip atbash-2.2
+test atbash-2.2 "decode a sentence" -body {
+    atbash decode "zmlyh gzxov rhlug vmzhg vkkrm thglm v"
+} -returnCodes ok -result "anobstacleisoftenasteppingstone"
+
+skip atbash-2.3
+test atbash-2.3 "decode numbers" -body {
+    atbash decode "gvhgr mt123 gvhgr mt"
+} -returnCodes ok -result "testing123testing"
+
+skip atbash-2.4
+test atbash-2.4 "decode all the letters" -body {
+    atbash decode "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt"
+} -returnCodes ok -result "thequickbrownfoxjumpsoverthelazydog"
+
+skip atbash-2.5
+test atbash-2.5 "decode with too many spaces" -body {
+    atbash decode "vc vix    r hn"
+} -returnCodes ok -result "exercism"
+
+skip atbash-2.6
+test atbash-2.6 "decode with no spaces" -body {
+    atbash decode "zmlyhgzxovrhlugvmzhgvkkrmthglmv"
+} -returnCodes ok -result "anobstacleisoftenasteppingstone"
+
+cleanupTests

@@ -1,85 +1,62 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "parallel-letter-frequency.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+test plf-1 "one letter" -body {
+    calculate "a"
+} -returnCodes ok -match dictionary -result {a 1}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+skip plf-2
+test plf-2 "case insensitive" -body {
+    calculate "aA"
+} -returnCodes ok -match dictionary -result {a 2}
+
+skip plf-3
+test plf-3 "numbers are ignored" -body {
+    calculate {"123" "456" "789"}
+} -returnCodes ok -match dictionary -result {}
+
+skip plf-4
+test plf-4 "punctuation is ignored" -body {
+    calculate {"\[]\\;," "./{}!" ":\"<>?"}
+} -returnCodes ok -match dictionary -result {}
+
+skip plf-5
+test plf-5 "whitespace is ignored" -body {
+    calculate {" \r" "\t\n" "\f\v" "\b "}
+} -returnCodes ok -match dictionary -result {}
+
+skip plf-6
+test plf-6 "repeated string" -body {
+    calculate {"abc" "abc" "abc"}
+} -returnCodes ok -match dictionary -result {a 3 b 3 c 3}
+
+skip plf-7
+test plf-7 "large text" -body {
+    calculate {
+        "3 Quotes from Excerism Homepage:"
+        "\tOne moment you feel like you're"
+        "getting it. The next moment you're"
+        "stuck."
+        "\tYou know what it’s like to be fluent."
+        "Suddenly you’re feeling incompetent"
+        "and clumsy."
+        "\tHaphazard, convoluted code is"
+        "infuriating, not to mention costly. That"
+        "slapdash explosion of complexity is an"
+        "expensive yak shave waiting to"
+        "happen."
     }
+} -returnCodes ok -match dictionary -result {
+    a 15 b 1 c 8 d 7 e 35 f 6 g 6 h 9 i 19 k 5
+    l 12 m 11 n 23 o 26 p 9 q 1 r 7 s 14 t 26
+    u 12 v 3 w 3 x 5 y 10 z 1
 }
 
-proc dictionaryMatch {expected actual} {
-    if {[dict size $expected] != [dict size $actual]} {
-        return false
-    }
-    dict for {key value} $expected {
-        if {![dict exists $actual $key]} {
-            return false
-        }
-        if {[dict get $actual $key] != $value} {
-            return false
-        }
-    }
-    return true
-}
-customMatch dictionary dictionaryMatch
 
-
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
-
-if {$::argv0 eq [info script]} {
-
-    set cases {
-        plf-1 "one letter" "a" {a 1}
-        plf-2 "case insensitive" "aA" {a 2}
-        plf-3 "numbers are ignored" {"123" "456" "789"} {}
-        plf-4 "punctuation is ignored" {"\[]\\;," "./{}!" ":\"<>?"} {}
-        plf-5 "whitespace is ignored" {" \r" "\t\n" "\f\v" "\b "} {}
-        plf-6 "repeated string" {"abc" "abc" "abc"} {a 3 b 3 c 3}
-        plf-7 "large text" {
-            "3 Quotes from Excerism Homepage:"
-            "\tOne moment you feel like you're"
-            "getting it. The next moment you're"
-            "stuck."
-            "\tYou know what it’s like to be fluent."
-            "Suddenly you’re feeling incompetent"
-            "and clumsy."
-            "\tHaphazard, convoluted code is"
-            "infuriating, not to mention costly. That"
-            "slapdash explosion of complexity is an"
-            "expensive yak shave waiting to"
-            "happen."
-        } {
-            a 15 b 1 c 8 d 7 e 35 f 6 g 6 h 9 i 19 k 5
-            l 12 m 11 n 23 o 26 p 9 q 1 r 7 s 14 t 26
-            u 12 v 3 w 3 x 5 y 10 z 1
-        }
-    }
-
-    foreach {name description input result} $cases {
-        test $name $description \
-            -body [list calculate $input] \
-            -match dictionary \
-            -result $result
-    }
-
-    cleanupTests
-}
+cleanupTests

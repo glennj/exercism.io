@@ -1,53 +1,58 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "rotational-cipher.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test rot-1 "rotate a by 0, same output as input" -body {
+    rotate "a" 0
+} -returnCodes ok -result "a"
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip rot-2
+test rot-2 "rotate a by 1" -body {
+    rotate "a" 1
+} -returnCodes ok -result "b"
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip rot-3
+test rot-3 "rotate a by 26, same output as input" -body {
+    rotate "a" 26
+} -returnCodes ok -result "a"
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip rot-4
+test rot-4 "rotate m by 13" -body {
+    rotate "m" 13
+} -returnCodes ok -result "z"
 
-if {$::argv0 eq [info script]} {
+skip rot-5
+test rot-5 "rotate n by 13 with wrap around alphabet" -body {
+    rotate "n" 13
+} -returnCodes ok -result "a"
 
-    set cases {
-        rot-1 "rotate a by 0, same output as input" "a" 0 "a"
-        rot-2 "rotate a by 1" "a" 1 "b"
-        rot-3 "rotate a by 26, same output as input" "a" 26 "a"
-        rot-4 "rotate m by 13" "m" 13 "z"
-        rot-5 "rotate n by 13 with wrap around alphabet" "n" 13 "a"
-        rot-6 "rotate capital letters" "OMG" 5 "TRL"
-        rot-7 "rotate spaces" "O M G" 5 "T R L"
-        rot-8 "rotate numbers" "Testing 1 2 3 testing" 4 "Xiwxmrk 1 2 3 xiwxmrk"
-        rot-9 "rotate punctuation" "Let's eat, Grandma!" 21 "Gzo'n zvo, Bmviyhv!"
-        rot-10 "rotate all letters" "The quick brown fox jumps over the lazy dog." 13 "Gur dhvpx oebja sbk whzcf bire gur ynml qbt."
-    }
+skip rot-6
+test rot-6 "rotate capital letters" -body {
+    rotate "OMG" 5
+} -returnCodes ok -result "TRL"
 
-    foreach {name description text shift result} $cases {
-        test $name $description -body {
-            rotate $text $shift
-        } -returnCodes ok -result $result
-    }
+skip rot-7
+test rot-7 "rotate spaces" -body {
+    rotate "O M G" 5
+} -returnCodes ok -result "T R L"
 
-    cleanupTests
-}
+skip rot-8
+test rot-8 "rotate numbers" -body {
+    rotate "Testing 1 2 3 testing" 4
+} -returnCodes ok -result "Xiwxmrk 1 2 3 xiwxmrk"
+
+skip rot-9
+test rot-9 "rotate punctuation" -body {
+    rotate "Let's eat, Grandma!" 21
+} -returnCodes ok -result "Gzo'n zvo, Bmviyhv!"
+
+skip rot-10
+test rot-10 "rotate all letters" -body {
+    rotate "The quick brown fox jumps over the lazy dog." 13
+} -returnCodes ok -result "Gur dhvpx oebja sbk whzcf bire gur ynml qbt."
+
+cleanupTests

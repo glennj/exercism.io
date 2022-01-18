@@ -1,143 +1,344 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "clock.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+####################################
+test clock-1.1 "on the hour" -body {
+    [Clock new 8 0] toString
+} -returnCodes OK -result "08:00"
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip clock-1.2
+test clock-1.2 "past the hour" -body {
+    [Clock new 11 9] toString
+} -returnCodes ok -result "11:09"
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip clock-1.3
+test clock-1.3 "midnight is zero hours" -body {
+    [Clock new 24 0] toString
+} -returnCodes ok -result "00:00"
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip clock-1.4
+test clock-1.4 "hour rolls over" -body {
+    [Clock new 25 0] toString
+} -returnCodes ok -result "01:00"
 
-proc booleanMatch {expected actual} {
-    return [expr {
-        [string is boolean -strict $expected] &&
-        [string is boolean -strict $actual] &&
-        !!$expected == !!$actual
-    }]
-}
-customMatch boolean booleanMatch
+skip clock-1.5
+test clock-1.5 "hour rolls over continuously" -body {
+    [Clock new 100 0] toString
+} -returnCodes ok -result "04:00"
 
-if {$::argv0 eq [info script]} {
+skip clock-1.6
+test clock-1.6 "sixty minutes is next hour" -body {
+    [Clock new 1 60] toString
+} -returnCodes ok -result "02:00"
 
-    set createCases {
-        clock-1.1      8     0  "08:00"  "on the hour"
-        clock-1.2     11     9  "11:09"  "past the hour"
-        clock-1.3     24     0  "00:00"  "midnight is zero hours"
-        clock-1.4     25     0  "01:00"  "hour rolls over"
-        clock-1.5    100     0  "04:00"  "hour rolls over continuously"
-        clock-1.6      1    60  "02:00"  "sixty minutes is next hour"
-        clock-1.7      0   160  "02:40"  "minutes roll over"
-        clock-1.8      0  1723  "04:43"  "minutes roll over continuously"
-        clock-1.9     25   160  "03:40"  "hour and minutes roll over"
-        clock-1.10   201  3001  "11:01"  "hour and minutes roll over continuously"
-        clock-1.11    72  8640  "00:00"  "hour and minutes roll over to exactly midnight"
-        clock-1.12    -1    15  "23:15"  "negative hour"
-        clock-1.13   -25     0  "23:00"  "negative hour rolls over"
-        clock-1.14   -91     0  "05:00"  "negative hour rolls over continuously"
-        clock-1.15     1   -40  "00:20"  "negative minutes"
-        clock-1.16     1  -160  "22:20"  "negative minutes roll over"
-        clock-1.17     1 -4820  "16:40"  "negative minutes roll over continuously"
-        clock-1.18     2   -60  "01:00"  "negative sixty minutes is previous hour"
-        clock-1.19   -25  -160  "20:20"  "negative hour and minutes both roll over"
-        clock-1.20  -121 -5810  "22:10"  "negative hour and minutes both roll over continuously"
-    }
+skip clock-1.7
+test clock-1.7 "minutes roll over" -body {
+    [Clock new 0 160] toString
+} -returnCodes ok -result "02:40"
 
-    foreach {name hour minute result description} $createCases {
-        test $name $description -body {
-            [Clock new $hour $minute] toString
-        } -returnCodes ok -result $result
-    }
+skip clock-1.8
+test clock-1.8 "minutes roll over continuously" -body {
+    [Clock new 0 1723] toString
+} -returnCodes ok -result "04:43"
 
-    set addCases {
-        clock-2.1  10   0     3  "10:03"  "add minutes"
-        clock-2.2   6  41     0  "06:41"  "add no minutes"
-        clock-2.3   0  45    40  "01:25"  "add to next hour"
-        clock-2.4  10   0    61  "11:01"  "add more than one hour"
-        clock-2.5   0  45   160  "03:25"  "add more than two hours with carry"
-        clock-2.6  23  59     2  "00:01"  "add across midnight"
-        clock-2.7   5  32  1500  "06:32"  "add more than one day (1500 min = 25 hrs)"
-        clock-2.8   1   1  3500  "11:21"  "add more than two days"
-        clock-2.9  12   0   -30  "11:30"  "add a negative value"
-    }
+skip clock-1.9
+test clock-1.9 "hour and minutes roll over" -body {
+    [Clock new 25 160] toString
+} -returnCodes ok -result "03:40"
 
-    foreach {name hour minute delta result description} $addCases {
-        test $name $description -body {
-            set c [Clock new $hour $minute]
-            [$c add $delta] toString
-        } -returnCodes ok -result $result
-    }
+skip clock-1.10
+test clock-1.10 "hour and minutes roll over continuously" -body {
+    [Clock new 201 3001] toString
+} -returnCodes ok -result "11:01"
 
-    set subtractCases {
-        clock-3.1  10  3     3  "10:00"  "subtract minutes"
-        clock-3.2  10  3    30  "09:33"  "subtract to previous hour"
-        clock-3.3  10  3    70  "08:53"  "subtract more than an hour"
-        clock-3.4   0  3     4  "23:59"  "subtract across midnight"
-        clock-3.5   0  0   160  "21:20"  "subtract more than two hours"
-        clock-3.6   6 15   160  "03:35"  "subtract more than two hours with borrow"
-        clock-3.7   5 32  1500  "04:32"  "subtract more than one day (1500 min = 25 hrs)"
-        clock-3.8   2 20  3000  "00:20"  "subtract more than two days"
-        clock-3.9  12  0   -30  "12:30"  "subtract a negative value"
-    }
+skip clock-1.11
+test clock-1.11 "hour and minutes roll over to exactly midnight" -body {
+    [Clock new 72 8640] toString
+} -returnCodes ok -result "00:00"
 
-    foreach {name hour minute delta result description} $subtractCases {
-        test $name $description -body {
-            set c [Clock new $hour $minute]
-            [$c subtract $delta] toString
-        } -returnCodes ok -result $result
-    }
+skip clock-1.12
+test clock-1.12 "negative hour" -body {
+    [Clock new -1 15] toString
+} -returnCodes ok -result "23:15"
 
-    set equalityCases {
-        clock-4.1   15 37   15     37  true "clocks with same time"
-        clock-4.2   15 36   15     37 false "clocks a minute apart"
-        clock-4.3   14 37   15     37 false "clocks an hour apart"
-        clock-4.4   10 37   34     37  true "clocks with hour overflow"
-        clock-4.5    3 11   99     11  true "clocks with hour overflow by several days"
-        clock-4.6   22 40   -2     40  true "clocks with negative hour"
-        clock-4.7   17  3  -31      3  true "clocks with negative hour that wraps"
-        clock-4.8   13 49  -83     49  true "clocks with negative hour that wraps multiple times"
-        clock-4.9    0  1    0   1441  true "clocks with minute overflow"
-        clock-4.10   2  2    2   4322  true "clocks with minute overflow by several days"
-        clock-4.11   2 40    3    -20  true "clocks with negative minute"
-        clock-4.12   4 10    5  -1490  true "clocks with negative minute that wraps"
-        clock-4.13   6 15    6  -4305  true "clocks with negative minute that wraps multiple times"
-        clock-4.14   7 32  -12   -268  true "clocks with negative hours and minutes"
-        clock-4.15  18  7  -54 -11513  true "clocks with negative hours and minutes that wrap"
-        clock-4.16  24  0    0      0  true "full clock and zeroed clock"
-    }
+skip clock-1.13
+test clock-1.13 "negative hour rolls over" -body {
+    [Clock new -25 0] toString
+} -returnCodes ok -result "23:00"
 
-    foreach {name h1 m1 h2 m2 result description} $equalityCases {
-        test $name $description -body {
-            set c1 [Clock new $h1 $m1]
-            set c2 [Clock new $h2 $m2]
-            $c1 equals $c2
-        } -returnCodes ok -match boolean -result $result
-    }
+skip clock-1.14
+test clock-1.14 "negative hour rolls over continuously" -body {
+    [Clock new -91 0] toString
+} -returnCodes ok -result "05:00"
 
-    test clock-5.1 "bonus: non-alpha method name" -body {
-        set c1 [Clock new 8 1]
-        set c2 [Clock new 8 2]
-        $c1 == $c2
-    } -returnCodes ok -match boolean -result false
+skip clock-1.15
+test clock-1.15 "negative minutes" -body {
+    [Clock new 1 -40] toString
+} -returnCodes ok -result "00:20"
 
-    cleanupTests
-}
+skip clock-1.16
+test clock-1.16 "negative minutes roll over" -body {
+    [Clock new 1 -160] toString
+} -returnCodes ok -result "22:20"
+
+skip clock-1.17
+test clock-1.17 "negative minutes roll over continuously" -body {
+    [Clock new 1 -4820] toString
+} -returnCodes ok -result "16:40"
+
+skip clock-1.18
+test clock-1.18 "negative sixty minutes is previous hour" -body {
+    [Clock new 2 -60] toString
+} -returnCodes ok -result "01:00"
+
+skip clock-1.19
+test clock-1.19 "negative hour and minutes both roll over" -body {
+    [Clock new -25 -160] toString
+} -returnCodes ok -result "20:20"
+
+skip clock-1.20
+test clock-1.20 "negative hour and minutes both roll over continuously" -body {
+    [Clock new -121 -5810] toString
+} -returnCodes ok -result "22:10"
+
+
+####################################
+skip clock-2.1
+test clock-2.1 "add minutes" -body {
+    set c [Clock new 10 0]
+    [$c add 3] toString
+} -returnCodes ok -result "10:03"
+
+skip clock-2.2
+test clock-2.2 "add no minutes" -body {
+    set c [Clock new 6 41]
+    [$c add 0] toString
+} -returnCodes ok -result "06:41"
+
+skip clock-2.3
+test clock-2.3 "add to next hour" -body {
+    set c [Clock new 0 45]
+    [$c add 40] toString
+} -returnCodes ok -result "01:25"
+
+skip clock-2.4
+test clock-2.4 "add more than one hour" -body {
+    set c [Clock new 10 0]
+    [$c add 61] toString
+} -returnCodes ok -result "11:01"
+
+skip clock-2.5
+test clock-2.5 "add more than two hours with carry" -body {
+    set c [Clock new 0 45]
+    [$c add 160] toString
+} -returnCodes ok -result "03:25"
+
+skip clock-2.6
+test clock-2.6 "add across midnight" -body {
+    set c [Clock new 23 59]
+    [$c add 2] toString
+} -returnCodes ok -result "00:01"
+
+skip clock-2.7
+test clock-2.7 "add more than one day (1500 min = 25 hrs)" -body {
+    set c [Clock new 5 32]
+    [$c add 1500] toString
+} -returnCodes ok -result "06:32"
+
+skip clock-2.8
+test clock-2.8 "add more than two days" -body {
+    set c [Clock new 1 1]
+    [$c add 3500] toString
+} -returnCodes ok -result "11:21"
+
+skip clock-2.9
+test clock-2.9 "add a negative value" -body {
+    set c [Clock new 12 0]
+    [$c add -30] toString
+} -returnCodes ok -result "11:30"
+
+
+####################################
+skip clock-3.1
+test clock-3.1 "subtract minutes" -body {
+    set c [Clock new 10 3]
+    [$c subtract 3] toString
+} -returnCodes ok -result "10:00"
+
+skip clock-3.2
+test clock-3.2 "subtract to previous hour" -body {
+    set c [Clock new 10 3]
+    [$c subtract 30] toString
+} -returnCodes ok -result "09:33"
+
+skip clock-3.3
+test clock-3.3 "subtract more than an hour" -body {
+    set c [Clock new 10 3]
+    [$c subtract 70] toString
+} -returnCodes ok -result "08:53"
+
+skip clock-3.4
+test clock-3.4 "subtract across midnight" -body {
+    set c [Clock new 0 3]
+    [$c subtract 4] toString
+} -returnCodes ok -result "23:59"
+
+skip clock-3.5
+test clock-3.5 "subtract more than two hours" -body {
+    set c [Clock new 0 0]
+    [$c subtract 160] toString
+} -returnCodes ok -result "21:20"
+
+skip clock-3.6
+test clock-3.6 "subtract more than two hours with borrow" -body {
+    set c [Clock new 6 15]
+    [$c subtract 160] toString
+} -returnCodes ok -result "03:35"
+
+skip clock-3.7
+test clock-3.7 "subtract more than one day (1500 min = 25 hrs)" -body {
+    set c [Clock new 5 32]
+    [$c subtract 1500] toString
+} -returnCodes ok -result "04:32"
+
+skip clock-3.8
+test clock-3.8 "subtract more than two days" -body {
+    set c [Clock new 2 20]
+    [$c subtract 3000] toString
+} -returnCodes ok -result "00:20"
+
+skip clock-3.9
+test clock-3.9 "subtract a negative value" -body {
+    set c [Clock new 12 0]
+    [$c subtract -30] toString
+} -returnCodes ok -result "12:30"
+
+
+####################################
+skip clock-4.1
+test clock-4.1 "clocks with same time" -body {
+    set c1 [Clock new 15 37]
+    set c2 [Clock new 15 37]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result true
+
+skip clock-4.2
+test clock-4.2 "clocks a minute apart" -body {
+    set c1 [Clock new 15 36]
+    set c2 [Clock new 15 37]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result false
+
+skip clock-4.3
+test clock-4.3 "clocks an hour apart" -body {
+    set c1 [Clock new 14 37]
+    set c2 [Clock new 15 37]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result false
+
+skip clock-4.4
+test clock-4.4 "clocks with hour overflow" -body {
+    set c1 [Clock new 10 37]
+    set c2 [Clock new 34 37]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result true
+
+skip clock-4.5
+test clock-4.5 "clocks with hour overflow by several days" -body {
+    set c1 [Clock new 3 11]
+    set c2 [Clock new 99 11]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result true
+
+skip clock-4.6
+test clock-4.6 "clocks with negative hour" -body {
+    set c1 [Clock new 22 40]
+    set c2 [Clock new -2 40]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result true
+
+skip clock-4.7
+test clock-4.7 "clocks with negative hour that wraps" -body {
+    set c1 [Clock new 17 3]
+    set c2 [Clock new -31 3]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result true
+
+skip clock-4.8
+test clock-4.8 "clocks with negative hour that wraps multiple times" -body {
+    set c1 [Clock new 13 49]
+    set c2 [Clock new -83 49]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result true
+
+skip clock-4.9
+test clock-4.9 "clocks with minute overflow" -body {
+    set c1 [Clock new 0 1]
+    set c2 [Clock new 0 1441]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result true
+
+skip clock-4.10
+test clock-4.10 "clocks with minute overflow by several days" -body {
+    set c1 [Clock new 2 2]
+    set c2 [Clock new 2 4322]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result true
+
+skip clock-4.11
+test clock-4.11 "clocks with negative minute" -body {
+    set c1 [Clock new 2 40]
+    set c2 [Clock new 3 -20]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result true
+
+skip clock-4.12
+test clock-4.12 "clocks with negative minute that wraps" -body {
+    set c1 [Clock new 4 10]
+    set c2 [Clock new 5 -1490]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result true
+
+skip clock-4.13
+test clock-4.13 "clocks with negative minute that wraps multiple times" -body {
+    set c1 [Clock new 6 15]
+    set c2 [Clock new 6 -4305]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result true
+
+skip clock-4.14
+test clock-4.14 "clocks with negative hours and minutes" -body {
+    set c1 [Clock new 7 32]
+    set c2 [Clock new -12 -268]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result true
+
+skip clock-4.15
+test clock-4.15 "clocks with negative hours and minutes that wrap" -body {
+    set c1 [Clock new 18 7]
+    set c2 [Clock new -54 -11513]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result true
+
+skip clock-4.16
+test clock-4.16 "full clock and zeroed clock" -body {
+    set c1 [Clock new 24 0]
+    set c2 [Clock new 0 0]
+    $c1 equals $c2
+} -returnCodes OK -match boolean -result true
+
+
+####################################
+skip clock-5.1
+test clock-5.1 "bonus: non-alpha method name" -body {
+    set c1 [Clock new 8 1]
+    set c2 [Clock new 8 2]
+    $c1 == $c2
+} -returnCodes ok -match boolean -result false
+
+cleanupTests

@@ -1,84 +1,64 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "dominoes.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
+set cases {
+    dominoes-1 "empty input = empty output" true  {}
+    dominoes-2 "singleton input = singleton output" true  {{1 1}}
+    dominoes-3 "singleton that can't be chained" false  {{1 2}}
+    dominoes-4 "three elements" true  {{1 2} {3 1} {2 3}}
+    dominoes-5 "can reverse dominoes" true  {{1 2} {1 3} {2 3}}
+    dominoes-6 "can't be chained" false  {{1 2} {4 1} {2 3}}
 }
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
+# This meets the requirement of being possibly-Euclidean.  All vertices
+# have even degree.  Nevertheless, there is no chain here, as there's no
+# way to get from 1 to 2.  This test (and the two following) prevent
+# solutions from using the even-degree test as the sole criterion, as
+# that is not a sufficient condition."
+#
+lappend cases {*}{
+    dominoes-7 "disconnected - simple" false  {{1 1} {2 2}}
+    dominoes-8 "disconnected - double loop" false  {{1 2} {2 1} {3 4} {4 3}}
+    dominoes-9 "disconnected - single isolated" false  {{1 2} {2 3} {3 1} {4 4}}
 }
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
+# Some solutions may make a chain out of (1, 2), (2, 3), (3, 1)
+# then decide that since there are no more dominoes containing a 1,
+# there is no chain possible.  There is indeed a chain here, so this
+# test checks for this line of reasoning.  You need to place the (2, 4)
+# after the (1, 2) rather than the (2, 3).
+#
+lappend cases {*}{
+    dominoes-10 "need backtrack" true  {{1 2} {2 3} {3 1} {2 4} {2 4}}
+    dominoes-11 "separate loops" true  {{1 2} {2 3} {3 1} {1 1} {2 2} {3 3}}
+    dominoes-12 "nine elements" true  {{1 2} {5 3} {3 1} {1 2} {2 4} {1 6} {2 3} {3 4} {5 6}}
 }
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
+skip {
+    dominoes-2
+    dominoes-3
+    dominoes-4
+    dominoes-5
+    dominoes-6
+    dominoes-7
+    dominoes-8
+    dominoes-9
+    dominoes-10
+    dominoes-11
+    dominoes-12
 }
 
-proc booleanMatch {expected actual} {
-    return [expr {
-        [string is boolean -strict $expected] &&
-        [string is boolean -strict $actual] &&
-        !!$expected == !!$actual
-    }]
+foreach {name description result input} $cases {
+    test $name $description \
+        -body [list dominoChain $input] \
+        -returnCodes ok \
+        -match boolean \
+        -result $result
 }
-customMatch boolean booleanMatch
 
-if {$::argv0 eq [info script]} {
-
-    set cases {
-        dominoes-1 "empty input = empty output" true  {}
-        dominoes-2 "singleton input = singleton output" true  {{1 1}}
-        dominoes-3 "singleton that can't be chained" false  {{1 2}}
-        dominoes-4 "three elements" true  {{1 2} {3 1} {2 3}}
-        dominoes-5 "can reverse dominoes" true  {{1 2} {1 3} {2 3}}
-        dominoes-6 "can't be chained" false  {{1 2} {4 1} {2 3}}
-    }
-
-    # This meets the requirement of being possibly-Euclidean.  All vertices
-    # have even degree.  Nevertheless, there is no chain here, as there's no
-    # way to get from 1 to 2.  This test (and the two following) prevent
-    # solutions from using the even-degree test as the sole criterion, as
-    # that is not a sufficient condition."
-    #
-    lappend cases {*}{
-        dominoes-7 "disconnected - simple" false  {{1 1} {2 2}}
-        dominoes-8 "disconnected - double loop" false  {{1 2} {2 1} {3 4} {4 3}}
-        dominoes-9 "disconnected - single isolated" false  {{1 2} {2 3} {3 1} {4 4}}
-    }
-
-    # Some solutions may make a chain out of (1, 2), (2, 3), (3, 1)
-    # then decide that since there are no more dominoes containing a 1,
-    # there is no chain possible.  There is indeed a chain here, so this
-    # test checks for this line of reasoning.  You need to place the (2, 4)
-    # after the (1, 2) rather than the (2, 3).
-    #
-    lappend cases {*}{
-        dominoes-10 "need backtrack" true  {{1 2} {2 3} {3 1} {2 4} {2 4}}
-        dominoes-11 "separate loops" true  {{1 2} {2 3} {3 1} {1 1} {2 2} {3 3}}
-        dominoes-12 "nine elements" true  {{1 2} {5 3} {3 1} {1 2} {2 4} {1 6} {2 3} {3 4} {5 6}}
-    }
-
-    foreach {name description result input} $cases {
-        test $name $description \
-            -body [list dominoChain $input] \
-            -returnCodes ok \
-            -match boolean \
-            -result $result
-    }
-
-    cleanupTests
-}
+cleanupTests

@@ -1,136 +1,142 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "variable-length-quantity.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test vlq-1.1 "zero" -body {
+    encode {0x00}
+} -returnCodes ok -result {0x00}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip vlq-1.2
+test vlq-1.2 "arbitrary single byte" -body {
+    encode {0x40}
+} -returnCodes ok -result {0x40}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip vlq-1.3
+test vlq-1.3 "largest single byte" -body {
+    encode {0x7F}
+} -returnCodes ok -result {0x7F}
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip vlq-1.4
+test vlq-1.4 "smallest double byte" -body {
+    encode {0x80}
+} -returnCodes ok -result {0x81 0x00}
 
-if {$::argv0 eq [info script]} {
+skip vlq-1.5
+test vlq-1.5 "arbitrary double byte" -body {
+    encode {0x2000}
+} -returnCodes ok -result {0xC0 0x00}
 
-    set encode_cases {
-        vlq-1.1 "zero"
-            {0x00}
-            {0x00}
-        vlq-1.2 "arbitrary single byte"
-            {0x40}
-            {0x40}
-        vlq-1.3 "largest single byte"
-            {0x7F}
-            {0x7F}
-        vlq-1.4 "smallest double byte"
-            {0x80}
-            {0x81 0x00}
-        vlq-1.5 "arbitrary double byte"
-            {0x2000}
-            {0xC0 0x00}
-        vlq-1.6 "largest double byte"
-            {0x3FFF}
-            {0xFF 0x7F}
-        vlq-1.7 "smallest triple byte"
-            {0x4000}
-            {0x81 0x80 0x00}
-        vlq-1.8 "arbitrary triple byte"
-            {0x100000}
-            {0xC0 0x80 0x00}
-        vlq-1.9 "largest triple byte"
-            {0x1FFFFF}
-            {0xFF 0xFF 0x7F}
-        vlq-1.10 "smallest quadruple byte"
-            {0x200000}
-            {0x81 0x80 0x80 0x00}
-        vlq-1.11 "arbitrary quadruple byte"
-            {0x8000000}
-            {0xC0 0x80 0x80 0x00}
-        vlq-1.12 "largest quadruple byte"
-            {0x0FFFFFFF}
-            {0xFF 0xFF 0xFF 0x7F}
-        vlq-1.13 "smallest quintuple byte"
-            {0x10000000}
-            {0x81 0x80 0x80 0x80 0x00}
-        vlq-1.14 "arbitrary quintuple byte"
-            {0xFF000000}
-            {0x8F 0xF8 0x80 0x80 0x00}
-        vlq-1.15 "maximum 32-bit integer input"
-            {0xFFFFFFFF}
-            {0x8F 0xFF 0xFF 0xFF 0x7F}
-        vlq-1.16 "two single-byte values"
-            {0x40 0x7F}
-            {0x40 0x7F}
-        vlq-1.17 "two multi-byte values"
-            {0x4000 0x123456}
-            {0x81 0x80 0x00 0xC8 0xE8 0x56}
-        vlq-1.18 "many multi-byte values"
-            {0x2000 0x123456 0x0FFFFFFF 0x00 0x3FFF 0x4000}
-            {0xC0 0x00 0xC8 0xE8 0x56 0xFF 0xFF 0xFF 0x7F 0x00 0xFF 0x7F 0x81 0x80 0x00}
-    }
-    foreach {name description input result} $encode_cases {
-        test $name $description -body {
-            encode $input
-        } -returnCodes ok -result $result
-    }
+skip vlq-1.6
+test vlq-1.6 "largest double byte" -body {
+    encode {0x3FFF}
+} -returnCodes ok -result {0xFF 0x7F}
 
-    set decode_cases {
-        vlq-2.1 "one byte"
-            {0x7F}
-            {0x7F}
-        vlq-2.2 "two bytes"
-            {0xC0 0x00}
-            {0x2000}
-        vlq-2.3 "three bytes"
-            {0xFF 0xFF 0x7F}
-            {0x1FFFFF}
-        vlq-2.4 "four bytes"
-            {0x81 0x80 0x80 0x00}
-            {0x200000}
-        vlq-2.5 "maximum 32-bit integer"
-            {0x8F 0xFF 0xFF 0xFF 0x7F}
-            {0xFFFFFFFF}
-        vlq-2.6 "multiple values"
-            {0xC0 0x00 0xC8 0xE8 0x56 0xFF 0xFF 0xFF 0x7F 0x00 0xFF 0x7F 0x81 0x80 0x00}
-            {0x2000 0x123456 0xFFFFFFF 0x0 0x3FFF 0x4000}
-    }
-    foreach {name description input result} $decode_cases {
-        test $name $description -body {
-            decode $input
-        } -returnCodes ok -result $result
-    }
+skip vlq-1.7
+test vlq-1.7 "smallest triple byte" -body {
+    encode {0x4000}
+} -returnCodes ok -result {0x81 0x80 0x00}
 
-    set decode_errors {
-        vlq-3.1 "incomplete sequence causes error"
-            {0xFF}
-            "incomplete sequence"
-        vlq-3.2 "incomplete sequence causes error even if value is zero"
-            {0x80}
-            "incomplete sequence"
-    }
-    foreach {name description input result} $decode_errors {
-        test $name $description -body {
-            decode $input
-        } -returnCodes error -result $result
-    }
+skip vlq-1.8
+test vlq-1.8 "arbitrary triple byte" -body {
+    encode {0x100000}
+} -returnCodes ok -result {0xC0 0x80 0x00}
 
-    cleanupTests
-}
+skip vlq-1.9
+test vlq-1.9 "largest triple byte" -body {
+    encode {0x1FFFFF}
+} -returnCodes ok -result {0xFF 0xFF 0x7F}
+
+skip vlq-1.10
+test vlq-1.10 "smallest quadruple byte" -body {
+    encode {0x200000}
+} -returnCodes ok -result {0x81 0x80 0x80 0x00}
+
+skip vlq-1.11
+test vlq-1.11 "arbitrary quadruple byte" -body {
+    encode {0x8000000}
+} -returnCodes ok -result {0xC0 0x80 0x80 0x00}
+
+skip vlq-1.12
+test vlq-1.12 "largest quadruple byte" -body {
+    encode {0x0FFFFFFF}
+} -returnCodes ok -result {0xFF 0xFF 0xFF 0x7F}
+
+skip vlq-1.13
+test vlq-1.13 "smallest quintuple byte" -body {
+    encode {0x10000000}
+} -returnCodes ok -result {0x81 0x80 0x80 0x80 0x00}
+
+skip vlq-1.14
+test vlq-1.14 "arbitrary quintuple byte" -body {
+    encode {0xFF000000}
+} -returnCodes ok -result {0x8F 0xF8 0x80 0x80 0x00}
+
+skip vlq-1.15
+test vlq-1.15 "maximum 32-bit integer input" -body {
+    encode {0xFFFFFFFF}
+} -returnCodes ok -result {0x8F 0xFF 0xFF 0xFF 0x7F}
+
+skip vlq-1.16
+test vlq-1.16 "two single-byte values" -body {
+    encode {0x40 0x7F}
+} -returnCodes ok -result {0x40 0x7F}
+
+skip vlq-1.17
+test vlq-1.17 "two multi-byte values" -body {
+    encode {0x4000 0x123456}
+} -returnCodes ok -result {0x81 0x80 0x00 0xC8 0xE8 0x56}
+
+skip vlq-1.18
+test vlq-1.18 "many multi-byte values" -body {
+    encode {0x2000 0x123456 0x0FFFFFFF 0x00 0x3FFF 0x4000}
+} -returnCodes ok -result {0xC0 0x00 0xC8 0xE8 0x56 0xFF 0xFF 0xFF 0x7F 0x00 0xFF 0x7F 0x81 0x80 0x00}
+
+
+skip vlq-2.1
+test vlq-2.1 "one byte" -body {
+    decode {0x7F}
+} -returnCodes ok -result {0x7F}
+
+skip vlq-2.2
+test vlq-2.2 "two bytes" -body {
+    decode {0xC0 0x00}
+} -returnCodes ok -result {0x2000}
+
+skip vlq-2.3
+test vlq-2.3 "three bytes" -body {
+    decode {0xFF 0xFF 0x7F}
+} -returnCodes ok -result {0x1FFFFF}
+
+skip vlq-2.4
+test vlq-2.4 "four bytes" -body {
+    decode {0x81 0x80 0x80 0x00}
+} -returnCodes ok -result {0x200000}
+
+skip vlq-2.5
+test vlq-2.5 "maximum 32-bit integer" -body {
+    decode {0x8F 0xFF 0xFF 0xFF 0x7F}
+} -returnCodes ok -result {0xFFFFFFFF}
+
+skip vlq-2.6
+test vlq-2.6 "multiple values" -body {
+    decode {0xC0 0x00 0xC8 0xE8 0x56 0xFF 0xFF 0xFF 0x7F 0x00 0xFF 0x7F 0x81 0x80 0x00}
+} -returnCodes ok -result {0x2000 0x123456 0xFFFFFFF 0x0 0x3FFF 0x4000}
+
+
+skip vlq-3.1
+test vlq-3.1 "incomplete sequence causes error" -body {
+    decode {0xFF}
+} -returnCodes error -result "incomplete sequence"
+
+skip vlq-3.2
+test vlq-3.2 "incomplete sequence causes error even if value is zero" -body {
+    decode {0x80}
+} -returnCodes error -result "incomplete sequence"
+
+
+cleanupTests
+

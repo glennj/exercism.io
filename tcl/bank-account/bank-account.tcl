@@ -22,7 +22,7 @@ oo::class create BankAccount {
         assert {$isOpen} "This account is not open."
         return $balance
     }
-
+ 
     method deposit {amount} {
         assert {$isOpen} "This account is not open."
         assert {$amount >= 0} "Cannot complete deposit: invalid amount."

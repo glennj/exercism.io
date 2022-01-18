@@ -1,57 +1,79 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "anagram.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test anagram-1 "no matches" -body {
+    findAnagrams diaper {hello world zombies pants}
+} -returnCodes ok -result {} 
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip anagram-2
+test anagram-2 "detects two anagrams" -body {
+    findAnagrams solemn {lemons cherry melons}
+} -returnCodes ok -result {lemons melons}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip anagram-3
+test anagram-3 "does not detect anagram subsets" -body {
+    findAnagrams good {dog goody}
+} -returnCodes ok -result {} 
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip anagram-4
+test anagram-4 "detects anagram" -body {
+    findAnagrams listen {enlists google inlets banana}
+} -returnCodes ok -result {inlets} 
 
-if {$::argv0 eq [info script]} {
+skip anagram-5
+test anagram-5 "detects three anagrams" -body {
+    findAnagrams allergy { gallery ballerina regally clergy largely leading }
+} -returnCodes ok -result {gallery regally largely} 
 
-    set cases {
-        anagram-1 "no matches" diaper {hello world zombies pants} {} 
-        anagram-2 "detects two anagrams" solemn {lemons cherry melons} {lemons melons}
-        anagram-3 "does not detect anagram subsets" good {dog goody} {} 
-        anagram-4 "detects anagram" listen {enlists google inlets banana} {inlets} 
-        anagram-5 "detects three anagrams" allergy { gallery ballerina regally clergy largely leading } {gallery regally largely} 
-        anagram-6 "detects multiple anagrams with different case" nose {Eons ONES} {Eons ONES} 
-        anagram-7 "does not detect non-anagrams with identical checksum" mass {last} {} 
-        anagram-8 "detects anagrams case-insensitively" Orchestra {cashregister Carthorse radishes} {Carthorse} 
-        anagram-9 "detects anagrams using case-insensitive subject" Orchestra {cashregister carthorse radishes} {carthorse} 
-        anagram-10 "detects anagrams using case-insensitive possible matches" orchestra {cashregister Carthorse radishes} {Carthorse}
-        anagram-11 "does not detect an anagram if the original word is repeated" go {go Go GO} {} 
-        anagram-12 "anagrams must use all letters exactly once" tapper {patter} {} 
-        anagram-13 "words are not anagrams of themselves (case-insensitive)" BANANA {BANANA Banana banana} {} 
-        anagram-14 "words other than themselves can be anagrams" LISTEN {Listen Silent LISTEN} {Silent} 
-    }
+skip anagram-6
+test anagram-6 "detects multiple anagrams with different case" -body {
+    findAnagrams nose {Eons ONES}
+} -returnCodes ok -result {Eons ONES} 
 
-    foreach {name description subject candidates expected} $cases {
-        test $name $description -body {
-            findAnagrams $subject $candidates
-        } -returnCodes ok -result $expected
-    }
+skip anagram-7
+test anagram-7 "does not detect non-anagrams with identical checksum" -body {
+    findAnagrams mass {last}
+} -returnCodes ok -result {} 
 
-    cleanupTests
-}
+skip anagram-8
+test anagram-8 "detects anagrams case-insensitively" -body {
+    findAnagrams Orchestra {cashregister Carthorse radishes}
+} -returnCodes ok -result {Carthorse} 
+
+skip anagram-9
+test anagram-9 "detects anagrams using case-insensitive subject" -body {
+    findAnagrams Orchestra {cashregister carthorse radishes}
+} -returnCodes ok -result {carthorse} 
+
+skip anagram-10
+test anagram-10 "detects anagrams using case-insensitive possible matches" -body {
+    findAnagrams orchestra {cashregister Carthorse radishes}
+} -returnCodes ok -result {Carthorse}
+
+skip anagram-11
+test anagram-11 "does not detect an anagram if the original word is repeated" -body {
+    findAnagrams go {go Go GO}
+} -returnCodes ok -result {} 
+
+skip anagram-12
+test anagram-12 "anagrams must use all letters exactly once" -body {
+    findAnagrams tapper {patter}
+} -returnCodes ok -result {} 
+
+skip anagram-13
+test anagram-13 "words are not anagrams of themselves (case-insensitive)" -body {
+    findAnagrams BANANA {BANANA Banana banana}
+} -returnCodes ok -result {} 
+
+skip anagram-14
+test anagram-14 "words other than themselves can be anagrams" -body {
+    findAnagrams LISTEN {Listen Silent LISTEN}
+} -returnCodes ok -result {Silent} 
+
+
+cleanupTests

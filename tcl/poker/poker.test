@@ -1,311 +1,291 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "poker.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
-
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
-
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+test poker-1 "single hand always wins" -body {
+    bestHands {
+        {4S 5S 7H 8D JC}
     }
+} -returnCodes ok -match orderedLists -result {
+    {4S 5S 7H 8D JC}
 }
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
+skip poker-2
+test poker-2 "highest card out of all hands wins" -body {
+    bestHands {
+        {4D 5S 6S 8D 3C}
+        {2S 4C 7S 9H 10H}
+        {3S 4S 5D 6H JH}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {3S 4S 5D 6H JH}
 }
 
-proc listMatch {expected actual} {
-    if {[llength $expected] != [llength $actual]} {
-        return false
+skip poker-3
+test poker-3 "a tie has multiple winners" -body {
+    bestHands {
+        {4D 5S 6S 8D 3C}
+        {2S 4C 7S 9H 10H}
+        {3S 4S 5D 6H JH}
+        {3H 4H 5C 6C JD}
     }
-    foreach e $expected a $actual {
-        if {$e != $a} {
-            return false
-        }
-    }
-    return true
+} -returnCodes ok -match orderedLists -result {
+    {3S 4S 5D 6H JH}
+    {3H 4H 5C 6C JD}
 }
-customMatch list listMatch
 
-
-if {$::argv0 eq [info script]} {
-
-    set cases {
-        poker-1 "single hand always wins"
-        {
-            {4S 5S 7H 8D JC}
-        }
-        {
-            {4S 5S 7H 8D JC}
-        }
-
-        poker-2 "highest card out of all hands wins"
-        {
-            {4D 5S 6S 8D 3C}
-            {2S 4C 7S 9H 10H}
-            {3S 4S 5D 6H JH}
-        }
-        {
-            {3S 4S 5D 6H JH}
-        }
-
-        poker-3 "a tie has multiple winners"
-        {
-            {4D 5S 6S 8D 3C}
-            {2S 4C 7S 9H 10H}
-            {3S 4S 5D 6H JH}
-            {3H 4H 5C 6C JD}
-        }
-        {
-            {3S 4S 5D 6H JH}
-            {3H 4H 5C 6C JD}
-        }
-
-        poker-4 "multiple hands with the same high cards, tie compares next highest ranked, down to last card"
-        {
-            {3S 5H 6S 8D 7H}
-            {2S 5D 6D 8C 7S}
-        }
-        {
-            {3S 5H 6S 8D 7H}
-        }
-
-        poker-5 "one pair beats high card"
-        {
-            {4S 5H 6C 8D KH}
-            {2S 4H 6S 4D JH}
-        }
-        {
-            {2S 4H 6S 4D JH}
-        }
-
-        poker-6 "highest pair wins"
-        {
-            {4S 2H 6S 2D JH}
-            {2S 4H 6C 4D JD}
-        }
-        {
-            {2S 4H 6C 4D JD}
-        }
-
-        poker-7 "two pairs beats one pair"
-        {
-            {2S 8H 6S 8D JH}
-            {4S 5H 4C 8C 5C}
-        }
-        {
-            {4S 5H 4C 8C 5C}
-        }
-
-        poker-8 "both hands have two pairs, highest ranked pair wins"
-        {
-            {2S 8H 2D 8D 3H}
-            {4S 5H 4C 8S 5D}
-        }
-        {
-            {2S 8H 2D 8D 3H}
-        }
-
-        poker-9 "both hands have two pairs, with the same highest ranked pair, tie goes to low pair"
-        {
-            {2S QS 2C QD JH}
-            {JD QH JS 8D QC}
-        }
-        {
-            {JD QH JS 8D QC}
-        }
-
-        poker-10 "both hands have two identically ranked pairs, tie goes to remaining card (kicker)"
-        {
-            {JD QH JS 8D QC}
-            {JS QS JC 2D QD}
-        }
-        {
-            {JD QH JS 8D QC}
-        }
-
-        poker-11 "three of a kind beats two pair"
-        {
-            {2S 8H 2H 8D JH}
-            {4S 5H 4C 8S 4H}
-        }
-        {
-            {4S 5H 4C 8S 4H}
-        }
-
-        poker-12 "both hands have three of a kind, tie goes to highest ranked triplet"
-        {
-            {2S 2H 2C 8D JH}
-            {4S AH AS 8C AD}
-        }
-        {
-            {4S AH AS 8C AD}
-        }
-
-        poker-13 "with multiple decks, two players can have same three of a kind, ties go to highest remaining cards"
-        {
-            {4S AH AS 7C AD}
-            {4S AH AS 8C AD}
-        }
-        {
-            {4S AH AS 8C AD}
-        }
-
-        poker-14 "a straight beats three of a kind"
-        {
-            {4S 5H 4C 8D 4H}
-            {3S 4D 2S 6D 5C}
-        }
-        {
-            {3S 4D 2S 6D 5C}
-        }
-
-        poker-15 "aces can end a straight (10 J Q K A)"
-        {
-            {4S 5H 4C 8D 4H}
-            {10D JH QS KD AC}
-        }
-        {
-            {10D JH QS KD AC}
-        }
-
-        poker-16 "aces can start a straight (A 2 3 4 5)"
-        {
-            {4S 5H 4C 8D 4H}
-            {4D AH 3S 2D 5C}
-        }
-        {
-            {4D AH 3S 2D 5C}
-        }
-
-        poker-17 "both hands with a straight, tie goes to highest ranked card"
-        {
-            {4S 6C 7S 8D 5H}
-            {5S 7H 8S 9D 6H}
-        }
-        {
-            {5S 7H 8S 9D 6H}
-        }
-
-        poker-18 "even though an ace is usually high, a 5-high straight is the lowest-scoring straight"
-        {
-            {2H 3C 4D 5D 6H}
-            {4S AH 3S 2D 5H}
-        }
-        {
-            {2H 3C 4D 5D 6H}
-        }
-
-        poker-19 "flush beats a straight"
-        {
-            {4C 6H 7D 8D 5H}
-            {2S 4S 5S 6S 7S}
-        }
-        {
-            {2S 4S 5S 6S 7S}
-        }
-
-        poker-20 "both hands have a flush, tie goes to high card, down to the last one if necessary"
-        {
-            {4H 7H 8H 9H 6H}
-            {2S 4S 5S 6S 7S}
-        }
-        {
-            {4H 7H 8H 9H 6H}
-        }
-
-        poker-21 "full house beats a flush"
-        {
-            {3H 6H 7H 8H 5H}
-            {4S 5H 4C 5D 4H}
-        }
-        {
-            {4S 5H 4C 5D 4H}
-        }
-
-        poker-22 "both hands have a full house, tie goes to highest-ranked triplet"
-        {
-            {4H 4S 4D 9S 9D}
-            {5H 5S 5D 8S 8D}
-        }
-        {
-            {5H 5S 5D 8S 8D}
-        }
-
-        poker-23 "with multiple decks, both hands have a full house with the same triplet, tie goes to the pair"
-        {
-            {5H 5S 5D 9S 9D}
-            {5H 5S 5D 8S 8D}
-        }
-        {
-            {5H 5S 5D 9S 9D}
-        }
-
-        poker-24 "four of a kind beats a full house"
-        {
-            {4S 5H 4D 5D 4H}
-            {3S 3H 2S 3D 3C}
-        }
-        {
-            {3S 3H 2S 3D 3C}
-        }
-
-        poker-25 "both hands have four of a kind, tie goes to high quad"
-        {
-            {2S 2H 2C 8D 2D}
-            {4S 5H 5S 5D 5C}
-        }
-        {
-            {4S 5H 5S 5D 5C}
-        }
-
-        poker-26 "with multiple decks, both hands with identical four of a kind, tie determined by kicker" 
-        {
-            {3S 3H 2S 3D 3C}
-            {3S 3H 4S 3D 3C}
-        }
-        {
-            {3S 3H 4S 3D 3C}
-        }
-
-        poker-27 "straight flush beats four of a kind"
-        {
-            {4S 5H 5S 5D 5C}
-            {7S 8S 9S 6S 10S}
-        }
-        {
-            {7S 8S 9S 6S 10S}
-        }
-
-        poker-28 "both hands have straight flush, tie goes to highest-ranked card"
-        {
-            {4H 6H 7H 8H 5H}
-            {5S 7S 8S 9S 6S}
-        }
-        {
-            {5S 7S 8S 9S 6S}
-        }
+skip poker-4
+test poker-4 "multiple hands with the same high cards, tie compares next highest ranked, down to last card" -body {
+    bestHands {
+        {3S 5H 6S 8D 7H}
+        {2S 5D 6D 8C 7S}
     }
-
-    foreach {name description hands result} $cases {
-        test $name $description -body {
-            bestHands $hands
-        } -returnCodes ok -match list -result $result
-    }
-
-    cleanupTests
+} -returnCodes ok -match orderedLists -result {
+    {3S 5H 6S 8D 7H}
 }
+
+skip poker-5
+test poker-5 "one pair beats high card" -body {
+    bestHands {
+        {4S 5H 6C 8D KH}
+        {2S 4H 6S 4D JH}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {2S 4H 6S 4D JH}
+}
+
+skip poker-6
+test poker-6 "highest pair wins" -body {
+    bestHands {
+        {4S 2H 6S 2D JH}
+        {2S 4H 6C 4D JD}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {2S 4H 6C 4D JD}
+}
+
+skip poker-7
+test poker-7 "two pairs beats one pair" -body {
+    bestHands {
+        {2S 8H 6S 8D JH}
+        {4S 5H 4C 8C 5C}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {4S 5H 4C 8C 5C}
+}
+
+skip poker-8
+test poker-8 "both hands have two pairs, highest ranked pair wins" -body {
+    bestHands {
+        {2S 8H 2D 8D 3H}
+        {4S 5H 4C 8S 5D}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {2S 8H 2D 8D 3H}
+}
+
+skip poker-9
+test poker-9 "both hands have two pairs, with the same highest ranked pair, tie goes to low pair" -body {
+    bestHands {
+        {2S QS 2C QD JH}
+        {JD QH JS 8D QC}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {JD QH JS 8D QC}
+}
+
+skip poker-10
+test poker-10 "both hands have two identically ranked pairs, tie goes to remaining card (kicker)" -body {
+    bestHands {
+        {JD QH JS 8D QC}
+        {JS QS JC 2D QD}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {JD QH JS 8D QC}
+}
+
+skip poker-11
+test poker-11 "three of a kind beats two pair" -body {
+    bestHands {
+        {2S 8H 2H 8D JH}
+        {4S 5H 4C 8S 4H}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {4S 5H 4C 8S 4H}
+}
+
+skip poker-12
+test poker-12 "both hands have three of a kind, tie goes to highest ranked triplet" -body {
+    bestHands {
+        {2S 2H 2C 8D JH}
+        {4S AH AS 8C AD}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {4S AH AS 8C AD}
+}
+
+skip poker-13
+test poker-13 "with multiple decks, two players can have same three of a kind, ties go to highest remaining cards" -body {
+    bestHands {
+        {4S AH AS 7C AD}
+        {4S AH AS 8C AD}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {4S AH AS 8C AD}
+}
+
+skip poker-14
+test poker-14 "a straight beats three of a kind" -body {
+    bestHands {
+        {4S 5H 4C 8D 4H}
+        {3S 4D 2S 6D 5C}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {3S 4D 2S 6D 5C}
+}
+
+skip poker-15
+test poker-15 "aces can end a straight (10 J Q K A)" -body {
+    bestHands {
+        {4S 5H 4C 8D 4H}
+        {10D JH QS KD AC}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {10D JH QS KD AC}
+}
+
+skip poker-16
+test poker-16 "aces can start a straight (A 2 3 4 5)" -body {
+    bestHands {
+        {4S 5H 4C 8D 4H}
+        {4D AH 3S 2D 5C}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {4D AH 3S 2D 5C}
+}
+
+skip poker-17
+test poker-17 "both hands with a straight, tie goes to highest ranked card" -body {
+    bestHands {
+        {4S 6C 7S 8D 5H}
+        {5S 7H 8S 9D 6H}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {5S 7H 8S 9D 6H}
+}
+
+skip poker-18
+test poker-18 "even though an ace is usually high, a 5-high straight is the lowest-scoring straight" -body {
+    bestHands {
+        {2H 3C 4D 5D 6H}
+        {4S AH 3S 2D 5H}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {2H 3C 4D 5D 6H}
+}
+
+skip poker-19
+test poker-19 "flush beats a straight" -body {
+    bestHands {
+        {4C 6H 7D 8D 5H}
+        {2S 4S 5S 6S 7S}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {2S 4S 5S 6S 7S}
+}
+
+skip poker-20
+test poker-20 "both hands have a flush, tie goes to high card, down to the last one if necessary" -body {
+    bestHands {
+        {4H 7H 8H 9H 6H}
+        {2S 4S 5S 6S 7S}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {4H 7H 8H 9H 6H}
+}
+
+skip poker-21
+test poker-21 "full house beats a flush" -body {
+    bestHands {
+        {3H 6H 7H 8H 5H}
+        {4S 5H 4C 5D 4H}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {4S 5H 4C 5D 4H}
+}
+
+skip poker-22
+test poker-22 "both hands have a full house, tie goes to highest-ranked triplet" -body {
+    bestHands {
+        {4H 4S 4D 9S 9D}
+        {5H 5S 5D 8S 8D}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {5H 5S 5D 8S 8D}
+}
+
+skip poker-23
+test poker-23 "with multiple decks, both hands have a full house with the same triplet, tie goes to the pair" -body {
+    bestHands {
+        {5H 5S 5D 9S 9D}
+        {5H 5S 5D 8S 8D}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {5H 5S 5D 9S 9D}
+}
+
+skip poker-24
+test poker-24 "four of a kind beats a full house" -body {
+    bestHands {
+        {4S 5H 4D 5D 4H}
+        {3S 3H 2S 3D 3C}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {3S 3H 2S 3D 3C}
+}
+
+skip poker-25
+test poker-25 "both hands have four of a kind, tie goes to high quad" -body {
+    bestHands {
+        {2S 2H 2C 8D 2D}
+        {4S 5H 5S 5D 5C}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {4S 5H 5S 5D 5C}
+}
+
+skip poker-26
+test poker-26 "with multiple decks, both hands with identical four of a kind, tie determined by kicker" -body { 
+    bestHands {
+        {3S 3H 2S 3D 3C}
+        {3S 3H 4S 3D 3C}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {3S 3H 4S 3D 3C}
+}
+
+skip poker-27
+test poker-27 "straight flush beats four of a kind" -body {
+    bestHands {
+        {4S 5H 5S 5D 5C}
+        {7S 8S 9S 6S 10S}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {7S 8S 9S 6S 10S}
+}
+
+skip poker-28
+test poker-28 "both hands have straight flush, tie goes to highest-ranked card" -body {
+    bestHands {
+        {4H 6H 7H 8H 5H}
+        {5S 7S 8S 9S 6S}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {5S 7S 8S 9S 6S}
+}
+
+cleanupTests

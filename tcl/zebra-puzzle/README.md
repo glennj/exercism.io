@@ -54,4 +54,4 @@ References:
 
 ### Based on
 
-Wikipedia - http://en.wikipedia.org/wiki/Zebra_Puzzle
+Wikipedia - https://en.wikipedia.org/wiki/Zebra_Puzzle

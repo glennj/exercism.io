@@ -1,65 +1,77 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "perfect-numbers.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test perfect-numbers-1.1 "Smallest perfect number is classified correctly" -body {
+    classify 6
+} -returnCodes ok -result perfect
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip perfect-numbers-1.2
+test perfect-numbers-1.2 "Medium perfect number is classified correctly" -body {
+    classify 28
+} -returnCodes ok -result perfect
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip perfect-numbers-1.3
+test perfect-numbers-1.3 "Large perfect number is classified correctly" -body {
+    classify 33550336
+} -returnCodes ok -result perfect
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
 
-if {$::argv0 eq [info script]} {
-    configure -verbose {body error msec}
+skip perfect-numbers-2.1
+test perfect-numbers-2.1 "Smallest abundant number is classified correctly" -body {
+    classify 12
+} -returnCodes ok -result abundant
 
-    set cases {
-        perfect-numbers-1.1        6 perfect   "Smallest perfect number is classified correctly"
-        perfect-numbers-1.2       28 perfect   "Medium perfect number is classified correctly"
-        perfect-numbers-1.3 33550336 perfect   "Large perfect number is classified correctly"
-        perfect-numbers-2.1       12 abundant  "Smallest abundant number is classified correctly"
-        perfect-numbers-2.2       30 abundant  "Medium abundant number is classified correctly"
-        perfect-numbers-2.3 33550335 abundant  "Large abundant number is classified correctly"
-        perfect-numbers-3.1        2 deficient "Smallest prime deficient number is classified correctly"
-        perfect-numbers-3.2        4 deficient "Smallest non-prime deficient number is classified correctly"
-        perfect-numbers-3.3       32 deficient "Medium deficient number is classified correctly"
-        perfect-numbers-3.4 33550337 deficient "Large deficient number is classified correctly"
-        perfect-numbers-3.5        1 deficient "Edge case (no factors other than itself) is classified correctly"
-    }
+skip perfect-numbers-2.2
+test perfect-numbers-2.2 "Medium abundant number is classified correctly" -body {
+    classify 30
+} -returnCodes ok -result abundant
 
-    foreach {name number classification description} $cases {
-        test $name $description -body {
-            classify $number
-        } -returnCodes ok -result $classification
-    }
+skip perfect-numbers-2.3
+test perfect-numbers-2.3 "Large abundant number is classified correctly" -body {
+    classify 33550335
+} -returnCodes ok -result abundant
 
-    set cases {
-        perfect-numbers-4.1  0 "Zero is rejected (not a natural number)"
-        perfect-numbers-4.2 -1 "Negative integer is rejected (not a natural number)"
-    }
-    foreach {name number description} $cases {
-        test $name $description -body {
-            classify $number
-        } -returnCodes error -result "Classification is only possible for natural numbers."
-    }
 
-    cleanupTests
-}
+skip perfect-numbers-3.1
+test perfect-numbers-3.1 "Smallest prime deficient number is classified correctly" -body {
+    classify 2
+} -returnCodes ok -result deficient
+
+skip perfect-numbers-3.2
+test perfect-numbers-3.2 "Smallest non-prime deficient number is classified correctly" -body {
+    classify 4
+} -returnCodes ok -result deficient
+
+skip perfect-numbers-3.3
+test perfect-numbers-3.3 "Medium deficient number is classified correctly" -body {
+    classify 32
+} -returnCodes ok -result deficient
+
+skip perfect-numbers-3.4
+test perfect-numbers-3.4 "Large deficient number is classified correctly" -body {
+    classify 33550337
+} -returnCodes ok -result deficient
+
+skip perfect-numbers-3.5
+test perfect-numbers-3.5 "Edge case (no factors other than itself) is classified correctly" -body {
+    classify 1
+} -returnCodes ok -result deficient
+
+
+skip perfect-numbers-4.1
+test perfect-numbers-4.1 "Zero is rejected (not a natural number)" -body {
+    classify 0
+} -returnCodes error -result "Classification is only possible for natural numbers."
+
+skip perfect-numbers-4.2
+test perfect-numbers-4.2 "Negative integer is rejected (not a natural number)" -body {
+    classify -1
+} -returnCodes error -result "Classification is only possible for natural numbers."
+
+
+cleanupTests

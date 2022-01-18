@@ -1,112 +1,99 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "word-count.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
+test word-count-1 "count one word" -body {
+    countWords "word" 
+} -returnCodes ok -match dictionary -result {
+    "word" 1
 }
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
+skip word-count-2
+test word-count-2 "count one of each word" -body {
+    countWords "one of each" 
+} -returnCodes ok -match dictionary -result {
+    "one" 1 "of" 1 "each" 1
 }
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
+skip word-count-3
+test word-count-3 "multiple occurrences of a word" -body {
+    countWords "one fish two fish red fish blue fish" 
+} -returnCodes ok -match dictionary -result {
+    "one" 1 "fish" 4 "two" 1 "red" 1 "blue" 1
 }
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
+skip word-count-4
+test word-count-4 "handles cramped lists" -body {
+    countWords "one,two,three" 
+} -returnCodes ok -match dictionary -result {
+    "one" 1 "two" 1 "three" 1
 }
 
-# compare two dictionaries for the same keys and same values
-proc dictionaryMatch {expected actual} {
-    if {[dict size $expected] != [dict size $actual]} {
-        return false
-    }
-    dict for {word count} $expected {
-        if {![dict exists $actual $word]} {
-            return false
-        }
-        if {[dict get $actual $word] != $count} {
-            return false
-        }
-    }
-    return true
+skip word-count-5
+test word-count-5 "handles expanded lists" -body {
+    countWords "one,\ntwo,\nthree" 
+} -returnCodes ok -match dictionary -result {
+    "one" 1 "two" 1 "three" 1
 }
-customMatch dictionary dictionaryMatch
 
-
-if {$::argv0 eq [info script]} {
-
-    set cases {
-        word-count-1    "count one word"
-        "word" 
-        {"word" 1}
-
-        word-count-2    "count one of each word"
-        "one of each" 
-        {"one" 1 "of" 1 "each" 1}
-
-        word-count-3    "multiple occurrences of a word"
-        "one fish two fish red fish blue fish" 
-        {"one" 1 "fish" 4 "two" 1 "red" 1 "blue" 1}
-
-        word-count-4    "handles cramped lists"
-        "one,two,three" 
-        {"one" 1 "two" 1 "three" 1}
-
-        word-count-5    "handles expanded lists"
-        "one,\ntwo,\nthree" 
-        {"one" 1 "two" 1 "three" 1}
-
-        word-count-6    "ignore punctuation"
-        "car: carpet as java: javascript!!&@$%^&" 
-        {"car" 1 "carpet" 1 "as" 1 "java" 1 "javascript" 1}
-
-        word-count-7    "include numbers"
-        "testing, 1, 2 testing" 
-        {"testing" 2 "1" 1 "2" 1}
-
-        word-count-8    "normalize case"
-        "go Go GO Stop stop" 
-        {"go" 3 "stop" 2}
-
-        word-count-9    "with apostrophes"
-        "First: don't laugh. Then: don't cry." 
-        {"first" 1 "don't" 2 "laugh" 1 "then" 1 "cry" 1}
-
-        word-count-10   "with quotations"
-        "Joe can't tell between 'large' and large." 
-        {"joe" 1 "can't" 1 "tell" 1 "between" 1 "large" 2 "and" 1}
-
-        word-count-11   "substrings from the beginning"
-        "Joe can't tell between app, apple and a." 
-        {"joe" 1 "can't" 1 "tell" 1 "between" 1 "app" 1 "apple" 1 "and" 1 "a" 1}
-
-        word-count-12   "multiple spaces not detected as a word"
-        " multiple   whitespaces" 
-        {"multiple" 1 "whitespaces" 1}
-
-        word-count-13   "alternating word separators not detected as a word"
-        ",\n,one,\n ,two \n 'three'" 
-        {"one" 1 "two" 1 "three" 1}
-    }
-
-    foreach {name description sentence result} $cases {
-        test $name $description -body {
-            countWords $sentence
-        } -returnCodes ok -match dictionary -result $result
-    }
-
-    cleanupTests
+skip word-count-6
+test word-count-6 "ignore punctuation" -body {
+    countWords "car: carpet as java: javascript!!&@$%^&" 
+} -returnCodes ok -match dictionary -result {
+    "car" 1 "carpet" 1 "as" 1 "java" 1 "javascript" 1
 }
+
+skip word-count-7
+test word-count-7 "include numbers" -body {
+    countWords "testing, 1, 2 testing" 
+} -returnCodes ok -match dictionary -result {
+    "testing" 2 "1" 1 "2" 1
+}
+
+skip word-count-8
+test word-count-8 "normalize case" -body {
+    countWords "go Go GO Stop stop" 
+} -returnCodes ok -match dictionary -result {
+    "go" 3 "stop" 2
+}
+
+skip word-count-9
+test word-count-9 "with apostrophes" -body {
+    countWords "First: don't laugh. Then: don't cry." 
+} -returnCodes ok -match dictionary -result {
+    "first" 1 "don't" 2 "laugh" 1 "then" 1 "cry" 1
+}
+
+skip word-count-10
+test word-count-10 "with quotations" -body {
+    countWords "Joe can't tell between 'large' and large." 
+} -returnCodes ok -match dictionary -result {
+    "joe" 1 "can't" 1 "tell" 1 "between" 1 "large" 2 "and" 1
+}
+
+skip word-count-11
+test word-count-11 "substrings from the beginning" -body {
+    countWords "Joe can't tell between app, apple and a." 
+} -returnCodes ok -match dictionary -result {
+    "joe" 1 "can't" 1 "tell" 1 "between" 1 "app" 1 "apple" 1 "and" 1 "a" 1
+}
+
+skip word-count-12
+test word-count-12 "multiple spaces not detected as a word" -body {
+    countWords " multiple   whitespaces" 
+} -returnCodes ok -match dictionary -result {
+    "multiple" 1 "whitespaces" 1
+}
+
+skip word-count-13
+test word-count-13 "alternating word separators not detected as a word" -body {
+    countWords ",\n,one,\n ,two \n 'three'" 
+} -returnCodes ok -match dictionary -result {
+    "one" 1 "two" 1 "three" 1
+}
+
+cleanupTests

@@ -1,54 +1,65 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "binary-search.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test binary-search-1.1 "finds a value in an array with one element" -body {
+    binarySearch {6} 6
+} -returnCodes ok -result 0
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip binary-search-1.2
+test binary-search-1.2 "finds a value in the middle of an array" -body {
+    binarySearch {1 3 4 6 8 9 11} 6
+} -returnCodes ok -result 3
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip binary-search-1.3
+test binary-search-1.3 "finds a value at the beginning of an array" -body {
+    binarySearch {1 3 4 6 8 9 11} 1
+} -returnCodes ok -result 0
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip binary-search-1.4
+test binary-search-1.4 "finds a value at the end of an array" -body {
+    binarySearch {1 3 4 6 8 9 11} 11
+} -returnCodes ok -result 6
 
-if {$::argv0 eq [info script]} {
+skip binary-search-1.5
+test binary-search-1.5 "finds a value in an array of odd length" -body {
+    binarySearch {1 3 5 8 13 21 34 55 89 144 233 377 634} 144
+} -returnCodes ok -result 9
 
-    set cases {
-        binary-search-1 "finds a value in an array with one element" {6} 6 0
-        binary-search-2 "finds a value in the middle of an array" {1 3 4 6 8 9 11} 6 3
-        binary-search-3 "finds a value at the beginning of an array" {1 3 4 6 8 9 11} 1 0
-        binary-search-4 "finds a value at the end of an array" {1 3 4 6 8 9 11} 11 6
-        binary-search-5 "finds a value in an array of odd length" {1 3 5 8 13 21 34 55 89 144 233 377 634} 144 9
-        binary-search-6 "finds a value in an array of even length" {1 3 5 8 13 21 34 55 89 144 233 377} 21 5
-        binary-search-7 "identifies that a value is not included in the array" {1 3 4 6 8 9 11} 7 -1
-        binary-search-8 "a value smaller than the array's smallest value is not found" {1 3 4 6 8 9 11} 0 -1
-        binary-search-9 "a value larger than the array's largest value is not found" {1 3 4 6 8 9 11} 13 -1
-        binary-search-10 "nothing is found in an empty array" {} 1 -1
-        binary-search-11 "nothing is found when the left and right bounds cross" {1 2} 0 -1
-    }
+skip binary-search-1.6
+test binary-search-1.6 "finds a value in an array of even length" -body {
+    binarySearch {1 3 5 8 13 21 34 55 89 144 233 377} 21
+} -returnCodes ok -result 5
 
-    foreach {name description list element index} $cases {
-        test $name $description -body {
-            binarySearch $list $element
-        } -returnCodes ok -result $index
-    }
 
-    cleanupTests
-}
+skip binary-search-2.1
+test binary-search-2.1 "identifies that a value is not included in the array" -body {
+    binarySearch {1 3 4 6 8 9 11} 7 
+} -returnCodes ok -result -1
+
+skip binary-search-2.2
+test binary-search-2.2 "a value smaller than the array's smallest value is not found" -body {
+    binarySearch {1 3 4 6 8 9 11} 0 
+} -returnCodes ok -result -1
+
+skip binary-search-2.3
+test binary-search-2.3 "a value larger than the array's largest value is not found" -body {
+    binarySearch {1 3 4 6 8 9 11} 13 
+} -returnCodes ok -result -1
+
+skip binary-search-2.4
+test binary-search-2.4 "nothing is found in an empty array" -body {
+    binarySearch {} 1 
+} -returnCodes ok -result -1
+
+skip binary-search-2.4
+test binary-search-2.4 "nothing is found when the left and right bounds cross" -body {
+    binarySearch {1 2} 0 
+} -returnCodes ok -result -1
+
+
+cleanupTests

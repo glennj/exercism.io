@@ -1,65 +1,87 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "say.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test say-1 "zero" -body {
+    say 0
+} -returnCodes ok -result "zero"
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip say-2
+test say-2 "one" -body {
+    say 1
+} -returnCodes ok -result "one"
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip say-3
+test say-3 "fourteen" -body {
+    say 14
+} -returnCodes ok -result "fourteen"
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip say-4
+test say-4 "twenty" -body {
+    say 20
+} -returnCodes ok -result "twenty"
 
-if {$::argv0 eq [info script]} {
+skip say-5
+test say-5 "twenty-two" -body {
+    say 22
+} -returnCodes ok -result "twenty-two"
 
-    set cases {
-        say-1 0 "zero" "zero"
-        say-2 1 "one" "one"
-        say-3 14 "fourteen" "fourteen"
-        say-4 20 "twenty" "twenty"
-        say-5 22 "twenty-two" "twenty-two"
-        say-6 100 "one hundred" "one hundred"
-        say-7 123 "one hundred twenty-three" "one hundred twenty-three"
-        say-8 1000 "one thousand" "one thousand"
-        say-9 1234 "one thousand two hundred thirty-four" "one thousand two hundred thirty-four"
-        say-10 1000000 "one million" "one million"
-        say-11 1002345 "one million two thousand three hundred forty-five" "one million two thousand three hundred forty-five"
-        say-12 1000000000 "one billion" "one billion"
-        say-13 987654321123 "nine hundred eighty-seven billion six hundred fifty-four million three hundred twenty-one thousand one hundred twenty-three" "a big number"
-    }
-    set errors {
-        say-14 -1 "input out of range" "numbers below zero are out of range"
-        say-15 1000000000000 "input out of range" "numbers above 999,999,999,999 are out of range"
-    }
+skip say-6
+test say-6 "one hundred" -body {
+    say 100
+} -returnCodes ok -result "one hundred"
 
-    foreach {name number result description} $cases {
-        test $name $description -body {
-            say $number
-        } -returnCodes ok -result $result
-    }
-    foreach {name number result description} $errors {
-        test $name $description -body {
-            say $number
-        } -returnCodes error -result $result
-    }
+skip say-7
+test say-7 "one hundred twenty-three" -body {
+    say 123
+} -returnCodes ok -result "one hundred twenty-three"
 
-    cleanupTests
-}
+skip say-8
+test say-8 "one thousand" -body {
+    say 1000
+} -returnCodes ok -result "one thousand"
+
+skip say-9
+test say-9 "one thousand two hundred thirty-four" -body {
+    say 1234
+} -returnCodes ok -result "one thousand two hundred thirty-four"
+
+skip say-10
+test say-10 "one million" -body {
+    say 1000000
+} -returnCodes ok -result "one million"
+
+skip say-11
+test say-11 "one million two thousand three hundred forty-five" -body {
+    say 1002345
+} -returnCodes ok -result "one million two thousand three hundred forty-five"
+
+skip say-12
+test say-12 "one billion" -body {
+    say 1000000000
+} -returnCodes ok -result "one billion"
+
+skip say-13
+test say-13 "a big number" -body {
+    say 987654321123
+} -returnCodes ok -result "nine hundred eighty-seven billion six hundred fifty-four million three hundred twenty-one thousand one hundred twenty-three"
+
+
+
+skip say-14
+test say-14 "numbers below zero are out of range" -body {
+    say -1
+} -returnCodes error -result "input out of range"
+
+skip say-15
+test say-15 "numbers above 999,999,999,999 are out of range" -body {
+    say 1000000000000
+} -returnCodes error -result "input out of range"
+
+
+cleanupTests
+

@@ -1,78 +1,56 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "spiral-matrix.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
+test spiral-1 "empty spiral" -body {
+    spiralMatrix 0
+} -returnCodes ok -match listOfLists -result {}
+
+skip spiral-2
+test spiral-2 "trivial spiral" -body {
+    spiralMatrix 1
+} -returnCodes ok -match listOfLists -result { {1} }
+
+skip spiral-3
+test spiral-3 "spiral of size 2" -body {
+    spiralMatrix 2
+} -returnCodes ok -match listOfLists -result {
+    {1 2}
+    {4 3}
 }
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
+skip spiral-4
+test spiral-4 "spiral of size 3" -body {
+    spiralMatrix 3
+} -returnCodes ok -match listOfLists -result {
+    {1 2 3}
+    {8 9 4}
+    {7 6 5}
 }
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
+skip spiral-5
+test spiral-5 "spiral of size 4" -body {
+    spiralMatrix 4
+} -returnCodes ok -match listOfLists -result {
+    { 1  2  3 4}
+    {12 13 14 5}
+    {11 16 15 6}
+    {10  9  8 7}
 }
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
+skip spiral-6
+test spiral-6 "spiral of size 5" -body {
+    spiralMatrix 5
+} -returnCodes ok -match listOfLists -result {
+    { 1  2  3  4 5}
+    {16 17 18 19 6}
+    {15 24 25 20 7}
+    {14 23 22 21 8}
+    {13 12 11 10 9} 
 }
 
-customMatch list listMatch
-proc listMatch {expected actual} {
-    if {[llength $expected] != [llength $actual]} {
-        return false
-    }
-    foreach e $expected a $actual {
-        if {[llength $e] > 1 ? (![listMatch $e $a]) : ($e != $a)} {
-            return false
-        }
-    }
-    return true
-}
-
-if {$::argv0 eq [info script]} {
-
-    set cases {
-        spiral-1 "empty spiral" 0
-            {}
-        spiral-1 "trivial spiral" 1
-            { {1} }
-        spiral-1 "spiral of size 2" 2
-            { {1 2}
-              {4 3} }
-        spiral-1 "spiral of size 3" 3
-            { {1 2 3}
-              {8 9 4}
-              {7 6 5} }
-        spiral-1 "spiral of size 4" 4
-            { { 1  2  3 4}
-              {12 13 14 5}
-              {11 16 15 6}
-              {10  9  8 7} }
-        spiral-1 "spiral of size 5" 5
-            { { 1  2  3  4 5}
-              {16 17 18 19 6}
-              {15 24 25 20 7}
-              {14 23 22 21 8}
-              {13 12 11 10 9} }
-    }
-
-    foreach {name description size result} $cases {
-        test $name $description -body {
-            spiralMatrix $size
-        } -returnCodes ok -match list -result $result
-    }
-
-    cleanupTests
-}
+cleanupTests

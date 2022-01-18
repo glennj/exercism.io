@@ -1,99 +1,108 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "queen-attack.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+# Test creation of Queens with valid and invalid positions
+test queen-1.1 "queen with a valid position" -body {
+    set queen [Queen new 2 3]
+    list [$queen col] [$queen row]
+} -returnCodes ok -result {3 2}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip queen-2.1
+test queen-2.1 "queen must have positive row" -body {
+    set queen [Queen new -2 2]
+} -returnCodes error -result "row not positive"
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip queen-2.2
+test queen-2.2 "queen must have row on board" -body {
+    set queen [Queen new 8 4]
+} -returnCodes error -result "row not on board"
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip queen-2.3
+test queen-2.3 "queen must have positive column" -body {
+    set queen [Queen new 2 -2]
+} -returnCodes error -result "column not positive"
 
-proc booleanMatch {expected actual} {
-    return [expr {
-        [string is boolean -strict $expected] &&
-        [string is boolean -strict $actual] &&
-        !!$expected == !!$actual
-    }]
-}
-customMatch boolean booleanMatch
-
-if {$::argv0 eq [info script]} {
-
-    # Test creation of Queens with valid and invalid positions
-    test queen-1.1 "queen with a valid position" -body {
-        set queen [Queen new 2 3]
-        list [$queen col] [$queen row]
-    } -returnCodes ok -result {3 2}
-
-    set error_cases {
-        queen-2.1 "queen must have positive row"    -2  2 "row not positive"
-        queen-2.2 "queen must have row on board"     8  4 "row not on board"
-        queen-2.3 "queen must have positive column"  2 -2 "column not positive"
-        queen-2.4 "queen must have column on board"  4  8 "column not on board"
-    }
-
-    foreach {name description row col msg} $error_cases {
-        test $name $description -body {
-            set queen [Queen new $row $col]
-        } -returnCodes error -result $msg
-    }
-
-    # Test the ability of one queen to attack another
-    set attack_cases {
-        queen-3.1 "can not attack"                2 4  6 6 false
-        queen-3.2 "can attack on same row"        2 4  2 6 true
-        queen-3.3 "can attack on same column"     4 5  2 5 true
-        queen-3.4 "can attack on first diagonal"  2 2  0 4 true
-        queen-3.5 "can attack on second diagonal" 2 2  3 1 true
-        queen-3.6 "can attack on third diagonal"  2 2  1 1 true
-        queen-3.7 "can attack on fourth diagonal" 1 7  0 6 true
-    }
-
-    foreach {name description wRow wCol bRow bCol result} $attack_cases {
-        test $name $description -body {
-            set white [Queen new $wRow $wCol]
-            set black [Queen new $bRow $bCol]
-            $white canAttack $black
-        } -returnCodes ok -match boolean -result $result
-    }
-
-    # some edge cases
-    test queen-4.1 "cannot occupy same position on board" -body {
-        set white [Queen new 4 4]
-        set black [Queen new 4 4]
-        $white canAttack $black
-    } -returnCodes error -result "same position"
-
-    test queen-4.2 "cannot attack a non-object" -body {
-        set white [Queen new 4 4]
-        $white canAttack "foo"
-    } -returnCodes error -result "not a Queen"
-
-    test queen-4.3 "cannot attack a non-Queen object" -body {
-        set white [Queen new 4 4]
-        $white canAttack [oo::object new]
-    } -returnCodes error -result "not a Queen"
+skip queen-2.4
+test queen-2.4 "queen must have column on board" -body {
+    set queen [Queen new 4 8]
+} -returnCodes error -result "column not on board"
 
 
-    cleanupTests
-}
+# Test the ability of one queen to attack another
+skip queen-3.1
+test queen-3.1 "can not attack" -body {
+    set q1 [Queen new 2 4]
+    set q2 [Queen new 6 6]
+    $q1 canAttack $q2
+} -returnCodes ok -match boolean -result false
+
+skip queen-3.2
+test queen-3.2 "can attack on same row" -body {
+    set q1 [Queen new 2 4]
+    set q2 [Queen new 2 6]
+    $q1 canAttack $q2
+} -returnCodes ok -match boolean -result true
+
+skip queen-3.3
+test queen-3.3 "can attack on same column" -body {
+    set q1 [Queen new 4 5]
+    set q2 [Queen new 2 5]
+    $q1 canAttack $q2
+} -returnCodes ok -match boolean -result true
+
+skip queen-3.4
+test queen-3.4 "can attack on first diagonal" -body {
+    set q1 [Queen new 2 2]
+    set q2 [Queen new 0 4]
+    $q1 canAttack $q2
+} -returnCodes ok -match boolean -result true
+
+skip queen-3.5
+test queen-3.5 "can attack on second diagonal" -body {
+    set q1 [Queen new 2 2]
+    set q2 [Queen new 3 1]
+    $q1 canAttack $q2
+} -returnCodes ok -match boolean -result true
+
+skip queen-3.6
+test queen-3.6 "can attack on third diagonal" -body {
+    set q1 [Queen new 2 2]
+    set q2 [Queen new 1 1]
+    $q1 canAttack $q2
+} -returnCodes ok -match boolean -result true
+
+skip queen-3.7
+test queen-3.7 "can attack on fourth diagonal" -body {
+    set q1 [Queen new 1 7]
+    set q2 [Queen new 0 6]
+    $q1 canAttack $q2
+} -returnCodes ok -match boolean -result true
+
+
+# some edge cases
+skip queen-4.1
+test queen-4.1 "cannot occupy same position on board" -body {
+    set white [Queen new 4 4]
+    set black [Queen new 4 4]
+    $white canAttack $black
+} -returnCodes error -result "same position"
+
+skip queen-4.2
+test queen-4.2 "cannot attack a non-object" -body {
+    set white [Queen new 4 4]
+    $white canAttack "foo"
+} -returnCodes error -result "not a Queen"
+
+skip queen-4.3
+test queen-4.3 "cannot attack a non-Queen object" -body {
+    set white [Queen new 4 4]
+    $white canAttack [oo::object new]
+} -returnCodes error -result "not a Queen"
+
+
+cleanupTests

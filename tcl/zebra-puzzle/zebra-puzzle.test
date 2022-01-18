@@ -1,44 +1,20 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "zebra-puzzle.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test zebra-1 "resident who drinks water" -body {
+    set zp [ZebraPuzzle new]
+    $zp drinksWater
+} -returnCodes OK -result "Norwegian"
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip zebra-2
+test zebra-2 "resident who owns zebra" -body {
+    set zp [ZebraPuzzle new]
+    $zp ownsZebra
+} -returnCodes OK -result "Japanese"
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
-
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
-
-if {$::argv0 eq [info script]} {
-
-    test zebra-1 "resident who drinks water" -body {
-        set zp [ZebraPuzzle new]
-        $zp drinksWater
-    } -returnCodes OK -result "Norwegian"
-
-    test zebra-2 "resident who owns zebra" -body {
-        set zp [ZebraPuzzle new]
-        $zp ownsZebra
-    } -returnCodes OK -result "Japanese"
-
-    cleanupTests
-}
+cleanupTests

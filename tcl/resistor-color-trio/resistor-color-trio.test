@@ -1,63 +1,52 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "resistor-color-trio.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test resistor-color-trio-1 "orange and orange and black" -body {
+    resistorColor::label orange orange black
+} -returnCodes ok -result "33 ohms"
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip resistor-color-trio-2
+test resistor-color-trio-2 "blue and grey and brown" -body {
+    resistorColor::label blue grey brown
+} -returnCodes ok -result "680 ohms"
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip resistor-color-trio-3
+test resistor-color-trio-3 "red and black and red" -body {
+    resistorColor::label red black red
+} -returnCodes ok -result "2 kiloohms"
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip resistor-color-trio-4
+test resistor-color-trio-4 "green and brown and orange" -body {
+    resistorColor::label green brown orange
+} -returnCodes ok -result "51 kiloohms"
 
-# The expected value is one of a list of values.
-proc inListMatch {expectedList actual} {
-    return [expr {$actual in $expectedList}]
-}
-customMatch inList inListMatch
+skip resistor-color-trio-5
+test resistor-color-trio-5 "yellow and violet and yellow" -body {
+    resistorColor::label yellow violet yellow
+} -returnCodes ok -result "470 kiloohms"
+
+skip resistor-color-trio-6
+test resistor-color-trio-6 "yellow and red and blue" -body {
+    resistorColor::label yellow red blue
+} -returnCodes ok -result "42 megaohms"
+
+skip resistor-color-trio-7
+test resistor-color-trio-7 "maximum possible is all white" -body {
+    resistorColor::label white white white
+} -returnCodes ok -result "99 gigaohms"
 
 
-if {$::argv0 eq [info script]} {
+# The canonical data for this exercise does not specify which
+# is the expected result for this kind of scenario.
+skip resistor-color-trio-8
+test resistor-color-trio-8 "value between 1000 and 10,000" -body {
+    resistorColor::label brown red red
+} -returnCodes ok -match inList -result {"1200 ohms" "1.2 kiloohms"}
 
-    set cases {
-        resistor-color-trio-1 {orange orange black} "33 ohms" "orange and orange and black"
-        resistor-color-trio-2 {blue grey brown} "680 ohms" "blue and grey and brown"
-        resistor-color-trio-3 {red black red} "2 kiloohms" "red and black and red"
-        resistor-color-trio-4 {green brown orange} "51 kiloohms" "green and brown and orange"
-        resistor-color-trio-5 {yellow violet yellow} "470 kiloohms" "yellow and violet and yellow"
-        resistor-color-trio-6 {yellow red blue} "42 megaohms" "yellow and red and blue"
-        resistor-color-trio-7 {white white white} "99 gigaohms" "maximum possible is all white"
-    }
 
-    foreach {name colors result description} $cases {
-        test $name $description -body {
-            resistorColor::label {*}$colors
-        } -returnCodes ok -result $result
-    }
-
-    # The canonical data for this exercise does not specify which
-    # is the expected result for this kind of scenario.
-    test resistor-color-trio-8 "value between 1000 and 10,000" -body {
-        resistorColor::label brown red red
-    } -returnCodes ok -match inList -result {"1200 ohms" "1.2 kiloohms"}
-
-    cleanupTests
-}
+cleanupTests

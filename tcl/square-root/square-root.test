@@ -1,50 +1,39 @@
 #!/usr/bin/env tclsh
-set version null
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "square-root.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test sqrt-1 "root of 1" -body {
+    squareRoot 1
+} -returnCodes ok -result 1
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip sqrt-2
+test sqrt-2 "root of 4" -body {
+    squareRoot 4
+} -returnCodes ok -result 2
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip sqrt-3
+test sqrt-3 "root of 25" -body {
+    squareRoot 25
+} -returnCodes ok -result 5
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip sqrt-4
+test sqrt-4 "root of 81" -body {
+    squareRoot 81
+} -returnCodes ok -result 9
 
-if {$::argv0 eq [info script]} {
+skip sqrt-5
+test sqrt-5 "root of 196" -body {
+    squareRoot 196
+} -returnCodes ok -result 14
 
-    set cases {
-        sqrt-1      1   1  "root of 1"
-        sqrt-2      4   2  "root of 4"
-        sqrt-3     25   5  "root of 25"
-        sqrt-4     81   9  "root of 81"
-        sqrt-5    196  14  "root of 196"
-        sqrt-6  65025 255  "root of 65025"
-    }
+skip sqrt-6
+test sqrt-6 "root of 65025" -body {
+    squareRoot 65025
+} -returnCodes ok -result 255
 
-    foreach {name radicand root description} $cases {
-        test $name $description -body "
-            squareRoot $radicand
-        " -result $root
-    }
 
-    cleanupTests
-}
+cleanupTests

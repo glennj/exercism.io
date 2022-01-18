@@ -1,82 +1,80 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "run-length-encoding.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+# encode
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+test rle-1.1 "empty string" -body {
+    encode ""
+} -returnCodes ok -result ""
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip rle-1.2
+test rle-1.2 "single characters only are encoded without count" -body {
+    encode "XYZ"
+} -returnCodes ok -result "XYZ"
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip rle-1.3
+test rle-1.3 "string with no single characters" -body {
+    encode "AABBBCCCC"
+} -returnCodes ok -result "2A3B4C"
 
-if {$::argv0 eq [info script]} {
+skip rle-1.4
+test rle-1.4 "single characters mixed with repeated characters" -body {
+    encode "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB"
+} -returnCodes ok -result "12WB12W3B24WB"
 
-    set cases {
-        rle-1.1 "empty string"
-        encode "" ""
+skip rle-1.5
+test rle-1.5 "multiple whitespace mixed in string" -body {
+    encode "  hsqq qww  "
+} -returnCodes ok -result "2 hs2q q2w2 "
 
-        rle-1.2 "single characters only are encoded without count"
-        encode "XYZ" "XYZ"
+skip rle-1.6
+test rle-1.6 "lowercase characters" -body {
+    encode "aabbbcccc"
+} -returnCodes ok -result "2a3b4c"
 
-        rle-1.3 "string with no single characters"
-        encode "AABBBCCCC" "2A3B4C"
+# decode
 
-        rle-1.4 "single characters mixed with repeated characters"
-        encode "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB" "12WB12W3B24WB"
+skip rle-2.1
+test rle-2.1 "empty string" -body {
+    decode ""
+} -returnCodes ok -result ""
 
-        rle-1.5 "multiple whitespace mixed in string"
-        encode "  hsqq qww  " "2 hs2q q2w2 "
+skip rle-2.2
+test rle-2.2 "single characters only" -body {
+    decode "XYZ"
+} -returnCodes ok -result "XYZ"
 
-        rle-1.6 "lowercase characters"
-        encode "aabbbcccc" "2a3b4c"
+skip rle-2.3
+test rle-2.3 "string with no single characters" -body {
+    decode "2A3B4C"
+} -returnCodes ok -result "AABBBCCCC"
 
-        rle-2.1 "empty string"
-        decode "" ""
+skip rle-2.4
+test rle-2.4 "single characters with repeated characters" -body {
+    decode "12WB12W3B24WB"
+} -returnCodes ok -result "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB"
 
-        rle-2.2 "single characters only"
-        decode "XYZ" "XYZ"
+skip rle-2.5
+test rle-2.5 "multiple whitespace mixed in string" -body {
+    decode "2 hs2q q2w2 "
+} -returnCodes ok -result "  hsqq qww  "
 
-        rle-2.3 "string with no single characters"
-        decode "2A3B4C" "AABBBCCCC"
+skip rle-2.6
+test rle-2.6 "lower case string" -body {
+    decode "2a3b4c"
+} -returnCodes ok -result "aabbbcccc"
 
-        rle-2.4 "single characters with repeated characters"
-        decode "12WB12W3B24WB" "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB"
+# round trip
 
-        rle-2.5 "multiple whitespace mixed in string"
-        decode "2 hs2q q2w2 " "  hsqq qww  "
+set input "zzz ZZ  zZ"
+skip rle-3.1
+test rle-3.1 "encode followed by decode gives original string" -body {
+    decode [encode $input]
+} -returnCodes ok -result $input
 
-        rle-2.6 "lower case string"
-        decode "2a3b4c" "aabbbcccc"
-    }
-    foreach {name description func input result} $cases {
-        test $name $description -body {
-            $func $input
-        } -returnCodes ok -result $result
-    }
-
-    set string "zzz ZZ  zZ"
-    test rle-3.1 "encode followed by decode gives original string" -body {
-        decode [encode $string]
-    } -returnCodes ok -result $string
-
-    cleanupTests
-}
+cleanupTests

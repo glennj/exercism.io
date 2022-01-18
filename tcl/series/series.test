@@ -1,63 +1,60 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "series.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+test series-1.1 "slices of 1 from 1 1Y" -body {
+    slices  1 1
+} -returnCodes OK -result {1}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip series-1.2
+test series-1.2 "slices of 1 from 12Y" -body {
+    slices  12 1
+} -returnCodes OK -result {1 2}
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip series-1.3
+test series-1.3 "slices of 2 from 35Y" -body {
+    slices  35 2
+} -returnCodes OK -result {35}
 
-if {$::argv0 eq [info script]} {
+skip series-1.4
+test series-1.4 "slices of 2 from 9142Y" -body {
+    slices  9142 2
+} -returnCodes OK -result {91 14 42}
 
-    set cases {
-        series-1.1            1 1 {1}
-        series-1.2           12 1 {1 2}
-        series-1.3           35 2 {35}
-        series-1.4         9142 2 {91 14 42}
-        series-1.5       777777 3 {777 777 777 777}
-        series-1.6 918493904243 5 {91849 18493 84939 49390 93904 39042 90424 04243}
-    }
+skip series-1.5
+test series-1.5 "slices of 3 from 777777Y" -body {
+    slices  777777 3
+} -returnCodes OK -result {777 777 777 777}
 
-    foreach {name input len result} $cases {
-        test $name "slices of $len from $input" -body {
-            slices $input $len
-        } -returnCodes ok -result $result
-    }
+skip series-1.6
+test series-1.6 "slices of 5 from 918493904243" -body {
+    slices  918493904243 5
+} -returnCodes OK -result {91849 18493 84939 49390 93904 39042 90424 04243}
 
-    set errorCases {
-        series-2.1 12345  6 "slice length cannot be greater than series length"
-        series-2.2 12345  0 "slice length cannot be less than one"
-        series-2.3 12345 -1 "slice length cannot be less than one"
-        series-2.4    ""  1 "series cannot be empty"
-    }
 
-    foreach {name input len result} $errorCases {
-        test $name "error: $result" -body {
-            slices $input $len
-        } -returnCodes error -result $result
-    }
+skip series-2.1
+test series-2.1 "error: slice length cannot be greater than series length" -body {
+    slices 12345  6
+} -returnCodes error -result "slice length cannot be greater than series length"
 
-    cleanupTests
-}
+skip series-2.2
+test series-2.2 "error: slice length cannot be less than one" -body {
+    slices 12345  0
+} -returnCodes error -result "slice length cannot be less than one"
 
+skip series-2.3
+test series-2.3 "error: slice length cannot be less than one" -body {
+    slices 12345 -1
+} -returnCodes error -result "slice length cannot be less than one"
+
+skip series-2.4
+test series-2.4    "error: series cannot be empty" -body {
+    slices    ""  1
+} -returnCodes error -result "series cannot be empty"
+
+cleanupTests

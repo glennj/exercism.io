@@ -1,58 +1,65 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "grains.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test grains-1.1 "square 1" -body {
+    grains square 1
+} -returnCodes ok -result 1
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip grains-1.2
+test grains-1.2 "square 2" -body {
+    grains square 2
+} -returnCodes ok -result 2
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip grains-1.3
+test grains-1.3 "square 3" -body {
+    grains square 3
+} -returnCodes ok -result 4
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip grains-1.4
+test grains-1.4 "square 4" -body {
+    grains square 4
+} -returnCodes ok -result 8
 
-if {$::argv0 eq [info script]} {
+skip grains-1.5
+test grains-1.5 "square 16" -body {
+    grains square 16
+} -returnCodes ok -result 32768
 
-    set cases {
-        grains-1.1 "square 1"   1 ok 1
-        grains-1.2 "square 2"   2 ok 2
-        grains-1.3 "square 3"   3 ok 4
-        grains-1.4 "square 4"   4 ok 8
-        grains-1.5 "square 16" 16 ok 32768
-        grains-1.6 "square 32" 32 ok 2147483648
-        grains-1.7 "square 64" 64 ok 9223372036854775808
+skip grains-1.6
+test grains-1.6 "square 32" -body {
+    grains square 32
+} -returnCodes ok -result 2147483648
 
-        grains-2.1 "square 0 raises an exception" 0 error "square must be between 1 and 64"
-        grains-2.2 "negative square raises an exception" -1 error "square must be between 1 and 64"
-        grains-2.3 "square greater than 64 raises an exception" 65 error "square must be between 1 and 64"
-    }
+skip grains-1.7
+test grains-1.7 "square 64" -body {
+    grains square 64
+} -returnCodes ok -result 9223372036854775808
 
-    foreach {name description square status result} $cases {
-        test $name $description -body {
-            grains square $square
-        } -returnCodes $status -result $result
-    }
 
-    test grains-3.1 "returns the total number of grains on the board" -body {
-        grains total
-    } -returnCodes ok -result 18446744073709551615
+skip grains-2.1
+test grains-2.1 "square 0 raises an exception" -body {
+    grains square 0
+} -returnCodes error -result "square must be between 1 and 64"
 
-    cleanupTests
-}
+skip grains-2.2
+test grains-2.2 "negative square raises an exception" -body {
+    grains square -1
+} -returnCodes error -result "square must be between 1 and 64"
+
+skip grains-2.3
+test grains-2.3 "square greater than 64 raises an exception" -body {
+    grains square 65
+} -returnCodes error -result "square must be between 1 and 64"
+
+
+skip grains-3.1
+test grains-3.1 "returns the total number of grains on the board" -body {
+    grains total
+} -returnCodes ok -result 18446744073709551615
+
+cleanupTests

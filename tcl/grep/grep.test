@@ -1,271 +1,284 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "grep.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test grep-1.1 "One file, one match, no flags" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep "Agamemnon" iliad.txt 
+    } -returnCodes ok -result [join {
+        "Of Atreus, Agamemnon, King of men."
+    } \n]
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip grep-1.2
+test grep-1.2 "One file, one match, print line numbers flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -n "Forbidden" paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "2:Of that Forbidden Tree, whose mortal tast"
+    } \n]
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip grep-1.3
+test grep-1.3 "One file, one match, case-insensitive flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -i "FORBIDDEN" paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "Of that Forbidden Tree, whose mortal tast"
+    } \n]
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip grep-1.4
+test grep-1.4 "One file, one match, print file names flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -l "Forbidden" paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "paradise-lost.txt"
+    } \n]
 
-set text(iliad.txt) [join {
-    "Achilles sing, O Goddess! Peleus' son;"
-    "His wrath pernicious, who ten thousand woes"
-    "Caused to Achaia's host, sent many a soul"
-    "Illustrious into Ades premature,"
-    "And Heroes gave (so stood the will of Jove)"
-    "To dogs and to all ravening fowls a prey,"
-    "When fierce dispute had separated once"
-    "The noble Chief Achilles from the son"
-    "Of Atreus, Agamemnon, King of men."
-} \n]
+skip grep-1.5
+test grep-1.5 "One file, one match, match entire lines flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -x "With loss of Eden, till one greater Man" paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "With loss of Eden, till one greater Man"
+    } \n]
 
-set text(midsummer-night.txt) [join {
-    "I do entreat your grace to pardon me."
-    "I know not by what power I am made bold,"
-    "Nor how it may concern my modesty,"
-    "In such a presence here to plead my thoughts;"
-    "But I beseech your grace that I may know"
-    "The worst that may befall me in this case,"
-    "If I refuse to wed Demetrius."
-} \n]
+skip grep-1.6
+test grep-1.6 "One file, one match, multiple flags" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -n -i -x "OF ATREUS, Agamemnon, KIng of MEN." iliad.txt 
+    } -returnCodes ok -result [join {
+        "9:Of Atreus, Agamemnon, King of men."
+    } \n]
 
-set text(paradise-lost.txt) [join {
-    "Of Mans First Disobedience, and the Fruit"
-    "Of that Forbidden Tree, whose mortal tast"
-    "Brought Death into the World, and all our woe,"
-    "With loss of Eden, till one greater Man"
-    "Restore us, and regain the blissful Seat,"
-    "Sing Heav'nly Muse, that on the secret top"
-    "Of Oreb, or of Sinai, didst inspire"
-    "That Shepherd, who first taught the chosen Seed"
-} \n]
+skip grep-1.7
+test grep-1.7 "One file, several matches, no flags" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep "may" midsummer-night.txt 
+    } -returnCodes ok -result [join {
+        "Nor how it may concern my modesty,"
+        "But I beseech your grace that I may know"
+        "The worst that may befall me in this case,"
+    } \n]
 
-proc populateFiles {} {
-    foreach {name contents} [array get ::text] {
-        set fid [open $name w]
-        puts $fid $contents
-        close $fid
-    }
-}
+skip grep-1.8
+test grep-1.8 "One file, several matches, print line numbers flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -n "may" midsummer-night.txt 
+    } -returnCodes ok -result [join {
+        "3:Nor how it may concern my modesty,"
+        "5:But I beseech your grace that I may know"
+        "6:The worst that may befall me in this case,"
+    } \n]
 
-proc removeFiles {} {
-    foreach name [array names ::text] {
-        file delete -force $name
-    }
-}
+skip grep-1.9
+test grep-1.9 "One file, several matches, match entire lines flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -x "may" midsummer-night.txt
+    } -returnCodes ok -result ""
+
+skip grep-1.10
+test grep-1.10 "One file, several matches, case-insensitive flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -i "ACHILLES" iliad.txt 
+    } -returnCodes ok -result [join {
+        "Achilles sing, O Goddess! Peleus' son;"
+        "The noble Chief Achilles from the son"
+    } \n]
+
+skip grep-1.11
+test grep-1.11 "One file, several matches, inverted flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -v "Of" paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "Brought Death into the World, and all our woe,"
+        "With loss of Eden, till one greater Man"
+        "Restore us, and regain the blissful Seat,"
+        "Sing Heav'nly Muse, that on the secret top"
+        "That Shepherd, who first taught the chosen Seed"
+    } \n]
+
+skip grep-1.12
+test grep-1.12 "One file, no matches, various flags" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -n -l -x -i "Gandalf" iliad.txt
+    } -returnCodes ok -result ""
+
+skip grep-1.13
+test grep-1.13 "One file, one match, file flag takes precedence over line flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -n -l "ten" iliad.txt 
+    } -returnCodes ok -result [join {
+        "iliad.txt"
+    } \n]
+
+skip grep-1.14
+test grep-1.14 "One file, several matches, inverted and match entire lines flags" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -x -v "Illustrious into Ades premature," iliad.txt 
+    } -returnCodes ok -result [join {
+        "Achilles sing, O Goddess! Peleus' son;"
+        "His wrath pernicious, who ten thousand woes"
+        "Caused to Achaia's host, sent many a soul"
+        "And Heroes gave (so stood the will of Jove)"
+        "To dogs and to all ravening fowls a prey,"
+        "When fierce dispute had separated once"
+        "The noble Chief Achilles from the son"
+        "Of Atreus, Agamemnon, King of men."
+    } \n]
+
+skip grep-2.1
+test grep-2.1 "Multiple files, one match, no flags" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep "Agamemnon" iliad.txt midsummer-night.txt paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "iliad.txt:Of Atreus, Agamemnon, King of men."
+    } \n]
+
+skip grep-2.2
+test grep-2.2 "Multiple files, several matches, no flags" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep "may" iliad.txt midsummer-night.txt paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "midsummer-night.txt:Nor how it may concern my modesty,"
+        "midsummer-night.txt:But I beseech your grace that I may know"
+        "midsummer-night.txt:The worst that may befall me in this case,"
+    } \n]
+
+skip grep-2.3
+test grep-2.3 "Multiple files, several matches, print line numbers flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -n "that" iliad.txt midsummer-night.txt paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "midsummer-night.txt:5:But I beseech your grace that I may know"
+        "midsummer-night.txt:6:The worst that may befall me in this case,"
+        "paradise-lost.txt:2:Of that Forbidden Tree, whose mortal tast"
+        "paradise-lost.txt:6:Sing Heav'nly Muse, that on the secret top"
+    } \n]
+
+skip grep-2.4
+test grep-2.4 "Multiple files, one match, print file names flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -l "who" iliad.txt midsummer-night.txt paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "iliad.txt"
+        "paradise-lost.txt"
+    } \n]
+
+skip grep-2.5
+test grep-2.5 "Multiple files, several matches, case-insensitive flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -i "TO" iliad.txt midsummer-night.txt paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "iliad.txt:Caused to Achaia's host, sent many a soul"
+        "iliad.txt:Illustrious into Ades premature,"
+        "iliad.txt:And Heroes gave (so stood the will of Jove)"
+        "iliad.txt:To dogs and to all ravening fowls a prey,"
+        "midsummer-night.txt:I do entreat your grace to pardon me."
+        "midsummer-night.txt:In such a presence here to plead my thoughts;"
+        "midsummer-night.txt:If I refuse to wed Demetrius."
+        "paradise-lost.txt:Brought Death into the World, and all our woe,"
+        "paradise-lost.txt:Restore us, and regain the blissful Seat,"
+        "paradise-lost.txt:Sing Heav'nly Muse, that on the secret top"
+    } \n]
+
+skip grep-2.6
+test grep-2.6 "Multiple files, several matches, inverted flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -v "a" iliad.txt midsummer-night.txt paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "iliad.txt:Achilles sing, O Goddess! Peleus' son;"
+        "iliad.txt:The noble Chief Achilles from the son"
+        "midsummer-night.txt:If I refuse to wed Demetrius."
+    } \n]
+
+skip grep-2.7
+test grep-2.7 "Multiple files, one match, match entire lines flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -x "But I beseech your grace that I may know" iliad.txt midsummer-night.txt paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "midsummer-night.txt:But I beseech your grace that I may know"
+    } \n]
+
+skip grep-2.8
+test grep-2.8 "Multiple files, one match, multiple flags" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -n -i -x "WITH LOSS OF EDEN, TILL ONE GREATER MAN" iliad.txt midsummer-night.txt paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "paradise-lost.txt:4:With loss of Eden, till one greater Man"
+    } \n]
+
+skip grep-2.9
+test grep-2.9 "Multiple files, no matches, various flags" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -n -l -x -i "Frodo" iliad.txt midsummer-night.txt paradise-lost.txt
+    } -returnCodes ok -result ""
+
+skip grep-2.10
+test grep-2.10 "Multiple files, several matches, file flag takes precedence over line number flag" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -n -l "who" iliad.txt midsummer-night.txt paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "iliad.txt"
+        "paradise-lost.txt"
+    } \n]
+
+skip grep-2.11
+test grep-2.11 "Multiple files, several matches, inverted and match entire lines flags" \
+    -setup populateFiles -cleanup removeFiles \
+    -body {
+        grep -x -v "Illustrious into Ades premature," iliad.txt midsummer-night.txt paradise-lost.txt 
+    } -returnCodes ok -result [join {
+        "iliad.txt:Achilles sing, O Goddess! Peleus' son;"
+        "iliad.txt:His wrath pernicious, who ten thousand woes"
+        "iliad.txt:Caused to Achaia's host, sent many a soul"
+        "iliad.txt:And Heroes gave (so stood the will of Jove)"
+        "iliad.txt:To dogs and to all ravening fowls a prey,"
+        "iliad.txt:When fierce dispute had separated once"
+        "iliad.txt:The noble Chief Achilles from the son"
+        "iliad.txt:Of Atreus, Agamemnon, King of men."
+        "midsummer-night.txt:I do entreat your grace to pardon me."
+        "midsummer-night.txt:I know not by what power I am made bold,"
+        "midsummer-night.txt:Nor how it may concern my modesty,"
+        "midsummer-night.txt:In such a presence here to plead my thoughts;"
+        "midsummer-night.txt:But I beseech your grace that I may know"
+        "midsummer-night.txt:The worst that may befall me in this case,"
+        "midsummer-night.txt:If I refuse to wed Demetrius."
+        "paradise-lost.txt:Of Mans First Disobedience, and the Fruit"
+        "paradise-lost.txt:Of that Forbidden Tree, whose mortal tast"
+        "paradise-lost.txt:Brought Death into the World, and all our woe,"
+        "paradise-lost.txt:With loss of Eden, till one greater Man"
+        "paradise-lost.txt:Restore us, and regain the blissful Seat,"
+        "paradise-lost.txt:Sing Heav'nly Muse, that on the secret top"
+        "paradise-lost.txt:Of Oreb, or of Sinai, didst inspire"
+        "paradise-lost.txt:That Shepherd, who first taught the chosen Seed"
+    } \n]
 
 
-if {$::argv0 eq [info script]} {
-
-    set cases {
-        grep-1.1 "One file, one match, no flags"
-            {} "Agamemnon" {iliad.txt} {
-                "Of Atreus, Agamemnon, King of men."
-            }
-
-        grep-1.2 "One file, one match, print line numbers flag"
-            {-n} "Forbidden" {paradise-lost.txt} {
-                "2:Of that Forbidden Tree, whose mortal tast"
-            }
-
-        grep-1.3 "One file, one match, case-insensitive flag"
-            {-i} "FORBIDDEN" {paradise-lost.txt} {
-                "Of that Forbidden Tree, whose mortal tast"
-            }
-
-        grep-1.4 "One file, one match, print file names flag"
-            {-l} "Forbidden" {paradise-lost.txt} {
-                "paradise-lost.txt"
-            }
-
-        grep-1.5 "One file, one match, match entire lines flag"
-            {-x} "With loss of Eden, till one greater Man" {paradise-lost.txt} {
-                "With loss of Eden, till one greater Man"
-            }
-
-        grep-1.6 "One file, one match, multiple flags"
-            {-n -i -x} "OF ATREUS, Agamemnon, KIng of MEN." {iliad.txt} {
-                "9:Of Atreus, Agamemnon, King of men."
-            }
-
-        grep-1.7 "One file, several matches, no flags"
-            {} "may" {midsummer-night.txt} {
-                "Nor how it may concern my modesty,"
-                "But I beseech your grace that I may know"
-                "The worst that may befall me in this case,"
-            }
-
-        grep-1.8 "One file, several matches, print line numbers flag"
-            {-n} "may" {midsummer-night.txt} {
-                "3:Nor how it may concern my modesty,"
-                "5:But I beseech your grace that I may know"
-                "6:The worst that may befall me in this case,"
-            }
-
-        grep-1.9 "One file, several matches, match entire lines flag"
-            {-x} "may" {midsummer-night.txt}
-            {}
-
-        grep-1.10 "One file, several matches, case-insensitive flag"
-            {-i} "ACHILLES" {iliad.txt} {
-                "Achilles sing, O Goddess! Peleus' son;"
-                "The noble Chief Achilles from the son"
-            }
-
-        grep-1.11 "One file, several matches, inverted flag"
-            {-v} "Of" {paradise-lost.txt} {
-                "Brought Death into the World, and all our woe,"
-                "With loss of Eden, till one greater Man"
-                "Restore us, and regain the blissful Seat,"
-                "Sing Heav'nly Muse, that on the secret top"
-                "That Shepherd, who first taught the chosen Seed"
-            }
-
-        grep-1.12 "One file, no matches, various flags"
-            {-n} -l {-x -i "Gandalf" iliad.txt}
-            {}
-
-        grep-1.13 "One file, one match, file flag takes precedence over line flag"
-            {-n} -l {"ten" iliad.txt} {
-                "iliad.txt"
-            }
-
-        grep-1.14 "One file, several matches, inverted and match entire lines flags"
-            {-x} -v {"Illustrious into Ades premature," iliad.txt} {
-                "Achilles sing, O Goddess! Peleus' son;"
-                "His wrath pernicious, who ten thousand woes"
-                "Caused to Achaia's host, sent many a soul"
-                "And Heroes gave (so stood the will of Jove)"
-                "To dogs and to all ravening fowls a prey,"
-                "When fierce dispute had separated once"
-                "The noble Chief Achilles from the son"
-                "Of Atreus, Agamemnon, King of men."
-            }
-
-        grep-2.1 "Multiple files, one match, no flags"
-            {} "Agamemnon" {iliad.txt midsummer-night.txt paradise-lost.txt} {
-                "iliad.txt:Of Atreus, Agamemnon, King of men."
-            }
-
-        grep-2.2 "Multiple files, several matches, no flags"
-            {} "may" {iliad.txt midsummer-night.txt paradise-lost.txt} {
-                "midsummer-night.txt:Nor how it may concern my modesty,"
-                "midsummer-night.txt:But I beseech your grace that I may know"
-                "midsummer-night.txt:The worst that may befall me in this case,"
-            }
-
-        grep-2.3 "Multiple files, several matches, print line numbers flag"
-            {-n} "that" {iliad.txt midsummer-night.txt paradise-lost.txt} {
-                "midsummer-night.txt:5:But I beseech your grace that I may know"
-                "midsummer-night.txt:6:The worst that may befall me in this case,"
-                "paradise-lost.txt:2:Of that Forbidden Tree, whose mortal tast"
-                "paradise-lost.txt:6:Sing Heav'nly Muse, that on the secret top"
-            }
-
-        grep-2.4 "Multiple files, one match, print file names flag"
-            {-l} "who" {iliad.txt midsummer-night.txt paradise-lost.txt} {
-                "iliad.txt"
-                "paradise-lost.txt"
-            }
-
-        grep-2.5 "Multiple files, several matches, case-insensitive flag"
-            {-i} "TO" {iliad.txt midsummer-night.txt paradise-lost.txt} {
-                "iliad.txt:Caused to Achaia's host, sent many a soul"
-                "iliad.txt:Illustrious into Ades premature,"
-                "iliad.txt:And Heroes gave (so stood the will of Jove)"
-                "iliad.txt:To dogs and to all ravening fowls a prey,"
-                "midsummer-night.txt:I do entreat your grace to pardon me."
-                "midsummer-night.txt:In such a presence here to plead my thoughts;"
-                "midsummer-night.txt:If I refuse to wed Demetrius."
-                "paradise-lost.txt:Brought Death into the World, and all our woe,"
-                "paradise-lost.txt:Restore us, and regain the blissful Seat,"
-                "paradise-lost.txt:Sing Heav'nly Muse, that on the secret top"
-            }
-
-        grep-2.6 "Multiple files, several matches, inverted flag"
-            {-v} "a" {iliad.txt midsummer-night.txt paradise-lost.txt} {
-                "iliad.txt:Achilles sing, O Goddess! Peleus' son;"
-                "iliad.txt:The noble Chief Achilles from the son"
-                "midsummer-night.txt:If I refuse to wed Demetrius."
-            }
-
-        grep-2.7 "Multiple files, one match, match entire lines flag"
-            {-x} "But I beseech your grace that I may know" {iliad.txt midsummer-night.txt paradise-lost.txt} {
-                "midsummer-night.txt:But I beseech your grace that I may know"
-            }
-
-        grep-2.8 "Multiple files, one match, multiple flags"
-            {-n -i -x} "WITH LOSS OF EDEN, TILL ONE GREATER MAN" {iliad.txt midsummer-night.txt paradise-lost.txt} {
-                "paradise-lost.txt:4:With loss of Eden, till one greater Man"
-            }
-
-        grep-2.9 "Multiple files, no matches, various flags"
-            {-n -l -x -i} "Frodo" {iliad.txt midsummer-night.txt paradise-lost.txt}
-            {}
-
-        grep-2.10 "Multiple files, several matches, file flag takes precedence over line number flag"
-            {-n -l} "who" {iliad.txt midsummer-night.txt paradise-lost.txt} {
-                "iliad.txt"
-                "paradise-lost.txt"
-            }
-
-        grep-2.11 "Multiple files, several matches, inverted and match entire lines flags"
-            {-x -v} "Illustrious into Ades premature," {iliad.txt midsummer-night.txt paradise-lost.txt} {
-                "iliad.txt:Achilles sing, O Goddess! Peleus' son;"
-                "iliad.txt:His wrath pernicious, who ten thousand woes"
-                "iliad.txt:Caused to Achaia's host, sent many a soul"
-                "iliad.txt:And Heroes gave (so stood the will of Jove)"
-                "iliad.txt:To dogs and to all ravening fowls a prey,"
-                "iliad.txt:When fierce dispute had separated once"
-                "iliad.txt:The noble Chief Achilles from the son"
-                "iliad.txt:Of Atreus, Agamemnon, King of men."
-                "midsummer-night.txt:I do entreat your grace to pardon me."
-                "midsummer-night.txt:I know not by what power I am made bold,"
-                "midsummer-night.txt:Nor how it may concern my modesty,"
-                "midsummer-night.txt:In such a presence here to plead my thoughts;"
-                "midsummer-night.txt:But I beseech your grace that I may know"
-                "midsummer-night.txt:The worst that may befall me in this case,"
-                "midsummer-night.txt:If I refuse to wed Demetrius."
-                "paradise-lost.txt:Of Mans First Disobedience, and the Fruit"
-                "paradise-lost.txt:Of that Forbidden Tree, whose mortal tast"
-                "paradise-lost.txt:Brought Death into the World, and all our woe,"
-                "paradise-lost.txt:With loss of Eden, till one greater Man"
-                "paradise-lost.txt:Restore us, and regain the blissful Seat,"
-                "paradise-lost.txt:Sing Heav'nly Muse, that on the secret top"
-                "paradise-lost.txt:Of Oreb, or of Sinai, didst inspire"
-                "paradise-lost.txt:That Shepherd, who first taught the chosen Seed"
-            }
-    }
-
-    foreach {name description options pattern files result} $cases {
-        test $name $description \
-            -setup populateFiles \
-            -cleanup removeFiles \
-            -body [list grep {*}$options $pattern {*}$files] \
-            -returnCodes ok \
-            -result [join $result \n]
-    }
-
-    cleanupTests
-}
+cleanupTests

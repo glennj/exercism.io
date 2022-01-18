@@ -1,55 +1,68 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "prime-factors.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test pf-1 "no factors" -body {
+    factors 1
+} -returnCodes ok -result {}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip pf-2
+test pf-2 "prime number" -body {
+    factors 2
+} -returnCodes ok -result {2}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip pr-3
+test pr-3 "another prime number" -body {
+    factors 3
+} -returnCodes ok -result {3}
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip pf-4
+test pf-4 "square of a prime" -body {
+    factors 9
+} -returnCodes ok -result {3 3}
 
-if {$::argv0 eq [info script]} {
+skip pf-5
+test pf-5 "product of first prime" -body {
+    factors 4
+} -returnCodes ok -result {2 2}
 
-    set cases {
-        pf-1 "no factors" 1 {}
-        pf-2 "prime number" 2 {2}
-        pr-3 "another prime number" 3 {3}
-        pf-4 "square of a prime" 9 {3 3}
-        pf-5 "product of first prime" 4 {2 2}
-        pf-6 "cube of a prime" 8 {2 2 2}
-        pf-7 "product of second prime" 27 {3 3 3}
-        pf-8 "product of third prime" 625 {5 5 5 5}
-        pf-9 "product of first and second prime" 6 {2 3}
-        pf-10 "product of primes and non-primes" 12 {2 2 3}
-        pf-11 "product of primes" 901255 {5 17 23 461}
-        pf-11 "factors include a large prime" 93819012551 {11 9539 894119}
-    }
+skip pf-6
+test pf-6 "cube of a prime" -body {
+    factors 8
+} -returnCodes ok -result {2 2 2}
 
-    foreach {name description number primes} $cases {
-        test $name $description -body {
-            factors $number
-        } -returnCodes ok -result $primes
-    }
+skip pf-7
+test pf-7 "product of second prime" -body {
+    factors 27
+} -returnCodes ok -result {3 3 3}
 
-    cleanupTests
-}
+skip pf-8
+test pf-8 "product of third prime" -body {
+    factors 625
+} -returnCodes ok -result {5 5 5 5}
+
+skip pf-9
+test pf-9 "product of first and second prime" -body {
+    factors 6
+} -returnCodes ok -result {2 3}
+
+skip pf-10
+test pf-10 "product of primes and non-primes" -body {
+    factors 12
+} -returnCodes ok -result {2 2 3}
+
+skip pf-11
+test pf-11 "product of primes" -body {
+    factors 901255
+} -returnCodes ok -result {5 17 23 461}
+
+test pf-11 "factors include a large prime" -body {
+    factors 93819012551
+} -returnCodes ok -result {11 9539 894119}
+
+
+cleanupTests

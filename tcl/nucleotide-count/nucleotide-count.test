@@ -1,77 +1,34 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "nucleotide-count.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test nuc-count-1 "empty strand" -body {
+    nucleotideCounts ""
+} -returnCodes ok -match dictionary -result { A 0 C 0 G 0 T 0 }
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip nuc-count-2
+test nuc-count-2 "can count one nucleotide in single-character input" -body {
+    nucleotideCounts "G"
+} -returnCodes ok -match dictionary -result { A 0 C 0 G 1 T 0 }
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip nuc-count-3
+test nuc-count-3 "strand with repeated nucleotide" -body {
+    nucleotideCounts "GGGGGGG"
+} -returnCodes ok -match dictionary -result { A 0 C 0 G 7 T 0 }
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
-
-customMatch dictionary dictionaryMatch
-
-proc dictionaryMatch {expected actual} {
-    if {[dict size $expected] != [dict size $actual]} {
-        return false
-    }
-    dict for {key value} $expected {
-        if {![dict exists $actual $key]} {
-            return false
-        }
-        if {[dict get $actual $key] != $value} {
-            return false
-        }
-    }
-    return true
-}
+skip nuc-count-4
+test nuc-count-4 "strand with multiple nucleotides" -body {
+    nucleotideCounts "AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC"
+} -returnCodes ok -match dictionary -result { A 20 C 12 G 17 T 21 }
 
 
-if {$::argv0 eq [info script]} {
+skip nuc-count-5
+test nuc-count-5 "strand with invalid nucleotides" -body {
+    nucleotideCounts "AGXXACT"
+} -returnCodes error -result "Invalid nucleotide in strand"
 
-    set cases {
-        nuc-count-1 "empty strand"
-            ""
-            { A 0 C 0 G 0 T 0 }
-        nuc-count-2 "can count one nucleotide in single-character input"
-             "G"
-             { A 0 C 0 G 1 T 0 }
-        nuc-count-3 "strand with repeated nucleotide"
-             "GGGGGGG"
-             { A 0 C 0 G 7 T 0 }
-        nuc-count-4 "strand with multiple nucleotides"
-             "AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC"
-             { A 20 C 12 G 17 T 21 }
-    }
-
-    foreach {name description strand result} $cases {
-        test $name $description -body {
-            nucleotideCounts $strand
-        } -returnCodes ok -match dictionary -result $result
-    }
-
-    test nuc-count-5 "strand with invalid nucleotides" -body {
-        nucleotideCounts "AGXXACT"
-    } -returnCodes error -result "Invalid nucleotide in strand"
-
-    cleanupTests
-}
+cleanupTests

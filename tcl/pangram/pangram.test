@@ -1,53 +1,59 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "pangram.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test pangram-1 "empty sentence" -body {
+    isPangram ""
+} -returnCodes ok -match boolean -result 0
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip pangram-2
+test pangram-2 "perfect lower case" -body {
+    isPangram "abcdefghijklmnopqrstuvwxyz"
+} -returnCodes ok -match boolean -result true
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip pangram-3
+test pangram-3 "only lower case" -body {
+    isPangram "the quick brown fox jumps over the lazy dog"
+} -returnCodes ok -match boolean -result true
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip pangram-4
+test pangram-4 "missing the letter 'x'" -body {
+    isPangram "a quick movement of the enemy will jeopardize five gunboats"
+} -returnCodes ok -match boolean -result 0
 
-if {$::argv0 eq [info script]} {
+skip pangram-5
+test pangram-5 "missing the letter 'h'" -body {
+    isPangram "five boxing wizards jump quickly at it"
+} -returnCodes ok -match boolean -result 0
 
-    set cases {
-        pangram-1 ""                                                            0 "empty sentence"
-        pangram-2 "abcdefghijklmnopqrstuvwxyz"                                  1 "perfect lower case"
-        pangram-3 "the quick brown fox jumps over the lazy dog"                 1 "only lower case"
-        pangram-4 "a quick movement of the enemy will jeopardize five gunboats" 0 "missing the letter 'x'"
-        pangram-5 "five boxing wizards jump quickly at it"                      0 "missing the letter 'h'"
-        pangram-6 "the_quick_brown_fox_jumps_over_the_lazy_dog"                 1 "with underscores"
-        pangram-7 "the 1 quick brown fox jumps over the 2 lazy dogs"            1 "with numbers"
-        pangram-8 "7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog"                 0 "missing letters replaced by numbers"
-        pangram-9 "\"Five quacking Zephyrs jolt my wax bed.\""                  1 "mixed case and punctuation"
-        pangram-10 "the quick brown fox jumps over with lazy FX"                0 "case insensitive"
-    }
+skip pangram-6
+test pangram-6 "with underscores" -body {
+    isPangram "the_quick_brown_fox_jumps_over_the_lazy_dog"
+} -returnCodes ok -match boolean -result true
 
-    foreach {name input result description} $cases {
-        test $name $description -body {
-            isPangram $input
-        } -result $result
-    }
+skip pangram-7
+test pangram-7 "with numbers" -body {
+    isPangram "the 1 quick brown fox jumps over the 2 lazy dogs"
+} -returnCodes ok -match boolean -result true
 
-    cleanupTests
-}
+skip pangram-8
+test pangram-8 "missing letters replaced by numbers" -body {
+    isPangram "7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog"
+} -returnCodes ok -match boolean -result 0
+
+skip pangram-9
+test pangram-9 "mixed case and punctuation" -body {
+    isPangram "\"Five quacking Zephyrs jolt my wax bed.\""
+} -returnCodes ok -match boolean -result true
+
+skip pangram-10
+test pangram-10 "case insensitive" -body {
+    isPangram "the quick brown fox jumps over with lazy FX"
+} -returnCodes ok -match boolean -result 0
+
+
+cleanupTests

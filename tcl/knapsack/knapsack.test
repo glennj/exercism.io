@@ -1,92 +1,85 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "knapsack.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test knapsack-1 "no items" -body {
+    maximumValue 100 {}
+} -returnCodes ok -result 0
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip knapsack-2
+test knapsack-2 "one item, too heavy" -body {
+    maximumValue 10 { {weight 100 value 1} }
+} -returnCodes ok -result 0
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+skip knapsack-3
+test knapsack-3 "five items (cannot be greedy by weight)" -body {
+    maximumValue 10 {
+        { weight 2 value 5 }
+        { weight 2 value 5 }
+        { weight 2 value 5 }
+        { weight 2 value 5 }
+        { weight 10 value 21 }
     }
-}
+} -returnCodes ok -result 21
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
-
-if {$::argv0 eq [info script]} {
-
-    set cases {
-        knapsack-1 "no items" 100 {} 0
-        knapsack-2 "one item, too heavy" 10 { {weight 100 value 1} } 0
-        knapsack-3 "five items (cannot be greedy by weight)" 10 {
-            { weight 2 value 5 }
-            { weight 2 value 5 }
-            { weight 2 value 5 }
-            { weight 2 value 5 }
-            { weight 10 value 21 }
-        } 21
-        knapsack-4 "five items (cannot be greedy by value)" 10 {
-            { weight 2 value 20 }
-            { weight 2 value 20 }
-            { weight 2 value 20 }
-            { weight 2 value 20 }
-            { weight 10 value 50 }
-        } 80
-        knapsack-5 "example knapsack" 10 {
-            { weight 5 value 10 }
-            { weight 4 value 40 }
-            { weight 6 value 30 }
-            { weight 4 value 50 }
-        } 90
-        knapsack-6 "8 items" 104 {
-            { weight 25 value 350 }
-            { weight 35 value 400 }
-            { weight 45 value 450 }
-            { weight 5 value 20 }
-            { weight 25 value 70 }
-            { weight 3 value 8 }
-            { weight 2 value 5 }
-            { weight 2 value 5 }
-        } 900
-        knapsack-7 "15 items" 750 {
-            { weight 70 value 135 }
-            { weight 73 value 139 }
-            { weight 77 value 149 }
-            { weight 80 value 150 }
-            { weight 82 value 156 }
-            { weight 87 value 163 }
-            { weight 90 value 173 }
-            { weight 94 value 184 }
-            { weight 98 value 192 }
-            { weight 106 value 201 }
-            { weight 110 value 210 }
-            { weight 113 value 214 }
-            { weight 115 value 221 }
-            { weight 118 value 229 }
-            { weight 120 value 240 }
-        } 1458
+skip knapsack-4
+test knapsack-4 "five items (cannot be greedy by value)" -body {
+    maximumValue 10 {
+        { weight 2 value 20 }
+        { weight 2 value 20 }
+        { weight 2 value 20 }
+        { weight 2 value 20 }
+        { weight 10 value 50 }
     }
+} -returnCodes ok -result 80
 
-    foreach {name description maxWeight items expected} $cases {
-        test $name $description -body {
-            maximumValue $maxWeight $items
-        } -returnCodes ok -result $expected
+skip knapsack-5
+test knapsack-5 "example knapsack" -body {
+    maximumValue 10 {
+        { weight 5 value 10 }
+        { weight 4 value 40 }
+        { weight 6 value 30 }
+        { weight 4 value 50 }
     }
+} -returnCodes ok -result 90
 
-    cleanupTests
-}
+skip knapsack-6
+test knapsack-6 "8 items" -body {
+    maximumValue 104 {
+        { weight 25 value 350 }
+        { weight 35 value 400 }
+        { weight 45 value 450 }
+        { weight 5 value 20 }
+        { weight 25 value 70 }
+        { weight 3 value 8 }
+        { weight 2 value 5 }
+        { weight 2 value 5 }
+    }
+} -returnCodes ok -result 900
+
+skip knapsack-7
+test knapsack-7 "15 items" -body {
+    maximumValue 750 {
+        { weight 70 value 135 }
+        { weight 73 value 139 }
+        { weight 77 value 149 }
+        { weight 80 value 150 }
+        { weight 82 value 156 }
+        { weight 87 value 163 }
+        { weight 90 value 173 }
+        { weight 94 value 184 }
+        { weight 98 value 192 }
+        { weight 106 value 201 }
+        { weight 110 value 210 }
+        { weight 113 value 214 }
+        { weight 115 value 221 }
+        { weight 118 value 229 }
+        { weight 120 value 240 }
+    }
+} -returnCodes ok -result 1458
+
+cleanupTests

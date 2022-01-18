@@ -1,149 +1,98 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "go-counting.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
+set testBoard {
+    "  B  "
+    " B B "
+    "B W B"
+    " W W "
+    "  W  "
+}
+
+test go-1 "Black corner territory on 5x5 board" -body {
+    set board [GoBoard new $testBoard]
+    $board territory {0 1}
+} -returnCodes ok -match orderedLists -result {black {{0 0} {0 1} {1 0}}}
+
+skip go-2
+test go-2 "White center territory on 5x5 board" -body {
+    set board [GoBoard new $testBoard]
+    $board territory {2 3}
+} -returnCodes ok -match orderedLists -result {white {{2 3}}}
+
+skip go-3
+test go-3 "Open corner territory on 5x5 board" -body {
+    set board [GoBoard new $testBoard]
+    $board territory {1 4}
+} -returnCodes ok -match orderedLists -result {none {{0 3} {0 4} {1 4}}}
+
+skip go-4
+test go-4 "A stone and not a territory on 5x5 board" -body {
+    set board [GoBoard new $testBoard]
+    $board territory {1 1}
+} -returnCodes ok -match orderedLists -result {none {}}
+
+skip go-5
+test go-5 "Invalid because X is too low for 5x5 board" -body {
+    set board [GoBoard new $testBoard]
+    $board territory {-1 1}
+} -returnCodes error -result "Invalid coordinate"
+
+skip go-6
+test go-6 "Invalid because X is too high for 5x5 board" -body {
+    set board [GoBoard new $testBoard]
+    $board territory {5 1}
+} -returnCodes error -result "Invalid coordinate"
+
+skip go-7
+test go-7 "Invalid because Y is too low for 5x5 board" -body {
+    set board [GoBoard new $testBoard]
+    $board territory {1 -1}
+} -returnCodes error -result "Invalid coordinate"
+
+skip go-9
+test go-9 "Invalid because Y is too high for 5x5 board" -body {
+    set board [GoBoard new $testBoard]
+    $board territory {1 5}
+} -returnCodes error -result "Invalid coordinate"
+
+skip go-10
+test go-10 "One territory is the whole board" -body {
+    set board [GoBoard new {" "}]
+    $board territories
+} -returnCodes ok -match dictionary -result {
+    black {}
+    white {}
+    none {{0 0}}
+}
+
+skip go-11
+test go-11 "Two territory rectangular board" -body {
+    set board [GoBoard new {
+        " BW "
+        " BW "
     }]
+    $board territories
+} -returnCodes ok -match dictionary -result {
+    black {{0 0} {0 1}}
+    white {{3 0} {3 1}}
+    none {}
 }
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
+skip go-12
+test go-12 "Two region rectangular board" -body {
+    set board [GoBoard new {" B "}]
+    $board territories
+} -returnCodes ok -match dictionary -result {
+    black {{0 0} {2 0}}
+    white {}
+    none {}
 }
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
 
-# Compare two dictionaries for the same keys and same values
-proc dictionaryMatch {expected actual} {
-    if {[dict size $expected] != [dict size $actual]} {
-        return false
-    }
-    dict for {key value} $expected {
-        if {![dict exists $actual $key]} {
-            return false
-        }
-        set actualValue [dict get $actual $key]
-        if {[llength $actualValue] > 1 && [llength $actualValue] % 2 == 0} {
-            # looks like a dict, recurse
-            if {![dictionaryMatch $value $actualValue]} {
-                return false
-            }
-        } elseif {$actualValue ne $value} {
-            return false
-        }
-    }
-    return true
-}
-customMatch dictionary dictionaryMatch
-
-proc orderedListsMatch {expected actual} {
-    if {[llength $expected] != [llength $actual]} {
-        return false
-    }
-    foreach e $expected a $actual {
-        if {$e != $a} {
-            return false
-        }
-    }
-    return true
-}
-customMatch list orderedListsMatch
-
-
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
-
-if {$::argv0 eq [info script]} {
-    set testBoard {
-        "  B  "
-        " B B "
-        "B W B"
-        " W W "
-        "  W  "
-    }
-
-    test go-1 "Black corner territory on 5x5 board" -body {
-        set board [GoBoard new $testBoard]
-        $board territory {0 1}
-    } -returnCodes ok -match list -result {black {{0 0} {0 1} {1 0}}}
-
-    test go-2 "White center territory on 5x5 board" -body {
-        set board [GoBoard new $testBoard]
-        $board territory {2 3}
-    } -returnCodes ok -match list -result {white {{2 3}}}
-
-    test go-3 "Open corner territory on 5x5 board" -body {
-        set board [GoBoard new $testBoard]
-        $board territory {1 4}
-    } -returnCodes ok -match list -result {none {{0 3} {0 4} {1 4}}}
-
-    test go-4 "A stone and not a territory on 5x5 board" -body {
-        set board [GoBoard new $testBoard]
-        $board territory {1 1}
-    } -returnCodes ok -match list -result {none {}}
-
-    test go-5 "Invalid because X is too low for 5x5 board" -body {
-        set board [GoBoard new $testBoard]
-        $board territory {-1 1}
-    } -returnCodes error -result "Invalid coordinate"
-
-    test go-6 "Invalid because X is too high for 5x5 board" -body {
-        set board [GoBoard new $testBoard]
-        $board territory {5 1}
-    } -returnCodes error -result "Invalid coordinate"
-
-    test go-7 "Invalid because Y is too low for 5x5 board" -body {
-        set board [GoBoard new $testBoard]
-        $board territory {1 -1}
-    } -returnCodes error -result "Invalid coordinate"
-
-    test go-9 "Invalid because Y is too high for 5x5 board" -body {
-        set board [GoBoard new $testBoard]
-        $board territory {1 5}
-    } -returnCodes error -result "Invalid coordinate"
-
-    test go-10 "One territory is the whole board" -body {
-        set board [GoBoard new {" "}]
-        $board territories
-    } -returnCodes ok -match dictionary -result {
-        black {}
-        white {}
-        none {{0 0}}
-    }
-
-    test go-11 "Two territory rectangular board" -body {
-        set board [GoBoard new {
-            " BW "
-            " BW "
-        }]
-        $board territories
-    } -returnCodes ok -match dictionary -result {
-        black {{0 0} {0 1}}
-        white {{3 0} {3 1}}
-        none {}
-    }
-
-    test go-12 "Two region rectangular board" -body {
-        set board [GoBoard new {" B "}]
-        $board territories
-    } -returnCodes ok -match dictionary -result {
-        black {{0 0} {2 0}}
-        white {}
-        none {}
-    }
-
-
-    cleanupTests
-}
+cleanupTests

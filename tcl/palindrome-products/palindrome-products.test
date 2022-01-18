@@ -1,91 +1,122 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
-configure -verbose {error body usec}
+source testHelpers.tcl
+
+# configure -verbose {body error usec}
+
+############################################################
 source "palindrome-products.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
-
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
-
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+test pp-1.1 "finds the smallest palindrome from single digit factors" -body {
+    lassign [palindromeProducts smallest 1 9] value factors
+    set expected 1
+    if {$value != $expected} {
+        error "incorrect value: actual $value; expecting $expected"
     }
-}
+    set factors
+} -returnCodes ok -result {{1 1}}
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
-
-if {$::argv0 eq [info script]} {
-
-    set cases {
-        pp-1.1 "finds the smallest palindrome from single digit factors"
-        smallest 1 9 1 {{1 1}}
-
-        pp-1.2 "finds the largest palindrome from single digit factors"
-        largest 1 9 9 {{1 9} {3 3}}
-
-        pp-1.3 "find the smallest palindrome from double digit factors"
-        smallest 10 99 121 {{11 11}}
-
-        pp-1.4 "find the largest palindrome from double digit factors"
-        largest 10 99 9009 {{91 99}}
-
-        pp-1.5 "find smallest palindrome from triple digit factors"
-        smallest 100 999 10201 {{101 101}}
-
-        pp-1.6 "find the largest palindrome from triple digit factors"
-        largest 100 999 906609 {{913 993}}
-
-        pp-1.7 "find smallest palindrome from four digit factors"
-        smallest 1000 9999 1002001 {{1001 1001}}
-
-        pp-1.8 "find the largest palindrome from four digit factors"
-        largest 1000 9999 99000099 {{9901 9999}}
-
-        pp-1.9 "empty result for smallest if no palindrome in the range"
-        smallest 1002 1003 -1 {}
-
-        pp-1.10 "empty result for largest if no palindrome in the range"
-        largest 15 15 -1 {}
+skip pp-1.2
+test pp-1.2 "finds the largest palindrome from single digit factors" -body {
+    lassign [palindromeProducts largest 1 9] value factors
+    set expected 9
+    if {$value != $expected} {
+        error "incorrect value: actual $value; expecting $expected"
     }
-    foreach {name description func min max value factors} $cases {
-        test $name $description -body {
-            set output [palindromeProducts $func $min $max]
-            lassign $output val listOfFactors
-            # additional test built into body.
-            if {$val != $value} {
-                error "incorrect value: actual $val; expecting $value"
-            }
-            set listOfFactors
-        } -returnCodes ok -result $factors
-    }
+    set factors
+} -returnCodes ok -result {{1 9} {3 3}}
 
-    set cases {
-        pp-2.1 "error result for smallest if min is more than max"
-        smallest 10000 1 "min must be <= max"
-
-        pp-2.2 "error result for largest if min is more than max"
-        largest 2 1 "min must be <= max"
+skip pp-1.3
+test pp-1.3 "find the smallest palindrome from double digit factors" -body {
+    lassign [palindromeProducts smallest 10 99] value factors
+    set expected 121
+    if {$value != $expected} {
+        error "incorrect value: actual $value; expecting $expected"
     }
-    foreach {name description func min max msg} $cases {
-        test $name $description -body {
-            palindromeProducts $func $min $max
-        } -returnCodes error -result $msg
-    }
+    set factors
+} -returnCodes ok -result {{11 11}}
 
-    cleanupTests
-}
+skip pp-1.4
+test pp-1.4 "find the largest palindrome from double digit factors" -body {
+    lassign [palindromeProducts largest 10 99] value factors
+    set expected 9009
+    if {$value != $expected} {
+        error "incorrect value: actual $value; expecting $expected"
+    }
+    set factors
+} -returnCodes ok -result {{91 99}}
+
+skip pp-1.5
+test pp-1.5 "find smallest palindrome from triple digit factors" -body {
+    lassign [palindromeProducts smallest 100 999] value factors
+    set expected 10201
+    if {$value != $expected} {
+        error "incorrect value: actual $value; expecting $expected"
+    }
+    set factors
+} -returnCodes ok -result {{101 101}}
+
+skip pp-1.6
+test pp-1.6 "find the largest palindrome from triple digit factors" -body {
+    lassign [palindromeProducts largest 100 999] value factors
+    set expected 906609
+    if {$value != $expected} {
+        error "incorrect value: actual $value; expecting $expected"
+    }
+    set factors
+} -returnCodes ok -result {{913 993}}
+
+skip pp-1.7
+test pp-1.7 "find smallest palindrome from four digit factors" -body {
+    lassign [palindromeProducts smallest 1000 9999] value factors
+    set expected 1002001
+    if {$value != $expected} {
+        error "incorrect value: actual $value; expecting $expected"
+    }
+    set factors
+} -returnCodes ok -result {{1001 1001}}
+
+skip pp-1.8
+test pp-1.8 "find the largest palindrome from four digit factors" -body {
+    lassign [palindromeProducts largest 1000 9999] value factors
+    set expected 99000099
+    if {$value != $expected} {
+        error "incorrect value: actual $value; expecting $expected"
+    }
+    set factors
+} -returnCodes ok -result {{9901 9999}}
+
+skip pp-1.9
+test pp-1.9 "empty result for smallest if no palindrome in the range" -body {
+    lassign [palindromeProducts smallest 1002 1003] value factors
+    set expected -1
+    if {$value != $expected} {
+        error "incorrect value: actual $value; expecting $expected"
+    }
+    set factors
+} -returnCodes ok -result {}
+
+skip pp-1.10
+test pp-1.10 "empty result for largest if no palindrome in the range" -body {
+    lassign [palindromeProducts largest 15 15] value factors
+    set expected -1
+    if {$value != $expected} {
+        error "incorrect value: actual $value; expecting $expected"
+    }
+    set factors
+} -returnCodes ok -result {}
+
+
+skip pp-2.1
+test pp-2.1 "error result for smallest if min is more than max" -body {
+    palindromeProducts smallest 10000 1
+} -returnCodes error -result "min must be <= max"
+
+skip pp-2.2
+test pp-2.2 "error result for largest if min is more than max" -body {
+    palindromeProducts largest 2 1 
+} -returnCodes error -result "min must be <= max"
+
+
+cleanupTests

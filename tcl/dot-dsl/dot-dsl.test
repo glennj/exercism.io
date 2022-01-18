@@ -1,61 +1,11 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "dot-dsl.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
-
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
-
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
-
-proc dictionaryMatch {expected actual} {
-    if {[dict size $expected] != [dict size $actual]} {
-        return false
-    }
-    dict for {key value} $expected {
-        if {![dict exists $actual $key]} {
-            return false
-        }
-        set actualValue [dict get $actual $key]
-
-        # if this value is a dict then recurse, 
-        # else just check for string equality
-        if {[string is list -strict $value] &&
-            [llength $value] > 1 && 
-            [llength $value] % 2 == 0
-        } {
-            set procname [lindex [info level 0] 0]
-            if {![$procname $value $actualValue]} {
-                return false
-            }
-        } elseif {$actualValue ne $value} {
-            return false
-        }
-    }
-    return true
-}
-customMatch dictionary dictionaryMatch
-
-
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
 
 proc createTempFile {contents} {
     set fh [file tempfile filename "./graph.gv"]
@@ -65,225 +15,301 @@ proc createTempFile {contents} {
 }
 
 
-if {$::argv0 eq [info script]} {
+test dot-1.1 "empty graph"  -setup {
+    set filename [createTempFile {
+        graph {
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes ok -match dictionary -result {nodes {} edges {} attrs {}}
 
-    set cases {
-        dot-1.1 "empty graph" 
-            {
-                graph {
-                }
-            }
-            {nodes {} edges {} attrs {}}
+skip dot-1.2
+test dot-1.2 "graph with one node"  -setup {
+    set filename [createTempFile {
+        graph {
+            a;
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes ok -match dictionary -result {nodes {a {}} edges {} attrs {}}
 
-        dot-1.2 "graph with one node" 
-            {
-                graph {
-                    a;
-                }
-            }
-            {nodes {a {}} edges {} attrs {}}
+skip dot-1.3
+test dot-1.3 "graph with one node with attribute"  -setup {
+    set filename [createTempFile {
+        graph {
+            a [color=green];
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes ok -match dictionary -result {nodes {a {color green}} edges {} attrs {}}
 
-        dot-1.3 "graph with one node with attribute" 
-            {
-                graph {
-                    a [color=green];
-                }
-            }
-            {nodes {a {color green}} edges {} attrs {}}
+skip dot-1.4
+test dot-1.4 "graph with one edge"  -setup {
+    set filename [createTempFile {
+        graph {
+            a -- b;
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes ok -match dictionary -result {nodes {a {} b {}} edges {{a b} {}} attrs {}}
 
-        dot-1.4 "graph with one edge" 
-            {
-                graph {
-                    a -- b;
-                }
-            }
-            {nodes {a {} b {}} edges {{a b} {}} attrs {}}
+skip dot-1.5
+test dot-1.5 "graph with one attribute"  -setup {
+    set filename [createTempFile {
+        graph {
+            [foo=1];
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes ok -match dictionary -result {nodes {} edges {} attrs {foo 1}}
 
-        dot-1.5 "graph with one attribute" 
-            {
-                graph {
-                    [foo=1];
-                }
-            }
-            {nodes {} edges {} attrs {foo 1}}
+skip dot-1.6
+test dot-1.6 "graph with comments"  -setup {
+    set filename [createTempFile {
+        graph {
+            // a C-like comment
+            # a shell-like comment
+            [foo=1];
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes ok -match dictionary -result {nodes {} edges {} attrs {foo 1}}
 
-        dot-1.6 "graph with comments" 
-            {
-                graph {
-                    // a C-like comment
-                    # a shell-like comment
-                    [foo=1];
-                }
-            }
-            {nodes {} edges {} attrs {foo 1}}
-
-        dot-1.7 "graph with lots of stuff" 
-            {
-                graph {
-                    [foo=1];
-                    [title="Testing Attrs"];
-                    a [color=green];
-                    b [label="Beta!"];
-                    b -- c;
-                    a -- b [color=blue];
-                    [bar=true];
-                }
-            }
-            {
-                nodes {a {color green} b {label "Beta!"} c {}}
-                edges {{a b} {color blue} {b c} {}}
-                attrs {foo 1 title "Testing Attrs" bar true}
-            }
-
-        dot-1.8 "multiple edges on one line" 
-            {
-                graph {
-                    a -- b -- c -- d [style=dotted];
-                }
-            }
-            {
-                nodes {a {} b {} c {} d {}}
-                edges {
-                    {a b} {style dotted}
-                    {b c} {style dotted}
-                    {c d} {style dotted}
-                }
-                attrs {}
-            }
-
-        dot-1.9 "only 1 edge between nodes" 
-            {
-                graph {
-                    a -- b
-                    a -- b
-                    b -- a [color=blue]
-                }
-            }
-            {
-                nodes {a {} b {}}
-                edges {{a b} {color blue}}
-                attrs {}
-            }
-    }
-
-    foreach {name description graph result} $cases {
-        test $name $description -body "
-            set filename \[createTempFile {$graph}]
-            processDotFile \$filename
-        " -cleanup {
-            file delete $filename
-        } -returnCodes ok -match dictionary -result $result
-    }
-
-    set errorCases {
-        dot-2.1 "malformed input"
-            {
-                graphical {
-                }
-            }
-            {invalid command name "graphical"}
-
-        dot-2.2 "malicious input"
-            {
-                exec rm some_file
-            }
-            {invalid command name "exec"}
-
-        dot-2.3a "malformed edge"
-            {
-                graph {
-                    a --;
-                }
-            }
-            {invalid edge}
-
-        dot-2.3b "malformed edge 2"
-            {
-                graph {
-                    a b;
-                }
-            }
-            {invalid edge}
-
-        dot-2.4 "invalid edge type"
-            {
-                graph {
-                    a == b;
-                }
-            }
-            {invalid edge}
-
-        dot-2.5a "malformed multiple edges"
-            {
-                graph {
-                    a -- b --;
-                }
-            }
-            {invalid edge}
-
-        dot-2.5b "malformed multiple edges"
-            {
-                graph {
-                    a -- b c;
-                }
-            }
-            {invalid edge}
-
-        dot-2.6 "empty attribute"
-            {
-                graph {
-                    a [];
-                }
-            }
-            {invalid attribute}
-
-        dot-2.7 "malformed attribute"
-            {
-                graph {
-                    a [name];
-                }
-            }
-            {invalid attribute}
-
-        dot-2.8 "empty attribute name"
-            {
-                graph {
-                    a [=value];
-                }
-            }
-            {invalid attribute}
-
-        dot-2.9 "non-alphanumeric node name"
-            {
-                graph {
-                    ? [key=value];
-                }
-            }
-            {node name must be alphanumeric}
-    }
-
-    foreach {name description graph result} $errorCases {
-        test $name $description -body "
-            set filename \[createTempFile {$graph}]
-            processDotFile \$filename
-        " -cleanup {
-            file delete $filename
-        } -returnCodes error -result $result
-    }
-
-    test dot-2.10 "non-existent file" -body {
-        set filename [createTempFile ""]
-        file delete $filename
-        processDotFile $filename
-    } -returnCodes error -result {cannot read file}
-
-    test dot-2.11 "unreadable file" -body {
-        set filename [createTempFile ""]
-        file attributes $filename -permissions "a-r"
-        processDotFile $filename
-    } -cleanup {
-        file delete $filename
-    } -returnCodes error -result {cannot read file}
-
-    cleanupTests
+skip dot-1.7
+test dot-1.7 "graph with lots of stuff"  -setup {
+    set filename [createTempFile {
+        graph {
+            [foo=1];
+            [title="Testing Attrs"];
+            a [color=green];
+            b [label="Beta!"];
+            b -- c;
+            a -- b [color=blue];
+            [bar=true];
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes ok -match dictionary -result {
+    nodes {a {color green} b {label "Beta!"} c {}}
+    edges {{a b} {color blue} {b c} {}}
+    attrs {foo 1 title "Testing Attrs" bar true}
 }
+
+skip dot-1.8
+test dot-1.8 "multiple edges on one line"  -setup {
+    set filename [createTempFile {
+        graph {
+            a -- b -- c -- d [style=dotted];
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes ok -match dictionary -result {
+    nodes {a {} b {} c {} d {}}
+    edges {
+        {a b} {style dotted}
+        {b c} {style dotted}
+        {c d} {style dotted}
+    }
+    attrs {}
+}
+
+skip dot-1.9
+test dot-1.9 "only 1 edge between nodes"  -setup {
+    set filename [createTempFile {
+        graph {
+            a -- b
+            a -- b
+            b -- a [color=blue]
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes ok -match dictionary -result {
+    nodes {a {} b {}}
+    edges {{a b} {color blue}}
+    attrs {}
+}
+
+skip dot-2.1
+test dot-2.1 "malformed input" -setup {
+    set filename [createTempFile {
+        graphical {
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes error -result {invalid command name "graphical"}
+
+skip dot-2.2
+test dot-2.2 "malicious input" -setup {
+    set filename [createTempFile {
+        exec rm some_file
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes error -result {invalid command name "exec"}
+
+skip dot-2.3a
+test dot-2.3a "malformed edge" -setup {
+    set filename [createTempFile {
+        graph {
+            a --;
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes error -result {invalid edge}
+
+skip dot-2.3b
+test dot-2.3b "malformed edge 2" -setup {
+    set filename [createTempFile {
+        graph {
+            a b;
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes error -result {invalid edge}
+
+skip dot-2.4
+test dot-2.4 "invalid edge type" -setup {
+    set filename [createTempFile {
+        graph {
+            a == b;
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes error -result {invalid edge}
+
+skip dot-2.5a
+test dot-2.5a "malformed multiple edges" -setup {
+    set filename [createTempFile {
+        graph {
+            a -- b --;
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes error -result {invalid edge}
+
+skip dot-2.5b
+test dot-2.5b "malformed multiple edges" -setup {
+    set filename [createTempFile {
+        graph {
+            a -- b c;
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes error -result {invalid edge}
+
+skip dot-2.6
+test dot-2.6 "empty attribute" -setup {
+    set filename [createTempFile {
+        graph {
+            a [];
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes error -result {invalid attribute}
+
+skip dot-2.7
+test dot-2.7 "malformed attribute" -setup {
+    set filename [createTempFile {
+        graph {
+            a [name];
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes error -result {invalid attribute}
+
+skip dot-2.8
+test dot-2.8 "empty attribute name" -setup {
+    set filename [createTempFile {
+        graph {
+            a [=value];
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes error -result {invalid attribute}
+
+skip dot-2.9
+test dot-2.9 "non-alphanumeric node name" -setup {
+    set filename [createTempFile {
+        graph {
+            ? [key=value];
+        }
+    }]
+} -body {
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes error -result {node name must be alphanumeric}
+
+skip dot-2.10
+test dot-2.10 "non-existent file" -body {
+    set filename [createTempFile ""]
+    file delete $filename
+    processDotFile $filename
+} -returnCodes error -result {cannot read file}
+
+skip dot-2.11
+test dot-2.11 "unreadable file" -body {
+    set filename [createTempFile ""]
+    file attributes $filename -permissions "a-r"
+    processDotFile $filename
+} -cleanup {
+    file delete $filename
+} -returnCodes error -result {cannot read file}
+
+cleanupTests

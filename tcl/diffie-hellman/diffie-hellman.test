@@ -1,99 +1,70 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "diffie-hellman.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
-
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
-
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+test dh-1 "private key is in range 1..p" -body {
+    set result true
+    foreach p {5 7 11 13 17 19 23 29 31 37 41 43 47} {
+        set pk [diffieHellman::privateKey $p]
+        if {$pk <= 1 || $pk >= $p} {
+            set result false
+            break
+        }
     }
-}
+    set result
+} -returnCodes ok -match boolean -result true
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip dh-2
+test dh-2 "private key is random" -body {
+    # there is a slim chance this test will fail
+    set privateKeys {}
+    foreach i {1 2 3 4 5} {
+        set pk [diffieHellman::privateKey 2147483647]
+        dict set privateKeys $pk 1
+    }
+    dict size $privateKeys
+} -returnCodes ok -result 5
 
-proc booleanMatch {expected actual} {
-    return [expr {
-        [string is boolean -strict $expected] &&
-        [string is boolean -strict $actual] &&
-        !!$expected == !!$actual
-    }]
-}
-customMatch boolean booleanMatch
+skip dh-3
+test dh-3 "can calculate public key using private key" -body {
+    set p 23
+    set g 5
+    set private 6
+    set publicKey [diffieHellman::publicKey $p $g $private]
+} -returnCodes ok -result 8
 
-if {$::argv0 eq [info script]} {
+skip dh-5
+test dh-5 "can calculate public key using aaa different privaate key" -body {
+    set p 23
+    set g 5
+    set private 15
+    set publicKey [diffieHellman::publicKey $p $g $private]
+} -returnCodes ok -result 19
 
-    test dh-1 "private key is in range 1..p" -body {
-        set result true
-        foreach p {5 7 11 13 17 19 23 29 31 37 41 43 47} {
-            set pk [diffieHellman::privateKey $p]
-            if {$pk <= 1 || $pk >= $p} {
-                set result false
-                break
-            }
-        }
-        set result
-    } -returnCodes ok -match boolean -result true
+skip dh-5
+test dh-5 "can calculate secret key using other party's public key" -body {
+    set p 23
+    set public 19
+    set private 6
+    set secret [diffieHellman::secret $p $public $private]
+} -returnCodes ok -result 2
 
-    test dh-2 "private key is random" -body {
-        # there is a slim chance this test will fail
-        set privateKeys {}
-        foreach i {1 2 3 4 5} {
-            set pk [diffieHellman::privateKey 2147483647]
-            dict set privateKeys $pk 1
-        }
-        dict size $privateKeys
-    } -returnCodes ok -result 5
+skip dh-6
+test dh-6 "key exchange" -body {
+    set p 23
+    set g 5
+    set alicePrivateKey [diffieHellman::privateKey $p]
+    set bobPrivateKey [diffieHellman::privateKey $p]
+    set alicePublicKey [diffieHellman::publicKey $p $g $alicePrivateKey]
+    set bobPublicKey [diffieHellman::publicKey $p $g $bobPrivateKey]
+    set secretA [diffieHellman::secret $p $bobPublicKey $alicePrivateKey]
+    set secretB [diffieHellman::secret $p $alicePublicKey $bobPrivateKey]
 
-    test dh-3 "can calculate public key using private key" -body {
-        set p 23
-        set g 5
-        set private 6
-        set publicKey [diffieHellman::publicKey $p $g $private]
-    } -returnCodes ok -result 8
+    expr {$secretA == $secretB}
+} -returnCodes ok -match boolean -result true
 
-    test dh-5 "can calculate public key using aaa different privaate key" -body {
-        set p 23
-        set g 5
-        set private 15
-        set publicKey [diffieHellman::publicKey $p $g $private]
-    } -returnCodes ok -result 19
-
-    test dh-5 "can calculate secret key using other party's public key" -body {
-        set p 23
-        set public 19
-        set private 6
-        set secret [diffieHellman::secret $p $public $private]
-    } -returnCodes ok -result 2
-
-    test dh-6 "key exchange" -body {
-        set p 23
-        set g 5
-        set alicePrivateKey [diffieHellman::privateKey $p]
-        set bobPrivateKey [diffieHellman::privateKey $p]
-        set alicePublicKey [diffieHellman::publicKey $p $g $alicePrivateKey]
-        set bobPublicKey [diffieHellman::publicKey $p $g $bobPrivateKey]
-        set secretA [diffieHellman::secret $p $bobPublicKey $alicePrivateKey]
-        set secretB [diffieHellman::secret $p $alicePublicKey $bobPrivateKey]
-
-        expr {$secretA == $secretB}
-    } -returnCodes ok -match boolean -result true
-
-    cleanupTests
-}
+cleanupTests

@@ -1,57 +1,38 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "error-handling.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+test error-handling-1 {
+    throw an error with the given error message
+} -body {
+    custom_error_message "This is an error"
+} -returnCodes error -result "This is an error"
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip error-handling-2
+test error-handling-2 "gracefully handle division by zero" -body {
+    handle_error {expr {1 / 0}}
+} -returnCodes ok -result "division by zero"
 
-if {$::argv0 eq [info script]} {
+skip error-handling-3
+test error-handling-3 "gracefully handle file does not exist" -body {
+    handle_error {open [file join . "no dir" "no file"] r}
+} -returnCodes ok -result "file does not exist"
 
-    test error-handling-1 {
-        throw an error with the given error message
-    } -body {
-        custom_error_message "This is an error"
-    } -returnCodes error -result "This is an error"
+skip error-handling-4
+test error-handling-4 "gracefully handle proc does not exist" -body {
+    handle_error {no::such::procedure}
+} -returnCodes ok -result "proc does not exist"
 
-    set testCases [dict create]
-    # map an expected result message to a script that creates an exception
-    dict set testCases "division by zero"    {expr {1 / 0}}
-    dict set testCases "file does not exist" {open [file join . "no dir" "no file"] r}
-    dict set testCases "proc does not exist" {no::such::procedure}
-    # handle a non-error script
-    dict set testCases "success"             {append var no error here}
 
-    set n 2
-    dict for {result script} $testCases {
-        test "error-handling-$n" "gracefully handle $result" -body {
-            handle_error $script
-        } -returnCodes ok -result $result
+skip error-handling-5
+test error-handling-5 "gracefully handle success" -body {
+    handle_error {append var no error here}
+} -returnCodes ok -result "success"
 
-        incr n
-    }
-
-    cleanupTests
-}
+cleanupTests

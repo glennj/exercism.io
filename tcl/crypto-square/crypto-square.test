@@ -1,64 +1,44 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "crypto-square.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test crypto-1 "empty plaintext results in an empty ciphertext" -body {
+    encrypt ""
+} -returnCodes ok -result ""
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip crypto-2
+test crypto-2 "Lowercase" -body {
+    encrypt "A"
+} -returnCodes ok -result "a"
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip crypto-3
+test crypto-3 "Remove spaces" -body {
+    encrypt "  b "
+} -returnCodes ok -result "b"
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip crypto-4
+test crypto-4 "Remove punctuation" -body {
+    encrypt "@1,%!"
+} -returnCodes ok -result "1"
 
-if {$::argv0 eq [info script]} {
+skip crypto-5
+test crypto-5 "9 character plaintext results in 3 chunks of 3 characters" -body {
+    encrypt "This is fun!"
+} -returnCodes ok -result "tsf hiu isn"
 
-    set cases {
-        crypto-1 "empty plaintext results in an empty ciphertext"
-            ""
-            ""
-        crypto-2 "Lowercase"
-            "A"
-            "a"
-        crypto-3 "Remove spaces"
-            "  b "
-            "b"
-        crypto-4 "Remove punctuation"
-            "@1,%!"
-            "1"
-        crypto-5 "9 character plaintext results in 3 chunks of 3 characters"
-            "This is fun!"
-            "tsf hiu isn"
-        crypto-6 "8 character plaintext results in 3 chunks, the last one with a trailing space"
-            "Chill out."
-            "clu hlt io "
-        crypto-7 "54 character plaintext results in 7 chunks, the last two with trailing spaces"
-            "If man was meant to stay on the ground, god would have given us roots."
-            "imtgdvs fearwer mayoogo anouuio ntnnlvt wttddes aohghn  sseoau "
-    }
+skip crypto-6
+test crypto-6 "8 character plaintext results in 3 chunks, the last one with a trailing space" -body {
+    encrypt "Chill out."
+} -returnCodes ok -result "clu hlt io "
 
-    foreach {name description plaintext ciphertext} $cases {
-        test $name $description -body {
-            encrypt $plaintext
-        } -returnCodes ok -result $ciphertext
-    }
+skip crypto-7
+test crypto-7 "54 character plaintext results in 7 chunks, the last two with trailing spaces" -body {
+    encrypt "If man was meant to stay on the ground, god would have given us roots."
+} -returnCodes ok -result "imtgdvs fearwer mayoogo anouuio ntnnlvt wttddes aohghn  sseoau "
 
-    cleanupTests
-}
+
+cleanupTests

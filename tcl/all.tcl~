@@ -1,8 +1,0 @@
-package require tcltest
-namespace import ::tcltest::*
-
-# to run all tests, invoke like:
-#   tclsh all.tcl -file */*.test
-
-foreach opt [configure] {puts "$opt: [configure $opt]"}
-runAllTests

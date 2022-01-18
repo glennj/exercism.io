@@ -1,54 +1,64 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "scrabble-score.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test scrabble-score-1 "lowercase letter" -body {
+    scrabbleScore "a"
+} -returnCodes ok -result 1
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip scrabble-score-2
+test scrabble-score-2 "uppercase letter" -body {
+    scrabbleScore "A"
+} -returnCodes ok -result 1
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip scrabble-score-3
+test scrabble-score-3 "valuable letter" -body {
+    scrabbleScore "f"
+} -returnCodes ok -result 4
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip scrabble-score-4
+test scrabble-score-4 "short word" -body {
+    scrabbleScore "at"
+} -returnCodes ok -result 2
 
-if {$::argv0 eq [info script]} {
+skip scrabble-score-5
+test scrabble-score-5 "short, valuable word" -body {
+    scrabbleScore "zoo"
+} -returnCodes ok -result 12
 
-    set cases {
-        scrabble-score-1  "a"       1  "lowercase letter"
-        scrabble-score-2  "A"       1  "uppercase letter"
-        scrabble-score-3  "f"       4  "valuable letter"
-        scrabble-score-4  "at"      2  "short word"
-        scrabble-score-5  "zoo"    12  "short, valuable word"
-        scrabble-score-6  "street"  6  "medium word"
-        scrabble-score-7  "quirky" 22  "medium, valuable word"
-        scrabble-score-8  "pinata"  8  "english-like word"
-        scrabble-score-9  ""        0  "empty input"
-        scrabble-score-10 "OxyphenButazone" 41 "long, mixed-case word"
-        scrabble-score-11 "abcdefghijklmnopqrstuvwxyz" 87 "entire alphabet available"
-    }
+skip scrabble-score-6
+test scrabble-score-6 "medium word" -body {
+    scrabbleScore "street"
+} -returnCodes ok -result 6
 
-    foreach {name word score description} $cases {
-        test $name $description -body {
-            scrabbleScore $word
-        } -returnCodes ok -result $score
-    }
+skip scrabble-score-7
+test scrabble-score-7 "medium, valuable word" -body {
+    scrabbleScore "quirky"
+} -returnCodes ok -result 22
 
-    cleanupTests
-}
+skip scrabble-score-8
+test scrabble-score-8 "english-like word" -body {
+    scrabbleScore "pinata"
+} -returnCodes ok -result 8
+
+skip scrabble-score-9
+test scrabble-score-9 "empty input" -body {
+    scrabbleScore ""
+} -returnCodes ok -result 0
+
+skip scrabble-score-10
+test scrabble-score-10 "long, mixed-case word" -body {
+    scrabbleScore "OxyphenButazone"
+} -returnCodes ok -result 41
+
+skip scrabble-score-11
+test scrabble-score-11 "entire alphabet available" -body {
+    scrabbleScore "abcdefghijklmnopqrstuvwxyz"
+} -returnCodes ok -result 87
+
+
+cleanupTests

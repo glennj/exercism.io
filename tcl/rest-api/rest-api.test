@@ -1,174 +1,128 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "rest-api.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+# Since Tcl has no "batteries included" JSON parsing library,
+# I'm using dictionary literals for the payloads
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+test rest-1 "no users" -body {
+    set db {users {}} 
+    set api [RestAPI new $db]
+    $api get "/users"
+} -returnCodes ok -match dictionary -result {users {}}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
-
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
-
-proc listMatch {expected actual} {
-    if {[llength $expected] != [llength $actual]} {
-        return false
-    }
-    foreach e $expected a $actual {
-        if {$e != $a} {
-            return false
-        }
-    }
-    return true
-}
-
-proc dictionaryMatch {expected actual} {
-    if {[dict size $expected] != [dict size $actual]} {
-        return false
-    }
-    dict for {key value} $expected {
-        if {![dict exists $actual $key]} {
-            return false
-        }
-        if {![listMatch $value [dict get $actual $key]]} {
-            return false
-        }
-    }
-    return true
-}
-customMatch dictionary dictionaryMatch
-
-if {$::argv0 eq [info script]} {
-
-    # Since Tcl has no "batteries included" JSON parsing library,
-    # I'm using dictionary literals for the payloads
-
-    test rest-1 "no users" -body {
-        set db {users {}} 
-        set api [RestAPI new $db]
-        $api get "/users"
-    } -returnCodes ok -match dictionary -result {users {}}
-
-    test rest-2 "get single user" -body {
-        set db {users {
-            {name Adam owes {} owed_by {} balance 0}
-            {name Bob owes {} owed_by {} balance 0}
-        }}
-        set api [RestAPI new $db]
-        set payload {users {Bob}}
-        $api get "/users" $payload
-    } -returnCodes ok -match dictionary -result {users {
-        {name Bob owes {} owed_by {} balance 0}
-    }}
-
-    test rest-3 "add user" -body {
-        set db {users {}} 
-        set api [RestAPI new $db]
-        set payload {user "Adam"}
-        $api post "/add" $payload
-    } -returnCodes ok -match dictionary -result {
-        name Adam owes {} owed_by {} balance 0
-    }
-
-    test rest-4 "iou: both users have 0 balance" -body {
-        set db {users {
-            {name Adam owes {} owed_by {} balance 0}
-            {name Bob owes {} owed_by {} balance 0}
-        }}
-        set api [RestAPI new $db]
-        set payload {lender Adam borrower Bob amount 3}
-        $api post "/iou" $payload
-    } -returnCodes ok -match dictionary -result {users {
-        {name Adam owes {} owed_by {Bob 3} balance 3}
-        {name Bob owes {Adam 3} owed_by {} balance -3}
-    }}
-
-    test rest-5 "iou: borrower has negative balance" -body {
-        set db {users {
-            {name Adam owes {} owed_by {} balance 0}
-            {name Bob owes {Chuck 3} owed_by {} balance -3}
-            {name Chuck owes {} owed_by {Bob 3} balance 3}
-        }}
-        set api [RestAPI new $db]
-        set payload {lender Adam borrower Bob amount 3}
-        $api post "/iou" $payload
-    } -returnCodes ok -match dictionary -result {users {
-        {name Adam owes {} owed_by {Bob 3} balance 3}
-        {name Bob owes {Adam 3 Chuck 3} owed_by {} balance -6}
-    }}
-
-    test rest-6 "iou: lender has negative balance" -body {
-        set db {users {
-            {name Adam owes {} owed_by {} balance 0}
-            {name Bob owes {Chuck 3} owed_by {} balance -3}
-            {name Chuck owes {} owed_by {Bob 3} balance 3}
-        }}
-        set api [RestAPI new $db]
-        set payload {lender Bob borrower Adam amount 3}
-        $api post "/iou" $payload
-    } -returnCodes ok -match dictionary -result {users {
-        {name Adam owes {Bob 3} owed_by {} balance -3}
-        {name Bob owes {Chuck 3} owed_by {Adam 3} balance 0}
-    }}
-
-    test rest-7 "iou: lender owes borrower" -body {
-        set db {users {
-            {name Adam owes {Bob 3} owed_by {} balance -3}
-            {name Bob owes {} owed_by {Adam 3} balance 3}
-        }}
-        set api [RestAPI new $db]
-        set payload {lender Adam borrower Bob amount 2}
-        $api post "/iou" $payload
-    } -returnCodes ok -match dictionary -result {users {
-        {name Adam owes {Bob 1} owed_by {} balance -1}
-        {name Bob owes {} owed_by {Adam 1} balance 1}
-    }}
-
-    test rest-8 "iou: lender owes borrower less than new loan" -body {
-        set db {users {
-            {name Adam owes {Bob 3} owed_by {} balance -3}
-            {name Bob owes {} owed_by {Adam 3} balance 3}
-        }}
-        set api [RestAPI new $db]
-        set payload {lender Adam borrower Bob amount 4}
-        $api post "/iou" $payload
-    } -returnCodes ok -match dictionary -result {users {
-        {name Adam owes {} owed_by {Bob 1} balance 1}
-        {name Bob owes {Adam 1} owed_by {} balance -1}
-    }}
-
-    test rest-9 "iou: lender owes borrower same as new loan" -body {
-        set db {users {
-            {name Adam owes {Bob 3} owed_by {} balance -3}
-            {name Bob owes {} owed_by {Adam 3} balance 3}
-        }}
-        set api [RestAPI new $db]
-        set payload {lender Adam borrower Bob amount 3}
-        $api post "/iou" $payload
-    } -returnCodes ok -match dictionary -result {users {
+skip rest-2
+test rest-2 "get single user" -body {
+    set db {users {
         {name Adam owes {} owed_by {} balance 0}
         {name Bob owes {} owed_by {} balance 0}
     }}
+    set api [RestAPI new $db]
+    set payload {users {Bob}}
+    $api get "/users" $payload
+} -returnCodes ok -match dictionary -result {users {
+    {name Bob owes {} owed_by {} balance 0}
+}}
 
-
-
-    cleanupTests
+skip rest-3
+test rest-3 "add user" -body {
+    set db {users {}} 
+    set api [RestAPI new $db]
+    set payload {user "Adam"}
+    $api post "/add" $payload
+} -returnCodes ok -match dictionary -result {
+    name Adam owes {} owed_by {} balance 0
 }
+
+skip rest-4
+test rest-4 "iou: both users have 0 balance" -body {
+    set db {users {
+        {name Adam owes {} owed_by {} balance 0}
+        {name Bob owes {} owed_by {} balance 0}
+    }}
+    set api [RestAPI new $db]
+    set payload {lender Adam borrower Bob amount 3}
+    $api post "/iou" $payload
+} -returnCodes ok -match dictionary -result {users {
+    {name Adam owes {} owed_by {Bob 3} balance 3}
+    {name Bob owes {Adam 3} owed_by {} balance -3}
+}}
+
+skip rest-5
+test rest-5 "iou: borrower has negative balance" -body {
+    set db {users {
+        {name Adam owes {} owed_by {} balance 0}
+        {name Bob owes {Chuck 3} owed_by {} balance -3}
+        {name Chuck owes {} owed_by {Bob 3} balance 3}
+    }}
+    set api [RestAPI new $db]
+    set payload {lender Adam borrower Bob amount 3}
+    $api post "/iou" $payload
+} -returnCodes ok -match dictionary -result {users {
+    {name Adam owes {} owed_by {Bob 3} balance 3}
+    {name Bob owes {Adam 3 Chuck 3} owed_by {} balance -6}
+}}
+
+skip rest-6
+test rest-6 "iou: lender has negative balance" -body {
+    set db {users {
+        {name Adam owes {} owed_by {} balance 0}
+        {name Bob owes {Chuck 3} owed_by {} balance -3}
+        {name Chuck owes {} owed_by {Bob 3} balance 3}
+    }}
+    set api [RestAPI new $db]
+    set payload {lender Bob borrower Adam amount 3}
+    $api post "/iou" $payload
+} -returnCodes ok -match dictionary -result {users {
+    {name Adam owes {Bob 3} owed_by {} balance -3}
+    {name Bob owes {Chuck 3} owed_by {Adam 3} balance 0}
+}}
+
+skip rest-7
+test rest-7 "iou: lender owes borrower" -body {
+    set db {users {
+        {name Adam owes {Bob 3} owed_by {} balance -3}
+        {name Bob owes {} owed_by {Adam 3} balance 3}
+    }}
+    set api [RestAPI new $db]
+    set payload {lender Adam borrower Bob amount 2}
+    $api post "/iou" $payload
+} -returnCodes ok -match dictionary -result {users {
+    {name Adam owes {Bob 1} owed_by {} balance -1}
+    {name Bob owes {} owed_by {Adam 1} balance 1}
+}}
+
+skip rest-8
+test rest-8 "iou: lender owes borrower less than new loan" -body {
+    set db {users {
+        {name Adam owes {Bob 3} owed_by {} balance -3}
+        {name Bob owes {} owed_by {Adam 3} balance 3}
+    }}
+    set api [RestAPI new $db]
+    set payload {lender Adam borrower Bob amount 4}
+    $api post "/iou" $payload
+} -returnCodes ok -match dictionary -result {users {
+    {name Adam owes {} owed_by {Bob 1} balance 1}
+    {name Bob owes {Adam 1} owed_by {} balance -1}
+}}
+
+skip rest-9
+test rest-9 "iou: lender owes borrower same as new loan" -body {
+    set db {users {
+        {name Adam owes {Bob 3} owed_by {} balance -3}
+        {name Bob owes {} owed_by {Adam 3} balance 3}
+    }}
+    set api [RestAPI new $db]
+    set payload {lender Adam borrower Bob amount 3}
+    $api post "/iou" $payload
+} -returnCodes ok -match dictionary -result {users {
+    {name Adam owes {} owed_by {} balance 0}
+    {name Bob owes {} owed_by {} balance 0}
+}}
+
+
+cleanupTests

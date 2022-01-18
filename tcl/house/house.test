@@ -1,63 +1,100 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "house.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test house-1 "verse 1" -body {
+    recite 1 1
+} -returnCodes ok -result "This is the house that Jack built."
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip house-2
+test house-2 "verse 2" -body {
+    recite 2 2
+} -returnCodes ok -result "This is the malt that lay in the house that Jack built."
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip house-3
+test house-3 "verse 3" -body {
+    recite 3 3
+} -returnCodes ok -result "This is the rat that ate the malt that lay in the house that Jack built."
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip house-4
+test house-4 "verse 4" -body {
+    recite 4 4
+} -returnCodes ok -result "This is the cat that killed the rat that ate the malt that lay in the house that Jack built."
 
-if {$::argv0 eq [info script]} {
-    set verses {
-        "This is the house that Jack built."
-        "This is the malt that lay in the house that Jack built."
-        "This is the rat that ate the malt that lay in the house that Jack built."
-        "This is the cat that killed the rat that ate the malt that lay in the house that Jack built."
-        "This is the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
-        "This is the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
-        "This is the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
-        "This is the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
-        "This is the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
-        "This is the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
-        "This is the farmer sowing his corn that kept the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
-        "This is the horse and the hound and the horn that belonged to the farmer sowing his corn that kept the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
-    }
+skip house-5
+test house-5 "verse 5" -body {
+    recite 5 5
+} -returnCodes ok -result "This is the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+
+skip house-6
+test house-6 "verse 6" -body {
+    recite 6 6
+} -returnCodes ok -result "This is the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+
+skip house-7
+test house-7 "verse 7" -body {
+    recite 7 7
+} -returnCodes ok -result "This is the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+
+skip house-8
+test house-8 "verse 8" -body {
+    recite 8 8
+} -returnCodes ok -result "This is the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+
+skip house-9
+test house-9 "verse 9" -body {
+    recite 9 9
+} -returnCodes ok -result "This is the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+
+skip house-10
+test house-10 "verse 10" -body {
+    recite 10 10
+} -returnCodes ok -result "This is the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+
+skip house-11
+test house-11 "verse 11" -body {
+    recite 11 11
+} -returnCodes ok -result "This is the farmer sowing his corn that kept the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+
+skip house-12
+test house-12 "verse 12" -body {
+    recite 12 12
+} -returnCodes ok -result "This is the horse and the hound and the horn that belonged to the farmer sowing his corn that kept the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
 
 
-    for {set i 1} {$i <= 12} {incr i} {
-        test "house-$i" "verse $i" -body "
-            recite $i $i
-        " -returnCodes ok -result [lindex $verses $i-1]
-    }
+skip house-13
+test house-13 "multiple verses" -body {
+    recite 4 8
+} -returnCodes ok -result [join {
+    "This is the cat that killed the rat that ate the malt that lay in the house that Jack built."
+    "This is the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+    "This is the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+    "This is the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+    "This is the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+} \n]
 
-    test house-13 "multiple verses" -body {
-        recite 4 8
-    } -returnCodes ok -result [join [lrange $verses 3 7] \n]
 
-    test house-14 "full rhyme" -body {
-        recite 1 12
-    } -returnCodes ok -result [join $verses \n]
+skip house-14
+test house-14 "full rhyme" -body {
+    recite 1 12
+} -returnCodes ok -result [join {
+    "This is the house that Jack built."
+    "This is the malt that lay in the house that Jack built."
+    "This is the rat that ate the malt that lay in the house that Jack built."
+    "This is the cat that killed the rat that ate the malt that lay in the house that Jack built."
+    "This is the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+    "This is the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+    "This is the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+    "This is the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+    "This is the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+    "This is the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+    "This is the farmer sowing his corn that kept the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+    "This is the horse and the hound and the horn that belonged to the farmer sowing his corn that kept the rooster that crowed in the morn that woke the priest all shaven and shorn that married the man all tattered and torn that kissed the maiden all forlorn that milked the cow with the crumpled horn that tossed the dog that worried the cat that killed the rat that ate the malt that lay in the house that Jack built."
+} \n]
 
-    cleanupTests
-}
+
+cleanupTests

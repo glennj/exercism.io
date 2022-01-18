@@ -13,7 +13,7 @@ Solving an exercise means making all its tests pass. By default, only one
 test (the first one) is executed when you run the tests. This is
 intentional, as it allows you to focus on just making that one test pass.
 Once it passes, you can enable the next test by commenting out or removing
-its `skip` annotation.
+the `skip` command preceding it.
 
 Alternately, to run all the tests regardless of their "skipped" status:
 ```bash
@@ -34,9 +34,9 @@ It's possible to submit an incomplete solution which allows you to:
 
 If you'd like help solving the exercise, check the following pages:
 
-- The [Tcl track's documentation](https://exercism.io/docs/tracks/tcl)
+- The [Tcl track's documentation](https://exercism.org/docs/tracks/tcl)
 - [Exercism's support channel on gitter](https://gitter.im/exercism/support)
-- The [Frequently Asked Questions](https://exercism.io/docs/faq) TODO: (Required) use correct link
+- The [Frequently Asked Questions](https://exercism.org/docs/using/faqs)
 
 Should those resources not suffice, you could submit your (incomplete) solution to request mentoring.
 

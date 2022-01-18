@@ -1,129 +1,96 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "robot-simulator.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
+test robot-1.1 "default position is (0,0) facing north" -body {
+    set robot [Robot new]
+    $robot position
+} -returnCodes ok -match dictionary -result {x 0 y 0 direction north}
+
+skip robot-1.2
+test robot-1.2 "position (1,2) default direction" -body {
+    set robot [Robot new {x 1 y 2}]
+    $robot position
+} -returnCodes ok -match dictionary -result {x 1 y 2 direction north}
+
+skip robot-1.3
+test robot-1.3 "at negative position facing south" -body {
+    set robot [Robot new {x -1 y -1 direction south}]
+    $robot position
+} -returnCodes ok -match dictionary -result {x -1 y -1 direction south}
+
+skip robot-1.4
+test robot-1.4 "facing east, default x and y" -body {
+    set robot [Robot new {direction east}]
+    $robot position
+} -returnCodes ok -match dictionary -result {x 0 y 0 direction east}
+
+skip robot-1.5
+test robot-1.5 "facing west, default x and y" -body {
+    set robot [Robot new {direction west}]
+    $robot position
+} -returnCodes ok -match dictionary -result {x 0 y 0 direction west}
+
+skip robot-1.6
+test robot-1.6 "invalid direction" -body {
+    set robot [Robot new {direction southwest}]
+    $robot position
+} -returnCodes error -result "invalid direction"
+
+skip robot-1.7
+test robot-1.7 "invalid x coordinate" -body {
+    set robot [Robot new {x foo y 0}]
+    $robot position
+} -returnCodes error -result "invalid x coordinate"
+
+skip robot-1.8
+test robot-1.8 "invalid y coordinate" -body {
+    set robot [Robot new {x 0 y bar}]
+    $robot position
+} -returnCodes error -result "invalid y coordinate"
+
+
+set instruction_cases {
+    robot-2.1 "changes north to east" {x 0 y 0 direction north} "R" {x 0 y 0 direction east}
+    robot-2.2 "changes east to south" {x 0 y 0 direction east} "R" {x 0 y 0 direction south}
+    robot-2.3 "changes south to west" {x 0 y 0 direction south} "R" {x 0 y 0 direction west}
+    robot-2.4 "changes west to north" {x 0 y 0 direction west} "R" {x 0 y 0 direction north}
+
+    robot-3.1 "changes north to west" {x 0 y 0 direction north} "L" {x 0 y 0 direction west}
+    robot-3.2 "changes west to south" {x 0 y 0 direction west} "L" {x 0 y 0 direction south}
+    robot-3.3 "changes south to east" {x 0 y 0 direction south} "L" {x 0 y 0 direction east}
+    robot-3.4 "changes east to north" {x 0 y 0 direction east} "L" {x 0 y 0 direction north}
+
+    robot-4.1 "facing north increments Y" {x 0 y 0 direction north} "A" {x 0 y 1 direction north}
+    robot-4.2 "facing south decrements Y" {x 0 y 0 direction south} "A" {x 0 y -1 direction south}
+    robot-4.3 "facing east increments X" {x 0 y 0 direction east} "A" {x 1 y 0 direction east}
+    robot-4.4 "facing west decrements X" {x 0 y 0 direction west} "A" {x -1 y 0 direction west}
+
+    robot-5.1 "moving east and north" {x 7 y 3 direction north} "RAALAL" {x 9 y 4 direction west}
+    robot-5.2 "moving west and north" {x 0 y 0 direction north} "LAAARALA" {x -4 y 1 direction west}
+    robot-5.3 "moving west and south" {x 2 y -7 direction east} "RRAAAAALA" {x -3 y -8 direction south}
+    robot-5.4 "moving east and north" {x 8 y 4 direction south} "LAAARRRALLLL" {x 11 y 5 direction north}
 }
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
+skip {robot-2* robot-3* robot-4* robot-5*}
+foreach {name description init instructions result} $instruction_cases {
+    test $name $description -body {
+        set robot [Robot new $init]
+        $robot move $instructions
+        $robot position
+    } -returnCodes ok -match dictionary -result $result
 }
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
-
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
-
-# compare two dictionaries for the same keys and same values
-proc dictionaryMatch {expected actual} {
-    if {[dict size $expected] != [dict size $actual]} {
-        return false
-    }
-    dict for {key value} $expected {
-        if {![dict exists $actual $key]} {
-            return false
-        }
-        if {[dict get $actual $key] != $value} {
-            return false
-        }
-    }
-    return true
-}
-customMatch dictionary dictionaryMatch
-
-if {$::argv0 eq [info script]} {
-
-    test robot-1.1 "default position is (0,0) facing north" -body {
-        set robot [Robot new]
-        $robot position
-    } -returnCodes ok -match dictionary -result {x 0 y 0 direction north}
-
-    test robot-1.2 "position (1,2) default direction" -body {
-        set robot [Robot new {x 1 y 2}]
-        $robot position
-    } -returnCodes ok -match dictionary -result {x 1 y 2 direction north}
-
-    test robot-1.3 "at negative position facing south" -body {
-        set robot [Robot new {x -1 y -1 direction south}]
-        $robot position
-    } -returnCodes ok -match dictionary -result {x -1 y -1 direction south}
-
-    test robot-1.4 "facing east, default x and y" -body {
-        set robot [Robot new {direction east}]
-        $robot position
-    } -returnCodes ok -match dictionary -result {x 0 y 0 direction east}
-
-    test robot-1.5 "facing west, default x and y" -body {
-        set robot [Robot new {direction west}]
-        $robot position
-    } -returnCodes ok -match dictionary -result {x 0 y 0 direction west}
-
-    test robot-1.6 "invalid direction" -body {
-        set robot [Robot new {direction southwest}]
-        $robot position
-    } -returnCodes error -result "invalid direction"
-
-    test robot-1.7 "invalid x coordinate" -body {
-        set robot [Robot new {x foo y 0}]
-        $robot position
-    } -returnCodes error -result "invalid x coordinate"
-
-    test robot-1.8 "invalid y coordinate" -body {
-        set robot [Robot new {x 0 y bar}]
-        $robot position
-    } -returnCodes error -result "invalid y coordinate"
+skip robot-6.1
+test robot-6.1 "invalid instruction" -body {
+    set robot [Robot new]
+    $robot move "RALB"
+    $robot position
+} -returnCodes error -result "invalid instruction: B"
 
 
-    set instruction_cases {
-        robot-2.1 "changes north to east" {x 0 y 0 direction north} "R" {x 0 y 0 direction east}
-        robot-2.2 "changes east to south" {x 0 y 0 direction east} "R" {x 0 y 0 direction south}
-        robot-2.3 "changes south to west" {x 0 y 0 direction south} "R" {x 0 y 0 direction west}
-        robot-2.4 "changes west to north" {x 0 y 0 direction west} "R" {x 0 y 0 direction north}
-
-        robot-3.1 "changes north to west" {x 0 y 0 direction north} "L" {x 0 y 0 direction west}
-        robot-3.2 "changes west to south" {x 0 y 0 direction west} "L" {x 0 y 0 direction south}
-        robot-3.3 "changes south to east" {x 0 y 0 direction south} "L" {x 0 y 0 direction east}
-        robot-3.4 "changes east to north" {x 0 y 0 direction east} "L" {x 0 y 0 direction north}
-
-        robot-4.1 "facing north increments Y" {x 0 y 0 direction north} "A" {x 0 y 1 direction north}
-        robot-4.2 "facing south decrements Y" {x 0 y 0 direction south} "A" {x 0 y -1 direction south}
-        robot-4.3 "facing east increments X" {x 0 y 0 direction east} "A" {x 1 y 0 direction east}
-        robot-4.4 "facing west decrements X" {x 0 y 0 direction west} "A" {x -1 y 0 direction west}
-
-        robot-5.1 "moving east and north" {x 7 y 3 direction north} "RAALAL" {x 9 y 4 direction west}
-        robot-5.2 "moving west and north" {x 0 y 0 direction north} "LAAARALA" {x -4 y 1 direction west}
-        robot-5.3 "moving west and south" {x 2 y -7 direction east} "RRAAAAALA" {x -3 y -8 direction south}
-        robot-5.4 "moving east and north" {x 8 y 4 direction south} "LAAARRRALLLL" {x 11 y 5 direction north}
-    }
-
-    foreach {name description init instructions result} $instruction_cases {
-        test $name $description -body {
-            set robot [Robot new $init]
-            $robot move $instructions
-            $robot position
-        } -returnCodes ok -match dictionary -result $result
-    }
-
-    test robot-6.1 "invalid instruction" -body {
-        set robot [Robot new]
-        $robot move "RALB"
-        $robot position
-    } -returnCodes error -result "invalid instruction: B"
-
-
-    cleanupTests
-}
+cleanupTests

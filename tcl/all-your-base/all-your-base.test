@@ -1,94 +1,115 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "all-your-base.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test all-your-base-1.1 "single bit one to decimal" -body {
+    rebase 2 {1} 10
+} -returnCodes ok -result {1}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip all-your-base-1.2
+test all-your-base-1.2 "binary to single decimal" -body {
+    rebase 2 {1 0 1} 10
+} -returnCodes ok -result {5}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip all-your-base-1.3
+test all-your-base-1.3 "single decimal to binary" -body {
+    rebase 10 {5} 2
+} -returnCodes ok -result {1 0 1}
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip all-your-base-1.4
+test all-your-base-1.4 "binary to multiple decimal" -body {
+    rebase 2 {1 0 1 0 1 0} 10
+} -returnCodes ok -result {4 2}
 
-if {$::argv0 eq [info script]} {
+skip all-your-base-1.5
+test all-your-base-1.5 "decimal to binary" -body {
+    rebase 10 {4 2} 2
+} -returnCodes ok -result {1 0 1 0 1 0}
 
-    set cases {
-        all-your-base-1.1 "single bit one to decimal" 
-            2 {1} 10 {1}
-        all-your-base-1.2 "binary to single decimal" 
-            2 {1 0 1} 10 {5}
-        all-your-base-1.3 "single decimal to binary" 
-            10 {5} 2 {1 0 1}
-        all-your-base-1.4 "binary to multiple decimal" 
-            2 {1 0 1 0 1 0} 10 {4 2}
-        all-your-base-1.5 "decimal to binary" 
-            10 {4 2} 2 {1 0 1 0 1 0}
-        all-your-base-1.6 "trinary to hexadecimal" 
-            3 {1 1 2 0} 16 {2 10}
-        all-your-base-1.7 "hexadecimal to trinary" 
-            16 {2 10} 3 {1 1 2 0}
-        all-your-base-1.8 "15-bit integer" 
-            97 {3 46 60} 73 {6 10 45}
-        all-your-base-1.9 "empty list" 
-            2 {} 10 {0}
-        all-your-base-1.10 "single zero" 
-            10 {0} 2 {0}
-        all-your-base-1.11 "multiple zeros" 
-            10 {0 0 0} 2 {0}
-        all-your-base-1.12 "leading zeros" 
-            7 {0 6 0} 10 {4 2}
-    }
+skip all-your-base-1.6
+test all-your-base-1.6 "trinary to hexadecimal" -body {
+    rebase 3 {1 1 2 0} 16
+} -returnCodes ok -result {2 10}
 
-    foreach {name description inputBase digits outputBase rebasedDigits} $cases {
-        test $name $description -body {
-            rebase $inputBase $digits $outputBase
-        } -returnCodes ok -result $rebasedDigits
-    }
+skip all-your-base-1.7
+test all-your-base-1.7 "hexadecimal to trinary" -body {
+    rebase 16 {2 10} 3
+} -returnCodes ok -result {1 1 2 0}
 
-    set errorCases {
-        all-your-base-2.1 "input base is one"
-            1 {0} 10 "input base must be >= 2"
-        all-your-base-2.2 "input base is zero"
-            0 {} 10 "input base must be >= 2"
-        all-your-base-2.2 "input base is negative"
-            -2 {1} 10 "input base must be >= 2"
-        all-your-base-2.3 "negative digit"
-            2 {1 -1 1 0 1 0} 10 "all digits must satisfy 0 <= d < input base"
-        all-your-base-2.4 "invalid positive digit"
-            2 {1 2 1 0 1 0} 10 "all digits must satisfy 0 <= d < input base"
-        all-your-base-2.5 "output base is one"
-            2 {1 0 1 0 1 0} 1 "output base must be >= 2"
-        all-your-base-2.6 "output base is zero"
-            10 {7} 0 "output base must be >= 2"
-        all-your-base-2.7 "output base is negative"
-            2 {1} -7 "output base must be >= 2"
-        all-your-base-2.8 "both bases are negative"
-            -2 {1} -7 "input base must be >= 2"
-    }
-    
-    foreach {name description inputBase digits outputBase errmsg} $errorCases {
-        test $name $description -body {
-            rebase $inputBase $digits $outputBase
-        } -returnCodes error -result $errmsg
-    }
+skip all-your-base-1.8
+test all-your-base-1.8 "15-bit integer" -body {
+    rebase 97 {3 46 60} 73
+} -returnCodes ok -result {6 10 45}
 
-    cleanupTests
-}
+skip all-your-base-1.9
+test all-your-base-1.9 "empty list" -body {
+    rebase 2 {} 10
+} -returnCodes ok -result {0}
+
+skip all-your-base-1.10
+test all-your-base-1.10 "single zero" -body {
+    rebase 10 {0} 2
+} -returnCodes ok -result {0}
+
+skip all-your-base-1.11
+test all-your-base-1.11 "multiple zeros" -body {
+    rebase 10 {0 0 0} 2
+} -returnCodes ok -result {0}
+
+skip all-your-base-1.12
+test all-your-base-1.12 "leading zeros" -body {
+    rebase 7 {0 6 0} 10
+} -returnCodes ok -result {4 2}
+
+
+skip all-your-base-2.1
+test all-your-base-2.1 "input base is one" -body {
+    rebase 1 {0} 10
+} -returnCodes error -result "input base must be >= 2"
+
+skip all-your-base-2.2
+test all-your-base-2.2 "input base is zero" -body {
+    rebase 0 {} 10
+} -returnCodes error -result "input base must be >= 2"
+
+skip all-your-base-2.2
+test all-your-base-2.2 "input base is negative" -body {
+    rebase -2 {1} 10
+} -returnCodes error -result "input base must be >= 2"
+
+skip all-your-base-2.3
+test all-your-base-2.3 "negative digit" -body {
+    rebase 2 {1 -1 1 0 1 0} 10
+} -returnCodes error -result "all digits must satisfy 0 <= d < input base"
+
+skip all-your-base-2.4
+test all-your-base-2.4 "invalid positive digit" -body {
+    rebase 2 {1 2 1 0 1 0} 10
+} -returnCodes error -result "all digits must satisfy 0 <= d < input base"
+
+skip all-your-base-2.5
+test all-your-base-2.5 "output base is one" -body {
+    rebase 2 {1 0 1 0 1 0} 1
+} -returnCodes error -result "output base must be >= 2"
+
+skip all-your-base-2.6
+test all-your-base-2.6 "output base is zero" -body {
+    rebase 10 {7} 0
+} -returnCodes error -result "output base must be >= 2"
+
+skip all-your-base-2.7
+test all-your-base-2.7 "output base is negative" -body {
+    rebase 2 {1} -7
+} -returnCodes error -result "output base must be >= 2"
+
+skip all-your-base-2.8
+test all-your-base-2.8 "both bases are negative" -body {
+    rebase -2 {1} -7
+} -returnCodes error -result "input base must be >= 2"
+
+
+cleanupTests

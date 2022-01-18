@@ -1,158 +1,159 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "minesweeper.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test minesweeper-1 "no rows" -body {
+    annotate {}
+} -returnCodes ok -match orderedLists -result {}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip minesweeper-2
+test minesweeper-2 "no columns" -body {
+    annotate {""}
+} -returnCodes ok -match orderedLists -result {""}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+skip minesweeper-3
+test minesweeper-3 "no mines" -body {
+    annotate {
+        "   "
+        "   "
+        "   "
     }
+} -returnCodes ok -match orderedLists -result {
+        "   "
+        "   "
+        "   "
 }
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
+skip minesweeper-4
+test minesweeper-4 "minefield with only mines" -body {
+    annotate {
+        "***"
+        "***"
+        "***"
+    }
+} -returnCodes ok -match orderedLists -result {
+        "***"
+        "***"
+        "***"
 }
 
-customMatch list listMatch
-proc listMatch {expected actual} {
-    if {[llength $expected] != [llength $actual]} {
-        return false
+skip minesweeper-5
+test minesweeper-5 "mine surrounded by spaces" -body {
+    annotate {
+        "   "
+        " * "
+        "   "
     }
-    foreach e $expected a $actual {
-        if {$e ne $a} {
-            return false
-        }
-    }
-    return true
+} -returnCodes ok -match orderedLists -result {
+        "111"
+        "1*1"
+        "111"
 }
 
-if {$::argv0 eq [info script]} {
-
-    set cases {
-        minesweeper-1 "no rows" {} {}
-        minesweeper-2 "no columns" {""} {""}
-        minesweeper-3 "no mines" {
-            "   "
-            "   "
-            "   "
-        } {
-            "   "
-            "   "
-            "   "
-        }
-        minesweeper-4 "minefield with only mines" {
-            "***"
-            "***"
-            "***"
-        } {
-            "***"
-            "***"
-            "***"
-        }
-        minesweeper-5 "mine surrounded by spaces" {
-            "   "
-            " * "
-            "   "
-        } {
-            "111"
-            "1*1"
-            "111"
-        }
-        minesweeper-6 "space surrounded by mines" {
-            "***"
-            "* *"
-            "***"
-        } {
-            "***"
-            "*8*"
-            "***"
-        }
-        minesweeper-7 "horizontal line" {
-            " * * "
-        } {
-            "1*2*1"
-        }
-        minesweeper-8 "horizontal line, mines at edges" {
-            "*   *"
-        } {
-            "*1 1*"
-        }
-        minesweeper-9 "vertical line" {
-            " "
-            "*"
-            " "
-            "*"
-            " "
-        } {
-            "1"
-            "*"
-            "2"
-            "*"
-            "1"
-        }
-        minesweeper-10 "vertical line, mines at edges" {
-            "*"
-            " "
-            " "
-            " "
-            "*"
-        } {
-            "*"
-            "1"
-            " "
-            "1"
-            "*"
-        }
-        minesweeper-11 "cross" {
-            "  *  "
-            "  *  "
-            "*****"
-            "  *  "
-            "  *  "
-        } {
-            " 2*2 "
-            "25*52"
-            "*****"
-            "25*52"
-            " 2*2 "
-        }
-        minesweeper-12 "large minefield" {
-            " *  * "
-            "  *   "
-            "    * "
-            "   * *"
-            " *  * "
-            "      "
-        } {
-            "1*22*1"
-            "12*322"
-            " 123*2"
-            "112*4*"
-            "1*22*2"
-            "111111"
-        }
+skip minesweeper-6
+test minesweeper-6 "space surrounded by mines" -body {
+    annotate {
+        "***"
+        "* *"
+        "***"
     }
-
-    foreach {name description minefield annotated} $cases {
-        test $name $description -body {
-            annotate $minefield
-        } -returnCodes ok -match list -result $annotated
-    }
-
-    cleanupTests
+} -returnCodes ok -match orderedLists -result {
+        "***"
+        "*8*"
+        "***"
 }
+
+skip minesweeper-7
+test minesweeper-7 "horizontal line" -body {
+    annotate {
+        " * * "
+    }
+} -returnCodes ok -match orderedLists -result {
+        "1*2*1"
+}
+
+skip minesweeper-8
+test minesweeper-8 "horizontal line, mines at edges" -body {
+    annotate {
+        "*   *"
+    }
+} -returnCodes ok -match orderedLists -result {
+        "*1 1*"
+}
+
+skip minesweeper-9
+test minesweeper-9 "vertical line" -body {
+    annotate {
+        " "
+        "*"
+        " "
+        "*"
+        " "
+    }
+} -returnCodes ok -match orderedLists -result {
+        "1"
+        "*"
+        "2"
+        "*"
+        "1"
+}
+
+skip minesweeper-10
+test minesweeper-10 "vertical line, mines at edges" -body {
+    annotate {
+        "*"
+        " "
+        " "
+        " "
+        "*"
+    }
+} -returnCodes ok -match orderedLists -result {
+        "*"
+        "1"
+        " "
+        "1"
+        "*"
+}
+
+skip minesweeper-11
+test minesweeper-11 "cross" -body {
+    annotate {
+        "  *  "
+        "  *  "
+        "*****"
+        "  *  "
+        "  *  "
+    }
+} -returnCodes ok -match orderedLists -result {
+        " 2*2 "
+        "25*52"
+        "*****"
+        "25*52"
+        " 2*2 "
+}
+
+skip minesweeper-12
+test minesweeper-12 "large minefield" -body {
+    annotate {
+        " *  * "
+        "  *   "
+        "    * "
+        "   * *"
+        " *  * "
+        "      "
+    }
+} -returnCodes ok -match orderedLists -result {
+        "1*22*1"
+        "12*322"
+        " 123*2"
+        "112*4*"
+        "1*22*2"
+        "111111"
+}
+
+
+cleanupTests

@@ -1,68 +1,71 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "change.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test change-1.1 "change for 1 cent" -body {
+    findMinimumCoins 1 {1 5 10 25}
+} -returnCodes ok -result {1}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip change-1.2
+test change-1.2 "single coin change" -body {
+    findMinimumCoins 25 {1 5 10 25 100}
+} -returnCodes ok -result {25}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip change-1.3
+test change-1.3 "multiple coin change" -body {
+    findMinimumCoins 15 {1 5 10 25 100}
+} -returnCodes ok -result {5 10}
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip change-1.4
+test change-1.4 "change with Lilliputian Coins" -body {
+    findMinimumCoins 23 {1 4 15 20 50}
+} -returnCodes ok -result {4 4 15}
 
-if {$::argv0 eq [info script]} {
+skip change-1.5
+test change-1.5 "change with Lower Elbonia Coins" -body {
+    findMinimumCoins 63 {1 5 10 21 25}
+} -returnCodes ok -result {21 21 21}
 
-    set cases {
-        change-1.1 ok "change for 1 cent"
-             1 {1 5 10 25} {1}
-        change-1.2 ok "single coin change"
-            25 {1 5 10 25 100} {25}
-        change-1.3 ok "multiple coin change"
-            15 {1 5 10 25 100} {5 10}
-        change-1.4 ok "change with Lilliputian Coins"
-            23 {1 4 15 20 50} {4 4 15}
-        change-1.5 ok "change with Lower Elbonia Coins"
-            63 {1 5 10 21 25} {21 21 21}
-        change-1.6 ok "large target values"
-            999 {1 2 5 10 20 50 100} {2 2 5 20 20 50 100 100 100 100 100 100 100 100 100}
-        change-1.7 ok "possible change without unit coins available"
-            21 {2 5 10 20 50} {2 2 2 5 10}
-        change-1.8 ok "another possible change without unit coins available"
-            27 {4 5} {4 4 4 5 5 5}
-        change-1.9 ok "no coins make 0 change"
-            0 {1 5 10 21 25} {}
+skip change-1.6
+test change-1.6 "large target values" -body {
+    findMinimumCoins 999 {1 2 5 10 20 50 100}
+} -returnCodes ok -result {2 2 5 20 20 50 100 100 100 100 100 100 100 100 100}
 
-        change-2.1 error "error testing for change smaller than the smallest of coins"
-            3 {5 10} "can't make target with given coins"
-        change-2.2 error "error if no combination can add up to target"
-            94 {5 10} "can't make target with given coins"
-        change-2.3 error "cannot find negative change values"
-            -5 {1 2 5} "target can't be negative"
-    }
+skip change-1.7
+test change-1.7 "possible change without unit coins available" -body {
+    findMinimumCoins 21 {2 5 10 20 50}
+} -returnCodes ok -result {2 2 2 5 10}
 
-    foreach {name rc description amount coins result} $cases {
-        test $name $description -body {
-            findMinimumCoins $amount $coins
-        } -returnCodes $rc -result $result
-    }
+skip change-1.8
+test change-1.8 "another possible change without unit coins available" -body {
+    findMinimumCoins 27 {4 5}
+} -returnCodes ok -result {4 4 4 5 5 5}
 
-    cleanupTests
-}
+skip change-1.9
+test change-1.9 "no coins make 0 change" -body {
+    findMinimumCoins 0 {1 5 10 21 25}
+} -returnCodes ok -result {}
+
+
+skip change-2.1
+test change-2.1 "error testing for change smaller than the smallest of coins" -body {
+    findMinimumCoins 3 {5 10}
+} -returnCodes error -result "can't make target with given coins"
+
+skip change-2.2
+test change-2.2 "error if no combination can add up to target" -body {
+    findMinimumCoins 94 {5 10}
+} -returnCodes error -result "can't make target with given coins"
+
+skip change-2.3
+test change-2.3 "cannot find negative change values" -body {
+    findMinimumCoins -5 {1 2 5}
+} -returnCodes error -result "target can't be negative"
+
+
+cleanupTests
+

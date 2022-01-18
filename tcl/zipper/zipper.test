@@ -1,142 +1,120 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "zipper.tcl"
 source "tree.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+test zipper-1 "data is retained" -body {
+    set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
+    set zipper [Zipper new $tree]
+    [$zipper tree] toDict
+} -returnCodes ok -result {value 1 left {value 2 right {value 3}} right {value 4}}
+        
+skip zipper-2
+test zipper-2 "left, right and value" -body {
+    set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
+    set z [Zipper new $tree]
+    [[$z left] right] value
+} -returnCodes ok -result 3
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+skip zipper-3
+test zipper-3 "dead end" -body {
+    set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
+    set z [Zipper new $tree]
+    [$z left] left
+} -returnCodes ok -result ""
+
+skip zipper-4
+test zipper-4 "tree from deep focus" -body {
+    set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
+    set z [[[Zipper new $tree] left] right]
+    [$z tree] toDict
+} -returnCodes ok -result {value 1 left {value 2 right {value 3}} right {value 4}}
+
+skip zipper-5
+test zipper-5 "traversing up from top" -body {
+    set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
+    [Zipper new $tree] up
+} -returnCodes ok -result ""
+
+skip zipper-6
+test zipper-6 "left, right, and up" -body {
+    set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
+    set z [Zipper new $tree]
+    foreach op {left up right up left right} {
+        set z [$z $op]
     }
-}
+    $z value
+} -returnCodes ok -result 3
 
-proc booleanMatch {expected actual} {
-    return [expr {
-        [string is boolean -strict $expected] &&
-        [string is boolean -strict $actual] &&
-        !!$expected == !!$actual
-    }]
-}
-customMatch boolean booleanMatch
+skip zipper-7
+test zipper-7 "set_value" -body {
+    set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
+    set z [Zipper new $tree]
+    set z [$z left]
+    $z setValue 5
+    [$z tree] toDict
+} -returnCodes ok -result {value 1 left {value 5 right {value 3}} right {value 4}}
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip zipper-8
+test zipper-8 "set_value after traversing up" -body {
+    set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
+    set z [Zipper new $tree]
+    set z [[[$z left] right] up]
+    $z setValue 5
+    [$z tree] toDict
+} -returnCodes ok -result {value 1 left {value 5 right {value 3}} right {value 4}}
 
+skip zipper-9
+test zipper-9 "set_left with leaf" -body {
+    set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
+    set z [Zipper new $tree]
+    set z [$z left]
+    $z setLeft [Tree new {value 5}]
+    [$z tree] toDict
+} -returnCodes ok -result {value 1 left {value 2 left {value 5} right {value 3}} right {value 4}}
 
-if {$::argv0 eq [info script]} {
+skip zipper-10
+test zipper-10 "set_right with null" -body {
+    set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
+    set z [Zipper new $tree]
+    set z [$z left]
+    $z setRight ""
+    [$z tree] toDict
+} -returnCodes ok -result {value 1 left {value 2} right {value 4}}
 
-    test zipper-1 "data is retained" -body {
-        set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
-        set zipper [Zipper new $tree]
-        [$zipper tree] toDict
-    } -returnCodes ok -result {value 1 left {value 2 right {value 3}} right {value 4}}
-            
-    test zipper-2 "left, right and value" -body {
-        set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
-        set z [Zipper new $tree]
-        [[$z left] right] value
-    } -returnCodes ok -result 3
+skip zipper-11
+test zipper-11 "set_right with subtree" -body {
+    set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
+    set z [Zipper new $tree]
+    $z setRight [Tree new {value 6 left {value 7} right {value 8}}]
+    [$z tree] toDict
+} -returnCodes ok -result {value 1 left {value 2 right {value 3}} right {value 6 left {value 7} right {value 8}}}
 
-    test zipper-3 "dead end" -body {
-        set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
-        set z [Zipper new $tree]
-        [$z left] left
-    } -returnCodes ok -result ""
+skip zipper-12
+test zipper-12 "set_value on deep focus" -body {
+    set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
+    set z [Zipper new $tree]
+    set z [[$z left] right]
+    $z setValue 5
+    [$z tree] toDict
+} -returnCodes ok -result {value 1 left {value 2 right {value 5}} right {value 4}}
 
-    test zipper-4 "tree from deep focus" -body {
-        set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
-        set z [[[Zipper new $tree] left] right]
-        [$z tree] toDict
-    } -returnCodes ok -result {value 1 left {value 2 right {value 3}} right {value 4}}
+skip zipper-13
+test zipper-13 "different paths to same zipper" -body {
+    set input {value 1 left {value 2 right {value 3}} right {value 4}}
+    set zipper1 [Zipper new [Tree new $input]]
+    set zipper1 [[[$zipper1 left] up] right]
 
-    test zipper-5 "traversing up from top" -body {
-        set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
-        [Zipper new $tree] up
-    } -returnCodes ok -result ""
+    set zipper2 [Zipper new [Tree new $input]]
+    set zipper2 [$zipper2 right]
 
-    test zipper-6 "left, right, and up" -body {
-        set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
-        set z [Zipper new $tree]
-        foreach op {left up right up left right} {
-            set z [$z $op]
-        }
-        $z value
-    } -returnCodes ok -result 3
-
-    test zipper-7 "set_value" -body {
-        set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
-        set z [Zipper new $tree]
-        set z [$z left]
-        $z setValue 5
-        [$z tree] toDict
-    } -returnCodes ok -result {value 1 left {value 5 right {value 3}} right {value 4}}
-
-    test zipper-8 "set_value after traversing up" -body {
-        set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
-        set z [Zipper new $tree]
-        set z [[[$z left] right] up]
-        $z setValue 5
-        [$z tree] toDict
-    } -returnCodes ok -result {value 1 left {value 5 right {value 3}} right {value 4}}
-
-    test zipper-9 "set_left with leaf" -body {
-        set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
-        set z [Zipper new $tree]
-        set z [$z left]
-        $z setLeft [Tree new {value 5}]
-        [$z tree] toDict
-    } -returnCodes ok -result {value 1 left {value 2 left {value 5} right {value 3}} right {value 4}}
-
-    test zipper-10 "set_right with null" -body {
-        set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
-        set z [Zipper new $tree]
-        set z [$z left]
-        $z setRight ""
-        [$z tree] toDict
-    } -returnCodes ok -result {value 1 left {value 2} right {value 4}}
-
-    test zipper-11 "set_right with subtree" -body {
-        set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
-        set z [Zipper new $tree]
-        $z setRight [Tree new {value 6 left {value 7} right {value 8}}]
-        [$z tree] toDict
-    } -returnCodes ok -result {value 1 left {value 2 right {value 3}} right {value 6 left {value 7} right {value 8}}}
-
-    test zipper-12 "set_value on deep focus" -body {
-        set tree [Tree new {value 1 left {value 2 right {value 3}} right {value 4}}]
-        set z [Zipper new $tree]
-        set z [[$z left] right]
-        $z setValue 5
-        [$z tree] toDict
-    } -returnCodes ok -result {value 1 left {value 2 right {value 5}} right {value 4}}
-
-    test zipper-13 "different paths to same zipper" -body {
-        set input {value 1 left {value 2 right {value 3}} right {value 4}}
-        set zipper1 [Zipper new [Tree new $input]]
-        set zipper1 [[[$zipper1 left] up] right]
-
-        set zipper2 [Zipper new [Tree new $input]]
-        set zipper2 [$zipper2 right]
-
-        $zipper1 equals $zipper2 
-    } -returnCodes ok -match boolean -result true
+    $zipper1 equals $zipper2 
+} -returnCodes ok -match boolean -result true
 
 
-    cleanupTests
-}
+cleanupTests

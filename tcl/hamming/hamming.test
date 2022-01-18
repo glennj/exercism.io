@@ -1,59 +1,54 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "hamming.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+test hamming-1.1 "empty strands" -body {
+    hammingDistance "" ""
+} -returnCodes ok -result 0
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+skip hamming-1.2
+test hamming-1.2 "single letter identical strands" -body {
+    hammingDistance "A" "A"
+} -returnCodes ok -result 0
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
-    }
-}
+skip hamming-1.3
+test hamming-1.3 "single letter different strands" -body {
+    hammingDistance "G" "T"
+} -returnCodes ok -result 1
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
+skip hamming-1.4
+test hamming-1.4 "long identical strands" -body {
+    hammingDistance "GGACTGAAATCTG" "GGACTGAAATCTG"
+} -returnCodes ok -result 0
 
-if {$::argv0 eq [info script]} {
+skip hamming-1.5
+test hamming-1.5 "long different strands" -body {
+    hammingDistance "GGACGGATTCTG" "AGGACGGATTCT"
+} -returnCodes ok -result 9
 
-    set cases {
-        hamming-1.1 "empty strands" "" "" 0
-        hamming-1.2 "single letter identical strands" "A" "A" 0
-        hamming-1.3 "single letter different strands" "G" "T" 1
-        hamming-1.4 "long identical strands" "GGACTGAAATCTG" "GGACTGAAATCTG" 0
-        hamming-1.5 "long different strands" "GGACGGATTCTG" "AGGACGGATTCT" 9
-    }
-    foreach {name desc first second result} $cases {
-        test $name $desc -body {
-            hammingDistance $first $second
-        } -returnCodes ok -result $result
-    }
 
-    set errors {
-        hamming-2.1 "disallow first strand longer" "AATG" "AAA"
-        hamming-2.2 "disallow second strand longer" "ATA" "AGTG"
-        hamming-2.3 "disallow left empty strand" "" "G"
-        hamming-2.4 "disallow right empty strand" "G" ""
-    }
-    foreach {name desc first second} $errors {
-        test $name $desc -body {
-            hammingDistance $first $second
-        } -returnCodes error -result "strands must be of equal length"
-    }
+skip hamming-2.1
+test hamming-2.1 "disallow first strand longer" -body {
+    hammingDistance "AATG" "AAA"
+} -returnCodes error -result "strands must be of equal length"
 
-    cleanupTests
-}
+skip hamming-2.2
+test hamming-2.2 "disallow second strand longer" -body {
+    hammingDistance "ATA" "AGTG"
+} -returnCodes error -result "strands must be of equal length"
+
+skip hamming-2.3
+test hamming-2.3 "disallow left empty strand" -body {
+    hammingDistance "" "G"
+} -returnCodes error -result "strands must be of equal length"
+
+skip hamming-2.4
+test hamming-2.4 "disallow right empty strand" -body {
+    hammingDistance "G" ""
+} -returnCodes error -result "strands must be of equal length"
+
+cleanupTests

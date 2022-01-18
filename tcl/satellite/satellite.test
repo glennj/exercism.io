@@ -1,100 +1,52 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
 source "satellite.tcl"
 
-proc fail_fast {} {
-    return [expr {
-        ![info exists ::env(RUN_ALL)]
-        || [string is boolean -strict $::env(RUN_ALL)]
-        && !$::env(RUN_ALL)
-    }]
-}
+# a non-empty result value is a dictionary with keys:
+#   "v"     the root value
+#   "l"     the left tree
+#   "r"     the right tree
 
-proc failed {} {
-    return [expr {$::tcltest::numTests(Failed) > 0}]
-}
+test satellite-1.1 "Empty tree" -body {
+    treeFromTraversals {} {}
+} -returnCodes ok -match dictionary -result {}
 
-if {[fail_fast]} {
-    proc test args {
-        if {[failed]} {::tcltest::configure -skip *}
-        uplevel [list ::tcltest::test {*}$args]
+skip satellite-1.2
+test satellite-1.2 "Tree with one item" -body {
+    treeFromTraversals {a} {a}
+} -returnCodes ok -match dictionary -result {v a l {} r {}}
+
+skip satellite-1.3
+test satellite-1.3 "Tree with many items" -body {
+    treeFromTraversals {a i x f r} {i a f x r}
+} -returnCodes ok -match dictionary -result {
+    v a
+    l {v i l {} r {}}
+    r {v x
+        l {v f l {} r {}}
+        r {v r l {} r {}}
     }
 }
 
-proc cleanupTests {} {
-    set failed [failed]
-    uplevel 1 ::tcltest::cleanupTests
-    if {$failed} {exit 1}
-}
 
-proc dictionaryMatch {expected actual} {
-    if {[dict size $expected] != [dict size $actual]} {
-        return false
-    }
-    dict for {key value} $expected {
-        if {![dict exists $actual $key]} {
-            return false
-        }
-        set actualValue [dict get $actual $key]
+skip satellite-2.1
+test satellite-2.1 "Reject traversals of different length" -body {
+    treeFromTraversals {a b} {b a r}
+} -returnCodes error -result "traversals must have the same length"
 
-        # if this value is a dict then recurse, 
-        # else just check for string equality
-        if {[string is list -strict $value] &&
-            [llength $value] > 1 && 
-            [llength $value] % 2 == 0
-        } {
-            set procname [lindex [info level 0] 0]
-            if {![$procname $value $actualValue]} {
-                return false
-            }
-        } elseif {$actualValue ne $value} {
-            return false
-        }
-    }
-    return true
-}
-customMatch dictionary dictionaryMatch
+skip satellite-2.2
+test satellite-2.2 "Reject inconsistemt traversals of same length" -body {
+    treeFromTraversals {x y z} {a b c}
+} -returnCodes error -result "traversals must contain the same elements"
 
-if {$::argv0 eq [info script]} {
+skip satellite-2.3
+test satellite-2.3 "Reject traversals with repeated elements" -body {
+    treeFromTraversals {a b a} {b a a}
+} -returnCodes error -result "traversals must contain unique elements"
 
-    set ok_cases {
-        satellite-1.1 "Empty tree" {} {} {}
-        satellite-1.2 "Tree with one item" {a} {a} {v a l {} r {}}
-        satellite-1.3 "Tree with many items" 
-            {a i x f r} {i a f x r} 
-            {v a
-                l {v i l {} r {}}
-                r {v x
-                    l {v f l {} r {}}
-                    r {v r l {} r {}}
-                }
-            }
-    }
 
-    foreach {name description preorder inorder expected} $ok_cases {
-        test $name $description \
-            -body [list treeFromTraversals $preorder $inorder] \
-            -returnCodes ok \
-            -match dictionary \
-            -result $expected
-    }
-
-    set error_cases {
-        satellite-2.1 "Reject traversals of different length"
-            {a b} {b a r} "traversals must have the same length"
-        satellite-2.2 "Reject inconsistemt traversals of same length"
-            {x y z} {a b c} "traversals must contain the same elements"
-        satellite-2.3 "Reject traversals with repeated elements"
-            {a b a} {b a a} "traversals must contain unique elements"
-    }
-
-    foreach {name description preorder inorder errmsg} $error_cases {
-        test $name $description \
-            -body [list treeFromTraversals $preorder $inorder] \
-            -returnCodes error \
-            -result $errmsg
-    }
-
-    cleanupTests
-}
+cleanupTests
