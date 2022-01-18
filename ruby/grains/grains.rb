@@ -2,7 +2,7 @@ module Grains
   module_function
 
   def square(square)
-    raise ArgumentError unless n.between? 1, 64
+    raise ArgumentError unless square.between? 1, 64
     2**(square - 1)
   end
 

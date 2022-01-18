@@ -1,5 +1,10 @@
 # Say
 
+Welcome to Say on Exercism's Ruby Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given a number from 0 to 999,999,999,999, spell out that number in English.
 
 ## Step 1
@@ -62,32 +67,27 @@ Use _and_ (correctly) when spelling out the number in English:
 - 1002 becomes "one thousand and two".
 - 1323 becomes "one thousand three hundred and twenty-three".
 
-* * * *
-
-For installation and learning resources, refer to the
-[Ruby resources page](http://exercism.io/languages/ruby/resources).
-
-For running the tests provided, you will need the Minitest gem. Open a
-terminal window and run the following command to install minitest:
-
-    gem install minitest
-
-If you would like color output, you can `require 'minitest/pride'` in
-the test file, or note the alternative instruction, below, for running
-the test file.
-
-Run the tests from the exercise directory using the following command:
-
-    ruby say_test.rb
-
-To include color from the command line:
-
-    ruby -r minitest/pride say_test.rb
-
-
 ## Source
 
-A variation on JavaRanch CattleDrive, exercise 4a [http://www.javaranch.com/say.jsp](http://www.javaranch.com/say.jsp)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @vosechu
+
+### Contributed to by
+
+- @budmc29
+- @cadwallion
+- @hilary
+- @iHiD
+- @Insti
+- @jpotts244
+- @kangkyu
+- @kotp
+- @kytrinyx
+- @pgaspar
+- @tommyschaefer
+- @tryantwit
+
+### Based on
+
+A variation on JavaRanch CattleDrive, exercise 4a - http://www.javaranch.com/say.jsp

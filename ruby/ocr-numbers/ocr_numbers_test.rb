@@ -3,8 +3,9 @@ require_relative 'ocr_numbers'
 
 # Common test data version: 1.2.0 965ecad
 class OcrNumbersTest < Minitest::Test
-  def test_recognizes_0
-    # #skip
+  def skip; end
+  def test_recognizes_0 # rubocop:disable Naming/VariableNumber
+    # skip
     input = [" _ ",
              "| |",
              "|_|",
@@ -12,8 +13,8 @@ class OcrNumbersTest < Minitest::Test
     assert_equal "0", OcrNumbers.convert(input)
   end
 
-  def test_recognizes_1
-    #skip
+  def test_recognizes_1 # rubocop:disable Naming/VariableNumber
+    skip
     input = ["   ",
              "  |",
              "  |",
@@ -22,7 +23,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_unreadable_but_correctly_sized_inputs_return_question_mark
-    #skip
+    skip
     input = ["   ",
              "  _",
              "  |",
@@ -31,7 +32,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_input_with_a_number_of_lines_that_is_not_a_multiple_of_four_raises_an_error
-    #skip
+    skip
     input = [" _ ",
              "| |",
              "   "].join("\n")
@@ -41,7 +42,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_input_with_a_number_of_columns_that_is_not_a_multiple_of_three_raises_an_error
-    #skip
+    skip
     input = ["    ",
              "   |",
              "   |",
@@ -51,8 +52,8 @@ class OcrNumbersTest < Minitest::Test
     end
   end
 
-  def test_recognizes_110101100
-    #skip
+  def test_recognizes_110101100 # rubocop:disable Naming/VariableNumber
+    skip
     input = ["       _     _        _  _ ",
              "  |  || |  || |  |  || || |",
              "  |  ||_|  ||_|  |  ||_||_|",
@@ -61,7 +62,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_garbled_numbers_in_a_string_are_replaced_with_question_mark
-    #skip
+    skip
     input = ["       _     _           _ ",
              "  |  || |  || |     || || |",
              "  |  | _|  ||_|  |  ||_||_|",
@@ -69,8 +70,8 @@ class OcrNumbersTest < Minitest::Test
     assert_equal "11?10?1?0", OcrNumbers.convert(input)
   end
 
-  def test_recognizes_2
-    #skip
+  def test_recognizes_2 # rubocop:disable Naming/VariableNumber
+    skip
     input = [" _ ",
              " _|",
              "|_ ",
@@ -78,8 +79,8 @@ class OcrNumbersTest < Minitest::Test
     assert_equal "2", OcrNumbers.convert(input)
   end
 
-  def test_recognizes_3
-    #skip
+  def test_recognizes_3 # rubocop:disable Naming/VariableNumber
+    skip
     input = [" _ ",
              " _|",
              " _|",
@@ -87,8 +88,8 @@ class OcrNumbersTest < Minitest::Test
     assert_equal "3", OcrNumbers.convert(input)
   end
 
-  def test_recognizes_4
-    #skip
+  def test_recognizes_4 # rubocop:disable Naming/VariableNumber
+    skip
     input = ["   ",
              "|_|",
              "  |",
@@ -96,8 +97,8 @@ class OcrNumbersTest < Minitest::Test
     assert_equal "4", OcrNumbers.convert(input)
   end
 
-  def test_recognizes_5
-    #skip
+  def test_recognizes_5 # rubocop:disable Naming/VariableNumber
+    skip
     input = [" _ ",
              "|_ ",
              " _|",
@@ -105,8 +106,8 @@ class OcrNumbersTest < Minitest::Test
     assert_equal "5", OcrNumbers.convert(input)
   end
 
-  def test_recognizes_6
-    #skip
+  def test_recognizes_6 # rubocop:disable Naming/VariableNumber
+    skip
     input = [" _ ",
              "|_ ",
              "|_|",
@@ -114,8 +115,8 @@ class OcrNumbersTest < Minitest::Test
     assert_equal "6", OcrNumbers.convert(input)
   end
 
-  def test_recognizes_7
-    #skip
+  def test_recognizes_7 # rubocop:disable Naming/VariableNumber
+    skip
     input = [" _ ",
              "  |",
              "  |",
@@ -123,8 +124,8 @@ class OcrNumbersTest < Minitest::Test
     assert_equal "7", OcrNumbers.convert(input)
   end
 
-  def test_recognizes_8
-    #skip
+  def test_recognizes_8 # rubocop:disable Naming/VariableNumber
+    skip
     input = [" _ ",
              "|_|",
              "|_|",
@@ -132,8 +133,8 @@ class OcrNumbersTest < Minitest::Test
     assert_equal "8", OcrNumbers.convert(input)
   end
 
-  def test_recognizes_9
-    #skip
+  def test_recognizes_9 # rubocop:disable Naming/VariableNumber
+    skip
     input = [" _ ",
              "|_|",
              " _|",
@@ -142,7 +143,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_recognizes_string_of_decimal_numbers
-    #skip
+    skip
     input = ["    _  _     _  _  _  _  _  _ ",
              "  | _| _||_||_ |_   ||_||_|| |",
              "  ||_  _|  | _||_|  ||_| _||_|",
@@ -151,7 +152,7 @@ class OcrNumbersTest < Minitest::Test
   end
 
   def test_numbers_separated_by_empty_lines_are_recognized_lines_are_joined_by_commas
-    #skip
+    skip
     input = ["    _  _ ",
              "  | _| _|",
              "  ||_  _|",

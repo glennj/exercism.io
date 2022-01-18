@@ -3,8 +3,9 @@ require_relative 'zipper'
 
 # Common test data version: 1.1.0 6fb5601
 class ZipperTest < Minitest::Test
+  def skip; end
   def test_data_is_retained
-    # #skip
+    # skip
     tree =
       Node.new(1,
         Node.new(2,
@@ -31,7 +32,7 @@ class ZipperTest < Minitest::Test
   end
 
   def test_left_right_and_value
-    #skip
+    skip
     tree =
       Node.new(1,
         Node.new(2,
@@ -49,7 +50,7 @@ class ZipperTest < Minitest::Test
   end
 
   def test_dead_end
-    #skip
+    skip
     tree =
       Node.new(1,
         Node.new(2,
@@ -62,12 +63,11 @@ class ZipperTest < Minitest::Test
           nil))
     zipper = Zipper.from_tree(tree)
     value = zipper.left.left
-    expected = nil
     assert_nil value
   end
 
   def test_tree_from_deep_focus
-    #skip
+    skip
     tree =
       Node.new(1,
         Node.new(2,
@@ -94,7 +94,7 @@ class ZipperTest < Minitest::Test
   end
 
   def test_traversing_up_from_top
-    #skip
+    skip
     tree =
       Node.new(1,
         Node.new(2,
@@ -107,12 +107,11 @@ class ZipperTest < Minitest::Test
           nil))
     zipper = Zipper.from_tree(tree)
     value = zipper.up
-    expected = nil
     assert_nil value
   end
 
   def test_left_right_and_up
-    #skip
+    skip
     tree =
       Node.new(1,
         Node.new(2,
@@ -130,7 +129,7 @@ class ZipperTest < Minitest::Test
   end
 
   def test_set_value
-    #skip
+    skip
     tree =
       Node.new(1,
         Node.new(2,
@@ -157,7 +156,7 @@ class ZipperTest < Minitest::Test
   end
 
   def test_set_value_after_traversing_up
-    #skip
+    skip
     tree =
       Node.new(1,
         Node.new(2,
@@ -184,7 +183,7 @@ class ZipperTest < Minitest::Test
   end
 
   def test_set_left_with_leaf
-    #skip
+    skip
     tree =
       Node.new(1,
         Node.new(2,
@@ -199,7 +198,8 @@ class ZipperTest < Minitest::Test
     value = zipper.left.set_left(
       Node.new(5,
         nil,
-        nil)).to_tree
+        nil)
+    ).to_tree
     expected =
       Node.new(1,
         Node.new(2,
@@ -216,7 +216,7 @@ class ZipperTest < Minitest::Test
   end
 
   def test_set_right_with_null
-    #skip
+    skip
     tree =
       Node.new(1,
         Node.new(2,
@@ -241,7 +241,7 @@ class ZipperTest < Minitest::Test
   end
 
   def test_set_right_with_subtree
-    #skip
+    skip
     tree =
       Node.new(1,
         Node.new(2,
@@ -260,7 +260,8 @@ class ZipperTest < Minitest::Test
           nil),
         Node.new(8,
           nil,
-          nil))).to_tree
+          nil))
+    ).to_tree
     expected =
       Node.new(1,
         Node.new(2,
@@ -279,7 +280,7 @@ class ZipperTest < Minitest::Test
   end
 
   def test_set_value_on_deep_focus
-    #skip
+    skip
     tree =
       Node.new(1,
         Node.new(2,
@@ -306,7 +307,7 @@ class ZipperTest < Minitest::Test
   end
 
   def test_different_paths_to_same_zipper
-    #skip
+    skip
     tree =
       Node.new(1,
         Node.new(2,

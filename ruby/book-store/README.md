@@ -1,5 +1,10 @@
 # Book Store
 
+Welcome to Book Store on Exercism's Ruby Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 To try and encourage more sales of different books from a popular 5 book
 series, a bookshop has decided to offer discounts on multiple book purchases.
 
@@ -67,32 +72,17 @@ For a total of $51.20
 
 And $51.20 is the price with the biggest discount.
 
-* * * *
-
-For installation and learning resources, refer to the
-[Ruby resources page](http://exercism.io/languages/ruby/resources).
-
-For running the tests provided, you will need the Minitest gem. Open a
-terminal window and run the following command to install minitest:
-
-    gem install minitest
-
-If you would like color output, you can `require 'minitest/pride'` in
-the test file, or note the alternative instruction, below, for running
-the test file.
-
-Run the tests from the exercise directory using the following command:
-
-    ruby book_store_test.rb
-
-To include color from the command line:
-
-    ruby -r minitest/pride book_store_test.rb
-
-
 ## Source
 
-Inspired by the harry potter kata from Cyber-Dojo. [http://cyber-dojo.org](http://cyber-dojo.org)
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @cadwallion
+- @iHiD
+- @Insti
+- @jpotts244
+- @kotp
+- @tryantwit
+
+### Based on
+
+Inspired by the harry potter kata from Cyber-Dojo. - http://cyber-dojo.org

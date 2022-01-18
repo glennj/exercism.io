@@ -13,6 +13,7 @@ end
 
 # Common test data version: 1.1.0 be3ae66
 class HelloWorldTest < Minitest::Test
+  def skip; end
   def test_say_hi
     # skip
     assert_equal "Hello, World!", HelloWorld.hello

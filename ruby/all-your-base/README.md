@@ -1,5 +1,10 @@
 # All Your Base
 
+Welcome to All Your Base on Exercism's Ruby Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Convert a number, represented as a sequence of digits in one base, to any other base.
 
 Implement general base conversion. Given a number in base **a**,
@@ -31,28 +36,20 @@ I think you got the idea!
 
 *Yes. Those three numbers above are exactly the same. Congratulations!*
 
-* * * *
+## Source
 
-For installation and learning resources, refer to the
-[Ruby resources page](http://exercism.io/languages/ruby/resources).
+### Created by
 
-For running the tests provided, you will need the Minitest gem. Open a
-terminal window and run the following command to install minitest:
+- @sebarmano
 
-    gem install minitest
+### Contributed to by
 
-If you would like color output, you can `require 'minitest/pride'` in
-the test file, or note the alternative instruction, below, for running
-the test file.
-
-Run the tests from the exercise directory using the following command:
-
-    ruby all_your_base_test.rb
-
-To include color from the command line:
-
-    ruby -r minitest/pride all_your_base_test.rb
-
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @budmc29
+- @cadwallion
+- @hilary
+- @iHiD
+- @Insti
+- @jpotts244
+- @kotp
+- @tommyschaefer
+- @tryantwit

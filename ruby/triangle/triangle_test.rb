@@ -3,6 +3,7 @@ require_relative 'triangle'
 
 # Common test data version: 1.2.0 55f89ca
 class TriangleTest < Minitest::Test
+  def skip; end
   def test_triangle_is_equilateral_if_all_sides_are_equal
     # skip
     triangle = Triangle.new([2, 2, 2])
@@ -63,19 +64,19 @@ class TriangleTest < Minitest::Test
     refute triangle.isosceles?, "Expected 'false', triangle [2, 3, 4] is not isosceles."
   end
 
-  def test_sides_that_violate_triangle_inequality_are_not_isosceles_even_if_two_are_equal_1
+  def test_sides_that_violate_triangle_inequality_are_not_isosceles_even_if_two_are_equal_1 # rubocop:disable Naming/VariableNumber
     skip
     triangle = Triangle.new([1, 1, 3])
     refute triangle.isosceles?, "Expected 'false', triangle [1, 1, 3] is not isosceles."
   end
 
-  def test_sides_that_violate_triangle_inequality_are_not_isosceles_even_if_two_are_equal_2
+  def test_sides_that_violate_triangle_inequality_are_not_isosceles_even_if_two_are_equal_2 # rubocop:disable Naming/VariableNumber
     skip
     triangle = Triangle.new([1, 3, 1])
     refute triangle.isosceles?, "Expected 'false', triangle [1, 3, 1] is not isosceles."
   end
 
-  def test_sides_that_violate_triangle_inequality_are_not_isosceles_even_if_two_are_equal_3
+  def test_sides_that_violate_triangle_inequality_are_not_isosceles_even_if_two_are_equal_3 # rubocop:disable Naming/VariableNumber
     skip
     triangle = Triangle.new([3, 1, 1])
     refute triangle.isosceles?, "Expected 'false', triangle [3, 1, 1] is not isosceles."

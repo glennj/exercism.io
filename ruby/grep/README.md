@@ -1,5 +1,10 @@
 # Grep
 
+Welcome to Grep on Exercism's Ruby Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Search a file for lines matching a regular expression pattern. Return the line
 number and contents of each matching line.
 
@@ -33,7 +38,7 @@ hello
 hello again
 ```
 
-### Flags
+## Flags
 
 As said earlier, the `grep` command should also support the following flags:
 
@@ -64,32 +69,17 @@ The `grep` command should support multiple flags at once.
 For example, running `grep -l -v "hello" file1.txt file2.txt` should
 print the names of files that do not contain the string "hello".
 
-* * * *
-
-For installation and learning resources, refer to the
-[Ruby resources page](http://exercism.io/languages/ruby/resources).
-
-For running the tests provided, you will need the Minitest gem. Open a
-terminal window and run the following command to install minitest:
-
-    gem install minitest
-
-If you would like color output, you can `require 'minitest/pride'` in
-the test file, or note the alternative instruction, below, for running
-the test file.
-
-Run the tests from the exercise directory using the following command:
-
-    ruby grep_test.rb
-
-To include color from the command line:
-
-    ruby -r minitest/pride grep_test.rb
-
-
 ## Source
 
-Conversation with Nate Foster. [http://www.cs.cornell.edu/Courses/cs3110/2014sp/hw/0/ps0.pdf](http://www.cs.cornell.edu/Courses/cs3110/2014sp/hw/0/ps0.pdf)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @pgaspar
+
+### Contributed to by
+
+- @iHiD
+- @kotp
+
+### Based on
+
+Conversation with Nate Foster. - http://www.cs.cornell.edu/Courses/cs3110/2014sp/hw/0/ps0.pdf

@@ -1,9 +1,12 @@
-# OCR Numbers
+# Ocr Numbers
+
+Welcome to Ocr Numbers on Exercism's Ruby Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 Given a 3 x 4 grid of pipes, underscores, and spaces, determine which number is
 represented, or whether it is garbled.
-
-# Step One
 
 To begin with, convert a simple binary font to a string containing 0 or 1.
 
@@ -31,11 +34,7 @@ If the input is the correct size, but not recognizable, your program should retu
 
 If the input is the incorrect size, your program should return an error.
 
-# Step Two
-
 Update your program to recognize multi-character binary strings, replacing garbled numbers with ?
-
-# Step Three
 
 Update your program to recognize all numbers 0 through 9, both individually and as part of a larger string.
 
@@ -57,8 +56,6 @@ Is converted to "2"
 
 Is converted to "1234567890"
 
-# Step Four
-
 Update your program to handle multiple numbers, one per line. When converting several lines, join the lines with commas.
 
 ```text
@@ -78,32 +75,33 @@ Update your program to handle multiple numbers, one per line. When converting se
 
 Is converted to "123,456,789"
 
-* * * *
+Some editors trim whitespace. If you rely on trailing whitespace in a multiline string,
+instead use a format that doesn't rely on trailing whitespace, or adjust the settings in your editor.
 
-For installation and learning resources, refer to the
-[Ruby resources page](http://exercism.io/languages/ruby/resources).
-
-For running the tests provided, you will need the Minitest gem. Open a
-terminal window and run the following command to install minitest:
-
-    gem install minitest
-
-If you would like color output, you can `require 'minitest/pride'` in
-the test file, or note the alternative instruction, below, for running
-the test file.
-
-Run the tests from the exercise directory using the following command:
-
-    ruby ocr_numbers_test.rb
-
-To include color from the command line:
-
-    ruby -r minitest/pride ocr_numbers_test.rb
-
+[A multiline string cheatsheet for ruby](https://commandercoriander.net/blog/2014/11/09/a-multiline-string-cheatsheet-for-ruby/)
 
 ## Source
 
-Inspired by the Bank OCR kata [http://codingdojo.org/cgi-bin/wiki.pl?KataBankOCR](http://codingdojo.org/cgi-bin/wiki.pl?KataBankOCR)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @vosechu
+
+### Contributed to by
+
+- @budmc29
+- @cadwallion
+- @dkinzer
+- @emcoding
+- @hilary
+- @iHiD
+- @Insti
+- @jpotts244
+- @kotp
+- @kytrinyx
+- @pendletons
+- @pgaspar
+- @tryantwit
+
+### Based on
+
+Inspired by the Bank OCR kata - http://codingdojo.org/cgi-bin/wiki.pl?KataBankOCR

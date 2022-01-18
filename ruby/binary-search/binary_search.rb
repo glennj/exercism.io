@@ -12,7 +12,7 @@ class BinarySearch
   end
 
   def search_for(elem, left = 0, right = @list.length - 1)
-    raise "#{elem} not in list" if left > right
+    return nil if left > right
 
     mid = middle(left, right)
 

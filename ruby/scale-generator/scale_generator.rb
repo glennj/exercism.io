@@ -45,7 +45,7 @@ class Scale
 
   def filter(notes, intervals)
     return notes if intervals.empty?
-
+    
     pitches = []
     idx = 0
     intervals.chars.each do |i|

@@ -1,5 +1,10 @@
 # Bowling
 
+Welcome to Bowling on Exercism's Ruby Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Score a bowling game.
 
 Bowling is a game where players roll a heavy ball to knock down pins
@@ -60,32 +65,26 @@ support two operations:
 * `score() : int` is called only at the very end of the game.  It
   returns the total score for that game.
 
-* * * *
-
-For installation and learning resources, refer to the
-[Ruby resources page](http://exercism.io/languages/ruby/resources).
-
-For running the tests provided, you will need the Minitest gem. Open a
-terminal window and run the following command to install minitest:
-
-    gem install minitest
-
-If you would like color output, you can `require 'minitest/pride'` in
-the test file, or note the alternative instruction, below, for running
-the test file.
-
-Run the tests from the exercise directory using the following command:
-
-    ruby bowling_test.rb
-
-To include color from the command line:
-
-    ruby -r minitest/pride bowling_test.rb
-
-
 ## Source
 
-The Bowling Game Kata at but UncleBob [http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata](http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @bernardoamc
+
+### Contributed to by
+
+- @budmc29
+- @cadwallion
+- @gchan
+- @hilary
+- @iHiD
+- @Insti
+- @jpotts244
+- @kotp
+- @kytrinyx
+- @NeimadTL
+- @tryantwit
+
+### Based on
+
+The Bowling Game Kata at but UncleBob - http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata

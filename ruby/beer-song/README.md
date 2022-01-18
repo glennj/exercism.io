@@ -1,5 +1,10 @@
 # Beer Song
 
+Welcome to Beer Song on Exercism's Ruby Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Recite the lyrics to that beloved classic, that field-trip favorite: 99 Bottles of Beer on the Wall.
 
 Note that not all verses are identical.
@@ -320,32 +325,27 @@ are some additional things you could try:
 Then please share your thoughts in a comment on the submission. Did this
 experiment make the code better? Worse? Did you learn anything from it?
 
-* * * *
-
-For installation and learning resources, refer to the
-[Ruby resources page](http://exercism.io/languages/ruby/resources).
-
-For running the tests provided, you will need the Minitest gem. Open a
-terminal window and run the following command to install minitest:
-
-    gem install minitest
-
-If you would like color output, you can `require 'minitest/pride'` in
-the test file, or note the alternative instruction, below, for running
-the test file.
-
-Run the tests from the exercise directory using the following command:
-
-    ruby beer_song_test.rb
-
-To include color from the command line:
-
-    ruby -r minitest/pride beer_song_test.rb
-
-
 ## Source
 
-Learn to Program by Chris Pine [http://pine.fm/LearnToProgram/?Chapter=06](http://pine.fm/LearnToProgram/?Chapter=06)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @kytrinyx
+
+### Contributed to by
+
+- @budmc29
+- @cadwallion
+- @ccouzens
+- @dkinzer
+- @emcoding
+- @henrik
+- @hilary
+- @Insti
+- @jpotts244
+- @kotp
+- @pendletons
+- @tryantwit
+
+### Based on
+
+Learn to Program by Chris Pine - http://pine.fm/LearnToProgram/?Chapter=06

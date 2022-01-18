@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require_relative 'secret_handshake'
 
 class SecretHandshakeTest < Minitest::Test
+  def skip; end
   def test_handshake_1_to_wink
     handshake = SecretHandshake.new(1)
     assert_equal ['wink'], handshake.commands

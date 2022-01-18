@@ -1,4 +1,3 @@
-# monkeypatching Array class
 class Array
   def keep
     if block_given?

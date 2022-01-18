@@ -1,6 +1,19 @@
 # Wordy
 
+Welcome to Wordy on Exercism's Ruby Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Parse and evaluate simple math word problems returning the answer as an integer.
+
+## Iteration 0 — Numbers
+
+Problems with no operations simply evaluate to the number given.
+
+> What is 5?
+
+Evaluates to 5.
 
 ## Iteration 1 — Addition
 
@@ -43,6 +56,14 @@ left-to-right, _ignoring the typical order of operations._
 
 15  (i.e. not 9)
 
+## Iteration 4 — Errors
+
+The parser should reject:
+
+* Unsupported operations ("What is 52 cubed?")
+* Non-math questions ("Who is the President of the United States")
+* Word problems with invalid syntax ("What is 1 plus plus 2?")
+
 ## Bonus — Exponentials
 
 If you'd like, handle exponentials.
@@ -51,32 +72,28 @@ If you'd like, handle exponentials.
 
 32
 
-* * * *
-
-For installation and learning resources, refer to the
-[Ruby resources page](http://exercism.io/languages/ruby/resources).
-
-For running the tests provided, you will need the Minitest gem. Open a
-terminal window and run the following command to install minitest:
-
-    gem install minitest
-
-If you would like color output, you can `require 'minitest/pride'` in
-the test file, or note the alternative instruction, below, for running
-the test file.
-
-Run the tests from the exercise directory using the following command:
-
-    ruby wordy_test.rb
-
-To include color from the command line:
-
-    ruby -r minitest/pride wordy_test.rb
-
-
 ## Source
 
-Inspired by one of the generated questions in the Extreme Startup game. [https://github.com/rchatley/extreme_startup](https://github.com/rchatley/extreme_startup)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @vosechu
+
+### Contributed to by
+
+- @budmc29
+- @cadwallion
+- @dkinzer
+- @hilary
+- @iHiD
+- @Insti
+- @jpotts244
+- @kotp
+- @kytrinyx
+- @pgaspar
+- @srabuini
+- @tommyschaefer
+- @tryantwit
+
+### Based on
+
+Inspired by one of the generated questions in the Extreme Startup game. - https://github.com/rchatley/extreme_startup

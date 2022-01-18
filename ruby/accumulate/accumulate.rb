@@ -1,4 +1,3 @@
-# monkeypatching Array class
 class Array
   def accumulate
     if block_given?

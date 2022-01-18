@@ -15,4 +15,4 @@ class Microwave
     extra, seconds = seconds.divmod 60
     sprintf "%02d:%02d", minutes + extra, seconds
   end
-end
+end 

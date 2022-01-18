@@ -1,5 +1,10 @@
 # Two Bucket
 
+Welcome to Two Bucket on Exercism's Ruby Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given two buckets of different size, demonstrate how to measure an exact number of liters by strategically transferring liters of fluid between the buckets.
 
 Since this mathematical problem is fairly subject to interpretation / individual approach, the tests have been written specifically to expect one overarching solution.
@@ -23,38 +28,31 @@ Example:
 Bucket one can hold up to 7 liters, and bucket two can hold up to 11 liters. Let's say bucket one, at a given step, is holding 7 liters, and bucket two is holding 8 liters (7,8). If you empty bucket one and make no change to bucket two, leaving you with 0 liters and 8 liters respectively (0,8), that counts as one "move". Instead, if you had poured from bucket one into bucket two until bucket two was full, leaving you with 4 liters in bucket one and 11 liters in bucket two (4,11), that would count as only one "move" as well.
 
 To conclude, the only valid moves are:
-- pouring from one bucket to another
-- emptying one bucket and doing nothing to the other
-- filling one bucket and doing nothing to the other
+- pouring from either bucket to another
+- emptying either bucket and doing nothing to the other
+- filling either bucket and doing nothing to the other
 
 Written with <3 at [Fullstack Academy](http://www.fullstackacademy.com/) by Lindsay Levine.
 
-* * * *
-
-For installation and learning resources, refer to the
-[Ruby resources page](http://exercism.io/languages/ruby/resources).
-
-For running the tests provided, you will need the Minitest gem. Open a
-terminal window and run the following command to install minitest:
-
-    gem install minitest
-
-If you would like color output, you can `require 'minitest/pride'` in
-the test file, or note the alternative instruction, below, for running
-the test file.
-
-Run the tests from the exercise directory using the following command:
-
-    ruby two_bucket_test.rb
-
-To include color from the command line:
-
-    ruby -r minitest/pride two_bucket_test.rb
-
-
 ## Source
 
-Water Pouring Problem [http://demonstrations.wolfram.com/WaterPouringProblem/](http://demonstrations.wolfram.com/WaterPouringProblem/)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @repinel
+
+### Contributed to by
+
+- @budmc29
+- @cadwallion
+- @hilary
+- @iHiD
+- @Insti
+- @jpotts244
+- @kotp
+- @kvsm
+- @kytrinyx
+- @tryantwit
+
+### Based on
+
+Water Pouring Problem - http://demonstrations.wolfram.com/WaterPouringProblem/

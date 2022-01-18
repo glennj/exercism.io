@@ -1,5 +1,10 @@
 # Binary Search Tree
 
+Welcome to Binary Search Tree on Exercism's Ruby Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Insert and search for numbers in a binary tree.
 
 When we need to represent sorted data, an array does not make a good
@@ -53,32 +58,27 @@ And if we then added 1, 5, and 7, it would look like this
      / \     / \
     1   3   5   7
 
-* * * *
-
-For installation and learning resources, refer to the
-[Ruby resources page](http://exercism.io/languages/ruby/resources).
-
-For running the tests provided, you will need the Minitest gem. Open a
-terminal window and run the following command to install minitest:
-
-    gem install minitest
-
-If you would like color output, you can `require 'minitest/pride'` in
-the test file, or note the alternative instruction, below, for running
-the test file.
-
-Run the tests from the exercise directory using the following command:
-
-    ruby binary_search_tree_test.rb
-
-To include color from the command line:
-
-    ruby -r minitest/pride binary_search_tree_test.rb
-
-
 ## Source
 
-Josh Cheek [https://twitter.com/josh_cheek](https://twitter.com/josh_cheek)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @vosechu
+
+### Contributed to by
+
+- @budmc29
+- @cadwallion
+- @dkinzer
+- @hilary
+- @iHiD
+- @Insti
+- @kotp
+- @kytrinyx
+- @pendletons
+- @remcopeereboom
+- @Ryan1729
+- @tryantwit
+
+### Based on
+
+Josh Cheek - https://twitter.com/josh_cheek

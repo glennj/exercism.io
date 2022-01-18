@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require_relative 'linked_list'
 
 class DequeTest < Minitest::Test
+  def skip; end
   def test_push_pop
     deque = Deque.new
     deque.push(10)
@@ -11,7 +12,7 @@ class DequeTest < Minitest::Test
   end
 
   def test_push_shift
-    #skip
+    skip
     deque = Deque.new
     deque.push(10)
     deque.push(20)
@@ -20,7 +21,7 @@ class DequeTest < Minitest::Test
   end
 
   def test_unshift_shift
-    #skip
+    skip
     deque = Deque.new
     deque.unshift(10)
     deque.unshift(20)
@@ -29,7 +30,7 @@ class DequeTest < Minitest::Test
   end
 
   def test_unshift_pop
-    #skip
+    skip
     deque = Deque.new
     deque.unshift(10)
     deque.unshift(20)
@@ -38,7 +39,7 @@ class DequeTest < Minitest::Test
   end
 
   def test_example
-    #skip
+    skip
     deque = Deque.new
     deque.push(10)
     deque.push(20)
@@ -53,6 +54,7 @@ class DequeTest < Minitest::Test
   end
 
   def test_pop_to_empty
+    skip
     deque = Deque.new
     deque.push(10)
     assert_equal 10, deque.pop
@@ -61,6 +63,7 @@ class DequeTest < Minitest::Test
   end
 
   def test_shift_to_empty
+    skip
     deque = Deque.new
     deque.unshift(10)
     assert_equal 10, deque.shift

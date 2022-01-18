@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require_relative 'list_ops'
 
 class ListOpsTest < Minitest::Test
+  def skip; end
   def test_count_empty
     assert_equal 0, ListOps.arrays([])
   end

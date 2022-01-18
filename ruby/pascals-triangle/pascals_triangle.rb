@@ -1,6 +1,4 @@
-# rubocop:disable Naming/UncommunicativeMethodParamName
-
-require 'memoist'
+require 'memoist'   # gem install memoist
 
 class Triangle
   extend Memoist
@@ -32,5 +30,3 @@ class Triangle
   end
   memoize :factorial
 end
-
-# rubocop:enable Naming/UncommunicativeMethodParamName

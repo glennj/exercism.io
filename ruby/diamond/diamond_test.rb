@@ -2,13 +2,14 @@ require 'minitest/autorun'
 require_relative 'diamond'
 
 class DiamondTest < Minitest::Test
+  def skip; end
   def test_letter_a
     answer = Diamond.make_diamond('A')
     assert_equal "A\n", answer
   end
 
   def test_letter_c
-    #skip
+    skip
     answer = Diamond.make_diamond('C')
     string = "  A  \n"\
              " B B \n"\
@@ -19,7 +20,7 @@ class DiamondTest < Minitest::Test
   end
 
   def test_letter_e
-    #skip
+    skip
     answer = Diamond.make_diamond('E')
     string = "    A    \n"\
              "   B B   \n"\

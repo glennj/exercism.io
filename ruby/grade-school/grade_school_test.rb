@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require_relative 'grade_school'
 
 class SchoolTest < Minitest::Test
+  def skip; end
   def test_empty_grade
     school = School.new
     expected = []
@@ -9,7 +10,7 @@ class SchoolTest < Minitest::Test
   end
 
   def test_add_student
-    #skip
+    skip
     school = School.new
     assert school.add('Aimee', 2)
     expected = ['Aimee']
@@ -17,7 +18,7 @@ class SchoolTest < Minitest::Test
   end
 
   def test_add_students_to_different_grades
-    #skip
+    skip
     school = School.new
     school.add('Aimee', 3)
     school.add('Beemee', 7)
@@ -26,43 +27,43 @@ class SchoolTest < Minitest::Test
   end
 
   def test_grade_with_multiple_students
-    #skip
+    skip
     school = School.new
     grade    = 6
-    students = %w(Aimee Beemee Ceemee)
+    students = %w[Aimee Beemee Ceemee]
     students.each { |student| school.add(student, grade) }
     assert_equal students, school.students(grade)
   end
 
   def test_grade_with_multiple_students_sorts_correctly
-    #skip
+    skip
     school = School.new
     grade    = 6
-    students = %w(Beemee Aimee Ceemee)
+    students = %w[Beemee Aimee Ceemee]
     students.each { |student| school.add(student, grade) }
     expected = students.sort
     assert_equal expected, school.students(grade)
   end
 
   def test_empty_students_by_grade
-    #skip
+    skip
     school = School.new
     expected = []
     assert_equal expected, school.students_by_grade
   end
 
   def test_students_by_grade
-    #skip
+    skip
     school = School.new
     grade    = 6
-    students = %w(Beemee Aimee Ceemee)
+    students = %w[Beemee Aimee Ceemee]
     students.each { |student| school.add(student, grade) }
     expected = [{ grade: grade, students: students.sort }]
     assert_equal expected, school.students_by_grade
   end
 
   def test_students_by_grade_sorted
-    #skip
+    skip
     school = School.new
     everyone.each do |grade|
       grade[:students].each { |student| school.add(student, grade[:grade]) }
@@ -73,17 +74,17 @@ class SchoolTest < Minitest::Test
 
   def everyone
     [
-      { grade: 3, students: %w(Deemee Eeemee) },
-      { grade: 1, students: %w(Effmee Geemee) },
-      { grade: 2, students: %w(Aimee Beemee Ceemee) }
+      { grade: 3, students: %w[Deemee Eeemee] },
+      { grade: 1, students: %w[Effmee Geemee] },
+      { grade: 2, students: %w[Aimee Beemee Ceemee] }
     ]
   end
 
   def everyone_sorted
     [
-      { grade: 1, students: %w(Effmee Geemee) },
-      { grade: 2, students: %w(Aimee Beemee Ceemee) },
-      { grade: 3, students: %w(Deemee Eeemee) }
+      { grade: 1, students: %w[Effmee Geemee] },
+      { grade: 2, students: %w[Aimee Beemee Ceemee] },
+      { grade: 3, students: %w[Deemee Eeemee] }
     ]
   end
 end

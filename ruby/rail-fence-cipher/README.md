@@ -1,5 +1,10 @@
 # Rail Fence Cipher
 
+Welcome to Rail Fence Cipher on Exercism's Ruby Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement encoding and decoding for the rail fence cipher.
 
 The Rail Fence cipher is a form of transposition cipher that gets its name from
@@ -58,32 +63,23 @@ W . . . E . . . C . . . R . . . L . . . T . . . E
 
 If you now read along the zig-zag shape you can read the original message.
 
-* * * *
-
-For installation and learning resources, refer to the
-[Ruby resources page](http://exercism.io/languages/ruby/resources).
-
-For running the tests provided, you will need the Minitest gem. Open a
-terminal window and run the following command to install minitest:
-
-    gem install minitest
-
-If you would like color output, you can `require 'minitest/pride'` in
-the test file, or note the alternative instruction, below, for running
-the test file.
-
-Run the tests from the exercise directory using the following command:
-
-    ruby rail_fence_cipher_test.rb
-
-To include color from the command line:
-
-    ruby -r minitest/pride rail_fence_cipher_test.rb
-
-
 ## Source
 
-Wikipedia [https://en.wikipedia.org/wiki/Transposition_cipher#Rail_Fence_cipher](https://en.wikipedia.org/wiki/Transposition_cipher#Rail_Fence_cipher)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @raysapida
+
+### Contributed to by
+
+- @budmc29
+- @cadwallion
+- @emcoding
+- @hilary
+- @iHiD
+- @Insti
+- @kotp
+- @tryantwit
+
+### Based on
+
+Wikipedia - https://en.wikipedia.org/wiki/Transposition_cipher#Rail_Fence_cipher

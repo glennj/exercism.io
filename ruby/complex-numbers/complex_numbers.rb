@@ -32,16 +32,19 @@ class ComplexNumber
   end
 
   def abs
-    @abs ||= Math.sqrt(real**2 + imaginary**2)
+    @abs ||= Math.hypot(real, imaginary)
   end
 
   def conjugate
     @conjugate ||= ComplexNumber.new(real, -imaginary)
   end
 
-  # this is failing some test cases, due to IEEE float precision issues
+  # thanks IEEE floating point numbers, have to round
   def exp
-    @exp ||= ComplexNumber.new(Math::E**real, 0) \
-           * ComplexNumber.new(Math.cos(imaginary), Math.sin(imaginary))
+    @exp ||= ComplexNumber.new((Math::E**real).round(15), 0) \
+           * ComplexNumber.new(
+               Math.cos(imaginary).round(15),
+               Math.sin(imaginary).round(15)
+             )
   end
 end

@@ -1,5 +1,10 @@
 # House
 
+Welcome to House on Exercism's Ruby Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Recite the nursery rhyme 'This is the House that Jack Built'.
 
 > [The] process of placing a phrase of clause within another phrase of
@@ -105,32 +110,22 @@ that ate the malt
 that lay in the house that Jack built.
 ```
 
-* * * *
-
-For installation and learning resources, refer to the
-[Ruby resources page](http://exercism.io/languages/ruby/resources).
-
-For running the tests provided, you will need the Minitest gem. Open a
-terminal window and run the following command to install minitest:
-
-    gem install minitest
-
-If you would like color output, you can `require 'minitest/pride'` in
-the test file, or note the alternative instruction, below, for running
-the test file.
-
-Run the tests from the exercise directory using the following command:
-
-    ruby house_test.rb
-
-To include color from the command line:
-
-    ruby -r minitest/pride house_test.rb
-
-
 ## Source
 
-British nursery rhyme [http://en.wikipedia.org/wiki/This_Is_The_House_That_Jack_Built](http://en.wikipedia.org/wiki/This_Is_The_House_That_Jack_Built)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @kytrinyx
+
+### Contributed to by
+
+- @budmc29
+- @etrepum
+- @hilary
+- @Insti
+- @kotp
+- @pendletons
+- @tryantwit
+
+### Based on
+
+British nursery rhyme - http://en.wikipedia.org/wiki/This_Is_The_House_That_Jack_Built

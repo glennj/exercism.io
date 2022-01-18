@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require_relative 'perfect_numbers'
 
 class PerfectNumberTest < Minitest::Test
+  def skip; end
   def test_initialize_perfect_number
     assert_raises RuntimeError do
       PerfectNumber.classify(-1)
