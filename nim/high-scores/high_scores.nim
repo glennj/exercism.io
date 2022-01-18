@@ -11,5 +11,4 @@ proc personalTopThree*(scores: seq[int]): seq[int] =
       result.add scoresSorted[i]
   except IndexError:
     discard
-  # or
-  #scores.sorted.reversed[0 ..< 3.min(scores.len)]
+
