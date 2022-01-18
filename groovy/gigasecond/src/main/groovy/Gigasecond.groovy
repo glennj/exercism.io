@@ -6,11 +6,11 @@ class Gigasecond {
 
     static final int GIGASECOND = 10**9
 
-    def add(LocalDate date) {
+    static add(LocalDate date) {
         add(LocalDateTime.of(date, LocalTime.MIDNIGHT))
     }
 
-    def add(LocalDateTime datetime) {
+    static add(LocalDateTime datetime) {
         datetime.plusSeconds(GIGASECOND)
     }
 }

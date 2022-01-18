@@ -1,5 +1,10 @@
 # Binary Search
 
+Welcome to Binary Search on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement a binary search algorithm.
 
 Searching a sorted collection is a common task. A dictionary is a sorted
@@ -34,22 +39,17 @@ A binary search halves the number of items to check with each iteration,
 so locating an item (or determining its absence) takes logarithmic time.
 A binary search is a dichotomic divide and conquer search algorithm.
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
 ## Source
 
-Wikipedia [http://en.wikipedia.org/wiki/Binary_search_algorithm](http://en.wikipedia.org/wiki/Binary_search_algorithm)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @mattmoss
+
+### Contributed to by
+
+- @amscotti
+- @sjwarner-bp
+
+### Based on
+
+Wikipedia - http://en.wikipedia.org/wiki/Binary_search_algorithm

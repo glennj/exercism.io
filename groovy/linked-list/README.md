@@ -1,5 +1,10 @@
 # Linked List
 
+Welcome to Linked List on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement a doubly linked list.
 
 Like an array, a linked list is a simple linear data structure. Several
@@ -27,22 +32,14 @@ empty list.
 
 If you want to know more about linked lists, check [Wikipedia](https://en.wikipedia.org/wiki/Linked_list).
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
 ## Source
 
-Classic computer science topic
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @amscotti
+- @ikhadykin
+- @Raibaz
+
+### Based on
+
+Classic computer science topic

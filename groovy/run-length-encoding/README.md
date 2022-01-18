@@ -1,5 +1,10 @@
 # Run Length Encoding
 
+Welcome to Run Length Encoding on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement run-length encoding and decoding.
 
 Run-length encoding (RLE) is a simple form of data compression, where runs
@@ -23,22 +28,12 @@ the letters A through Z (either lower or upper case) and whitespace. This way
 data to be encoded will never contain any numbers and numbers inside data to
 be decoded always represent the count for the following character.
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
 ## Source
 
-Wikipedia [https://en.wikipedia.org/wiki/Run-length_encoding](https://en.wikipedia.org/wiki/Run-length_encoding)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @amscotti
+
+### Based on
+
+Wikipedia - https://en.wikipedia.org/wiki/Run-length_encoding

@@ -9,5 +9,6 @@ class IsbnVerifier {
         }
         sum += isbn[9] == "X" ? 10 : isbn[9].toInteger()
         sum % 11 == 0
+
     }
 }

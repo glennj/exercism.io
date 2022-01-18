@@ -1,5 +1,10 @@
 # Roman Numerals
 
+Welcome to Roman Numerals on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Write a function to convert from normal numbers to Roman Numerals.
 
 The Romans were a clever bunch. They conquered most of Europe and ruled
@@ -42,22 +47,17 @@ In Roman numerals 1990 is MCMXC:
 
 See also: http://www.novaroma.org/via_romana/numbers.html
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
 ## Source
 
-The Roman Numeral Kata [http://codingdojo.org/cgi-bin/index.pl?KataRomanNumerals](http://codingdojo.org/cgi-bin/index.pl?KataRomanNumerals)
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @alexanderific
+- @amscotti
+- @Dispader
+- @ikhadykin
+- @kytrinyx
+- @sjwarner-bp
+
+### Based on
+
+The Roman Numeral Kata - http://codingdojo.org/cgi-bin/index.pl?KataRomanNumerals

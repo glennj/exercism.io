@@ -1,5 +1,10 @@
 # Series
 
+Welcome to Series on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given a string of digits, output all the contiguous substrings of length `n` in
 that string in the order that they appear.
 
@@ -20,22 +25,12 @@ whatever you get.
 Note that these series are only required to occupy *adjacent positions*
 in the input; the digits need not be *numerically consecutive*.
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
 ## Source
 
-A subset of the Problem 8 at Project Euler [http://projecteuler.net/problem=8](http://projecteuler.net/problem=8)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @amscotti
+
+### Based on
+
+A subset of the Problem 8 at Project Euler - http://projecteuler.net/problem=8

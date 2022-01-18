@@ -1,5 +1,10 @@
 # Atbash Cipher
 
+Welcome to Atbash Cipher on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Create an implementation of the atbash cipher, an ancient encryption system created in the Middle East.
 
 The Atbash cipher is a simple substitution cipher that relies on
@@ -28,22 +33,12 @@ things based on word boundaries.
 - Decoding `gvhg` gives `test`
 - Decoding `gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt` gives `thequickbrownfoxjumpsoverthelazydog`
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
 ## Source
 
-Wikipedia [http://en.wikipedia.org/wiki/Atbash](http://en.wikipedia.org/wiki/Atbash)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @amscotti
+
+### Based on
+
+Wikipedia - http://en.wikipedia.org/wiki/Atbash

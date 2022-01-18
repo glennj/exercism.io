@@ -1,5 +1,10 @@
 # Grains
 
+Welcome to Grains on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Calculate the number of grains of wheat on a chessboard given that the number
 on each square doubles.
 
@@ -26,22 +31,16 @@ are some additional things you could try:
 Then please share your thoughts in a comment on the submission. Did this
 experiment make the code better? Worse? Did you learn anything from it?
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
 ## Source
 
-JavaRanch Cattle Drive, exercise 6 [http://www.javaranch.com/grains.jsp](http://www.javaranch.com/grains.jsp)
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @alexanderific
+- @amscotti
+- @ikhadykin
+- @kytrinyx
+- @sjwarner-bp
+
+### Based on
+
+JavaRanch Cattle Drive, exercise 6 - http://www.javaranch.com/grains.jsp

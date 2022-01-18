@@ -1,5 +1,10 @@
 # All Your Base
 
+Welcome to All Your Base on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Convert a number, represented as a sequence of digits in one base, to any other base.
 
 Implement general base conversion. Given a number in base **a**,
@@ -31,19 +36,8 @@ I think you got the idea!
 
 *Yes. Those three numbers above are exactly the same. Congratulations!*
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
+## Source
 
-Run the tests by executing the test script.
+### Created by
 
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @amscotti

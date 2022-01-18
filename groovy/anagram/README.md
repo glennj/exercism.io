@@ -1,5 +1,10 @@
 # Anagram
 
+Welcome to Anagram on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 An anagram is a rearrangement of letters to form a new word.
 Given a word and a list of candidates, select the sublist of anagrams of the given word.
 
@@ -7,22 +12,12 @@ Given `"listen"` and a list of candidates like `"enlists" "google"
 "inlets" "banana"` the program should return a list containing
 `"inlets"`.
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
 ## Source
 
-Inspired by the Extreme Startup game [https://github.com/rchatley/extreme_startup](https://github.com/rchatley/extreme_startup)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @amscotti
+
+### Based on
+
+Inspired by the Extreme Startup game - https://github.com/rchatley/extreme_startup

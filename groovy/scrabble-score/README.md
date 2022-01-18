@@ -1,6 +1,11 @@
 # Scrabble Score
 
-Given a word, compute the scrabble score for that word.
+Welcome to Scrabble Score on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
+Given a word, compute the Scrabble score for that word.
 
 ## Letter Values
 
@@ -39,22 +44,17 @@ And to total:
 - You can play a double or a triple letter.
 - You can play a double or a triple word.
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
 ## Source
 
-Inspired by the Extreme Startup game [https://github.com/rchatley/extreme_startup](https://github.com/rchatley/extreme_startup)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @mattmoss
+
+### Contributed to by
+
+- @amscotti
+- @sjwarner-bp
+
+### Based on
+
+Inspired by the Extreme Startup game - https://github.com/rchatley/extreme_startup

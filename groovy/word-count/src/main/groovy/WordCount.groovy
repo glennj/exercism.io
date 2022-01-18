@@ -6,12 +6,10 @@ class WordCount {
         this.sentence = s
     }
 
-    def wordCount() {
+    def countWords() {
         def words = this.sentence
             .toLowerCase()
             .findAll("\\p{Alnum}+('\\p{Alnum}+)?")
-            //.groupBy { it }
-            //.collectEntries { key, val -> [key, val.size()] }
             .countBy { it }
     }
 }

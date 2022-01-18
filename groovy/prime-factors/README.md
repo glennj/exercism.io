@@ -1,5 +1,10 @@
 # Prime Factors
 
+Welcome to Prime Factors on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Compute the prime factors of a given natural number.
 
 A prime number is only evenly divisible by itself and 1.
@@ -29,22 +34,12 @@ You can check this yourself:
 - = 60
 - Success!
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
 ## Source
 
-The Prime Factors Kata by Uncle Bob [http://butunclebob.com/ArticleS.UncleBob.ThePrimeFactorsKata](http://butunclebob.com/ArticleS.UncleBob.ThePrimeFactorsKata)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @amscotti
+
+### Based on
+
+The Prime Factors Kata by Uncle Bob - http://butunclebob.com/ArticleS.UncleBob.ThePrimeFactorsKata

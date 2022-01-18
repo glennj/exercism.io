@@ -1,5 +1,10 @@
 # Secret Handshake
 
+Welcome to Secret Handshake on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 > There are 10 types of people in the world: Those who understand
 > binary, and those who don't.
 
@@ -28,22 +33,16 @@ Given the input 19, the function would return the array
 Notice that the addition of 16 (10000 in binary)
 has caused the array to be reversed.
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
 ## Source
 
-Bert, in Mary Poppins [http://www.imdb.com/title/tt0058331/quotes/qt0437047](http://www.imdb.com/title/tt0058331/quotes/qt0437047)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @ikhadykin
+
+### Contributed to by
+
+- @amscotti
+
+### Based on
+
+Bert, in Mary Poppins - http://www.imdb.com/title/tt0058331/quotes/qt0437047

@@ -21,6 +21,7 @@ class RomanNumeralsSpec extends Specification {
         9      || 'IX'
         27     || 'XXVII'
         48     || 'XLVIII'
+        49     || 'XLIX'
         59     || 'LIX'
         93     || 'XCIII'
         141    || 'CXLI'
@@ -29,7 +30,6 @@ class RomanNumeralsSpec extends Specification {
         575    || 'DLXXV'
         911    || 'CMXI'
         1024   || 'MXXIV'
-        1888   || 'MDCCCLXXXVIII'
         3000   || 'MMM'
     }
 

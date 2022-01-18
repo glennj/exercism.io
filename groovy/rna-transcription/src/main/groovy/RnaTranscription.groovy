@@ -4,8 +4,8 @@ class RnaTranscription {
         'G':'C', 'C':'G', 'T':'A', 'A':'U'
     ].withDefault { throw new IllegalArgumentException() }
 
-    def ofDNA(strand) {
-        strand.inject("") { rna, nucleotide ->
+    static toRna(dna) {
+        dna.inject("") { rna, nucleotide ->
             rna + map[nucleotide]
         }
     }

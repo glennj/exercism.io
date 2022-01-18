@@ -8,17 +8,17 @@ class PhoneNumber {
 
     PhoneNumber(String input) {
         def m = input.replaceAll('\\D', '') =~ regex
-        if (m) {
-            areaCode = m.group(1)
-            exchange = m.group(2)
-            last4 = m.group(3)
-        }
-        else {
-            areaCode = '000'
-            exchange = '000'
-            last4 = '0000'
-        }
-        number = areaCode + exchange + last4
+        if (! m)
+            throw new Exception('Invalid phone number')
+
+        areaCode = m.group(1)
+        exchange = m.group(2)
+        last4 = m.group(3)
+    }
+
+    static clean(input) {
+        def p = new PhoneNumber(input)
+        return p.areaCode + p.exchange + p.last4
     }
 
     String toString() {

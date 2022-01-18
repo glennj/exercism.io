@@ -1,5 +1,10 @@
 # Accumulate
 
+Welcome to Accumulate on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement the `accumulate` operation, which, given a collection and an
 operation to perform on each element of the collection, returns a new
 collection containing the result of applying that operation to each element of
@@ -25,22 +30,12 @@ Keep your hands off that collect/map/fmap/whatchamacallit functionality
 provided by your standard library!
 Solve this one yourself using other basic tools instead.
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
 ## Source
 
-Conversation with James Edward Gray II [https://twitter.com/jeg2](https://twitter.com/jeg2)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @amscotti
+
+### Based on
+
+Conversation with James Edward Gray II - https://twitter.com/jeg2

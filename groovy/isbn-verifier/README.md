@@ -1,4 +1,9 @@
-# ISBN Verifier
+# Isbn Verifier
+
+Welcome to Isbn Verifier on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 The [ISBN-10 verification process](https://en.wikipedia.org/wiki/International_Standard_Book_Number) is used to validate book identification
 numbers. These normally contain dashes and look like: `3-598-21508-8`
@@ -40,22 +45,13 @@ Now, it's even trickier since the check digit of an ISBN-10 may be 'X' (represen
 * Generate a valid ISBN-13 from the input ISBN-10 (and maybe verify it again with a derived verifier).
 
 * Generate valid ISBN, maybe even from a given starting ISBN.
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
 
 ## Source
 
-Converting a string into a number and some basic processing utilizing a relatable real world example. [https://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_check_digit_calculation](https://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_check_digit_calculation)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @amscotti
+
+### Based on
+
+Converting a string into a number and some basic processing utilizing a relatable real world example. - https://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_check_digit_calculation

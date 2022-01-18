@@ -5,12 +5,9 @@ class ResistorColorDuo {
         'green', 'blue', 'violet', 'grey', 'white'
     ]
     
-    /* from the requirements:
-     * "The program will take two colors as input, and output
-     * the correct number."
-     */
+    // only interested in first 2 elements
     static int value(List<String> colorsInput) {
-        10 * colors.indexOf(colorsInput.first()) +
-             colors.indexOf(colorsInput.last())
+        10 * colors.indexOf(colorsInput.pop()) +
+             colors.indexOf(colorsInput.pop())
     }
 }

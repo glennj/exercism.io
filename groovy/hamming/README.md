@@ -1,5 +1,10 @@
 # Hamming
 
+Welcome to Hamming on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Calculate the Hamming Distance between two DNA strands.
 
 Your body is made up of cells that contain DNA. Those cells regularly wear out and need replacing, which they achieve by dividing into daughter cells. In fact, the average human body experiences about 10 quadrillion cell divisions in a lifetime!
@@ -16,29 +21,22 @@ They have 7 differences, and therefore the Hamming Distance is 7.
 
 The Hamming Distance is useful for lots of things in science, not just biology, so it's a nice phrase to be familiar with :)
 
-# Implementation notes
-
 The Hamming distance is only defined for sequences of equal length, so
 an attempt to calculate it between sequences of different lengths should
 not work. The general handling of this situation (e.g., raising an
 exception vs returning a special value) may differ between languages.
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
 ## Source
 
-The Calculating Point Mutations problem at Rosalind [http://rosalind.info/problems/hamm/](http://rosalind.info/problems/hamm/)
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @alexanderific
+- @amscotti
+- @Dispader
+- @ikhadykin
+- @kytrinyx
+- @sjwarner-bp
+
+### Based on
+
+The Calculating Point Mutations problem at Rosalind - http://rosalind.info/problems/hamm/

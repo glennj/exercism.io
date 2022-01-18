@@ -1,5 +1,10 @@
 # Hello World
 
+Welcome to Hello World on Exercism's Groovy Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 The classical introductory exercise. Just say "Hello, World!".
 
 ["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is
@@ -14,22 +19,19 @@ The objectives are simple:
 
 If everything goes well, you will be ready to fetch your first real exercise.
 
-For installation and learning resources, refer to the
-[Groovy resources page](https://exercism.io/tracks/groovy/resources).
-
-Run the tests by executing the test script.
-
-```sh
-$ gradle test
-```
-
-After the first test(s) pass, continue by commenting out or removing the `@Ignore` annotations prepending other tests.
-
-When all tests pass, congratulations!
-
 ## Source
 
-This is an exercise to introduce users to using Exercism [http://en.wikipedia.org/wiki/%22Hello,_world!%22_program](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @duffn
+
+### Contributed to by
+
+- @alexanderific
+- @amscotti
+- @Dispader
+- @kytrinyx
+
+### Based on
+
+This is an exercise to introduce users to using Exercism - http://en.wikipedia.org/wiki/%22Hello,_world!%22_program
