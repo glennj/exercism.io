@@ -1,7 +1,7 @@
 import re
 
 
-def grep(pattern, files, flags=''):
+def grep(pattern, flags, files):
     match, output_fmt, opt_l = process_args(pattern, files, flags)
     results = []
     for file in files:
@@ -25,14 +25,11 @@ def process_args(pattern, files, flags):
 
     # how to match the pattern against the line
     if '-x' in opts:
-        if '-i' in opts:
-            match = lambda line: pattern.lower() == line.lower()
-        else:
-            match = lambda line: pattern == line
-    else:
-        re_opt = re.I if '-i' in opts else 0
-        patt = re.compile(pattern, re_opt)
-        match = lambda line: re.search(patt, line)
+        pattern = f'^{pattern}$'
+    
+    re_opt = re.I if '-i' in opts else 0
+    patt = re.compile(pattern, re_opt)
+    match = lambda line: re.search(patt, line)
 
     if '-v' in opts:
         pos_match = match

@@ -297,7 +297,7 @@ Implement the `make_word_groups(<vocab_words>)` function that takes a `vocab_wor
 
 `ness` is a common suffix that means _'state of being'_.
  In this activity, your sister needs to find the original root word by removing the `ness` suffix.
-  But of course there are pesky spelling rules: If the root word originally ended in a consonant followed by a 'y', then the 'y' was changed to to 'i'.
+  But of course there are pesky spelling rules: If the root word originally ended in a consonant followed by a 'y', then the 'y' was changed to 'i'.
  Removing 'ness' needs to restore the 'y' in those root words. e.g. `happiness` --> `happi` --> `happy`.
 
 Implement the `remove_suffix_ness(<word>)` function that takes in a word `str`, and returns the root word without the `ness` suffix.
@@ -314,21 +314,21 @@ Implement the `remove_suffix_ness(<word>)` function that takes in a word `str`, 
 ## 4. Extract and transform a word
 
 Suffixes are often used to change the part of speech a word has.
- A common practice in English is "verbing" or "verbifying" -- where a adjective _becomes_ a verb by adding an `en` suffix.
+ A common practice in English is "verbing" or "verbifying" -- where an adjective _becomes_ a verb by adding an `en` suffix.
 
 In this task, your sister is going to practice "verbing" words by extracting an adjective from a sentence and turning it into a verb.
  Fortunately, all the words that need to be transformed here are "regular" - they don't need spelling changes to add the suffix.
 
-Implement the `noun_to_verb(<sentence>, <index>)` function that takes two parameters.
+Implement the `adjective_to_verb(<sentence>, <index>)` function that takes two parameters.
  A `sentence` using the vocabulary word, and the `index` of the word, once that sentence is split apart.
  The function should return the extracted adjective as a verb.
 
 
 ```python
->>> noun_to_verb('I need to make that bright.', -1 )
+>>> adjective_to_verb('I need to make that bright.', -1 )
 'brighten'
 
->>> noun_to_verb('It got dark as the sun set.', 2)
+>>> adjective_to_verb('It got dark as the sun set.', 2)
 'darken'
 ```
 

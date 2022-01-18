@@ -1,7 +1,7 @@
 import math
 
 
-def encode(plain_text):
+def cipher_text(plain_text):
     text = ''.join(filter(str.isalnum, plain_text.lower()))
     size = math.ceil(math.sqrt(len(text)))
     if size == 0: return ''

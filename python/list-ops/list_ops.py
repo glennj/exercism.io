@@ -40,11 +40,11 @@ def reverse(xs):
     return foldl(unshift, xs, [])
 
 
-def map_clone(f, xs):
+def map(f, xs):
     return foldl(lambda acc, x: push(acc, f(x)), xs, [])
 
 
-def filter_clone(f, xs):
+def filter(f, xs):
     return foldl(
         lambda acc, x: push(acc, x) if f(x) else acc,
         xs,

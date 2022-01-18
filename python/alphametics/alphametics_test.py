@@ -11,47 +11,39 @@ class AlphameticsTest(unittest.TestCase):
     def test_puzzle_with_three_letters(self):
         self.assertEqual(solve("I + BB == ILL"), {"I": 1, "B": 9, "L": 0})
 
-    #@unittest.skip  
     def test_solution_must_have_unique_value_for_each_letter(self):
         self.assertEqual(solve("A == B"), None)
 
-    #@unittest.skip  
     def test_leading_zero_solution_is_invalid(self):
         self.assertEqual(solve("ACA + DD == BD"), None)
 
-    #@unittest.skip  
     def test_puzzle_with_two_digits_final_carry(self):
         self.assertEqual(
             solve("A + A + A + A + A + A + A + A + A + A + A + B == BCC"),
             {"A": 9, "B": 1, "C": 0},
         )
 
-    #@unittest.skip  
     def test_puzzle_with_four_letters(self):
         self.assertEqual(solve("AS + A == MOM"), {"A": 9, "S": 2, "M": 1, "O": 0})
 
-    #@unittest.skip  
     def test_puzzle_with_six_letters(self):
         self.assertEqual(
             solve("NO + NO + TOO == LATE"),
             {"N": 7, "O": 4, "T": 9, "L": 1, "A": 0, "E": 2},
         )
 
-    #@unittest.skip  
     def test_puzzle_with_seven_letters(self):
         self.assertEqual(
             solve("HE + SEES + THE == LIGHT"),
             {"E": 4, "G": 2, "H": 5, "I": 0, "L": 1, "S": 9, "T": 7},
         )
 
-    #@unittest.skip  
     def test_puzzle_with_eight_letters(self):
         self.assertEqual(
             solve("SEND + MORE == MONEY"),
             {"S": 9, "E": 5, "N": 6, "D": 7, "M": 1, "O": 0, "R": 8, "Y": 2},
         )
 
-    #@unittest.skip  
     def test_puzzle_with_ten_letters(self):
         self.assertEqual(
             solve("AND + A + STRONG + OFFENSE + AS + A + GOOD == DEFENSE"),
