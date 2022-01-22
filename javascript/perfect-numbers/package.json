@@ -1,36 +1,31 @@
 {
-  "name": "exercism-javascript",
+  "name": "@exercism/javascript-perfect-numbers",
   "description": "Exercism exercises in Javascript.",
   "author": "Katrina Owen",
   "private": true,
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/exercism/javascript"
+    "url": "https://github.com/exercism/javascript",
+    "directory": "exercises/practice/perfect-numbers"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-syntax-bigint": "^7.7.4",
-    "@babel/preset-env": "^7.5.5",
-    "@types/jest": "^24.0.16",
-    "@types/node": "^12.6.8",
-    "babel-eslint": "^10.0.2",
-    "babel-jest": "^24.8.0",
-    "eslint": "^6.1.0",
-    "eslint-plugin-import": "^2.18.2",
-    "jest": "^24.8.0"
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-syntax-bigint": "^7.8.3",
+    "@babel/preset-env": "^7.15.0",
+    "@exercism/eslint-config-javascript": "^0.4.0",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.4.13",
+    "babel-jest": "^27.0.6",
+    "core-js": "^3.16.0",
+    "eslint": "^7.32.0",
+    "jest": "^26.6.3"
   },
-  "jest": {
-    "modulePathIgnorePatterns": [
-      "package.json"
-    ]
-  },
+  "dependencies": {},
   "scripts": {
     "test": "jest --no-cache ./*",
     "watch": "jest --no-cache --watch ./*",
-    "lint": "eslint .",
-    "lint-test": "eslint . && jest --no-cache ./* "
-  },
-  "license": "MIT",
-  "dependencies": {}
+    "lint": "eslint ."
+  }
 }

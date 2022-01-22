@@ -1,4 +1,4 @@
-import Board from './connect';
+import { Board } from './connect';
 
 describe('Judging a game of connect', () => {
   test('an empty board has no winner', () => {
@@ -13,26 +13,17 @@ describe('Judging a game of connect', () => {
   });
 
   test('X can win on a 1x1 board', () => {
-    const board = [
-      'X',
-    ];
+    const board = ['X'];
     expect(new Board(board).winner()).toEqual('X');
   });
 
   test('O can win on a 1x1 board', () => {
-    const board = [
-      'O',
-    ];
+    const board = ['O'];
     expect(new Board(board).winner()).toEqual('O');
   });
 
   test('only edges does not make a winner', () => {
-    const board = [
-      'O O O X',
-      ' X . . X',
-      '  X . . X',
-      '   X O O O',
-    ];
+    const board = ['O O O X', ' X . . X', '  X . . X', '   X O O O'];
     expect(new Board(board).winner()).toEqual('');
   });
 

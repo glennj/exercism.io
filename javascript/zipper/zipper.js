@@ -1,6 +1,6 @@
 const deepCopy = obj => JSON.parse(JSON.stringify(obj));
 
-class Zipper {
+export class Zipper {
   constructor(tree, path = []) {
     this.tree = tree;
     this.path = path;
@@ -38,18 +38,16 @@ class Zipper {
 
   setValue(value) {
     this.tree.value = value;
-    return this;
+    return new Zipper(this.toTree());
   }
 
   setLeft(tree) {
     this.tree.left = tree;
-    return this;
+    return new Zipper(this.toTree());
   }
 
   setRight(tree) {
     this.tree.right = tree;
-    return this;
+    return new Zipper(this.toTree());
   }
 }
-
-module.exports = Zipper;

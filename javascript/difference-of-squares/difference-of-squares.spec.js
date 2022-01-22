@@ -1,14 +1,11 @@
-/* eslint-disable */
-
-import Squares from './difference-of-squares';
+import { Squares } from './difference-of-squares';
 
 describe('difference-of-squares', () => {
-    const squares1 = new Squares(1);
-    const squares5 = new Squares(5);
-    const squares100 = new Squares(100);
+  const squares1 = new Squares(1);
+  const squares5 = new Squares(5);
+  const squares100 = new Squares(100);
 
   describe('Square the sum of the numbers up to the given number', () => {
-
     test('square of sum 1', () => {
       expect(squares1.squareOfSum).toBe(1);
     });
@@ -20,11 +17,9 @@ describe('difference-of-squares', () => {
     test('square of sum 100', () => {
       expect(squares100.squareOfSum).toBe(25502500);
     });
-
   });
 
   describe('Sum the squares of the numbers up to the given number', () => {
-
     test('sum of squares 1', () => {
       expect(squares1.sumOfSquares).toBe(1);
     });
@@ -36,11 +31,9 @@ describe('difference-of-squares', () => {
     test('sum of squares 100', () => {
       expect(squares100.sumOfSquares).toBe(338350);
     });
-
   });
 
   describe('Subtract sum of squares from square of sums', () => {
-
     test('difference of squares 1', () => {
       expect(squares1.difference).toBe(0);
     });

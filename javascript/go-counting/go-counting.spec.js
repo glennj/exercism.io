@@ -2,18 +2,6 @@ import { GoCounting } from './go-counting';
 
 describe('Go Counting', () => {
   describe('getTerritory', () => {
-    test('Empty 1x1 board', () => {
-      const board = [' '];
-      const goCounting = new GoCounting(board);
-      const expectedTerritory = {
-        owner: 'NONE',
-        territory: [
-          [0, 0],
-        ],
-      };
-      expect(goCounting.getTerritory(0, 0)).toEqual(expectedTerritory);
-    });
-
     test('Black corner territory on 5x5 board', () => {
       const board = ['  B  ', ' B B ', 'B W B', ' W W ', '  W  '];
       const goCounting = new GoCounting(board);

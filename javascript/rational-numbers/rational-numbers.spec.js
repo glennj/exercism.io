@@ -1,6 +1,5 @@
 import { Rational } from './rational-numbers';
 
-
 describe('Addition', () => {
   test('Add two positive rational numbers', () => {
     const expected = new Rational(7, 6);
@@ -151,18 +150,16 @@ describe('Exponentiation of a rational number', () => {
 describe('Exponentiation of a real number to a rational number', () => {
   test('Raise a real number to a positive rational number', () => {
     const expected = 16.0;
-    // expect(new Rational(4, 3).expreal(8)).toEqual(expected);
-    expect(new Rational(4, 3).expreal(8)).toBeCloseTo(expected);
+    expect(new Rational(4, 3).expreal(8)).toEqual(expected);
   });
 
   test('Raise a real number to a negative rational number', () => {
-    const expected = 0.3333333333333333;
-    expect(new Rational(-1, 2).expreal(9)).toBeCloseTo(expected);
+    expect(new Rational(-1, 2).expreal(9)).toBeCloseTo(0.33, 2);
   });
 
   test('Raise a real number to a zero rational number', () => {
     const expected = 1.0;
-    expect(new Rational(0, 1).expreal(2)).toBeCloseTo(expected);
+    expect(new Rational(0, 1).expreal(2)).toEqual(expected);
   });
 });
 

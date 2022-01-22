@@ -48,7 +48,7 @@ describe('front door response', () => {
       'Compilers intensily bestow',
       'On commencing without ego',
       'Different processes ajar',
-      'Exit with zero quick',
+      'Eit with zero quick',
     ];
 
     const expectedLetters = ['C', 'O', 'D', 'E'];
@@ -77,7 +77,7 @@ describe('back door response', () => {
       'Compilers intensily bestow',
       'On commencing without ego',
       'Different processes ajar',
-      'Exit with zero quick',
+      'Eit with zero quick',
     ];
 
     const actualLetters = recite(CODE_WORK, backDoorResponse);

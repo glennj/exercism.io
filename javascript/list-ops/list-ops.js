@@ -1,6 +1,6 @@
 // This class will have horrible performance!
 
-class List {
+export class List {
   constructor(elements) {
     this.values = [...(elements || [])];
   }
@@ -11,7 +11,7 @@ class List {
     return i;
   }
 
-  // `append` modified `this`
+  // `append` modifies `this`
   append(other) {
     let i = this.length();
     let j = 0;
@@ -24,8 +24,11 @@ class List {
   }
 
   // `concat` does not modify `this`
-  concat(other) {
-    return new List().append(this).append(other);
+  concat(listOfLists) {
+    return listOfLists.foldl(
+      (result, aList) => result.append(aList),
+      new List().append(this)
+    );
   }
 
   push(element) { this.values[this.length()] = element; }
@@ -72,5 +75,3 @@ class List {
     return this.reverse().foldl(func, seed);
   }
 }
-
-module.exports = List;

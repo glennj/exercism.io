@@ -1,4 +1,4 @@
-import ComplexNumber from './complex-numbers.js';
+import { ComplexNumber } from './complex-numbers';
 
 describe('Complex numbers', () => {
   test('Real part of a purely real number', () => {
@@ -190,7 +190,7 @@ describe('Complex numbers', () => {
     expect(actual).toEqual(expected);
   });
 
-  test('Euler\'s identity/formula', () => {
+  test("Euler's identity/formula", () => {
     const expected = new ComplexNumber(-1, 0);
     const actual = new ComplexNumber(0, Math.PI).exp;
 
@@ -209,6 +209,14 @@ describe('Complex numbers', () => {
   test('Exponential of a purely real number', () => {
     const expected = new ComplexNumber(Math.E, 0);
     const actual = new ComplexNumber(1, 0).exp;
+
+    expect(actual.real).toBeCloseTo(expected.real);
+    expect(actual.imag).toBeCloseTo(expected.imag);
+  });
+
+  test('Exponential of a number with real and imaginary part', () => {
+    const expected = new ComplexNumber(-2, 0);
+    const actual = new ComplexNumber(Math.LN2, Math.PI).exp;
 
     expect(actual.real).toBeCloseTo(expected.real);
     expect(actual.imag).toBeCloseTo(expected.imag);

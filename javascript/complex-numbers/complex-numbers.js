@@ -1,7 +1,7 @@
 /* eslint-disable  no-multi-spaces, indent */
 /* eslint no-underscore-dangle: ["error", { "allowAfterThis": true }] */
 
-class ComplexNumber {
+export class ComplexNumber {
   constructor(a, b) {
     this.real = a;
     this.imag = b;
@@ -54,5 +54,3 @@ class ComplexNumber {
     return this._exp;
   }
 }
-
-module.exports = ComplexNumber;

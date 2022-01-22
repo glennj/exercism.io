@@ -1,4 +1,4 @@
-class Forth {
+export class Forth {
   constructor() {
     this.stack = [];
     this.macros = {};
@@ -44,12 +44,21 @@ class Forth {
 
   recordMacro(words) {
     const macroName = words.shift();
-    if (Number.isInteger(Number(macroName))) throw new Error('Invalid definition');
-    const idx = words.indexOf(';');
-    if (idx === -1) throw new Error('Unterminated macro');
-    this.macros[macroName] = words.splice(0, idx);
-    words.shift(); // remove the semicolon
+    if (Number.isInteger(Number(macroName)))
+      throw new Error('Invalid definition');
+
+    let macro = [];
+    while (words[0] !== ';') {
+      if (words.length === 0)
+        throw new Error('unterminated macro, missing semicolon');
+
+      const word = words.shift();
+      if (this.macros[word] !== undefined)
+        macro = macro.concat(this.macros[word]);
+      else
+        macro.push(word);
+    }
+    words.shift(); // shift off the semicolon
+    this.macros[macroName] = macro;
   }
 }
-
-module.exports = Forth;

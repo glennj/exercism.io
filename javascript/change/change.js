@@ -51,7 +51,7 @@ const makeChange = (S, d, n) => {
   return result;
 };
 
-class Change {
+export class Change {
   calculate(coins, amount) {
     if (amount < 0) throw new Error('Negative totals are not allowed.');
     if (amount === 0) return [];
@@ -59,5 +59,3 @@ class Change {
     return makeChange(change(amount, coins), coins, amount);
   }
 }
-
-module.exports = Change;

@@ -29,36 +29,3 @@ class BinarySearch {
 }
 
 module.exports = BinarySearch;
-
-/* community
- *
- * `isSorted` check
-
-      function isSorted(array) {
-          return array.every(function(n, i, a) {
-              return i == 0 || n >= a[i - 1]
-          })
-      }
-
- *
- * make `indexOf` itself recursive
- *
- * or, non-recursive
-
-      indexOf(item) {
-        let mid
-        ,   left  = 0
-        ,   right = this.array.length;
-
-        while (right > left) {
-          mid = Math.floor((left+right)/2);
-          if (this.array[mid] === item) return mid;
-
-          [left, right] = (item > this.array[mid])
-                        ? [mid+1, right]
-                        : [left, mid-1];
-        }
-        return (this.array[right] === item) ? right : -1;
-      }
- *
- */

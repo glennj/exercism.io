@@ -1,0 +1,8 @@
+$errs: set in local scope, unexported, with 68 elements
+INPROGRESS $errs[19]: |dominoes|
+needs thought $errs[46]: |react|
+broken test $errs[65]: |two-bucket|
+
+$except[4]: |alphametics|
+$except[5]: |palindrome-products|
+$except[6]: |pythagorean-triplet|

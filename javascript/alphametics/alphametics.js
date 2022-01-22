@@ -1,6 +1,3 @@
-/* eslint-disable  no-restricted-syntax, no-param-reassign */
-/* eslint "space-unary-ops": [2, {"words": true, "nonwords": false, "overrides": {"!": true}}] */
-
 /* A brute force solution.
  * Expect slow performance when the number of distinct letters grows.
  */
@@ -31,11 +28,14 @@ const mapDigits = (letters, digitStr) => [...letters]
 // transliterate a word into a number
 const digitize = (word, map) => [...word].reduce((a, b) => a.concat(map[b]), '');
 
-const solve = (equation) => {
+export const solve = (equation, force = false) => {
   const words = equation.match(/[A-Z]+/g);
   const letters = [...new Set([...equation.replace(/[^A-Z]/g, '')]).values()].join('');
   if (letters.length > 10) {
     throw new Error('Cannot solve in base 10: too many letters');
+  }
+  if (letters.length > 7 && !force) {
+    throw new Error(`This is too slow for solution with ${letters.length} letters`);
   }
 
   for (const digitStr of partialPermutations(letters.length)) {
@@ -53,5 +53,3 @@ const solve = (equation) => {
   }
   return null; // no solution found
 };
-
-module.exports = { solve };

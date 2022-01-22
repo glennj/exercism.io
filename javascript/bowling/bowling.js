@@ -1,4 +1,4 @@
-class Bowling {
+export class Bowling {
   constructor() {
     this.currentFrame = [];
     this.frames = [];
@@ -69,5 +69,3 @@ class Bowling {
     return score;
   }
 }
-
-module.exports = Bowling;

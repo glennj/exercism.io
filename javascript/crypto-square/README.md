@@ -1,5 +1,10 @@
 # Crypto Square
 
+Welcome to Crypto Square on Exercism's JavaScript Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement the classic method for composing secret messages called a square code.
 
 Given an English text, output the encoded version of that text.
@@ -7,7 +12,7 @@ Given an English text, output the encoded version of that text.
 First, the input is normalized: the spaces and punctuation are removed
 from the English text and the message is downcased.
 
-Then, the normalized characters are broken into rows.  These rows can be
+Then, the normalized characters are broken into rows. These rows can be
 regarded as forming a rectangle when printed with intervening newlines.
 
 For example, the sentence
@@ -22,7 +27,7 @@ is normalized to:
 "ifmanwasmeanttostayonthegroundgodwouldhavegivenusroots"
 ```
 
-The plaintext should be organized in to a rectangle.  The size of the
+The plaintext should be organized in to a rectangle. The size of the
 rectangle (`r x c`) should be decided by the length of the message,
 such that `c >= r` and `c - r <= 1`, where `c` is the number of columns
 and `r` is the number of rows.
@@ -59,7 +64,7 @@ chunks with a single trailing space.
 ```
 
 Notice that were we to stack these, we could visually decode the
-cyphertext back in to the original message:
+ciphertext back in to the original message:
 
 ```text
 "imtgdvs"
@@ -72,38 +77,21 @@ cyphertext back in to the original message:
 "sseoau "
 ```
 
-## Setup
-
-Go through the setup instructions for Javascript to
-install the necessary dependencies:
-
-[https://exercism.io/tracks/javascript/installation](https://exercism.io/tracks/javascript/installation)
-
-## Requirements
-
-Install assignment dependencies:
-
-```bash
-$ npm install
-```
-
-## Making the test suite pass
-
-Execute the tests with:
-
-```bash
-$ npm test
-```
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by
-changing `xtest` to `test`.
-
-
 ## Source
 
-J Dalbey's Programming Practice problems [http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html](http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @matthewmorgan
+
+### Contributed to by
+
+- @diego-caceres
+- @ntshcalleia
+- @rchavarria
+- @ryanplusplus
+- @SleeplessByte
+- @tejasbubane
+
+### Based on
+
+J Dalbey's Programming Practice problems - http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html

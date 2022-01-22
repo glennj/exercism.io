@@ -12,32 +12,16 @@ numbers[7] = 'seven'; numbers[17] = 'seventeen'; numbers[70] = 'seventy';
 numbers[8] = 'eight'; numbers[18] = 'eightteen'; numbers[80] = 'eighty';
 numbers[9] = 'nine';  numbers[19] = 'nineteen';  numbers[90] = 'ninety';
 
-// const group = ['', ' thousand', ' million', ' billion', ' trillion'];
+const group = ['', ' thousand', ' million', ' billion', ' trillion'];
 
 const divmod = (num, div) => [Math.floor(num / div), num % div];
 
-class Say {
-  say(n) {
-    if (n < 100)  return numbers[n] || `${this.say(n - (n % 10))}-${this.say(n % 10)}`;
-    if (n < 1000) return this.sayAgain(n, 100,  'hundred');
-    if (n < 1e6)  return this.sayAgain(n, 1000, 'thousand');
-    if (n < 1e9)  return this.sayAgain(n, 1e6,  'million');
-    if (n < 1e12) return this.sayAgain(n, 1e9,  'billion');
-    return n;
-  }
-
-  sayAgain(n, div, group) {
-    const [number, remainder] = divmod(n, div);
-    return `${this.say(number)} ${group} ${remainder ? this.say(remainder) : ''}`;
-  }
-
+export class Say {
   inEnglish(n) {
     if (!Number.isInteger(n)) throw new Error();
     if (n < 0 || n > 999999999999) {
       throw new Error('Number must be between 0 and 999,999,999,999.');
     }
-    return this.say(n).replace(/\s+$/, '');
-    /*
     if (n === 0) return numbers[0];
     const words = [];
     let g = 0;
@@ -61,33 +45,5 @@ class Say {
       g += 1;
     } while (n > 0);
     return words.join(' ');
-    */
   }
 }
-
-module.exports = Say;
-
-/* community
- *
- * lovely recursive
-
-      function BadInput () {
-        throw new Error('Number must be between 0 and 999,999,999,999.')
-      }
-
-      function sayCompound (n, base, word) {
-        const rem = n % base
-        return [say((n - rem) / base), word, rem && say(rem)].filter(x => x).join(' ')
-      }
-
-      function say (n) {
-        if (n < 0) BadInput()
-        if (n < 100) return SMALL[n] || XTY[n] || `${say(n - n % 10)}-${say(n % 10)}`
-        if (n < 1000) return sayCompound(n, 100, 'hundred')
-        if (n < 1e6) return sayCompound(n, 1000, 'thousand')
-        if (n < 1e9) return sayCompound(n, 1e6, 'million')
-        if (n < 1e12) return sayCompound(n, 1e9, 'billion')
-        BadInput()
-      }
-
-*/

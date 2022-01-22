@@ -1,18 +1,26 @@
 /* eslint-disable  no-multi-spaces, lines-between-class-members */
 
-class Crypto {
+export class Crypto {
   constructor(plaintext) {
-    this.normalized = plaintext.replace(/[\W_]/g, '').toLowerCase();
-    const size = Math.ceil(Math.sqrt(this.normalized.length));
-    this.rows = this.normalized.match(new RegExp(`.{1,${size}}`, 'g'));
-    this.cols = this.rows[0].split('')
-      .map((_, i) => this.rows.map(row => row[i]).join(''));
+    this.text = plaintext;
   }
 
-  normalizePlaintext() { return this.normalized; }
-  size()               { return this.cols.length; }
-  plaintextSegments()  { return this.rows; }
-  ciphertext()         { return this.cols.join(''); }
-}
+  get ciphertext() {
+    const normalized = this.text
+      .replace(/[\W_]/g, '')
+      .toLowerCase();
 
-module.exports = Crypto;
+    if (normalized.length === 0)
+      return '';
+
+    const size = Math.ceil(Math.sqrt(normalized.length));
+    const rows = normalized
+      .match(new RegExp(`.{1,${size}}`, 'g'))
+      .map(row => row.padEnd(size));
+
+    const columns = rows[0].split('')
+      .map((_, i) => rows.map(row => row[i]).join(''));
+
+    return columns.join(' ');
+  }
+}

@@ -7,7 +7,7 @@ const isPrime = (n) => {
   return true;
 };
 
-export default class DiffieHellman {
+export class DiffieHellman {
   constructor(p, g) {
     if (p < 2 || g < 2) throw new Error();
     if (!isPrime(p) || !isPrime(g)) throw new Error();
@@ -15,12 +15,12 @@ export default class DiffieHellman {
     this.g = g;
   }
 
-  getPublicKeyFromPrivateKey(n) {
+  getPublicKey(n) {
     if (n < 2 || n >= this.p) throw new Error();
     return (this.g ** n) % this.p;
   }
 
-  getSharedSecret(a, b) {
-    return (b ** a) % this.p;
+  getSecret(yourPublicKey, myPrivateKey) {
+    return (yourPublicKey ** myPrivateKey) % this.p;
   }
 }

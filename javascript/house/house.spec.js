@@ -1,10 +1,8 @@
-import House from './house';
+import { House } from './house';
 
 describe('House', () => {
   test('verse one - the house that jack built', () => {
-    const lyrics = [
-      'This is the house that Jack built.',
-    ];
+    const lyrics = ['This is the house that Jack built.'];
     expect(House.verse(1)).toEqual(lyrics);
   });
 

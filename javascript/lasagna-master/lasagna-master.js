@@ -39,7 +39,7 @@ export function quantities(layers) {
 
 
 export function addSecretIngredient(friendsList, myList) {
-  // version mismatch: test runner vs laptop
+  // version mismatch
   // const secret = friendsList.at(-1);
   const secret = friendsList[friendsList.length-1];
   myList.push(secret);

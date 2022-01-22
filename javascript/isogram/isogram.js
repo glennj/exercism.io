@@ -9,16 +9,3 @@ export const isIsogram = (str) => {
     .forEach(c => freq[c] = (freq[c] || 0) + 1);
   return Object.values(freq).every(val => val === 1);
 };
-
-
-/* community
-
- * regex
-    return !/([A-Za-z]).*\1/.test(str)
-
- * compare size of a set of characters to size of string
- 
-    const stripped = word.toLowerCase().replace(/-| /g, '');
-    this.isogram = new Set(stripped).size === stripped.length;
-
- */

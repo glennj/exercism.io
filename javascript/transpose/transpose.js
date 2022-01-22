@@ -18,7 +18,7 @@ const padStrings = (a) => {
   return padded.reverse();
 };
 
-const transpose = (arrayOfStrings) => {
+export const transpose = (arrayOfStrings) => {
   const len = arrayOfStrings.length;
   if (len === 0) return [];
   const padded = padStrings(arrayOfStrings);
@@ -28,5 +28,3 @@ const transpose = (arrayOfStrings) => {
   });
   return result;
 };
-
-module.exports = transpose;

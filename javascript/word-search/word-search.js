@@ -16,7 +16,7 @@ class WordSearch {
     this.diag1 = this.buildDiag(this.dim.x, i => (i >= 1 - this.dim.x), -1);
     this.diag2 = this.buildDiag(0, i => (i <= 2 * this.dim.x - 1), +1);
   }
-
+ 
   buildDiag(start, end, step) {
     const diag = [];
     for (let i = start; end(i); i += step) {

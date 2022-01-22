@@ -1,34 +1,14 @@
-class ISBN {
-  constructor(str) {
-    this.chars = str.replace(/-/g, '').split('');
-    this.check = this.chars.pop();
-  }
+export function isValid(str) {
+  const chars = str.replace(/-/g, '').split('');
+  const check = chars.pop();
 
-  isValid() {
-    if (this.chars.length === 9
-        && this.chars.every(c => /\d/.test(c))
-        && /[\dX]/.test(this.check)
-    ) {
-      const digits = this.chars.map(d => parseInt(d, 10));
-      digits.push(this.check === 'X' ? 10 : parseInt(this.check, 10));
-      return digits.reduce((sum, d, i) => sum + d * (10 - i), 0) % 11 === 0;
-    }
-    return false;
-  }
+  if (chars.length !== 9
+      || !chars.every(c => /\d/.test(c))
+      || !/[\dX]/.test(check)
+  ) return false;
+
+  const digits = chars.map(d => parseInt(d, 10));
+  digits.push(check === 'X' ? 10 : parseInt(check, 10));
+  const sum = digits.reduce((sum, d, i) => sum + d * (10 - i), 0)
+  return sum % 11 === 0;
 }
-
-module.exports = ISBN;
-
-/* community
- *
- * taking advantage of NaN
-
-      isValid() {
-        if (this.chars.length !== 10) return false;
-        const check = this.chars.pop();
-        this.chars.push(check.replace('X', '10'));
-        return this.chars.reduce((sum, d, i) => sum + d * (10 - i), 0) % 11 === 0;
-      }
-
-
- */

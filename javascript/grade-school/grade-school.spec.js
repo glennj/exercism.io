@@ -1,10 +1,10 @@
-import School from './grade-school';
+import { GradeSchool } from './grade-school';
 
 describe('School', () => {
   let school;
 
   beforeEach(() => {
-    school = new School();
+    school = new GradeSchool();
   });
 
   test('a new school has an empty roster', () => {
@@ -75,5 +75,12 @@ describe('School', () => {
     school.grade(2).push('Oops.');
     const expectedDb = { 2: ['Aimee'] };
     expect(school.roster()).toEqual(expectedDb);
+  });
+
+  test("a student can't be in two different grades", () => {
+    school.add('Aimee', 2);
+    school.add('Aimee', 1);
+
+    expect(school.grade(2)).toEqual([]);
   });
 });

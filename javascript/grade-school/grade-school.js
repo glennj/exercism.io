@@ -1,26 +1,25 @@
-const deepcopy = obj => JSON.parse(JSON.stringify(obj));
-
-class School {
+export class GradeSchool {
   constructor() {
-    this.students = {};
-  }
-
-  // return a *copy* of the roster
-  roster() {
-    return deepcopy(this.students);
-  }
-
-  grade(grade) {
-    const classroom = this.students[grade] || [];
-    return deepcopy(classroom);
+    this.directory = new Map();
   }
 
   add(name, grade) {
-    const classroom = this.grade(grade);
-    classroom.push(name);
-    this.students[grade] = classroom.sort();
+    this.directory.set(name, grade);
     return this;
   }
-}
 
-module.exports = School;
+  grade(grade) {
+    return this.roster()[grade] ?? [];
+  }
+
+  roster() {
+    const roster = {};
+    this.directory.forEach((grade, name) => {
+      roster[grade] ??= [];
+      roster[grade].push(name);
+    });
+    for (const g of Object.keys(roster))
+      roster[g].sort();
+    return roster;
+  }
+}

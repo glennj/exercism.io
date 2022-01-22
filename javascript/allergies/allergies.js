@@ -12,7 +12,7 @@ const Allergens = [
 ];
 
 
-class Allergies {
+export class Allergies {
   constructor(score) {
     this.allergens = Allergens.filter(({ mask }) => (score & mask)).map(e => e.allergen);
   }
@@ -21,5 +21,3 @@ class Allergies {
 
   allergicTo(thing) { return this.allergens.includes(thing); }
 }
-
-module.exports = Allergies;

@@ -8,7 +8,7 @@ const reduced = (aa, bb) => {
 
 const nthRoot = (num, root) => Math.E ** (Math.log(num) / root);
 
-class Rational {
+export class Rational {
   constructor(numerator, denominator) {
     [this.num, this.den] = reduced(numerator, denominator);
   }
@@ -55,7 +55,7 @@ class Rational {
   // Testing note: use toBeCloseTo(), not toEqual()
   expreal(n) {
     // return n ** this.toFloat();
-    return nthRoot(n ** this.num, this.den);
+    return Math.fround(nthRoot(n ** this.num, this.den));
   }
 
   reduce() {
@@ -63,5 +63,3 @@ class Rational {
     return this;
   }
 }
-
-module.exports = { Rational };

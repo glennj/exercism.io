@@ -50,7 +50,7 @@ const isWinner = (player, board) => {
 };
 
 
-class Board {
+export class Board {
   constructor(input) {
     this.board = input.map(row => [...row.replace(/\s+/g, '')]);
   }
@@ -61,5 +61,3 @@ class Board {
     return '';
   }
 }
-
-module.exports = Board;

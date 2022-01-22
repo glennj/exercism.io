@@ -1,4 +1,4 @@
-import reverseString from './reverse-string';
+import { reverseString } from './reverse-string';
 
 describe('ReverseString', () => {
   test('empty string', () => {
@@ -28,6 +28,12 @@ describe('ReverseString', () => {
   test('a palindrome', () => {
     const expected = 'racecar';
     const actual = reverseString('racecar');
+    expect(actual).toEqual(expected);
+  });
+
+  test('an even-sized word', () => {
+    const expected = 'reward';
+    const actual = reverseString('drawer');
     expect(actual).toEqual(expected);
   });
 });

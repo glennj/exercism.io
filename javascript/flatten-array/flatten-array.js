@@ -1,13 +1,12 @@
-class Flattener {
-  flatten(list) {
-    let result = [];
-    for (let i = 0; i < list.length; i += 1) {
-      if (list[i] !== null && list[i] !== undefined) {
-        result = result.concat(Array.isArray(list[i]) ? this.flatten(list[i]) : list[i]);
-      }
-    }
-    return result;
+const flattener = (result, elem) => {
+  if (elem !== null && elem !== undefined) {
+    result = result.concat(
+      Array.isArray(elem)
+        ? flatten(elem)
+        : elem
+    );
   }
-}
+  return result;
+};
 
-module.exports = Flattener;
+export const flatten = (list) => list.reduce(flattener, []);

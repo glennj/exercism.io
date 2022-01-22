@@ -5,6 +5,4 @@ const tiles = new Map([
   ['K', 5], ['J', 8], ['X', 8], ['Q', 10], ['Z', 10],
 ]);
 
-const score = (word = '') => word.toUpperCase().split('').reduce((s, l) => s + tiles.get(l), 0);
-
-module.exports = score;
+export const score = (word = '') => word.toUpperCase().split('').reduce((s, l) => s + tiles.get(l), 0);

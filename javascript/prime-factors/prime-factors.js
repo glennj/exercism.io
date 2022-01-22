@@ -20,21 +20,3 @@ const primeFactors = (num) => {
 };
 
 module.exports = { primeFactors };
-
-/* community
- *
- * generator
-
-    function * primeFactors(n){
-      for(let factor = 2; n > 1; factor++){
-        while(n % factor === 0){
-          n /= factor
-          yield factor
-        }
-      }
-    }
-
-    export default () => ({for: n => [...primeFactors(n)]})
-
- */
-

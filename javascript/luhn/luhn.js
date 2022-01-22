@@ -1,20 +1,23 @@
-class Luhn {
-  constructor(num) {
-    this.valid = false;
-    if (/[^\d\s]/.test(num)) return;
+const LUHN_DIGITS = [
+  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  [0, 2, 4, 6, 8, 1, 3, 5, 7, 9]
+];
+Object.freeze(LUHN_DIGITS);
 
-    const digits = num.replace(/\D/g, '').split('').reverse();
-    if (digits.length <= 1) return;
 
-    const sum = digits.map(d => parseInt(d, 10)).reduce((s, d, i) => {
-      if (i % 2) {
-        return s + 2 * d - (d < 5 ? 0 : 9);
-      }
-      return s + d;
-    }, 0);
+export function valid(num) {
+  if (/[^\d\s]/.test(num)) return false;
 
-    this.valid = (sum % 10 === 0);
-  }
+  const digits = num
+    .replace(/\D/g, '')
+    .split('')
+    .reverse();
+
+  if (digits.length <= 1) return false;
+
+  const sum = digits
+    .map(d => parseInt(d, 10))
+    .reduce((s, d, i) => s + LUHN_DIGITS[i%2][d], 0);
+
+  return (sum % 10 === 0);
 }
-
-module.exports = Luhn;

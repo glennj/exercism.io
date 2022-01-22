@@ -1,7 +1,7 @@
 const MINUTES = 60;
 const HOURS = 24;
 
-class Clock {
+export class Clock {
   constructor(hour = 0, minute = 0) {
     if (!Number.isInteger(hour) || !Number.isInteger(minute)) {
       throw new Error('invalid argument');
@@ -39,5 +39,3 @@ class Clock {
     return this.toString() === aClock.toString();
   }
 }
-
-module.exports = (...args) => new Clock(...args);

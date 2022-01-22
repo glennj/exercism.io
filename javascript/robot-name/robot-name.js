@@ -1,34 +1,48 @@
-/* eslint-disable class-methods-use-this, no-multi-spaces */
-/* eslint no-underscore-dangle: ["error", { "allowAfterThis": true }] */
+import {from} from './iterable-range';
 
-const randomInt = max => Math.floor(Math.random() * Math.floor(max));
-const rLetter   = ()  => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[randomInt(26)];
-const rDigit    = ()  => randomInt(10);
+// construct all the names up front
+const NAMES = [];
+for (const i of from(65).upTo(90)) {
+  const l1 = String.fromCharCode(i);
+  for (const j of from(65).upTo(90)) {
+    const l2 = String.fromCharCode(j);
+    for (const n of from(0).upTo(999)) {
+      NAMES.push(l1 + l2 + n.toString().padStart(3, '0'));
+    }
+  }
+}
 
-const allNames = new Set();
+function shuffleNames() {
+  NAMES.sort(() => Math.random() - 0.5);
+}
+shuffleNames();
 
-class Robot {
+let nameIndex = 0;
+
+
+export class Robot {
+  #name;
+
+  static releaseNames() {
+    nameIndex = 0;
+    shuffleNames();
+  }
+
   constructor() {
     this.reset();
   }
 
   reset() {
-    let name;
-    do {
-      name = rLetter() + rLetter() + rDigit() + rDigit() + rDigit();
-    } while (allNames.has(name));
-    this._name = name;
-    allNames.add(name);
+    if (nameIndex === NAMES.length) {
+      throw new Error('No more names');
+    }
+    this.#name = NAMES[nameIndex++];
   }
 
-  // getter,setter to handle "name" as a property.
   get name() {
-    return this._name;
+    return this.#name;
   }
-
   set name(str) {
     throw new Error('names cannot be modified');
   }
 }
-
-module.exports = Robot;

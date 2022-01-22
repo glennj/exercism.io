@@ -1,3 +1,4 @@
+/*
 // old school
 function Squares(n) {
   function range(x, y) {
@@ -12,22 +13,30 @@ function Squares(n) {
   this.difference = this.squareOfSum - this.sumOfSquares;
 }
 
-module.exports = Squares;
+module.exports = {Squares};
 
-/* or ES6
+// or ES6
+*/
 
-const range = (a, b) => {
-  const [m, n] = [a, b].sort((x, y) => x - y);
-  return new Array(n - m + 1).fill(null).map((_, i) => m + i);
-};
-const upto = n => range(1, n);
-const sum = list => list.reduce((s, n) => s + n, 0);
+import {from} from './iterable-range';
 
-export default class Squares {
+export class Squares {
   constructor(n) {
-    this.squareOfSum = sum(upto(n)) ** 2;
-    this.sumOfSquares = sum(upto(n).map(a => a ** 2));
-    this.difference = this.squareOfSum - this.sumOfSquares;
+    this.n = n;
+  }
+
+  get squareOfSum() {
+    const sum = from(1).upTo(this.n)
+                  .reduce((sum, i) => sum + i, 0);
+    return sum**2;
+  }
+
+  get sumOfSquares() {
+    return from(1).upTo(this.n)
+            .reduce((sum, i) => sum + i**2, 0);
+  }
+
+  get difference() {
+    return Math.abs(this.sumOfSquares - this.squareOfSum);
   }
 }
-*/

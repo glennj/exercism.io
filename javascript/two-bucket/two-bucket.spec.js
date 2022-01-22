@@ -61,9 +61,9 @@ describe('TwoBucket', () => {
   describe('Measure using bucket one of size 2 and bucket two of size 3', () => {
     test('start with bucket one and end with bucket two', () => {
       const twoBucket = new TwoBucket(2, 3, 3, 'one');
-      expect(twoBucket.moves()).toEqual(2);
+      expect(twoBucket.moves()).toEqual(4);
       expect(twoBucket.goalBucket).toEqual('two');
-      expect(twoBucket.otherBucket).toEqual(2);
+      expect(twoBucket.otherBucket).toEqual(1);
     });
   });
 

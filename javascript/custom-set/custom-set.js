@@ -3,7 +3,7 @@
 
 /* so, yeah, kind of cheating to use a Set as the storage class */
 
-class CustomSet {
+export class CustomSet {
   constructor(elements) {
     this._elements = new Set(elements);
   }
@@ -60,5 +60,3 @@ class CustomSet {
     return new CustomSet( this.elements.concat( other.difference(this).elements ));
   }
 }
-
-module.exports = CustomSet;

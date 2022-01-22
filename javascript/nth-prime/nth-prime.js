@@ -51,7 +51,7 @@ class Prime {
   }
 
   nth(n) {
-    if (n === 0) throw new Error('Prime is not possible');
+    if (n === 0) throw new Error('there is no zeroth prime');
     while (this.primes.length < n) {
       const p = this.png.next().value;
       this.primes.push(p);
@@ -60,4 +60,4 @@ class Prime {
   }
 }
 
-module.exports = Prime;
+export const prime = (n) => new Prime().nth(n);

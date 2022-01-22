@@ -1,15 +1,29 @@
 # Resistor Color Trio
 
+Welcome to Resistor Color Trio on Exercism's JavaScript Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 If you want to build something using a Raspberry Pi, you'll probably use _resistors_. For this exercise, you need to know only three things about them:
 
 - Each resistor has a resistance value.
 - Resistors are small - so small in fact that if you printed the resistance value on them, it would be hard to read.
-  To get around this problem, manufacturers print color-coded bands onto the resistors to denote their resistance values. Each band has a position and a numeric value. For example, if they printed a brown band (value 1) followed by a green band (value 5), it would translate to the number 15.
+  To get around this problem, manufacturers print color-coded bands onto the resistors to denote their resistance values.
 - Each band acts as a digit of a number. For example, if they printed a brown band (value 1) followed by a green band (value 5), it would translate to the number 15.
   In this exercise, you are going to create a helpful program so that you don't have to remember the values of the bands. The program will take 3 colors as input, and outputs the correct value, in ohms.
-  The colors are mapped to the numbers from 0 to 9 in the sequence:
+  The color bands are encoded as follows:
 
-Black - Brown - Red - Orange - Yellow - Green - Blue - Violet - Grey - White
+* Black: 0
+* Brown: 1
+* Red: 2
+* Orange: 3
+* Yellow: 4
+* Green: 5
+* Blue: 6
+* Violet: 7
+* Grey: 8
+* White: 9
 
 In `resistor-color duo` you decoded the first two colors. For instance: orange-orange got the main value `33`.
 The third color stands for how many zeros need to be added to the main value. The main value plus the zeros gives us a value in ohms.
@@ -35,39 +49,16 @@ So an input of `"orange", "orange", "orange"` should return:
 
 > "33 kiloohms"
 
-## Setup
-
-Go through the setup instructions for Javascript to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/javascript/installation](https://exercism.io/tracks/javascript/installation)
-
-## Requirements
-
-Install assignment dependencies:
-
-```bash
-$ npm install
-```
-
-## Making the test suite pass
-
-Execute the tests with:
-
-```bash
-$ npm test
-```
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by changing `xtest` to
-`test`.
-
 ## Source
 
-Maud de Vries, Erik Schierboom [https://github.com/exercism/problem-specifications/issues/1549](https://github.com/exercism/problem-specifications/issues/1549)
+### Created by
 
-## Submitting Incomplete Solutions
+- @SleeplessByte
 
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+### Contributed to by
+
+- @hayashi-ay
+
+### Based on
+
+Maud de Vries, Erik Schierboom - https://github.com/exercism/problem-specifications/issues/1549

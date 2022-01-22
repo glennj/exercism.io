@@ -1,35 +1,22 @@
-const REGEX = {
-	question: /[a-z0-9]+\?/,
-	yell: /[A-Z]{3,}/,
-	questionYell: /[A-Z]{3,}\?/,
-	nothing: /^[\s]/m, 
-};
+/* eslint-disable no-unused-vars */
 
 export const hey = (message) => {
-	
-	let bobSaid = '';
+  const isEmpty = message.trim().length === 0;
+  const upper = message.toUpperCase();
+  const isUpper = message === upper && /[A-Z]/.test(upper);
+  const isQuestion = message.trim().endsWith('?');
 
-	switch (true) {
-
-		case REGEX.question.test(message):
-			bobSaid = 'Sure.';
-			break;
-
-		case REGEX.yell.test(message):
-			bobSaid = 'Whoa, chill out!';
-			break;
-
-		case REGEX.questionYell.test(message):
-			bobSaid = "Calm down, I know what I'm doing!";
-			break;
-
-		case REGEX.nothing.test(message):
-			bobSaid = 'Fine. Be that way!';
-			break;
-
-		default:
-			bobSaid = 'Whatever.';
-	}
-
-	return bobSaid;
+  if (isEmpty) {
+    return 'Fine. Be that way!';
+  }
+  if (isUpper && isQuestion) {
+    return 'Calm down, I know what I\'m doing!';
+  }
+  if (isUpper) {
+    return 'Whoa, chill out!';
+  }
+  if (isQuestion) {
+    return 'Sure.';
+  }
+  return 'Whatever.';
 };

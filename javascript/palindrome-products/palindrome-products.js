@@ -2,27 +2,62 @@
 
 const isPalindrome = n => String(n) === String(n).split('').reverse().join('');
 
-const generate = (opt) => {
-  if (!opt || !opt.maxFactor) throw new Error('missing maxFactor option');
+const EMPTY_RESULT = {value: null, factors: []}
 
-  const factors = {};
-  for (let i = (opt.minFactor || 1); i <= opt.maxFactor; i += 1) {
-    for (let j = i; j <= opt.maxFactor; j += 1) {
-      factors[i * j] = [i, j];
-    }
+export class Palindromes {
+  static generate(options) {
+    return new Palindromes(options);
   }
 
-  const pal = Object.keys(factors)
-    .filter(isPalindrome)
-    .map(Number)
-    .sort((a, b) => a - b);
+  constructor({minFactor, maxFactor}) {
+    this.min = minFactor ?? 1;
+    this.max = maxFactor;
+  }
 
-  const [small, large] = [pal[0], pal[pal.length - 1]];
+  checkLimits() {
+    if (this.min > this.max)
+      throw new Error('min must be <= max');
+  }
 
-  return {
-    smallest: { value: small, factors: factors[small] },
-    largest:  { value: large, factors: factors[large] },
-  };
-};
+  get smallest() {
+    this.checkLimits();
+    const limit = this.max ** 2;
+    for (let p = this.min ** 2; p <= limit; p++) {
+      const result = this.isPalindromeProduct(p);
+      if (result) return result;
+    }
+    return EMPTY_RESULT;
+  }
 
-module.exports = generate;
+  get largest() {
+    this.checkLimits();
+    const limit = this.min ** 2;
+    for (let p = this.max ** 2; p >= limit; p--) {
+      const result = this.isPalindromeProduct(p);
+      if (result) return result
+    }
+    return EMPTY_RESULT;
+  }
+
+  isPalindromeProduct(n) {
+    if (isPalindrome(n)) {
+      const fs = this.factors(n);
+      if (fs.length > 0)
+        return {value: n, factors: fs};
+    }
+    return;
+  }
+
+  factors(n) {
+    const pairs = [];
+    const limit = Math.min(this.max, Math.sqrt(n));
+    for (let i = this.min; i <= limit; i++) {
+      if (n % i === 0) {
+        const j = n / i;
+        if (this.min <= j && j <= this.max)
+          pairs.push([i, j]);
+      }
+    }
+    return pairs;
+  }
+}

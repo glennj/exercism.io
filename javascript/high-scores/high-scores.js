@@ -1,24 +1,32 @@
-class HighScores {
+export class HighScores {
+  #scores;
+
   constructor(input) {
-    this.scores = [];
-    this.highest = -Infinity;
-    this.top = [];
-    input.forEach(score => this.addScore(score));
+    this.#scores = input.slice();
   }
 
-  // add a new score, and update the high scores
-  addScore(score) {
-    this.scores.push(score);
-    this.latest = score;
-    this.top = this.top.concat(score).sort((a, b) => a - b).reverse().slice(0, 3);
-    this.highest = this.top[0]; // eslint-disable-line prefer-destructuring
+  // returns a _copy_ of #scores, sorted in descending numerical order
+  #sorted() {
+    return this.#scores.slice().sort((a, b) => b - a);
   }
 
-  get report() {
-    const diff = this.highest - this.latest;
-    const shortOf = diff > 0 ? `${diff} short of ` : '';
-    return `Your latest score was ${this.latest}. That's ${shortOf}your personal best!`;
+  // return a _copy_ so the consumer can't modify my scores
+  get scores() {
+    return this.#scores.slice();
+  }
+
+  get latest() {
+    //return this.#scores.at(-1);
+    const s = this.#scores;
+    return s[s.length - 1];
+  }
+
+  get personalBest() {
+    //return this.#sorted().at(0);
+    return this.#sorted()[0];
+  }
+
+  get personalTopThree() {
+    return this.#sorted().slice(0, 3);
   }
 }
-
-module.exports = { HighScores };

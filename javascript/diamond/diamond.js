@@ -1,19 +1,21 @@
 /* eslint-disable  space-in-parens */
 
+import {from} from './iterable-range';
+
+// ASCII value of "@", character before "A"
 const codeBase = 64;
 
-const Diamond = () => ({
-  makeDiamond: (ch) => {
-    const n = ch.charCodeAt(0) - codeBase;
-    let rows = [];
-    for (let i = 1; i <= n; i += 1) {
-      const a = new Array(n).fill(' ');
-      a[i - 1] = String.fromCharCode(codeBase + i);
-      rows.push( [...a].reverse().concat( a.slice(1) ).join('') );
-    }
-    rows = rows.concat( [...rows].reverse().slice(1) );
-    return rows.map(s => `${s}\n`).join('');
-  },
-});
+export const rows = (ch) => {
+  const n = ch.charCodeAt(0) - codeBase;
 
-module.exports = Diamond;
+  // top half of the diamond
+  const rows = from(1).upTo(n).map(i => {
+    // left half of a row
+    const a = new Array(n).fill(' ');
+    a[i - 1] = String.fromCharCode(codeBase + i);
+    // entire row
+    return [...a].reverse().concat( a.slice(1) ).join('');
+  });
+  // append the bottom half of the diamond
+  return rows.concat( [...rows].reverse().slice(1) );
+};

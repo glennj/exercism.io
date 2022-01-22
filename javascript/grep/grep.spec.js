@@ -1,105 +1,132 @@
-const { spawnSync } = require("child_process");
-const path = require("path");
+// @ts-check
 
-const BASE_DIR = path.resolve(__dirname);
+const { spawnSync } = require('child_process');
+const { resolve: resolvePath, relative } = require('path');
 
-const resolveDataFile = file => path.resolve(BASE_DIR, "data", file);
+const BASE_DIR = resolvePath(__dirname);
 
-const spawn_grep = config => {
+/**
+ * Spawns a new node process, emulating `grep`.
+ *
+ * node /path/to/grep.js -f -l -a -g -s **pattern** files1 files2 files3
+ *
+ * @param {{ flags: string[], pattern: string, files: string[] }} config
+ */
+function spawnGrep(config) {
   const args = [
-    path.resolve(BASE_DIR, "grep.js"),
+    resolvePath(BASE_DIR, 'grep.js'),
     ...config.flags,
     config.pattern,
-    ...config.files.map(file => path.resolve(BASE_DIR, "data", file))
+    ...config.files.map((file) =>
+      relative(BASE_DIR, resolvePath(BASE_DIR, 'data', file))
+    ),
   ];
 
   return new Promise((resolve, reject) => {
-    const child = spawnSync("node", args, { stdio: "pipe" });
+    const child = spawnSync('node', args, { stdio: 'pipe', cwd: BASE_DIR });
     const stderr = child.stderr.toString().trim();
-    const stdout = child.stdout.toString().trim();
+    const stdout = child.stdout.toString().trim().split(/\r?\n/).join('\n');
 
+    // If anything is written to stderr, consider the entire process as failed.
+    //
+    // Normally you'd check the status code (eit code) and reject/fail if it's
+    // not equal to "0".
     if (stderr) {
       reject(stderr);
     } else {
       resolve(stdout);
     }
   });
-};
+}
 
-const formatStringTemplate = stringTemplate =>
-  stringTemplate
-    .split("\n")
-    .map(sentence => sentence.trim())
-    .join("\n");
+/**
+ * Formats a string template cross-env
+ *
+ * @param {string} stringTemplate
+ */
+function formatStringTemplate(stringTemplate) {
+  return stringTemplate
+    .split(/\r?\n/)
+    .map((sentence) => sentence.trim())
+    .join('\n');
+}
 
-describe("grep exercise", () => {
-  describe("Test grepping a single file", () => {
-    it("One file, one match, no flags", () => {
+/**
+ * Path to a data file
+ * @param {string} file
+ */
+function resolveDataFile(file) {
+  return relative(BASE_DIR, resolvePath(BASE_DIR, 'data', file));
+}
+
+describe('grep exercise', () => {
+  describe('Test grepping a single file', () => {
+    it('One file, one match, no flags', () => {
       return expect(
-        spawn_grep({
-          pattern: "Agamemnon",
+        spawnGrep({
+          pattern: 'Agamemnon',
           flags: [],
-          files: ["iliad.txt"]
+          files: ['iliad.txt'],
         })
-      ).resolves.toBe("Of Atreus, Agamemnon, King of men.");
+      ).resolves.toBe('Of Atreus, Agamemnon, King of men.');
     });
 
-    it("One file, one match, print line numbers flag", () => {
+    it('One file, one match, print line numbers flag', () => {
       return expect(
-        spawn_grep({
-          pattern: "Forbidden",
-          flags: ["-n"],
-          files: ["paradise-lost.txt"]
+        spawnGrep({
+          pattern: 'Forbidden',
+          flags: ['-n'],
+          files: ['paradise-lost.txt'],
         })
-      ).resolves.toBe("2:Of that Forbidden Tree, whose mortal tast");
+      ).resolves.toBe('2:Of that Forbidden Tree, whose mortal tast');
     });
 
-    it("One file, one match, case-insensitive flag", () => {
+    it('One file, one match, case-insensitive flag', () => {
       return expect(
-        spawn_grep({
-          pattern: "FORBIDDEN",
-          flags: ["-i"],
-          files: ["paradise-lost.txt"]
+        spawnGrep({
+          pattern: 'FORBIDDEN',
+          flags: ['-i'],
+          files: ['paradise-lost.txt'],
         })
-      ).resolves.toBe("Of that Forbidden Tree, whose mortal tast");
+      ).resolves.toBe('Of that Forbidden Tree, whose mortal tast');
     });
 
-    it("One file, one match, print file names flag", () => {
+    it('One file, one match, print file names flag', () => {
       return expect(
-        spawn_grep({
-          pattern: "Forbidden",
-          flags: ["-l"],
-          files: ["paradise-lost.txt"]
+        spawnGrep({
+          pattern: 'Forbidden',
+          flags: ['-l'],
+          files: ['paradise-lost.txt'],
         })
-      ).resolves.toBe(resolveDataFile("paradise-lost.txt"));
+      ).resolves.toBe(resolveDataFile('paradise-lost.txt'));
     });
 
-    it("One file, one match, match entire lines flag", () => {
+    it('One file, one match, match entire lines flag', () => {
       return expect(
-        spawn_grep({
-          pattern: "With loss of Eden, till one greater Man",
-          flags: ["-x"],
-          files: ["paradise-lost.txt"]
+        spawnGrep({
+          pattern: 'With loss of Eden, till one greater Man',
+          flags: ['-x'],
+          files: ['paradise-lost.txt'],
         })
-      ).resolves.toBe("With loss of Eden, till one greater Man");
+      ).resolves.toBe('With loss of Eden, till one greater Man');
     });
 
-    it("One file, one match, multiple flags", () => {
+    it('One file, one match, multiple flags', () => {
       return expect(
-        spawn_grep({
-          pattern: "OF ATREUS, Agamemnon, KIng of MEN.",
-          flags: ["-n", "-i", "-x"],
-          files: ["iliad.txt"]
+        spawnGrep({
+          pattern: 'OF ATREUS, Agamemnon, KIng of MEN.',
+          flags: ['-n', '-i', '-x'],
+          files: ['iliad.txt'],
         })
-      ).resolves.toBe("9:Of Atreus, Agamemnon, King of men.");
+      ).resolves.toBe('9:Of Atreus, Agamemnon, King of men.');
     });
 
-    it("One file, several matches, no flags", () => {
+    it('One file, several matches, no flags', () => {
       return expect(
-        spawn_grep({
-          pattern: "may",
+        spawnGrep({
+          pattern: 'may',
           flags: [],
-          files: ["midsummer-night.txt"]
+          files: ['midsummer-night.txt'],
         })
       ).resolves.toBe(
         formatStringTemplate(`Nor how it may concern my modesty,
@@ -108,12 +135,12 @@ describe("grep exercise", () => {
       );
     });
 
-    it("One file, several matches, print line numbers flag", () => {
+    it('One file, several matches, print line numbers flag', () => {
       return expect(
-        spawn_grep({
-          pattern: "may",
-          flags: ["-n"],
-          files: ["midsummer-night.txt"]
+        spawnGrep({
+          pattern: 'may',
+          flags: ['-n'],
+          files: ['midsummer-night.txt'],
         })
       ).resolves.toBe(
         formatStringTemplate(`3:Nor how it may concern my modesty,
@@ -122,22 +149,22 @@ describe("grep exercise", () => {
       );
     });
 
-    it("One file, several matches, match entire lines flag", () => {
+    it('One file, several matches, match entire lines flag', () => {
       return expect(
-        spawn_grep({
-          pattern: "may",
-          flags: ["-x"],
-          files: ["midsummer-night.txt"]
+        spawnGrep({
+          pattern: 'may',
+          flags: ['-x'],
+          files: ['midsummer-night.txt'],
         })
-      ).resolves.toBe("");
+      ).resolves.toBe('');
     });
 
-    it("One file, several matches, case-insensitive flag", () => {
+    it('One file, several matches, case-insensitive flag', () => {
       return expect(
-        spawn_grep({
-          pattern: "ACHILLES",
-          flags: ["-i"],
-          files: ["iliad.txt"]
+        spawnGrep({
+          pattern: 'ACHILLES',
+          flags: ['-i'],
+          files: ['iliad.txt'],
         })
       ).resolves.toBe(
         formatStringTemplate(`Achilles sing, O Goddess! Peleus' son;
@@ -145,12 +172,12 @@ describe("grep exercise", () => {
       );
     });
 
-    it("One file, several matches, inverted flag", () => {
+    it('One file, several matches, inverted flag', () => {
       return expect(
-        spawn_grep({
-          pattern: "Of",
-          flags: ["-v"],
-          files: ["paradise-lost.txt"]
+        spawnGrep({
+          pattern: 'Of',
+          flags: ['-v'],
+          files: ['paradise-lost.txt'],
         })
       ).resolves.toBe(
         formatStringTemplate(`Brought Death into the World, and all our woe,
@@ -161,32 +188,32 @@ describe("grep exercise", () => {
       );
     });
 
-    it("One file, no matches, various flags", () => {
+    it('One file, no matches, various flags', () => {
       return expect(
-        spawn_grep({
-          pattern: "Gandalf",
-          flags: ["-n", "-l", "-x", "-i"],
-          files: ["iliad.txt"]
+        spawnGrep({
+          pattern: 'Gandalf',
+          flags: ['-n', '-l', '-x', '-i'],
+          files: ['iliad.txt'],
         })
-      ).resolves.toBe("");
+      ).resolves.toBe('');
     });
 
-    it("One file, one match, file flag takes precedence over line flag", () => {
+    it('One file, one match, file flag takes precedence over line flag', () => {
       return expect(
-        spawn_grep({
-          pattern: "ten",
-          flags: ["-n", "-l"],
-          files: ["iliad.txt"]
+        spawnGrep({
+          pattern: 'ten',
+          flags: ['-n', '-l'],
+          files: ['iliad.txt'],
         })
-      ).resolves.toBe(resolveDataFile("iliad.txt"));
+      ).resolves.toBe(resolveDataFile('iliad.txt'));
     });
 
-    it("One file, several matches, inverted and match entire lines flags", () => {
+    it('One file, several matches, inverted and match entire lines flags', () => {
       return expect(
-        spawn_grep({
-          pattern: "Illustrious into Ades premature,",
-          flags: ["-x", "-v"],
-          files: ["iliad.txt"]
+        spawnGrep({
+          pattern: 'Illustrious into Ades premature,',
+          flags: ['-x', '-v'],
+          files: ['iliad.txt'],
         })
       ).resolves.toBe(
         formatStringTemplate(`Achilles sing, O Goddess! Peleus' son;
@@ -201,168 +228,250 @@ describe("grep exercise", () => {
     });
   });
 
-  describe("Test grepping multiples files at once", () => {
-    it("Multiple files, one match, no flags", () => {
+  describe('Test grepping multiples files at once', () => {
+    it('Multiple files, one match, no flags', () => {
       return expect(
-        spawn_grep({
-          pattern: "Agamemnon",
+        spawnGrep({
+          pattern: 'Agamemnon',
           flags: [],
-          files: ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"]
+          files: ['iliad.txt', 'midsummer-night.txt', 'paradise-lost.txt'],
         })
-      ).resolves.toBe(`${resolveDataFile("iliad.txt")}:Of Atreus, Agamemnon, King of men.`);
+      ).resolves.toBe(
+        `${resolveDataFile('iliad.txt')}:Of Atreus, Agamemnon, King of men.`
+      );
     });
 
-    it("Multiple files, several matches, no flags", () => {
+    it('Multiple files, several matches, no flags', () => {
       return expect(
-        spawn_grep({
-          pattern: "may",
+        spawnGrep({
+          pattern: 'may',
           flags: [],
-          files: ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"]
+          files: ['iliad.txt', 'midsummer-night.txt', 'paradise-lost.txt'],
         })
       ).resolves.toBe(
-        formatStringTemplate(`${resolveDataFile("midsummer-night.txt")}:Nor how it may concern my modesty,
-        ${resolveDataFile("midsummer-night.txt")}:But I beseech your grace that I may know
-        ${resolveDataFile("midsummer-night.txt")}:The worst that may befall me in this case,`)
+        formatStringTemplate(`${resolveDataFile(
+          'midsummer-night.txt'
+        )}:Nor how it may concern my modesty,
+        ${resolveDataFile(
+          'midsummer-night.txt'
+        )}:But I beseech your grace that I may know
+        ${resolveDataFile(
+          'midsummer-night.txt'
+        )}:The worst that may befall me in this case,`)
       );
     });
 
-    it("Multiple files, several matches, print line numbers flag", () => {
+    it('Multiple files, several matches, print line numbers flag', () => {
       return expect(
-        spawn_grep({
-          pattern: "that",
-          flags: ["-n"],
-          files: ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"]
+        spawnGrep({
+          pattern: 'that',
+          flags: ['-n'],
+          files: ['iliad.txt', 'midsummer-night.txt', 'paradise-lost.txt'],
         })
       ).resolves.toBe(
-        formatStringTemplate(`${resolveDataFile("midsummer-night.txt")}:5:But I beseech your grace that I may know
-        ${resolveDataFile("midsummer-night.txt")}:6:The worst that may befall me in this case,
-        ${resolveDataFile("paradise-lost.txt")}:2:Of that Forbidden Tree, whose mortal tast
-        ${resolveDataFile("paradise-lost.txt")}:6:Sing Heav'nly Muse, that on the secret top`)
+        formatStringTemplate(`${resolveDataFile(
+          'midsummer-night.txt'
+        )}:5:But I beseech your grace that I may know
+        ${resolveDataFile(
+          'midsummer-night.txt'
+        )}:6:The worst that may befall me in this case,
+        ${resolveDataFile(
+          'paradise-lost.txt'
+        )}:2:Of that Forbidden Tree, whose mortal tast
+        ${resolveDataFile(
+          'paradise-lost.txt'
+        )}:6:Sing Heav'nly Muse, that on the secret top`)
       );
     });
 
-    it("Multiple files, one match, print file names flag", () => {
+    it('Multiple files, one match, print file names flag', () => {
       return expect(
-        spawn_grep({
-          pattern: "who",
-          flags: ["-l"],
-          files: ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"]
+        spawnGrep({
+          pattern: 'who',
+          flags: ['-l'],
+          files: ['iliad.txt', 'midsummer-night.txt', 'paradise-lost.txt'],
         })
       ).resolves.toBe(
-        formatStringTemplate(`${resolveDataFile("iliad.txt")}
-        ${resolveDataFile("paradise-lost.txt")}`)
+        formatStringTemplate(`${resolveDataFile('iliad.txt')}
+        ${resolveDataFile('paradise-lost.txt')}`)
       );
     });
 
-    it("Multiple files, several matches, case-insensitive flag", () => {
+    it('Multiple files, several matches, case-insensitive flag', () => {
       return expect(
-        spawn_grep({
-          pattern: "TO",
-          flags: ["-i"],
-          files: ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"]
+        spawnGrep({
+          pattern: 'TO',
+          flags: ['-i'],
+          files: ['iliad.txt', 'midsummer-night.txt', 'paradise-lost.txt'],
         })
       ).resolves.toBe(
-        formatStringTemplate(`${resolveDataFile("iliad.txt")}:Caused to Achaia's host, sent many a soul
-        ${resolveDataFile("iliad.txt")}:Illustrious into Ades premature,
-        ${resolveDataFile("iliad.txt")}:And Heroes gave (so stood the will of Jove)
-        ${resolveDataFile("iliad.txt")}:To dogs and to all ravening fowls a prey,
-        ${resolveDataFile("midsummer-night.txt")}:I do entreat your grace to pardon me.
-        ${resolveDataFile("midsummer-night.txt")}:In such a presence here to plead my thoughts;
-        ${resolveDataFile("midsummer-night.txt")}:If I refuse to wed Demetrius.
-        ${resolveDataFile("paradise-lost.txt")}:Brought Death into the World, and all our woe,
-        ${resolveDataFile("paradise-lost.txt")}:Restore us, and regain the blissful Seat,
-        ${resolveDataFile("paradise-lost.txt")}:Sing Heav'nly Muse, that on the secret top`)
+        formatStringTemplate(`${resolveDataFile(
+          'iliad.txt'
+        )}:Caused to Achaia's host, sent many a soul
+        ${resolveDataFile('iliad.txt')}:Illustrious into Ades premature,
+        ${resolveDataFile(
+          'iliad.txt'
+        )}:And Heroes gave (so stood the will of Jove)
+        ${resolveDataFile(
+          'iliad.txt'
+        )}:To dogs and to all ravening fowls a prey,
+        ${resolveDataFile(
+          'midsummer-night.txt'
+        )}:I do entreat your grace to pardon me.
+        ${resolveDataFile(
+          'midsummer-night.txt'
+        )}:In such a presence here to plead my thoughts;
+        ${resolveDataFile('midsummer-night.txt')}:If I refuse to wed Demetrius.
+        ${resolveDataFile(
+          'paradise-lost.txt'
+        )}:Brought Death into the World, and all our woe,
+        ${resolveDataFile(
+          'paradise-lost.txt'
+        )}:Restore us, and regain the blissful Seat,
+        ${resolveDataFile(
+          'paradise-lost.txt'
+        )}:Sing Heav'nly Muse, that on the secret top`)
       );
     });
 
-    it("Multiple files, several matches, inverted flag", () => {
+    it('Multiple files, several matches, inverted flag', () => {
       return expect(
-        spawn_grep({
-          pattern: "a",
-          flags: ["-v"],
-          files: ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"]
+        spawnGrep({
+          pattern: 'a',
+          flags: ['-v'],
+          files: ['iliad.txt', 'midsummer-night.txt', 'paradise-lost.txt'],
         })
       ).resolves.toBe(
-        formatStringTemplate(`${resolveDataFile("iliad.txt")}:Achilles sing, O Goddess! Peleus' son;
-        ${resolveDataFile("iliad.txt")}:The noble Chief Achilles from the son
-        ${resolveDataFile("midsummer-night.txt")}:If I refuse to wed Demetrius.`)
+        formatStringTemplate(`${resolveDataFile(
+          'iliad.txt'
+        )}:Achilles sing, O Goddess! Peleus' son;
+        ${resolveDataFile('iliad.txt')}:The noble Chief Achilles from the son
+        ${resolveDataFile(
+          'midsummer-night.txt'
+        )}:If I refuse to wed Demetrius.`)
       );
     });
 
-    it("Multiple files, one match, match entire lines flag", () => {
+    it('Multiple files, one match, match entire lines flag', () => {
       return expect(
-        spawn_grep({
-          pattern: "But I beseech your grace that I may know",
-          flags: ["-x"],
-          files: ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"]
-        })
-      ).resolves.toBe(`${resolveDataFile("midsummer-night.txt:But I beseech your grace that I may know")}`);
-    });
-
-    it("Multiple files, one match, multiple flags", () => {
-      return expect(
-        spawn_grep({
-          pattern: "WITH LOSS OF EDEN, TILL ONE GREATER MAN",
-          flags: ["-n", "-i", "-x"],
-          files: ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"]
-        })
-      ).resolves.toBe(`${resolveDataFile("paradise-lost.txt")}:4:With loss of Eden, till one greater Man`);
-    });
-
-    it("Multiple files, no matches, various flags", () => {
-      return expect(
-        spawn_grep({
-          pattern: "Frodo",
-          flags: ["-n", "-l", "-x", "-i"],
-          files: ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"]
-        })
-      ).resolves.toBe("");
-    });
-
-    it("Multiple files, several matches, file flag takes precedence over line number flag", () => {
-      return expect(
-        spawn_grep({
-          pattern: "who",
-          flags: ["-n", "-l"],
-          files: ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"]
+        spawnGrep({
+          pattern: 'But I beseech your grace that I may know',
+          flags: ['-x'],
+          files: ['iliad.txt', 'midsummer-night.txt', 'paradise-lost.txt'],
         })
       ).resolves.toBe(
-        formatStringTemplate(`${resolveDataFile("iliad.txt")}
-        ${resolveDataFile("paradise-lost.txt")}`)
+        `${resolveDataFile(
+          'midsummer-night.txt:But I beseech your grace that I may know'
+        )}`
       );
     });
 
-    it("Multiple files, several matches, inverted and match entire lines flags", () => {
+    it('Multiple files, one match, multiple flags', () => {
       return expect(
-        spawn_grep({
-          pattern: "Illustrious into Ades premature,",
-          flags: ["-x", "-v"],
-          files: ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"]
+        spawnGrep({
+          pattern: 'WITH LOSS OF EDEN, TILL ONE GREATER MAN',
+          flags: ['-n', '-i', '-x'],
+          files: ['iliad.txt', 'midsummer-night.txt', 'paradise-lost.txt'],
         })
       ).resolves.toBe(
-        formatStringTemplate(`${resolveDataFile("iliad.txt")}:Achilles sing, O Goddess! Peleus' son;
-        ${resolveDataFile("iliad.txt")}:His wrath pernicious, who ten thousand woes
-        ${resolveDataFile("iliad.txt")}:Caused to Achaia's host, sent many a soul
-        ${resolveDataFile("iliad.txt")}:And Heroes gave (so stood the will of Jove)
-        ${resolveDataFile("iliad.txt")}:To dogs and to all ravening fowls a prey,
-        ${resolveDataFile("iliad.txt")}:When fierce dispute had separated once
-        ${resolveDataFile("iliad.txt")}:The noble Chief Achilles from the son
-        ${resolveDataFile("iliad.txt")}:Of Atreus, Agamemnon, King of men.
-        ${resolveDataFile("midsummer-night.txt")}:I do entreat your grace to pardon me.
-        ${resolveDataFile("midsummer-night.txt")}:I know not by what power I am made bold,
-        ${resolveDataFile("midsummer-night.txt")}:Nor how it may concern my modesty,
-        ${resolveDataFile("midsummer-night.txt")}:In such a presence here to plead my thoughts;
-        ${resolveDataFile("midsummer-night.txt")}:But I beseech your grace that I may know
-        ${resolveDataFile("midsummer-night.txt")}:The worst that may befall me in this case,
-        ${resolveDataFile("midsummer-night.txt")}:If I refuse to wed Demetrius.
-        ${resolveDataFile("paradise-lost.txt")}:Of Mans First Disobedience, and the Fruit
-        ${resolveDataFile("paradise-lost.txt")}:Of that Forbidden Tree, whose mortal tast
-        ${resolveDataFile("paradise-lost.txt")}:Brought Death into the World, and all our woe,
-        ${resolveDataFile("paradise-lost.txt")}:With loss of Eden, till one greater Man
-        ${resolveDataFile("paradise-lost.txt")}:Restore us, and regain the blissful Seat,
-        ${resolveDataFile("paradise-lost.txt")}:Sing Heav'nly Muse, that on the secret top
-        ${resolveDataFile("paradise-lost.txt")}:Of Oreb, or of Sinai, didst inspire
-        ${resolveDataFile("paradise-lost.txt")}:That Shepherd, who first taught the chosen Seed`)
+        `${resolveDataFile(
+          'paradise-lost.txt'
+        )}:4:With loss of Eden, till one greater Man`
+      );
+    });
+
+    it('Multiple files, no matches, various flags', () => {
+      return expect(
+        spawnGrep({
+          pattern: 'Frodo',
+          flags: ['-n', '-l', '-x', '-i'],
+          files: ['iliad.txt', 'midsummer-night.txt', 'paradise-lost.txt'],
+        })
+      ).resolves.toBe('');
+    });
+
+    it('Multiple files, several matches, file flag takes precedence over line number flag', () => {
+      return expect(
+        spawnGrep({
+          pattern: 'who',
+          flags: ['-n', '-l'],
+          files: ['iliad.txt', 'midsummer-night.txt', 'paradise-lost.txt'],
+        })
+      ).resolves.toBe(
+        formatStringTemplate(`${resolveDataFile('iliad.txt')}
+        ${resolveDataFile('paradise-lost.txt')}`)
+      );
+    });
+
+    it('Multiple files, several matches, inverted and match entire lines flags', () => {
+      return expect(
+        spawnGrep({
+          pattern: 'Illustrious into Ades premature,',
+          flags: ['-x', '-v'],
+          files: ['iliad.txt', 'midsummer-night.txt', 'paradise-lost.txt'],
+        })
+      ).resolves.toBe(
+        formatStringTemplate(`${resolveDataFile(
+          'iliad.txt'
+        )}:Achilles sing, O Goddess! Peleus' son;
+        ${resolveDataFile(
+          'iliad.txt'
+        )}:His wrath pernicious, who ten thousand woes
+        ${resolveDataFile(
+          'iliad.txt'
+        )}:Caused to Achaia's host, sent many a soul
+        ${resolveDataFile(
+          'iliad.txt'
+        )}:And Heroes gave (so stood the will of Jove)
+        ${resolveDataFile(
+          'iliad.txt'
+        )}:To dogs and to all ravening fowls a prey,
+        ${resolveDataFile('iliad.txt')}:When fierce dispute had separated once
+        ${resolveDataFile('iliad.txt')}:The noble Chief Achilles from the son
+        ${resolveDataFile('iliad.txt')}:Of Atreus, Agamemnon, King of men.
+        ${resolveDataFile(
+          'midsummer-night.txt'
+        )}:I do entreat your grace to pardon me.
+        ${resolveDataFile(
+          'midsummer-night.txt'
+        )}:I know not by what power I am made bold,
+        ${resolveDataFile(
+          'midsummer-night.txt'
+        )}:Nor how it may concern my modesty,
+        ${resolveDataFile(
+          'midsummer-night.txt'
+        )}:In such a presence here to plead my thoughts;
+        ${resolveDataFile(
+          'midsummer-night.txt'
+        )}:But I beseech your grace that I may know
+        ${resolveDataFile(
+          'midsummer-night.txt'
+        )}:The worst that may befall me in this case,
+        ${resolveDataFile('midsummer-night.txt')}:If I refuse to wed Demetrius.
+        ${resolveDataFile(
+          'paradise-lost.txt'
+        )}:Of Mans First Disobedience, and the Fruit
+        ${resolveDataFile(
+          'paradise-lost.txt'
+        )}:Of that Forbidden Tree, whose mortal tast
+        ${resolveDataFile(
+          'paradise-lost.txt'
+        )}:Brought Death into the World, and all our woe,
+        ${resolveDataFile(
+          'paradise-lost.txt'
+        )}:With loss of Eden, till one greater Man
+        ${resolveDataFile(
+          'paradise-lost.txt'
+        )}:Restore us, and regain the blissful Seat,
+        ${resolveDataFile(
+          'paradise-lost.txt'
+        )}:Sing Heav'nly Muse, that on the secret top
+        ${resolveDataFile(
+          'paradise-lost.txt'
+        )}:Of Oreb, or of Sinai, didst inspire
+        ${resolveDataFile(
+          'paradise-lost.txt'
+        )}:That Shepherd, who first taught the chosen Seed`)
       );
     });
   });

@@ -1,42 +1,25 @@
-/* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
+import {ExtendedArray} from './extended-array';
 
-export default class Series {
+export class Series {
   constructor(str) {
-    this.digits = str.match(/\d/g).map(d => Number.parseInt(d, 10));
+    this.digits = ExtendedArray.from(
+      str.match(/\d/g)?.map(d => Number.parseInt(d, 10)) ?? []
+    );
   }
 
   slices(n) {
-    if (n > this.digits.length) throw new Error('Slice size is too big.');
+    if (this.digits.length === 0)
+      throw new Error('series cannot be empty');
+    if (n > this.digits.length)
+      throw new Error('slice length cannot be greater than series length');
+    if (n === 0)
+      throw new Error('slice length cannot be zero');
+    if (n < 0)
+      throw new Error('slice length cannot be negative');
+
     const result = [];
-    for (let i = 0; i <= this.digits.length - n; i++) {
-      result.push(this.digits.slice(i, i + n));
-    }
+    for (const sublist of this.digits.eachConsecutive(n))
+      result.push(sublist.toArray());
     return result;
   }
 }
-
-/* community
- *
- * a tidy solution
-
-      class Series {
-        constructor(input) {
-          this.digits = input.split('').map((v) => parseInt(v));
-        }
-
-        slices(len = 1) {
-          let size = this.digits.length - len + 1;
-          if (size < 1) {
-            throw new Error('Slice size is too big.');
-          }
-          return Array(size).fill(null).map(
-            (_, index) => this.digits.slice(index, index + len)
-          );
-        }
-      }
-
-      module.exports = Series;
-
-
- *
- */

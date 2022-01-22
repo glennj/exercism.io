@@ -1,6 +1,6 @@
 /* eslint-disable  no-multi-spaces */
 
-import { from } from './my-range-iterable';
+import { from } from './iterable-range';
 
 const bottle  = n => `${n || 'no more'} bottle${n !== 1 ? 's' : ''} of beer`;
 const one     = n => (n > 1 ? 'one' : 'it');
@@ -15,12 +15,19 @@ class Beer {
     } else {
       second = `Take ${one(n)} down and pass it around, ${bottle(n - 1)} on the wall.`;
     }
-    return `${first}\n${second}\n`;
+    return [first, second, ""];
   }
 
   static sing(start = 99, stop = 0) {
-    return from(start).downTo(stop).map(i => this.verse(i)).join('\n');
+    const stanzas = from(start)
+                    .downTo(stop)
+                    .flatMap(i => this.verse(i));
+    // remove the trailing empty line
+    stanzas.pop();
+    return stanzas;
   }
 }
 
-module.exports = Beer;
+export const recite = (start, num) => {
+  return Beer.sing(start, start + 1 - num);
+};

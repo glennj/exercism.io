@@ -17,13 +17,3 @@ export const isPangram = (str) => {
   }
   return false;
 };
-
-/* from the community: iterate over the alphabet, not the input string.
-
-const alphabet = [...'abcdefghijklmnopqrstuvwxyz'];
-export const isPangram = (str) => {
-  const lowText = str.toLowerCase();
-  return alphabet.every(letter => lowText.includes(letter));
-};
-
-*/

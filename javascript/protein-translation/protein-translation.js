@@ -1,39 +1,25 @@
 const proteins = {
-  AUG: 'Methionine',
-  UUU: 'Phenylalanine',
-  UUC: 'Phenylalanine',
-  UUA: 'Leucine',
-  UUG: 'Leucine',
-  UCU: 'Serine',
-  UCC: 'Serine',
+  AUG: 'Methionine',   UUU: 'Phenylalanine',
+  UUA: 'Leucine',      UUC: 'Phenylalanine',
+  UUG: 'Leucine',      UGG: 'Tryptophan',   
+  UCU: 'Serine',       UGC: 'Cysteine',   
+  UCC: 'Serine',       UGU: 'Cysteine',
   UCA: 'Serine',
-  UCG: 'Serine',
-  UAU: 'Tyrosine',
-  UAC: 'Tyrosine',
-  UGU: 'Cysteine',
-  UGC: 'Cysteine',
-  UGG: 'Tryptophan',
-  UAA: 'STOP',
-  UAG: 'STOP',
-  UGA: 'STOP',
+  UCG: 'Serine',       UAA: 'STOP',
+  UAU: 'Tyrosine',     UGA: 'STOP',
+  UAC: 'Tyrosine',     UAG: 'STOP',
 };
 
-const translate = (rna = '') => {
-  if (rna.length % 3 !== 0) throw new Error('Invalid codon');
-  const codons = (rna).match(/.../g) || [];
+export const translate = (rna = '') => {
+  // Extract all 3-character chunks in the input string.
+  // The `{1,3}` quantifier will pick up an straggling characters from
+  // the end of the string.
+  const codons = (rna).match(/.{1,3}/g) ?? [];
   const names = [];
-  for (let i = 0; i < codons.length; i += 1) {
-    if (!(codons[i] in proteins)) throw new Error('Invalid codon');
-    if (proteins[codons[i]] === 'STOP') break;
-    names.push(proteins[codons[i]]);
+  for (const codon of codons) {
+    if (!(codon in proteins)) throw new Error('Invalid codon');
+    if (proteins[codon] === 'STOP') break;
+    names.push(proteins[codon]);
   }
   return names;
 };
-
-module.exports = translate;
-
-/* community
- *
- * interesting way to end for loop:
-      for (var token, i = 0; token = tokens[i]; i ++) {
- */

@@ -1,6 +1,4 @@
-/* eslint-disable */
-
-import Song from './food-chain';
+import { Song } from './food-chain';
 
 describe('Food Chain', () => {
   let song;
@@ -171,4 +169,3 @@ She's dead, of course!
     expect(song.verses(1, 8)).toEqual(expected);
   });
 });
-

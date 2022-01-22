@@ -1,3 +1,5 @@
+import {from} from './iterable-range';
+
 const actors = [
   { who: 'house that Jack built.' },
   { who: 'malt', what: 'lay in' },
@@ -21,14 +23,12 @@ const verse = (n) => {
   return lines;
 };
 
-const range = (m, n) => {
-  const a = new Array(n - m + 1);
-  for (let i = m; i <= n; i += 1) a[i - m] = i;
-  return a;
+const verses = (m = 1, n = actors.length) => {
+  const lyrics = from(m)
+                 .upTo(n)
+                 .reduce((lyrics, i) => lyrics.concat(verse(i), ''), []);
+  lyrics.pop();
+  return lyrics;
 };
 
-const verses = (m = 1, n = actors.length) => range(m, n)
-  .reduce((lyrics, i) => lyrics.concat('', verse(i)), [])
-  .slice(1);
-
-module.exports = { verse, verses };
+module.exports = {House: {verse, verses}};

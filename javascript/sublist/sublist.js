@@ -1,23 +1,20 @@
-/* eslint-disable no-underscore-dangle */
-class List {
-  constructor(a = []) {
-    this.a = a;
-  }
+import {ExtendedArray} from './extended-array';
 
-  // \x1f is the ascii "field separator" character
-  _toS() {
-    return this.a.join('\x1f');
+export class List {
+  constructor(a = []) {
+    this.a = ExtendedArray.from(a);
   }
 
   compare(other) {
-    const x = this._toS();
-    const y = other._toS();
+    if (this.a.length === other.a.length && this.a.equals(other.a))
+      return 'EQUAL';
 
-    if (x === y) return 'EQUAL';
-    if (x.indexOf(y) !== -1) return 'SUPERLIST';
-    if (y.indexOf(x) !== -1) return 'SUBLIST';
+    if (this.a.length > other.a.length && this.a.containsArray(other.a))
+      return 'SUPERLIST';
+
+    if (this.a.length < other.a.length && other.a.containsArray(this.a))
+      return 'SUBLIST';
+
     return 'UNEQUAL';
   }
 }
-
-module.exports = List;

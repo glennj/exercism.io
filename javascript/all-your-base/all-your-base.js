@@ -32,4 +32,8 @@ class Converter {
   }
 }
 
-module.exports = Converter;
+// tests changed since I wrote the class. 
+// add a wrapper function
+export const convert = (...args) => {
+  return new Converter().convert(...args)
+};

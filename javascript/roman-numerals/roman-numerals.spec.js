@@ -1,6 +1,4 @@
-/* eslint-disable */
-
-import toRoman from './roman-numerals';
+import { toRoman } from './roman-numerals';
 
 describe('toRoman()', () => {
   test('converts 1', () => expect(toRoman(1)).toEqual('I'));
@@ -12,6 +10,7 @@ describe('toRoman()', () => {
   test('converts 9', () => expect(toRoman(9)).toEqual('IX'));
   test('converts 27', () => expect(toRoman(27)).toEqual('XXVII'));
   test('converts 48', () => expect(toRoman(48)).toEqual('XLVIII'));
+  test('converts 49', () => expect(toRoman(49)).toEqual('XLIX'));
   test('converts 59', () => expect(toRoman(59)).toEqual('LIX'));
   test('converts 93', () => expect(toRoman(93)).toEqual('XCIII'));
   test('converts 141', () => expect(toRoman(141)).toEqual('CXLI'));
@@ -21,6 +20,4 @@ describe('toRoman()', () => {
   test('converts 911', () => expect(toRoman(911)).toEqual('CMXI'));
   test('converts 1024', () => expect(toRoman(1024)).toEqual('MXXIV'));
   test('converts 3000', () => expect(toRoman(3000)).toEqual('MMM'));
-  test('converts 888', () => expect(toRoman(888)).toEqual('DCCCLXXXVIII'));
-  test('converts 999', () => expect(toRoman(999)).toEqual('CMXCIX'));
 });

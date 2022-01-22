@@ -1,7 +1,7 @@
-export default function (str) {
-  let reversed = '';
-  for (let i = str.length - 1; i >= 0; i -= 1) {
-    reversed = reversed.concat(str[i]);
-  }
-  return reversed;
-}
+import {from} from './iterable-range';
+
+export const reverseString = (str) => 
+  from(str.length - 1)
+    .downTo(0)
+    .map(i => str[i])
+    .join('');

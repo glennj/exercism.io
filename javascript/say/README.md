@@ -1,5 +1,10 @@
 # Say
 
+Welcome to Say on Exercism's JavaScript Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given a number from 0 to 999,999,999,999, spell out that number in English.
 
 ## Step 1
@@ -41,7 +46,7 @@ Now handle inserting the appropriate scale word between those chunks.
 
 So `1234567890` should yield `'1 billion 234 million 567 thousand 890'`
 
-The program must also report any values that are out of range.  It's
+The program must also report any values that are out of range. It's
 fine to stop at "trillion".
 
 ## Step 4
@@ -62,38 +67,21 @@ Use _and_ (correctly) when spelling out the number in English:
 - 1002 becomes "one thousand and two".
 - 1323 becomes "one thousand three hundred and twenty-three".
 
-## Setup
-
-Go through the setup instructions for Javascript to
-install the necessary dependencies:
-
-[https://exercism.io/tracks/javascript/installation](https://exercism.io/tracks/javascript/installation)
-
-## Requirements
-
-Install assignment dependencies:
-
-```bash
-$ npm install
-```
-
-## Making the test suite pass
-
-Execute the tests with:
-
-```bash
-$ npm test
-```
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by
-changing `xtest` to `test`.
-
-
 ## Source
 
-A variation on JavaRanch CattleDrive, exercise 4a [http://www.javaranch.com/say.jsp](http://www.javaranch.com/say.jsp)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @matthewmorgan
+
+### Contributed to by
+
+- @ankorGH
+- @msomji
+- @rchavarria
+- @ryanplusplus
+- @SleeplessByte
+- @tejasbubane
+
+### Based on
+
+A variation on JavaRanch CattleDrive, exercise 4a - http://www.javaranch.com/say.jsp

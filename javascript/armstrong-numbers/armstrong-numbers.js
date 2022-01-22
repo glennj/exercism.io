@@ -1,5 +1,6 @@
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "^validate" }] */
 
+
 const validateNumerically = (input) => {
   const num = parseInt(input, 10);
   const m = Math.ceil(Math.log10(num));
@@ -12,10 +13,12 @@ const validateNumerically = (input) => {
   return sum === num;
 };
 
+
 const validateStringwise = (input) => {
   const digits = input.toString().trim().split('').map(d => parseInt(d, 10));
   const sum = digits.reduce((s, d) => s + (d ** digits.length), 0);
   return sum === parseInt(input, 10);
 };
 
-module.exports = { validate: validateNumerically };
+
+module.exports = { isArmstrongNumber: validateNumerically };

@@ -1,25 +1,13 @@
-class Matrix {
-  constructor(str) {
-    this.rows = str.split('\n').map(line => line.trim().replace(/\s+/g, ' ').split(' ').map(Number));
+export const saddlePoints = (rows) => {
+  const columns = rows[0].map((_, i) => rows.map(row => row[i]));
+  const rowsMax = rows.map(row => Math.max(...row));
+  const colsMin = columns.map(col => Math.min(...col));
+  const points = [];
 
-    if (!this.rows.every(row => row.length === this.rows[0].length)) {
-      throw new Error('rows have unequal lengths');
-    }
+  for (let r = 0; r < rows.length; r++)
+    for (let c = 0; c < columns.length; c++)
+      if (rowsMax[r] === colsMin[c])
+        points.push({row: r+1, column: c+1});
 
-    this.columns = this.rows[0].map((_, i) => this.rows.map(row => row[i]));
-  }
-
-  get saddlePoints() {
-    const rowsMax = this.rows.map(row => Math.max(...row));
-    const colsMin = this.columns.map(col => Math.min(...col));
-    const points = [];
-    for (let x = 0; x < this.columns.length; x += 1) {
-      for (let y = 0; y < this.rows.length; y += 1) {
-        if (rowsMax[x] === colsMin[y]) points.push([x, y]);
-      }
-    }
-    return points;
-  }
+  return points;
 }
-
-module.exports = Matrix;

@@ -15,6 +15,7 @@ function buildTriangle(n) {
 
 // recursive
 function buildTriangle(n) {
+  if (n < 1) return [];
   if (n === 1) return [[1]];
   const prevTriangle = buildTriangle(n - 1);
   const prevRow = prevTriangle.pop();
@@ -22,30 +23,4 @@ function buildTriangle(n) {
   return [...prevTriangle, prevRow, row];
 }
 
-class Triangle {
-  constructor(n) {
-    this.rows = buildTriangle(n);
-  }
-
-  get lastRow() {
-    return this.rows[this.rows.length - 1];
-  }
-}
-
-module.exports = Triangle;
-
-/* community
- *
- * here's a terse one
-
-      class Triangle {
-        constructor(n) {
-          this.rows = [this.lastRow = [1]];
-
-          for(let i=0; i<n-1; i++) {
-            this.rows.push(this.lastRow = Array(i+2).fill().map( (_,j) => (this.rows[i][j-1]||0) + (this.rows[i][j]||0) ));
-          }
-        }
-      }
- *
- */
+module.exports = {rows: buildTriangle};

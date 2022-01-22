@@ -1,8 +1,8 @@
 /* eslint-disable  no-extend-native, func-names */
 
-// add "tr(1)" functionality to String
-String.prototype.transliterate = function (fromChars, toChars) {
-  if (fromChars.length === 0) return this;
+// implement `tr(1)`
+function tr(str, fromChars, toChars) {
+  if (fromChars.length === 0) return str;
   if (toChars.length === 0) throw new Error('"to" character set must be non-empty.');
 
   // Ensure the "to" set is at least the same length as the "from" set
@@ -13,18 +13,21 @@ String.prototype.transliterate = function (fromChars, toChars) {
     const idx = fromChars.indexOf(c);
     return idx > -1 ? toPadded[idx] : c;
   };
-  return Array.from(this).map(trOne).join('');
-};
+  return Array.from(str).map(trOne).join('');
+}
 
 /* the task: Atbash cipher */
 
 const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 const reversed = Array.from(alphabet).reverse().join('');
 
-const encode = (str) => {
+function decode(str) {
   const filtered = str.toLowerCase().replace(/[\W_]/g, '');
-  const encoded = filtered.transliterate(alphabet, reversed);
-  return encoded.match(/.{1,5}/g).join(' ');
-};
+  return tr(filtered, alphabet, reversed);
+}
 
-module.exports = { encode };
+function encode(str) {
+  return decode(str).match(/.{1,5}/g).join(' ');
+}
+
+module.exports = { encode, decode };
