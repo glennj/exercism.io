@@ -23,7 +23,7 @@ month_days() {
             $date += ONE_DAY;
         }
     ' -- -year="$year" -month="$month"
-}
+} 
 
 result() {
     printf "%d-%02d-%02d" "$year" "$month" "$1"

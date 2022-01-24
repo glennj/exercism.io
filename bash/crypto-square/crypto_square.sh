@@ -17,7 +17,7 @@ segments=()
 for ((i = 0; i < ${#input}; i += size)); do
     segments+=("${input:i:size}")
 done
-
+ 
 # transpose the segments array
 declare -a transposed
 for ((i = 0; i < size; i++)); do
