@@ -13,9 +13,3 @@ object SumOfMultiples {
         return multiples.sum()
     }
 }
-
-/*
-  fun sum(factors: Set<Int>, limit: Int): Int =
-    factors.flatMap { 0 until limit step it }.toSet().sum()
-
- */

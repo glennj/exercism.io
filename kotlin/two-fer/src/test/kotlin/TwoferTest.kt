@@ -2,7 +2,7 @@ import org.junit.Ignore
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class TwoferTest {
+class TwoFerTest {
 
     @Test
     fun noNameGiven() {
@@ -10,19 +10,19 @@ class TwoferTest {
     }
 
     @Test
-    // @Ignore
+    //@Ignore
     fun aNameGiven() {
         assertEquals("One for Alice, one for me.", twofer("Alice"))
     }
 
     @Test
-    // @Ignore
+    //@Ignore
     fun anotherNameGiven() {
         assertEquals("One for Bob, one for me.", twofer("Bob"))
     }
 
     @Test
-    // @Ignore
+    //@Ignore
     fun emptyStringGiven() {
         assertEquals("One for , one for me.", twofer(""))
     }

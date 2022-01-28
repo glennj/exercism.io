@@ -1,1 +1,6 @@
+build/
+.gradle/
+.idea/
+.project
+.settings/
 IsTesting

@@ -21,8 +21,7 @@ class RailFenceCipher(val numRails:Int) {
                     rails[i].append(input[index])
                 }
 
-        return rails.joinToString("") { it.toString()
-        }
+        return rails.joinToString("") { it.toString() }
     }
 
     fun getDecryptedData(input: String): String {

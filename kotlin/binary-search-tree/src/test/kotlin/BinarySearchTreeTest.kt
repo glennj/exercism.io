@@ -67,50 +67,12 @@ class BinarySearchTreeTest {
     }
 
     @Test
-    fun `height 1`() {
-        val tree = BinarySearchTree<Int>()
-        val treeData = listOf(1,2,3,4)
-        treeData.forEach(tree::insert)
-        val actual = tree.height()
-        assertEquals(4, actual)
-    }
-
-    @Test
-    fun `height 2`() {
-        val tree = BinarySearchTree<Int>()
-        val treeData = listOf(2,1,3,4)
-        treeData.forEach(tree::insert)
-        val actual = tree.height()
-        assertEquals(3, actual)
-    }
-
-    @Test
     fun `creates complex tree`() {
         val tree = BinarySearchTree<Char>()
         val expected = listOf('4', '2', '6', '1', '3', '5', '7')
         val treeData = listOf('4', '2', '6', '1', '3', '5', '7')
         treeData.forEach(tree::insert)
         val actual = tree.asLevelOrderList()
-        assertEquals(expected, actual)
-    }
-
-    @Test
-    fun `big tree level order`() {
-        val tree = BinarySearchTree<Int>()
-        val expected = listOf(8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15)
-        val treeData = listOf(8, 4, 2, 6, 1, 3, 5, 7, 12, 14, 10, 9, 11, 13, 15)
-        treeData.forEach(tree::insert)
-        val actual = tree.asLevelOrderList()
-        assertEquals(expected, actual)
-    }
-
-    @Test
-    fun `big tree sorted order`() {
-        val tree = BinarySearchTree<Int>()
-        val expected = (1..15).toList()
-        val treeData = listOf(8, 4, 2, 6, 1, 3, 5, 7, 12, 14, 10, 9, 11, 13, 15)
-        treeData.forEach(tree::insert)
-        val actual = tree.asSortedList()
         assertEquals(expected, actual)
     }
 
@@ -160,6 +122,16 @@ class BinarySearchTreeTest {
         val treeData = listOf("2", "1", "3", "6", "7", "5")
         treeData.forEach(tree::insert)
         val actual = tree.asSortedList()
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `big tree level order`() {
+        val tree = BinarySearchTree<Int>()
+        val expected = listOf(8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15)
+        val treeData = listOf(8, 4, 2, 6, 1, 3, 5, 7, 12, 14, 10, 9, 11, 13, 15)
+        treeData.forEach(tree::insert)
+        val actual = tree.asLevelOrderList()
         assertEquals(expected, actual)
     }
 }

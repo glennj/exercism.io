@@ -9,7 +9,7 @@ class SchoolTest {
             .everyone()
             .shouldBe(listOf("Aimee"))
 
-    ////@Ignore
+    //@Ignore
     @Test
     fun `adding more student adds them to the sorted roster`() =
         students(

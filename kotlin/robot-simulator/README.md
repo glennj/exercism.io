@@ -1,5 +1,10 @@
 # Robot Simulator
 
+Welcome to Robot Simulator on Exercism's Kotlin Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Write a robot simulator.
 
 A robot factory's test facility needs a program to verify robot movements.
@@ -27,33 +32,23 @@ direction it is pointing.
 - Say a robot starts at {7, 3} facing north. Then running this stream
   of instructions should leave it at {9, 4} facing west.
 
-## Setup
-
-Go through the setup instructions for Kotlin to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/kotlin/installation](https://exercism.io/tracks/kotlin/installation)
-
-## Making the test suite pass
-
-Execute the tests with:
-
-```bash
-$ gradlew test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore` annotation.
-
 ## Source
 
+### Created by
+
+- @stkent
+
+### Contributed to by
+
+- @dector
+- @eparovyshnaya
+- @lihofm
+- @mdowds
+- @sjwarner-bp
+- @SleeplessByte
+- @sup95
+- @uzilan
+
+### Based on
+
 Inspired by an interview question at a famous company.
-
-## Submitting Incomplete Solutions
-
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.

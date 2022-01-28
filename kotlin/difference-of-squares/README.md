@@ -1,5 +1,10 @@
 # Difference Of Squares
 
+Welcome to Difference Of Squares on Exercism's Kotlin Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Find the difference between the square of the sum and the sum of the squares of the first N natural numbers.
 
 The square of the sum of the first ten natural numbers is
@@ -16,33 +21,25 @@ You are not expected to discover an efficient solution to this yourself from
 first principles; research is allowed, indeed, encouraged. Finding the best
 algorithm for the problem is a key skill in software engineering.
 
-## Setup
-
-Go through the setup instructions for Kotlin to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/kotlin/installation](https://exercism.io/tracks/kotlin/installation)
-
-## Making the test suite pass
-
-Execute the tests with:
-
-```bash
-$ gradlew test
-```
-
-> Use `gradlew.bat` if you're on Windows
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore` annotation.
-
 ## Source
 
-Problem 6 at Project Euler [http://projecteuler.net/problem=6](http://projecteuler.net/problem=6)
+### Created by
 
-## Submitting Incomplete Solutions
+- @sdavids13
 
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+### Contributed to by
+
+- @dector
+- @eparovyshnaya
+- @jtigger
+- @lihofm
+- @mdowds
+- @nithia
+- @sjwarner-bp
+- @SleeplessByte
+- @stkent
+- @uzilan
+
+### Based on
+
+Problem 6 at Project Euler - http://projecteuler.net/problem=6

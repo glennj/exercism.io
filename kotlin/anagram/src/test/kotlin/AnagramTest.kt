@@ -53,7 +53,7 @@ class AnagramTest {
             .searchedIn("last")
             .shouldBeEmpty()
 
-    //@Ignore
+    ////@Ignore
     @Test
     fun `detects anagrams case-insensitively`() =
         anagramsOf("Orchestra")

@@ -13,7 +13,7 @@ class RailFenceCipherTest {
         )
     }
 
-   // @Ignore
+    //@Ignore
     @Test
     fun encodeWithThreeRails() {
         val railFenceCipher = RailFenceCipher(3)
@@ -23,7 +23,7 @@ class RailFenceCipherTest {
         )
     }
 
- //   @Ignore
+    //@Ignore
     @Test
     fun encodeWithEndingInTheMiddle() {
         val railFenceCipher = RailFenceCipher(4)
@@ -33,17 +33,7 @@ class RailFenceCipherTest {
         )
     }
 
-    //   @Ignore
-    @Test
-    fun encodeJackman() {
-        val railFenceCipher = RailFenceCipher(5)
-        assertEquals(
-                "tkfshdhc  op te oeibnxmo  ygs urw uvrlzgeqojeai",
-                railFenceCipher.getEncryptedData("the quick brown fox jumps over the lazy doggies")
-        )
-    }
-
-  //  @Ignore
+    //@Ignore
     @Test
     fun decodeWithThreeRails() {
         val railFenceCipher = RailFenceCipher(3)
@@ -53,7 +43,7 @@ class RailFenceCipherTest {
         )
     }
 
-  //  @Ignore
+    //@Ignore
     @Test
     fun decodeWithFiveRails() {
         val railFenceCipher = RailFenceCipher(5)
@@ -63,23 +53,13 @@ class RailFenceCipherTest {
         );
     }
 
-  //  @Ignore
+    //@Ignore
     @Test
     fun decodeWithSixRails() {
         val railFenceCipher = RailFenceCipher(6)
         assertEquals(
                 "112358132134558914423337761098715972584418167651094617711286",
                 railFenceCipher.getDecryptedData("133714114238148966225439541018335470986172518171757571896261")
-        )
-    }
-
-    //   @Ignore
-    @Test
-    fun decodeJackman() {
-        val railFenceCipher = RailFenceCipher(5)
-        assertEquals(
-                "the quick brown fox jumps over the lazy doggies",
-                railFenceCipher.getDecryptedData("tkfshdhc  op te oeibnxmo  ygs urw uvrlzgeqojeai")
         )
     }
 }

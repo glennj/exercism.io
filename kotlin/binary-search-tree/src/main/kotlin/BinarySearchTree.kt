@@ -29,8 +29,6 @@ class BinarySearchTree<T : Comparable<T>> {
                     (right?.givenLevel(level - 1) ?: emptyList())
                 }
             }
-
-
     }
 
     var root: Node<T>? = null
@@ -41,34 +39,11 @@ class BinarySearchTree<T : Comparable<T>> {
 
     fun asSortedList(): List<T> = root?.asSortedList() ?: emptyList()
 
+    fun asLevelOrderList(): List<T> = root?.asLevelOrderList(height()) ?: emptyList()
+
     fun height(node: Node<T>? = root): Int =
         when(node) {
             null -> 0
             else -> listOf(height(node.left), height(node.right)).max()!! + 1
         }
-
-    fun asLevelOrderList(): List<T> = root?.asLevelOrderList(height()) ?: emptyList()
-
-/* the reference implementation
- *
-    fun asLevelOrderList(): List<T> =
-            if (root == null) {
-                emptyList()
-            } else {
-                asLevelOrderList(listOf(), listOf(root!!)).first.map { it.data }
-            }
-
-
-    private fun asLevelOrderList(done: List<Node<T>>, todo: List<Node<T>>): Pair<List<Node<T>>, List<Node<T>>> {
-        if (todo.isEmpty()) {
-            return Pair(done, emptyList())
-        }
-        return asLevelOrderList(
-                done + todo,
-                todo.flatMap { listOfNotNull(it.left, it.right) })
-    }
- *
- */
-
-
 }

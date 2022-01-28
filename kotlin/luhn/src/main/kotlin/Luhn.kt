@@ -17,6 +17,7 @@ object Luhn {
         when {
             index.even() -> digit
             else -> with(digit * 2) { this - if (this > 9) 9 else 0 }
+
         }
 
     private fun Int.even(): Boolean = this % 2 == 0

@@ -6,8 +6,9 @@ class Anagram(val source: String) {
             word.toList().sorted()
 
     fun match(anagrams: Collection<String>): Set<String> =
-            anagrams.map(String::toLowerCase)
-                    .filterNot { src == it }
-                    .filter { key == anagramKey(it) }
+            anagrams.map { it to it.toLowerCase() }
+                    .filterNot { src == it.second }
+                    .filter { key == anagramKey(it.second) }
+                    .map { it.first }
                     .toSet()
 }

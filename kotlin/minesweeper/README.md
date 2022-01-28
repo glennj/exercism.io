@@ -1,55 +1,59 @@
 # Minesweeper
 
-Add the numbers to a minesweeper board.
+Welcome to Minesweeper on Exercism's Kotlin Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
+Add the mine counts to a completed Minesweeper board.
 
 Minesweeper is a popular game where the user has to find the mines using
 numeric hints that indicate how many mines are directly adjacent
 (horizontally, vertically, diagonally) to a square.
 
 In this exercise you have to create some code that counts the number of
-mines adjacent to a square and transforms boards like this (where `*`
-indicates a mine):
+mines adjacent to a given empty square and replaces that square with the
+count.
 
-    +-----+
-    | * * |
-    |  *  |
-    |  *  |
-    |     |
-    +-----+
+The board is a rectangle composed of blank space (' ') characters. A mine
+is represented by an asterisk ('\*') character.
 
-into this:
+If a given space has no adjacent mines at all, leave that square blank.
 
-    +-----+
-    |1*3*1|
-    |13*31|
-    | 2*2 |
-    | 111 |
-    +-----+
+## Examples
 
-## Setup
+For example you may receive a 5 x 4 board like this (empty spaces are
+represented here with the '·' character for display on screen):
 
-Go through the setup instructions for Kotlin to install the necessary
-dependencies:
-
-[https://exercism.io/tracks/kotlin/installation](https://exercism.io/tracks/kotlin/installation)
-
-## Making the test suite pass
-
-Execute the tests with:
-
-```bash
-$ gradlew test
+```
+·*·*·
+··*··
+··*··
+·····
 ```
 
-> Use `gradlew.bat` if you're on Windows
+And your code will transform it into this:
 
-In the test suites all tests but the first have been skipped.
+```
+1*3*1
+13*31
+·2*2·
+·111·
+```
 
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore` annotation.
+## Source
 
+### Created by
 
-## Submitting Incomplete Solutions
+- @stkent
 
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+### Contributed to by
+
+- @dector
+- @eparovyshnaya
+- @lihofm
+- @mdowds
+- @sdavids13
+- @sjwarner-bp
+- @SleeplessByte
+- @uzilan
