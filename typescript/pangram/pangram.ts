@@ -1,13 +1,13 @@
-class Pangram {
-  private letters: Set<string>
+const Alphabet = new Set('abcdefghijklmnopqrstuvwxyz')
 
-  constructor(input: string) {
-    this.letters = new Set( [...input.toLowerCase().replace(/[^a-z]/g, '')] )
-  }
+export function isPangram(input: string): boolean {
+  const letters = input.toLowerCase().replace(/[^a-z]/g, '')
 
-  isPangram(): boolean {
-    return this.letters.size === 26
-  }
+  //return new Set([...letters]).size === 26
+
+  for (const letter of Alphabet)
+    if (letters.indexOf(letter) === -1)
+      return false
+  return true
 }
 
-export default Pangram

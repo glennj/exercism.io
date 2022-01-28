@@ -1,7 +1,11 @@
 // all dispatched methods must have this signature.
 type DispatchFunction = () => void
 
-class Robot {
+type Location = {direction: string, x: number, y: number}
+
+export class InvalidInputError extends Error {}
+
+export class Robot {
 
   // Using 'keyof Robot' type to enable dispatching.
   // See `instructions` and `evaluate` methods.
@@ -14,8 +18,8 @@ class Robot {
   // Using specific order. See `advance()` method.
   private static bearings: string[] = ['east', 'north', 'west', 'south']
 
-  private _coordinates: [number, number]
-  private _bearing: number
+  private _coordinates!: [number, number]
+  private _bearing!: number
 
   constructor(x: number = 0, y: number = 0, bearing: string = 'north') {
     this.at(x, y)
@@ -25,15 +29,19 @@ class Robot {
   get bearing()     { return Robot.bearings[this._bearing] }
   get coordinates() { return this._coordinates }
 
+  place({direction, x, y}: Location) {
+    this.at(x, y)
+    this.orient(direction)
+  }
+
   at(x: number, y: number): void {
     this._coordinates = [x, y]
   }
 
   orient(bearing: string): void {
     this._bearing = Robot.bearings.indexOf(bearing)
-    if (this._bearing === -1) {
-      throw new Error('Invalid Robot Bearing')
-    }
+    if (this._bearing === -1)
+      throw new InvalidInputError('Invalid Robot direction')
   }
 
   turn(direction: number): void {
@@ -50,19 +58,17 @@ class Robot {
   }
 
   instructions(script: string): Array<keyof Robot> {
-    return [...script].map((instr) => {
-      if (!Robot.instructionSet[instr]) {
-        throw new Error('Invalid instruction')
-      }
+    return [...script].map(instr => {
+      if (!Robot.instructionSet[instr])
+        throw new InvalidInputError('Invalid instruction')
+
       return Robot.instructionSet[instr]
     })
   }
 
   evaluate(script: string): void {
-    this.instructions(script).forEach((instruction) => {
+    this.instructions(script).forEach(instruction => {
       ( this[instruction] as DispatchFunction )()
     })
   }
 }
-
-export default Robot

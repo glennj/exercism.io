@@ -1,14 +1,14 @@
-class BinarySearchTree {
-  private _left: BinarySearchTree
-  private _right: BinarySearchTree
+export class BinarySearchTree {
+  private _left: BinarySearchTree|null = null
+  private _right: BinarySearchTree|null = null
   // don't allow modification
   readonly data: number
 
   constructor(value: number) { this.data = value }
 
   // no setters
-  get left():  BinarySearchTree { return this._left }
-  get right(): BinarySearchTree { return this._right }
+  get left():  BinarySearchTree|null { return this._left }
+  get right(): BinarySearchTree|null { return this._right }
 
   each(callback: (element: number) => void): void {
     if (this.left)  { this.left.each(callback) }
@@ -32,5 +32,3 @@ class BinarySearchTree {
     }
   }
 }
-
-export default BinarySearchTree

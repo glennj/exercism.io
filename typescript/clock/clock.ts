@@ -1,4 +1,4 @@
-class Clock {
+export class Clock {
   private hour: number
   private minute: number
 
@@ -39,5 +39,3 @@ class Clock {
     return this.plus(-minutes)
   }
 }
-
-export default Clock

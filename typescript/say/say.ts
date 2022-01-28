@@ -16,7 +16,9 @@ const XTY: {[key: number]: string} = {
 const ARGUMENT_ERROR = new Error('Number must be between 0 and 999,999,999,999.')
 
 class Say {
-  inEnglish (n: number): string { return this.say(n) }
+  static inEnglish (n: number): string {
+    return new Say().say(n)
+  }
 
   say(n: number): string {
     if (n < 0)    { throw ARGUMENT_ERROR }
@@ -40,4 +42,6 @@ class Say {
   }
 }
 
-export default Say
+export function sayInEnglish(num: number): string {
+  return Say.inEnglish(num)
+}

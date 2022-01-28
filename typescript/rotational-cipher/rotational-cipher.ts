@@ -1,6 +1,6 @@
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
 
-function rotate(input: string, rotation: number = 13): string {
+export function rotate(input: string, rotation: number = 13): string {
   return [...input].map((c) => rotateChar(c, rotation)).join('')
 }
 
@@ -11,5 +11,3 @@ function rotateChar(c: string, n: number): string {
   const d = ALPHABET[ (i + n) % ALPHABET.length ]
   return c === lc ? d : d.toUpperCase()
 }
-
-export default { rotate }

@@ -2,6 +2,10 @@ type Point = {x: number, y: number}
 // a rectangle can be defined by its upper-left and lower-right vertices
 type Rectangle = [Point, Point]
 
+export const count = (lines: string[]): number => {
+  return Rectangles.count(lines)
+}
+
 class Rectangles {
   static count(lines: string[]): number {
     return lines.length === 0 ? 0 : this.findRectangles(lines).length
@@ -74,7 +78,6 @@ class Rectangles {
   }
 }
 
-export default Rectangles
 
 // [a, b, c] => [[a, b], [a, c], [b, c]]
 function pairs<T> (list: T[]): T[][] {

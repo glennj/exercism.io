@@ -1,4 +1,4 @@
-class Squares {
+export class Squares {
 
   /* these could be "get" functions, but
    * we only need to calculate them once
@@ -20,5 +20,3 @@ class Squares {
     return this.squareOfSum - this.sumOfSquares
   }
 }
-
-export default Squares

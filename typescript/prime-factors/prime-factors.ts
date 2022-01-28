@@ -1,4 +1,4 @@
-function calculatePrimeFactors(num: number): number[] {
+export function calculatePrimeFactors(num: number): number[] {
   const factors: number[] = []
 
   while (num % 2 === 0) {
@@ -19,5 +19,3 @@ function calculatePrimeFactors(num: number): number[] {
   if (num > 1) {factors.push(num)}
   return factors
 }
-
-export default calculatePrimeFactors

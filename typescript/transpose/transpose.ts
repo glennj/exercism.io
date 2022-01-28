@@ -1,4 +1,4 @@
-function transpose(rows: string[]): string[] {
+export function transpose(rows: string[]): string[] {
   if (rows.length === 0) {return []}
   // each row must be at least as long as the next one
   for (let i = rows.length - 2; i >= 0; i--) {
@@ -9,25 +9,3 @@ function transpose(rows: string[]): string[] {
     return matrix.map((r) => r[i]).join('')
   })
 }
-
-export default { transpose }
-
-/*
-export default class Transpose {
-  public static transpose(lines: string[]): string[] {
-    const transposed: string[] = []
-
-    for (let i = 0; i < lines.length; i += 1) {
-      for (let j = 0; j < lines[i].length; j += 1) {
-        if (!(j in transposed)) {
-          transposed[j] = ''.padEnd(i, ' ')
-        }
-
-        transposed[j] += lines[i][j]
-      }
-    }
-
-    return transposed
-  }
-}
-*/

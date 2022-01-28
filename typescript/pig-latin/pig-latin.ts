@@ -1,5 +1,4 @@
-
-function translate (phrase: string): string {
+export function translate (phrase: string): string {
   return phrase
     .split(/\s+/)
     .map((word) => translateWord(word.toLowerCase()))
@@ -22,5 +21,3 @@ function translateWord(word: string): string {
   // are there any other cases?
   return `${word}ay`
 }
-
-export default { translate }

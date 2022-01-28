@@ -1,23 +1,23 @@
-class Bob {
-    hey( input: string ): string {
-        if (this.isYelling(input))  { return 'Whoa, chill out!' }
-        if (this.isQuestion(input)) { return 'Sure.' }
-        if (this.isSilence(input))  { return 'Fine. Be that way!' }
-        return 'Whatever.'
-    }
-
-    private isQuestion( input: string ): boolean {
-        return /[?]\s*$/.test(input)
-    }
-
-    private isSilence( input: string ): boolean {
-        return /^\s*$/.test(input)
-    }
-
-    private isYelling( input: string ): boolean {
-        return /[A-Z]/.test(input)
-            && input === input.toUpperCase()
-    }
+export function hey(input: string): string {
+  if (isSilence(input))  { return 'Fine. Be that way!' }
+  if (isYelling(input))  {
+    return isQuestion(input)
+      ? "Calm down, I know what I'm doing!"
+      : 'Whoa, chill out!'
+  }
+  if (isQuestion(input)) { return 'Sure.' }
+  return 'Whatever.'
 }
 
-export default Bob
+function isQuestion( input: string ): boolean {
+  return /[?]\s*$/.test(input)
+}
+
+function isSilence( input: string ): boolean {
+  return /^\s*$/.test(input)
+}
+
+function isYelling( input: string ): boolean {
+  // has an uppercase letter but no lowercase letter.
+  return /\p{Lu}/u.test(input) && ! /\p{Ll}/u.test(input)
+}

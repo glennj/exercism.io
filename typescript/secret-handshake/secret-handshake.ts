@@ -24,4 +24,6 @@ class HandShake {
   }
 }
 
-export default HandShake
+export function commands(code: number): string[] {
+  return new HandShake(code).commands()
+}

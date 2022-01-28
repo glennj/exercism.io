@@ -1,10 +1,16 @@
-export class BufferOverflowError extends Error {}
-export class BufferEmptyError    extends Error {}
+export class BufferFullError extends Error {}
+export class BufferEmptyError extends Error {}
 
 export default class CircularBuffer<T> {
   private size: number
-  private buffer: Array<T | undefined>
-  private pointer: { [index: string]: number }
+  private buffer!: Array<T | undefined>
+  private pointer!: { [index: string]: number }
+
+  /* note to self, the `!:` notation above is the 
+   * "definite assignment assertion operator", 
+   * i.e. "yeah, yeah, the constructor _will_ assign it"
+   * ref: https://www.typescriptlang.org/docs/handbook/2/classes.html
+   */
 
   constructor(size: number) {
     this.size = size
@@ -26,7 +32,7 @@ export default class CircularBuffer<T> {
   }
 
   write(value: T, force: boolean = false): void {
-    if (this.isFull() && !force) { throw new BufferOverflowError() }
+    if (this.isFull() && !force) { throw new BufferFullError() }
     this.buffer[this.pointer.write] = value
     this.incr('write')
   }

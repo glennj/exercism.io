@@ -1,8 +1,6 @@
-/* tslint disable */
-import Gigasecond from './gigasecond'
+import { Gigasecond } from './gigasecond'
 
 describe('Gigasecond', () => {
-
   it('tells a gigasecond anniversary since midnight', () => {
     const gs = new Gigasecond(new Date(Date.UTC(2015, 8, 14)))
     const expectedDate = new Date(Date.UTC(2047, 4, 23, 1, 46, 40))

@@ -1,35 +1,48 @@
-function rand (n: number): number { return Math.floor(Math.random() * n) }
-// random A-Z
-function rA (): string { return String.fromCharCode(65 + rand(26)) }
-// random 0-9
-function rD (): string { return String(rand(10)) }
 
-class RobotName {
-  private static registry: Set<string> = new Set<string>()
+// generate all names
+const ALL_NAMES: string[] = []
+let currentIndex: number
 
-  private _name: string
-  get name(): string { return this._name }
+for (let a = 65; a <= 90; a++) {
+  const A = String.fromCharCode(a)
 
-  constructor() {
-    this._name = this.generateName()
-  }
+  for (let b = 65; b <= 90; b++) {
+    const B = String.fromCharCode(b)
 
-  private generateName(): string {
-    let name
-    do {
-      name = rA() + rA() + rD() + rD() + rD()
-    } while (RobotName.registry.has(name))
-    RobotName.registry.add(name)
-    return name
-  }
-
-  resetName(): void {
-    const newName = this.generateName()
-    // do not reuse discarded names:
-    // RobotName.registry.delete( this.name )
-    RobotName.registry.add( newName )
-    this._name = newName
+    for (let c = 0; c <= 999; c++) {
+      ALL_NAMES.push(A + B + String(c).padStart(3, '0'))
+    }
   }
 }
 
-export default RobotName
+function shuffle(): void {
+  for (let i = ALL_NAMES.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [ALL_NAMES[i], ALL_NAMES[j]] = [ALL_NAMES[j], ALL_NAMES[i]];
+  }
+}
+
+export class Robot {
+  static releaseNames(): void {
+    currentIndex = 0
+    shuffle()
+  }
+
+  private myName!: string
+
+  constructor() {
+    this.resetName()
+  }
+
+  get name(): string {
+    return this.myName
+  }
+
+  resetName(): void {
+    if (currentIndex == ALL_NAMES.length)
+      throw new Error('All names in use')
+    this.myName = ALL_NAMES[currentIndex++]
+  }
+}
+
+Robot.releaseNames()

@@ -1,9 +1,9 @@
-class ComplexNumber {
+export class ComplexNumber {
   private _real: number
   private _imag: number
-  private _abs:  number
-  private _conj: ComplexNumber
-  private _exp:  ComplexNumber
+  private _abs!:  number
+  private _conj!: ComplexNumber
+  private _exp!:  ComplexNumber
 
   constructor(real: number, imaginary: number) {
     this._real = real
@@ -57,5 +57,3 @@ class ComplexNumber {
     return this._exp
   }
 }
-
-export default ComplexNumber

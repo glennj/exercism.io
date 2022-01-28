@@ -1,4 +1,4 @@
-function isArmstrongNumber(n: number): boolean {
+export function isArmstrongNumber(n: number): boolean {
   const len = Math.ceil( Math.log10( n ))
   let armstrongSum = 0
   let tmp = n
@@ -9,5 +9,3 @@ function isArmstrongNumber(n: number): boolean {
   }
   return armstrongSum === n
 }
-
-export default { isArmstrongNumber }

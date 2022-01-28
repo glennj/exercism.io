@@ -1,6 +1,4 @@
-function range(from: number, to: number): number[] {
-  return Array.from({length: to - from + 1}, (_, i) => i + from)
-}
+import {from} from './iterable-range'
 
 // factorial, cached
 const factCache: number[] = []
@@ -19,20 +17,18 @@ function binom(n: number, k: number): number {
   return fact(n) / ( fact(k) * fact(n - k) )
 }
 
-class Triangle {
+export class Triangle {
   rows: number[][]
 
   constructor(n: number) {
-    this.rows = range(0, n - 1).map(this.row)
+    this.rows = from(0).upTo(n - 1).map(i => this.row(i))
   }
 
   private row(n: number): number[] {
-    return range(0, n).map((k) => binom(n, k))
+    return from(0).upTo(n).map(k => binom(n, k))
   }
 
   get lastRow(): number[] {
     return this.rows[this.rows.length - 1]
   }
 }
-
-export default Triangle

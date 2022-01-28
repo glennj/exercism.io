@@ -1,8 +1,9 @@
-const ofSize = (n: number): number[][] => {
+export const ofSize = (n: number): number[][] => {
   const matrix: number[][] =
     new Array(n)
       .fill(undefined)
       .map( () => new Array(n).fill(undefined) )
+
   let step = 0
   let x = 0
   let y = 0
@@ -25,7 +26,6 @@ const ofSize = (n: number): number[][] => {
     matrix[y][x] = i;
     [x, y] = nextCell()
   }
+
   return matrix
 }
-
-export default { ofSize }

@@ -1,7 +1,8 @@
-import calculatePrimeFactors from './prime-factors'
+import { calculatePrimeFactors } from './prime-factors'
 
 describe('calculatePrimeFactors', () => {
-  it('returns an empty array for 1', () => expect(calculatePrimeFactors(1)).toEqual([]))
+  it('returns an empty array for 1', () =>
+    expect(calculatePrimeFactors(1)).toEqual([]))
 
   it('factors 2', () => expect(calculatePrimeFactors(2)).toEqual([2]))
 
@@ -17,9 +18,12 @@ describe('calculatePrimeFactors', () => {
 
   it('factors 27', () => expect(calculatePrimeFactors(27)).toEqual([3, 3, 3]))
 
-  it('factors 625', () => expect(calculatePrimeFactors(625)).toEqual([5, 5, 5, 5]))
+  it('factors 625', () =>
+    expect(calculatePrimeFactors(625)).toEqual([5, 5, 5, 5]))
 
-  it('factors 901255', () => expect(calculatePrimeFactors(901255)).toEqual([5, 17, 23, 461]))
+  it('factors 901255', () =>
+    expect(calculatePrimeFactors(901255)).toEqual([5, 17, 23, 461]))
 
-  it('factors 93819012551', () => expect(calculatePrimeFactors(93819012551)).toEqual([11, 9539, 894119]))
+  it('factors 93819012551', () =>
+    expect(calculatePrimeFactors(93819012551)).toEqual([11, 9539, 894119]))
 })

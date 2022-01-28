@@ -53,7 +53,6 @@ describe('single line grids', () => {
 
     expect(wordSearch.find(['coffee'])).toEqual(expectedResults)
   })
-  
   test('can locate that different left to right word in a different position', () => {
     const grid = ['xcoffeezlp']
     const expectedResults = {

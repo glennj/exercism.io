@@ -1,55 +1,90 @@
-class ArgumentError extends Error {}
+enum Type {
+  NUM = 'number',
+  OP = 'operation'
+}
 
-class WordProblem {
-  private expr: string = ''
+type CalcFunction = (a: number, b: number) => number
+
+type Token = {
+  type:   Type,
+  value?: number,
+  fn?:    CalcFunction,
+}
+
+class QuestionLexer {
+  private words: string[]
 
   constructor(question: string) {
-    // match from the first number to the last number.
-    // This will trim off the leading "What is" and the trailing "?"
-    // I assume what remains is the actual arithmetic phrase.
-    const m = question.match(/-?\d.+\d/)
-    if (m) {
-      this.expr = m[0]
-        .replace(/\s+plus\s+/g,          ' + ')
-        .replace(/\s+minus\s+/g,         ' - ')
-        .replace(/\s+divided by\s+/g,    ' / ')
-        .replace(/\s+multiplied by\s+/g, ' * ')
-    }
+    this.words = question
+      .trim()
+      .toLowerCase()
+      .replace(/\?$/, '')
+      .split(/\s+/)
+
+    const prefix = `${this.words.shift()} ${this.words.shift()}`
+    if (prefix !== "what is")
+      throw new Error('Unknown operation')
   }
 
-  answer(): number {
-    const words = this.expr.split(/ /)
-    if (words.length < 3 || words.length % 2 === 0) {
-      throw new ArgumentError('Cannot find an arithmetic expression')
-    }
+  next(): Token|undefined {
+    let word = this.words.shift()
+    if (word === undefined)
+      return
 
-    // Assuming that we have the valid form:
-    //    operand operation [ operand operation ...] operand
-    let result = this.toNum(words.shift())
-    while (words.length) {
-      const operation = words.shift()
-      const operand = this.toNum(words.shift())
-      switch (operation) {
-        case '+': result += operand; break
-        case '-': result -= operand; break
-        case '*': result *= operand; break
-        case '/': result /= operand; break
-        default:  throw new ArgumentError('Unknown operation')
-      }
-    }
-    return result
-  }
-
-  private toNum(word: string | undefined): number {
-    if (! word) {
-      throw new ArgumentError('Operand expected')
-    }
     const num = parseInt(word, 10)
-    if (Number.isNaN(num)) {
-      throw new ArgumentError('Operand expected, found NaN')
+    if (!isNaN(num))
+      return {type: Type.NUM, value: num}
+
+    if (['multiplied', 'divided'].includes(word))
+      word += this.words.shift()
+
+    switch (word) {
+      case 'plus':
+        return {type: Type.OP, fn: (a, b) => a + b}
+        break
+      case 'minus':
+        return {type: Type.OP, fn: (a, b) => a - b}
+        break
+      case 'multipliedby':
+        return {type: Type.OP, fn: (a, b) => a * b}
+        break
+      case 'dividedby':
+        return {type: Type.OP, fn: (a, b) => a / b}
+        break
+      default:
+        throw new Error('Unknown operation')
+        break
     }
-    return num
   }
 }
 
-export { WordProblem, ArgumentError }
+export const answer = (question: string): number => {
+  const tokens = new QuestionLexer(question)
+
+  let expected: Type = Type.NUM
+  let currentOp: CalcFunction = (_, b) => b
+  let result: number = -42
+  let token: Token|undefined
+
+  while (token = tokens.next()) {
+    if (token.type !== expected) 
+      throw new Error('Syntax error')
+
+    switch (token.type) {
+      case Type.NUM:
+        result = currentOp(result, token.value!)
+        expected = Type.OP
+        break
+      case Type.OP:
+        currentOp = token.fn!
+        expected = Type.NUM
+        break
+    }
+  }
+
+  if (expected === Type.NUM) 
+    throw new Error('Syntax error')
+
+  return result
+}
+

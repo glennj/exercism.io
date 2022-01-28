@@ -1,4 +1,4 @@
-function forWantOfA(...words: string[]): string {
+export function proverb(...words: string[]): string {
   if (words.length < 2) { throw new Error() }
   return words.map((_, i) => {
     return (i < words.length - 1)
@@ -6,5 +6,3 @@ function forWantOfA(...words: string[]): string {
       : `And all for the want of a ${words[0]}.`
   }).join('\n')
 }
-
-export default forWantOfA

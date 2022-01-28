@@ -1,21 +1,19 @@
-class RomanNumerals {
-  static roman( num: number ): string {
-    let roman = ''
-    while (num >= 1000) { roman +=  'M'; num -= 1000 }
-    if    (num >=  900) { roman += 'CM'; num -=  900 }
-    if    (num >=  500) { roman +=  'D'; num -=  500 }
-    if    (num >=  400) { roman += 'CD'; num -=  400 }
-    while (num >=  100) { roman +=  'C'; num -=  100 }
-    if    (num >=   90) { roman += 'XC'; num -=   90 }
-    if    (num >=   50) { roman +=  'L'; num -=   50 }
-    if    (num >=   40) { roman += 'XL'; num -=   40 }
-    while (num >=   10) { roman +=  'X'; num -=   10 }
-    if    (num >=    9) { roman += 'IX'; num -=    9 }
-    if    (num >=    5) { roman +=  'V'; num -=    5 }
-    if    (num >=    4) { roman += 'IV'; num -=    4 }
-    while (num >=    1) { roman +=  'I'; num -=    1 }
-    return roman
-  }
-}
+// Map a roman numeral to the decimal value.
+// Maps remember insertion order.
+const R2D = new Map<string,number>()
 
-export default RomanNumerals
+R2D.set('M', 1000); R2D.set('CM', 900); R2D.set('D', 500); R2D.set('CD', 400)
+R2D.set('C',  100); R2D.set('XC',  90); R2D.set('L',  50); R2D.set('XL',  40)
+R2D.set('X',   10); R2D.set('IX',   9); R2D.set('V',   5); R2D.set('IV',   4)
+R2D.set('I',    1)
+
+export function toRoman(decimal: number): string {
+  let roman = ''
+  for (const [r, d] of R2D) {
+    while (decimal >= d) {
+      roman   += r
+      decimal -= d
+    }
+  }
+  return roman
+}

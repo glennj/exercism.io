@@ -5,7 +5,7 @@ class Node<T> {
   constructor(value: T) { this.value = value }
 }
 
-class LinkedList<T> {
+export class LinkedList<T> {
   head: Node<T> | undefined
   tail: Node<T> | undefined
 
@@ -98,5 +98,3 @@ class LinkedList<T> {
     return this
   }
 }
-
-export default LinkedList

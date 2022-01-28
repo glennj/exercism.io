@@ -44,4 +44,4 @@ const verse = (n: number): string => {
   return v
 }
 
-export default { verse, verses }
+export { verse, verses }

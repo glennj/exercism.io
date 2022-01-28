@@ -1,15 +1,26 @@
 const SECONDS_PER_YEAR: number = 31557600   // seconds per Earth year
 
 const REL_YEARS: {[key: string]: number} = {
-  Mercury:   0.2408467,
-  Venus:     0.61519726,
-  Earth:     1,
-  Mars:      1.8808158,
-  Jupiter:  11.862615,
-  Saturn:   29.447498,
-  Uranus:   84.016846,
-  Neptune: 164.79132,
+  mercury:   0.2408467,
+  venus:     0.61519726,
+  earth:     1,
+  mars:      1.8808158,
+  jupiter:  11.862615,
+  saturn:   29.447498,
+  uranus:   84.016846,
+  neptune: 164.79132,
 }
+
+export function age(planet: string, ageInSeconds: number): number {
+  if (planet in REL_YEARS) {
+    const age = ageInSeconds / SECONDS_PER_YEAR / REL_YEARS[planet]
+    return Math.round(age * 100) / 100
+  }
+
+  throw new Error(`Not a planet: ${planet}`)
+}
+
+
 
 class SpaceAge {
   seconds: number
@@ -34,34 +45,3 @@ class SpaceAge {
 }
 
 export default SpaceAge
-
-/*
-
-this is the dynamic stuff I was looking for
-
-    enum Planet {
-        Earth = 31557600,
-        Mercury = 0.2408467 * Earth,
-        Venus = 0.61519726 * Earth,
-        Mars = 1.8808158 * Earth,
-        Jupiter = 11.862615 * Earth,
-        Saturn = 29.447498 * Earth,
-        Uranus = 84.016846 * Earth,
-        Neptune = 164.79132 * Earth
-    }
-
-    export default class SpaceAge {
-        [k: string]: any;
-
-        private onPlanet(planet: Planet): number {
-            return Math.round(this.seconds * 100 / planet) / 100;
-        }
-
-        constructor(readonly seconds: number) {
-            for (const planet in Planet) {
-                this[`on${planet}`] = () => this.onPlanet(<any>Planet[planet]);
-            }
-        }
-    }
-
-*/

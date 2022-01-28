@@ -1,7 +1,7 @@
-class ReverseString {
-    static reverse( text: string ): string {
-        return Array.from(text).reverse().join('')
-    }
-}
+import {from} from './iterable-range'
 
-export default ReverseString
+export function reverse( text: string ): string {
+  return from(text.length - 1)
+    .downTo(0)
+    .reduce((reversed, i) => reversed + text[i], '')
+}

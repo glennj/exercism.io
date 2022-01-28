@@ -34,7 +34,7 @@ const convertLine = (lines: string[]): string => {
   return digits.map(digitLookup).join('')
 }
 
-const convert = (text: string): string => {
+export const convert = (text: string): string => {
   const lines = text.split('\n')
   if ( lines.length % 4 !== 0 || lines.some((l) => l.length % 3 !== 0) ) {
     throw new Error('Invalid input')
@@ -42,4 +42,3 @@ const convert = (text: string): string => {
   return [...eachSlice(lines, 4)].map(convertLine).join(',')
 }
 
-export default { convert }

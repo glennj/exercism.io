@@ -1,131 +1,238 @@
-import Garden from './kindergarten-garden'
+import { Garden } from './kindergarten-garden'
 
-describe('Garden', () => {
-    it('for Alice', () => {
-        expect(new Garden('RC\nGG').alice).toEqual(['radishes', 'clover', 'grass', 'grass'])
+describe('partial Garden', () => {
+  test('garden with single student', () => {
+    expect(new Garden('RC\nGG').plants('Alice')).toEqual([
+      'radishes',
+      'clover',
+      'grass',
+      'grass',
+    ])
+  })
+
+  test('different garden with single student', () => {
+    expect(new Garden('VC\nRC').plants('Alice')).toEqual([
+      'violets',
+      'clover',
+      'radishes',
+      'clover',
+    ])
+  })
+
+  test('garden with two students', () => {
+    expect(new Garden('VVCG\nVVRC').plants('Bob')).toEqual([
+      'clover',
+      'grass',
+      'radishes',
+      'clover',
+    ])
+  })
+
+  describe('multiple students for the same garden with three students', () => {
+    test("second student's garden", () => {
+      expect(new Garden('VVCCGG\nVVCCGG').plants('Bob')).toEqual([
+        'clover',
+        'clover',
+        'clover',
+        'clover',
+      ])
     })
 
-    it('another for Alice', () => {
-        expect(new Garden('VC\nRC').alice)
-            .toEqual(['violets', 'clover', 'radishes', 'clover'])
+    test("third student's garden", () => {
+      expect(new Garden('VVCCGG\nVVCCGG').plants('Charlie')).toEqual([
+        'grass',
+        'grass',
+        'grass',
+        'grass',
+      ])
     })
-
-    it('for Bob', () => {
-        expect(new Garden('VVCG\nVVRC').bob)
-            .toEqual(['clover', 'grass', 'radishes', 'clover'])
-    })
-
-    it('for Bob and Charlie', () => {
-        const garden = new Garden('VVCCGG\nVVCCGG')
-        expect(garden.bob).toEqual(['clover', 'clover', 'clover', 'clover'])
-        expect(garden.charlie).toEqual(['grass', 'grass', 'grass', 'grass'])
-    })
+  })
 })
 
-describe('Full garden', () => {
-    const diagram = 'VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV'
-    const garden = new Garden(diagram)
+describe('full garden', () => {
+  const diagram = 'VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV'
+  const garden = new Garden(diagram)
 
-    it('for Alice', () => {
-        expect(garden.alice)
-            .toEqual(['violets', 'radishes', 'violets', 'radishes'])
-    })
+  test("for Alice, first student's garden", () => {
+    expect(garden.plants('Alice')).toEqual([
+      'violets',
+      'radishes',
+      'violets',
+      'radishes',
+    ])
+  })
 
-    it('for Bob', () => {
-        expect(garden.bob)
-            .toEqual(['clover', 'grass', 'clover', 'clover'])
-    })
+  test("for Bob, second student's garden", () => {
+    expect(garden.plants('Bob')).toEqual([
+      'clover',
+      'grass',
+      'clover',
+      'clover',
+    ])
+  })
 
-    it('for Charlie', () => {
-        expect(garden.charlie)
-            .toEqual(['violets', 'violets', 'clover', 'grass'])
-    })
+  test('for Charlie', () => {
+    expect(garden.plants('Charlie')).toEqual([
+      'violets',
+      'violets',
+      'clover',
+      'grass',
+    ])
+  })
 
-    it('for David', () => {
-        expect(garden.david)
-            .toEqual(['radishes', 'violets', 'clover', 'radishes'])
-    })
+  test('for David', () => {
+    expect(garden.plants('David')).toEqual([
+      'radishes',
+      'violets',
+      'clover',
+      'radishes',
+    ])
+  })
 
-    it('for Eve', () => {
-        expect(garden.eve)
-            .toEqual(['clover', 'grass', 'radishes', 'grass'])
-    })
+  test('for Eve', () => {
+    expect(garden.plants('Eve')).toEqual([
+      'clover',
+      'grass',
+      'radishes',
+      'grass',
+    ])
+  })
 
-    it('for Fred', () => {
-        expect(garden.fred)
-            .toEqual(['grass', 'clover', 'violets', 'clover'])
-    })
+  test('for Fred', () => {
+    expect(garden.plants('Fred')).toEqual([
+      'grass',
+      'clover',
+      'violets',
+      'clover',
+    ])
+  })
 
-    it('for Ginny', () => {
-        expect(garden.ginny)
-            .toEqual(['clover', 'grass', 'grass', 'clover'])
-    })
+  test('for Ginny', () => {
+    expect(garden.plants('Ginny')).toEqual([
+      'clover',
+      'grass',
+      'grass',
+      'clover',
+    ])
+  })
 
-    it('for Harriet', () => {
-        expect(garden.harriet)
-            .toEqual(['violets', 'radishes', 'radishes', 'violets'])
-    })
+  test('for Harriet', () => {
+    expect(garden.plants('Harriet')).toEqual([
+      'violets',
+      'radishes',
+      'radishes',
+      'violets',
+    ])
+  })
 
-    it('for Ileana', () => {
-        expect(garden.ileana)
-            .toEqual(['grass', 'clover', 'violets', 'clover'])
-    })
+  test('for Ileana', () => {
+    expect(garden.plants('Ileana')).toEqual([
+      'grass',
+      'clover',
+      'violets',
+      'clover',
+    ])
+  })
 
-    it('for Joseph', () => {
-        expect(garden.joseph)
-            .toEqual(['violets', 'clover', 'violets', 'grass'])
-    })
+  test('for Joseph', () => {
+    expect(garden.plants('Joseph')).toEqual([
+      'violets',
+      'clover',
+      'violets',
+      'grass',
+    ])
+  })
 
-    it('for Kincaid', () => {
-        expect(garden.kincaid)
-            .toEqual(['grass', 'clover', 'clover', 'grass'])
-    })
+  test("for Kincaid, second to last student's garden", () => {
+    expect(garden.plants('Kincaid')).toEqual([
+      'grass',
+      'clover',
+      'clover',
+      'grass',
+    ])
+  })
 
-    it('for Larry', () => {
-        expect(garden.larry)
-            .toEqual(['grass', 'violets', 'clover', 'violets'])
-    })
+  test("for Larry, last student's garden", () => {
+    expect(garden.plants('Larry')).toEqual([
+      'grass',
+      'violets',
+      'clover',
+      'violets',
+    ])
+  })
 })
 
-describe('Disordered class', () => {
-    const diagram = 'VCRRGVRG\nRVGCCGCV'
-    const students = ['Samantha', 'Patricia', 'Xander', 'Roger']
-    const garden = new Garden(diagram, students)
+describe('disordered class', () => {
+  const diagram = 'VCRRGVRG\nRVGCCGCV'
+  const students = ['Samantha', 'Patricia', 'Xander', 'Roger']
+  const garden = new Garden(diagram, students)
 
-    it('Patricia', () => {
-        expect(garden.patricia)
-            .toEqual(['violets', 'clover', 'radishes', 'violets'])
-    })
+  test('for Patricia', () => {
+    expect(garden.plants('Patricia')).toEqual([
+      'violets',
+      'clover',
+      'radishes',
+      'violets',
+    ])
+  })
 
-    it('Roger', () => {
-        expect(garden.roger)
-            .toEqual(['radishes', 'radishes', 'grass', 'clover'])
-    })
+  test('for Roger', () => {
+    expect(garden.plants('Roger')).toEqual([
+      'radishes',
+      'radishes',
+      'grass',
+      'clover',
+    ])
+  })
 
-    it('Samantha', () => {
-        expect(garden.samantha)
-            .toEqual(['grass', 'violets', 'clover', 'grass'])
-    })
+  test('for Samantha', () => {
+    expect(garden.plants('Samantha')).toEqual([
+      'grass',
+      'violets',
+      'clover',
+      'grass',
+    ])
+  })
 
-    it('Xander', () => {
-        expect(garden.xander)
-            .toEqual(['radishes', 'grass', 'clover', 'violets'])
-    })
+  test('for Xander', () => {
+    expect(garden.plants('Xander')).toEqual([
+      'radishes',
+      'grass',
+      'clover',
+      'violets',
+    ])
+  })
 })
 
 describe('Two gardens, different students', () => {
-    const diagram = 'VCRRGVRG\nRVGCCGCV'
-    const garden1 = new Garden(diagram, ['Alice', 'Bob', 'Charlie', 'Dan'])
-    const garden2 = new Garden(diagram, ['Bob', 'Charlie', 'Dan', 'Erin'])
+  const diagram = 'VCRRGVRG\nRVGCCGCV'
+  const garden1 = new Garden(diagram, ['Alice', 'Bob', 'Charlie', 'Dan'])
+  const garden2 = new Garden(diagram, ['Bob', 'Charlie', 'Dan', 'Erin'])
 
-    it('Bob and Charlie for each garden', () => {
-        expect(garden1.bob)
-            .toEqual(['radishes', 'radishes', 'grass', 'clover'])
-        expect(garden2.bob)
-            .toEqual(['violets', 'clover', 'radishes', 'violets'])
-        expect(garden1.charlie)
-            .toEqual(['grass', 'violets', 'clover', 'grass'])
-        expect(garden2.charlie)
-            .toEqual(['radishes', 'radishes', 'grass', 'clover'])
-    })
+  test('Bob and Charlie for each garden', () => {
+    expect(garden1.plants('Bob')).toEqual([
+      'radishes',
+      'radishes',
+      'grass',
+      'clover',
+    ])
+    expect(garden2.plants('Bob')).toEqual([
+      'violets',
+      'clover',
+      'radishes',
+      'violets',
+    ])
+    expect(garden1.plants('Charlie')).toEqual([
+      'grass',
+      'violets',
+      'clover',
+      'grass',
+    ])
+    expect(garden2.plants('Charlie')).toEqual([
+      'radishes',
+      'radishes',
+      'grass',
+      'clover',
+    ])
+  })
 })

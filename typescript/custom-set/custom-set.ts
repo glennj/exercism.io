@@ -1,4 +1,4 @@
-class CustomSet<T> {
+export class CustomSet<T> {
   // For the backend, instead of Set which feels cheat-y, use a Map, as they keys are unique.
   // The values will all be "undefined"
   private _elements: Map<T, undefined>
@@ -65,5 +65,3 @@ class CustomSet<T> {
     return new CustomSet( this.elements.concat( other.difference(this).elements ))
   }
 }
-
-export default CustomSet

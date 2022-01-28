@@ -3,9 +3,9 @@
  */
 
 type Cell = [number, number]
-type Board = string[][]
+type ConnectBoard = string[][]
 
-function transpose(board: Board): Board {
+function transpose(board: ConnectBoard): ConnectBoard {
   return board[0].map((_, i) => board.map((row) => row[i]))
 }
 
@@ -13,20 +13,20 @@ function deepCopy<T>(obj: T): T {
   return JSON.parse(JSON.stringify(obj))
 }
 
-class ConnectBoard {
-  private board: Board
+export class Board {
+  private board: ConnectBoard
 
   constructor(input: string[]) {
     this.board = input.map((row) => [...row.replace(/\s+/g, '')])
   }
 
   winner(): string {
-    if (ConnectBoard.isWinner('O',  deepCopy(this.board))) { return 'O' }
-    if (ConnectBoard.isWinner('X', transpose(this.board))) { return 'X' }
+    if (Board.isWinner('O',  deepCopy(this.board))) { return 'O' }
+    if (Board.isWinner('X', transpose(this.board))) { return 'X' }
     return ''
   }
 
-  private static isWinner(player: string, board: Board): boolean {
+  private static isWinner(player: string, board: ConnectBoard): boolean {
     const lastRow = board.length - 1
 
     // find my players in the top row
@@ -40,7 +40,7 @@ class ConnectBoard {
 
     while (stack.length > 0) {
       const [r, c] = stack.pop() as Cell
-      for (const [rr, cc] of ConnectBoard.neighbours(player, board, r, c)) {
+      for (const [rr, cc] of Board.neighbours(player, board, r, c)) {
         if (rr === lastRow) {
           return true
         }
@@ -53,7 +53,7 @@ class ConnectBoard {
 
   private static neighbours(
       player: string,
-      board: Board,
+      board: ConnectBoard,
       r: number,
       c: number
   ): Cell[] {
@@ -74,5 +74,3 @@ class ConnectBoard {
     return neighbours
   }
 }
-
-export default ConnectBoard

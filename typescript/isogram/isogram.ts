@@ -1,9 +1,9 @@
-class Isogram {
-    static isIsogram( input: string ): boolean {
-        const word = input.toLowerCase().replace(/[^a-z]/g, '')
-        const letters = new Set([...word])
-        return word.length === letters.size
-    }
+export function isIsogram( input: string ): boolean {
+  const letters = [...input.toLowerCase()].filter(c => /\p{Letter}/u.test(c))
+  const seen = new Set()
+  for (const letter of letters) {
+    if (seen.has(letter)) return false
+    seen.add(letter)
+  }
+  return true
 }
-
-export default Isogram

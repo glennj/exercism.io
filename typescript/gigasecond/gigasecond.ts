@@ -1,7 +1,7 @@
 const gigasecond = 1e9
 const giga_milliseconds = gigasecond * 1e3
 
-class Gigasecond {
+export class Gigasecond {
 
   readonly gigadate: Date
 
@@ -11,5 +11,3 @@ class Gigasecond {
 
   date(): Date { return this.gigadate }
 }
-
-export default Gigasecond

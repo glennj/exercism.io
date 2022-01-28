@@ -12,4 +12,4 @@ function decode(text: string): string {
   )
 }
 
-export default { encode, decode }
+export { encode, decode }

@@ -1,9 +1,14 @@
-function primes(limit: number): number[] {
-  const p = Array.from({length: 1 + limit}, (_, i) => i)
+function seq(n: number): number[] {
+  return Array.from({length: n + 1}, (_, i) => i)
+}
+
+export function primes(limit: number): number[] {
+  const p: number[] = seq(limit)
+  p[0] = 0
   p[1] = 0
 
   const removeMultiplesOf = (n: number): void => {
-    const step = n * (n === 2 ? 1 : 2)
+    const step = n === 2 ? 2 : n * 2
     for (let m = n * n; m <= limit; m += step) {
       p[m] = 0
     }
@@ -11,13 +16,8 @@ function primes(limit: number): number[] {
 
   removeMultiplesOf(2)
   for (let n = 3; n * n <= limit; n += 2) {
-    // if n is the square of some other number, it's already been handled
-    if (!Number.isInteger(Math.sqrt(n))) {
-      removeMultiplesOf(n)
-    }
+    removeMultiplesOf(n)
   }
 
-  return p.filter((v) => v > 0)
+  return p.filter(v => v !== 0)
 }
-
-export default { primes }

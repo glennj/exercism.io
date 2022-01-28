@@ -1,75 +1,75 @@
-class Bowling {
-  private rolls: number[]
-  constructor(rolls: number[]) {
-    this.rolls = rolls
+export class Bowling {
+  private currentFrame: number[]
+  private frames: number[][]
+
+  constructor() {
+    this.currentFrame = [];
+    this.frames = [];
   }
 
-  score(): number {
-    let score = 0
+  get is10thFrame() { return this.frames.length === 9; }
 
-    // first 9 frames
-    for (let frame = 1; frame < 10; frame++) {
-      const [ball1, ball2] = this.getFrame(frame)
-      score += ball1 + ball2
-      if (ball1 + ball2 === 10) {
-        this.expect(1)
-        score += this.rolls[0]
+  get isGameOver() { return this.frames.length === 10; }
+
+  roll(pins: number) {
+    if (this.isGameOver) throw new Error('Cannot roll after game is over');
+    if (pins < 0) throw new Error('Negative roll is invalid');
+    if (pins > 10) throw new Error('Pin count exceeds pins on the lane');
+
+    switch (this.currentFrame.length) {
+      case 0: this.roll1(pins); break;
+      case 1: this.roll2(pins); break;
+      case 2: this.roll3(pins); break;
+      default: throw new Error('Too many rolls.');
+    }
+  }
+
+  roll1(first: number) {
+    if (!this.is10thFrame && first === 10) {
+      this.frames.push([10]);
+    } else {
+      this.currentFrame.push(first);
+    }
+  }
+
+  roll2(second: number) {
+    const [first] = this.currentFrame;
+    if (first < 10 && first + second > 10) {
+      throw new Error('Pin count exceeds pins on the lane');
+    }
+    if (!this.is10thFrame || first + second < 10) {
+      this.frames.push([this.currentFrame.shift()!, second]);
+    } else {
+      this.currentFrame.push(second);
+    }
+  }
+
+  roll3(third: number) {
+    const [first, second] = this.currentFrame;
+    if (first === 10 && second < 10 && second + third > 10) {
+      throw new Error('Pin count exceeds pins on the lane');
+    }
+    this.frames.push([first, second, third]);
+  }
+
+  score() {
+    if (!this.isGameOver) {
+      throw new Error('Score cannot be taken until the end of the game');
+    }
+    const rolls = this.frames.flat()
+    let score = 0;
+    for (let frame = 1; rolls.length > 0; frame += 1) {
+      if (frame === 10) {
+        score += rolls.splice(0).reduce((sum, roll) => sum + roll, 0);
+      } else if (rolls[0] === 10) {
+        score += rolls.shift()! + rolls[0] + rolls[1];
+      } else if (rolls[0] + rolls[1] === 10) {
+        score += rolls.shift()! + rolls.shift()! + rolls[0];
+      } else {
+        score += rolls.shift()! + rolls.shift()!;
       }
-      if (ball1 === 10) {
-        this.expect(2)
-        score += this.rolls[1]
-      }
     }
-
-    // 10th frame
-    score += this.getFrame(10).reduce((sum, ball) => sum + ball)
-
-    if (this.rolls.length > 0) {
-      throw new Error('Should not be able to roll after game is over')
-    }
-    return score
-  }
-
-  getFrame(frame: number): number[] {
-    const ball1 = this.getBall()
-    let ball2 = 0
-    let ball3 = 0
-
-    if (ball1 === 10 && frame < 10) {
-      return [ball1, ball2]
-    }
-    ball2 = this.getBall()
-    if (ball1 < 10 && ball1 + ball2 > 10) {
-      throw new Error('Pin count exceeds pins on the lane')
-    }
-    if (frame < 10) {
-      return [ball1, ball2]
-    }
-
-    // 10th frame
-    if (ball1 === 10 || ball1 + ball2 === 10) {
-      ball3 = this.getBall()
-      if (ball1 === 10 && ball2 < 10 && ball2 + ball3 > 10) {
-        throw new Error('Pin count exceeds pins on the lane')
-      }
-    }
-    return [ball1, ball2, ball3]
-  }
-
-  private getBall(): number {
-    this.expect(1)
-    const ball = this.rolls.shift() || 0
-    if (ball < 0 || ball > 10) {
-      throw new Error('Pins must have a value from 0 to 10')
-    }
-    return ball
-  }
-
-  private expect(n: number): void {
-    if (this.rolls.length < n) {
-      throw new Error('Score cannot be taken until the end of the game')
-    }
+    return score;
   }
 }
 
-export default Bowling

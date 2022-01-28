@@ -1,4 +1,4 @@
-import Allergies from './allergies'
+import { Allergies } from './allergies'
 
 describe('allergicTo', () => {
   it('no allergies means not allergic', () => {
@@ -69,13 +69,7 @@ describe('list', () => {
 
   it('allergic to lots of stuff', () => {
     const allergies = new Allergies(248)
-    const expected = [
-      'strawberries',
-      'tomatoes',
-      'chocolate',
-      'pollen',
-      'cats'
-    ]
+    const expected = ['strawberries', 'tomatoes', 'chocolate', 'pollen', 'cats']
 
     expect(allergies.list()).toEqual(expected)
   })
@@ -90,7 +84,7 @@ describe('list', () => {
       'tomatoes',
       'chocolate',
       'pollen',
-      'cats'
+      'cats',
     ]
 
     expect(allergies.list()).toEqual(expected)
@@ -105,7 +99,7 @@ describe('list', () => {
       'tomatoes',
       'chocolate',
       'pollen',
-      'cats'
+      'cats',
     ]
 
     expect(allergies.list()).toEqual(expected)

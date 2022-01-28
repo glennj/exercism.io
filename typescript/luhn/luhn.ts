@@ -1,16 +1,19 @@
-const double = (n: number): number => {
-  const nn = n * 2
-  return (nn > 9 ? nn - 9 : nn)
-}
+const LUHN_DIGIT = [
+  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  [0, 2, 4, 6, 8, 1, 3, 5, 7, 9],
+]
 
 const luhn = (input: string): boolean => {
   const noBlank = input.replace(/\s/g, '')
-  if (noBlank.length <= 1 || /\D/.test(noBlank)) {
+  if (noBlank.length <= 1 || /\D/.test(noBlank))
     return false
-  }
-  const sum = [...noBlank].map(Number).reverse()
-    .reduce((sum, d, i) => sum + (i % 2 ? double(d) : d), 0)
+
+  const sum = [...noBlank]
+    .map(Number)
+    .reverse()
+    .reduce((sum, d, i) => sum + LUHN_DIGIT[i%2][d])
+
   return sum % 10 === 0
 }
 
-export default { valid: luhn }
+export const valid = luhn

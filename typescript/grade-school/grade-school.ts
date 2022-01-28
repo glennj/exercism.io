@@ -14,12 +14,12 @@ export class GradeSchool {
   }
 
   grade(grade: number): ClassRoom {
-    const students: ClassRoom = []
+    const classroom: ClassRoom = []
     this.directory.forEach((grade_, name) => {
       if (grade_ === grade)
-        students.push(name)
+        classroom.push(name)
     })
-    return students.sort()
+    return classroom.sort()
   }
 
   roster(): Roster {
@@ -28,8 +28,8 @@ export class GradeSchool {
       roster[grade] ??= []
       roster[grade].push(name)
     })
-    for (const students of Object.values(roster)) {
-      students.sort()
+    for (const classroom of Object.values(roster)) {
+      classroom.sort()
     }
     return roster
   }

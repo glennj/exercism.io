@@ -7,7 +7,7 @@ const isPrime = (num: number): boolean => {
   return true
 }
 
-class DiffieHellman {
+export class DiffieHellman {
   private readonly p: number
   private readonly g: number
 
@@ -22,7 +22,7 @@ class DiffieHellman {
     this.g = g
   }
 
-  getPublicKeyFromPrivateKey(privKey: number): number {
+  getPublicKey(privKey: number): number {
     if (privKey <= 1) {
       throw new Error('private key too small')
     }
@@ -32,9 +32,7 @@ class DiffieHellman {
     return (this.g ** privKey) % this.p
   }
 
-  getSharedSecret(privKey: number, pubKey: number): number {
-    return (pubKey ** privKey) % this.p
+  getSecret(yourPubKey: number, myPrivKey: number): number {
+    return (yourPubKey ** myPrivKey) % this.p
   }
 }
-
-export default DiffieHellman

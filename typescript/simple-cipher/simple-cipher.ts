@@ -8,6 +8,7 @@ export class SimpleCipher {
   key: string = ''
 
   constructor(key?: string) {
+    //this.key = ''
     if (key !== undefined) {
       if (key.length === 0 || new RegExp(`[^${ALPHABET}]`).test(key)) {
         throw new Error('Bad key')

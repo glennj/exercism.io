@@ -1,4 +1,4 @@
-function accumulate<T, U> (
+export function accumulate<T, U> (
     list: T[],
     func: (element: T) => U
 ): U[]
@@ -11,4 +11,3 @@ function accumulate<T, U> (
   return result
 }
 
-export default accumulate

@@ -37,4 +37,6 @@ class Prime {
   }
 }
 
-export default Prime
+export const nth = (n: number): number => {
+  return new Prime().nth(n)
+}

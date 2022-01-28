@@ -1,19 +1,15 @@
-class Triplet {
-  private _sum: number
-  private _product: number
-  private edges: [number, number, number]
+type Triplet = [number, number, number]
 
-  constructor(a: number, b: number, c: number) {
-    if (c <= a || c <= b) {
-      throw new Error('the hypoteneuse is too short')
-    }
-    this._sum = a + b + c
-    this._product = a * b * c
-    this.edges = [a, b, c]
+class Triangle {
+  private edges: Triplet
+
+  constructor(...edges: Triplet) {
+    this.edges = edges.sort((a, b) => a - b)
   }
 
-  sum():     number { return this._sum }
-  product(): number { return this._product }
+  get perimeter(): number {
+    return this.edges.reduce((u, v) => u + v)
+  }
 
   isPythagorean(): boolean {
     const [a, b, c] = this.edges
@@ -23,16 +19,19 @@ class Triplet {
   toString(): string {
     return `[${this.edges.join(',')}]`
   }
+  toArray(): [number, number, number] {
+    return this.edges
+  }
 
-  static where(maxFactor: number, minFactor?: number, sum?: number): Triplet[] {
-    const [min, max] = [minFactor || 1, maxFactor]
+  static where(maxFactor: number, minFactor?: number, sum?: number): Triangle[] {
+    const [min, max] = [minFactor ?? 1, maxFactor]
     const result = []
     for (let c = max; c >= min; c--) {
       for (let b = c - 1; b >= min; b--) {
         const a = Math.sqrt((c ** 2) - (b ** 2))
         if (Number.isInteger(a) && a > b) {
-          const t = new Triplet(a, b, c)
-          if (t.isPythagorean() && (!sum || sum === t.sum())) {
+          const t = new Triangle(a, b, c)
+          if (t.isPythagorean() && (!sum || sum === t.perimeter)) {
             result.push(t)
           }
         }
@@ -42,4 +41,12 @@ class Triplet {
   }
 }
 
-export default Triplet
+
+type Options = {sum: number, maxFactor?: number, minFactor?: number}
+
+export function triplets(options: Options): Triangle[] {
+  const sum = options.sum
+  const min = options.minFactor ??= 1
+  const max = options.maxFactor ??= Math.floor(sum / 2)
+  return Triangle.where(max, min, sum)
+}

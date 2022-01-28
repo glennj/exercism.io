@@ -48,4 +48,4 @@ function decode (bytes: number[]): number[] {
   return nums
 }
 
-export default { encode, decode }
+export { encode, decode }

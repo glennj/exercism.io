@@ -27,4 +27,4 @@ class Allergies {
   }
 }
 
-export default Allergies
+export { Allergies }

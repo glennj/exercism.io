@@ -1,4 +1,4 @@
-class Matrix {
+export class Matrix {
   readonly rows: number[][]
   readonly columns: number[][]
 
@@ -12,5 +12,3 @@ class Matrix {
     })
   }
 }
-
-export default Matrix

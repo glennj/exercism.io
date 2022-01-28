@@ -10,7 +10,7 @@ const nthRoot = (num: number, root: number): number => {
   return Math.E ** (Math.log(num) / root)
 }
 
-class Rational {
+export class Rational {
   private num: number
   private den: number
 
@@ -57,10 +57,9 @@ class Rational {
     return this.num / this.den
   }
 
-  // Testing note: use toBeCloseTo(), not toEqual()
   expreal(n: number): number {
-    // return n ** this.toFloat()
-    return nthRoot(n ** this.num, this.den)
+    const result = nthRoot(n ** this.num, this.den)
+    return Number(result.toPrecision(15))
   }
 
   reduce(): Rational {
@@ -68,5 +67,3 @@ class Rational {
     return this
   }
 }
-
-export default Rational

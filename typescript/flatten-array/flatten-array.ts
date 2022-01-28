@@ -1,4 +1,4 @@
-function flatten<T> (list: T[]): T[] {
+export function flatten<T> (list: T[]): T[] {
   let result: T[] = []
   list.forEach((element: T | T[]) => {
     if (element !== undefined) {
@@ -11,5 +11,3 @@ function flatten<T> (list: T[]): T[] {
   })
   return result
 }
-
-export default { flatten }

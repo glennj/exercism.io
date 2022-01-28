@@ -1,14 +1,16 @@
 type Old = {[key: string]: string[]}
 type New = {[key: string]: number}
 
-function transform (oldObj: Old): New {
-  const newObj: New = {}
-  Object.getOwnPropertyNames(oldObj).forEach((oldKey) => {
-    oldObj[oldKey].forEach((oldValue) => {
-      newObj[oldValue.toLowerCase()] = Number(oldKey)
-    })
-  })
-  return newObj
-}
+export function transform (oldObj: Old): New {
+  const transformed: New = {}
 
-export default transform
+  Object.entries(oldObj)
+    .forEach(([scoreStr, letters]) => {
+      const score = Number(scoreStr)
+      letters.forEach(letter => {
+        transformed[letter.toLowerCase()] = score
+      })
+    })
+
+  return transformed
+}

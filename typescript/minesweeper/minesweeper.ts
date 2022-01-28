@@ -1,5 +1,9 @@
+export function annotate(rows: string[]): string[] {
+  return new Minesweeper().annotate(rows)
+}
+
 class Minesweeper {
-  private board: string[][]
+  private board: string[][] = []
 
   annotate(rows: string[]): string[] {
     this.board = rows.map((row) => row.split(''))
@@ -35,5 +39,3 @@ class Minesweeper {
         && (0 <= c && c < this.board[0].length)
   }
 }
-
-export default Minesweeper

@@ -18,4 +18,4 @@ class Anagram {
   }
 }
 
-export default Anagram
+export { Anagram }

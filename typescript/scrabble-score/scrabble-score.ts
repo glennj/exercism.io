@@ -17,9 +17,7 @@ function getValue(letter: string): number {
   throw new Error(`Unknown letter: ${letter}`)
 }
 
-function score(letters: string = ''): number {
+export function score(letters: string = ''): number {
   return Array.from( letters.toUpperCase() )
     .reduce((score, letter) => score + getValue(letter), 0)
 }
-
-export default score
