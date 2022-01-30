@@ -11,7 +11,7 @@ type
     pollen
     cats
 
-  Allergies* = object
+  Allergies* = object 
     score*: int
 
 
