@@ -1,6 +1,10 @@
 class Luhn {
+    static luhnDigits = [
+        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        [0, 2, 4, 6, 8, 1, 3, 5, 7, 9]
+    ]
 
-    static boolean valid(String value) {
+    static boolean valid(String value)  {
         value = value.replaceAll(' ', '')
 
         if (value.size() < 2 || value.find('\\D'))
@@ -14,12 +18,6 @@ class Luhn {
     }
 
     private static luhnDigit(String digit, int idx) {
-        def d = digit as int
-        if (idx % 2 == 1) {
-            d *= 2
-            if (d > 9) d -= 9
-        }
-        d
+        luhnDigits[idx % 2][digit as int]
     }
-
 }
