@@ -1,0 +1,155 @@
+// Thanks to lots of inspiration from 
+// https://exercism.org/tracks/java/exercises/zebra-puzzle/solutions/TASHBOLOTOFF
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+class ZebraPuzzle {
+    private final int FIRST = 1;
+    private final int MIDDLE = 3;
+
+    private String waterDrinker, zebraOwner;
+
+    private enum Colour {RED, GREEN, IVORY, YELLOW, BLUE};
+    private enum Nation {ENGLISH, SPANISH, UKRANIAN, NORWEGIAN, JAPANESE};
+    private enum Pet {DOG, SNAILS, FOX, HORSE, ZEBRA};
+    private enum Smoke {OLD_GOLD, KOOLS, CHESTERFIELDS, LUCKY_STRIKE, PARLIAMENTS};
+    private enum Beverage {COFFEE, TEA, MILK, ORANGE_JUICE, WATER};
+
+    private String[] nationalities = {"", "", "", "", ""};
+
+    String getWaterDrinker() {
+        if (this.waterDrinker == null)
+            solve();
+        return this.waterDrinker;
+    }
+
+    String getZebraOwner() {
+        if (this.zebraOwner == null)
+            solve();
+        return this.zebraOwner;
+    }
+
+    private void solve() {
+       for (List<Colour> colours : getPermutations(Colour.values()))
+            if (solveForColour(colours))
+                break;
+    }
+
+    private boolean solveForColour(List<Colour> colours) {
+        // clue 6
+        if (rightOf(colours.indexOf(Colour.GREEN), colours.indexOf(Colour.IVORY)))
+            for (List<Nation> nations : getPermutations(Nation.values()))
+                if (solveForNationality(colours, nations))
+                    return true;
+        return false;
+    }
+
+    private boolean solveForNationality(List<Colour> colours, List<Nation> nations) {
+        // clues 2, 10, 15
+        if (nations.indexOf(Nation.ENGLISH) == colours.indexOf(Colour.RED)
+            && nations.indexOf(Nation.NORWEGIAN) == this.FIRST
+            && nextTo(nations.indexOf(Nation.NORWEGIAN), colours.indexOf(Colour.BLUE))
+        ) {
+            this.nationalities[nations.indexOf(Nation.ENGLISH)] = "EnglishMan";
+            this.nationalities[nations.indexOf(Nation.SPANISH)] = "Spanish";
+            this.nationalities[nations.indexOf(Nation.UKRANIAN)] = "Ukranian";
+            this.nationalities[nations.indexOf(Nation.NORWEGIAN)] = "Norwegian";
+            this.nationalities[nations.indexOf(Nation.JAPANESE)] = "Japanese";
+
+            for (List<Beverage> beverages : getPermutations(Beverage.values()))
+                if (solveForBeverage(colours, nations, beverages))
+                    return true;
+        }
+        return false;
+    }
+
+    private boolean solveForBeverage(
+            List<Colour> colours,
+            List<Nation> nations, 
+            List<Beverage> beverages
+    ) {
+        // clues 4, 5, 9
+        if (beverages.indexOf(Beverage.COFFEE) == colours.indexOf(Colour.GREEN)
+            && nations.indexOf(Nation.UKRANIAN) == beverages.indexOf(Beverage.TEA)
+            && beverages.indexOf(Beverage.MILK) == this.MIDDLE
+        )
+            for (List<Smoke> smokes : getPermutations(Smoke.values()))
+                if (solveForSmokes(colours, nations, beverages, smokes))
+                    return true;
+        return false;
+    }
+
+    private boolean solveForSmokes(
+            List<Colour> colours,
+            List<Nation> nations,
+            List<Beverage> beverages,
+            List<Smoke> smokes
+    ) {
+        // clues 8, 13, 14
+        if (smokes.indexOf(Smoke.KOOLS) == colours.indexOf(Colour.YELLOW)
+            && smokes.indexOf(Smoke.LUCKY_STRIKE) == beverages.indexOf(Beverage.ORANGE_JUICE)
+            && nations.indexOf(Nation.JAPANESE) == smokes.indexOf(Smoke.PARLIAMENTS)
+        )
+            for (List<Pet> pets : getPermutations(Pet.values()))
+                if (solveForPets(colours, nations, beverages, smokes, pets))
+                    return true;
+        return false;
+    }
+
+    private boolean solveForPets(
+            List<Colour> colours,
+            List<Nation> nations,
+            List<Beverage> beverages,
+            List<Smoke> smokes,
+            List<Pet> pets
+    ) {
+        // clues 3, 7, 11, 12
+        if (nations.indexOf(Nation.SPANISH) == pets.indexOf(Pet.DOG)
+            && smokes.indexOf(Smoke.OLD_GOLD) == pets.indexOf(Pet.SNAILS)
+            && nextTo(smokes.indexOf(Smoke.CHESTERFIELDS), pets.indexOf(Pet.FOX))
+            && nextTo(smokes.indexOf(Smoke.KOOLS), pets.indexOf(Pet.HORSE))
+        ) {
+            this.waterDrinker = this.nationalities[beverages.indexOf(Beverage.WATER)];
+            this.zebraOwner = this.nationalities[pets.indexOf(Pet.ZEBRA)];
+            System.err.println("water = " + this.waterDrinker);
+            System.err.println("zebra = " + this.zebraOwner);
+            return true;
+        }
+        return false;
+    }
+
+    // ------------------------------------------------------------
+    private boolean rightOf(int a, int b) {
+        return a == b + 1;
+    }
+
+    private boolean nextTo(int a, int b) {
+        return rightOf(a, b) || rightOf(b, a);
+    }
+
+    // ------------------------------------------------------------
+    private <T> List<List<T>> getPermutations(T[] array) {
+        List<List<T>> permutations = new ArrayList<>();
+        permute(permutations, array, 0);
+        return permutations;
+    }
+
+    private <T> void permute(List<List<T>> permutations, T[] array, int startIndex) {
+        if (startIndex == (array.length - 1)) {
+            permutations.add(new ArrayList<>(Arrays.asList(array)));
+        }
+        for (int i = startIndex; i < array.length; i++) {
+            swap(array, startIndex, i);
+            permute(permutations, array, startIndex + 1);
+            swap(array, startIndex, i);
+        }
+    }
+
+    private static <T> void swap(T[] array, int index1, int index2) {
+        T aux = array[index1];
+        array[index1] = array[index2];
+        array[index2] = aux;
+    }
+}

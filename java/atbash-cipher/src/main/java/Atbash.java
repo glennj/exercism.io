@@ -18,7 +18,7 @@ public class Atbash {
     private String __code(String input) {
         return input
                 .codePoints()
-                .filter(Character::isLetterOrDigit)
+                .filter(Character::isLetterOrDigit) 
                 .map(Character::toLowerCase)
                 .map(encoder)
                 .collect(

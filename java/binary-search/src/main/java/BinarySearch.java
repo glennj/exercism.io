@@ -4,12 +4,14 @@ public class BinarySearch<T extends Comparable> {
     private final List<T> data;
 
     BinarySearch(List<T> input) {
+        /*
         if (!isSorted(input))
             throw new IllegalArgumentException("List must be sorted");
+        */
         data = input;
     }
 
-    int indexOf(T datum) {
+    int indexOf(T datum) throws ValueNotFoundException {
         int i = 0;
         int j = data.size() - 1;
         while (i <= j) {
@@ -26,10 +28,10 @@ public class BinarySearch<T extends Comparable> {
                     return mid;
             }
         }
-        // not found
-        return -1;
+        throw new ValueNotFoundException("Value not in array");
     }
 
+    /*
     private boolean isSorted(List<T> list) {
         if (!list.isEmpty()) {
             T prev = list.get(0);
@@ -41,4 +43,5 @@ public class BinarySearch<T extends Comparable> {
         }
         return true;
     }
+    */
 }

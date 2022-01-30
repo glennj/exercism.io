@@ -15,15 +15,3 @@ public class PangramChecker {
         return chars.size() == 26;
     }
 }
-
-/* community
-
-https://exercism.io/tracks/java/exercises/pangram/solutions/c664ed2438a54f30b284128d1b69e112
-
-    public boolean isPangram(String input) {
-        return input.toLowerCase().chars()
-                .filter(Character::isAlphabetic)
-                .distinct()
-                .count() == LETTERS_IN_ALPHABET;
-    }
- */

@@ -17,7 +17,7 @@ public class Knapsack {
         m[i][j] = m[i−1][j] if w[i] > j (the new item is more than the current weight limit)
         m[i][j] = max (m[i−1][j], m[i−1][j − w[i]] + v[i]) if w[i] ⩽ j
     */
-
+ 
     public int maximumValue(int maxWeight, List<Item> items) {
 
         // Values (stored in array v)

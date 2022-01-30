@@ -50,7 +50,7 @@ class Matrix {
             for (int col = 0; col < minByCol.size(); col++) {
                 int value = rows.get(row).get(col);
                 if (value == maxByRow.get(row) && value == minByCol.get(col)) {
-                    points.add(new MatrixCoordinate(row, col));
+                    points.add(new MatrixCoordinate(row+1, col+1));
                 }
             }
         }

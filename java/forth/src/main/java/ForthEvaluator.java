@@ -65,13 +65,24 @@ class ForthEvaluator {
     }
 
     private int[] pop(int n, String operation) {
-        String errMsg = operation + " requires that the stack contain at least " + n + " values";
         int[] operands = new int[n];
         for (int i = 1; i <= n; i++) {
-            if (stack.empty()) throw new IllegalArgumentException(errMsg);
+            if (stack.empty()) {
+                throw new IllegalArgumentException(
+                    operation 
+                    + " requires that the stack contain at least "
+                    + n + " value" + (n == 1 ? "" : "s")
+                );
+            }
             operands[n - i] = stack.pop();
         }
         return operands;
+    }
+
+    private void checkEnoughElements(int n, String err) throws IllegalArgumentException {
+        if (stack.size() < n) {
+            throw new IllegalArgumentException(err);
+        }
     }
 
     private void binaryOp(String operation, IntBinaryOperator op) {

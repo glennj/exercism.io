@@ -9,14 +9,8 @@ class BowlingGame {
     private List<Integer> current = new ArrayList<>(); // balls rolled in the current frame
     private List<Integer> bonuses = new ArrayList<>(); // pending spare/strike bonuses
 
-    // we encounter exceptional circumstances during the rolls,
-    // but we don't want to throw them until checking the score.
-    private IllegalStateException pendingException;
-
     /* ********************************************************************** */
     int score() {
-        if (pendingException != null)
-            throw pendingException;
         if (!isGameOver())
             throw new IllegalStateException("Score cannot be taken until the end of the game");
 
@@ -25,21 +19,12 @@ class BowlingGame {
 
     /* ********************************************************************** */
     void roll(int roll) {
-        // If we have hit an exception, it doesn't matter about any subsequent rolls
-        if (pendingException != null) return;
-
-        if (isGameOver()) {
-            pendingException = new IllegalStateException("Cannot roll after game is over");
-            return;
-        }
-        if (roll < 0) {
-            pendingException = new IllegalStateException("Negative roll is invalid");
-            return;
-        }
-        if (isTooManyPins(roll)) {
-            pendingException = new IllegalStateException("Pin count exceeds pins on the lane");
-            return;
-        }
+        if (isGameOver())
+            throw new IllegalStateException("Cannot roll after game is over");
+        if (roll < 0)
+            throw new IllegalStateException("Negative roll is invalid");
+        if (isTooManyPins(roll))
+            throw new IllegalStateException("Pin count exceeds pins on the lane");
 
         addToScore(roll);
         updateFrameStatus(roll);

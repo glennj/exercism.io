@@ -18,7 +18,7 @@ class HandshakeCalculator {
             hasBit(number, 1 << s.ordinal());
 
         List<Signal> handshake = IntStream
-            .range(0, signals.length)
+            .range(0, signals.length) 
             .mapToObj(i -> signals[i])
             .filter(inHandshake)
             .collect(Collectors.toList());

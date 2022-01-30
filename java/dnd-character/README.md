@@ -1,4 +1,9 @@
-# Dnd Character
+# D&D Character
+
+Welcome to D&D Character on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 For a game of [Dungeons & Dragons][DND], each player starts by generating a
 character they can play with. This character has, among other things, six
@@ -32,20 +37,21 @@ programming languages are designed to roll dice. One such language is [Troll].
 [DND]: https://en.wikipedia.org/wiki/Dungeons_%26_Dragons
 [Troll]: http://hjemmesider.diku.dk/~torbenm/Troll/
 
-# Running the tests
-
-You can run all the tests for an exercise by entering
-
-```sh
-$ gradle test
-```
-
-in your terminal.
-
 ## Source
 
-Simon Shine, Erik Schierboom [https://github.com/exercism/problem-specifications/issues/616#issuecomment-437358945](https://github.com/exercism/problem-specifications/issues/616#issuecomment-437358945)
+### Created by
 
-## Submitting Incomplete Solutions
+- @lemoncurry
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @FridaTveit
+- @jmrunkle
+- @msomji
+- @muzimuzhi
+- @SleeplessByte
+- @sshine
+
+### Based on
+
+Simon Shine, Erik Schierboom - https://github.com/exercism/problem-specifications/issues/616#issuecomment-437358945

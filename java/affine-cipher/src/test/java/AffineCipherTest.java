@@ -1,129 +1,128 @@
-import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 public class AffineCipherTest {
 
-    private AffineCipher affineCipher;
-
-    @Before
-    public void genAffineCipher() {
-        affineCipher = new AffineCipher();
-    }
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    private AffineCipher affineCipher = new AffineCipher();
 
     @Test
     public void testEncodeYes() {
-        assertEquals("xbt", affineCipher.encode("yes", 5, 7));
+        assertThat(affineCipher.encode("yes", 5, 7)).isEqualTo("xbt");
     }
 
     //@Ignore("Remove to run test")
     @Test
     public void testEncodeNo() {
-        assertEquals("fu", affineCipher.encode("no", 15, 18));
+        assertThat(affineCipher.encode("no", 15, 18)).isEqualTo("fu");
     }
 
 
     //@Ignore("Remove to run test")
     @Test
     public void testEncodeOMG() {
-        assertEquals("lvz", affineCipher.encode("OMG", 21, 3));
+        assertThat(affineCipher.encode("OMG", 21, 3)).isEqualTo("lvz");
     }
 
     //@Ignore("Remove to run test")
     @Test
     public void testEncodeO_M_G() {
-        assertEquals("hjp", affineCipher.encode("O M G", 25, 47));
+        assertThat(affineCipher.encode("O M G", 25, 47)).isEqualTo("hjp");
     }
 
     //@Ignore("Remove to run test")
     @Test
     public void testEncodeMindBlowingly() {
-        assertEquals("rzcwa gnxzc dgt", affineCipher.encode("mindblowingly", 11, 15));
+        assertThat(affineCipher.encode("mindblowingly", 11, 15)).isEqualTo("rzcwa gnxzc dgt");
     }
 
     //@Ignore("Remove to run test")
     @Test
     public void testEncodeNumbers() {
-        assertEquals("jqgjc rw123 jqgjc rw",
-                affineCipher.encode("Testing,1 2 3, testing.", 3, 4));
+        assertThat(affineCipher.encode("Testing,1 2 3, testing.", 3, 4))
+                .isEqualTo("jqgjc rw123 jqgjc rw");
     }
 
     //@Ignore("Remove to run test")
     @Test
     public void testEncodeDeepThought() {
-        assertEquals("iynia fdqfb ifje",
-                affineCipher.encode("Truth is fiction.", 5, 17));
+        assertThat(affineCipher.encode("Truth is fiction.", 5, 17))
+                .isEqualTo("iynia fdqfb ifje");
     }
 
     //@Ignore("Remove to run test")
     @Test
     public void testEncodeAllTheLetters() {
-        assertEquals("swxtj npvyk lruol iejdc blaxk swxmh qzglf",
-                affineCipher.encode("The quick brown fox jumps over the lazy dog.", 17, 33));
+        assertThat(affineCipher.encode("The quick brown fox jumps over the lazy dog.", 17, 33))
+                .isEqualTo("swxtj npvyk lruol iejdc blaxk swxmh qzglf");
     }
 
     //@Ignore("Remove to run test")
     @Test
-    public void testEncodeThrowsMeaningfulException() throws IllegalArgumentException {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Error: keyA and alphabet size must be coprime.");
+    public void testEncodeThrowsMeaningfulException() {
+        IllegalArgumentException expected =
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> affineCipher.encode("This is a test", 6, 17));
 
-        affineCipher.encode("This is a test", 6, 17);
+        assertThat(expected)
+            .hasMessage("Error: keyA and alphabet size must be coprime.");
     }
 
     //@Ignore("Remove to run test")
     @Test
     public void testDecodeExercism() {
-        assertEquals("exercism", affineCipher.decode("tytgn fjr", 3, 7));
+        assertThat(affineCipher.decode("tytgn fjr", 3, 7))
+                .isEqualTo("exercism");
     }
 
     //@Ignore("Remove to run test")
     @Test
     public void testDecodeSentence() {
-        assertEquals("anobstacleisoftenasteppingstone",
-                affineCipher.decode("qdwju nqcro muwhn odqun oppmd aunwd o", 19, 16));
+        assertThat(affineCipher.decode("qdwju nqcro muwhn odqun oppmd aunwd o", 19, 16))
+                .isEqualTo("anobstacleisoftenasteppingstone");
     }
 
     //@Ignore("Remove to run test")
     @Test
     public void testDecodeNumbers() {
-        assertEquals("testing123testing", affineCipher.decode("odpoz ub123 odpoz ub", 25, 7));
+        assertThat(affineCipher.decode("odpoz ub123 odpoz ub", 25, 7))
+                .isEqualTo("testing123testing");
     }
 
     //@Ignore("Remove to run test")
     @Test
     public void testDecodeAllTheLetters() {
-        assertEquals("thequickbrownfoxjumpsoverthelazydog",
-                affineCipher.decode("swxtj npvyk lruol iejdc blaxk swxmh qzglf", 17, 33));
+        assertThat(affineCipher.decode("swxtj npvyk lruol iejdc blaxk swxmh qzglf", 17, 33))
+                .isEqualTo("thequickbrownfoxjumpsoverthelazydog");
     }
 
     //@Ignore("Remove to run test")
     @Test
     public void testDecodeWithNoSpaces() {
-        assertEquals("thequickbrownfoxjumpsoverthelazydog",
-                affineCipher.decode("swxtjnpvyklruoliejdcblaxkswxmhqzglf", 17, 33));
+        assertThat(affineCipher.decode("swxtjnpvyklruoliejdcblaxkswxmhqzglf", 17, 33))
+                .isEqualTo("thequickbrownfoxjumpsoverthelazydog");
     }
 
     //@Ignore("Remove to run test")
     @Test
     public void testDecodeWithTooManySpaces() {
-        assertEquals("jollygreengiant", affineCipher.decode("vszzm    cly   yd cg    qdp", 15, 16));
+        assertThat(affineCipher.decode("vszzm    cly   yd cg    qdp", 15, 16))
+                .isEqualTo("jollygreengiant");
     }
 
     //@Ignore("Remove to run test")
     @Test
     public void testDecodeThrowsMeaningfulException() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Error: keyA and alphabet size must be coprime.");
+        IllegalArgumentException expected =
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> affineCipher.decode("Test", 13, 5));
 
-        affineCipher.decode("Test", 13, 5);
+        assertThat(expected)
+            .hasMessage("Error: keyA and alphabet size must be coprime.");
     }
 
 }

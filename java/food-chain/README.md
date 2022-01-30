@@ -1,5 +1,10 @@
 # Food Chain
 
+Welcome to Food Chain on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Generate the lyrics of the song 'I Know an Old Lady Who Swallowed a Fly'.
 
 While you could copy/paste the lyrics,
@@ -63,20 +68,27 @@ I know an old lady who swallowed a horse.
 She's dead, of course!
 ```
 
-# Running the tests
-
-You can run all the tests for an exercise by entering
-
-```sh
-$ gradle test
-```
-
-in your terminal.
-
 ## Source
 
-Wikipedia [http://en.wikipedia.org/wiki/There_Was_an_Old_Lady_Who_Swallowed_a_Fly](http://en.wikipedia.org/wiki/There_Was_an_Old_Lady_Who_Swallowed_a_Fly)
+### Created by
 
-## Submitting Incomplete Solutions
+- @Smarticles101
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @FridaTveit
+- @jmrunkle
+- @kytrinyx
+- @lemoncurry
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
+- @SleeplessByte
+- @sshine
+- @stkent
+- @t0dd
+- @tshradheya
+
+### Based on
+
+Wikipedia - http://en.wikipedia.org/wiki/There_Was_an_Old_Lady_Who_Swallowed_a_Fly

@@ -3,7 +3,11 @@ import java.util.stream.IntStream;
 class IsbnVerifier {
 
     boolean isValid(String stringToVerify) {
-        String isbn = stringToVerify.replaceAll("[^X\\d]", "");
+        // check for invalid characters
+        if (stringToVerify.matches("[^\\dX-]"))
+            return false;
+        
+        String isbn = stringToVerify.replaceAll("-", "");
         if (!isbn.matches("^\\d{9}[\\dX]$"))
             return false;
         

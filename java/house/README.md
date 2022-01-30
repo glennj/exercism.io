@@ -1,5 +1,10 @@
 # House
 
+Welcome to House on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Recite the nursery rhyme 'This is the House that Jack Built'.
 
 > [The] process of placing a phrase of clause within another phrase of
@@ -105,20 +110,28 @@ that ate the malt
 that lay in the house that Jack built.
 ```
 
-# Running the tests
-
-You can run all the tests for an exercise by entering
-
-```sh
-$ gradle test
-```
-
-in your terminal.
-
 ## Source
 
-British nursery rhyme [http://en.wikipedia.org/wiki/This_Is_The_House_That_Jack_Built](http://en.wikipedia.org/wiki/This_Is_The_House_That_Jack_Built)
+### Created by
 
-## Submitting Incomplete Solutions
+- @Smarticles101
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @aadityakulkarni
+- @FridaTveit
+- @jmrunkle
+- @lemoncurry
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
+- @sjwarner-bp
+- @SleeplessByte
+- @sshine
+- @stkent
+- @tendaitt
+- @TimoleonLatinopoulos
+
+### Based on
+
+British nursery rhyme - http://en.wikipedia.org/wiki/This_Is_The_House_That_Jack_Built

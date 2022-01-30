@@ -1,5 +1,10 @@
 # Satellite
 
+Welcome to Satellite on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Imagine you need to transmit a binary tree to a satellite approaching Alpha
 Centauri and you have limited bandwidth. Since the tree has no repeating
 items it can be uniquely represented by its [pre-order and in-order traversals][wiki].
@@ -28,28 +33,13 @@ Note: the first item in the pre-order traversal is always the root.
 
 [wiki]: https://en.wikipedia.org/wiki/Tree_traversal
 
-## Setup
+## Source
 
-Go through the setup instructions for Java to install the necessary
-dependencies:
+### Created by
 
-[https://exercism.io/tracks/java/installation](https://exercism.io/tracks/java/installation)
+- @jmrunkle
 
-# Running the tests
+### Contributed to by
 
-You can run all the tests for an exercise by entering the following in your
-terminal:
-
-```sh
-$ gradle test
-```
-
-In the test suites all tests but the first have been skipped.
-
-Once you get a test passing, you can enable the next one by removing the
-`@Ignore("Remove to run test")` annotation.
-
-
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have
-completed the exercise.
+- @msomji
+- @muzimuzhi

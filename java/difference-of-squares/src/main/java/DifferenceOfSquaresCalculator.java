@@ -16,7 +16,3 @@ class DifferenceOfSquaresCalculator {
         return computeSquareOfSumTo(input) - computeSumOfSquaresTo(input);
     }
 }
-
-/*
-https://exercism.io/tracks/java/exercises/difference-of-squares/solutions/1e91f9c092b743e5bdbedc3daaea0803
-*/

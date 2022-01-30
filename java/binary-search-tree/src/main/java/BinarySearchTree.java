@@ -27,7 +27,7 @@ class BinarySearchTree<T extends Comparable<T>> {
         while (!queue.isEmpty()) {
             Node<T> node = queue.remove();
             values.add(node.getData());
-
+            
             if (node.getLeft() != null)
                 queue.add(node.getLeft());
             if (node.getRight() != null)

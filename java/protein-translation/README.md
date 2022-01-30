@@ -1,5 +1,10 @@
 # Protein Translation
 
+Welcome to Protein Translation on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Translate RNA sequences into proteins.
 
 RNA can be broken into three nucleotide sequences called codons, and then translated to a polypeptide like so:
@@ -41,20 +46,26 @@ UAA, UAG, UGA         | STOP
 
 Learn more about [protein translation on Wikipedia](http://en.wikipedia.org/wiki/Translation_(biology))
 
-# Running the tests
-
-You can run all the tests for an exercise by entering
-
-```sh
-$ gradle test
-```
-
-in your terminal.
-
 ## Source
 
+### Created by
+
+- @sjwarner-bp
+
+### Contributed to by
+
+- @FridaTveit
+- @jmrunkle
+- @kytrinyx
+- @lemoncurry
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
+- @SleeplessByte
+- @sonapraneeth-a
+- @sshine
+- @stkent
+
+### Based on
+
 Tyler Long
-
-## Submitting Incomplete Solutions
-
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.

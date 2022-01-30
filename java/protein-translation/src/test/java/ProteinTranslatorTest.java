@@ -134,13 +134,6 @@ public class ProteinTranslatorTest {
         assertEquals(expected, proteinTranslator.translate("UGA"));
     }
 
-    @Ignore("Remove to run test")
-    @Test
-    public void testInvalidCodon() {
-        List<String> expected = Arrays.asList();
-        assertEquals(expected, proteinTranslator.translate("FOO"));
-    }
-
     //@Ignore("Remove to run test")
     @Test
     public void testTranslationOfRnaToProteinList() {

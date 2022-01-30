@@ -95,7 +95,7 @@ public class AlphameticsTest {
                         entry('Y', 2));
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testTenLetters() throws UnsolvablePuzzleException {
         assertThat(new Alphametics("AND + A + STRONG + OFFENSE + AS + A + GOOD == DEFENSE").solve())
@@ -112,7 +112,7 @@ public class AlphameticsTest {
                         entry('T', 9));
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testTenLetters41Addends() throws UnsolvablePuzzleException {
         assertThat(new Alphametics("THIS + A + FIRE + THEREFORE + FOR + ALL + HISTORIES + I + TELL + A + " +

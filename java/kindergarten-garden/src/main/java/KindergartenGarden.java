@@ -6,28 +6,28 @@ import java.util.stream.Collectors;
 
 class KindergartenGarden {
 
-    private static final String[] STUDENTS = {
+    private static final List<String> STUDENTS = Arrays.asList(
         "Alice", "Bob", "Charlie", "David", "Eve", "Fred",
         "Ginny", "Harriet", "Ileana", "Joseph", "Kincaid", "Larry"
-    )}
+    );
 
     private Map<String, List<Plant>> plots;
     private List<List<Character>> rows;
 
     KindergartenGarden(String garden) {
-        this(garden, STUDENTS);
+        assignPlots(garden);
     }
 
-    KindergartenGarden(String garden, String[] students) {
-        assignPlots(garden, students);
+    List<Plant> getPlantsOfStudent(String student) {
+        return plots.get(student);
     }
 
-    private void assignPlots(String garden, String[] students) {
+    private void assignPlots(String garden) {
         plots = new HashMap<>();
         rows = parse(garden);
 
         for (int i = 0; i < rows.get(0).size() / 2; i++)
-            plots.put(students[i], getPlants(i));
+            plots.put(STUDENTS.get(i), getPlants(i));
     }
 
     private List<List<Character>> parse(String garden) {

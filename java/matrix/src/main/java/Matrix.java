@@ -13,11 +13,11 @@ class Matrix {
     }
 
     int[] getRow(int rowNumber) {
-        return list2array(rows.get(rowNumber));
+        return list2array(rows.get(rowNumber - 1));
     }
 
     int[] getColumn(int columnNumber) {
-        return list2array(cols.get(columnNumber));
+        return list2array(cols.get(columnNumber - 1));
     }
 
     private List<List<Integer>> splitText(String matrixAsString) {

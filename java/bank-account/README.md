@@ -1,5 +1,10 @@
 # Bank Account
 
+Welcome to Bank Account on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Simulate a bank account supporting opening/closing, withdrawals, and deposits
 of money. Watch out for concurrent transactions!
 
@@ -26,8 +31,6 @@ it.
 
 Have fun!
 
-# Java Tips
-
 This exercise introduces [concurrency](https://docs.oracle.com/javase/tutorial/essential/concurrency/index.html). 
 To pass the last test you might find the 
 [`synchronized` keyword or locks](https://docs.oracle.com/javase/tutorial/essential/concurrency/locksync.html) useful.
@@ -40,16 +43,20 @@ no concurrent modification attempt. It is unlikely that this will occur several 
 in a row since the order the code is executed should vary every time you run the test. So if you run the last test a 
 couple of times and it passes every time then you can be reasonably sure that your implementation is correct.
 
-# Running the tests
+## Source
 
-You can run all the tests for an exercise by entering
+### Created by
 
-```sh
-$ gradle test
-```
+- @FridaTveit
 
-in your terminal.
+### Contributed to by
 
-## Submitting Incomplete Solutions
-
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @jmrunkle
+- @kytrinyx
+- @lemoncurry
+- @msomji
+- @muzimuzhi
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+- @stkent

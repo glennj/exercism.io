@@ -1,5 +1,10 @@
 # Rail Fence Cipher
 
+Welcome to Rail Fence Cipher on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement encoding and decoding for the rail fence cipher.
 
 The Rail Fence cipher is a form of transposition cipher that gets its name from
@@ -58,20 +63,25 @@ W . . . E . . . C . . . R . . . L . . . T . . . E
 
 If you now read along the zig-zag shape you can read the original message.
 
-# Running the tests
-
-You can run all the tests for an exercise by entering
-
-```sh
-$ gradle test
-```
-
-in your terminal.
-
 ## Source
 
-Wikipedia [https://en.wikipedia.org/wiki/Transposition_cipher#Rail_Fence_cipher](https://en.wikipedia.org/wiki/Transposition_cipher#Rail_Fence_cipher)
+### Created by
 
-## Submitting Incomplete Solutions
+- @LeonDsouza
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @FridaTveit
+- @hgvanpariya
+- @jmrunkle
+- @lemoncurry
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
+- @sjwarner-bp
+- @SleeplessByte
+- @sshine
+
+### Based on
+
+Wikipedia - https://en.wikipedia.org/wiki/Transposition_cipher#Rail_Fence_cipher

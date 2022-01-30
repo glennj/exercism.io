@@ -1,5 +1,10 @@
 # Binary Search
 
+Welcome to Binary Search on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement a binary search algorithm.
 
 Searching a sorted collection is a common task. A dictionary is a sorted
@@ -34,20 +39,35 @@ A binary search halves the number of items to check with each iteration,
 so locating an item (or determining its absence) takes logarithmic time.
 A binary search is a dichotomic divide and conquer search algorithm.
 
-# Running the tests
-
-You can run all the tests for an exercise by entering
-
-```sh
-$ gradle test
-```
-
-in your terminal.
-
 ## Source
 
-Wikipedia [http://en.wikipedia.org/wiki/Binary_search_algorithm](http://en.wikipedia.org/wiki/Binary_search_algorithm)
+### Created by
 
-## Submitting Incomplete Solutions
+- @javaeeeee
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @FridaTveit
+- @hugueschabot
+- @jmrunkle
+- @Kyle-Pu
+- @kytrinyx
+- @lemoncurry
+- @michaelspets
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
+- @redshirt4
+- @RonakLakhotia
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+- @stkent
+- @superklamer
+- @vasouv
+- @wolf99
+- @Zaldrick
+
+### Based on
+
+Wikipedia - http://en.wikipedia.org/wiki/Binary_search_algorithm

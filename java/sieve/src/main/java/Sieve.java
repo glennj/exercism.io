@@ -22,7 +22,7 @@ class Sieve {
                 .collect(Collectors.toList());
 
         removeMultiples(numbers, 2);
-
+        
         int sqrt = (int) Math.floor(Math.sqrt(max));
         for (int i = 3; i <= sqrt; i += 2)
             removeMultiples(numbers, i);

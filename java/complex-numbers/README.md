@@ -1,5 +1,10 @@
 # Complex Numbers
 
+Welcome to Complex Numbers on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 A complex number is a number in the form `a + b * i` where `a` and `b` are real and `i` satisfies `i^2 = -1`.
 
 `a` is called the real part and `b` is called the imaginary part of `z`.
@@ -28,20 +33,26 @@ Implement the following operations:
 
 Assume the programming language you are using does not have an implementation of complex numbers.
 
-# Running the tests
-
-You can run all the tests for an exercise by entering
-
-```sh
-$ gradle test
-```
-
-in your terminal.
-
 ## Source
 
-Wikipedia [https://en.wikipedia.org/wiki/Complex_number](https://en.wikipedia.org/wiki/Complex_number)
+### Created by
 
-## Submitting Incomplete Solutions
+- @stkent
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @aadityakulkarni
+- @FridaTveit
+- @jackattack24
+- @jmrunkle
+- @kytrinyx
+- @lemoncurry
+- @msomji
+- @muzimuzhi
+- @SleeplessByte
+- @Smarticles101
+- @sshine
+
+### Based on
+
+Wikipedia - https://en.wikipedia.org/wiki/Complex_number

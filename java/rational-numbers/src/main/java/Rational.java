@@ -65,11 +65,7 @@ class Rational {
 
     // n raised to this rational
     double exp(double n) {
-        return nthRoot(Math.pow(n, numerator), denominator);
-    }
-
-    private double nthRoot(double n, int root) {
-        return Math.pow(Math.E, Math.log(n) / root);
+        return Math.pow(Math.pow(n, 1.0/denominator), numerator);
     }
 
     @Override

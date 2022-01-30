@@ -15,7 +15,7 @@ public class NucleotideCounter {
                         key -> key,
                         value -> 0
                 ));
-
+        
         if (!strand.matches("^[" + VALID_NUCLEOTIDES + "]*$"))
             throw new IllegalArgumentException();
 

@@ -5,7 +5,7 @@ import java.util.Vector;
 public class Dominoes {
 
     List<Domino> formChain(List<Domino> dominoes) throws ChainNotFoundException {
-        if (dominoes.isEmpty())
+        if (dominoes.size() == 0)
             return Collections.emptyList();
 
         for (int i = 0; i < dominoes.size(); i++) {

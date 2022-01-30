@@ -1,5 +1,10 @@
 # Dominoes
 
+Welcome to Dominoes on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Make a chain of dominoes.
 
 Compute a way to order a given set of dominoes in such a way that they form a
@@ -14,16 +19,21 @@ For stones `[1|2]`, `[4|1]` and `[2|3]` the resulting chain is not valid: `[4|1]
 
 Some test cases may use duplicate stones in a chain solution, assume that multiple Domino sets are being used.
 
-# Running the tests
+## Source
 
-You can run all the tests for an exercise by entering
+### Created by
 
-```sh
-$ gradle test
-```
+- @jssander
 
-in your terminal.
+### Contributed to by
 
-## Submitting Incomplete Solutions
-
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @aadityakulkarni
+- @FridaTveit
+- @hgvanpariya
+- @jmrunkle
+- @lemoncurry
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
+- @SleeplessByte
+- @sshine

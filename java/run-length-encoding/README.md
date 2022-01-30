@@ -1,5 +1,10 @@
 # Run Length Encoding
 
+Welcome to Run Length Encoding on Exercism's Java Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement run-length encoding and decoding.
 
 Run-length encoding (RLE) is a simple form of data compression, where runs
@@ -22,8 +27,6 @@ For simplicity, you can assume that the unencoded string will only contain
 the letters A through Z (either lower or upper case) and whitespace. This way
 data to be encoded will never contain any numbers and numbers inside data to
 be decoded always represent the count for the following character.
-
-# Java Tips
 
 Since this exercise has difficulty 5 it doesn't come with any starter implementation.
 This is so that you get to practice creating classes and methods which is an important part of programming in Java.
@@ -84,21 +87,30 @@ The new error should tell you which type it's expecting.
 
 After having resolved these errors you should be ready to start making the tests pass!
 
-
-# Running the tests
-
-You can run all the tests for an exercise by entering
-
-```sh
-$ gradle test
-```
-
-in your terminal.
-
 ## Source
 
-Wikipedia [https://en.wikipedia.org/wiki/Run-length_encoding](https://en.wikipedia.org/wiki/Run-length_encoding)
+### Created by
 
-## Submitting Incomplete Solutions
+- @Smarticles101
 
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @c-thornton
+- @FridaTveit
+- @jmrunkle
+- @Kyle-Pu
+- @kytrinyx
+- @lemoncurry
+- @mirkoperillo
+- @msomji
+- @muzimuzhi
+- @redshirt4
+- @sjwarner-bp
+- @SleeplessByte
+- @sshine
+- @stkent
+- @Zaldrick
+
+### Based on
+
+Wikipedia - https://en.wikipedia.org/wiki/Run-length_encoding

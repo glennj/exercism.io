@@ -7,7 +7,7 @@ public class RationalTest {
 
     // Helper methods
 
-    private static final double DOUBLE_EQUALITY_TOLERANCE = 1e-10;
+    private static final double DOUBLE_EQUALITY_TOLERANCE = 1e-15;
 
     private void assertDoublesEqual(double x, double y) {
         assertEquals(x, y, DOUBLE_EQUALITY_TOLERANCE);
@@ -168,9 +168,25 @@ public class RationalTest {
 
     //@Ignore("Remove to run test")
     @Test
+    public void testAbsoluteValueOfAPositiveRationalNumberWithNegativeNumeratorAndDenominator() {
+        Rational expected = new Rational(1, 2);
+        Rational actual = new Rational(-1, -2).abs();
+        assertEquals(expected, actual);
+    }
+
+    //@Ignore("Remove to run test")
+    @Test
     public void testAbsoluteValueOfANegativeRationalNumber() {
         Rational expected = new Rational(1, 2);
         Rational actual = new Rational(-1, 2).abs();
+        assertEquals(expected, actual);
+    }
+
+    //@Ignore("Remove to run test")
+    @Test
+    public void testAbsoluteValueOfANegativeRationalNumberWithNegativeDenominator() {
+        Rational expected = new Rational(1, 2);
+        Rational actual = new Rational(1, -2).abs();
         assertEquals(expected, actual);
     }
 

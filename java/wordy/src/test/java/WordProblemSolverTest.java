@@ -1,23 +1,20 @@
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.Before;
-import org.junit.rules.ExpectedException;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+
+import org.junit.Ignore;
+import org.junit.Test;
 
 public class WordProblemSolverTest {
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    WordProblemSolver solver = new WordProblemSolver();
 
-    WordProblemSolver solver;
-
-    @Before
-    public void setup() {
-        solver = new WordProblemSolver();
+    @Test
+    public void testJustANumber() {
+        assertEquals(5, solver.solve("What is 5?"));
     }
 
+    //@Ignore("Remove to run test")
     @Test
     public void testSingleAddition1() {
         assertEquals(2, solver.solve("What is 1 plus 1?"));
@@ -104,20 +101,97 @@ public class WordProblemSolverTest {
     //@Ignore("Remove to run test")
     @Test
     public void testUnknownOperation() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("I'm sorry, I don't understand the question!");
+        IllegalArgumentException expected =
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> solver.solve("What is 52 cubed?"));
 
-        solver.solve("What is 52 cubed?");
+        assertThat(expected)
+            .hasMessage("I'm sorry, I don't understand the question!");
     }
 
     //@Ignore("Remove to run test")
     @Test
-    public void testInvalidQuestionFormat() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("I'm sorry, I don't understand the question!");
-
+    public void testNonMathQuestion() {
         // See https://en.wikipedia.org/wiki/President_of_the_United_States if you really need to know!
-        solver.solve("Who is the President of the United States?");
+        IllegalArgumentException expected =
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> solver.solve("Who is the President of the United States?"));
+
+        assertThat(expected)
+            .hasMessage("I'm sorry, I don't understand the question!");
     }
 
+    //@Ignore("Remove to run test")
+    @Test
+    public void testMissingAnOperand() {
+        IllegalArgumentException expected =
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> solver.solve("What is 1 plus?"));
+
+        assertThat(expected)
+            .hasMessage("I'm sorry, I don't understand the question!");
+    }
+
+    //@Ignore("Remove to run test")
+    @Test
+    public void testNoOperandsOrOperators() {
+        IllegalArgumentException expected =
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> solver.solve("What is?"));
+
+        assertThat(expected)
+            .hasMessage("I'm sorry, I don't understand the question!");
+    }
+
+    //@Ignore("Remove to run test")
+    @Test
+    public void testTwoOperationsInARow() {
+        IllegalArgumentException expected =
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> solver.solve("What is 1 plus plus 2?"));
+
+        assertThat(expected)
+            .hasMessage("I'm sorry, I don't understand the question!");
+    }
+
+    //@Ignore("Remove to run test")
+    @Test
+    public void testTwoNumbersAfterOperation() {
+        IllegalArgumentException expected =
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> solver.solve("What is 1 plus 2 1?"));
+
+        assertThat(expected)
+            .hasMessage("I'm sorry, I don't understand the question!");
+    }
+
+    //@Ignore("Remove to run test")
+    @Test
+    public void testPostfixNotation() {
+        IllegalArgumentException expected =
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> solver.solve("What is 1 2 plus?"));
+
+        assertThat(expected)
+            .hasMessage("I'm sorry, I don't understand the question!");
+    }
+
+    //@Ignore("Remove to run test")
+    @Test
+    public void testPrefixNotation() {
+        IllegalArgumentException expected =
+            assertThrows(
+                IllegalArgumentException.class,
+                () -> solver.solve("What is plus 1 2?"));
+
+        assertThat(expected)
+            .hasMessage("I'm sorry, I don't understand the question!");
+    }
 }

@@ -14,7 +14,7 @@ class RnaTranscription {
     }
 
     String transcribe(String dnaStrand) {
-        // StringBuilder sb = new StringBuilder();
+        // StringBuilder sb = new StringBuilder(); 
         // dnaStrand
         //     .chars()
         //     .mapToObj(c -> Character.valueOf((char) c))

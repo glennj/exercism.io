@@ -180,14 +180,4 @@ public class RelationshipComputerTest {
         assertEquals(Relationship.UNEQUAL, relationship);
     }
 
-    //@Ignore("Remove to run test")
-    @Test
-    public void testGlenn() {
-        Relationship relationship = new RelationshipComputer<>().computeRelationship(
-                asList(0, 1),
-                asList(10, 10));
-
-        assertEquals(Relationship.UNEQUAL, relationship);
-    }
-
 }
