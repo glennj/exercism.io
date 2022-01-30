@@ -7,12 +7,12 @@ Testie.test("Words") { |do, skip|
     Expect.value(Words.count("word")).toEqual(expectedCounts)
   }
 
-  skip.test("count one of each word") {
+  do.test("count one of each word") {
     var expectedCounts = { "one": 1, "of": 1, "each": 1 }
     Expect.value(Words.count("one of each")).toEqual(expectedCounts)
   }
 
-  skip.test("multiple occurrences of a word") {
+  do.test("multiple occurrences of a word") {
     var expectedCounts = {
       "one": 1,
       "fish": 4,
@@ -25,7 +25,7 @@ Testie.test("Words") { |do, skip|
     )
   }
 
-  skip.test("handles cramped lists") {
+  do.test("handles cramped lists") {
     var expectedCounts = {
       "one": 1,
       "two": 1,
@@ -34,7 +34,7 @@ Testie.test("Words") { |do, skip|
     Expect.value(Words.count("one,two,three")).toEqual(expectedCounts)
   }
 
-  skip.test("handles expanded lists") {
+  do.test("handles expanded lists") {
     var expectedCounts = {
       "one": 1,
       "two": 1,
@@ -43,7 +43,7 @@ Testie.test("Words") { |do, skip|
     Expect.value(Words.count("one,\ntwo,\nthree")).toEqual(expectedCounts)
   }
 
-  skip.test("ignore punctuation") {
+  do.test("ignore punctuation") {
     var expectedCounts = {
       "car": 1,
       "carpet": 1,
@@ -56,7 +56,7 @@ Testie.test("Words") { |do, skip|
     )
   }
 
-  skip.test("include numbers") {
+  do.test("include numbers") {
     var expectedCounts = {
       "testing": 2,
       "1": 1,
@@ -66,7 +66,7 @@ Testie.test("Words") { |do, skip|
     Expect.value(Words.count("testing, 1, 2, 33 testing")).toEqual(expectedCounts)
   }
 
-  skip.test("normalize case") {
+  do.test("normalize case") {
     var expectedCounts = {
       "go": 3,
       "stop": 2,
@@ -74,7 +74,7 @@ Testie.test("Words") { |do, skip|
     Expect.value(Words.count("go Go GO Stop stop")).toEqual(expectedCounts)
   }
 
-  skip.test("with apostrophes") {
+  do.test("with apostrophes") {
     var expectedCounts = {
       "first": 1,
       "don't": 2,
@@ -87,7 +87,7 @@ Testie.test("Words") { |do, skip|
     )
   }
 
-  skip.test("with quotations") {
+  do.test("with quotations") {
     var expectedCounts = {
       "joe": 1,
       "can't": 1,
@@ -101,7 +101,7 @@ Testie.test("Words") { |do, skip|
     )
   }
 
-  skip.test("substrings from the beginning") {
+  do.test("substrings from the beginning") {
     var expectedCounts = {
       "joe": 1,
       "can't": 1,
@@ -117,7 +117,7 @@ Testie.test("Words") { |do, skip|
     )
   }
 
-  skip.test("multiple spaces not detected as a word") {
+  do.test("multiple spaces not detected as a word") {
     var expectedCounts = {
       "multiple": 1,
       "whitespaces": 1,
@@ -125,7 +125,7 @@ Testie.test("Words") { |do, skip|
     Expect.value(Words.count(" multiple   whitespaces")).toEqual(expectedCounts)
   }
 
-  skip.test("alternating word separators not detected as a word") {
+  do.test("alternating word separators not detected as a word") {
     var expectedCounts = {
       "one": 1,
       "two": 1,

@@ -2,7 +2,6 @@ import "./simple-linked-list" for LinkedList, Element
 import "wren-testie/testie" for Testie, Expect
 
 Testie.test("Simple Linked List") { |do, skip|
-
   do.describe("Element class") {
     do.test("has constructor") {
       var element = Element.new(1)
@@ -95,41 +94,52 @@ Testie.test("Simple Linked List") { |do, skip|
     do.beforeEach {
       list = LinkedList.new([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     }
+
     do.test("with correct length") {
       Expect.value(list.count).toEqual(10)
     }
+
     do.test("with correct head value") {
       Expect.value(list.head.value).toEqual(10)
     }
+
     do.test("can traverse the list") {
       Expect.value(list.head.next.next.next.value).toEqual(7)
     }
+
     do.test("can convert to an array") {
       var oneList = LinkedList.new([1])
       Expect.value(oneList.toList).toEqual([1])
     }
+
     do.test("head of list is final element from input array") {
       var twoList = LinkedList.new([1, 2])
       Expect.value(twoList.head.value).toEqual(2)
     }
+
     do.test("can convert to an array") {
       var oneList = LinkedList.new([1])
       Expect.value(oneList.toList).toEqual([1])
     }
+
     do.test("can convert longer list to an array") {
       Expect.value(list.toList).toEqual([10, 9, 8, 7, 6, 5, 4, 3, 2, 1])
     }
+
     do.test("can be reversed") {
       var twoList = LinkedList.new([1, 2])
       Expect.value(twoList.reverse().toList).toEqual([1, 2])
     }
+
     do.test("can be reversed when it has more elements") {
       var threeList = LinkedList.new([1, 2, 3])
       Expect.value(threeList.reverse().toList).toEqual([1, 2, 3])
     }
+
     do.test("can reverse with many elements") {
       Expect.value(list.reverse().toList).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     }
+
     do.test("can reverse a reversal") {
       Expect.value(list.reverse().reverse().toList).toEqual([
         10,
@@ -144,6 +154,7 @@ Testie.test("Simple Linked List") { |do, skip|
         1,
       ])
     }
+
     do.test("can be treated as iterable") {
       var items = []
       for (item in list) {

@@ -2,7 +2,6 @@ import "./custom-set" for CustomSet
 import "wren-testie/testie" for Testie, Expect
 
 Testie.test("CustomSet") { |do, skip|
-
   do.describe("empty: returns true if the set contains no elements") {
     do.test("sets with no elements are empty") {
       var actual = CustomSet.new().isEmpty
@@ -118,6 +117,7 @@ Testie.test("CustomSet") { |do, skip|
       var actual = CustomSet.new([1, 2, 3]).eql(CustomSet.new([1, 2, 4]))
       Expect.value(actual).toBe(false)
     }
+
     do.test("set is not equal to larger set with same elements") {
       var actual = CustomSet.new([1, 2, 3]).eql(CustomSet.new([1, 2, 3, 4]))
       Expect.value(actual).toBe(false)
@@ -231,6 +231,26 @@ Testie.test("CustomSet") { |do, skip|
       var actual = CustomSet.new([1, 3]).union(CustomSet.new([2, 3]))
       var expected = CustomSet.new([1, 2, 3])
       Expect.value(actual.eql(expected)).toBe(true)
+    }
+  }
+
+  do.describe("sets can return their items as a List") {
+    do.test("toList") {
+      var set = CustomSet.new([42, "Zaphod", 3.14])
+      var expected = [3.14, 42, "Zaphod"]
+      Expect.value(set.toList).toIncludeSameItemsAs(expected)
+    }
+  }
+
+  do.describe("iterating") {
+    do.test("iterating over the items of a set") {
+      // refer to https://wren.io/control-flow.html#the-iterator-protocol
+      var set = CustomSet.new([3, 2, 1, 3])
+      var result = []
+      for (item in set) {
+        result.add(item * item)
+      }
+      Expect.value(result).toIncludeSameItemsAs([1, 4, 9])
     }
   }
 }

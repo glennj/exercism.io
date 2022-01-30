@@ -20,5 +20,4 @@ class Luhn {
 
     return sum % 10 == 0
   }
-
 }

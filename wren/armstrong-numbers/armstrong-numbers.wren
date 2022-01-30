@@ -14,7 +14,6 @@ class Number {
       sum = sum + digit.pow(len)
       n = (n - digit) / 10
     }
-    System.print([input, sum])
     return sum == input
   }
 }
