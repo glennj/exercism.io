@@ -1208,6 +1208,7 @@ it to stdout. More details at
 For truly capturing the input verbatim, use `IFS= read -r input`
 * `IFS=` preserves leading/trailing whitespace, and 
 * `-r` is necessary to maintain backslashes as they appear in the data.
+    - see [https://stackoverflow.com/a/26480210/7552](https://stackoverflow.com/a/26480210/7552)
 
 Compare these:
 ```bash
@@ -2485,6 +2486,136 @@ That's where we get
 ```bash
 while IFS= read -r -n1 line; do ...; done < <(printf '%s' "$1")
 ```
+
+<!-- -->
+
+(similar explanation about reading strings a character at a time,
+demonstrating the addition of each interesting option)
+
+For best practices, you need to quote the `$letter` variable on line 34.
+While the answer is correct, try this to see what the shell does with `*`:
+```sh
+bash -x scrabble_score.sh 'a*b'
+```
+
+Not a big deal in this program, but it might become one when you're reading character by character: `<<<` adds a newline to the string.
+What that means here: you get one extra iteration of the while loop.
+To prevent that, use printf in a process substitution instead:
+```sh
+while read -rn1 letter; do
+    ...
+done < <(printf '%s' "${1^^}")
+```
+
+You almost always want to use the `-r` option for `read`.
+Here's a [good explanation why][read-r]
+
+<details><summary>And to read each character exactly as-is, you want to use:
+<code>while IFS='' read -d '' -r -n 1 letter</code> -- Click here for a demo:</summary>
+  
+---
+
+Given
+```bash
+line='a b\
+c'
+```
+That variable starts with "a", space, "b"; it ends with "c"; and the
+backslash+newline will be interpreted differently with different options.
+
+First:
+```bash
+i=0
+while read -n 1 char; do
+    printf '%d\t%s\n' $((++i)) "${char@Q}"
+done < <(printf '%s' "$line")
+```
+```none
+1	'a'
+2	''
+3	'b'
+4	'c'
+```
+The space was read as an empty string, and backslash+newline was interpreted
+as literally nothing. This is the bash line-continuation in action.
+
+Next, add `-r`
+```bash
+i=0
+while read -r -n 1 char; do
+    printf '%d\t%s\n' $((++i)) "${char@Q}"
+done < <(printf '%s' "$line")
+```
+```none
+1	'a'
+2	''
+3	'b'
+4	'\'
+5	''
+6	'c'
+```
+That makes the backslash be taken as a plain character. The newline is still
+an empty string.
+
+Next, add `IFS=''` or `IFS=` for short
+```bash
+i=0
+while IFS= read -r -n 1 char; do
+    printf '%d\t%s\n' $((++i)) "${char@Q}"
+done < <(printf '%s' "$line")
+```
+```none
+1	'a'
+2	' '
+3	'b'
+4	'\'
+5	''
+6	'c'
+```
+Now the space is actually a space, but newline is still empty.
+
+Finally, add `-d ''` -- this changes how `read` handles end-of-line
+* by default, end-of-line is a newline (hence the empty string above where the newline appears in the string)
+* `-d ''` uses `\0` (the null byte) as end-of-line. 
+  
+```bash
+i=0
+while IFS= read -d '' -r -n 1 char; do
+    printf '%d\t%s\n' $((++i)) "${char@Q}"
+done < <(printf '%s' "$line")
+```
+```none
+1	'a'
+2	' '
+3	'b'
+4	'\'
+5	$'\n'
+6	'c'
+```
+At last, every character is read individually.
+
+Demonstrating the extra loop iteration when using a here-string:
+```bash
+i=0
+while IFS= read -d '' -r -n 1 char; do
+    printf '%d\t%s\n' $((++i)) "${char@Q}"
+done <<< "$line"
+```
+```none
+1	'a'
+2	' '
+3	'b'
+4	'\'
+5	$'\n'
+6	'c'
+7	$'\n'
+```
+
+---
+</details>
+
+[read-r]: https://stackoverflow.com/a/26480210/7552
+
 
 <!-- -->
 

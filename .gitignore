@@ -1,50 +1,25 @@
+# exercism, generally
 cli/
 .exercism/
 .meta/
 users/
 
-# editors
-.vstags
-.vscode/
-.*.swp
-.editorconfig
-
-# javascript
-package-lock.json
-node_modules/
-.eslintrc
-yarn.lock
-
-# java
-build/
-.gradle/
-.idea/
-.project
-.settings/
-out/
-settings.gradle
-
-# kotlin
-gradle/
-gradlew*
-
 # ?
 .stack-work/
 *.cabal
 
-# lua
-.busted
-
-# python
-__pycache__/
-
-# c#
-obj/
-bin/
-.RData
-.Rhistory
+# editors
+.vstags
+.vscode/
+.*.sw?
+.sw?
+.editorconfig
 
 .DS_Store
+
+# my exercism test-all results
+*.broken.*
+*.ok.*
 
 # pharo dev
 pharo-staging/
