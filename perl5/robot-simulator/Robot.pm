@@ -1,5 +1,7 @@
 #!perl
 
+use Simulator;
+
 package Robot;
 
 use strictures 2;

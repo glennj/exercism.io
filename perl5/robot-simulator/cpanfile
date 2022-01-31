@@ -2,6 +2,5 @@ requires 'strictures', 2;
 requires 'Class::Tiny';
 
 on test => sub {
-    #requires 'Test2::V0';
-    requires 'Test::More';
+    requires 'Test2::V0';
 };

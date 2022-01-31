@@ -1,6 +1,8 @@
 package Allergies;
+use 5.024;
 use strictures 2;
 use List::Util  qw/ pairs /;
+use Exporter::Easiest 'OK => allergic_to list_allergies';
 
 our %ALLERGIES = (
     eggs         => 0b00000001,
@@ -18,13 +20,19 @@ use Class::Tiny qw/ score /;
 sub BUILDARGS { return {score => pop} }
 
 sub allergic_to {
-    my ($self, $allergen) = @_;
-    return !!($self->score & $ALLERGIES{$allergen});
+    my ($input) = @_;
+    # delegate to a subroutine with a simpler signature
+    return is_allergic_to($input->{score}, $input->{item});
 }
 
-sub list {
-    my ($self) = @_;
-    return [grep {$self->allergic_to($_)} @ALLERGENS];
+sub is_allergic_to {
+    my ($score, $allergen) = @_;
+    return !!($score & $ALLERGIES{$allergen});
+}
+
+sub list_allergies {
+    my ($score) = @_;
+    return [grep {is_allergic_to($score, $_)} @ALLERGENS];
 }
 
 1;
