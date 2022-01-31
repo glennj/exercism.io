@@ -16,34 +16,32 @@ const group = ['', ' thousand', ' million', ' billion', ' trillion'];
 
 const divmod = (num, div) => [Math.floor(num / div), num % div];
 
-export class Say {
-  inEnglish(n) {
-    if (!Number.isInteger(n)) throw new Error();
-    if (n < 0 || n > 999999999999) {
-      throw new Error('Number must be between 0 and 999,999,999,999.');
-    }
-    if (n === 0) return numbers[0];
-    const words = [];
-    let g = 0;
-    do {
-      let groupAdded = false;
-      let hundreds;
-      [n, hundreds] = divmod(n, 1000);
-      if (hundreds > 0) {
-        const [hun, tens] = divmod(hundreds, 100);
-        if (tens > 0) {
-          if (numbers[tens] !== undefined) {
-            words.unshift(`${numbers[tens]}${group[g]}`);
-          } else {
-            const [ten, ones] = divmod(tens, 10);
-            words.unshift(`${numbers[10 * ten]}-${numbers[ones]}${group[g]}`);
-          }
-          groupAdded = true;
-        }
-        if (hun > 0) words.unshift(`${numbers[hun]} hundred${groupAdded ? '' : group[g]}`);
-      }
-      g += 1;
-    } while (n > 0);
-    return words.join(' ');
+export const say = (n) => { 
+  if (!Number.isInteger(n)) throw new Error();
+  if (n < 0 || n > 999999999999) {
+    throw new Error('Number must be between 0 and 999,999,999,999.');
   }
-}
+  if (n === 0) return numbers[0];
+  const words = [];
+  let g = 0;
+  do {
+    let groupAdded = false;
+    let hundreds;
+    [n, hundreds] = divmod(n, 1000);
+    if (hundreds > 0) {
+      const [hun, tens] = divmod(hundreds, 100);
+      if (tens > 0) {
+        if (numbers[tens] !== undefined) {
+          words.unshift(`${numbers[tens]}${group[g]}`);
+        } else {
+          const [ten, ones] = divmod(tens, 10);
+          words.unshift(`${numbers[10 * ten]}-${numbers[ones]}${group[g]}`);
+        }
+        groupAdded = true;
+      }
+      if (hun > 0) words.unshift(`${numbers[hun]} hundred${groupAdded ? '' : group[g]}`);
+    }
+    g += 1;
+  } while (n > 0);
+  return words.join(' ');
+};

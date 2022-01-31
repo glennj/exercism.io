@@ -81,6 +81,7 @@ Use _and_ (correctly) when spelling out the number in English:
 - @ryanplusplus
 - @SleeplessByte
 - @tejasbubane
+- @fearless-spider
 
 ### Based on
 
