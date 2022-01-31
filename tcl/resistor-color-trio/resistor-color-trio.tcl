@@ -1,14 +1,15 @@
 # reuse previous solution
-source ../resistor-color-duo/resistor-color-duo.tcl
+source ./resistor-color-duo.tcl
 
 proc ::resistorColor::label {first second third} {
     set value [expr {[value $first $second] * 10**[colorCode $third]}]
 
-    set prefix ""
+    set idx 0
     while {[string match {*000} $value]} {
-        set prefix [lindex {"" kilo mega giga} [incr idx]]
+        incr idx
         regsub {000$} $value "" value
     }
+    set prefix [lindex {"" kilo mega giga} $idx]
 
     return "$value ${prefix}ohms"
 }

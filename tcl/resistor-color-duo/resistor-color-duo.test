@@ -35,6 +35,16 @@ test resistor-color-duo-1.6 "Ignore additional colors" -body {
     resistorColor::value green brown orange
 } -returnCodes ok -result 51
 
+skip resistor-color-duo-1.7
+test resistor-color-duo-1.7 "Black and brown, one-digit" -body {
+    resistorColor::value black brown
+} -returnCodes ok -result 1
+
+skip resistor-color-duo-1.8
+test resistor-color-duo-1.8 "Black and white, one-digit" -body {
+    resistorColor::value black white
+} -returnCodes ok -result 9
+
 
 skip resistor-color-duo-2.1
 test resistor-color-duo-2.1 "Invalid first color" -body {

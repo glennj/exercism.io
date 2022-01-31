@@ -3,7 +3,7 @@
 #
 proc sublist_strings {list1 list2} {
     set str1 [join $list1 \uFFFF]
-    set str2 [join $list2 \uFFFF]
+    set str2 [join $list2 \uFFFF] 
 
     if {$str1 eq $str2} {
         return "equal"

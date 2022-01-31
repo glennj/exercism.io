@@ -81,12 +81,17 @@ test sublist-15 "second list missing element from first list" -body {
 } -returnCodes ok -result "unequal"
 
 skip sublist-16
-test sublist-16 "order matters to a list" -body {
-    sublist {1 2 3} {3 2 1}
+test sublist-16 "first list missing additional digits from second list" -body {
+    sublist {1 2} {1 22}
 } -returnCodes ok -result "unequal"
 
 skip sublist-17
-test sublist-17 "same digits but different numbers" -body {
+test sublist-17 "order matters to a list" -body {
+    sublist {1 2 3} {3 2 1}
+} -returnCodes ok -result "unequal"
+
+skip sublist-18
+test sublist-18 "same digits but different numbers" -body {
     sublist {1 0 1} {10 1}
 } -returnCodes ok -result "unequal"
 

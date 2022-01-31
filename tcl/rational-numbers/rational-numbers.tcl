@@ -1,4 +1,4 @@
-source ../lib/mathfunc.tcl
+source ./mathfunc.tcl
 
 oo::class create Rational {
     variable num den
@@ -15,7 +15,7 @@ oo::class create Rational {
         set den [expr {$den / $gcd}]
     }
 
-    method numerator   {} {return $num}
+    method numerator   {} {return $num} 
     method denominator {} {return $den}
 
     method toString {} {

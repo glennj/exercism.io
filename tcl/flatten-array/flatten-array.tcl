@@ -5,7 +5,7 @@ proc flatten {input} {
         return $input
     }
     tailcall flatten $flattened
-}
+} 
 
 # This exercise highlights the type-less aspect of Tcl:
 # there is no distinction between strings and lists.

@@ -85,12 +85,22 @@ test matching-brackets-15 "too many closing brackets" -body {
 } -returnCodes ok -match boolean -result false
 
 skip matching-brackets-16
-test matching-brackets-16 "math expression" -body {
+test matching-brackets-16 "early unexpected brackets" -body {
+    bracketsMatch ")()"
+} -returnCodes ok -match boolean -result false
+
+skip matching-brackets-17
+test matching-brackets-17 "early mismatched brackets" -body {
+    bracketsMatch "\{)()"
+} -returnCodes ok -match boolean -result false
+
+skip matching-brackets-18
+test matching-brackets-18 "math expression" -body {
     bracketsMatch "(((185 + 223.85) * 15) - 543)/2"
 } -returnCodes ok -match boolean -result true
 
-skip matching-brackets-17
-test matching-brackets-17 "complex latex expression" -body {
+skip matching-brackets-19
+test matching-brackets-19 "complex latex expression" -body {
     bracketsMatch "\\left(\\begin{array}{cc} \\frac{1}{3} & x\\\\ \\mathrm{e}^{x} &... x^2 \\end{array}\\right)"
 } -returnCodes ok -match boolean -result true
 

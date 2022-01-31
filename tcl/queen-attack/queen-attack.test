@@ -83,6 +83,13 @@ test queen-3.7 "can attack on fourth diagonal" -body {
     $q1 canAttack $q2
 } -returnCodes ok -match boolean -result true
 
+skip queen-3.8
+test queen-3.8 "cannot attack if falling diagonals are only the same when reflected across the longest falling diagonal" -body {
+    set q1 [Queen new 4 1]
+    set q2 [Queen new 2 5]
+    $q1 canAttack $q2
+} -returnCodes ok -match boolean -result false
+
 
 # some edge cases
 skip queen-4.1
@@ -103,6 +110,5 @@ test queen-4.3 "cannot attack a non-Queen object" -body {
     set white [Queen new 4 4]
     $white canAttack [oo::object new]
 } -returnCodes error -result "not a Queen"
-
 
 cleanupTests

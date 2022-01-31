@@ -105,5 +105,30 @@ test roman-20 "3000 is three M's" -body {
     toroman 3000
 } -returnCodes ok -result "MMM"
 
+skip roman-21
+test roman-21 "16 is XVI" -body {
+    toroman 16
+} -returnCodes ok -result "XVI"
+
+skip roman-22
+test roman-22 "66 is LXVI" -body {
+    toroman 66
+} -returnCodes ok -result "LXVI"
+
+skip roman-23
+test roman-23 "166 is CLXVI" -body {
+    toroman 166
+} -returnCodes ok -result "CLXVI"
+
+skip roman-24
+test roman-24 "666 is DCLXVI" -body {
+    toroman 666
+} -returnCodes ok -result "DCLXVI"
+
+skip roman-25
+test roman-25 "1666 is MDCLXVI" -body {
+    toroman 1666
+} -returnCodes ok -result "MDCLXVI"
+
 
 cleanupTests

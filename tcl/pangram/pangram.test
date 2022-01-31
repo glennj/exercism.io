@@ -8,7 +8,7 @@ source "pangram.tcl"
 
 test pangram-1 "empty sentence" -body {
     isPangram ""
-} -returnCodes ok -match boolean -result 0
+} -returnCodes ok -match boolean -result false
 
 skip pangram-2
 test pangram-2 "perfect lower case" -body {
@@ -23,12 +23,12 @@ test pangram-3 "only lower case" -body {
 skip pangram-4
 test pangram-4 "missing the letter 'x'" -body {
     isPangram "a quick movement of the enemy will jeopardize five gunboats"
-} -returnCodes ok -match boolean -result 0
+} -returnCodes ok -match boolean -result false
 
 skip pangram-5
 test pangram-5 "missing the letter 'h'" -body {
     isPangram "five boxing wizards jump quickly at it"
-} -returnCodes ok -match boolean -result 0
+} -returnCodes ok -match boolean -result false
 
 skip pangram-6
 test pangram-6 "with underscores" -body {
@@ -43,7 +43,7 @@ test pangram-7 "with numbers" -body {
 skip pangram-8
 test pangram-8 "missing letters replaced by numbers" -body {
     isPangram "7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog"
-} -returnCodes ok -match boolean -result 0
+} -returnCodes ok -match boolean -result false
 
 skip pangram-9
 test pangram-9 "mixed case and punctuation" -body {
@@ -51,9 +51,9 @@ test pangram-9 "mixed case and punctuation" -body {
 } -returnCodes ok -match boolean -result true
 
 skip pangram-10
-test pangram-10 "case insensitive" -body {
-    isPangram "the quick brown fox jumps over with lazy FX"
-} -returnCodes ok -match boolean -result 0
+test pangram-10 "a-m and A-M are 26 different characters but not a pangram" -body {
+    isPangram "abcdefghijklm ABCDEFGHIJKLM"
+} -returnCodes ok -match boolean -result false
 
 
 cleanupTests

@@ -6,6 +6,10 @@ source testHelpers.tcl
 ############################################################
 source "book-store.tcl"
 
+# Uncomment for more verbose test output.
+# Ref: https://www.tcl.tk/man/tcl8.6/TclCmd/tcltest.html
+#configure -verbose {body error pass msec}
+
 # results expressed in units of cents.
 
 test bookstore-1 "Only a single book" -body {
@@ -90,6 +94,16 @@ if {0} {
         basketCost {1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 5 5}
     } -returnCodes ok -result 14560
 }
+
+skip bookstore-17
+test bookstore-17 "One group of one and four is cheaper than one group of two and three" -body {
+    basketCost {1 1 2 3 4}
+} -returnCodes ok -result 3360
+
+skip bookstore-18
+test bookstore-18 "One group of one and two plus three groups of four is cheaper than one group of each size" -body {
+    basketCost {1 2 2 3 3 3 4 4 4 4 5 5 5 5 5}
+} -returnCodes ok -result 10000
 
 
 cleanupTests

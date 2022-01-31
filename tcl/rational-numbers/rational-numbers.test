@@ -13,6 +13,12 @@ test rat-1.1 "Reduce a positive rational number to lowest terms" -body {
     $r toString
 } -returnCodes ok -result "1/2"
 
+skip rat-1.1.5
+test rat-1.1.5 "Reduce places the minus sign on the numerator" -body {
+    set r [Rational new 3 -4]
+    $r toString
+} -returnCodes ok -result "-3/4"
+
 skip rat-1.2
 test rat-1.2 "Reduce a negative rational number to lowest terms" -body {
     set r [Rational new -4 6]
