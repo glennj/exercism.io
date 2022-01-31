@@ -1,7 +1,7 @@
 # Thanks to @mengqing for the inspiration.
 
 ############################################################
-class Node
+class Node 
   def initialize(value, left, right)
     @value = value
     @left  = left

@@ -8,7 +8,7 @@ class Game
   attr_accessor :current
   attr_accessor :bonuses
 
-  public
+  public 
 
   def initialize
     @game_score = 0

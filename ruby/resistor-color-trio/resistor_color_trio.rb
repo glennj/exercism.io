@@ -1,4 +1,4 @@
-require_relative '../resistor-color/resistor_color'
+require_relative './resistor_color_duo'
 
 class ResistorColorTrio
   private
@@ -14,13 +14,8 @@ class ResistorColorTrio
   end
 
   def value
-    @value ||= begin
-      codes = colors.map do |color|
-        ResistorColor.color_code(color) ||
-          raise(ArgumentError, 'invalid color')
-      end
-      (10 * codes[0] + codes[1]) * 10**codes[2]
-    end
+    @value = ResistorColorDuo.value(colors.take(2))
+    @value *= 10 ** ResistorColor.color_code(colors[2])
   end
 
   def label
