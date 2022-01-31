@@ -21,7 +21,7 @@ end
 
 function magnitude(value)
   local idx = 1
-  while value == value // 1000 * 1000 do
+  while value % 1000 == 0 do
     value = value // 1000
     idx = idx + 1
   end
