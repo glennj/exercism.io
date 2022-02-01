@@ -1,60 +1,82 @@
 #!/usr/bin/env bash
 
-# external tools used: perl
+# I can take a relaxed approach to quoting
+# shellcheck disable=SC2086
 
-# global variables
-declare -i year month
+# This solution tries to minimize the number of external
+# calls to `date`. There are up to 4:
+# - 2 to determine the weekday name of the first of the given month
+# - 2 to determine the last date of the given month (only if needed)
+#
+# All the rest is done with arithmetic.
 
-month_days() {
-    # Using perl to generate the days of the month.
-    # perl should be fairly portable amongst *nix-ish systems.
-    # Use the "C" locale for day names "Monday", ...
-    # One invocation of `perl` will be more efficient than
-    # thirty-ish invocations of `date`.
+source ./utils_date.bash
+source ./utils_array.bash
 
-    LC_ALL=C perl -sE '
-        use Time::Piece;
-        use Time::Seconds;
-        my $date = Time::Piece->strptime("$year-$month-01", "%Y-%m-%d");
-        for my $i (1 .. 31) {
-            # use "%_d" instead of "%d" because bash
-            # arithmetic will puke on day/month 08 and 09
-            say $date->strftime("%A %_d %_m");
-            $date += ONE_DAY;
-        }
-    ' -- -year="$year" -month="$month"
-} 
+declare -A START_DAY=(
+    [first]=1       # first falls in the 1..7 of the month
+    [second]=8      # second falls in the 8..14 of the month
+    [third]=15      # third falls in the 15..21 of the month
+    [fourth]=22     # fourth falls in the 22..28 of the month
+    [fifth]=29      # fifth falls on or after the 29 of the month
+    [teenth]=13     # teenth falls in the 13..19 of the month
+    [last]=TBD      # last falls on or after the 22 of the month,
+                    # depending on the month
+)
 
-result() {
-    printf "%d-%02d-%02d" "$year" "$month" "$1"
-    exit
+declare WEEKDAYS=(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
+
+# find the last date of the given month
+last_date() {
+    local year=$1 month=$2
+    local date epoch last_date
+
+    # first, get the first of _next_ month
+    case $month in
+        12) printf -v date '%d-01-01' $((year + 1)) ;;
+         *) printf -v date '%d-%d-01' $year $((month + 1)) ;;
+    esac
+    epoch=$(date::parse -f '%Y-%m-%d' "$date")
+
+    # then subtract one day
+    last_date=$(date::format -f '%d' $((epoch - 86400)))
+
+    # and the last *day of the month falls on or after 6 days before
+    START_DAY[last]=$((last_date - 6))
+}
+
+# find the weekday of the first of the given month
+first_weekday() {
+    local year=$1 month=$2
+    local date epoch
+    epoch=$(date::parse -f '%Y-%m-%d' "$year-$month-01")
+    date::format -f '%A' $epoch
 }
 
 main() {
-    year=$1 month=$2
-    local nth=$3 weekday=$4
-    local -i n=0
+    local year=$1 month=$2 nth=$3 weekday=$4
+    local day offset
 
-    # `month_days` outputs: "weekday day month" for 31 days
-    # starting from the first of the given year-month.
-    # For months like February, day 31 might be in
-    # a different month.
+    offset=$(array::index WEEKDAYS "$(first_weekday $year $month)")
 
-    month_days | {
-        while read -r wd d m; do
-            ((month == m)) || continue
-            [[ $weekday == "$wd" ]] || continue
-            ((n++))
-            case $nth in
-                first)  ((n == 1)) && result "$d" ;;
-                second) ((n == 2)) && result "$d" ;;
-                third)  ((n == 3)) && result "$d" ;;
-                fourth) ((n == 4)) && result "$d" ;;
-                teenth) ((13 <= d && d <= 19)) && result "$d" ;;
-                *)      day=$d ;;
-            esac
-        done
-        result "$day"     # last
-    }
+    case $nth in
+        last)
+            last_date $year $month
+            offset=$(((offset + START_DAY['last'] % 7 - 1) % 7))
+            ;;
+        teenth)
+            offset=$(((offset + START_DAY['teenth'] % 7 - 1) % 7))
+            ;;
+    esac
+
+    day=${START_DAY[$nth]}
+
+    for ((d = 0; d < 7; d++)); do
+        if [[ ${WEEKDAYS[(offset + d) % 7]} == "$weekday" ]]; then
+            printf '%d-%02d-%02d\n' $year $month $((day + d))
+            break
+        fi
+    done
 }
+
 main "$@"
