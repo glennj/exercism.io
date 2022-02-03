@@ -1,7 +1,7 @@
 defmodule Knapsack do
   @moduledoc """
   Translating the pseudocode from https://en.wikipedia.org/wiki/Knapsack_problem
- 
+
     Assume w_{1}, w_{2}, ..., w_{n}, W are strictly positive
     integers.  Define m[i,w] to be the maximum value that can
     be attained with weight less than or equal to w using
@@ -12,7 +12,7 @@ defmodule Knapsack do
     * m[i,w] = m[i-1,w] if w_{i} > w (the new item is more
       than the current weight limit)
     * m[i,w] = max(m[i-1,w], m[i-1,w-w_{i}]+v_{i}) if w_{i} <= w.
- 
+
   The solution can then be found by calculating m[n,W]. 
   """
 
@@ -23,39 +23,52 @@ defmodule Knapsack do
           integer
   def maximum_value(items, maximum_weight) do
     n = length(items)
-    m = Map.new()
 
-    # set the maximum value for each weight when there are no
-    # items
-    m = map_put(m, 0, maximum_weight, 0
-    for w <- 0..maximum_weight, do: Map.put(m, {0, w}, 0)
-      IO.inspect(m, label: "initial"):x
-
-
-    m = max_value(m, items, 1, n, maximum_weight)
+    # set the maximum value for each weight when there are no items
+    # then populate the table for max_value for each item and weight
+    m =
+      Map.new()
+      |> row_zero(0, maximum_weight)
+      |> max_value(items, 1, n, maximum_weight)
 
     Map.get(m, {n, maximum_weight})
   end
 
+  #
+  defp row_zero(m, w, max_wt) when w <= max_wt do
+    row_zero(Map.put(m, {0, w}, 0), w + 1, max_wt)
+  end
+
+  defp row_zero(m, _, _), do: m
+
+  #
   defp max_value(m, [item | items], i, n, max_wt) when i <= n do
-    IO.inspect(m, label: "before")
-    for w <- 0..max_wt do
-      Map.put(m, {i-1, w},
-        case item[:weight] > w do
-          true -> Map.get(m, {i-1, w})
-          false ->
-            max_of(
-              Map.get(m, {i-1, w}),
-              item[:value] + Map.get(m, {i-1, w - item[:weight]})
-            )
-        end
-      )
-    end
-    IO.inspect(m, label: "after")
-    max_value(m, items, i+1, n, max_wt)
+    m = row_w(m, item, i, n, 0, max_wt)
+    max_value(m, items, i + 1, n, max_wt)
   end
 
   defp max_value(m, _, _, _, _), do: m
+
+  #
+  defp row_w(m, item, i, n, w, max_wt) when w <= max_wt do
+    m =
+      Map.put(
+        m,
+        {i, w},
+        if item[:weight] > w do
+          Map.get(m, {i - 1, w})
+        else
+          max_of(
+            Map.get(m, {i - 1, w}),
+            item[:value] + Map.get(m, {i - 1, w - item[:weight]})
+          )
+        end
+      )
+
+    row_w(m, item, i, n, w + 1, max_wt)
+  end
+
+  defp row_w(m, _, _, _, _, _), do: m
 
   @spec max_of(a :: integer, b :: integer) :: integer
   defp max_of(a, b) when a >= b, do: a
