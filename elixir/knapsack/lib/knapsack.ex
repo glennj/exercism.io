@@ -16,10 +16,13 @@ defmodule Knapsack do
   The solution can then be found by calculating m[n,W]. 
   """
 
+  @type item :: %{value: integer, weight: integer}
+  @type table :: Map.t({integer, integer}, integer)
+
   @doc """
   Return the maximum value that a knapsack can carry.
   """
-  @spec maximum_value(items :: [%{value: integer, weight: integer}], maximum_weight :: integer) ::
+  @spec maximum_value(items :: [item], maximum_weight :: integer) ::
           integer
   def maximum_value(items, maximum_weight) do
     n = length(items)
@@ -34,23 +37,42 @@ defmodule Knapsack do
     Map.get(m, {n, maximum_weight})
   end
 
-  #
-  defp row_zero(m, w, max_wt) when w <= max_wt do
+  @spec row_zero(
+          m :: table,
+          w :: integer,
+          max_wt :: integer
+        ) :: table
+  defp row_zero(m, w, max_wt) when w > max_wt, do: m
+
+  defp row_zero(m, w, max_wt) do
     row_zero(Map.put(m, {0, w}, 0), w + 1, max_wt)
   end
 
-  defp row_zero(m, _, _), do: m
+  @spec max_value(
+          m :: table,
+          items :: [item],
+          i :: integer,
+          n :: integer,
+          max_wt :: integer
+        ) :: table
+  defp max_value(m, _, i, n, _) when i > n, do: m
 
-  #
-  defp max_value(m, [item | items], i, n, max_wt) when i <= n do
+  defp max_value(m, [item | items], i, n, max_wt) do
     m = row_w(m, item, i, n, 0, max_wt)
     max_value(m, items, i + 1, n, max_wt)
   end
 
-  defp max_value(m, _, _, _, _), do: m
+  @spec row_w(
+          m :: table,
+          items :: [item],
+          i :: integer,
+          n :: integer,
+          w :: integer,
+          max_wt :: integer
+        ) :: table
+  defp row_w(m, _, _, _, w, max_wt) when w > max_wt, do: m
 
-  #
-  defp row_w(m, item, i, n, w, max_wt) when w <= max_wt do
+  defp row_w(m, item, i, n, w, max_wt) do
     m =
       Map.put(
         m,
@@ -67,8 +89,6 @@ defmodule Knapsack do
 
     row_w(m, item, i, n, w + 1, max_wt)
   end
-
-  defp row_w(m, _, _, _, _, _), do: m
 
   @spec max_of(a :: integer, b :: integer) :: integer
   defp max_of(a, b) when a >= b, do: a
