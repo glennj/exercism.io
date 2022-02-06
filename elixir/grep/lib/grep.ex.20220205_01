@@ -1,0 +1,83 @@
+defmodule Grep do
+  @flags ["-i", "-x", "-v", "-l", "-n"]
+
+  @spec grep(String.t(), [String.t()], [String.t()]) :: String.t()
+  def grep(pattern, flags, files) do
+    opts = parse_flags(flags)
+
+    # stash whether there are multiple files
+    opts = Map.put(opts, :multi, length(files) > 1)
+
+    # stash the pattern
+    opts = Map.put(opts, :pattern, cond do
+      opts.x and opts.i -> ~r/^#{pattern}$/i
+      opts.x -> ~r/^#{pattern}$/
+      opts.i -> ~r/#{pattern}/i
+      true -> ~r/#{pattern}/
+    end)
+
+    process_files(files, opts, [])
+  end
+
+  defp parse_flags(flags) do
+    opts = @flags
+           |> Enum.map(&({flag_to_atom(&1), false}))
+           |> Enum.into(%{})
+    flags
+    |> Enum.reduce(opts, &(%{&2 | flag_to_atom(&1) => true}))
+  end
+
+  defp flag_to_atom(flag), do: String.at(flag, 1) |> String.to_atom()
+
+  defp process_files([], _, result) do
+    result
+    |> Enum.map(&(&1 <> "\n"))
+    |> Enum.join("")
+  end
+
+  defp process_files([file | files], opts, result) do
+    process_files(
+      files,
+      opts,
+      result ++ process_file(file, opts, [])
+    )
+  end
+
+  defp process_file(file, opts, result) do
+    do_process_file(file, lines(file), 1, opts, result)
+  end
+
+  defp lines(file) do
+    File.read!(file)
+    |> String.trim_trailing("\n")
+    |> String.split("\n")
+  end
+
+  defp do_process_file(_, [], _, _, result), do: result
+
+  defp do_process_file(file, [line | lines], line_no, opts, result) do
+    if line_match?(line, opts) do
+      if opts.l do
+        [file]
+      else
+        res = 
+          (if opts.multi, do: "#{file}:", else: "") <>
+          (if opts.n, do: "#{line_no}:", else: "") <>
+          line
+
+        do_process_file(file, lines, line_no + 1, opts, result ++ [res])
+      end
+    else
+      do_process_file(file, lines, line_no + 1, opts, result)
+    end
+  end
+
+  defp line_match?(line, opts) do
+    case {Regex.match?(opts.pattern, line), opts.v} do
+      {true, true} -> false
+      {true, false} -> true
+      {false, true} -> true
+      {false, false} -> false
+    end
+  end
+end

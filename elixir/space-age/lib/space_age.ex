@@ -22,16 +22,15 @@ defmodule SpaceAge do
     neptune: 164.79132,
   }
 
-  @planets Map.keys(@orbital_period)
-
   @doc """
   Return the number of years a person that has lived for 'seconds' seconds is
   aged on 'planet', or an error if 'planet' is not a planet.
   """
   @spec age_on(planet, pos_integer) :: {:ok, float} | {:error, String.t()}
-  def age_on(planet, seconds) when planet in @planets do
-    {:ok, seconds / @seconds_per_earth_year / @orbital_period[planet]}
+  def age_on(planet, seconds) do
+    case @orbital_period[planet] do
+      nil -> {:error, "not a planet"}
+      p   -> {:ok, seconds / @seconds_per_earth_year / p}
+    end
   end
-
-  def age_on(_, _), do: {:error, "not a planet"}
 end
