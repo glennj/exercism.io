@@ -11,9 +11,9 @@ defmodule Triangle do
   #
   def kind(a, b, c) do
     case Enum.sort([a, b, c]) do
-      [d, _, _] when d < 0 -> {:error, "all side lengths must be positive"}
-      [_, _, f] when f == 0 -> {:error, "all side lengths must be positive"}
+      [d, _, _] when d <= 0 -> {:error, "all side lengths must be positive"}
       [d, e, f] when d + e < f -> {:error, "side lengths violate triangle inequality"}
+
       [d, d, d] -> {:ok, :equilateral}
       [d, d, _] -> {:ok, :isosceles}
       [_, d, d] -> {:ok, :isosceles}

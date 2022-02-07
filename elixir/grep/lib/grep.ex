@@ -39,7 +39,7 @@ defmodule Grep do
 
     # incorporate user's flags
     flags
-    |> Enum.reduce(opts, &(%{&2 | flag_to_atom(&1) => true}))
+    |> Enum.reduce(opts, &%{&2 | flag_to_atom(&1) => true})
   end
 
   @spec flag_to_atom(String.t()) :: atom
@@ -56,13 +56,13 @@ defmodule Grep do
     process_files(
       files,
       opts,
-      result ++ process_file(file, opts, [])
+      result ++ process_one_file(file, opts)
     )
   end
 
-  @spec process_file(filename, options, [line]) :: [line]
-  defp process_file(file, opts, result) do
-    do_process_file(file, lines(file), 1, opts, result)
+  @spec process_one_file(filename, options) :: [line]
+  defp process_one_file(file, opts) do
+    do_process_one_file(file, lines(file), 1, opts, [])
   end
 
   # return a list of the lines of a file
@@ -73,28 +73,34 @@ defmodule Grep do
     |> String.split("\n")
   end
 
-  @spec do_process_file(filename, [line], pos_integer, options, [line]) :: [line]
-  defp do_process_file(_, [], _, _, result), do: result
+  @spec do_process_one_file(
+          file :: filename,
+          lines :: [line],
+          line_no :: pos_integer,
+          opts :: options,
+          lines_matched :: [line]
+        ) :: [line]
+  defp do_process_one_file(_, [], _, _, result), do: result
 
-  defp do_process_file(file, [line | lines], line_no, opts, result) do
-    if matches?(line, opts) do
+  defp do_process_one_file(file, [line | lines], line_no, opts, matched) do
+    if matches?(line, opts.pattern, opts.v) do
       if opts.l do
         [file]
       else
         res =
-          if(opts.multi, do: "#{file}:", else: "")
-          <> if(opts.n, do: "#{line_no}:", else: "")
-          <> line
+          if(opts.multi, do: "#{file}:", else: "") <>
+            if(opts.n, do: "#{line_no}:", else: "") <>
+            line
 
-        do_process_file(file, lines, line_no + 1, opts, result ++ [res])
+        do_process_one_file(file, lines, line_no + 1, opts, matched ++ [res])
       end
     else
-      do_process_file(file, lines, line_no + 1, opts, result)
+      do_process_one_file(file, lines, line_no + 1, opts, matched)
     end
   end
 
-  defp matches?(line, opts) do
-    case {Regex.match?(opts.pattern, line), opts.v} do
+  defp matches?(line, pattern, inverse) do
+    case {Regex.match?(pattern, line), inverse} do
       {true, true} -> false
       {true, false} -> true
       {false, true} -> true
