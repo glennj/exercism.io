@@ -38,7 +38,7 @@ defmodule RationalNumbers do
   """
   @spec abs(a :: rational) :: rational
   def abs({num, den}) do
-    {Kernel.abs(num), Kernel.abs(den)}
+    {Kernel.abs(num), Kernel.abs(den)} |> reduce()
   end
 
   @doc """
@@ -75,12 +75,7 @@ defmodule RationalNumbers do
   def reduce({num, den}) when den < 0, do: reduce({-num, -den})
 
   def reduce({num, den}) do
-    g = gcd(num, den) |> Kernel.abs()
+    g = Integer.gcd(num, Kernel.abs(den))
     {div(num, g), div(den, g)}
   end
-
-  # Determine the Greatest Common Divisor of two numbers
-  @spec gcd(a :: integer, b :: integer) :: integer
-  defp gcd(a, 0), do: a
-  defp gcd(a, b), do: gcd(b, rem(a, b))
 end

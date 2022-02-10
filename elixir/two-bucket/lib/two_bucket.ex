@@ -29,7 +29,7 @@ defmodule TwoBucket do
 
   @spec valid(pos_integer, pos_integer, pos_integer) :: boolean
   defp valid(size1, size2, goal) do
-    gcd = gcd(size1, size2)
+    gcd = Integer.gcd(size1, size2)
 
     cond do
       size1 <= 0 or size2 <= 0 or goal <= 0 -> false
@@ -39,9 +39,6 @@ defmodule TwoBucket do
       true -> false
     end
   end
-
-  defp gcd(a, b) when b == 0, do: a
-  defp gcd(a, b), do: gcd(b, rem(a, b))
 
   @spec initialize(pos_integer, pos_integer, atom) :: {Bucket, Bucket}
   defp initialize(size1, size2, start) do
