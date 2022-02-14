@@ -444,3 +444,7 @@ from sets_categories_data import example_dishes, EXAMPLE_INTERSECTIONS
 ### Created by
 
 - @bethanyg
+
+### Contributed to by
+
+- @zepam

@@ -13,7 +13,7 @@ def largest_product(series, size):
         raise ValueError('digits input must only contain digits')
 
     if size < 0:
-        raise ValueError('span must be greater than zero')
+        raise ValueError('span must not be negative')
 
     # max() throws ValueError on empty sequence
     # `series == ""` and `size == 0` edge cases are handled

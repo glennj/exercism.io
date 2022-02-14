@@ -92,9 +92,10 @@ raise ValueError("invalid fill balls")
 - @cmccandless
 - @Dog
 - @kytrinyx
+- @RNeilsen
 - @tqa236
 - @yawpitch
 
 ### Based on
 
-The Bowling Game Kata at but UncleBob - http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata
+The Bowling Game Kata from UncleBob - http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata

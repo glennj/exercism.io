@@ -20,8 +20,8 @@ class Scale(object):
     def interval(self, intervals):
         notes = self.chromatic()
         idx = 0
-        result = []
+        result = [self.tonic]
         for int in intervals:
+            idx = (idx + self.INTERVAL[int]) % len(notes)
             result.append(notes[idx])
-            idx += self.INTERVAL[int]
         return result

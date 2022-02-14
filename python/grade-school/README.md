@@ -26,8 +26,11 @@ In the end, you should be able to:
   and Jim in grade 5.
   So the answer is: Anna, Barb, Charlie, Alex, Peter, Zoe and Jim"
 
-Note that all our students only have one name (It's a small town, what do you want?) and each student cannot be added more than once to a grade or the roster.
-In fact, when a test attempts to add the same student more than once, your implementation should indicate that this is incorrect.
+Note that all our students only have one name  (It's a small town, what
+do you want?) and each student cannot be added more than once to a grade or the
+roster.
+In fact, when a test attempts to add the same student more than once, your
+implementation should indicate that this is incorrect.
 
 ## For bonus points
 
@@ -41,6 +44,11 @@ are some additional things you could try:
 
 Then please share your thoughts in a comment on the submission. Did this
 experiment make the code better? Worse? Did you learn anything from it?
+
+The tests for this exercise expect your school roster will be implemented via a School `class` in Python.
+If you are unfamiliar with classes in Python, [classes][classes in python] from the Python docs is a good place to start.
+
+[classes in python]: https://docs.python.org/3/tutorial/classes.html
 
 ## Source
 

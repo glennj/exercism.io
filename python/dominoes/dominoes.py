@@ -1,4 +1,4 @@
-def chain(dominoes):
+def can_chain(dominoes):
     if not dominoes:
         return []
 

@@ -44,16 +44,3 @@ class HighScoresTest(unittest.TestCase):
         scores = [40]
         expected = [40]
         self.assertEqual(personal_top_three(scores), expected)
-
-    def test_best_does_not_reorder(self):
-        scores = [10, 30, 90, 30, 100, 20, 10, 0, 30, 40, 40, 70, 33]
-        best = personal_best(scores)
-        expected = 33
-        self.assertEqual(latest(scores), expected)
-
-    def test_top3_does_not_reorder(self):
-        scores = [10, 30, 90, 30, 100, 20, 10, 0, 30, 40, 40, 70, 33]
-        top3 = personal_top_three(scores)
-        expected = 33
-        self.assertEqual(latest(scores), expected)
-
