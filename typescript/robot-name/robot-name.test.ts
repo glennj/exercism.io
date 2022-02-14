@@ -125,6 +125,9 @@ describe('Robot', () => {
   })
 
   // This test is optional.
+  //
+  // This test doesn't run on our online test runner because it will time-out
+  // with most implementations. It's up to you to test your solution locally.
   it('all the names can be generated', () => {
     const usedNames = new Set()
     usedNames.add(robot.name)
