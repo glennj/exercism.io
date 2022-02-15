@@ -2,7 +2,7 @@ defmodule ForthTest do
   use ExUnit.Case
 
   describe "parsing and numbers" do
-    ## @tag :pending
+    #@tag :pending
     test "no input, no stack" do
       s = Forth.new() |> Forth.format_stack()
       assert s == ""
@@ -223,7 +223,7 @@ defmodule ForthTest do
       assert s == ""
     end
 
-    ##@tag :pending
+    #@tag :pending
     test "removes the top value on the stack if it is not the only one" do
       s =
         Forth.new()
@@ -298,7 +298,7 @@ defmodule ForthTest do
       assert s == "1 2 3 2"
     end
 
-    ##@tag :pending
+    #@tag :pending
     test "raises if there is nothing on the stack" do
       assert_raise Forth.StackUnderflow, fn ->
         Forth.new() |> Forth.eval("1 over")

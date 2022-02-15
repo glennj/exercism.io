@@ -1,21 +1,36 @@
 defmodule Forth do
   defmodule Stack do
+    @moduledoc """
+    This module does the work of a Forth stack.
+    It can do arithmetic and stack operations (drop, dup, etc).
+    It also stores the recorded macros.
+    """
+
     use Agent
 
     def new() do
-      {:ok, pid} = Agent.start_link(fn -> [] end)
+      {:ok, pid} = Agent.start_link(fn -> 
+        %{
+          stack: [],
+          macros: %{}
+        }
+      end)
       pid
     end
 
     def dump(stack), do: Agent.get(stack, & &1)
 
     def push(stack, number) do
-      Agent.update(stack, &([number | &1]))
+      Agent.update(stack, 
+        fn state -> Map.update!(state, :stack, &([number | &1])) end
+      )
     end
 
     def pop(stack, n \\ 1) do
-      values = Agent.get_and_update(stack, fn stack ->
-        {Enum.take(stack, n), Enum.drop(stack, n)}
+      values = Agent.get_and_update(stack, 
+        fn state -> Map.get_and_update(state, :stack, fn st ->
+          {Enum.take(st, n), Enum.drop(st, n)}
+        end)
       end)
 
       if length(values) < n do
@@ -80,9 +95,17 @@ defmodule Forth do
       push(stack, b)
       stack
     end
+
+    def get_macro(stack, _name) do
+      nil
+    end
+
+    def add_macro(stack, [_name | _tokens]) do
+      stack
+    end
   end
 
-  @opaque evaluator :: any
+  @opaque evaluator :: Stack
 
   @doc """
   Create a new evaluator.
@@ -106,31 +129,36 @@ defmodule Forth do
 
   defp do_eval(ev, []), do: ev
   defp do_eval(ev, [token | tokens]) do
-    if ":" == token do
-      record_macro(ev, tokens)
-    else
-      case token do
-        "+" -> Stack.add(ev)
-        "-" -> Stack.sub(ev)
-        "*" -> Stack.mul(ev)
-        "/" -> Stack.div(ev)
-        "dup" -> Stack.dup(ev)
-        "drop" -> Stack.drop(ev)
-        "swap" -> Stack.swap(ev)
-        "over" -> Stack.over(ev)
-        _ ->
-          try do
-            Stack.push(ev, String.to_integer(token))
-          rescue
-            ArgumentError -> Forth.UnknownWord
-          end
-      end
-      do_eval(ev, tokens)
+    cond do
+      ":" == token ->
+        record_macro(ev, tokens)
+
+      macro = Stack.get_macro(ev, token) ->
+        do_eval(ev, Stack.macro(ev, token) ++ tokens)
+
+      true ->
+        case token do
+          "+" -> Stack.add(ev)
+          "-" -> Stack.sub(ev)
+          "*" -> Stack.mul(ev)
+          "/" -> Stack.div(ev)
+          "dup" -> Stack.dup(ev)
+          "drop" -> Stack.drop(ev)
+          "swap" -> Stack.swap(ev)
+          "over" -> Stack.over(ev)
+          _ ->
+            try do
+              Stack.push(ev, String.to_integer(token))
+            rescue
+              ArgumentError -> raise Forth.UnknownWord
+            end
+        end
+        do_eval(ev, tokens)
     end
   end
 
   defp record_macro(ev, _tokens) do
-    ev
+    Stack.add_macro(ev)
   end
 
   @doc """
@@ -140,7 +168,7 @@ defmodule Forth do
   @spec format_stack(evaluator) :: String.t()
   def format_stack(ev) do
     stack =
-      Agent.get(ev, & &1)
+      Agent.get(ev, & &1.stack)
       |> Enum.reverse()
       |> Enum.join(" ")
     Agent.stop(ev)
