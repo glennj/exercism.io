@@ -1,111 +1,7 @@
 defmodule Forth do
-  defmodule Stack do
-    @moduledoc """
-    This module does the work of a Forth stack.
-    It can do arithmetic and stack operations (drop, dup, etc).
-    It also stores the recorded macros.
-    """
+  alias Forth.Stack, as: Stack
 
-    use Agent
-
-    def new() do
-      {:ok, pid} = Agent.start_link(fn -> 
-        %{
-          stack: [],
-          macros: %{}
-        }
-      end)
-      pid
-    end
-
-    def dump(stack), do: Agent.get(stack, & &1)
-
-    def push(stack, number) do
-      Agent.update(stack, 
-        fn state -> Map.update!(state, :stack, &([number | &1])) end
-      )
-    end
-
-    def pop(stack, n \\ 1) do
-      values = Agent.get_and_update(stack, 
-        fn state -> Map.get_and_update(state, :stack, fn st ->
-          {Enum.take(st, n), Enum.drop(st, n)}
-        end)
-      end)
-
-      if length(values) < n do
-        raise Forth.StackUnderflow
-      else
-        values
-      end
-    end
-
-    def add(stack) do
-      #IO.inspect([:add, :before, Stack.dump(stack)])
-      [a, b] = Stack.pop(stack, 2)
-      push(stack, a + b)
-      #IO.inspect([:add, :after, Stack.dump(stack)])
-      stack
-    end
-
-    def sub(stack) do
-      #IO.inspect([:sub, :before, Stack.dump(stack)])
-      [a, b] = Stack.pop(stack, 2)
-      push(stack, b - a)
-      #IO.inspect([:sub, :after, Stack.dump(stack)])
-      stack
-    end
-
-    def mul(stack) do
-      [a, b] = Stack.pop(stack, 2)
-      push(stack, b * a)
-      stack
-    end
-
-    def div(stack) do
-      [a, b] = Stack.pop(stack, 2)
-      if a == 0, do: raise Forth.DivisionByZero
-      push(stack, Kernel.div(b, a))
-      stack
-    end
-
-    def dup(stack) do
-      [a] = Stack.pop(stack, 1)
-      push(stack, a)
-      push(stack, a)
-      stack
-    end
-
-    def drop(stack) do
-      Stack.pop(stack, 1)
-      stack
-    end
-
-    def swap(stack) do
-      [a, b] = Stack.pop(stack, 2)
-      push(stack, a)
-      push(stack, b)
-      stack
-    end
-
-    def over(stack) do
-      [a, b] = Stack.pop(stack, 2)
-      push(stack, b)
-      push(stack, a)
-      push(stack, b)
-      stack
-    end
-
-    def get_macro(stack, _name) do
-      nil
-    end
-
-    def add_macro(stack, [_name | _tokens]) do
-      stack
-    end
-  end
-
-  @opaque evaluator :: Stack
+  @opaque evaluator :: Stack.t()
 
   @doc """
   Create a new evaluator.
@@ -121,31 +17,50 @@ defmodule Forth do
   @spec eval(evaluator, String.t()) :: evaluator
   def eval(ev, s) do
     tokens =
-      Regex.scan(~r/[^[:space:]]+/, s)
+      Regex.scan(~r/[^[:space:][:cntrl:]]+/u, s)
       |> Enum.map(&hd/1)
+      |> Enum.map(&String.downcase/1)
 
     do_eval(ev, tokens)
   end
 
   defp do_eval(ev, []), do: ev
+
   defp do_eval(ev, [token | tokens]) do
     cond do
       ":" == token ->
-        record_macro(ev, tokens)
+        tokens = record_macro(ev, tokens)
+        do_eval(ev, tokens)
 
       macro = Stack.get_macro(ev, token) ->
-        do_eval(ev, Stack.macro(ev, token) ++ tokens)
+        do_eval(ev, macro ++ tokens)
 
       true ->
         case token do
-          "+" -> Stack.add(ev)
-          "-" -> Stack.sub(ev)
-          "*" -> Stack.mul(ev)
-          "/" -> Stack.div(ev)
-          "dup" -> Stack.dup(ev)
-          "drop" -> Stack.drop(ev)
-          "swap" -> Stack.swap(ev)
-          "over" -> Stack.over(ev)
+          "+" ->
+            Stack.add(ev)
+
+          "-" ->
+            Stack.sub(ev)
+
+          "*" ->
+            Stack.mul(ev)
+
+          "/" ->
+            Stack.div(ev)
+
+          "dup" ->
+            Stack.dup(ev)
+
+          "drop" ->
+            Stack.drop(ev)
+
+          "swap" ->
+            Stack.swap(ev)
+
+          "over" ->
+            Stack.over(ev)
+
           _ ->
             try do
               Stack.push(ev, String.to_integer(token))
@@ -153,13 +68,32 @@ defmodule Forth do
               ArgumentError -> raise Forth.UnknownWord
             end
         end
+
         do_eval(ev, tokens)
     end
   end
 
-  defp record_macro(ev, _tokens) do
-    Stack.add_macro(ev)
+  defp record_macro(ev, [name | tokens]) do
+    case validate_macro_name(name) do
+      :error -> raise Forth.InvalidWord
+      :ok ->
+        {remaining_tokens, macro} = extract_macro(tokens, [])
+        Stack.add_macro(ev, name, macro)
+        remaining_tokens
+    end
   end
+
+  defp validate_macro_name(name) do
+    try do
+      _i = String.to_integer(name)
+      :error
+    rescue
+      ArgumentError -> :ok
+    end
+  end
+
+  defp extract_macro([";" | ts], macro), do: {ts, Enum.reverse(macro)}
+  defp extract_macro([t | ts], macro), do: extract_macro(ts, [t | macro])
 
   @doc """
   Return the current stack as a string with the element on top of the stack
@@ -167,31 +101,6 @@ defmodule Forth do
   """
   @spec format_stack(evaluator) :: String.t()
   def format_stack(ev) do
-    stack =
-      Agent.get(ev, & &1.stack)
-      |> Enum.reverse()
-      |> Enum.join(" ")
-    Agent.stop(ev)
-    stack
-  end
-
-  defmodule StackUnderflow do
-    defexception []
-    def message(_), do: "stack underflow"
-  end
-
-  defmodule InvalidWord do
-    defexception word: nil
-    def message(e), do: "invalid word: #{inspect(e.word)}"
-  end
-
-  defmodule UnknownWord do
-    defexception word: nil
-    def message(e), do: "unknown word: #{inspect(e.word)}"
-  end
-
-  defmodule DivisionByZero do
-    defexception []
-    def message(_), do: "division by zero"
+    Stack.to_string(ev)
   end
 end
