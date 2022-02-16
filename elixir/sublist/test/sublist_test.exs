@@ -6,33 +6,33 @@ defmodule SublistTest do
     assert Sublist.compare([], []) == :equal
   end
 
-  #@tag :pending
+  @tag :pending
   test "empty list within non empty list" do
     assert Sublist.compare([], [1, 2, 3]) == :sublist
   end
 
-  #@tag :pending
+  @tag :pending
   test "non empty list contains empty list" do
     assert Sublist.compare([1, 2, 3], []) == :superlist
   end
 
-  #@tag :pending
+  @tag :pending
   test "list equals itself" do
     assert Sublist.compare([1, 2, 3], [1, 2, 3]) == :equal
   end
 
-  #@tag :pending
+  @tag :pending
   test "different lists" do
     assert Sublist.compare([1, 2, 3], [2, 3, 4]) == :unequal
   end
 
-  #@tag :pending
+  @tag :pending
   test "comparing massive equal lists" do
     l = Enum.to_list(1..1_000_000)
     assert Sublist.compare(l, l) == :equal
   end
 
-  #@tag :pending
+  @tag :pending
   test "false start" do
     assert Sublist.compare([1, 2, 5], [0, 1, 2, 3, 1, 2, 5, 6]) == :sublist
   end
