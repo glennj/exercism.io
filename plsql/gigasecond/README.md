@@ -1,31 +1,21 @@
 # Gigasecond
 
-Calculate the moment when someone has lived for 10^9 seconds.
+Welcome to Gigasecond on Exercism's PL/SQL Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
+Given a moment, determine the moment that would be after a gigasecond
+has passed.
 
 A gigasecond is 10^9 (1,000,000,000) seconds.
 
-## Setup
-
-Go through the setup instructions for PL/SQL to get ready to code:
-
-http://exercism.io/languages/plsql
-
-## Running the Tests
-
-Execute the tests by calling the `run` method in the respective `ut_<exercise>#` package.
-The necessary code should be contained at the end of the test package.
-As an example, the test for the _hamming_ exercise would be run using
-
-```
-begin
-  ut_hamming#.run;
-end;
-/
-```
-
 ## Source
 
-Chapter 9 in Chris Pine's online Learn to Program tutorial. [http://pine.fm/LearnToProgram/?Chapter=09](http://pine.fm/LearnToProgram/?Chapter=09)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @chezwicker
+
+### Based on
+
+Chapter 9 in Chris Pine's online Learn to Program tutorial. - http://pine.fm/LearnToProgram/?Chapter=09

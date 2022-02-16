@@ -41,7 +41,6 @@ is
     test(i_descn => 'test_911',  i_exp => 'CMXI',   i_act => numeral#.to_roman(911 ));
     test(i_descn => 'test_1024', i_exp => 'MXXIV',  i_act => numeral#.to_roman(1024));
     test(i_descn => 'test_3000', i_exp => 'MMM',    i_act => numeral#.to_roman(3000));
-    test(i_descn => 'test_2888', i_exp => 'MMDCCCLXXXVIII', i_act => numeral#.to_roman(2888));
   end run;
 end ut_numeral#;
 /

@@ -1,4 +1,9 @@
-# RNA Transcription
+# Rna Transcription
+
+Welcome to Rna Transcription on Exercism's PL/SQL Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 Given a DNA strand, return its RNA complement (per RNA transcription).
 
@@ -18,28 +23,12 @@ each nucleotide with its complement:
 * `T` -> `A`
 * `A` -> `U`
 
-## Setup
-
-Go through the setup instructions for PL/SQL to get ready to code:
-
-http://exercism.io/languages/plsql
-
-## Running the Tests
-
-Execute the tests by calling the `run` method in the respective `ut_<exercise>#` package.
-The necessary code should be contained at the end of the test package.
-As an example, the test for the _hamming_ exercise would be run using
-
-```
-begin
-  ut_hamming#.run;
-end;
-/
-```
-
 ## Source
 
-Hyperphysics [http://hyperphysics.phy-astr.gsu.edu/hbase/Organic/transcription.html](http://hyperphysics.phy-astr.gsu.edu/hbase/Organic/transcription.html)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @chezwicker
+
+### Based on
+
+Hyperphysics - http://hyperphysics.phy-astr.gsu.edu/hbase/Organic/transcription.html

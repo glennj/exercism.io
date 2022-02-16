@@ -1,5 +1,10 @@
 # Hello World
 
+Welcome to Hello World on Exercism's PL/SQL Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 The classical introductory exercise. Just say "Hello, World!".
 
 ["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is
@@ -14,28 +19,12 @@ The objectives are simple:
 
 If everything goes well, you will be ready to fetch your first real exercise.
 
-## Setup
-
-Go through the setup instructions for PL/SQL to get ready to code:
-
-http://exercism.io/languages/plsql
-
-## Running the Tests
-
-Execute the tests by calling the `run` method in the respective `ut_<exercise>#` package.
-The necessary code should be contained at the end of the test package.
-As an example, the test for the _hamming_ exercise would be run using
-
-```
-begin
-  ut_hamming#.run;
-end;
-/
-```
-
 ## Source
 
-This is an exercise to introduce users to using Exercism [http://en.wikipedia.org/wiki/%22Hello,_world!%22_program](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program)
+### Contributed to by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @kytrinyx
+
+### Based on
+
+This is an exercise to introduce users to using Exercism - http://en.wikipedia.org/wiki/%22Hello,_world!%22_program

@@ -1,5 +1,10 @@
 # Binary
 
+Welcome to Binary on Exercism's PL/SQL Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Convert a binary number, represented as a string (e.g. '101010'), to its decimal equivalent using first principles.
 
 Implement binary to decimal conversion. Given a binary input
@@ -30,28 +35,12 @@ Binary is similar, but uses powers of 2 rather than powers of 10.
 
 So: `101 => 1*2^2 + 0*2^1 + 1*2^0 => 1*4 + 0*2 + 1*1 => 4 + 1 => 5 base 10`.
 
-## Setup
-
-Go through the setup instructions for PL/SQL to get ready to code:
-
-http://exercism.io/languages/plsql
-
-## Running the Tests
-
-Execute the tests by calling the `run` method in the respective `ut_<exercise>#` package.
-The necessary code should be contained at the end of the test package.
-As an example, the test for the _hamming_ exercise would be run using
-
-```
-begin
-  ut_hamming#.run;
-end;
-/
-```
-
 ## Source
 
-All of Computer Science [http://www.wolframalpha.com/input/?i=binary&a=*C.binary-_*MathWorld-](http://www.wolframalpha.com/input/?i=binary&a=*C.binary-_*MathWorld-)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @chezwicker
+
+### Based on
+
+All of Computer Science - http://www.wolframalpha.com/input/?i=binary&a=*C.binary-_*MathWorld-
