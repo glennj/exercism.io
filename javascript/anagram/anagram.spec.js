@@ -8,9 +8,9 @@ describe('Anagram', () => {
   });
 
   test('detects two anagrams', () => {
-    expect(findAnagrams('master', ['stream', 'pigeon', 'maters'])).toEqual([
-      'stream',
-      'maters',
+    expect(findAnagrams('solemn', ['lemons', 'cherry', 'melons'])).toEqual([
+      'lemons',
+      'melons',
     ]);
   });
 

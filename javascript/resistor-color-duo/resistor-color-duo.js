@@ -1,4 +1,4 @@
-// reuse the "resistor color" exercise
+// reuse the "resistor color" exercise 
 import { colorCode } from './resistor-color.js';
  
 export const decodedValue = (colors) => {

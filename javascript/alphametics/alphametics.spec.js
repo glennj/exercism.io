@@ -71,7 +71,7 @@ describe('Solve the alphametics puzzle', () => {
       R: 8,
       Y: 2,
     };
-    expect(solve(puzzle, true)).toEqual(expected);
+    expect(solve(puzzle)).toEqual(expected);
   });
 
   test('puzzle with ten letters', () => {

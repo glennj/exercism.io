@@ -8,14 +8,14 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 
 ## Callbacks
 
-Callbacks are functions which are passed as arguments to another function. This is often done to control the order of execution in an asynchronous context. Writing a callback function is no different from writing a function, but the callback function's arguments must match the signature required by the calling function.
+Callbacks are functions that are passed as arguments to another function. This is often done to control the order of execution in an asynchronous context. Writing a callback function is no different from writing a function, but the callback function's arguments must match the signature required by the calling function.
 
 ```javascript
 const squareLength = 5;
 
 // Caller function takes a callback function
 function applyToSquare(callback) {
-  callback(squareLength);
+  return callback(squareLength);
 }
 
 // Callback must expect the possible argument from the calling function
@@ -62,7 +62,7 @@ const square = num => num * num;
 ```
 <!-- prettier-ignore-end -->
 
-Arrow functions are often uses to define short callback functions directly in the function call.
+Arrow functions are often used to define short callback functions directly in the function call.
 
 <!-- prettier-ignore-start -->
 ```javascript
@@ -107,7 +107,7 @@ function action(err, data) {
 }
 
 pickFruit('pineapple', 20, action);
-// calls the checkInventory function with the query and passing along the `action` callback function
+// calls the checkInventory function with the query and passes along the `action` callback function
 ```
 
 ## 3. Create a callback to buy fruit if the inventory is available

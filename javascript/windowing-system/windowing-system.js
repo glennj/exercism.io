@@ -1,6 +1,6 @@
 // @ts-check
 
-export class Size {
+export class Size { 
   #width;
   #height;
 

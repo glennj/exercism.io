@@ -18,7 +18,7 @@ The values inside one object can have different types.
 They can be primitive types like numbers but also arrays, other objects or even functions.
 This makes objects very versatile so that they are also key entities for [object-oriented programming][oop] (OOP) in JavaScript.
 
-In the following we will focus on objects as collections or maps. Other use cases of objects will be covered in other concepts, see e.g., [Classes][concept-classes].
+In the following, we will focus on objects as collections or maps. Other use cases of objects will be covered in other concepts, see e.g., [Classes][concept-classes].
 
 ## Creating an Object
 
@@ -80,13 +80,13 @@ obj[key];
 // => hello world
 ```
 
-Using the dot notation as a short-hand has the same restriction as omitting the quotation marks.
+Using the dot notation as a shorthand has the same restriction as omitting the quotation marks.
 It only works if the key follows the identifier naming rules.
 
 ## Adding or Changing a Value
 
 You can add or change a value using the assignment operator `=`.
-Again, there is dot and bracket notation available.
+Again, there are dot and bracket notations available.
 
 ```javascript
 const obj = { greeting: 'hello world' };
@@ -146,8 +146,8 @@ for (let key in obj) {
 // age 65
 ```
 
-To avoid subtle errors you should always assume the `for...in` loop visits the keys in an arbitrary order.
-Also be aware that `for...in` includes [inherited keys][concept-inheritance] in its iteration.
+To avoid subtle errors, you should always assume the `for...in` loop visits the keys in an arbitrary order.
+Also, be aware that `for...in` includes [inherited keys][concept-inheritance] in its iteration.
 
 [oop]: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object-oriented_JS
 [concept-classes]: /tracks/javascript/concepts/classes
@@ -158,13 +158,13 @@ Also be aware that `for...in` includes [inherited keys][concept-inheritance] in 
 
 In this exercise, you are implementing a way to keep track of the high scores for the most popular game in your local arcade hall.
 
-You have 6 functions to implement, mostly related to manipulating an object that holds the high scores.
+You have 6 functions to implement, mostly related to manipulating an object that holds high scores.
 
 ## 1. Create a new high score board
 
-Create a function `createScoreBoard` that creates an object that serves as high score board.
+Create a function `createScoreBoard` that creates an object that serves as a high score board.
 The keys of this object will be the names of the players, the values will be their scores.
-For testing purposes you want to directly include one entry in the object.
+For testing purposes, you want to directly include one entry in the object.
 This initial entry should consist of `The Best Ever` as player name and `1000000` as score.
 
 ```javascript
@@ -217,7 +217,7 @@ Implement `updateScore`, which takes 3 parameters:
 - The second parameter is the name of the player whose score should be increased.
 - The third parameter is the score that you wish to **add** to the stored high score.
 
-The function should be return the score board after the update was done.
+The function should return the score board after the update was done.
 
 ```javascript
 updateScore({"Freyja Ćirić", 12771008}, "Freyja Ćirić", 73)
@@ -231,7 +231,7 @@ At the end of the day, each player on that board gets 100 additional points.
 
 Implement the function `applyMondayBonus` that accepts a score board.
 The function adds the bonus points for each player that is listed on that board.
-Afterwards the board is returned.
+Afterwards, the board is returned.
 
 ```javascript
 const scoreBoard = {
@@ -250,12 +250,12 @@ Different arcade halls award different score points.
 To celebrate the best arcade player in town, a player's score needs to be normalized so scores from different arcade halls become comparable.
 
 Write a function `normalizeScore`.
-To practice your object skills, instead of two parameters this function should accept one object as parameter.
+To practice your object skills, instead of two parameters this function should accept one object as a parameter.
 That object contains a key `score` with the value being a player's score (a number).
-There is also a second key `normalizeFunction` that has a function as value.
-This function takes a score as argument and returns the corrected score.
+There is also a second key `normalizeFunction` that has a function as its value.
+This function takes a score as an argument and returns the corrected score.
 
-Your function `normalizeScore` should return the normalized score that you get after applying the the normalization function to the score that was passed in.
+Your function `normalizeScore` should return the normalized score that you get after applying the normalization function to the score that was passed in.
 
 ```javascript
 function normalize(score) {

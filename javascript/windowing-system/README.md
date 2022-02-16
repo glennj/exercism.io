@@ -366,7 +366,7 @@ programWindow.position.y;
 
 ## 6. Change a program window
 
-Implement a `changeWindow` method that accepts a `ProgramWindow` instance as input and changes the window to the specified size and position.
+Implement a `changeWindow` function that accepts a `ProgramWindow` instance as input and changes the window to the specified size and position.
 The function should return the `ProgramWindow` instance that was passed in after the changes were applied.
 
 The window should get a width of 400, a height of 300 and be positioned at x = 100, y = 150.
@@ -385,3 +385,7 @@ programWindow.size.width;
 ### Created by
 
 - @junedev
+
+### Contributed to by
+
+- @SleeplessByte

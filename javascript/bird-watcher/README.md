@@ -7,7 +7,7 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 ## Introduction
 
 The for loop is one of the most commonly used statements to repeatedly execute some logic.
-In JavaScript it consists of the `for` keyword, a _header_ wrapped in round brackets and a code block that contains the _body_ of the loop wrapped in curly brackets.
+In JavaScript, it consists of the `for` keyword, a _header_ wrapped in round brackets and a code block that contains the _body_ of the loop wrapped in curly brackets.
 
 ```javascript
 for (initialization; condition; step) {
@@ -25,7 +25,7 @@ for (let i = 0; i < list.length; i++) {
 }
 ```
 
-Defining the step is often done using JavaScripts increment or decrement operator as shown in the example above.
+Defining the step is often done using JavaScript's increment or decrement operator as shown in the example above.
 These operators modify a variable in place.
 `++` adds one to a number, `--` subtracts one from a number.
 
@@ -42,14 +42,18 @@ j--;
 ## Instructions
 
 You are an avid bird watcher that keeps track of how many birds have visited your garden.
-Usually you use a tally in a notebook to count the birds but you want to better work with your data.
+Usually, you use a tally in a notebook to count the birds but you want to better work with your data.
 You already digitalized the bird counts per day for the past weeks that you kept in the notebook.
 
 Now you want to determine the total number of birds that you counted, calculate the bird count for a specific week and correct a counting mistake.
 
+```exercism/note
+To practice, use a for loop solve each of the tasks below.
+```
+
 ## 1. Determine the total number of birds that you counted so far
 
-Let us start analyzing the data by getting a high level view. Find out how many birds you counted in total since you started your logs.
+Let us start analyzing the data by getting a high-level view. Find out how many birds you counted in total since you started your logs.
 
 Implement a function `totalBirdCount` that accepts an array that contains the bird count per day. It should return the total number of birds that you counted.
 
@@ -74,12 +78,12 @@ birdsInWeek(birdsPerDay, 2);
 
 ## 3. Fix a counting mistake
 
-You realized that all the time you were trying to keep track of the birds, there was one bird that was hiding in a far corner of the garden.
+You realized that all the time you were trying to keep track of the birds, there was one hiding in a far corner of the garden.
 You figured out that this bird always spent every second day in your garden.
 You do not know exactly where it was in between those days but definitely not in your garden.
 Your bird watcher intuition also tells you that the bird was in your garden on the first day that you tracked in your list.
 
-Given this new information, write a function `fixBirdCountLog` that takes an array of birds counted per day as an argument and returns that same array after correcting the counting mistake.
+Given this new information, write a function `fixBirdCountLog` that takes an array of birds counted per day as an argument. It should correct the counting mistake and return the modified array.
 
 ```javascript
 birdsPerDay = [2, 5, 0, 7, 4, 1];

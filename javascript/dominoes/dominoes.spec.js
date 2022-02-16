@@ -59,15 +59,15 @@ describe('Dominoes', () => {
     runTest([], true);
   });
 
-  xdescribe('singleton input = singleton output', () => {
+  describe('singleton input = singleton output', () => {
     runTest([[1, 1]], true);
   });
 
-  xdescribe("singleton that can't be chained", () => {
+  describe("singleton that can't be chained", () => {
     runTest([[1, 2]], false);
   });
 
-  xdescribe('three elements', () => {
+  describe('three elements', () => {
     runTest(
       [
         [1, 2],
@@ -78,7 +78,7 @@ describe('Dominoes', () => {
     );
   });
 
-  xdescribe('can reverse dominoes', () => {
+  describe('can reverse dominoes', () => {
     runTest(
       [
         [1, 2],
@@ -89,7 +89,7 @@ describe('Dominoes', () => {
     );
   });
 
-  xdescribe("can't be chained", () => {
+  describe("can't be chained", () => {
     runTest(
       [
         [1, 2],
@@ -100,7 +100,7 @@ describe('Dominoes', () => {
     );
   });
 
-  xdescribe('disconnected - simple', () => {
+  describe('disconnected - simple', () => {
     runTest(
       [
         [1, 1],
@@ -110,7 +110,7 @@ describe('Dominoes', () => {
     );
   });
 
-  xdescribe('disconnected - double loop', () => {
+  describe('disconnected - double loop', () => {
     runTest(
       [
         [1, 2],
@@ -122,7 +122,7 @@ describe('Dominoes', () => {
     );
   });
 
-  xdescribe('disconnected - single isolated', () => {
+  describe('disconnected - single isolated', () => {
     runTest(
       [
         [1, 2],
@@ -134,7 +134,7 @@ describe('Dominoes', () => {
     );
   });
 
-  xdescribe('need backtrack', () => {
+  describe('need backtrack', () => {
     runTest(
       [
         [1, 2],
@@ -147,7 +147,7 @@ describe('Dominoes', () => {
     );
   });
 
-  xdescribe('separate loops', () => {
+  describe('separate loops', () => {
     runTest(
       [
         [1, 2],
@@ -161,7 +161,7 @@ describe('Dominoes', () => {
     );
   });
 
-  xdescribe('nine elements', () => {
+  describe('nine elements', () => {
     runTest(
       [
         [1, 2],

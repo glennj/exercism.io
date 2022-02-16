@@ -11,7 +11,7 @@ Besides that, JavaScript also performs _type coercion_ (implicit type conversion
 
 ## Type Conversion
 
-JavaScript does not have a construct to cast into a (different) type like many other languages but there are built-in helpers that can be used instead.
+JavaScript does not have a construct to cast into a (different) type like many other languages but some built-in helpers can be used instead.
 Most notably, `Boolean`, `Number` and `String` can be used as functions to convert a value to the respective type.
 
 ### Converting to a Boolean (Truthy/Falsy Values)
@@ -108,7 +108,7 @@ Coercion to boolean commonly occurs for
 - the condition of an [if statement][concept-conditionals]
 - the first operand of the [ternary operator][mdn-ternary] `?`
 - the operand of the logical NOT operator `!`
-- the operands of the logical AND `&&` and OR `||` operators (the result is of the expression is one of the operands, not necessarily a boolean)
+- the operands of the logical AND `&&` and OR `||` operators (the result of the expression is one of the operands, not necessarily a boolean)
 
 ```javascript
 const num = 0;
@@ -131,7 +131,7 @@ let name;
 
 ### Numeric Context
 
-There are many operators that coerce the operands into numbers (if necessary) according to the logic of the `Number` function explained above.
+Many operators coerce the operands into numbers (if necessary) according to the logic of the `Number` function explained above.
 
 - Arithmetic operators: `+` (if no string is involved), `-`, `*`, `/`, `%`, `**`
 - Unary plus and unary negation operators: `+`, `-`
@@ -183,7 +183,7 @@ The sequence or pattern of the "lucky numbers" changes each month and each user 
 This months' lucky numbers should be numbers that are palindromes.
 Palindromic numbers remain the same when the digits are reversed.
 
-Implement the new `luckyNumber` function that accepts a number as parameter.
+Implement the new `luckyNumber` function that accepts a number as a parameter.
 The function should return `true` if the number is a palindrome and `false` otherwise.
 The input number will always be a positive integer.
 
@@ -207,10 +207,10 @@ Here is some more information on how the value of an input field is provided.
 - If the user types something but deletes it again, the variable will be an empty string.
 - Before the user even started typing, the variable can be `undefined` or `null`.
 
-Write a function `errorMessage` that accepts the user input as parameter.
+Write a function `errorMessage` that accepts the user input as a parameter.
 If the user did not provide any input, `errorMessage` should return `'Required field'`.
 If the input does not represent a non-zero number (according to the JavaScript conversion rules), `'Must be a number besides 0'` should be returned.
-In all other cases you can assume the input is valid, the return value should be an empty string.
+In all other cases, you can assume the input is valid, the return value should be an empty string.
 
 ```javascript
 errorMessage('123');

@@ -125,3 +125,7 @@ listArtists(playlist);
 ### Created by
 
 - @kristinaborn
+
+### Contributed to by
+
+- @SleeplessByte

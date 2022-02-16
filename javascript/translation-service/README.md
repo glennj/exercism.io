@@ -7,7 +7,7 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 ## Introduction
 
 The [`Promise`][promise-docs] object represents the eventual completion (or failure) of an
-asynchronous operation, and its resulting value.
+asynchronous operation and its resulting value.
 
 The methods [`promise.then()`][promise-then], [`promise.catch()`][promise-catch], and [`promise.finally()`][promise-finally] are used to associate further action with a promise that becomes settled.
 
@@ -57,7 +57,7 @@ promise1.then(function (value) {
 
 **catch**
 
-> A `.catch()` is really just a `.then()` without a slot for a callback function for the case when the promise is resolved. It is used to handle rejected promises.[^2]
+> A `.catch()` is just a `.then()` without a slot for a callback function for the case when the promise is resolved. It is used to handle rejected promises.[^2]
 
 ```javascript
 const promise1 = new Promise((resolve, reject) => {
@@ -111,9 +111,9 @@ findDataById(4)
 
 ## Instructions
 
-In this exercise you'll be providing a `TranslationService` where paid members have some quality assurance.
+In this exercise, you'll be providing a `TranslationService` where paid members have some quality assurance.
 
-You have found an out-of-space translation API that is able to fulfill any translation _request_ in a reasonable amount of time, and you want to capitalize on this.
+You have found an out-of-space translation API that can fulfill any translation _request_ in a reasonable amount of time, and you want to capitalize on this.
 
 **The API interface**
 
@@ -155,9 +155,9 @@ api.request('majQa’');
 ```exercism/caution
 The API works its magic by teleporting in the various translators when a `request` comes in.
 This is a very costly action, so it shouldn't be called when a translation *is* available.
-Unfortunately not everyone reads the manual, so there is a system in place to kick-out bad actors.
+Unfortunately, not everyone reads the manual, so there is a system in place to kick-out bad actors.
 
-If a `api.request` is called for `text` is available, the API throws an `AbusiveClientError` for this call, **and every call after that**.
+If an `api.request` is called for `text` is available, the API throws an `AbusiveClientError` for this call, **and every call after that**.
 Ensure that you *never* request a translation if something has already been translated.
 ```
 
@@ -165,7 +165,7 @@ Ensure that you *never* request a translation if something has already been tran
 
 Implement a function `free(text)` to fetch a translation, ignoring the quality, and forwarding any errors thrown by the API:
 
-- Returns the translation if it can be retrieved, regardless its quality
+- Returns the translation if it can be retrieved, regardless of its quality
 - Forwards any error from the translation API
 
 ```javascript
@@ -210,11 +210,10 @@ service.request("jIyajbe'");
 
 ## 4. Fetch a translation, inspect the quality, or request it
 
-Implement the function `premium(text, quality)` for premium users, which fetches a translation, request it if it's not available, and only returns it if it meets a certain threshold.
+Implement the function `premium(text, quality)` for premium users, which fetches a translation, requests it if it's not available, and only returns it if it meets a certain threshold.
 
 - If `api.fetch` resolves, check the quality before resolving
-- If `api.fetch` rejects with `NotAvailable`, _request_ the translation instead
-- If `api.fetch` rejects with `Untranslatable`, forward the error
+- If `api.fetch` rejects, _request_ the translation instead
 - If _requesting_ rejects, forward the error
 
 ```javascript
