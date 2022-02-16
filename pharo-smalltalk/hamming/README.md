@@ -1,5 +1,10 @@
 # Hamming
 
+Welcome to Hamming on Exercism's Pharo Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Calculate the Hamming Distance between two DNA strands.
 
 Your body is made up of cells that contain DNA. Those cells regularly wear out and need replacing, which they achieve by dividing into daughter cells. In fact, the average human body experiences about 10 quadrillion cell divisions in a lifetime!
@@ -16,42 +21,23 @@ They have 7 differences, and therefore the Hamming Distance is 7.
 
 The Hamming Distance is useful for lots of things in science, not just biology, so it's a nice phrase to be familiar with :)
 
-# Implementation notes
-
 The Hamming distance is only defined for sequences of equal length, so
 an attempt to calculate it between sequences of different lengths should
 not work. The general handling of this situation (e.g., raising an
 exception vs returning a special value) may differ between languages.
 
-
-## Hint
-
 In Smalltalk, exceptions are instances of subclasses of Exception. While you can create your own for your domain, if you browse this hierarchy you can choose something appropriate to simplify your solution.
-
-
-## Downloading
-
-To download this exercise in Pharo, type: `hamming` into the `Exercism | Fetch new exercise` top menu prompt (or right click on any `Exercise@<Name>` package in the Pharo System Browser).
-
-When you are finished writing and testing your solution, and want to submit it, you should right click on the `Exercise@Hamming` package and choose `Exercism | Submit exercise` in the context menu. You DON'T use the exercism cli (as indicated on the right hand panel).
-
-## Running The Tests
-
-Tests can be run directly from the Pharo IDE, by clicking on the test orb next to any test.
-The SUnit convention is that the provided `HammingTest`, will test the functionality of `Hamming`.
-
-If you are still stuck, the track documentation has detailed help for [running tests](https://exercism.io/tracks/pharo/tests).
-
-## Language and Environment Help
-
-For Pharo installation and learning resources, refer to the [track help page](https://exercism.io/tracks/pharo/learning).
-
 
 ## Source
 
-The Calculating Point Mutations problem at Rosalind [http://rosalind.info/problems/hamm/](http://rosalind.info/problems/hamm/)
+### Created by
 
+- @macta
 
-## Submitting Incomplete Solutions
+### Contributed to by
 
-Remember, it is also possible to submit an incomplete solution so you can see how others have completed this exercise and can learn from their approach.
+- @bencoman
+
+### Based on
+
+The Calculating Point Mutations problem at Rosalind - http://rosalind.info/problems/hamm/

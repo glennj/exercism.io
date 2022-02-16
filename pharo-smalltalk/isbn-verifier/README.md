@@ -1,4 +1,9 @@
-# ISBN Verifier
+# Isbn Verifier
+
+Welcome to Isbn Verifier on Exercism's Pharo Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
 
 The [ISBN-10 verification process](https://en.wikipedia.org/wiki/International_Standard_Book_Number) is used to validate book identification
 numbers. These normally contain dashes and look like: `3-598-21508-8`
@@ -41,34 +46,18 @@ Now, it's even trickier since the check digit of an ISBN-10 may be 'X' (represen
 
 * Generate valid ISBN, maybe even from a given starting ISBN.
 
-## Hint
-
 Use the lessons from previous exercises, try and keep your methods small
-
-
-## Downloading
-
-To download this exercise in Pharo, type: `isbn-verifier` into the `Exercism | Fetch new exercise` top menu prompt (or right click on any `Exercise@<Name>` package in the Pharo System Browser).
-
-When you are finished writing and testing your solution, and want to submit it, you should right click on the `Exercise@IsbnVerifier` package and choose `Exercism | Submit exercise` in the context menu. You DON'T use the exercism cli (as indicated on the right hand panel).
-
-## Running The Tests
-
-Tests can be run directly from the Pharo IDE, by clicking on the test orb next to any test.
-The SUnit convention is that the provided `IsbnVerifierTest`, will test the functionality of `IsbnVerifier`.
-
-If you are still stuck, the track documentation has detailed help for [running tests](https://exercism.io/tracks/pharo/tests).
-
-## Language and Environment Help
-
-For Pharo installation and learning resources, refer to the [track help page](https://exercism.io/tracks/pharo/learning).
-
 
 ## Source
 
-Converting a string into a number and some basic processing utilizing a relatable real world example. [https://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_check_digit_calculation](https://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_check_digit_calculation)
+### Created by
 
+- @macta
 
-## Submitting Incomplete Solutions
+### Contributed to by
 
-Remember, it is also possible to submit an incomplete solution so you can see how others have completed this exercise and can learn from their approach.
+- @bencoman
+
+### Based on
+
+Converting a string into a number and some basic processing utilizing a relatable real world example. - https://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_check_digit_calculation

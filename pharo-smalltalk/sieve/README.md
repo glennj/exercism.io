@@ -1,5 +1,10 @@
 # Sieve
 
+Welcome to Sieve on Exercism's Pharo Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Use the Sieve of Eratosthenes to find all the primes from 2 up to a given
 number.
 
@@ -29,35 +34,18 @@ correct list of primes. A good first test is to check that you do not use
 division or remainder operations (div, /, mod or % depending on the
 language).
 
-
-## Hint
-
 To make your solution readable, try using the refactoring tools to extract any meaningful sub-operation(s), and don't worry about using well named temporary variables.
-
-
-## Downloading
-
-To download this exercise in Pharo, type: `sieve` into the `Exercism | Fetch new exercise` top menu prompt (or right click on any `Exercise@<Name>` package in the Pharo System Browser).
-
-When you are finished writing and testing your solution, and want to submit it, you should right click on the `Exercise@Sieve` package and choose `Exercism | Submit exercise` in the context menu. You DON'T use the exercism cli (as indicated on the right hand panel).
-
-## Running The Tests
-
-Tests can be run directly from the Pharo IDE, by clicking on the test orb next to any test.
-The SUnit convention is that the provided `SieveTest`, will test the functionality of `Sieve`.
-
-If you are still stuck, the track documentation has detailed help for [running tests](https://exercism.io/tracks/pharo/tests).
-
-## Language and Environment Help
-
-For Pharo installation and learning resources, refer to the [track help page](https://exercism.io/tracks/pharo/learning).
-
 
 ## Source
 
-Sieve of Eratosthenes at Wikipedia [http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes](http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+### Created by
 
+- @macta
 
-## Submitting Incomplete Solutions
+### Contributed to by
 
-Remember, it is also possible to submit an incomplete solution so you can see how others have completed this exercise and can learn from their approach.
+- @bencoman
+
+### Based on
+
+Sieve of Eratosthenes at Wikipedia - http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes

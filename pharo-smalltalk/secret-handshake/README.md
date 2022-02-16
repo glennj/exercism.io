@@ -1,5 +1,10 @@
 # Secret Handshake
 
+Welcome to Secret Handshake on Exercism's Pharo Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 > There are 10 types of people in the world: Those who understand
 > binary, and those who don't.
 
@@ -28,35 +33,19 @@ Given the input 19, the function would return the array
 Notice that the addition of 16 (10000 in binary)
 has caused the array to be reversed.
 
-
-## Hint
-
 The Integer class has a bit manipulation protocol which may be useful.
-
-
-## Downloading
-
-To download this exercise in Pharo, type: `secret-handshake` into the `Exercism | Fetch new exercise` top menu prompt (or right click on any `Exercise@<Name>` package in the Pharo System Browser).
-
-When you are finished writing and testing your solution, and want to submit it, you should right click on the `Exercise@SecretHandshake` package and choose `Exercism | Submit exercise` in the context menu. You DON'T use the exercism cli (as indicated on the right hand panel).
-
-## Running The Tests
-
-Tests can be run directly from the Pharo IDE, by clicking on the test orb next to any test.
-The SUnit convention is that the provided `SecretHandshakeTest`, will test the functionality of `SecretHandshake`.
-
-If you are still stuck, the track documentation has detailed help for [running tests](https://exercism.io/tracks/pharo/tests).
-
-## Language and Environment Help
-
-For Pharo installation and learning resources, refer to the [track help page](https://exercism.io/tracks/pharo/learning).
-
 
 ## Source
 
-Bert, in Mary Poppins [http://www.imdb.com/title/tt0058331/quotes/qt0437047](http://www.imdb.com/title/tt0058331/quotes/qt0437047)
+### Created by
 
+- @carlotxra
 
-## Submitting Incomplete Solutions
+### Contributed to by
 
-Remember, it is also possible to submit an incomplete solution so you can see how others have completed this exercise and can learn from their approach.
+- @bencoman
+- @macta
+
+### Based on
+
+Bert, in Mary Poppins - http://www.imdb.com/title/tt0058331/quotes/qt0437047

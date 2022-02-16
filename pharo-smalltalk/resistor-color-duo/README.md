@@ -1,12 +1,24 @@
 # Resistor Color Duo
 
-If you want to build something using a Raspberry Pi, you'll probably use _resistors_. For this exercise, you need to know two things about them:
+Welcome to Resistor Color Duo on Exercism's Pharo Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
+If you want to build something using a Raspberry Pi, you'll probably use _resistors_.
+For this exercise, you need to know two things about them:
 
 * Each resistor has a resistance value.
 * Resistors are small - so small in fact that if you printed the resistance value on them, it would be hard to read.
-To get around this problem, manufacturers print color-coded bands onto the resistors to denote their resistance values. Each band acts as a digit of a number. For example, if they printed a brown band (value 1) followed by a green band (value 5), it would translate to the number 15.
 
-In this exercise, you are going to create a helpful program so that you don't have to remember the values of the bands. The program will take two colors as input, and output the correct number.
+To get around this problem, manufacturers print color-coded bands onto the resistors to denote their resistance values.
+Each band has a position and a numeric value.
+
+The first 2 bands of a resistor have a simple encoding scheme: each color maps to a single number.
+For example, if they printed a brown band (value 1) followed by a green band (value 5), it would translate to the number 15.
+
+In this exercise you are going to create a helpful program so that you don't have to remember the values of the bands.
+The program will take color names as input and output a two digit number, even if the input is more than two colors!
 
 The band colors are encoded as follows:
 
@@ -21,35 +33,22 @@ The band colors are encoded as follows:
 - Grey: 8
 - White: 9
 
-
-## Hint
+From the example above:
+brown-green should return 15
+brown-green-violet should return 15 too, ignoring the third color.
 
 You will need some form of lookup table of colours to calculate the value. You don't necessarily have to use a Dictionary to do this.
 
-
-## Downloading
-
-To download this exercise in Pharo, type: `resistor-color-duo` into the `Exercism | Fetch new exercise` top menu prompt (or right click on any `Exercise@<Name>` package in the Pharo System Browser).
-
-When you are finished writing and testing your solution, and want to submit it, you should right click on the `Exercise@ResistorColorDuo` package and choose `Exercism | Submit exercise` in the context menu. You DON'T use the exercism cli (as indicated on the right hand panel).
-
-## Running The Tests
-
-Tests can be run directly from the Pharo IDE, by clicking on the test orb next to any test.
-The SUnit convention is that the provided `ResistorColorDuoTest`, will test the functionality of `ResistorColorDuo`.
-
-If you are still stuck, the track documentation has detailed help for [running tests](https://exercism.io/tracks/pharo/tests).
-
-## Language and Environment Help
-
-For Pharo installation and learning resources, refer to the [track help page](https://exercism.io/tracks/pharo/learning).
-
-
 ## Source
 
-Maud de Vries, Erik Schierboom [https://github.com/exercism/problem-specifications/issues/1464](https://github.com/exercism/problem-specifications/issues/1464)
+### Created by
 
+- @macta
 
-## Submitting Incomplete Solutions
+### Contributed to by
 
-Remember, it is also possible to submit an incomplete solution so you can see how others have completed this exercise and can learn from their approach.
+- @bencoman
+
+### Based on
+
+Maud de Vries, Erik Schierboom - https://github.com/exercism/problem-specifications/issues/1464

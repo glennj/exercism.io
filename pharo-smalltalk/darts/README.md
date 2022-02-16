@@ -1,5 +1,10 @@
 # Darts
 
+Welcome to Darts on Exercism's Pharo Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Write a function that returns the earned points in a single toss of a Darts game.
 
 [Darts](https://en.wikipedia.org/wiki/Darts) is a game where players
@@ -16,34 +21,18 @@ The outer circle has a radius of 10 units (This is equivalent to the total radiu
 
 Write a function that given a point in the target (defined by its `real` cartesian coordinates `x` and `y`), returns the correct amount earned by a dart landing in that point.
 
-## Hint
-
 The Pythagorean theorum will help.
-
-
-## Downloading
-
-To download this exercise in Pharo, type: `darts` into the `Exercism | Fetch new exercise` top menu prompt (or right click on any `Exercise@<Name>` package in the Pharo System Browser).
-
-When you are finished writing and testing your solution, and want to submit it, you should right click on the `Exercise@Darts` package and choose `Exercism | Submit exercise` in the context menu. You DON'T use the exercism cli (as indicated on the right hand panel).
-
-## Running The Tests
-
-Tests can be run directly from the Pharo IDE, by clicking on the test orb next to any test.
-The SUnit convention is that the provided `DartsTest`, will test the functionality of `Darts`.
-
-If you are still stuck, the track documentation has detailed help for [running tests](https://exercism.io/tracks/pharo/tests).
-
-## Language and Environment Help
-
-For Pharo installation and learning resources, refer to the [track help page](https://exercism.io/tracks/pharo/learning).
-
 
 ## Source
 
+### Created by
+
+- @macta
+
+### Contributed to by
+
+- @bencoman
+
+### Based on
+
 Inspired by an exercise created by a professor Della Paolera in Argentina
-
-
-## Submitting Incomplete Solutions
-
-Remember, it is also possible to submit an incomplete solution so you can see how others have completed this exercise and can learn from their approach.

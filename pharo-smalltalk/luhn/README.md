@@ -1,5 +1,10 @@
 # Luhn
 
+Welcome to Luhn on Exercism's Pharo Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given a number determine whether or not it is valid per the Luhn formula.
 
 The [Luhn algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm) is
@@ -19,27 +24,27 @@ are disallowed.
 ## Example 1: valid credit card number
 
 ```text
-4539 1488 0343 6467
+4539 3195 0343 6467
 ```
 
 The first step of the Luhn algorithm is to double every second digit,
 starting from the right. We will be doubling
 
 ```text
-4_3_ 1_8_ 0_4_ 6_6_
+4_3_ 3_9_ 0_4_ 6_6_
 ```
 
 If doubling the number results in a number greater than 9 then subtract 9
 from the product. The results of our doubling:
 
 ```text
-8569 2478 0383 3437
+8569 6195 0383 3437
 ```
 
 Then sum all of the digits:
 
 ```text
-8+5+6+9+2+4+7+8+0+3+8+3+3+4+3+7 = 80
+8+5+6+9+6+1+9+5+0+3+8+3+3+4+3+7 = 80
 ```
 
 If the sum is evenly divisible by 10, then the number is valid. This number is valid!
@@ -64,35 +69,19 @@ Sum the digits
 
 57 is not evenly divisible by 10, so this number is not valid.
 
-
-## Hint
-
 Read the instructions carefully, if you skim you might miss some important details about direction.
-
-
-## Downloading
-
-To download this exercise in Pharo, type: `luhn` into the `Exercism | Fetch new exercise` top menu prompt (or right click on any `Exercise@<Name>` package in the Pharo System Browser).
-
-When you are finished writing and testing your solution, and want to submit it, you should right click on the `Exercise@Luhn` package and choose `Exercism | Submit exercise` in the context menu. You DON'T use the exercism cli (as indicated on the right hand panel).
-
-## Running The Tests
-
-Tests can be run directly from the Pharo IDE, by clicking on the test orb next to any test.
-The SUnit convention is that the provided `LuhnTest`, will test the functionality of `Luhn`.
-
-If you are still stuck, the track documentation has detailed help for [running tests](https://exercism.io/tracks/pharo/tests).
-
-## Language and Environment Help
-
-For Pharo installation and learning resources, refer to the [track help page](https://exercism.io/tracks/pharo/learning).
-
 
 ## Source
 
-The Luhn Algorithm on Wikipedia [http://en.wikipedia.org/wiki/Luhn_algorithm](http://en.wikipedia.org/wiki/Luhn_algorithm)
+### Created by
 
+- @raydeejay
 
-## Submitting Incomplete Solutions
+### Contributed to by
 
-Remember, it is also possible to submit an incomplete solution so you can see how others have completed this exercise and can learn from their approach.
+- @bencoman
+- @macta
+
+### Based on
+
+The Luhn Algorithm on Wikipedia - http://en.wikipedia.org/wiki/Luhn_algorithm

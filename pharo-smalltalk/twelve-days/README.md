@@ -1,5 +1,10 @@
 # Twelve Days
 
+Welcome to Twelve Days on Exercism's Pharo Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Output the lyrics to 'The Twelve Days of Christmas'.
 
 ```text
@@ -28,35 +33,18 @@ On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, 
 On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.
 ```
 
-
-## Hint
-
 Its handy to have a list of the verses:^ #(	'a Partridge in a Pear Tree'	'two Turtle Doves'	'three French Hens'	'four Calling Birds'	'five Gold Rings'	'six Geese-a-Laying' 	'seven Swans-a-Swimming' 	'eight Maids-a-Milking' 	'nine Ladies Dancing'	'ten Lords-a-Leaping' 	'eleven Pipers Piping' 	'twelve Drummers Drumming' )
-
-
-## Downloading
-
-To download this exercise in Pharo, type: `twelve-days` into the `Exercism | Fetch new exercise` top menu prompt (or right click on any `Exercise@<Name>` package in the Pharo System Browser).
-
-When you are finished writing and testing your solution, and want to submit it, you should right click on the `Exercise@TwelveDays` package and choose `Exercism | Submit exercise` in the context menu. You DON'T use the exercism cli (as indicated on the right hand panel).
-
-## Running The Tests
-
-Tests can be run directly from the Pharo IDE, by clicking on the test orb next to any test.
-The SUnit convention is that the provided `TwelveDaysTest`, will test the functionality of `TwelveDays`.
-
-If you are still stuck, the track documentation has detailed help for [running tests](https://exercism.io/tracks/pharo/tests).
-
-## Language and Environment Help
-
-For Pharo installation and learning resources, refer to the [track help page](https://exercism.io/tracks/pharo/learning).
-
 
 ## Source
 
-Wikipedia [http://en.wikipedia.org/wiki/The_Twelve_Days_of_Christmas_(song)](http://en.wikipedia.org/wiki/The_Twelve_Days_of_Christmas_(song))
+### Created by
 
+- @macta
 
-## Submitting Incomplete Solutions
+### Contributed to by
 
-Remember, it is also possible to submit an incomplete solution so you can see how others have completed this exercise and can learn from their approach.
+- @bencoman
+
+### Based on
+
+Wikipedia - http://en.wikipedia.org/wiki/The_Twelve_Days_of_Christmas_(song)
