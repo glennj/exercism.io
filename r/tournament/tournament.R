@@ -1,6 +1,4 @@
-tournament <- tournament_take2
-
-tournament_take2 <- function(input) {
+tournament <- function(input) {
   # utility function to succinctly create a data.frame
   df <- function(team, win = 0, loss = 0, draw = 0) {
     data.frame(Team = team, W = win, L = loss, D = draw)
@@ -115,41 +113,4 @@ tournament_take1 <- function(input) {
   sorted <- standings[with(standings, order(-P, Team)), ]
   row.names(sorted) <- NULL     # reset row.names
   sorted
-}
-
-
-# insane community solution
-# https://exercism.io/tracks/r/exercises/tournament/solutions/d9569bbfb26848ca88f4fb77778da222
-
-library(dplyr)
-
-tournament <- function(input) {
-
-  # Detect valid inputs
-  clean_input <- grepl('^[a-zA-Z ]+;[a-zA-Z ]+;(win|loss|draw)$', input)
-
-  # Built matrix with valid input
-  games_df <- matrix(unlist(strsplit(input[clean_input], split = ';')),
-                     ncol = 3,
-                     byrow = TRUE)
-
-  # Expand results for each team
-  tally <- data.frame(
-    Team = c(games_df[,1], games_df[,2]),
-    player = c(rep("player1", nrow(games_df)), rep("player2", nrow(games_df))),
-    result = rep(games_df[,3], 2)) %>%
-
-    # calculate tally results as numeric
-    group_by(Team) %>%
-    summarise(
-      MP = as.numeric(n()),
-      W = as.numeric(sum((result == 'win'  & player == 'player1')
-                        |(result == 'loss' & player == 'player2'))),
-      D = as.numeric(sum(result == 'draw')),
-      L = as.numeric(sum((result == 'loss' & player == 'player1')
-                        |(result == 'win'  & player == 'player2')))) %>%
-    mutate(P = (W*3 + D)) %>%
-    arrange(desc(P), Team)
-
-  return(tally)
 }

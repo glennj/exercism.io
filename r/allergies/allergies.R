@@ -6,7 +6,7 @@ allergy <- function(num) {
 
   # index the allergens vector using the indices of the
   # "1" bits in `num`
-  masks <- bitwShiftL(1, 1:length(allergens) - 1)  # 1,2,4,...
+  masks <- bitwShiftL(1, 1:length(allergens) - 1)
   allergens[bitwAnd(num, masks) != 0]
 }
 
@@ -15,6 +15,5 @@ allergic_to <- function(allergy_object, allergy) {
 }
 
 list_allergies <- function(allergy_object) {
-  # tests expect "no allergies"st to return `character()`
   as.character(allergy_object)
 }

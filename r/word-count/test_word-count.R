@@ -74,9 +74,4 @@ test_that("multiple whitespaces", {
                      list("multiple" = 1, "whitespaces" = 1))
 })
 
-test_that("leading garbage", {
-  expect_equal_pairs(word_count(" !multiple   whitespaces "),
-                     list("multiple" = 1, "whitespaces" = 1))
-})
-
 message("All tests passed for exercise: word-count")

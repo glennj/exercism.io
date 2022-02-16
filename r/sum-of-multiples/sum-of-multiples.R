@@ -23,28 +23,3 @@ sum_of_multiples <- function(factors, limit) {
     unique            %>%
     sum
 }
-
-
-# community
-#
-# beautiful use of `range` and vectorized operations to avoid `unique`
-# https://exercism.io/tracks/r/exercises/sum-of-multiples/solutions/612b2d201535490f9ee27aabd144b04e
-#
-#   sum_of_multiples <- function(factors, limit) {
-#     range <- 1:(limit-1)
-#     
-#     isFactor <- function(number) {
-#       any(number %% factors == 0)
-#     }
-#     
-#     sum(Filter(isFactor, range))
-#   }
-#
-#
-# the above, taked to extremes
-# https://exercism.io/tracks/r/exercises/sum-of-multiples/solutions/7ab050ae8800471b8c85bdf029d8cca7
-#   
-#   sum_of_multiples <- function(factors, limit) {
-#       l <- 1:(limit - 1)
-#       sum(l[sapply(l, function(x) 0 %in% (x %% factors))])
-#   }

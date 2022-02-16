@@ -1,5 +1,10 @@
 # Crypto Square
 
+Welcome to Crypto Square on Exercism's R Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Implement the classic method for composing secret messages called a square code.
 
 Given an English text, output the encoded version of that text.
@@ -12,11 +17,15 @@ regarded as forming a rectangle when printed with intervening newlines.
 
 For example, the sentence
 
-> If man was meant to stay on the ground, god would have given us roots.
+```text
+"If man was meant to stay on the ground, god would have given us roots."
+```
 
 is normalized to:
 
-> ifmanwasmeanttostayonthegroundgodwouldhavegivenusroots
+```text
+"ifmanwasmeanttostayonthegroundgodwouldhavegivenusroots"
+```
 
 The plaintext should be organized in to a rectangle.  The size of the
 rectangle (`r x c`) should be decided by the length of the message,
@@ -27,13 +36,13 @@ Our normalized text is 54 characters long, dictating a rectangle with
 `c = 8` and `r = 7`:
 
 ```text
-ifmanwas
-meanttos
-tayonthe
-groundgo
-dwouldha
-vegivenu
-sroots
+"ifmanwas"
+"meanttos"
+"tayonthe"
+"groundgo"
+"dwouldha"
+"vegivenu"
+"sroots  "
 ```
 
 The coded message is obtained by reading down the columns going left to
@@ -42,45 +51,43 @@ right.
 The message above is coded as:
 
 ```text
-imtgdvsfearwermayoogoanouuiontnnlvtwttddesaohghnsseoau
+"imtgdvsfearwermayoogoanouuiontnnlvtwttddesaohghnsseoau"
 ```
 
-Output the encoded text in chunks.  Phrases that fill perfect rectangles
-`(r X c)` should be output `c` chunks of `r` length, separated by spaces.
-Phrases that do not fill perfect rectangles will have `n` empty spaces.
-Those spaces should be distributed evenly, added to the end of the last
-`n` chunks.
+Output the encoded text in chunks that fill perfect rectangles `(r X c)`,
+with `c` chunks of `r` length, separated by spaces. For phrases that are
+`n` characters short of the perfect rectangle, pad each of the last `n`
+chunks with a single trailing space.
 
 ```text
-imtgdvs fearwer mayoogo anouuio ntnnlvt wttddes aohghn  sseoau 
+"imtgdvs fearwer mayoogo anouuio ntnnlvt wttddes aohghn  sseoau "
 ```
 
 Notice that were we to stack these, we could visually decode the
-cyphertext back in to the original message:
+ciphertext back in to the original message:
 
 ```text
-imtgdvs
-fearwer
-mayoogo
-anouuio
-ntnnlvt
-wttddes
-aohghn
-sseoau
+"imtgdvs"
+"fearwer"
+"mayoogo"
+"anouuio"
+"ntnnlvt"
+"wttddes"
+"aohghn "
+"sseoau "
 ```
-
-## Installation
-See [this guide](https://exercism.io/tracks/r/installation) for instructions on how to setup your local R environment.
-
-## How to implement your solution
-In each problem folder, there is a file named `<exercise_name>.R` containing a function that returns a `NULL` value. Place your implementation inside the body of the function.
-
-## How to run tests
-Inside of RStudio, simply execute the `test_<exercise_name>.R` script. This can be conveniently done with [testthat's `auto_test` function](https://www.rdocumentation.org/packages/testthat/topics/auto_test). Because exercism code and tests are in the same folder, use this same path for both  `code_path` and `test_path` parameters. On the command-line, you can also run `Rscript test_<exercise_name>.R`.
 
 ## Source
 
-J Dalbey's Programming Practice problems [http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html](http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @jonmcalder
+
+### Contributed to by
+
+- @katrinleinweber
+- @zacchaeusluke
+
+### Based on
+
+J Dalbey's Programming Practice problems - http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html

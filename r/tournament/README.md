@@ -1,5 +1,10 @@
 # Tournament
 
+Welcome to Tournament on Exercism's R Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Tally the results of a small football competition.
 
 Based on an input file containing which team played against which and what the
@@ -25,9 +30,7 @@ A win earns a team 3 points. A draw earns 1. A loss earns 0.
 
 The outcome should be ordered by points, descending. In case of a tie, teams are ordered alphabetically.
 
-###
-
-Input
+## Input
 
 Your tallying program will receive input that looks like:
 
@@ -40,13 +43,13 @@ Blithering Badgers;Devastating Donkeys;loss
 Allegoric Alaskans;Courageous Californians;win
 ```
 
-The result of the match refers to the first team listed. So this line
+The result of the match refers to the first team listed. So this line:
 
 ```text
 Allegoric Alaskans;Blithering Badgers;win
 ```
 
-Means that the Allegoric Alaskans beat the Blithering Badgers.
+means that the Allegoric Alaskans beat the Blithering Badgers.
 
 This line:
 
@@ -54,7 +57,7 @@ This line:
 Courageous Californians;Blithering Badgers;loss
 ```
 
-Means that the Blithering Badgers beat the Courageous Californians.
+means that the Blithering Badgers beat the Courageous Californians.
 
 And this line:
 
@@ -62,16 +65,15 @@ And this line:
 Devastating Donkeys;Courageous Californians;draw
 ```
 
-Means that the Devastating Donkeys and Courageous Californians tied.
+means that the Devastating Donkeys and Courageous Californians tied.
 
-## Installation
-See [this guide](https://exercism.io/tracks/r/installation) for instructions on how to setup your local R environment.
+## Source
 
-## How to implement your solution
-In each problem folder, there is a file named `<exercise_name>.R` containing a function that returns a `NULL` value. Place your implementation inside the body of the function.
+### Created by
 
-## How to run tests
-Inside of RStudio, simply execute the `test_<exercise_name>.R` script. This can be conveniently done with [testthat's `auto_test` function](https://www.rdocumentation.org/packages/testthat/topics/auto_test). Because exercism code and tests are in the same folder, use this same path for both  `code_path` and `test_path` parameters. On the command-line, you can also run `Rscript test_<exercise_name>.R`.
+- @jonmcalder
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+### Contributed to by
+
+- @katrinleinweber
+- @zacchaeusluke

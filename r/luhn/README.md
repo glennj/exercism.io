@@ -1,5 +1,10 @@
 # Luhn
 
+Welcome to Luhn on Exercism's R Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Given a number determine whether or not it is valid per the Luhn formula.
 
 The [Luhn algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm) is
@@ -19,27 +24,27 @@ are disallowed.
 ## Example 1: valid credit card number
 
 ```text
-4539 1488 0343 6467
+4539 3195 0343 6467
 ```
 
 The first step of the Luhn algorithm is to double every second digit,
 starting from the right. We will be doubling
 
 ```text
-4_3_ 1_8_ 0_4_ 6_6_
+4_3_ 3_9_ 0_4_ 6_6_
 ```
 
 If doubling the number results in a number greater than 9 then subtract 9
 from the product. The results of our doubling:
 
 ```text
-8569 2478 0383 3437
+8569 6195 0383 3437
 ```
 
 Then sum all of the digits:
 
 ```text
-8+5+6+9+2+4+7+8+0+3+8+3+3+4+3+7 = 80
+8+5+6+9+6+1+9+5+0+3+8+3+3+4+3+7 = 80
 ```
 
 If the sum is evenly divisible by 10, then the number is valid. This number is valid!
@@ -64,18 +69,19 @@ Sum the digits
 
 57 is not evenly divisible by 10, so this number is not valid.
 
-## Installation
-See [this guide](https://exercism.io/tracks/r/installation) for instructions on how to setup your local R environment.
-
-## How to implement your solution
-In each problem folder, there is a file named `<exercise_name>.R` containing a function that returns a `NULL` value. Place your implementation inside the body of the function.
-
-## How to run tests
-Inside of RStudio, simply execute the `test_<exercise_name>.R` script. This can be conveniently done with [testthat's `auto_test` function](https://www.rdocumentation.org/packages/testthat/topics/auto_test). Because exercism code and tests are in the same folder, use this same path for both  `code_path` and `test_path` parameters. On the command-line, you can also run `Rscript test_<exercise_name>.R`.
-
 ## Source
 
-The Luhn Algorithm on Wikipedia [http://en.wikipedia.org/wiki/Luhn_algorithm](http://en.wikipedia.org/wiki/Luhn_algorithm)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @jonboiser
+
+### Contributed to by
+
+- @cmiller01
+- @jonmcalder
+- @katrinleinweber
+- @zacchaeusluke
+
+### Based on
+
+The Luhn Algorithm on Wikipedia - http://en.wikipedia.org/wiki/Luhn_algorithm

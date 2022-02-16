@@ -20,7 +20,7 @@ encoded <- function(input) {
     function(i) {
       paste0(
         sapply(segments, function(s) substr(s, i, i)),
-        collapse = ""
+        collapse = "" 
       )
     }
   )
