@@ -16,4 +16,4 @@
     (#\C #\G) 
     (#\T #\A) 
     (#\A #\U) 
-    (t (error "Invalid nucleotide '~c'" c))))
+    (t (error "Invalid nucleotide '~a'" c))))

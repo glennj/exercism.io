@@ -1,57 +1,54 @@
-(ql:quickload "lisp-unit")
-#-xlisp-test (load "luhn")
+;; Ensures that luhn.lisp and the testing library are always loaded
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (load "luhn")
+  (quicklisp-client:quickload :fiveam))
 
-(defpackage #:luhn-test
-  (:use #:cl #:lisp-unit))
+;; Defines the testing package with symbols from luhn and FiveAM in scope
+;; The `run-tests` function is exported for use by both the user and test-runner
+(defpackage :luhn-test
+  (:use :cl :fiveam)
+  (:export :run-tests))
 
-(in-package #:luhn-test)
+;; Enter the testing package
+(in-package :luhn-test)
 
-(define-test single-digit-strings-can-not-be-valid
-  (assert-false (luhn:is-valid "1")))
+;; Define and enter a new FiveAM test-suite
+(def-suite* luhn-suite)
 
-(define-test a-single-zero-is-invalid
-  (assert-false (luhn:is-valid "0")))
+(test single-digit-strings-can-not-be-valid (is (not (luhn:validp "1"))))
 
-(define-test a-simple-valid-sin-that-remains-valid-if-reversed
-  (assert-true (luhn:is-valid "059")))
+(test a-single-zero-is-invalid (is (not (luhn:validp "0"))))
 
-(define-test a-simple-valid-sin-that-becomes-invalid-if-reversed
-  (assert-true (luhn:is-valid "59")))
+(test a-simple-valid-sin-that-remains-valid-if-reversed
+ (is (luhn:validp "059")))
 
-(define-test a-valid-canadian-sin
-  (assert-true (luhn:is-valid "055 444 285")))
+(test a-simple-valid-sin-that-becomes-invalid-if-reversed
+ (is (luhn:validp "59")))
 
-(define-test invalid-canadian-sin
-  (assert-false (luhn:is-valid "055 444 286")))
+(test a-valid-canadian-sin (is (luhn:validp "055 444 285")))
 
-(define-test invalid-credit-card
-  (assert-false (luhn:is-valid "8273 1232 7352 0569")))
+(test invalid-canadian-sin (is (not (luhn:validp "055 444 286"))))
 
-(define-test valid-strings-with-a-non-digit-included-become-invalid
-  (assert-false (luhn:is-valid "055a 444 285")))
+(test invalid-credit-card (is (not (luhn:validp "8273 1232 7352 0569"))))
 
-(define-test valid-strings-with-punctuation-included-become-invalid
-  (assert-false (luhn:is-valid "055-444-285")))
+(test valid-strings-with-a-non-digit-included-become-invalid
+ (is (not (luhn:validp "055a 444 285"))))
 
-(define-test valid-strings-with-symbols-included-become-invalid
-  (assert-false (luhn:is-valid "055£ 444$ 285")))
+(test valid-strings-with-punctuation-included-become-invalid
+ (is (not (luhn:validp "055-444-285"))))
 
-(define-test single-zero-with-space-is-invalid
-  (assert-false (luhn:is-valid " 0")))
+(test valid-strings-with-symbols-included-become-invalid
+ (is (not (luhn:validp "055£ 444$ 285"))))
 
-(define-test more-than-a-single-zero-is-valid
-  (assert-true (luhn:is-valid "0000 0")))
+(test single-zero-with-space-is-invalid (is (not (luhn:validp " 0"))))
 
-(define-test input-digit-9-is-correctly-converted-to-output-digit-9
-  (assert-true (luhn:is-valid "091")))
+(test more-than-a-single-zero-validp (is (luhn:validp "0000 0")))
 
-(define-test strings-with-non-digits-is-invalid
-  (assert-false (luhn:is-valid ":9")))
+(test input-digit-9-is-correctly-converted-to-output-digit-9
+ (is (luhn:validp "091")))
 
-(define-test empty-string-is-invalid
-  (assert-false (luhn:is-valid "")))
+(test strings-with-non-digits-is-invalid (is (not (luhn:validp ":9"))))
 
-#-xlisp-test
-(let ((*print-errors* t)
-      (*print-failures* t))
-  (run-tests :all :luhn-test))
+(defun run-tests (&optional (test-or-suite 'luhn-suite))
+  "Provides human readable results of test run. Default to entire suite."
+  (run! test-or-suite))

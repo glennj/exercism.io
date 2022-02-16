@@ -1,34 +1,31 @@
-;;;
-;;; two-fer v1.2.0
-;;;
-(ql:quickload "lisp-unit")
-#-xlisp-test (load "two-fer")
+;; Ensures that two-fer.lisp and the testing library are always loaded
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (load "two-fer")
+  (quicklisp-client:quickload :fiveam))
 
-(defpackage #:two-fer-test
-  (:use #:common-lisp #:lisp-unit))
-(in-package #:two-fer-test)
+;; Defines the testing package with symbols from two-fer and FiveAM in scope
+;; The `run-tests` function is exported for use by both the user and test-runner
+(defpackage :two-fer-test
+  (:use :cl :fiveam)
+  (:export :run-tests))
 
-(define-test
-  no-name-given
-  (assert-equal
-    "One for you, one for me."
-    (two-fer:twofer nil)))
+;; Enter the testing package
+(in-package :two-fer-test)
 
+;; Define and enter a new FiveAM test-suite
+(def-suite* two-fer-suite)
 
-(define-test
-  a-name-given
-  (assert-equal
-    "One for Alice, one for me."
-    (two-fer:twofer "Alice")))
+(test no-name-given-nil
+ (is (equal "One for you, one for me." (two-fer:twofer nil))))
 
+(test a-name-given
+ (is (equal "One for Alice, one for me." (two-fer:twofer "Alice"))))
 
-(define-test
-  another-name-given
-  (assert-equal
-    "One for Bob, one for me."
-    (two-fer:twofer "Bob")))
+(test another-name-given
+ (is (equal "One for Bob, one for me." (two-fer:twofer "Bob"))))
 
-#-xlisp-test
-(let ((*print-errors* t)
-      (*print-failures* t))
-  (run-tests :all))
+(test no-name-given (is (equal "One for you, one for me." (two-fer:twofer))))
+
+(defun run-tests (&optional (test-or-suite 'two-fer-suite))
+  "Provides human readable results of test run. Default to entire suite."
+  (run! test-or-suite))
