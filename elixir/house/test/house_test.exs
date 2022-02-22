@@ -14,7 +14,7 @@ defmodule HouseTest do
     assert output == expected
   end
 
-  #@tag :pending
+  @tag :pending
   test "verse two - the malt that lay" do
     start = 2
     stop = 2
@@ -27,7 +27,7 @@ defmodule HouseTest do
     assert output == expected
   end
 
-  #@tag :pending
+  @tag :pending
   test "verse three - the rat that ate" do
     start = 3
     stop = 3

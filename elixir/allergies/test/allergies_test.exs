@@ -19,38 +19,38 @@ defmodule AllergiesTest do
       Allergies.list(0) |> assert_is_a_set_containing([])
     end
 
-    #@tag :pending
+    @tag :pending
     test "allergic to just eggs" do
       Allergies.list(1) |> assert_is_a_set_containing(~w[eggs])
     end
 
-    #@tag :pending
+    @tag :pending
     test "allergic to just peanuts" do
       Allergies.list(2) |> assert_is_a_set_containing(~w[peanuts])
     end
 
-    #@tag :pending
+    @tag :pending
     test "allergic to just strawberries" do
       Allergies.list(8) |> assert_is_a_set_containing(~w[strawberries])
     end
 
-    #@tag :pending
+    @tag :pending
     test "allergic to eggs and peanuts" do
       Allergies.list(3) |> assert_is_a_set_containing(~w[eggs peanuts])
     end
 
-    #@tag :pending
+    @tag :pending
     test "allergic to more than eggs but not peanuts" do
       Allergies.list(5) |> assert_is_a_set_containing(~w[eggs shellfish])
     end
 
-    #@tag :pending
+    @tag :pending
     test "allergic to lots of stuff" do
       Allergies.list(248)
       |> assert_is_a_set_containing(~w[strawberries tomatoes chocolate pollen cats])
     end
 
-    #@tag :pending
+    @tag :pending
     test "allergic to everything" do
       Allergies.list(255)
       |> assert_is_a_set_containing(
@@ -58,7 +58,7 @@ defmodule AllergiesTest do
       )
     end
 
-    #@tag :pending
+    @tag :pending
     test "ignore non allergen score parts" do
       Allergies.list(509)
       |> assert_is_a_set_containing(

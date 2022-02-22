@@ -6,7 +6,7 @@ defmodule StringSeriesTest do
     assert StringSeries.slices("1", 1) == ["1"]
   end
 
-  #@tag :pending
+  @tag :pending
   test "slices of size 1 from two" do
     assert StringSeries.slices("12", 1) == ["1", "2"]
   end

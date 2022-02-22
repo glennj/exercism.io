@@ -8,7 +8,7 @@ defmodule DiffieHellmanTest do
     assert DiffieHellman.generate_private_key(prime_p) in Range.new(1, prime_p - 1)
   end
 
-  #@tag :pending
+  @tag :pending
   test "private key generator should support very large primes" do
     prime_p =
       120_227_323_036_150_778_550_155_526_710_966_921_740_030_662_694_578_947_298_423_549_235_265_759_593_711_587_341_037_426_347_114_541_533_006_628_856_300_552_706_996_143_592_240_453_345_642_869_233_562_886_752_930_249_953_227_657_883_929_905_072_620_233_073_626_594_386_072_962_776_144_691_433_658_814_261_874_113_232_461_749_035_425_712_805_067_202_910_389_407_991_986_070_558_964_461_330_091_797_026_762_932_543
@@ -16,7 +16,7 @@ defmodule DiffieHellmanTest do
     assert DiffieHellman.generate_private_key(prime_p) in Range.new(1, prime_p - 1)
   end
 
-  #@tag :pending
+  @tag :pending
   test "private keys should be random" do
     prime_p = 23
 
@@ -35,7 +35,7 @@ defmodule DiffieHellmanTest do
     assert unique_key_count > min_expected_unique_keys
   end
 
-  #@tag :pending
+  @tag :pending
   test "public key correctly calculated from two primes and private key" do
     prime_p = 23
     prime_g = 5
@@ -45,7 +45,7 @@ defmodule DiffieHellmanTest do
     assert DiffieHellman.generate_public_key(prime_p, prime_g, private_key) == expected_public_key
   end
 
-  #@tag :pending
+  @tag :pending
   test "public key generator should support very large primes" do
     prime_p =
       120_227_323_036_150_778_550_155_526_710_966_921_740_030_662_694_578_947_298_423_549_235_265_759_593_711_587_341_037_426_347_114_541_533_006_628_856_300_552_706_996_143_592_240_453_345_642_869_233_562_886_752_930_249_953_227_657_883_929_905_072_620_233_073_626_594_386_072_962_776_144_691_433_658_814_261_874_113_232_461_749_035_425_712_805_067_202_910_389_407_991_986_070_558_964_461_330_091_797_026_762_932_543
@@ -61,7 +61,7 @@ defmodule DiffieHellmanTest do
     assert DiffieHellman.generate_public_key(prime_p, prime_g, private_key) == expected_public_key
   end
 
-  #@tag :pending
+  @tag :pending
   test "shared secret key correctly calculated from initial prime, Bob's public key, and Alice's private key" do
     prime_p = 23
     bob_public_key = 19
@@ -90,7 +90,7 @@ defmodule DiffieHellmanTest do
              expected_shared_secret
   end
 
-  #@tag :pending
+  @tag :pending
   test "exchanging public keys between Alice and Bob should calculate the same shared secret" do
     prime_p = 23
     prime_g = 5

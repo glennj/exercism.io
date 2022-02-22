@@ -6,52 +6,52 @@ defmodule SayTest do
     assert Say.in_english(0) == {:ok, "zero"}
   end
 
-  #@tag :pending
+  @tag :pending
   test "one" do
     assert Say.in_english(1) == {:ok, "one"}
   end
 
-  #@tag :pending
+  @tag :pending
   test "fourteen" do
     assert Say.in_english(14) == {:ok, "fourteen"}
   end
 
-  #@tag :pending
+  @tag :pending
   test "twenty" do
     assert Say.in_english(20) == {:ok, "twenty"}
   end
 
-  #@tag :pending
+  @tag :pending
   test "twenty-two" do
     assert Say.in_english(22) == {:ok, "twenty-two"}
   end
 
-  #@tag :pending
+  @tag :pending
   test "one hundred" do
     assert Say.in_english(100) == {:ok, "one hundred"}
   end
 
-  #@tag :pending
+  @tag :pending
   test "one hundred twenty-three" do
     assert Say.in_english(123) == {:ok, "one hundred twenty-three"}
   end
 
-  #@tag :pending
+  @tag :pending
   test "one thousand" do
     assert Say.in_english(1_000) == {:ok, "one thousand"}
   end
 
-  #@tag :pending
+  @tag :pending
   test "one thousand two hundred thirty-four" do
     assert Say.in_english(1_234) == {:ok, "one thousand two hundred thirty-four"}
   end
 
-  #@tag :pending
+  @tag :pending
   test "one million" do
     assert Say.in_english(1_000_000) == {:ok, "one million"}
   end
 
-  #@tag :pending
+  @tag :pending
   test "one million two thousand three hundred forty-five" do
     assert Say.in_english(1_002_345) == {:ok, "one million two thousand three hundred forty-five"}
   end

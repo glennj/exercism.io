@@ -12,7 +12,7 @@ defmodule Raindrops do
 
       drops ->
         drops
-        |> Enum.map(&(to_string(elem(&1, 1))))
+        |> Enum.map(fn {d, _} -> to_string(d) end)
         |> Enum.join("")
     end
   end

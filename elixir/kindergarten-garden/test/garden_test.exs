@@ -6,32 +6,32 @@ defmodule GardenTest do
     assert garden_info.alice == {:radishes, :clover, :grass, :grass}
   end
 
-  #@tag :pending
+  @tag :pending
   test "gets another garden for Alice with just her plants" do
     garden_info = Garden.info("VC\nRC")
     assert garden_info.alice == {:violets, :clover, :radishes, :clover}
   end
 
-  #@tag :pending
+  @tag :pending
   test "returns an empty tuple if the child has no plants" do
     garden_info = Garden.info("VC\nRC")
     assert garden_info.bob == {}
   end
 
-  #@tag :pending
+  @tag :pending
   test "gets the garden for Bob" do
     garden_info = Garden.info("VVCG\nVVRC")
     assert garden_info.bob == {:clover, :grass, :radishes, :clover}
   end
 
-  #@tag :pending
+  @tag :pending
   test "plants are assigned in alphabetical order" do
     garden_info = Garden.info("VVCC\nGGRR", [:bob, :alice])
     assert garden_info.alice == {:violets, :violets, :grass, :grass}
     assert garden_info.bob == {:clover, :clover, :radishes, :radishes}
   end
 
-  #@tag :pending
+  @tag :pending
   test "a garden for 3 students" do
     garden_info = Garden.info("VVCCGG\nVVCCGG")
     assert garden_info.alice == {:violets, :violets, :violets, :violets}
@@ -39,7 +39,7 @@ defmodule GardenTest do
     assert garden_info.charlie == {:grass, :grass, :grass, :grass}
   end
 
-  #@tag :pending
+  @tag :pending
   test "gets the garden for all students" do
     garden_info = Garden.info("VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV")
     assert garden_info.alice == {:violets, :radishes, :violets, :radishes}

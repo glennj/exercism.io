@@ -7,7 +7,7 @@ defmodule PerfectNumbersTest do
       assert PerfectNumbers.classify(6) == {:ok, :perfect}
     end
 
-    #@tag :pending
+    @tag :pending
     test "Medium perfect number is classified correctly" do
       assert PerfectNumbers.classify(28) == {:ok, :perfect}
     end
@@ -19,17 +19,17 @@ defmodule PerfectNumbersTest do
   end
 
   describe "Abundant numbers" do
-    #@tag :pending
+    @tag :pending
     test "Smallest abundant number is classified correctly" do
       assert PerfectNumbers.classify(12) == {:ok, :abundant}
     end
 
-    #@tag :pending
+    @tag :pending
     test "Medium abundant number is classified correctly" do
       assert PerfectNumbers.classify(30) == {:ok, :abundant}
     end
 
-    #@tag :pending
+    @tag :pending
     test "Large abundant number is classified correctly" do
       assert PerfectNumbers.classify(33_550_335) == {:ok, :abundant}
     end

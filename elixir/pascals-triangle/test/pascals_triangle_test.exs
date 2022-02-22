@@ -6,7 +6,7 @@ defmodule PascalsTriangleTest do
     assert PascalsTriangle.rows(1) == [[1]]
   end
 
-  #@tag :pending
+  @tag :pending
   test "two rows" do
     assert PascalsTriangle.rows(2) == [[1], [1, 1]]
   end

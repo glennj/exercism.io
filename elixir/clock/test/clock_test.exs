@@ -17,7 +17,7 @@ defmodule ClockTest do
   end
 
   describe "create" do
-    #@tag :pending
+    @tag :pending
     test "on the hour" do
       assert Clock.new(8, 0) |> to_string == "08:00"
     end

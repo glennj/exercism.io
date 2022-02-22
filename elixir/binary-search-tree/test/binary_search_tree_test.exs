@@ -9,7 +9,7 @@ defmodule BinarySearchTreeTest do
   end
 
   describe "insert data at proper node" do
-    #@tag :pending
+    @tag :pending
     test "smaller number at left node" do
       root =
         BinarySearchTree.new(4)
@@ -22,7 +22,7 @@ defmodule BinarySearchTreeTest do
       assert root.right == nil
     end
 
-    #@tag :pending
+    @tag :pending
     test "same number at left node" do
       root =
         BinarySearchTree.new(4)
@@ -35,7 +35,7 @@ defmodule BinarySearchTreeTest do
       assert root.right == nil
     end
 
-    #@tag :pending
+    @tag :pending
     test "greater number at right node" do
       root =
         BinarySearchTree.new(4)
@@ -49,23 +49,16 @@ defmodule BinarySearchTreeTest do
     end
   end
 
-  #@tag :pending
+  @tag :pending
   test "can create complex tree" do
     root =
       BinarySearchTree.new(4)
-      #|> IO.inspect()
       |> BinarySearchTree.insert(2)
-      #|> IO.inspect()
       |> BinarySearchTree.insert(6)
-      #|> IO.inspect()
       |> BinarySearchTree.insert(1)
-      #|> IO.inspect()
       |> BinarySearchTree.insert(3)
-      #|> IO.inspect()
       |> BinarySearchTree.insert(5)
-      #|> IO.inspect()
       |> BinarySearchTree.insert(7)
-      #|> IO.inspect()
 
     assert root.data == 4
     assert root.left.data == 2
@@ -85,7 +78,7 @@ defmodule BinarySearchTreeTest do
   end
 
   describe "can sort data" do
-    #@tag :pending
+    @tag :pending
     test "can sort single number" do
       root = BinarySearchTree.new(2)
 

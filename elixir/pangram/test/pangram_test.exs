@@ -16,7 +16,7 @@ defmodule PangramTest do
     assert Pangram.pangram?("the quick brown fox jumps over the lazy dog")
   end
 
-  #@tag :pending
+  @tag :pending
   test "missing character 'x'" do
     refute Pangram.pangram?("a quick movement of the enemy will jeopardize five gunboats")
   end

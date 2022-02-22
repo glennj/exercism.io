@@ -16,7 +16,7 @@ defmodule SchoolTest do
     assert School.roster(School.new()) == []
   end
 
-  #@tag :pending
+  @tag :pending
   test "Add a student" do
     {result, school} = School.add(School.new(), "Aimee", 2)
 
@@ -24,7 +24,7 @@ defmodule SchoolTest do
     assert School.roster(school) == ["Aimee"]
   end
 
-  #@tag :pending
+  @tag :pending
   test "Adding multiple students in the same grade in the roster" do
     students = [{"Blair", 2}, {"James", 2}, {"Paul", 2}]
     {results, school} = make_school_with_students(students)
@@ -33,7 +33,7 @@ defmodule SchoolTest do
     assert School.roster(school) == ["Blair", "James", "Paul"]
   end
 
-  #@tag :pending
+  @tag :pending
   test "Cannot add student to same grade in the roster more than once" do
     students = [{"Blair", 2}, {"James", 2}, {"James", 2}, {"Paul", 2}]
     {results, school} = make_school_with_students(students)
@@ -42,7 +42,7 @@ defmodule SchoolTest do
     assert School.roster(school) == ["Blair", "James", "Paul"]
   end
 
-  #@tag :pending
+  @tag :pending
   test "Adding students in multiple grades" do
     students = [{"Chelsea", 3}, {"Logan", 7}]
     {results, school} = make_school_with_students(students)
@@ -51,7 +51,7 @@ defmodule SchoolTest do
     assert School.roster(school) == ["Chelsea", "Logan"]
   end
 
-  #@tag :pending
+  @tag :pending
   test "Cannot add same student to multiple grades in the roster" do
     students = [{"Blair", 2}, {"James", 2}, {"James", 3}, {"Paul", 3}]
     {results, school} = make_school_with_students(students)
@@ -60,7 +60,7 @@ defmodule SchoolTest do
     assert School.roster(school) == ["Blair", "James", "Paul"]
   end
 
-  #@tag :pending
+  @tag :pending
   test "Students are sorted by grades in the roster" do
     students = [{"Jim", 3}, {"Peter", 2}, {"Anna", 1}]
     {_results, school} = make_school_with_students(students)
@@ -68,7 +68,7 @@ defmodule SchoolTest do
     assert School.roster(school) == ["Anna", "Peter", "Jim"]
   end
 
-  #@tag :pending
+  @tag :pending
   test "Students are sorted by name in the roster" do
     students = [{"Peter", 2}, {"Zoe", 2}, {"Alex", 2}]
     {_results, school} = make_school_with_students(students)
@@ -76,7 +76,7 @@ defmodule SchoolTest do
     assert School.roster(school) == ["Alex", "Peter", "Zoe"]
   end
 
-  #@tag :pending
+  @tag :pending
   test "Students are sorted by grades and then by name in the roster" do
     students = [
       {"Peter", 2},
@@ -93,12 +93,12 @@ defmodule SchoolTest do
     assert School.roster(school) == ["Anna", "Barb", "Charlie", "Alex", "Peter", "Zoe", "Jim"]
   end
 
-  #@tag :pending
+  @tag :pending
   test "Grade is empty if no students in the roster" do
     assert School.grade(School.new(), 1) == []
   end
 
-  #@tag :pending
+  @tag :pending
   test "Grade is empty if no students in that grade" do
     students = [{"Peter", 2}, {"Zoe", 2}, {"Alex", 2}, {"Jim", 3}]
     {_results, school} = make_school_with_students(students)
@@ -106,7 +106,7 @@ defmodule SchoolTest do
     assert School.grade(school, 1) == []
   end
 
-  #@tag :pending
+  @tag :pending
   test "Student not added to same grade more than once" do
     students = [{"Blair", 2}, {"James", 2}, {"James", 2}, {"Paul", 2}]
     {_results, school} = make_school_with_students(students)
@@ -114,7 +114,7 @@ defmodule SchoolTest do
     assert School.roster(school) == ["Blair", "James", "Paul"]
   end
 
-  #@tag :pending
+  @tag :pending
   test "Student not added to multiple grades" do
     students = [{"Blair", 2}, {"James", 2}, {"James", 3}, {"Paul", 3}]
     {_results, school} = make_school_with_students(students)
@@ -125,9 +125,9 @@ defmodule SchoolTest do
 
   @tag :pending
   test "Students are sorted by name in a grade" do
-    students = [{"Franklin", 5}, {"Bradley", 5}, {"Zach", 5}, {"Jeff", 1}]
+    students = [{"Franklin", 5}, {"Bradley", 5}, {"Jeff", 1}]
     {_results, school} = make_school_with_students(students)
 
-    assert School.grade(school, 5) == ["Bradley", "Franklin", "Zach"]
+    assert School.grade(school, 5) == ["Bradley", "Franklin"]
   end
 end

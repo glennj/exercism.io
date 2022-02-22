@@ -21,13 +21,5 @@ defmodule Gigasecond do
         future |> NDT.to_time() |> Time.to_erl()
       }
     end
-
-    # alternately:
-    #
-    #   {
-    #     {future.year, future.month, future.day},
-    #     {future.hour, future.minute, future.second}
-    #   }
-    #
   end
 end

@@ -2,12 +2,12 @@ defmodule PigLatinTest do
   use ExUnit.Case
 
   describe "ay is added to words that start with vowels" do
-    ## @tag :pending
+    # @tag :pending
     test "word beginning with a" do
       assert PigLatin.translate("apple") == "appleay"
     end
 
-    #@tag :pending
+    @tag :pending
     test "word beginning with e" do
       assert PigLatin.translate("ear") == "earay"
     end

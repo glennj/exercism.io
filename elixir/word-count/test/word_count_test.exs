@@ -5,7 +5,7 @@ defmodule WordCountTest do
     assert WordCount.count("word") == %{"word" => 1}
   end
 
-  #@tag :pending
+  @tag :pending
   test "count one of each" do
     expected = %{"one" => 1, "of" => 1, "each" => 1}
     assert WordCount.count("one of each") == expected

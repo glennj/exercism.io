@@ -10,7 +10,7 @@ defmodule ProverbTest do
     assert output == expected
   end
 
-  #@tag :pending
+  @tag :pending
   test "one piece" do
     strings = ["nail"]
     output = Proverb.recite(strings)
@@ -22,7 +22,7 @@ defmodule ProverbTest do
     assert output == expected
   end
 
-  #@tag :pending
+  @tag :pending
   test "two pieces" do
     strings = ["nail", "shoe"]
     output = Proverb.recite(strings)

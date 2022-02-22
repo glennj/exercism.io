@@ -16,7 +16,7 @@ defmodule AffineCipherTest do
       assert output == expected
     end
 
-    #@tag :pending
+    @tag :pending
     test "encode no" do
       key = %{a: 15, b: 18}
       phrase = "no"
@@ -26,7 +26,7 @@ defmodule AffineCipherTest do
       assert output == expected
     end
 
-    ##@tag :pending
+    @tag :pending
     test "encode OMG" do
       key = %{a: 21, b: 3}
       phrase = "OMG"
@@ -36,7 +36,7 @@ defmodule AffineCipherTest do
       assert output == expected
     end
 
-    #@tag :pending
+    @tag :pending
     test "encode O M G" do
       key = %{a: 25, b: 47}
       phrase = "O M G"
@@ -46,7 +46,7 @@ defmodule AffineCipherTest do
       assert output == expected
     end
 
-    #@tag :pending
+    @tag :pending
     test "encode mindblowingly" do
       key = %{a: 11, b: 15}
       phrase = "mindblowingly"
@@ -56,7 +56,7 @@ defmodule AffineCipherTest do
       assert output == expected
     end
 
-    #@tag :pending
+    @tag :pending
     test "encode numbers" do
       key = %{a: 3, b: 4}
       phrase = "Testing,1 2 3, testing."
@@ -66,7 +66,7 @@ defmodule AffineCipherTest do
       assert output == expected
     end
 
-    #@tag :pending
+    @tag :pending
     test "encode deep thought" do
       key = %{a: 5, b: 17}
       phrase = "Truth is fiction."
@@ -76,7 +76,7 @@ defmodule AffineCipherTest do
       assert output == expected
     end
 
-    #@tag :pending
+    @tag :pending
     test "encode all the letters" do
       key = %{a: 17, b: 33}
       phrase = "The quick brown fox jumps over the lazy dog."
@@ -86,7 +86,7 @@ defmodule AffineCipherTest do
       assert output == expected
     end
 
-    #@tag :pending
+    @tag :pending
     test "encode with a not coprime to m" do
       key = %{a: 6, b: 17}
       phrase = "This is a test."
@@ -99,7 +99,7 @@ defmodule AffineCipherTest do
 
   describe "decode" do
     # Test decoding from ciphertext to English with keys
-    #@tag :pending
+    @tag :pending
     test "decode exercism" do
       key = %{a: 3, b: 7}
       phrase = "tytgn fjr"
@@ -109,7 +109,7 @@ defmodule AffineCipherTest do
       assert output == expected
     end
 
-    #@tag :pending
+    @tag :pending
     test "decode a sentence" do
       key = %{a: 19, b: 16}
       phrase = "qdwju nqcro muwhn odqun oppmd aunwd o"

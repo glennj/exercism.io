@@ -7,19 +7,19 @@ defmodule ProteinTranslationTest do
       assert ProteinTranslation.of_codon("AUG") == {:ok, "Methionine"}
     end
 
-    #@tag :pending
+    @tag :pending
     test "identifies Phenylalanine codons" do
       assert ProteinTranslation.of_codon("UUU") == {:ok, "Phenylalanine"}
       assert ProteinTranslation.of_codon("UUC") == {:ok, "Phenylalanine"}
     end
 
-    #@tag :pending
+    @tag :pending
     test "identifies Leucine codons" do
       assert ProteinTranslation.of_codon("UUA") == {:ok, "Leucine"}
       assert ProteinTranslation.of_codon("UUG") == {:ok, "Leucine"}
     end
 
-    #@tag :pending
+    @tag :pending
     test "identifies Serine codons" do
       assert ProteinTranslation.of_codon("UCU") == {:ok, "Serine"}
       assert ProteinTranslation.of_codon("UCC") == {:ok, "Serine"}
@@ -27,46 +27,46 @@ defmodule ProteinTranslationTest do
       assert ProteinTranslation.of_codon("UCG") == {:ok, "Serine"}
     end
 
-    #@tag :pending
+    @tag :pending
     test "identifies Tyrosine codons" do
       assert ProteinTranslation.of_codon("UAU") == {:ok, "Tyrosine"}
       assert ProteinTranslation.of_codon("UAC") == {:ok, "Tyrosine"}
     end
 
-    #@tag :pending
+    @tag :pending
     test "identifies Cysteine codons" do
       assert ProteinTranslation.of_codon("UGU") == {:ok, "Cysteine"}
       assert ProteinTranslation.of_codon("UGC") == {:ok, "Cysteine"}
     end
 
-    #@tag :pending
+    @tag :pending
     test "identifies Tryptophan codons" do
       assert ProteinTranslation.of_codon("UGG") == {:ok, "Tryptophan"}
     end
 
-    #@tag :pending
+    @tag :pending
     test "identifies stop codons" do
       assert ProteinTranslation.of_codon("UAA") == {:ok, "STOP"}
       assert ProteinTranslation.of_codon("UAG") == {:ok, "STOP"}
       assert ProteinTranslation.of_codon("UGA") == {:ok, "STOP"}
     end
 
-    #@tag :pending
+    @tag :pending
     test "incomplete codon" do
       assert ProteinTranslation.of_codon("UG") == {:error, "invalid codon"}
     end
 
-    #@tag :pending
+    @tag :pending
     test "too long, invalid codon" do
       assert ProteinTranslation.of_codon("UGGG") == {:error, "invalid codon"}
     end
 
-    #@tag :pending
+    @tag :pending
     test "known amino acids, but invalid codon" do
       assert ProteinTranslation.of_codon("AAA") == {:error, "invalid codon"}
     end
 
-    #@tag :pending
+    @tag :pending
     test "unknown amino acids, not part of a codon" do
       assert ProteinTranslation.of_codon("XYZ") == {:error, "invalid codon"}
     end

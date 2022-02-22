@@ -1,7 +1,7 @@
 defmodule TwoBucketTest do
   use ExUnit.Case
 
-  ## @tag :pending
+  # @tag :pending
   test "Measure using bucket one of size 3 and bucket two of size 5 - start with bucket one" do
     bucket_one = 3
     bucket_two = 5
@@ -13,7 +13,7 @@ defmodule TwoBucketTest do
     assert output == expected
   end
 
-  #@tag :pending
+  @tag :pending
   test "Measure using bucket one of size 3 and bucket two of size 5 - start with bucket two" do
     bucket_one = 3
     bucket_two = 5
