@@ -1,0 +1,129 @@
+jq -r '
+  .exercises.practice[]
+  | select(.status == "deprecated" | not)
+  | "\(.difficulty) \(.slug)"
+' ../../tracks/elixir/config.json \
+| sort -n \
+| while read diff slug
+    if test -d $slug
+     echo $diff X $slug
+    else
+      echo $diff . $slug
+    end
+  end > difficulties.txt
+==========================
+1 X hello-world
+1 X resistor-color
+1 X two-fer
+2 X acronym
+2 X all-your-base
+2 X anagram
+2 X armstrong-numbers
+2 X collatz-conjecture
+2 X darts
+2 X etl
+2 X hamming
+2 X nth-prime
+2 X nucleotide-count
+2 X pangram
+2 X pig-latin
+2 X protein-translation
+2 X raindrops
+2 X resistor-color-duo
+2 X rna-transcription
+2 X roman-numerals
+2 X rotational-cipher
+2 X run-length-encoding
+2 X scrabble-score
+2 X secret-handshake
+2 X series
+2 X space-age
+2 X strain
+2 X sublist
+2 X sum-of-multiples
+2 X triangle
+3 X atbash-cipher
+3 X beer-song
+3 X binary-search
+3 X binary-search-tree
+3 X bob
+3 X dnd-character
+3 X flatten-array
+3 X gigasecond
+3 X grade-school
+3 X grains
+3 X house
+3 X isbn-verifier
+3 X isogram
+3 X kindergarten-garden
+3 X leap
+3 X matching-brackets
+3 X matrix
+3 X pascals-triangle
+3 X perfect-numbers
+3 X prime-factors
+3 X proverb
+3 X resistor-color-trio
+3 X say
+3 X simple-cipher
+3 X twelve-days
+3 X word-count
+4 X allergies
+4 X complex-numbers
+4 X crypto-square
+4 X difference-of-squares
+4 X diffie-hellman
+4 . dominoes
+4 X grep
+4 X largest-series-product
+4 X meetup
+4 X parallel-letter-frequency
+4 X phone-number
+4 X rational-numbers
+4 X simple-linked-list
+4 . spiral-matrix
+4 X tournament
+5 X affine-cipher
+5 X bank-account
+5 X clock
+5 X custom-set
+5 X diamond
+5 X food-chain
+5 X luhn
+5 X palindrome-products
+5 . pythagorean-triplet
+5 X saddle-points
+5 X scale-generator
+5 X sieve
+5 X square-root
+5 X transpose
+5 X yacht
+6 X knapsack
+6 X list-ops
+6 . markdown
+6 . ocr-numbers
+6 . rail-fence-cipher
+6 X robot-simulator
+6 X satellite
+6 . variable-length-quantity
+7 . alphametics
+7 . change
+7 . connect
+7 . minesweeper
+7 X queen-attack
+7 . rectangles
+7 X two-bucket
+7 . word-search
+7 X wordy
+8 . book-store
+8 X bowling
+8 X circular-buffer
+8 . dot-dsl
+8 . poker
+8 . react
+8 . sgf-parsing
+8 . zipper
+9 . go-counting
+9 . pov
+9 . zebra-puzzle
+10 X forth
