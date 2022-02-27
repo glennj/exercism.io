@@ -2,7 +2,7 @@
 module docstring
 """
 
-def estimate_value(budget, exchange_rate):
+def exchange_money(budget, exchange_rate):
     """
     :param budget: float - amount of money you are planning to exchange.
     :param exchange_rate: float - unit value of the foreign currency.
@@ -22,7 +22,7 @@ def get_change(budget, exchanging_value):
     return budget - exchanging_value
 
 
-def get_value(denomination, number_of_bills):
+def get_value_of_bills(denomination, number_of_bills):
     """
     :param denomination: int - the value of a bill.
     :param number_of_bills: int - amount of bills you received.
@@ -55,11 +55,11 @@ def exchangeable_value(budget, exchange_rate, spread, denomination):
     :return: int - maximum value you can get
     """
 
-    estimated_value = estimate_value(budget, actual_exchange_rate(exchange_rate, spread))
+    estimated_value = exchange_money(budget, actual_exchange_rate(exchange_rate, spread))
     return denomination * get_number_of_bills(estimated_value, denomination)
 
 
-def unexchangeable_value(budget, exchange_rate, spread, denomination):
+def non_exchangeable_value(budget, exchange_rate, spread, denomination):
     """
     :param budget: float - the amount of your money you are planning to exchange.
     :param exchange_rate: float - the unit value of the foreign currency.
@@ -68,6 +68,6 @@ def unexchangeable_value(budget, exchange_rate, spread, denomination):
     :return: int - unexchangeable value
     """
 
-    real_value = estimate_value(budget, actual_exchange_rate(exchange_rate, spread))
+    real_value = exchange_money(budget, actual_exchange_rate(exchange_rate, spread))
     exch_value = exchangeable_value(budget, exchange_rate, spread, denomination)
     return int(real_value - exch_value)

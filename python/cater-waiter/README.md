@@ -112,7 +112,7 @@ Using operators requires that both inputs be `sets` or `frozensets`, while metho
 True
 
 # A set is always a loose subset of itself
->>> animals <= animals
+>>> birds <= birds
 True
 
 >>> birds <= set(animals)
@@ -125,7 +125,7 @@ False
 
 The `<set>.isdisjoint(<other_collection>)` method is used to test if a `set` has **no elements in common** with another set or iterable.
 It will accept any `iterable` or `set` as an argument, returning `True` if they are **disjoint**, `False` otherwise.
-Note that for `dcts`, the iteration default is over`<dict>.keys()`.
+Note that for `dicts`, the iteration default is over`<dict>.keys()`.
 
 ```python
 >>>  mammals = {'squirrel','dog','cat','cow', 'tiger', 'elephant'}
@@ -432,7 +432,7 @@ Each `<CATEGORY>_INTERSECTIONS` is a `set` of ingredients that appear in more th
 Using set operations, your function should return a `set` of "singleton" ingredients (_ingredients appearing in only one dish in the category_).
 
 ```python
-from sets_categories_data import example_dishes, EXAMPLE_INTERSECTIONS
+from sets_categories_data import example_dishes, EXAMPLE_INTERSECTION
 
 >>> singleton_ingredients(example_dishes, EXAMPLE_INTERSECTION)
 ...

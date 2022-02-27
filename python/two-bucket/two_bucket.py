@@ -2,7 +2,7 @@ import math
 
 
 def measure(bucket_one, bucket_two, goal, start_bucket):
-    if goal > bucket_one + bucket_two:
+    if goal > max(bucket_one, bucket_two):
         raise ValueError('Unsatisfiable goal.')
     gcd = math.gcd(bucket_one, bucket_two)
     if gcd > 1 and goal % gcd > 0:
@@ -24,7 +24,7 @@ class Bucket:
         self.empty()
 
     @property
-    def capacity(self):
+    def available(self):
         return self.size - self.amount
 
     def empty(self):
@@ -39,10 +39,10 @@ class Bucket:
     def is_full(self):
         return self.amount == self.size
 
-    def pour(self, other):
-        to_pour = min(self.amount, other.capacity)
-        self.amount -= to_pour
-        other.amount += to_pour
+    def pour_into(self, other):
+        quantity = min(self.amount, other.available)
+        self.amount -= quantity
+        other.amount += quantity
 
     def solve(self, other, goal):
         self.fill()
@@ -62,5 +62,5 @@ class Bucket:
             elif other.is_full():
                 other.empty()
             else:
-                self.pour(other)
+                self.pour_into(other)
             moves += 1
