@@ -10,10 +10,6 @@ typeset -T Robot_t=(
     typeset -A rightTurns=([north]=east [east]=south [south]=west [west]=north)
     typeset -A  leftTurns=([north]=west [east]=north [south]=east [west]=south)
 
-#    function setx         { _.x=$1; }
-    function sety         { _.y=$1; }
-    function setdirection { _.direction=$1; }
-
     function toJSON {
         printf '{"position": {"x": %d, "y": %d}, "direction": "%s"}\n' \
             "${_.x}" \

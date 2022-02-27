@@ -22,19 +22,16 @@ typeset -T Bucket=(
     integer amount=0
     typeset name="aBucket"
 
-    function setName   { _.name=$1; }
-    function setSize   { _.size=$1; }
-
     function isFull    { ((_.amount == _.size)); }
     function isEmpty   { ((_.amount == 0)); }
-    function capacity  { print $((_.size - _.amount)); }
+    function available { print $((_.size - _.amount)); }
 
     function fill      { _.amount=${_.size}; }
     function empty     { _.amount=0; }
 
     function pourInto {
         nameref other=$1
-        integer amt=$((min(_.amount, $(other.capacity))))
+        integer amt=$((min(_.amount, $(other.available))))
         ((_.amount -= amt))
         ((other.amount += amt))
         return
@@ -56,11 +53,11 @@ typeset -T Solver=(
     function initialize {
         _.validate "$@"
 
-        _.one.setName "one"
-        _.one.setSize "$1"
+        _.one.name='one'
+        _.one.size=$1
 
-        _.two.setName "two"
-        _.two.setSize "$2"
+        _.two.name='two'
+        _.two.size=$2
 
         _.goal=$3
         _.startBucket=$4
@@ -72,12 +69,12 @@ typeset -T Solver=(
 
         # the "." causes the function to execute in the context
         # of *this* function, allowing variables to be shared.
-        . assertArith "goal <= max(a, b)" "invalid goal: too big"
+        . assertArith 'goal <= max(a, b)' 'invalid goal: too big'
 
         integer gcd=$((gcd(a, b)))
-        . assertArith "gcd == 1 || goal % gcd == 0" "invalid goal: unsatisfiable"
+        . assertArith 'gcd == 1 || goal % gcd == 0' 'invalid goal: unsatisfiable'
 
-        . assertTest "$startName == @(one|two)" "invalid start bucket"
+        . assertTest '$startName == @(one|two)' 'invalid start bucket'
     }
 
     function run {
