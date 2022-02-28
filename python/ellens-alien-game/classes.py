@@ -49,9 +49,12 @@ def new_aliens_collection(positions):
     :param positions: list - A list of tuples of (x, y) coordinates.
     :return: list - A list of Alien objects.
     """
+    #aliens = []
+    #for (x, y) in positions:
+    #    aliens.append(Alien(x,y))
+    #
+    #return aliens
 
-    aliens = []
-    for (x, y) in positions:
-        aliens.append(Alien(x,y))
+    #return map(lambda position: Alien(*position), positions)
 
-    return aliens
+    return [Alien(x, y) for (x, y) in positions]
