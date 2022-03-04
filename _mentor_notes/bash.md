@@ -389,7 +389,8 @@ parameters and special parameters.
 <!-- -->
 
 <details><summary>You can assign to variables within an arithmetic
-expression (click for details):</summary><p> 
+expression (click for details):</summary>
+
 Instead of
 ```bash
 total=$(( total + increment ))
@@ -398,7 +399,7 @@ You can write
 ```bash
 (( total += increment ))
 ```
-</p></details>
+</details>
 
 <!-- -->
 
@@ -815,7 +816,8 @@ Like the `echo` example above, quoting prevents filename expansion: `unset
 ## Assignment
 
 <details><summary>You can use the `+=` concatenating assignment operator:
-click for details</summary><p>
+click for details</summary>
+
 These are equivalent:
 ```bash
 foo="${foo}bar"
@@ -824,7 +826,7 @@ foo+="bar"
 Full details at [Shell
 Parameters](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters)
 in the manual.
-</p></details>
+</details>
 
 <!-- -->
 
@@ -854,7 +856,7 @@ but some languages, like Expect, do not have such an option.)
 ## Loops
 
 <details><summary>It's not necessary to call out to <code>seq</code>: use
-bash's builtin C-style for loop (click for details):</summary><p>
+bash's builtin C-style for loop (click for details):</summary>
 
 ```bash
 len=${#input}
@@ -864,7 +866,7 @@ for (( i = 0; i < len; i++ )); do ...
 See [Looping
 Constructs](https://www.gnu.org/software/bash/manual/bash.html#Looping-Constructs)
 in the manual.
-</p></details>
+</details>
 
 <!-- ........................................................ -->
 ## Conditionals
@@ -1447,6 +1449,7 @@ You may have seen this already in the "two-fer" exercise.
 
 <details><summary>You can use the <code>+=</code> concatenating assignment
 operator: click for details</summary>
+
 These are equivalent:
 ```bash
 foo="${foo}bar"
@@ -1462,10 +1465,12 @@ foo+="bar"
 string-oriented <code>[[...]]</code>, you can use the arithmetic conditional
 construct. Click for details.</summary>
 
+Instead of this
 ```bash
-# instead of this
 if [[ $(( $1 % num )) == 0 ]]; then
-# do this
+```
+you can do this
+```bash
 if (( $1 % num == 0 )); then
 ```
 see [here in the
@@ -1481,13 +1486,15 @@ and scroll down to `((...))`
 <code>&&</code> control operator.
 Click for details.</summary>
 
+Instead of this
 ```bash
-# instead of this
 if some_conditional_command; then
     some_action
 fi
+```
 
-# do
+you can do
+```bash
 some_conditional_command && some_action
 ```
 see [here in the
