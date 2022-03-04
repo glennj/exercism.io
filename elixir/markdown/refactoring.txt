@@ -1,0 +1,12 @@
+1. use function piping instead of nested function calls, for readability
+2. `process` function: 
+    1. separate header parsing from list item parsing
+    2. refactor `parse_header_md_level` and `enclose_with_header_tag` to generic `enclose_with_tag`
+    3. header matching: use a regex
+    4. list item matching: use ==
+    5. list item processing uses `enclose_with_tag`
+    6. paragraph processing uses `enclose_with_tag`
+3. rewrite `join_words_with_tags`
+    1. regex replace for __ and _
+4. rewrite `patch` as a recursive state machine to recognize when we enter and leave lists.
+5. general cleanup

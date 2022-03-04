@@ -81,7 +81,7 @@ jq -r '
 4 X phone-number
 4 X rational-numbers
 4 X simple-linked-list
-4 . spiral-matrix
+4 X spiral-matrix
 4 X tournament
 5 X affine-cipher
 5 X bank-account
@@ -91,7 +91,7 @@ jq -r '
 5 X food-chain
 5 X luhn
 5 X palindrome-products
-5 . pythagorean-triplet
+5 X pythagorean-triplet
 5 X saddle-points
 5 X scale-generator
 5 X sieve
@@ -100,14 +100,14 @@ jq -r '
 5 X yacht
 6 X knapsack
 6 X list-ops
-6 . markdown
-6 . ocr-numbers
+6 X markdown
+6 X ocr-numbers
 6 . rail-fence-cipher
 6 X robot-simulator
 6 X satellite
-6 . variable-length-quantity
+6 X variable-length-quantity
 7 . alphametics
-7 . change
+7 X change
 7 . connect
 7 . minesweeper
 7 X queen-attack
@@ -125,5 +125,5 @@ jq -r '
 8 . zipper
 9 . go-counting
 9 . pov
-9 . zebra-puzzle
+9 X zebra-puzzle
 10 X forth

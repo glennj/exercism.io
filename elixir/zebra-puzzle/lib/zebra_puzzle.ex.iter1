@@ -1,0 +1,195 @@
+defmodule ZebraPuzzle do
+  use Agent
+  import Permutations
+
+  @houses [1, 2, 3, 4, 5]
+  @first 1
+  @middle 3
+
+  @doc """
+  Determine who drinks the water
+  """
+  @spec drinks_water() :: atom
+  def drinks_water() do
+    case solve() do
+      {:ok, result} -> result.water_drinker
+      _ -> raise ArgumentError
+    end
+  end
+
+  @doc """
+  Determine who owns the zebra
+  """
+  @spec owns_zebra() :: atom
+  def owns_zebra() do
+    case solve() do
+      {:ok, result} -> result.zebra_owner
+      _ -> raise ArgumentError
+    end
+  end
+
+  defp right_of?(a, b), do: a == b + 1
+  defp next_to?(a, b), do: abs(a - b) == 1
+
+  defp solve() do
+    {:ok, pid} =
+      Agent.start_link(fn ->
+        %{water_drinker: nil, zebra_owner: nil}
+      end)
+
+    solve_for_colour(pid, permutations(@houses))
+    {:ok, Agent.get(pid, & &1)}
+  end
+
+  # clue 6
+  defp solve_for_colour(_, []), do: false
+
+  defp solve_for_colour(pid, [perm | perms]) do
+    [red, green, ivory, yellow, blue] = perm
+
+    if right_of?(green, ivory) do
+      Agent.update(pid, fn state ->
+        Map.merge(state, %{
+          red: red,
+          green: green,
+          ivory: ivory,
+          yellow: yellow,
+          blue: blue
+        })
+      end)
+
+      if solve_for_nationality(pid, permutations(@houses)) do
+        true
+      else
+        solve_for_colour(pid, perms)
+      end
+    else
+      solve_for_colour(pid, perms)
+    end
+  end
+
+  # clues 2, 10, 15
+  defp solve_for_nationality(_, []), do: false
+
+  defp solve_for_nationality(pid, [perm | perms]) do
+    [english, spanish, ukranian, norwegian, japanese] = perm
+    state = Agent.get(pid, & &1)
+
+    if english == state.red and
+       norwegian == @first and
+       next_to?(norwegian, state.blue)
+    do
+      Agent.update(pid, fn state ->
+        Map.merge(state, %{
+          english: english,
+          spanish: spanish,
+          ukranian: ukranian,
+          norwegian: norwegian,
+          japanese: japanese
+        })
+        |> Map.put(:nationalities, %{
+          english => :englishman,
+          spanish => :spanish,
+          ukranian => :ukranian,
+          norwegian => :norwegian,
+          japanese => :japanese
+        })
+      end)
+
+      if solve_for_beverages(pid, permutations(@houses)) do
+        true
+      else
+        solve_for_nationality(pid, perms)
+      end
+    else
+      solve_for_nationality(pid, perms)
+    end
+  end
+
+  # clues 4, 5, 9
+  defp solve_for_beverages(_, []), do: false
+
+  defp solve_for_beverages(pid, [perm | perms]) do
+    [coffee, tea, milk, orange_juice, water] = perm
+    state = Agent.get(pid, & &1)
+
+    if coffee == state.green and
+       tea == state.ukranian and
+       milk == @middle
+    do
+      Agent.update(pid, fn state ->
+        Map.merge(state, %{
+          coffee: coffee,
+          tea: tea,
+          milk: milk,
+          orange_juice: orange_juice,
+          water: water
+        })
+      end)
+
+      if solve_for_smokes(pid, permutations(@houses)) do
+        true
+      else
+        solve_for_beverages(pid, perms)
+      end
+    else
+      solve_for_beverages(pid, perms)
+    end
+  end
+
+  # clues 8, 13, 14
+  defp solve_for_smokes(_, []), do: false
+
+  defp solve_for_smokes(pid, [perm | perms]) do
+    [old_gold, kools, chesterfields, lucky_strike, parliaments] = perm
+    state = Agent.get(pid, & &1)
+
+    if kools == state.yellow and
+       lucky_strike == state.orange_juice and
+       parliaments == state.japanese
+    do
+      Agent.update(pid, fn state ->
+        Map.merge(state, %{
+          old_gold: old_gold,
+          kools: kools,
+          chesterfields: chesterfields,
+          lucky_strike: lucky_strike,
+          parliaments: parliaments
+        })
+      end)
+
+      if solve_for_pets(pid, permutations(@houses)) do
+        true
+      else
+        solve_for_smokes(pid, perms)
+      end
+    else
+      solve_for_smokes(pid, perms)
+    end
+  end
+
+  # clues 2, 7, 11, 12
+  defp solve_for_pets(_, []), do: false
+
+  defp solve_for_pets(pid, [perm | perms]) do
+    [dog, snails, fox, horse, zebra] = perm
+    state = Agent.get(pid, & &1)
+
+    if dog == state.spanish and
+       snails == state.old_gold and
+       next_to?(fox, state.chesterfields) and
+       next_to?(horse, state.kools)
+    do
+      Agent.update(pid, fn state ->
+        Map.merge(state, %{
+          water_drinker: state.nationalities[state.water],
+          zebra_owner: state.nationalities[zebra]
+        })
+      end)
+
+      true
+    else
+      solve_for_pets(pid, perms)
+    end
+  end
+end
