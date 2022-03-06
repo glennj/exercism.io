@@ -102,11 +102,11 @@ jq -r '
 6 X list-ops
 6 X markdown
 6 X ocr-numbers
-6 . rail-fence-cipher
+6 X rail-fence-cipher
 6 X robot-simulator
 6 X satellite
 6 X variable-length-quantity
-7 . alphametics
+7 X alphametics         -- TODO improve performance
 7 X change
 7 . connect
 7 . minesweeper
