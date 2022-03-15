@@ -16,7 +16,7 @@ diamond <- function(letter) {
     paste0(segment, collapse = "")
   })
 
-  top_half <- sapply(top_right, function(half) {
+  top_half <- sapply(top_right, function(half) { 
     paste0(
       stri_reverse(substr(half, 2, size)),
       half
