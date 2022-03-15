@@ -4,17 +4,19 @@
 
 source ./utils.bash
 
-# We're relying on the (non-)existance of 1-character
-# variables. Don't let any existing environment variables
-# pollute this script.
-unset {A..Z}
-declare A=0 C=0 G=0 T=0
+count() {
+    local A=0 C=0 G=0 T=0
 
-while IFS= read -r -n1 c; do
-    assert -C [ -n "${!c}" ] "Invalid nucleotide in strand"
-    let "$c++"
-done < <(printf "%s" "$1")
+    while IFS= read -r -n1 c; do
+        case $c in
+            A|C|G|T) let "$c++" ;;
+            *) die "Invalid nucleotide in strand" ;;
+        esac
+    done < <(printf "%s" "$1")
 
-for n in A C G T; do
-    echo "$n: ${!n}"
-done
+    for n in A C G T; do
+        echo "$n: ${!n}"
+    done
+}
+
+count "$@"
