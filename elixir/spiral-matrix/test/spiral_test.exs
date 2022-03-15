@@ -1,17 +1,17 @@
 defmodule SpiralTest do
   use ExUnit.Case
 
-  ## @tag :pending
+  # @tag :pending
   test "empty spiral" do
     assert Spiral.matrix(0) == []
   end
 
-  #@tag :pending
+  @tag :pending
   test "trivial spiral" do
     assert Spiral.matrix(1) == [[1]]
   end
 
-  #@tag :pending
+  @tag :pending
   test "spiral of side length 2" do
     assert Spiral.matrix(2) == [
              [1, 2],

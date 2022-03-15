@@ -7,7 +7,7 @@ defmodule DiamondTest do
     assert shape == "A\n"
   end
 
-  #@tag :pending
+  @tag :pending
   test "letter B" do
     shape = Diamond.build_shape(?B)
 
@@ -18,7 +18,7 @@ defmodule DiamondTest do
            """
   end
 
-  #@tag :pending
+  @tag :pending
   test "letter C" do
     shape = Diamond.build_shape(?C)
 

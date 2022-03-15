@@ -92,8 +92,6 @@ defmodule Forth do
     end
   end
 
-  # this base case is not in the tests: macro is missing the semicolon
-  defp extract_macro([], _), do: raise Forth.InvalidWord
   defp extract_macro([";" | ts], macro), do: {ts, Enum.reverse(macro)}
   defp extract_macro([t | ts], macro), do: extract_macro(ts, [t | macro])
 

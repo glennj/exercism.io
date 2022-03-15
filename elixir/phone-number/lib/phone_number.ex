@@ -14,7 +14,7 @@ defmodule PhoneNumber do
          do: {:ok, to_string(digits)}
   end
 
-  defp valid_characters(phone) when is_binary(phone) do
+  defp valid_characters(phone) do
     # remove valid punctuation
     digits =
       String.replace(phone, ~r/[\s().+-]/, "")

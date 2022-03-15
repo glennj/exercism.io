@@ -1,6 +1,5 @@
 defmodule TakeANumber do
   def start() do
-    # the function to spawn does not _have_ to be in a separate module.
     spawn(&ChildProcess.run/0)
   end
 end

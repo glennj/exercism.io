@@ -23,14 +23,6 @@ defmodule MarkdownTest do
   end
 
   # @tag :pending
-  @tag :glennj
-  test "parsing bold italic text" do
-    input = "___This will be bold and italic___"
-    expected = "<p><strong><em>This will be bold and italic</em></strong></p>"
-    assert Markdown.parse(input) == expected
-  end
-
-  # @tag :pending
   test "mixed normal, italics and bold text" do
     input = "This will _be_ __mixed__"
     expected = "<p>This will <em>be</em> <strong>mixed</strong></p>"

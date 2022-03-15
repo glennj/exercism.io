@@ -8,7 +8,7 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 
 ## Links
 
-Elixir processes are isolated and don't share anything by default. When an unlinked child process crashes, its parent process is not affected.
+Elixir [processes][exercism-processes] are isolated and don't share anything by default. When an unlinked child process crashes, its parent process is not affected.
 
 This behavior can be changed by _linking_ processes to one another. If two processes are linked, a failure in one process will be propagated to the other process. Links are **bidirectional**.
 
@@ -26,7 +26,7 @@ The message that will be sent to the process in case a linked process crashes wi
 
 ## Tasks
 
-Tasks are processes meant to execute one specific operation.
+Tasks are [processes][exercism-processes] meant to execute one specific operation.
 They usually don't communicate with other processes, but they can return a result to the process that started the task.
 
 Tasks are commonly used to parallelize work.
@@ -44,6 +44,8 @@ Any task started with `Task.async/1` should be awaited because it will send a me
 ### `start`/`start_link`
 
 If you want to start a task for side-effects only, use `Task.start/1` or `Task.start_link/1`. `Task.start/1` will start a task that is not linked to the calling process, and `Task.start_link/1` will start a task that is linked to the calling process. Both functions return a `{:ok, pid}` tuple.
+
+[exercism-processes]: https://exercism.org/tracks/elixir/concepts/processes
 
 ## Instructions
 
@@ -68,7 +70,7 @@ RPNCalculatorInspection.start_reliability_check(fn _ -> 0 end, "2 3 +")
 
 ## 2. Interpret the results of a reliability check
 
-Implement the `RPNCalculatorInspection.await_reliability_check_result/2` function. It should take two arguments. The first argument is a map with the input of the reliability check and the PID of the process running the reliability check for this input, as returned by `RPNCalculatorInspection.start_reliability_check/2`. The second argument is a map that serves an accumulator for the results of reliability checks with different inputs.
+Implement the `RPNCalculatorInspection.await_reliability_check_result/2` function. It should take two arguments. The first argument is a map with the input of the reliability check and the PID of the process running the reliability check for this input, as returned by `RPNCalculatorInspection.start_reliability_check/2`. The second argument is a map that serves as an accumulator for the results of reliability checks with different inputs.
 
 The function should wait for an exit message.
 
