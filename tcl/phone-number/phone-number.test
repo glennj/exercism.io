@@ -3,6 +3,9 @@ package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# uncomment for more verbose test results
+#configure -verbose {body error usec}
+
 ############################################################
 source "phone-number.tcl"
 
@@ -48,12 +51,12 @@ test phone-2.3 "invalid when more than 11 digits" -body {
 
 skip phone-2.4
 test phone-2.4 "invalid with letters" -body {
-    clean "123-abc-7890"
+    clean "523-abc-7890"
 } -returnCodes error -result "letters not permitted"
 
 skip phone-2.5
 test phone-2.5 "invalid with punctuations" -body {
-    clean "123-@:!-7890"
+    clean "523-@:!-7890"
 } -returnCodes error -result "punctuations not permitted"
 
 skip phone-2.6

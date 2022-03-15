@@ -3,6 +3,9 @@ package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# uncomment for more verbose test results
+#configure -verbose {body error usec}
+
 ############################################################
 source "largest-series-product.tcl"
 
@@ -79,7 +82,7 @@ test lsp-2.3 "rejects invalid character in digits" -body {
 skip lsp-2.4
 test lsp-2.4 "rejects negative span" -body {
     largestSeriesProduct "12345" -1 
-} -returnCodes error -result "span must be greater than zero"
+} -returnCodes error -result "span must not be negative"
 
 
 cleanupTests

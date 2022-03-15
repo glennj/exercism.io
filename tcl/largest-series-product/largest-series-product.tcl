@@ -1,7 +1,7 @@
 proc largestSeriesProduct {digits span} {
     assert {$span <= [string length $digits]} "span must be smaller than string length"
     assert {![regexp {\D} $digits]} "digits input must only contain digits"
-    assert {$span >= 0} "span must be greater than zero"
+    assert {$span >= 0} "span must not be negative"
 
     set max -Inf
     set endIdx [expr {[string length $digits] - $span}]

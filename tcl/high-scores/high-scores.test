@@ -3,6 +3,9 @@ package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# uncomment for more verbose test results
+#configure -verbose {body error usec}
+
 ############################################################
 source "high-scores.tcl"
 
@@ -119,6 +122,24 @@ test high-scores-4.8 {Scores after personal top scores} -setup {
 } -body {
     $hs scores
 } -returnCodes ok -result {30 50 20 70}
+
+skip high-scores-4.9
+test high-scores-4.9 {Latest score after personal best} -setup {
+    set hs [HighScores new]
+    $hs addScores 20 70 15 25 30
+    set best [$hs personalBest]
+} -body {
+    $hs latest
+} -returnCodes ok -result 30
+
+skip high-scores-4.10
+test high-scores-4.10 {Scores after personal best} -setup {
+    set hs [HighScores new]
+    $hs addScores 20 70 15 25 30
+    set best [$hs personalBest]
+} -body {
+    $hs scores
+} -returnCodes ok -result {20 70 15 25 30}
 
 # track test
 skip high-scores-5

@@ -3,6 +3,9 @@ package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# uncomment for more verbose test results
+#configure -verbose {body error usec}
+
 ############################################################
 source "accumulate.tcl"
 
@@ -42,7 +45,7 @@ test accumulate-5 "composition" -setup {
 } -returnCodes ok -result {10 17 23} 
 
 skip accumulate-6
-test accumulate-6 "recursive" -body {
+test accumulate-6 "accumulate recursively" -body {
     accumulate char {a b c} {
         accumulate digit {1 2 3} {
             string cat $char $digit

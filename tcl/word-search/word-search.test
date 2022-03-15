@@ -3,6 +3,9 @@ package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# uncomment for more verbose test results
+#configure -verbose {body error usec}
+
 ############################################################
 source "word-search.tcl"
 
@@ -333,6 +336,50 @@ test ws-20 "Should fail to locate a word that is not in the puzzle" -body {
     lisp {{3 6} {6 3}} 
     ruby {{8 6} {5 9}} 
     haskell {}
+}
+
+skip ws-21
+test ws-21 "Should fail to locate words that are not on horizontal, vertical, or diagonal lines" -body {
+    wordSearch {
+        abc
+        def
+    } {aef ced abf cbd}
+} -returnCodes ok -match dictionary -result {
+    aef {} ced {} abf {} cbd {}
+}
+
+skip ws-22
+test ws-22 "Should not concatenate different lines to find a horizontal word" -body {
+    wordSearch {
+        abceli
+        xirdfg
+    } {elixir}
+} -returnCodes ok -match dictionary -result {
+    elixir {}
+}
+
+skip ws-23
+test ws-23 "Should not wrap around horizontally to find a word" -body {
+    wordSearch {
+        silabcdefp
+    } {lisp}
+} -returnCodes ok -match dictionary -result {
+    lisp {}
+}
+
+skip ws-24
+test ws-24 "Should not wrap around vertically to find a word" -body {
+    wordSearch {
+        s
+        u
+        r
+        a
+        b
+        c
+        t
+    } {rust}
+} -returnCodes ok -match dictionary -result {
+    rust {}
 }
 
 cleanupTests

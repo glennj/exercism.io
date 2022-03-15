@@ -3,6 +3,9 @@ package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# uncomment for more verbose test results
+#configure -verbose {body error usec}
+
 ############################################################
 source "rational-numbers.tcl"
 
@@ -234,6 +237,12 @@ test rat-6.5 "Absolute value of zero" -body {
     [$r abs] toString
 } -returnCodes ok -result "0/1"
 
+skip rat-6.6
+test rat-6.6 "Absolute value of a rational number is reduced to lowest terms" -body {
+    set r [Rational new 2 4]
+    [$r abs] toString
+} -returnCodes ok -result "1/2"
+
 
 skip rat-7.1
 test rat-7.1 "Raise a positive rational number to a positive integer power" -body {
@@ -273,9 +282,21 @@ test rat-7.6 "Raise a negative rational number to the power of zero" -body {
 
 skip rat-7.7
 test rat-7.7 "Raise a positive rational number to a negative integer power" -body {
-    set r [Rational new 4 1]
+    set r [Rational new 3 5]
     [$r pow -2] toString
-} -returnCodes ok -result "1/16"
+} -returnCodes ok -result "25/9"
+
+skip rat-7.8
+test rat-7.8 "Raise a negative rational number to an even negative integer power" -body {
+    set r [Rational new -3 5]
+    [$r pow -2] toString
+} -returnCodes ok -result "25/9"
+
+skip rat-7.9
+test rat-7.9 "Raise a negative rational number to an odd negative integer power" -body {
+    set r [Rational new -3 5]
+    [$r pow -3] toString
+} -returnCodes ok -result "-125/27"
 
 
 skip rat-8.1

@@ -3,6 +3,9 @@ package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# uncomment for more verbose test results
+#configure -verbose {body error usec}
+
 ############################################################
 source "bowling.tcl"
 
@@ -141,6 +144,14 @@ test bowling-1.15 "two bonus rolls after a strike in the last frame can score mo
     $game score
 } -returnCodes ok -result 26
 
+skip bowling-1.16
+test bowling-1.16 "last two strikes followed by only last bonus with non strike points" -body {
+    set game [Bowling new]
+    foreach roll {0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 10 0 1} {
+        $game roll $roll
+    }
+    $game score
+} -returnCodes ok -result 31
 
 skip bowling-2.1
 test bowling-2.1 "rolls cannot score negative points" -body {

@@ -3,6 +3,9 @@ package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# uncomment for more verbose test results
+#configure -verbose {body error usec}
+
 ############################################################
 source "word-count.tcl"
 
@@ -63,9 +66,10 @@ test word-count-8 "normalize case" -body {
 
 skip word-count-9
 test word-count-9 "with apostrophes" -body {
-    countWords "First: don't laugh. Then: don't cry." 
+    countWords "First: don't laugh. Then: don't cry. You're getting it." 
 } -returnCodes ok -match dictionary -result {
-    "first" 1 "don't" 2 "laugh" 1 "then" 1 "cry" 1
+    "first" 1 "don't" 2 "laugh" 1 "then" 1
+    "cry" 1 "you're" 1 "getting" 1 "it" 1
 }
 
 skip word-count-10

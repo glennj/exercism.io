@@ -3,6 +3,9 @@ package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# uncomment for more verbose test results
+#configure -verbose {body error usec}
+
 ############################################################
 source "allergies.tcl"
 
@@ -259,6 +262,11 @@ skip allergies-9.9
 test allergies-9.9 "no allergen score parts" -body {
     listAllergies 509
 } -returnCodes ok -result {eggs shellfish strawberries tomatoes chocolate pollen cats}
+
+skip allergies-9.10
+test allergies-9.10 "no allergen score parts without highest valid score" -body {
+    listAllergies 257
+} -returnCodes ok -result {eggs}
 
 
 cleanupTests

@@ -3,6 +3,9 @@ package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# uncomment for more verbose test results
+#configure -verbose {body error usec}
+
 ############################################################
 source "flatten-array.tcl"
 
@@ -44,17 +47,27 @@ test flatten-7 "null values are omitted from the final result" -body {
 } -returnCodes ok -result {1 2}
 
 skip flatten-8
-test flatten-8 "6 level nest list with null values" -body {
+test flatten-8 "consecutive null values at the front of the list are omitted from the final result" -body {
+    flatten {"" "" 3}
+} -returnCodes ok -result {3}
+
+skip flatten-9
+test flatten-9 "consecutive null values in the middle of the list are omitted from the final result" -body {
+    flatten {1 "" "" 4}
+} -returnCodes ok -result {1 4}
+
+skip flatten-10
+test flatten-10 "6 level nest list with null values" -body {
     flatten {0 2 {{2 3} 8 {{100}} "" {{""}}} -2}
 } -returnCodes ok -result {0 2 2 3 8 100 -2}
 
-skip flatten-9
-test flatten-9 "all values in nested list are null" -body {
+skip flatten-11
+test flatten-11 "all values in nested list are null" -body {
     flatten {"" {{{""}}} "" "" {{"" ""} ""} ""}
 } -returnCodes ok -result {}
 
-skip flatten-10
-test flatten-10 "Tcl can't differentiate between a list and a string" -body {
+skip flatten-12
+test flatten-12 "Tcl can't differentiate between a list and a string" -body {
     flatten {foo bar {baz "a string with spaces"}}
 } -returnCodes ok -result {foo bar baz a string with spaces}
 
