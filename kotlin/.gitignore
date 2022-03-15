@@ -1,7 +1,6 @@
 build/
 out/
 .gradle/
-.idea/
 .project
 .settings/
 IsTesting
