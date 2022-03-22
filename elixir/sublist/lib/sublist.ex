@@ -11,19 +11,20 @@ defmodule Sublist do
           do: :equal,
           else: :unequal
 
-      [m, n] when m < n ->
-        if contains?(b, a, n, m),
-          do: :sublist,
-          else: :unequal
-
       [m, n] when m > n ->
         if contains?(a, b, m, n),
           do: :superlist,
           else: :unequal
+
+      [m, n] ->
+        # note the order of the parameters
+        if contains?(b, a, n, m),
+          do: :sublist,
+          else: :unequal
     end
   end
 
-  # the length of a will be >= length b
+  # the length of `a` will be >= length of `b`
   defp starts_with?([], []), do: true
   defp starts_with?([], _), do: false
   defp starts_with?(_, []), do: true
@@ -34,11 +35,9 @@ defmodule Sublist do
   # if starts with the shorter list at each iteration
   #
   defp contains?(a, b, la, lb) when la >= lb do
-    if starts_with?(a, b) do
-      true
-    else
-      [_ | t] = a
-      contains?(t, b, la - 1, lb)
+    case starts_with?(a, b) do
+      true -> true
+      false -> contains?(tl(a), b, la - 1, lb)
     end
   end
 
