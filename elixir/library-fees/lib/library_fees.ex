@@ -4,10 +4,12 @@ defmodule LibraryFees do
   end
 
   def before_noon?(datetime) do
-    datetime
-    |> NaiveDateTime.to_time()
-    |> Time.diff(~T[12:00:00])
-    < 0
+    diff =
+      datetime
+      |> NaiveDateTime.to_time()
+      |> Time.diff(~T[12:00:00])
+
+    diff < 0
   end
 
   def return_date(checkout_datetime) do
@@ -19,22 +21,25 @@ defmodule LibraryFees do
   end
 
   def days_late(planned_return_date, actual_return_datetime) do
-    days_late(Date.diff(actual_return_datetime, planned_return_date))
+    case Date.diff(actual_return_datetime, planned_return_date) do
+      d when d < 0 -> 0
+      d -> d
+    end
   end
 
-  defp days_late(d) when d < 0, do: 0
-  defp days_late(d), do: d
-
-  def monday?(datetime) do
-    Date.day_of_week(datetime) == 1
-  end
+  def monday?(datetime), do: Date.day_of_week(datetime) == 1
 
   def calculate_late_fee(checkout, return, rate) do
-    [dt_checkout, dt_return] = Enum.map([checkout, return], &datetime_from_string/1)
-    late_days = return_date(dt_checkout) |> days_late(dt_return)
-    apply_discount(late_days * rate, monday?(dt_return))
-  end
+    [checkout_datetime, return_datetime] = Enum.map([checkout, return], &datetime_from_string/1)
 
-  defp apply_discount(fee, true), do: trunc(fee * 0.5)
-  defp apply_discount(fee, false), do: fee
+    late_days =
+      return_date(checkout_datetime)
+      |> days_late(return_datetime)
+
+    fee = late_days * rate
+
+    if monday?(return_datetime),
+      do: trunc(fee * 0.5),
+      else: fee
+  end
 end
