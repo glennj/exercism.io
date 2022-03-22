@@ -1,22 +1,21 @@
-$ mix test --include pending --seed 0
 Compiling 1 file (.ex)
 Including tags: [:pending]
 
 
 AlphameticsTest [test/alphametics_test.exs]
-  * test puzzle with three letters (1.2ms) [L#5]
-  * test solution must have unique value for each letter (0.1ms) [L#18]
-  * test leading zero solution is invalid (4.3ms) [L#24]
+  * test puzzle with three letters (1.4ms) [L#5]
+  * test solution must have unique value for each letter (0.08ms) [L#18]
+  * test leading zero solution is invalid (4.6ms) [L#24]
   * test puzzle with two digits final carry (0.3ms) [L#30]
-  * test puzzle with four letters (2.1ms) [L#43]
-  * test puzzle with six letters (147.3ms) [L#57]
-  * test puzzle with seven letters (974.2ms) [L#73]
-  * test puzzle with eight letters (3717.0ms) [L#90]
-  * test puzzle with ten letters (11351.8ms) [L#109]
-  * test puzzle with ten letters and 199 addends (165120.1ms) [L#130]
+  * test puzzle with four letters (2.4ms) [L#43]
+  * test puzzle with six letters (147.4ms) [L#57]
+  * test puzzle with seven letters (903.5ms) [L#73]
+  * test puzzle with eight letters (3546.9ms) [L#90]
+  * test puzzle with ten letters (8531.3ms) [L#109]
+  * test puzzle with ten letters and 199 addends (24801.3ms) [L#130]
 
 
-Finished in 181.3 seconds (0.00s async, 181.3s sync)
+Finished in 37.9 seconds (0.00s async, 37.9s sync)
 10 tests, 0 failures
 
 Randomized with seed 0

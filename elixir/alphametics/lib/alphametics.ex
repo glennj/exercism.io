@@ -32,20 +32,22 @@ defmodule Alphametics do
 
   defp do_solve([perm | perms], words, letters) do
     map = Enum.zip(letters, perm) |> Map.new()
-    nums = Enum.map(words, &word_to_num(&1, map))
 
-    lhs = Enum.take(nums, length(words) - 1) |> Enum.sum()
-    rhs = List.last(nums)
-
-    any_leading_zeroes =
-      for [h | _] <- words, reduce: false do
-        acc -> acc || map[h] == 0
-      end
-
-    if lhs == rhs && not any_leading_zeroes do
-      map
-    else
+    if Enum.any?(words, fn word -> map[hd(word)] == 0 end) do
+      # solutions cannot contain a word with a leading zero
       do_solve(perms, words, letters)
+    else
+      nums = Enum.map(words, &word_to_num(&1, map))
+      [rhs | lhs] = Enum.reverse(nums)
+
+      case Enum.sum(lhs) do
+        ^rhs ->
+          # a solution!
+          map
+
+        _ ->
+          do_solve(perms, words, letters)
+      end
     end
   end
 
