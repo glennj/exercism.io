@@ -10,9 +10,9 @@ defmodule Permutations do
   @doc """
   Generate all permutations of a list of items.
 
-  E.g.
+  ## Example
     
-      > permutations([1, 2, 3])
+      iex> Permutations.permutations([1, 2, 3])
       [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
   """
   def permutations([]), do: [[]]
@@ -25,9 +25,9 @@ defmodule Permutations do
   Generate all (ordered) combinations of _k_ items from a list of _n_ items.
   This is "n choose k".
 
-  E.g.
+  ## Example
     
-      > combinationns([1, 2, 3, 4], 3)
+      iex> Permutations.combinations([1, 2, 3, 4], 3)
       [[1, 2, 3], [1, 2, 4], [1, 3, 4], [2, 3, 4]]
   """
   def combinations(_list, 0), do: [[]]
@@ -41,9 +41,9 @@ defmodule Permutations do
   @doc """
   Generate all permutations of _k_ items from a list of _n_ items.
 
-  E.g.
+  ## Example
 
-      > Permutations.permutations([1, 2, 3, 4], 3)
+      iex> Permutations.permutations([1, 2, 3, 4], 3)
       [ [1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1],
         [1, 2, 4], [1, 4, 2], [2, 1, 4], [2, 4, 1], [4, 1, 2], [4, 2, 1],
         [1, 3, 4], [1, 4, 3], [3, 1, 4], [3, 4, 1], [4, 1, 3], [4, 3, 1],

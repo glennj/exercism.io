@@ -4,9 +4,9 @@ defmodule Matrix do
   @doc """
   Transpose a rectangular matrix.
 
-  Example:
+  ## Example
 
-      > Matrix.transpose([[:a, :b, :c], [:d, :e, :f]])
+      iex> Matrix.transpose([[:a, :b, :c], [:d, :e, :f]])
       [[:a, :d], [:b, :e], [:c, :f]]
 
   """
