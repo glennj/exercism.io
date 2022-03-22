@@ -11,7 +11,13 @@ our %CODE;
 @CODE{0..9} = 0..9;
 
 sub group5 { join ' ', (shift =~ /.{1,5}/g) }
-sub code   { join '', map {$CODE{+lc}} (shift =~ /[[:alnum:]]/g) }
+
+sub code {
+    join '',
+    map {$CODE{$_}}
+    map {lc}
+    (shift =~ /[[:alnum:]]/g)
+}
 
 sub encode_atbash { group5 code shift }
 sub decode_atbash {        code shift }
