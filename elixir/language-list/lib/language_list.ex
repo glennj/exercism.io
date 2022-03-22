@@ -1,36 +1,23 @@
 defmodule LanguageList do
-  def new() do
-    []
-  end
+  @exciting_language "Elixir"
 
-  def add(list, language) do
-    [language | list]
-  end
+  def new(), do: []
 
-  def remove([_ | tail]) do
-    tail
-  end
+  def add(list, language), do: [language | list]
 
-  def first([head | _]) do
-    head
-  end
+  def remove([_ | tail]), do: tail
 
-  def count(list) do
-    cond do
-      list == [] -> 0
-      [_ | tail] = list -> 1 + count(tail)
-    end
-  end
+  def first([head | _]), do: head
 
-## count implemented recursively, take 2: pattern matching
-#  def count([_ | tail]) do
-#    1 + count(tail)
-#  end
-#  def count([]) do
-#    0
+#  def count(list) do
+#    case list do
+#      [] -> 0
+#      _ -> 1 + count(tl(list))
+#    end
 #  end
 
-  def exciting_list?(list) do
-    "Elixir" in list
-  end
+  def count([]), do: 0
+  def count([_ | tail]), do: 1 + count(tail)
+
+  def exciting_list?(list), do: @exciting_language in list
 end
