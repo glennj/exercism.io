@@ -1,3 +1,6 @@
+"
+I can keep track of high scores.
+"
 Class {
 	#name : #HighScores,
 	#superclass : #Object,
@@ -7,41 +10,32 @@ Class {
 	#category : #'Exercise@HighScores'
 }
 
+{ #category : #adding }
+HighScores >> addScores: listOfScores [
+	scores addAll: listOfScores.
+]
+
 { #category : #initialization }
 HighScores >> initialize [
 	scores := OrderedCollection new.
 ]
 
 { #category : #acccessing }
-HighScores >> latestScore: aCollection [ 
-	scores addAll: aCollection.
+HighScores >> latestScore [
 	^ scores last
 ]
 
 { #category : #acccessing }
-HighScores >> personalBestScores: aCollection [ 
-	scores addAll: aCollection.
+HighScores >> personalBestScores [
 	^ scores max
 ]
 
 { #category : #acccessing }
-HighScores >> personalTopThreeScores: aCollection [ 
-	scores addAll: aCollection.
-	
-	"take 1: `first:` will error if not enough elements"
-	"
-	| sorted |
-	sorted := scores sorted reversed.
-	^ ([ sorted first: 3 ] ifError: [ sorted ]) asArray
-	"
-	
-	^ (scores sorted reversed 
-		withIndexSelect: [ :elem :i | i <= 3 ])
-		asArray
+HighScores >> personalTopThreeScores [
+	^ (scores sorted reversed takeFirst: 3) asArray
 ]
 
-{ #category : #setting }
-HighScores >> scores: aCollection [ 
-	scores addAll: aCollection.
-	^ scores copy asArray
+{ #category : #acccessing }
+HighScores >> scores [
+	^ scores asArray
 ]

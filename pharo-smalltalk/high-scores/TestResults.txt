@@ -1,2 +1,5 @@
-Tested on: 2019-10-10 22:21
-8 run, 8 passes, 0 skipped, 0 failures, 0 errors 
+Tested on: 2022-04-05 12:00
+12 run, 12 passes, 0 skipped, 0 failures, 0 errors.
+Used OS/Platform: unix linux-gnu x86_64
+Image version: Pharo9.0.0 build: 1575 (64 Bit)
+VM version: v9.0.13 - Commit: 5607cab - Date: 2022-03-15 18:12:18 +0100

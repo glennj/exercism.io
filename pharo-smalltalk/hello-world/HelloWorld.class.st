@@ -1,3 +1,6 @@
+"
+I can say Hello.
+"
 Class {
 	#name : #HelloWorld,
 	#superclass : #Object,
