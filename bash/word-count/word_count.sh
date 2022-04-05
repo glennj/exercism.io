@@ -81,7 +81,7 @@ for sentence in "$@"; do
         word=$(str::trim "$word" "'")
 
         # finally, increment the count for this word
-        incr "$word"
+        [[ -n $word ]] && incr "$word"
     done
 done
 

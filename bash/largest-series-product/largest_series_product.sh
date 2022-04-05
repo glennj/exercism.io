@@ -7,7 +7,7 @@ declare -i span=$2
 
 [[ $series =~ [^0-9] ]] && die "input must only contain digits"
 ((span <= ${#series}))  || die "span must be smaller than string length"
-((span >= 0))           || die "span must be greater than zero"
+((span >= 0))           || die "span must not be negative"
 
 if ((span == 0)); then
     max=1
