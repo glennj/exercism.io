@@ -8,11 +8,9 @@ local validate_isbn = function (input)
 
     -- convert chars to digits
     local digits = {}
-    for i = 1, #isbn-1 do
-        digits[#digits+1] = tonumber(isbn:sub(i,i))
+    for char in isbn:gmatch(".") do
+        digits[#digits+1] = char == "X" and 10 or tonumber(char)
     end
-    local check = isbn:sub(-1)
-    digits[#digits+1] = check == "X" and 10 or tonumber(check)
 
     -- apply ISBN formula
     local sum = 0
