@@ -9,18 +9,14 @@ defmodule IsbnVerifier do
     if not String.match?(isbn, ~r/^\d{9}[\dX]$/) do
       false
     else
-      0 ===
-        Enum.map(to_charlist(isbn), fn char ->
-          case char do
-            ?X -> 10
-            c -> c - ?0
-          end
-        end)
-        |> Enum.with_index()
-        |> Enum.reduce(0, fn {digit, idx}, sum ->
-          sum + digit * (10 - idx)
-        end) 
-        |> Integer.mod(11)
+      for {char, i} <- to_charlist(isbn) |> Enum.with_index() do
+        isbn_int(char) * (10 - i)
+      end
+      |> Enum.sum() 
+      |> Integer.mod(11) === 0
     end
   end
+
+  defp isbn_int(c) when c in ?0..?9, do: c - ?0
+  defp isbn_int(?X), do: 10
 end
