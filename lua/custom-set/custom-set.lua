@@ -11,7 +11,7 @@ function Set:new(...)
     setmetatable(set, self)
     set:add(...)
     return set
-end
+end 
 
 -- add some elements to the set
 function Set:add(...)
