@@ -20,10 +20,10 @@ defmodule OcrNumbers do
   def convert(input) do
     cond do
       rem(length(input), 4) != 0 ->
-        {:error, 'invalid line count'}
+        {:error, "invalid line count"}
 
       Enum.any?(input, &(rem(String.length(&1), 3) != 0)) ->
-        {:error, 'invalid column count'}
+        {:error, "invalid column count"}
 
       true ->
         {:ok, convert_lines(input)}
