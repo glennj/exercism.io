@@ -37,6 +37,12 @@ When using maps with `Enum` functions, the map gets automatically converted to a
 
 To transform it back to a map, use `Enum.into/2`. `Enum.into/2` is a function that transforms an enumerable into a collectable - any data structure implementing the `Collectable` protocol. It can be thought of as the opposite of `Enum.reduce/3`.
 
+`Enum` also has `Enum.into/3`. `Enum.into/3` is a variation of `Enum.into/2` that accepts a transformation function to be applied while transforming the enumerable into a collectable.
+
+#### Mapping maps
+
+Instead of using `Enum.into/3` or `Enum.map/2` plus `Enum.into/1` to apply a transformation (mapping) to a map, we can also use a dedicated `Map.new/2` function. It works exactly like `Enum.into/3` in that it accepts an enumerable and a transformation function, but it always returns a new map instead of letting us choose a collectible.
+
 [exercism-protocols]: https://exercism.org/tracks/elixir/concepts/protocols
 [exercism-lists]: https://exercism.org/tracks/elixir/concepts/lists
 [exercism-maps]: https://exercism.org/tracks/elixir/concepts/maps
@@ -93,7 +99,33 @@ BoutiqueInventory.with_missing_price([
 #    ]
 ```
 
-## 3. Increment the item's quantity
+## 3. Update item names
+
+You noticed that some item names have a word that you don't like to use anymore. Now you need to update all the item names with that word.
+
+Implement the `update_names/3` function. It should take the inventory, the old word that you want to remove, and a new word that you want to use instead. It should return a list of items with updated names.
+
+```elixir
+BoutiqueInventory.update_names(
+  [
+    %{price: 40, name: "Black T-shirt", quantity_by_size: %{}},
+    %{price: 70, name: "Denim Pants", quantity_by_size: %{}},
+    %{price: 65, name: "Denim Skirt", quantity_by_size: %{}},
+    %{price: 40, name: "Orange T-shirt", quantity_by_size: %{}}
+  ],
+  "T-shirt",
+  "Tee"
+)
+# => [
+#      %{price: 40, name: "Black Tee", quantity_by_size: %{}},
+#      %{price: 70, name: "Denim Pants", quantity_by_size: %{}},
+#      %{price: 65, name: "Denim Skirt", quantity_by_size: %{}},
+#      %{price: 40, name: "Orange Tee", quantity_by_size: %{}}
+#    ]
+```
+
+
+## 4. Increment the item's quantity
 
 Some items were selling especially well, so you ordered more, in all sizes.
 
@@ -116,7 +148,7 @@ BoutiqueInventory.increase_quantity(
 
 ```
 
-## 4. Calculate the item's total quantity
+## 5. Calculate the item's total quantity
 
 To know how much space you need in your storage, you need to know how many of each item you have in total.
 
@@ -140,3 +172,4 @@ BoutiqueInventory.total_quantity(%{
 ### Contributed to by
 
 - @neenjaw
+- @fmmatheus

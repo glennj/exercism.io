@@ -1,5 +1,7 @@
 # Hints
 
+## General
+
 - For generating random numbers, Erlang's `:rand.uniform` or `Enum.random` are
 good places to start.
 - `Integer.pow` can be used to find the power of a number, and `rem` for
