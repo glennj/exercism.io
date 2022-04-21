@@ -2,46 +2,60 @@
 
 # works with bash v3.2.57
 
-source ./utils.bash
+source ./utils.bash     # for `die`, `assert`
 
-declare -ri SHIFT=7
-declare -ri MSB=0x80    # 0b10000000, "most significant bit"
-declare -ri MASK=0x7F   # 0b01111111
+readonly SHIFT=7
+readonly MSB=$((  2#10000000 ))   # "most significant bit"
+readonly MASK=$(( 2#01111111 ))
+
+# convert a base-16 number to base 10
+# ex:
+#   $ hex2dec 2F
+#   47
+hex2dec() { printf "%lu" "0x${1}"; }
+
+# convert a base-10 number to base-16
+# ex:
+#   $ dec2hex 47
+#   2F
+dec2hex() { printf "%02X" "$1"; }
 
 encode() {
+    local result value val bytes msb
     result=()
+
     for value in "$@"; do
-        printf -v val "%d" "0x${value}"
+        val=$(hex2dec "$value")
         bytes=()
         msb=0
         while true; do
-            printf -v byte "%02X" $(((val & MASK) | msb))
+            byte=$(dec2hex $(((val & MASK) | msb)))
             bytes=("$byte" "${bytes[@]}")
-            msb=$MSB
-            val=$((val >> SHIFT))
+            ((val >>= SHIFT))
             ((val == 0)) && break
+            msb=$MSB
         done
         result+=("${bytes[@]}")
     done
+
     echo "${result[*]}"
 }
 
 decode() {
-    printf -v last_val "%d" "0x${!#}"
-    if (((last_val & MSB) != 0)); then
-        die "incomplete byte sequence"
-    fi
+    local values n byte
 
     values=()
     n=0
     for byte in "$@"; do
-        printf -v val "%d" "0x${byte}"
+        val=$(hex2dec "$byte")
         n=$(((n << SHIFT) + (val & MASK)))
         if (((val & MSB) == 0)); then
-            values+=("$(printf "%02X" $n)")
+            values+=("$(dec2hex $n)")
             n=0
         fi
     done
+
+    (((val & MSB) == 0)) || die "incomplete byte sequence"
     echo "${values[*]}"
 }
 

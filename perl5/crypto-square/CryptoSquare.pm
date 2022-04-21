@@ -3,10 +3,15 @@
 package CryptoSquare;
 
 use 5.024;
-use strictures  2;
+#use strictures  2;
+use strict;
+use warnings;
+
 use POSIX       qw/ ceil /;
 use List::Util  qw/ reduce /;
-use Exporter::Easiest 'OK => cipher';
+#use Exporter::Easiest 'OK => cipher';
+use Exporter qw<import>;
+our @EXPORT_OK = qw<cipher>;
 
 sub cipher {
     my ($plaintext) = @_;

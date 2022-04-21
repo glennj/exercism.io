@@ -23,5 +23,5 @@ defmodule LanguageList do
   defp count([], count), do: count
   defp count([_ | tail], count), do: count(tail, 1 + count)
 
-  def exciting_list?(list), do: "Elixir" in list
+  def functional_list?(list), do: "Elixir" in list
 end
