@@ -31,9 +31,14 @@ defmodule School do
   """
   @spec grade(school, integer) :: [String.t()]
   def grade(school, grade) do
-    school
-    |> Enum.filter(fn ({_, g}) -> g == grade end)
-    |> Enum.map(&elem(&1, 0))
+    #school
+    #|> Enum.filter(fn ({_, g}) -> g == grade end)
+    #|> Enum.map(&elem(&1, 0))
+    #|> Enum.sort()
+    #
+    # Simplified with a for loop
+
+    for {name, gr} <- school, gr == grade do name end
     |> Enum.sort()
 
   end
