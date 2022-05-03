@@ -4,11 +4,11 @@ use warnings;
 use Exporter 'import';
 our @EXPORT_OK = qw(roster);
 
-sub roster {
+sub roster { 
     my ($students, $grade) = @_;
     return [
         map  {$_->[0]} 
-        grep {defined $grade ? $_->[1] == $grade : 1} 
+        grep {defined $grade ? $_->[1] == $grade : 'everyone'} 
         sort {$a->[1] <=> $b->[1] or $a->[0] cmp $b->[0]}
         @$students
     ];

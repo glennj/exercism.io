@@ -1,25 +1,14 @@
 package Strain;
 
 use 5.024;
-use strictures 2;
-use Exporter::Easiest 'OK => keep discard';
 
-=begin
+#use strictures 2;
+use strict;
+use warnings;
 
-These function cheat the spirit of the exercise by using
-the builtin `grep` function.
-
-sub keepCheat {
-    my ($input, $func) = @_;
-    return [grep {$func->($_)} $input->@*];
-}
-
-sub discardCheat {
-    my ($input, $func) = @_;
-    return [grep {!$func->($_)} $input->@*];
-}
-
-=cut
+#use Exporter::Easiest 'OK => keep discard';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ keep discard /;
 
 sub keep {
     my ($input, $func) = @_;

@@ -1,8 +1,14 @@
 package BeerSong;
 
 use 5.024;
-use strictures 2;
-use Exporter::Easiest 'OK => verse sing';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => verse sing';
+use Exporter     qw/ import /;
+our @EXPORT_OK = qw/ verse sing /;
 
 our $MAX    = 99;
 our $LIQUID = 'beer';

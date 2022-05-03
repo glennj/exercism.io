@@ -1,8 +1,14 @@
 package TwelveDays;
 
 use 5.024;
-use strictures 2;
-use Exporter::Easiest 'OK => recite';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => recite';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ recite /;
 
 my @gifts = (
     [],

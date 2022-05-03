@@ -2,7 +2,10 @@
 
 package WordyErrors;
 
-use strictures 2;
+#use strictures 2;
+use strict;
+use warnings;
+
 use Carp;
 use Class::Tiny qw(message);
 

@@ -1,7 +1,14 @@
 package OCRNumbers;
 
-use strictures 2;
-use Exporter::Easiest 'OK => convert';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => convert';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ convert /;
+
 use Carp;
 use List::Util  qw/ all /;
 

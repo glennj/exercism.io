@@ -1,8 +1,15 @@
 package LargestSeriesProduct;
 
 use 5.024;
-use strictures 2;
-use Exporter::Easiest 'OK => largest_product';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => largest_product';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ largest_product /;
+
 use List::Util qw/ max product /;
 use Carp;
 

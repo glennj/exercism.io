@@ -1,8 +1,15 @@
 package Allergies;
 use 5.024;
-use strictures 2;
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => allergic_to list_allergies';
+use Exporter     qw/ import /;
+our @EXPORT_OK = qw/ allergic_to list_allergies /;
+
 use List::Util  qw/ pairs /;
-use Exporter::Easiest 'OK => allergic_to list_allergies';
 
 our %ALLERGIES = (
     eggs         => 0b00000001,

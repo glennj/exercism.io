@@ -1,7 +1,10 @@
 package WordyLexer;
 
 use 5.024;
-use strictures 2;
+
+#use strictures 2;
+use strict;
+use warnings;
 no warnings 'experimental::smartmatch';     ## no critic (TestingAndDebugging::ProhibitNoWarnings)
 
 use WordyErrors;

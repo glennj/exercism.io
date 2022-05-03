@@ -2,10 +2,17 @@
 
 package Wordy;
 
-use strictures 2;
+
+#use strictures 2;
+use strict;
+use warnings;
+
 use WordyLexer;
 use WordyErrors;
-use Exporter::Easiest 'OK => answer';
+
+#use Exporter::Easiest 'OK => answer';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ answer /;
 
 sub answer {
     my $input = shift;

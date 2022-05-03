@@ -1,7 +1,14 @@
 package ScrabbleScore;
 
-use strictures 2;
-use Exporter::Easiest 'OK => scrabble_score';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => scrabble_score';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ scrabble_score /;
+
 use List::Util qw/ sum0 /;
 
 our %VALUE = (

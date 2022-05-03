@@ -1,6 +1,12 @@
 package Accumulate;
-use strictures 2;
-use Exporter::Easiest 'OK => accumulate';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => accumulate';
+use Exporter 'import';
+our @EXPORT_OK = qw/ accumulate /;
 
 sub accumulate {
     my ($input, $func) = @_;

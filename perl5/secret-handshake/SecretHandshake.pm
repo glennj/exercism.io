@@ -1,7 +1,13 @@
 package SecretHandshake;
 
-use strictures 2;
-use Exporter::Easiest 'OK => handshake';
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => handshake';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ handshake /;
+
 use List::Util qw/ pairgrep pairvalues /;
 
 our @ACTS = ( 

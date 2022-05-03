@@ -3,8 +3,14 @@
 ## no critic (RegularExpressions::RequireExtendedFormatting)
 
 package AtbashCipher;
-use strictures 2;
-use Exporter::Easiest 'OK => encode_atbash decode_atbash';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => encode_atbash decode_atbash';
+use Exporter     qw/ import /;
+our @EXPORT_OK = qw/ encode_atbash decode_atbash /;
 
 our %CODE;
 @CODE{'a'..'z'} = reverse 'a'..'z';

@@ -1,8 +1,15 @@
 package Series;
 
 use 5.024;
-use strictures 2;
-use Exporter::Easiest 'OK => slices';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => slices';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ slices /;
+
 use Carp;
 
 sub slices {

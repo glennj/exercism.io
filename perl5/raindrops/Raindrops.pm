@@ -1,6 +1,9 @@
 package Raindrops;
+
 use strictures 2;
 use Exporter::Easiest 'OK => raindrop';
+
+# this module implements an "ordered hash" -- insertion order is preserved.
 use Tie::IxHash;
 
 tie our %SOUND, 'Tie::IxHash';
@@ -17,4 +20,3 @@ sub raindrop {
 }
 
 1;
-

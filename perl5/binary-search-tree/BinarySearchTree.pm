@@ -1,5 +1,9 @@
 use 5.024;
-use strictures 2;
+
+#use strictures 2;
+use strict;
+use warnings;
+
 use feature 'current_sub';
 
 package BST;
@@ -41,7 +45,10 @@ sub sortedData {
 
 
 package BinarySearchTree;
-use Exporter::Easiest 'OK => tree treeSort';
+
+#use Exporter::Easiest 'OK => tree treeSort';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ tree treeSort /;
 
 sub _bst {
     my @data = (shift)->@*;

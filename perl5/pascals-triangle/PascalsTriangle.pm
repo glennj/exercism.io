@@ -1,6 +1,13 @@
 package PascalsTriangle;
-use strictures 2;
-use Exporter::Easiest 'OK => pascal_rows';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => pascal_rows';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ pascal_rows /;
+
 use List::Util qw/ product /;
 use Memoize;
 

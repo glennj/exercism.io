@@ -1,8 +1,15 @@
 package Matrix;
 
 use 5.024;
-use strictures 2;
-use Exporter::Easiest 'OK => row column';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => row column';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ row column /;
+
 use List::Util  qw/ reduce /;
 
 sub matrix {

@@ -2,8 +2,15 @@
 
 package WordCount;
 
-use strictures 2;
-use Exporter::Easiest 'OK => count_words';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => count_words';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ count_words /;
+
 use List::Util 'reduce';
 
 sub count_words {

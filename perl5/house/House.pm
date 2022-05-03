@@ -1,9 +1,16 @@
 package House;
 
 use 5.024;
-use strictures 2;
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => recite';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ recite /;
+
 use List::Util qw/ reduce /;
-use Exporter::Easiest 'OK => recite';
 
 our @ACTORS = (
     { who => 'house that Jack built.' },

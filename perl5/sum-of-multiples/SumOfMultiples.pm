@@ -1,7 +1,14 @@
 package SumOfMultiples;
 
-use strictures 2;
-use Exporter::Easiest 'OK => sum_of_multiples';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => sum_of_multiples';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ sum_of_multiples /;
+
 use List::Util  qw/ any sum0 /;
 
 sub sum_of_multiples {

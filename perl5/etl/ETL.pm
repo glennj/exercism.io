@@ -1,7 +1,15 @@
 package ETL;
 
-use strictures 2;
-use Exporter::Easiest 'OK => transform';
+use 5.024;
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => transform';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ transform /;
+
 use List::Util qw/ reduce /;
 
 # Transform this: {"1": ["A", "E", "I", "O", "U"]}
@@ -11,10 +19,10 @@ sub transform {
     my ($old) = @_;
     return reduce {
         # $a is the accumulator: a hash
-        # $b is the old hash's key
-        $a->{+lc} = $b for @{ $old->{$b} };
+        # $b is the old hash's key: a tile score
+        $a->{+lc} = $b for $old->{$b}->@*;
         $a;
-    } {}, keys %$old;
+    } {}, keys $old->%*;
 }
 
 1;

@@ -1,8 +1,14 @@
 package Sublist;
 
 use 5.024;
-use strictures 2;
-use Exporter::Easiest 'OK => compare_lists';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => compare_lists';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ compare_lists /;
 
 ## no critic (ValuesAndExpressions::ProhibitConstantPragma)
 use constant False => 0;

@@ -1,6 +1,12 @@
 package Bob;
-use strictures 2;
-use Exporter::Easiest 'OK => hey';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => hey';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ hey /;
 
 sub hey {
     local $_ = shift;   # define the default variable for this scope

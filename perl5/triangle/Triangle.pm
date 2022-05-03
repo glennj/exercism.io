@@ -1,9 +1,13 @@
 package Triangle;
 
-use strictures 2;
-use Exporter::Easy (
-    OK => [qw/ is_equilateral is_isosceles is_scalene /]
-);
+
+#use strictures 2;
+use strict;
+use warnings;
+
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ is_equilateral is_isosceles is_scalene /;
+
 use List::Util  qw/ any /;
 
 ## no critic (ValuesAndExpressions::ProhibitConstantPragma)

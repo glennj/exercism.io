@@ -1,7 +1,13 @@
 package Grains;
 
-use strictures 2;
-use Exporter::Easiest 'OK => grains_on_square total_grains';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => grains_on_square total_grains';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ grains_on_square total_grains /;
 
 use bignum;
 use Carp;

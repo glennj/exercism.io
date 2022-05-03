@@ -2,8 +2,15 @@
 
 package PhoneNumber;
 
-use strictures 2;
-use Exporter::Easiest 'OK => clean_number';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => clean_number';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ clean_number /;
+
 use Carp;
 
 sub clean_number {

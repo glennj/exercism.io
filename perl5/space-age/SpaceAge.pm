@@ -1,8 +1,14 @@
 package SpaceAge;
 
 use 5.024;
-use strictures 2;
-use Exporter::Easiest 'OK => age_on_planet';
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => age_on_planet';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ age_on_planet /;
 
 our $SEC_PER_EARTH_YEAR = 31_557_600;
 our %RELATIVE_YEARS = (

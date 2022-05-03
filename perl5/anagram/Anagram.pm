@@ -1,6 +1,12 @@
 package Anagram;
-use Exporter::Easy (OK => ['match_anagrams']);
-use strictures 2;
+
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easy (OK => ['match_anagrams']);
+use Exporter     qw/ import /;
+our @EXPORT_OK = qw/ match_anagrams /;
 
 sub match_anagrams {
     my ($data) = @_;
