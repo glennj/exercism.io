@@ -7,6 +7,12 @@ defmodule ComplexNumbers do
   """
   @type complex :: {float, float}
 
+  defguardp is_complex(c) when
+    is_tuple(c) and
+    tuple_size(c) == 2 and
+    is_number(elem(c, 0)) and
+    is_number(elem(c, 1))
+
   @doc """
   Return the real part of a complex number
   """
@@ -19,12 +25,14 @@ defmodule ComplexNumbers do
   @spec imaginary(a :: complex) :: float
   def imaginary({_a, b}), do: b
 
+  defp to_complex(n) when is_number(n), do: {n, 0}
+
   @doc """
   Multiply two complex numbers, or a real and a complex number
   """
   @spec mul(a :: complex | float, b :: complex | float) :: complex
-  def mul(a, b) when not is_tuple(a), do: mul({a, 0}, b)
-  def mul(a, b) when not is_tuple(b), do: mul(a, {b, 0})
+  def mul(a, b) when not is_complex(a), do: mul(to_complex(a), b)
+  def mul(a, b) when not is_complex(b), do: mul(a, to_complex(b))
 
   def mul({a, b}, {c, d}) do
     {a * c - b * d, b * c + a * d}
@@ -34,8 +42,8 @@ defmodule ComplexNumbers do
   Add two complex numbers, or a real and a complex number
   """
   @spec add(a :: complex | float, b :: complex | float) :: complex
-  def add(a, b) when not is_tuple(a), do: add({a, 0}, b)
-  def add(a, b) when not is_tuple(b), do: add(a, {b, 0})
+  def add(a, b) when not is_complex(a), do: add(to_complex(a), b)
+  def add(a, b) when not is_complex(b), do: add(a, to_complex(b))
 
   def add({a, b}, {c, d}) do
     {a + c, b + d}
@@ -45,8 +53,8 @@ defmodule ComplexNumbers do
   Subtract two complex numbers, or a real and a complex number
   """
   @spec sub(a :: complex | float, b :: complex | float) :: complex
-  def sub(a, b) when not is_tuple(a), do: sub({a, 0}, b)
-  def sub(a, b) when not is_tuple(b), do: sub(a, {b, 0})
+  def sub(a, b) when not is_complex(a), do: sub(to_complex(a), b)
+  def sub(a, b) when not is_complex(b), do: sub(a, to_complex(b))
 
   def sub({a, b}, {c, d}) do
     {a - c, b - d}
@@ -56,8 +64,8 @@ defmodule ComplexNumbers do
   Divide two complex numbers, or a real and a complex number
   """
   @spec div(a :: complex | float, b :: complex | float) :: complex
-  def div(a, b) when not is_tuple(a), do: __MODULE__.div({a, 0}, b)
-  def div(a, b) when not is_tuple(b), do: __MODULE__.div(a, {b, 0})
+  def div(a, b) when not is_complex(a), do: __MODULE__.div(to_complex(a), b)
+  def div(a, b) when not is_complex(b), do: __MODULE__.div(a, to_complex(b))
 
   def div({a, b}, {c, d}) do
     {
@@ -88,7 +96,7 @@ defmodule ComplexNumbers do
   @spec exp(a :: complex) :: complex
   def exp({a, b}) do
     mul(
-      {:math.exp(1) ** a, 0},
+      to_complex(:math.exp(1) ** a),
       {:math.cos(b), :math.sin(b)}
     )
   end
