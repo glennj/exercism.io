@@ -7,11 +7,11 @@ class MeetupDayException(Exception):
 
 
 START_DAY = {
-    '1st': 1,
-    '2nd': 8,
-    '3rd': 15,
-    '4th': 22,
-    '5th': 29,
+    'first': 1,
+    'second': 8,
+    'third': 15,
+    'fourth': 22,
+    'fifth': 29,
     'teenth': 13,
     'last': None
 }

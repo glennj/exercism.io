@@ -28,6 +28,7 @@ In this exercise, you're going to use and manipulate lists. Python lists are ver
 - @Dog
 - @gabriel376
 - @GascaK
+- @IsaacG
 - @simmol
 - @tqa236
 - @yawpitch

@@ -18,19 +18,6 @@ Create an account that can be accessed from multiple threads/processes
 It should be possible to close an account; operations against a closed
 account must fail.
 
-## Instructions
-
-Run the test file, and fix each of the errors in turn. When you get the
-first test to pass, go to the first pending or skipped test, and make
-that pass as well. When all of the tests are passing, feel free to
-submit.
-
-Remember that passing code is just the first step. The goal is to work
-towards a solution that is as readable and expressive as you can make
-it.
-
-Have fun!
-
 ## Exception messages
 
 Sometimes it is necessary to [raise an exception](https://docs.python.org/3/tutorial/errors.html#raising-exceptions). When you do this, you should always include a **meaningful error message** to indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. For situations where you know that the error source will be a certain type, you can choose to raise one of the [built in error types](https://docs.python.org/3/library/exceptions.html#base-classes), but should still include a meaningful message.

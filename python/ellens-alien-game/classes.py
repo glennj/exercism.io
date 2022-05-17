@@ -55,6 +55,4 @@ def new_aliens_collection(positions):
     #
     #return aliens
 
-    #return map(lambda position: Alien(*position), positions)
-
-    return [Alien(x, y) for (x, y) in positions]
+    return map(lambda position: Alien(*position), positions)
