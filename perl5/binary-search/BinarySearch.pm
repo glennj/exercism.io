@@ -1,13 +1,18 @@
 package BinarySearch;
 
 use 5.024;
-use strictures 2;
-use Exporter::Easiest 'OK => binary_search';
+#use strictures 2;
+use strict;
+use warnings;
+#use Exporter::Easiest 'OK => binary_search';
+use Exporter        qw/ import /;
+our @EXPORT_OK =    qw/ binary_search /;
+
 use Carp;
-use feature      'current_sub';     # provides the "__SUB__" token
-use POSIX        'ceil';
-use Scalar::Util 'looks_like_number';
-use List::Util   'all';
+use feature         qw/ current_sub /;     # provides the "__SUB__" token
+use POSIX           qw/ ceil /;
+use Scalar::Util    qw/ looks_like_number /;
+use List::Util      qw/ all /;
 
 our ($EQ, $LE);
 
