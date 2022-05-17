@@ -22,8 +22,7 @@ defmodule Knapsack do
   @doc """
   Return the maximum value that a knapsack can carry.
   """
-  @spec maximum_value(items :: [item], maximum_weight :: integer) ::
-          integer
+  @spec maximum_value([item], integer) :: integer
   def maximum_value(items, maximum_weight) do
     n = length(items)
 
@@ -37,42 +36,30 @@ defmodule Knapsack do
     Map.get(m, {n, maximum_weight})
   end
 
-  @spec row_zero(
-          m :: table,
-          w :: integer,
-          max_wt :: integer
-        ) :: table
+  # Generate the "zero'th" row of the result matrix.
+  # This row seeds the rest of the table (that will have `n` more rows, 
+  # one for each item)
+  @spec row_zero(table, integer, integer) :: table
   defp row_zero(m, w, max_wt) when w > max_wt, do: m
 
   defp row_zero(m, w, max_wt) do
     row_zero(Map.put(m, {0, w}, 0), w + 1, max_wt)
   end
 
-  @spec max_value(
-          m :: table,
-          items :: [item],
-          i :: integer,
-          n :: integer,
-          max_wt :: integer
-        ) :: table
+  # Iterate over the items to complete the result matrix.
+  @spec max_value(table, [item], integer, integer, integer) :: table
   defp max_value(m, _, i, n, _) when i > n, do: m
 
   defp max_value(m, [item | items], i, n, max_wt) do
-    m = row_w(m, item, i, n, 0, max_wt)
+    m = row_i(m, item, i, n, 0, max_wt)
     max_value(m, items, i + 1, n, max_wt)
   end
 
-  @spec row_w(
-          m :: table,
-          items :: [item],
-          i :: integer,
-          n :: integer,
-          w :: integer,
-          max_wt :: integer
-        ) :: table
-  defp row_w(m, _, _, _, w, max_wt) when w > max_wt, do: m
+  # Generate the "i'th" row of the result matrix.
+  @spec row_i(table, [item], integer, integer, integer, integer) :: table
+  defp row_i(m, _, _, _, w, max_wt) when w > max_wt, do: m
 
-  defp row_w(m, item, i, n, w, max_wt) do
+  defp row_i(m, item, i, n, w, max_wt) do
     m =
       Map.put(
         m,
@@ -87,10 +74,10 @@ defmodule Knapsack do
         end
       )
 
-    row_w(m, item, i, n, w + 1, max_wt)
+    row_i(m, item, i, n, w + 1, max_wt)
   end
 
-  @spec max_of(a :: integer, b :: integer) :: integer
+  @spec max_of(integer, integer) :: integer
   defp max_of(a, b) when a >= b, do: a
   defp max_of(_, b), do: b
 end

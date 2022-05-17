@@ -1,32 +1,34 @@
-defmodule Team do
-  defstruct [:name, mp: 0, w: 0, d: 0, l: 0, pts: 0]
-
-  def new(name) do
-    %Team{name: name}
-  end
-
-  def win(team), do: result(team, :w, 3)
-  def draw(team), do: result(team, :d, 1)
-  def lose(team), do: result(team, :l, 0)
-
-  defp result(team, result, points) do
-    %{team |
-      result => Map.get(team, result) + 1,
-      :mp => team.mp + 1,
-      :pts => team.pts + points
-    }
-  end
-
-  def data(team) do
-    [team.name, team.mp, team.w, team.d, team.l, team.pts]
-  end
-end
-
 defmodule Tournament do
+
+  defmodule Team do
+    defstruct [:name, mp: 0, w: 0, d: 0, l: 0, pts: 0]
+
+    def new(name) do
+      %__MODULE__{name: name}
+    end
+
+    def win(team), do: result(team, :w, 3)
+    def draw(team), do: result(team, :d, 1)
+    def lose(team), do: result(team, :l, 0)
+
+    defp result(team, result, points) do
+      %{team |
+        result => Map.get(team, result) + 1,
+        :mp => team.mp + 1,
+        :pts => team.pts + points
+      }
+    end
+
+    def data(team) do
+      [team.name, team.mp, team.w, team.d, team.l, team.pts]
+    end
+  end
+
+  ############################################################
   @header "Team                           | MP |  W |  D |  L |  P"
   @format "~-30s | ~2w | ~2w | ~2w | ~2w | ~2w"
 
-  @spec tally(input :: list(String.t())) :: String.t()
+  @spec tally(list(String.t())) :: String.t()
   def tally(input) do
     input
     |> process_input()
@@ -41,8 +43,8 @@ defmodule Tournament do
     |> Enum.reduce(
       %{},
       fn [name1, name2, result], teams ->
-        team1 = Map.get(teams, name1, Team.new(name1))
-        team2 = Map.get(teams, name2, Team.new(name2))
+        team1 = Map.get(teams, name1, __MODULE__.Team.new(name1))
+        team2 = Map.get(teams, name2, __MODULE__.Team.new(name2))
         register_result(teams, team1, team2, result)
       end
     )
@@ -51,20 +53,20 @@ defmodule Tournament do
 
   defp register_result(teams, a, b, "win") do
     teams
-    |> Map.put(a.name, Team.win(a))
-    |> Map.put(b.name, Team.lose(b))
+    |> Map.put(a.name, __MODULE__.Team.win(a))
+    |> Map.put(b.name, __MODULE__.Team.lose(b))
   end
 
   defp register_result(teams, a, b, "loss") do
     teams
-    |> Map.put(a.name, Team.lose(a))
-    |> Map.put(b.name, Team.win(b))
+    |> Map.put(a.name, __MODULE__.Team.lose(a))
+    |> Map.put(b.name, __MODULE__.Team.win(b))
   end
 
   defp register_result(teams, a, b, "draw") do
     teams
-    |> Map.put(a.name, Team.draw(a))
-    |> Map.put(b.name, Team.draw(b))
+    |> Map.put(a.name, __MODULE__.Team.draw(a))
+    |> Map.put(b.name, __MODULE__.Team.draw(b))
   end
 
   # ignore any other result
@@ -79,7 +81,7 @@ defmodule Tournament do
   end
 
   defp format_result(teams) do
-    rows = teams |> Enum.map(&Team.data/1) |> Enum.map(&format_line/1)
+    rows = teams |> Enum.map(&__MODULE__.Team.data/1) |> Enum.map(&format_line/1)
     [@header | rows] |> Enum.join("\n")
   end
 

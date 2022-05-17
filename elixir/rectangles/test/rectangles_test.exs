@@ -8,7 +8,7 @@ defmodule RectanglesTest do
     assert Rectangles.count(input) == 0
   end
 
-  #@tag :pending
+  @tag :pending
   test "no columns" do
     input = """
     """
@@ -16,7 +16,7 @@ defmodule RectanglesTest do
     assert Rectangles.count(input) == 0
   end
 
-  #@tag :pending
+  @tag :pending
   test "no rectangles" do
     input = """
     \s
@@ -25,7 +25,7 @@ defmodule RectanglesTest do
     assert Rectangles.count(input) == 0
   end
 
-  #@tag :pending
+  @tag :pending
   test "one rectangle" do
     input = """
     +-+
@@ -36,7 +36,7 @@ defmodule RectanglesTest do
     assert Rectangles.count(input) == 1
   end
 
-  #@tag :pending
+  @tag :pending
   test "two rectangles without shared parts" do
     input = """
       +-+

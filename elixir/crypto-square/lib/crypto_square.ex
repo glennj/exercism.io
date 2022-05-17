@@ -18,8 +18,12 @@ defmodule CryptoSquare do
       |> :math.ceil()
       |> trunc()
 
+    # Regex.scan returns a list of lists.
+    # When there are no capturing paretheses, the inner lists only contain one element:
+    # `concat` appropriately flattens the list of lists.
+
     Regex.scan(~r/.{1,#{segment_length}}/, cleaned)
-    |> Enum.map(&hd/1)
+    |> Enum.concat()
     |> Enum.map(&String.pad_trailing(&1, segment_length))
     |> Enum.map(&String.graphemes/1)
     |> transpose()

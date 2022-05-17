@@ -4,7 +4,16 @@ defmodule BoutiqueInventory do
   end
 
   def with_missing_price(inventory) do
-    Enum.filter(inventory, fn item -> is_nil(item.price) end)
+    Enum.filter(inventory, &is_nil(&1.price))
+  end
+
+  def update_names(inventory, search, replace) do
+    Enum.map(
+      inventory,
+      fn item ->
+        %{item | name: String.replace(item.name, search, replace)}
+      end
+    )
   end
 
   def increase_quantity(item, count) do
@@ -12,8 +21,10 @@ defmodule BoutiqueInventory do
       item,
       [:quantity_by_size],
       fn qs ->
-        Enum.map(qs, fn {size, num} -> {size, num + count} end)
-        |> Enum.into(%{})
+        Map.new(
+          qs,
+          fn {size, num} -> {size, num + count} end
+        )
       end
     )
   end

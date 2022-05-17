@@ -17,10 +17,8 @@ defmodule LogLevel do
     cond do
       label === :error or label === :fatal -> :ops
       label === :unknown and legacy? -> :dev1
-      true -> :dev2
-
-   #   label === :unknown and not legacy? -> :dev2
-   #   true -> false
+      label === :unknown and not legacy? -> :dev2
+      true -> false
     end
   end
 end

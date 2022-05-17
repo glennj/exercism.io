@@ -1,4 +1,6 @@
 defmodule SaddlePoints do
+  import Matrix, only: [transpose: 1]
+
   @doc """
   Parses a string representation of a matrix
   to a list of rows
@@ -20,11 +22,7 @@ defmodule SaddlePoints do
   to a list of columns
   """
   @spec columns(String.t()) :: [[integer]]
-  def columns(str) do
-    str
-    |> rows()
-    |> Matrix.transpose()
-  end
+  def columns(str), do: str |> rows() |> transpose()
 
   @doc """
   Calculates all the saddle points from a string
@@ -34,46 +32,17 @@ defmodule SaddlePoints do
   def saddle_points(""), do: []
   def saddle_points(str) do
     rows = rows(str)
-    cols = Matrix.transpose(rows)
+    cols = transpose(rows)
 
     row_maxima = Enum.map(rows, &Enum.max/1)
     col_minima = Enum.map(cols, &Enum.min/1)
 
-    for r <- 0..(length(rows) - 1),
-        c <- 0..(length(cols) - 1),
-        v = Enum.at(rows, r) |> Enum.at(c),
-        v == Enum.at(row_maxima, r),
-        v == Enum.at(col_minima, c)
+    for {row, r} <- Enum.with_index(rows),
+        {val, c} <- Enum.with_index(row),
+        Enum.at(row_maxima, r) == val,
+        Enum.at(col_minima, c) == val
     do
       {r + 1, c + 1}
     end
-  end
-end
-
-#------------------------------------------------------------
-defmodule Matrix do
-  @type t() :: list(list(any()))
-
-  @doc """
-  Transpose a rectangular matrix.
-
-  Example:
-
-      > Matrix.transpose([[:a, :b, :c], [:d, :e, :f]])
-      [[:a, :d], [:b, :e], [:c, :f]]
-
-  """
-  @spec transpose(matrix :: t()) :: t()
-  def transpose(matrix), do: do_transpose(matrix, [])
-  
-  defp do_transpose([], _), do: []
-
-  defp do_transpose([[] | _], transposed), do: Enum.reverse(transposed)
-
-  defp do_transpose(rows, cols) do
-    col  = for row <- rows do hd(row) end
-    rows = for row <- rows do tl(row) end
-
-    do_transpose(rows, [col | cols])
   end
 end
