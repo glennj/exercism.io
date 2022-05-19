@@ -5,18 +5,23 @@ oo::class create Robot {
         my reset
     }
 
-    method reset {} {set name [RobotNames::nextName]}
+    method reset {} {set name [RobotNames nextName]}
     method name {} {return $name}
+}
+
+proc resetRobotNames {} {
+    RobotNames reset
 }
 
 # using a namespace to hold the global list of available robot names.  
 namespace eval RobotNames {
-    namespace export generate nextName
+    namespace export nextName reset
+    namespace ensemble create
 
     proc generate {} {
         variable names
         variable index
-        variable count
+        variable size
 
         set names {}
         set index 0
@@ -29,29 +34,36 @@ namespace eval RobotNames {
                 }
             }
         }
-        # shuffle names
-        set count [llength $names]
+        set size [llength $names]
         return
     }
+
+    generate
 
     proc nextName {} {
         variable names
         variable index
-        variable count
+        variable size
 
-        if {$index >= $count} {
+        if {$index >= $size} {
             error "all names in use"
         }
         set name [lindex $names $index]
         incr index
         return $name
     }
+
+    proc reset {} {
+        variable index
+        variable names
+        set index 0
+        #shuf names
+        return
+    }
 }
 
-proc resetRobotNames {} {RobotNames::generate}
-
 # ref: https://wiki.tcl-lang.org/page/Shuffle+a+list
-proc shuffle {listvar} {
+proc shuf {listvar} {
     upvar 1 $listvar list
     set n [llength $list]
     for {set i [expr {$n - 1}]} {$i > 0} {incr i -1} {
