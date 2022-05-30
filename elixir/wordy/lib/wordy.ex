@@ -13,18 +13,22 @@ defmodule Wordy do
       |> String.replace(~r/[?]\s*$/, "")
       |> String.split()
 
-    get_number(words, nil, 0)
+    # start with a number
+    get_number(words)
   end
 
   # ------------------------------------------------------------
-  # The next word should be a number.
-  @spec get_number([String.t()], op, integer) :: integer
+  # The next word _should_ be a number.
+  # - &String.to_integer/1 raises ArgumentError
 
-  # Can't end an expression looking for a number
+  defp get_number(words, operation \\ nil, accumulator \\ 0)
+
+  # Can't end an expression seeking the next number
   defp get_number([], _, _),
     do: raise(ArgumentError)
 
   # Initial iteration passes nil as the operation
+  # Set the accumulator to the value of the first number
   defp get_number([num | words], nil, _),
     do: get_operation(words, String.to_integer(num))
 
@@ -32,8 +36,7 @@ defmodule Wordy do
     do: get_operation(words, operation.(acc, String.to_integer(num)))
 
   # ------------------------------------------------------------
-  # The next word is an arithmetic operation.
-  @spec get_operation([String.t()], integer) :: integer
+  # The next word(s) _should_ be an arithmetic operation.
 
   # When there are no more words, we have the answer
   defp get_operation([], answer),

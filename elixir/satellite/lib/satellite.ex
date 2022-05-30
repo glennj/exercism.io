@@ -28,14 +28,14 @@ defmodule Satellite do
   defp do_build_tree([], []), do: {}
 
   defp do_build_tree(preorder, inorder) do
-    [root | tail] = preorder
+    [root | preorder_rest] = preorder
     n = Enum.find_index(inorder, &(&1 == root))
+
+    preorder_left = Enum.take(preorder_rest, n)
+    preorder_right = Enum.drop(preorder_rest, n)
 
     inorder_left = Enum.take(inorder, n)
     inorder_right = Enum.drop(inorder, n + 1)
-
-    preorder_left = Enum.take(tail, n)
-    preorder_right = Enum.drop(preorder, n + 1)
 
     {
       do_build_tree(preorder_left, inorder_left),
