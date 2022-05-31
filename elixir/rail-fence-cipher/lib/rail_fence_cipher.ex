@@ -12,15 +12,23 @@ defmodule RailFenceCipher do
     cycle = rail_cycle(rails)
 
     rail_map =
-      for {char, rail} <- Enum.zip(chars, cycle),
-          reduce: %{} do
+      for {char, rail} <- Enum.zip(chars, cycle), reduce: %{} do
         acc -> Map.update(acc, rail, char, &(&1 <> char))
       end
+
+    # Given: str = "EXERCISMISAWESOME!" and rails = 5
+    #
+    # the result of the Enum.zip call will be:
+    #   [{"E",0}, {"X",1}, {"E",2}, {"R",3}, {"C",4}, {"I",3}, {"S",2}, {"M",1},
+    #    {"I",0}, {"S",1}, {"A",2}, {"W",3}, {"E",4}, {"S",3}, {"O",2}, {"M",1},
+    #    {"E",0}, {"!",1}]
+    #
+    # and rail_map = %{0 => "EIE", 1 => "XMSM!", 2 => "ESAO", 3 => "RIWS", 4 => "CE"}
 
     Enum.reduce(0..(map_size(rail_map) - 1), "", &(&2 <> rail_map[&1]))
   end
 
-  # example: 
+  # example:
   #   rails == 4
   #   cycle => 0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, ...
   defp rail_cycle(rails) do
@@ -36,23 +44,26 @@ defmodule RailFenceCipher do
   def decode(str, 1), do: str
 
   def decode(str, rails) do
-    # one cycle down and up the rails consumes this many chars
-    cycle_length = 2 * (rails - 1)
-    cycles = div(String.length(str), cycle_length)
-    remaining = rem(String.length(str), cycle_length)
+    # The running example uses: str = "EIEXMSM!ESAORIWSCE" and rails = 5
 
-    # break the string up into "segments", the sequences of characters
-    # that reside on each rail.
+    # one cycle down and up the rails consumes this many chars
+    str_len = String.length(str)            # => 18
+    cycle_length = 2 * (rails - 1)          # =>  8
+    cycles = div(str_len, cycle_length)     # =>  2
+    remaining = rem(str_len, cycle_length)  # =>  2
+
     segment_lengths =
-      0..(rails - 1)
       # "inner" rails consume twice as many characters
-      |> Enum.map(fn i ->
-        {i, if(i in [0, rails - 1], do: cycles, else: 2 * cycles)}
-      end)
+      [cycles | List.duplicate(2 * cycles, rails - 2) ++ [cycles]]
       # account for left-over characters
-      |> Enum.map(fn {i, len} ->
-        if i < remaining, do: len + 1, else: len
-      end)
+      |> Enum.with_index()
+      |> Enum.map(fn
+          {n, i} when i < remaining -> n + 1
+          {n, _} -> n
+        end
+      )
+    #
+    # segment_lengths = [3, 5, 4, 4, 2]
 
     # given the segment lengths, break up the string using a regex
     {:ok, segment_re} =
@@ -60,17 +71,30 @@ defmodule RailFenceCipher do
       |> Enum.map(&"(.{#{&1}})")
       |> Enum.join()
       |> Regex.compile()
+    #
+    # segment_re = ~r/(.{3})(.{5})(.{4})(.{4})(.{2})/
 
     segments =
       Regex.run(segment_re, str)
       |> Enum.drop(1)
       |> Enum.map(&String.graphemes/1)
+    #
+    # segments =
+    #   [["E","I","E"], ["X","M","S","M","!"], ["E","S","A","O"], ["R","I","W","S"], ["C","E"]]
+    #
+    # or, represented in a grid to see how we'll extract chars using the rail_cycle
+    #          <down  up  down  up  down>
+    #         [["E",      "I",      "E"],
+    #          ["X", "M", "S", "M", "!"],
+    #          ["E", "S", "A", "O"     ],
+    #          ["R", "I", "W", "S"     ],
+    #          [     "C",      "E"     ]]
 
     # cycle through the rails, extracting the first char of the segment
     # at each iteration, to decode the string.
     {_, decoded} =
       Enum.reduce(
-        rail_cycle(rails) |> Enum.take(String.length(str)),
+        rail_cycle(rails) |> Enum.take(str_len),
         {segments, ""},
         fn i, {segments, decoded} ->
           [char | rest] = Enum.at(segments, i)
