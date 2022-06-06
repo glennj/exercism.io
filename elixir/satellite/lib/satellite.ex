@@ -14,7 +14,15 @@ defmodule Satellite do
       len != length(inorder) ->
         {:error, "traversals must have the same length"}
 
-      Enum.any?(preorder, &(&1 not in inorder)) ->
+      # Enum.any?(preorder, &(&1 not in inorder)) ->
+      #  {:error, "traversals must have the same elements"}
+      #
+      # The above does not detect the problem with
+      #   preorder = [:a, :b, :b]
+      #   inorder  = [:a, :b, :c]
+      #
+      # The following courtesy of @cubicme's solution
+      preorder -- inorder == inorder -- preorder ->
         {:error, "traversals must have the same elements"}
 
       len != MapSet.size(MapSet.new(preorder)) ->
