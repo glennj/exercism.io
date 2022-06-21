@@ -22,7 +22,7 @@ defmodule Satellite do
       #   inorder  = [:a, :b, :c]
       #
       # The following courtesy of @cubicme's solution
-      preorder -- inorder == inorder -- preorder ->
+      preorder -- inorder != inorder -- preorder ->
         {:error, "traversals must have the same elements"}
 
       len != MapSet.size(MapSet.new(preorder)) ->
