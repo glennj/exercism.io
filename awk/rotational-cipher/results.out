@@ -1,0 +1,11 @@
+1..10
+ok 1 rotate a by 0, same output as input
+ok 2 rotate a by 1
+ok 3 rotate a by 26, same output as input
+ok 4 rotate m by 13
+ok 5 rotate n by 13 with wrap around alphabet
+ok 6 rotate capital letters
+ok 7 rotate spaces
+ok 8 rotate numbers
+ok 9 rotate punctuation
+ok 10 rotate all letters

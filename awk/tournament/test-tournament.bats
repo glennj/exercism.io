@@ -19,7 +19,7 @@ assert_in_to_out() {
 }
 
 @test "a win is three points, a loss is zero points" {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     input="Allegoric Alaskans;Blithering Badgers;win"
 

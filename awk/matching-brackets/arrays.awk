@@ -33,23 +33,6 @@ function map(array, funcname, result,    len, i) {
         push(result, @funcname(array[i]))
 }
 
-function reduce(array, funcname, initial,    acc, i) {
-    acc = initial
-    for (i = 1; i <= length(array); i++)
-        acc = @funcname(acc, array[i])
-    return acc
-}
-
-function reverse(array,   len, i, j, tmp) {
-    len = length(array)
-    for (i = 1; i <= int(len / 2); i++) {
-        j = len - i + 1
-        tmp = array[i]
-        array[i] = array[j]
-        array[j] = tmp
-    }
-}
-
 function isempty(array) {
     return length(array) == 0
 }
