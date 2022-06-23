@@ -4,30 +4,31 @@
 # - distance
 
 BEGIN {
+    FS = ""
     char_map("abcdefghijklmnopqrstuvwxyz", lower)
     char_map("ABCDEFGHIJKLMNOPQRSTUVWXYZ", upper)
-    FS = ""
 }
 
-function char_map(str, ary,    n, i, chars) {
-    n = split(str, chars, "")
+function char_map(str, array,    n, i, chars) {
+    n = split(str, chars)
     for (i = 1; i <= n; i++)
-        ary[chars[i]] = i - 1
+        # value chosen to correlate to the `%` operator
+        array[chars[i]] = i - 1
 }
 
 {
-    for (i = 1; i <= NF; i++) {
+    for (i = 1; i <= NF; i++)  {
         char = $i
-        if ($i in lower) char = rotate(char, lower, distance)
-        if ($i in upper) char = rotate(char, upper, distance)
+        if ($i in lower) char = rotate($i, lower, distance)
+        if ($i in upper) char = rotate($i, upper, distance)
         printf "%s", char
     }
     print ""
 }
 
-function rotate(c, cs, n) {
-    idx = (cs[c] + n) % length(cs)
-    for (c in cs)
-        if (cs[c] == idx)
+function rotate(char, characters, n) {
+    idx = (characters[char] + n) % length(characters)
+    for (c in characters)
+        if (characters[c] == idx)
             return c
 }

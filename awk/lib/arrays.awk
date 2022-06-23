@@ -1,14 +1,26 @@
+@include "assert"
+
 @namespace "arrays"
 
 # Unfortunately, awk doesn't have array literals, so
 # there's a bit of a hoop to jump through to get a variable
 # to have type "array"
 
-function init(array,    t) {
-    t = awk::typeof(array)
-    if (!(t == "array" || t == "untyped")) 
-        print "error: variable of type " t " cannot be an array"
+function init(array) {
+    awk::assert(CanBeArray(array),
+            "error: variable of type " awk::typeof(array) " cannot be an array")
     clear(array)
+}
+
+function CanBeArray(a) {
+    switch (awk::typeof(a)) {
+        case "array":
+        case "untyped":
+            return 1
+            break
+        default:
+            return 0
+    }
 }
 
 function clear(array) {
@@ -73,33 +85,51 @@ function reduce(array, funcname, initial,    acc, i) {
     return acc
 }
 
-function reverse(array,   len, i, j, tmp) {
-    len = length(array)
-    for (i = 1; i <= int(len / 2); i++) {
-        j = len - i + 1
+function reverse(array,   i, j, mid, tmp) {
+    j = length(array)
+    mid = rshift(j, 1)
+    for (i = 1; i <= mid; i++) {
         tmp = array[i]
         array[i] = array[j]
         array[j] = tmp
+        j--
     }
+}
+
+############################################################
+# join
+# - this differs from the included join function by putting
+#   the sep argument earlier, assuming that you usually want
+#   to join the whole array
+function join(array, sep, start, end,    result, i) {
+    awk::assert(awk::isarray(array), "can only join arrays")
+    if (awk::typeof(sep)   == "untyped") sep = FS # TODO: regex?
+    if (awk::typeof(start) == "untyped") start = 1
+    if (awk::typeof(end)   == "untyped") end = length(array)
+
+    result = array[start]
+    for (i = start + 1; i <= end; i++)
+        result = result sep array[i]
+    return result
 }
 
 ############################################################
 # print an array's keys and values
 function pprint(array, indent,    maxw, i, val) {
-    if (awk::typeof(array) != "array" )
-        return
-    maxw = -1
-    for (i in array)
-        if (length(i) > maxw)
-            maxw = length(i)
-    for (i in array) {
-        switch (awk::typeof(array[i])) {
-            case "array":      val = "<an array of length " length(array[i]) ">"; break
-            case "unassigned": val = "<unassigned>"; break
-            default:           val = array[i]
+    if (awk::isarray(array)) {
+        maxw = -1
+        for (i in array)
+            if (length(i) > maxw)
+                maxw = length(i)
+        for (i in array) {
+            switch (awk::typeof(array[i])) {
+                case "array":      val = "<an array of length " length(array[i]) ">"; break
+                case "unassigned": val = "<unassigned>"; break
+                default:           val = array[i]
+            }
+            printf "%s%-*s = %s\n", indent, maxw + 2, "[" i "]", val
+            pprint(array[i], indent "  ")
         }
-        printf "%s%-*s = %s\n", indent, maxw + 2, "[" i "]", val
-        pprint(array[i], indent "  ")
     }
 }
 

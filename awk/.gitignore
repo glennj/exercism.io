@@ -1,3 +1,5 @@
+awkprof.out
+
 # gawk debugger files
 .gawkrc
 .gawk_history
