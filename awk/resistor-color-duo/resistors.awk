@@ -16,16 +16,7 @@ function value(color) {
     return Color[color]
 }
 
-function resistance(a, b, c,    res) {
+function resistance(a, b,    res) {
     res = 10 * value(a) + value(b)
-    if (c) res *= 10^value(c)
     return res
-}
-
-function with_units(value,    p) {
-    while (value > 0 && value % 1000 == 0) {
-        value /= 1000
-        p++
-    }
-    return sprintf("%d %s%s\n", value, Prefix[p], Unit)
 }

@@ -1,0 +1,39 @@
+#!/usr/bin/env gawk -f
+
+@include "join"
+
+{
+    delete proteins; n = 0
+    rna = $0
+    while (rna != "") {
+        switch (substr(rna, 1, 3)) {
+            case "AUG": p = "Methionine"; break
+            case "UUU":
+            case "UUC": p = "Phenylalanine"; break
+            case "UUA":
+            case "UUG": p = "Leucine"; break
+            case "UCU":
+            case "UCC":
+            case "UCA":
+            case "UCG": p = "Serine"; break
+            case "UAU":
+            case "UAC": p = "Tyrosine"; break
+            case "UGU":
+            case "UGC": p = "Cysteine"; break
+            case "UGG": p = "Tryptophan"; break
+            case "UAA":
+            case "UAG":
+            case "UGA": p = "STOP"; break
+            default: die("Invalid codon")
+        }
+        if (p == "STOP") break
+        proteins[++n] = p
+        rna = substr(rna, 4)
+    }
+    print join(proteins, 1, n)
+}
+
+function die(msg) {
+    print msg > "/dev/stderr"
+    exit 1
+}
