@@ -103,7 +103,7 @@ function reverse(array,   i, j, tmp) {
 #   to join the whole array
 function join(array, sep, start, end,    result, i) {
     awk::assert(awk::isarray(array), "can only join arrays")
-    if (awk::typeof(sep)   == "untyped") sep = FS # TODO: regex?
+    if (awk::typeof(sep)   == "untyped") sep = OFS
     if (awk::typeof(start) == "untyped") start = 1
     if (awk::typeof(end)   == "untyped") end = length(array)
 
