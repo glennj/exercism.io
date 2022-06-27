@@ -17,19 +17,8 @@ function clear(array) {
     delete array[1]
 }
 
-function isempty(array) {
-    return length(array) == 0
-}
-
-############################################################
 function push(array, element) {
     array[length(array) + 1] = element
-}
-
-function unshift(array, element,    i) {
-    for (i = length(array); i >= 1; i--)
-        array[i + 1] = array[i]
-    array[1] = element
 }
 
 function pop(array,    element) {
@@ -38,32 +27,10 @@ function pop(array,    element) {
     return element
 }
 
-function shift(array,    element, len, i) {
-    element = array[1]
-    len = length(array)
-    for (i = 2; i <= len; i++) 
-        array[i - 1] = array[i]
-    delete array[len]
-    return element
-}
-
-function peek(array) {
-    # useful for stacks
-    return array[length(array)]
-}
-
-############################################################
 function map(array, funcname, result,    len, i) {
     len = length(array)
     for (i = 1; i <= len; i++)
         push(result, @funcname(array[i]))
-}
-
-function filter(array, funcname, result,    len, i) {
-    len = length(array)
-    for (i = 1; i <= len; i++)
-        if (@funcname(array[i]))
-            push(result, array[i])
 }
 
 function reduce(array, funcname, initial,    acc, i) {
@@ -83,7 +50,10 @@ function reverse(array,   len, i, j, tmp) {
     }
 }
 
-############################################################
+function isempty(array) {
+    return length(array) == 0
+}
+
 # print an array's keys and values
 function pprint(array, indent,    maxw, i, val) {
     if (awk::typeof(array) != "array" )

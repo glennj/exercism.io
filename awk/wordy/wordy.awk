@@ -12,20 +12,18 @@ skip-- > 0 {next}
 
 { sub(/\?$/, "") }
 
-FNR == 1 && $0 != "What" { die("unknown operation") }
-FNR == 2 && $0 != "is"   { die("unknown operation") }
-FNR <= 2 {next}
+FNR == 1 { assert($0 == "What", "unknown operation"); next }
+FNR == 2 { assert($0 == "is",   "unknown operation"); next }
 
 state == "NUM" {
-    if (!isnumber($0)) die("syntax error")
+    assert(isnumber($0), "syntax error")
     result = @operation(result, $0)
     state = "OP"
     next
 }
 
 state == "OP" {
-    if (isnumber($0)) die("syntax error")
-    operation = $0
+    assert(!isnumber($0), "syntax error")
     switch ($0) {
         case "plus":
         case "minus":
@@ -37,6 +35,7 @@ state == "OP" {
         default:
             die("unknown operation")
     }
+    operation = $0
     state = "NUM"
     next
 }
@@ -69,4 +68,8 @@ function error(msg) {
 function die(msg) {
     error(msg)
     exit
+}
+
+function assert(cond, msg) {
+    if (!cond) die(msg)
 }

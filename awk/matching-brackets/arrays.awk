@@ -27,32 +27,6 @@ function pop(array,    element) {
     return element
 }
 
-function map(array, funcname, result,    len, i) {
-    len = length(array)
-    for (i = 1; i <= len; i++)
-        push(result, @funcname(array[i]))
-}
-
 function isempty(array) {
     return length(array) == 0
 }
-
-# print an array's keys and values
-function pprint(array, indent,    maxw, i, val) {
-    if (awk::typeof(array) != "array" )
-        return
-    maxw = -1
-    for (i in array)
-        if (length(i) > maxw)
-            maxw = length(i)
-    for (i in array) {
-        switch (awk::typeof(array[i])) {
-            case "array":      val = "<an array of length " length(array[i]) ">"; break
-            case "unassigned": val = "<unassigned>"; break
-            default:           val = array[i]
-        }
-        printf "%s%-*s = %s\n", indent, maxw + 2, "[" i "]", val
-        pprint(array[i], indent "  ")
-    }
-}
-
