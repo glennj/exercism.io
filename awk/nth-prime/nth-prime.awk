@@ -9,11 +9,11 @@ BEGIN {
     }
 
     # initialize the primes array ("prime the pump", as it were)
-    i=1; prime = 2; primes[i] = prime
-    i++; prime = 3; primes[i] = prime
-    while (i < n) {
-        i++; prime = nextPrime(prime); primes[i] = prime
-    }
+    primes[++i] = 2
+    primes[++i] = prime = 3
+
+    while (i < n)
+        primes[++i] = prime = nextPrime(prime)
     
     print primes[n]
 }
