@@ -1,4 +1,4 @@
-
+@include "assert"
 
 @namespace "arrays"
 
