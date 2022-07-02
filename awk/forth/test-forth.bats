@@ -12,7 +12,7 @@ END
 }
 
 @test "pushes negative numbers onto the stack" {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 -1 -2 -3 -4 -5
 END
@@ -22,7 +22,7 @@ END
 
 # addition
 @test addition_ok {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 2 +
 END
@@ -31,7 +31,7 @@ END
 }
 
 @test addition_no_args {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 +
 END
@@ -40,7 +40,7 @@ END
 }
 
 @test addition_one_args {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 +
 END
@@ -50,7 +50,7 @@ END
 
 # subtraction
 @test subtraction_ok {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 3 4 -
 END
@@ -59,7 +59,7 @@ END
 }
 
 @test subtraction_no_args {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 -
 END
@@ -68,7 +68,7 @@ END
 }
 
 @test subtraction_one_args {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 -
 END
@@ -78,7 +78,7 @@ END
 
 # multiplication
 @test multiplication_ok {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 2 4 *
 END
@@ -87,7 +87,7 @@ END
 }
 
 @test multiplication_no_args {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 *
 END
@@ -96,7 +96,7 @@ END
 }
 
 @test multiplication_one_args {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 *
 END
@@ -106,7 +106,7 @@ END
 
 # division
 @test division_ok {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 12 4 /
 END
@@ -115,7 +115,7 @@ END
 }
 
 @test division_int_result {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 8 3 /
 END
@@ -124,7 +124,7 @@ END
 }
 
 @test division_no_args {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 /
 END
@@ -133,7 +133,7 @@ END
 }
 
 @test division_one_args {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 /
 END
@@ -142,7 +142,7 @@ END
 }
 
 @test division_by_zero {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 2 0 /
 END
@@ -152,7 +152,7 @@ END
 
 # combined arithmetic
 @test add_and_subtract {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 2 + 4 -
 END
@@ -160,7 +160,7 @@ END
     assert_output "-1"
 }
 @test multiply_and_divide {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 2 4 * 3 /
 END
@@ -170,7 +170,7 @@ END
 
 # dup
 @test dup_1 {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 dup
 END
@@ -179,7 +179,7 @@ END
 }
 
 @test dup_2 {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 2 dup
 END
@@ -188,7 +188,7 @@ END
 }
 
 @test dup_empty {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 dup
 END
@@ -198,7 +198,7 @@ END
 
 # drop
 @test drop_1 {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 drop
 END
@@ -207,7 +207,7 @@ END
 }
 
 @test drop_2 {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 2 drop
 END
@@ -216,7 +216,7 @@ END
 }
 
 @test drop_empty {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 drop
 END
@@ -226,7 +226,7 @@ END
 
 # swap
 @test swap_1 {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 2 swap
 END
@@ -235,7 +235,7 @@ END
 }
 
 @test swap_2 {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 2 3 swap
 END
@@ -244,7 +244,7 @@ END
 }
 
 @test swap_empty {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 swap
 END
@@ -253,7 +253,7 @@ END
 }
 
 @test swap_1arg {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 swap
 END
@@ -263,7 +263,7 @@ END
 
 # over
 @test over_1 {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 2 over
 END
@@ -272,7 +272,7 @@ END
 }
 
 @test over_2 {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 2 3 over
 END
@@ -281,7 +281,7 @@ END
 }
 
 @test over_empty {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 over
 END
@@ -290,7 +290,7 @@ END
 }
 
 @test over_1arg {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 1 over
 END
@@ -300,7 +300,7 @@ END
 
 # user-defined words
 @test macro_with_builtin {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run gawk -f forth.awk <<END
 : dup-twice dup dup ;
 1 dup-twice

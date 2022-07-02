@@ -19,7 +19,7 @@ BEGIN { A = ord("A") }
         }
     }
 
-    for (i in output)
+    for (i = 1; i <= height; i++)
         print join(output[i], 1, height, SUBSEP)
 }
 
