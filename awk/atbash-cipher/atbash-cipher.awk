@@ -3,7 +3,7 @@
 # These variables are initialized on the command line (using '-v'):
 # -direction
 
-@load "ordchr"
+@include "ord"
 
 BEGIN {
     a = ord("a")

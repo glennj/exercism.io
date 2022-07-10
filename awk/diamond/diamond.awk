@@ -1,6 +1,6 @@
 #!/usr/bin/env gawk -f
 
-@load "ordchr"
+@include "ord"
 @include "join"
 
 BEGIN { A = ord("A") }
