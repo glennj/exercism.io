@@ -1,3 +1,5 @@
+import "./math" for Math
+
 var TwoBucketError = "Goal is impossible"
 
 class TwoBucket {
@@ -66,12 +68,6 @@ class TwoBucket {
     }
   }
 }
-
-
-class Math {
-  static gcd(a, b) { b == 0 ? a : gcd(b, a%b) }
-}
-
 
 class Bucket {
   construct new(name, size) {

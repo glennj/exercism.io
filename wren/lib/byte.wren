@@ -1,5 +1,4 @@
-/* A helper class for working with ASCII bytes */
-
+// A helper class for working with ASCII bytes
 class Byte {
   construct new(byte) {_byte = byte}
   value {_byte}
@@ -25,7 +24,7 @@ class Byte {
   <(other) {value < other.value}
 
   // return a sequence of Bytes of a String
-  static bytes(str) { str.bytes.map {|b| this.new(b)} }
+  static bytes(str) { str.bytes.map {|b| this.new(b)}.toList }
 
   // a sequence of Bytes as a String
   static toString(seqBytes) { seqBytes.map{|b| b.toString}.join() }

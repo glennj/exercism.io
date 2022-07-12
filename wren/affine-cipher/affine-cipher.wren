@@ -1,4 +1,5 @@
 import "./byte" for Byte
+import "./math" for Math
 
 class AffineCipher {
   static initialize() {
@@ -27,7 +28,7 @@ class AffineCipher {
   }
 
   validate(a) {
-    if (MathUtil.gcd(a, __m) != 1) {
+    if (Math.gcd(a, __m) != 1) {
       Fiber.abort("a and m must be coprime.")
     }
   }
@@ -38,7 +39,7 @@ class AffineCipher {
   }
 
   decoded {
-    var aInv = MathUtil.mmi(_a, __m)
+    var aInv = Math.mmi(_a, __m)
     var func = Fn.new {|y| (aInv * (y - _b)) % __m}
     return code_(func)
   }
@@ -63,25 +64,5 @@ class AffineCipher {
     return chunks.join(" ")
   }
 }
+
 AffineCipher.initialize()
-
-
-class MathUtil {
-  static gcd(a, b) {
-    if (b == 0) {
-      return a
-    }
-    return gcd(b, a % b)
-  }
-
-  // find `n` where `a * n mod m == 1`
-  static mmi(a, m) {
-    var n = 0
-    while (n < m) {
-      if (a * n % m == 1) {
-        return n
-      }
-      n = n + 1
-    }
-  }
-}
