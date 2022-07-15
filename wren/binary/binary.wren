@@ -1,5 +1,5 @@
 
-class Binary {
+class Binary { 
   construct new(numberString) {
     _numStr = numberString
   }

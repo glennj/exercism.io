@@ -8,73 +8,73 @@ Testie.test("Twelve Days") { |do, skip|
     Expect.value(TwelveDays.recite(1)).toEqual(expectedVerseOne)
   }
 
-  do.test("test verse second day two turtle doves") {
+  skip.test("test verse second day two turtle doves") {
     var expectedVerseTwo =
       "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree.\n"
     Expect.value(TwelveDays.recite(2)).toEqual(expectedVerseTwo)
   }
 
-  do.test("test verse third day three french hens") {
+  skip.test("test verse third day three french hens") {
     var expectedVerseThree =
       "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
     Expect.value(TwelveDays.recite(3)).toEqual(expectedVerseThree)
   }
 
-  do.test("test verse fourth day four calling birds") {
+  skip.test("test verse fourth day four calling birds") {
     var expectedVerseFour =
       "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
     Expect.value(TwelveDays.recite(4)).toEqual(expectedVerseFour)
   }
 
-  do.test("test verse fifth day five gold rings") {
+  skip.test("test verse fifth day five gold rings") {
     var expectedVerseFive =
       "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
     Expect.value(TwelveDays.recite(5)).toEqual(expectedVerseFive)
   }
 
-  do.test("test verse sixth day six geese-a-laying") {
+  skip.test("test verse sixth day six geese-a-laying") {
     var expectedVerseSix =
       "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
     Expect.value(TwelveDays.recite(6)).toEqual(expectedVerseSix)
   }
 
-  do.test("test verse seventh day seven swans-a-swimming") {
+  skip.test("test verse seventh day seven swans-a-swimming") {
     var expectedVerseSeven =
       "On the seventh day of Christmas my true love gave to me: seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
     Expect.value(TwelveDays.recite(7)).toEqual(expectedVerseSeven)
   }
 
-  do.test("test verse eighth day eight maids-a-milking") {
+  skip.test("test verse eighth day eight maids-a-milking") {
     var expectedVerseEight =
       "On the eighth day of Christmas my true love gave to me: eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
     Expect.value(TwelveDays.recite(8)).toEqual(expectedVerseEight)
   }
 
-  do.test("test verse ninth day nine ladies dancing") {
+  skip.test("test verse ninth day nine ladies dancing") {
     var expectedVerseNine =
       "On the ninth day of Christmas my true love gave to me: nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
     Expect.value(TwelveDays.recite(9)).toEqual(expectedVerseNine)
   }
 
-  do.test("test verse tenth day ten lords-a-leaping") {
+  skip.test("test verse tenth day ten lords-a-leaping") {
     var expectedVerseTen =
       "On the tenth day of Christmas my true love gave to me: ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
     Expect.value(TwelveDays.recite(10)).toEqual(expectedVerseTen)
   }
 
-  do.test("test verse eleventh day eleven pipers piping") {
+  skip.test("test verse eleventh day eleven pipers piping") {
     var expectedVerseEleven =
       "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
     Expect.value(TwelveDays.recite(11)).toEqual(expectedVerseEleven)
   }
 
-  do.test("test verse twelfth day twelve drummers drumming") {
+  skip.test("test verse twelfth day twelve drummers drumming") {
     var expectedVerseTwelve =
       "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
     Expect.value(TwelveDays.recite(12)).toEqual(expectedVerseTwelve)
   }
 
-  do.test("test lyrics TwelveDays.recites first three verses of the song") {
+  skip.test("test lyrics TwelveDays.recites first three verses of the song") {
     var expectedVerseOneToThree =
       "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree.\n\n" +
       "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree.\n\n" +
@@ -82,7 +82,7 @@ Testie.test("Twelve Days") { |do, skip|
     Expect.value(TwelveDays.recite(1, 3)).toEqual(expectedVerseOneToThree)
   }
 
-  do.test("test lyrics TwelveDays.recites three verses from the middle of the song") {
+  skip.test("test lyrics TwelveDays.recites three verses from the middle of the song") {
     var expectedVerseFourToSix =
       "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n\n" +
       "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n\n" +
@@ -90,7 +90,7 @@ Testie.test("Twelve Days") { |do, skip|
     Expect.value(TwelveDays.recite(4, 6)).toEqual(expectedVerseFourToSix)
   }
 
-  do.test("test lyrics TwelveDays.recites the whole song") {
+  skip.test("test lyrics TwelveDays.recites the whole song") {
     var expectedSong =
       "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree.\n\n" +
       "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree.\n\n" +

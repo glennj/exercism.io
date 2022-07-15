@@ -22,20 +22,20 @@ var testSuite = Testie.test("Robot Name") { |do, skip|
     ).toBe(true)
   }
 
-  do.test("name sticks") {
+  skip.test("name sticks") {
     var robot = Robot.new()
     var name = robot.name
     Expect.value(name).toEqual(robot.name)
   }
 
-  do.test("reset changes name") {
+  skip.test("reset changes name") {
     var robot = Robot.new()
     var name = robot.name
     robot.reset()
     Expect.value(name).toNotEqual(robot.name)
   }
 
-  do.test("reset before name called does not cause an error") {
+  skip.test("reset before name called does not cause an error") {
     var robot = Robot.new()
     robot.reset()
     Expect.that(
@@ -43,7 +43,7 @@ var testSuite = Testie.test("Robot Name") { |do, skip|
     ).toBe(true)
   }
 
-  do.test("reset multiple times") {
+  skip.test("reset multiple times") {
     var robot = Robot.new()
     var names = {}
     for (i in (1..5)) {
@@ -53,13 +53,13 @@ var testSuite = Testie.test("Robot Name") { |do, skip|
     Expect.value(names.count).toEqual(5)
   }
 
-  do.test("different robots have different names") {
+  skip.test("different robots have different names") {
     var r1 = Robot.new()
     var r2 = Robot.new()
     Expect.value(r1.name).toNotEqual(r2.name)
   }
 
-  do.test("generate lots of robots") {
+  skip.test("generate lots of robots") {
     var iterations = 100000
     var seenNames = {}
     for (i in (1..iterations)) {
@@ -69,7 +69,7 @@ var testSuite = Testie.test("Robot Name") { |do, skip|
     Expect.value(seenNames.count).toEqual(iterations)
   }
 
-  do.test("generate all robots") {
+  skip.test("generate all robots") {
     Robot.resetNames()
     var iterations = 676000
     var seenNames = {}

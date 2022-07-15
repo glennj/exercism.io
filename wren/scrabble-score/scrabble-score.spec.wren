@@ -6,43 +6,43 @@ Testie.test("Scrabble") { |do, skip|
     Expect.value(Scrabble.score("a")).toEqual(1)
   }
 
-  do.test("uppercase letter") {
+  skip.test("uppercase letter") {
     Expect.value(Scrabble.score("A")).toEqual(1)
   }
 
-  do.test("valuable letter") {
+  skip.test("valuable letter") {
     Expect.value(Scrabble.score("f")).toEqual(4)
   }
 
-  do.test("short word") {
+  skip.test("short word") {
     Expect.value(Scrabble.score("at")).toEqual(2)
   }
 
-  do.test("short, valuable word") {
+  skip.test("short, valuable word") {
     Expect.value(Scrabble.score("zoo")).toEqual(12)
   }
 
-  do.test("medium word") {
+  skip.test("medium word") {
     Expect.value(Scrabble.score("street")).toEqual(6)
   }
 
-  do.test("medium, valuable word") {
+  skip.test("medium, valuable word") {
     Expect.value(Scrabble.score("quirky")).toEqual(22)
   }
 
-  do.test("long, mixed-case word") {
+  skip.test("long, mixed-case word") {
     Expect.value(Scrabble.score("OxyphenButazone")).toEqual(41)
   }
 
-  do.test("english-like word") {
+  skip.test("english-like word") {
     Expect.value(Scrabble.score("pinata")).toEqual(8)
   }
 
-  do.test("empty input") {
+  skip.test("empty input") {
     Expect.value(Scrabble.score("")).toEqual(0)
   }
 
-  do.test("entire alphabet available") {
+  skip.test("entire alphabet available") {
     Expect.value(Scrabble.score("abcdefghijklmnopqrstuvwxyz")).toEqual(87)
   }
 }
