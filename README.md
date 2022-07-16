@@ -1,7 +1,5 @@
 **Exercism**
 
-[https://exercism.io](https://exercism.io)
+[https://exercism.org](https://exercism.org)
 
-[CLI](https://exercism.io/cli)
-
-[Mentoring notes for bash track](./_mentor_notes/bash.md)
+[CLI](https://exercism.org/cli) and [fish wrapper](https://github.com/glennj/exercism-cli-fish-wrapper)
