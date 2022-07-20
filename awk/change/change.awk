@@ -9,7 +9,7 @@
 BEGIN {
     MAX_INT = PROCINFO["prec_max"]
     # awk does not have a "nil" data type. We need a sentinel value
-    SENTINEL = SUBSEP
+    SENTINEL = -1
 }
 
 NR == 1 { for (i = 1; i <= NF; i++) denominations[i] = $i }

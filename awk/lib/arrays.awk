@@ -1,4 +1,11 @@
-
+# Including assert means an END block exists, which means if
+# we provide no files on the cmdline, awk will block on stdin.
+# That precludes us from oneliners
+#
+#   gawk -i lib/arrays 'BEGIN {arrays::pprint(PROCINFO)}'
+#
+# without redirecting from devnull
+##@include "assert"
 
 @namespace "arrays"
 
@@ -119,6 +126,15 @@ function join(array, sep, start, end,    result, i) {
     for (i = start + 1; i <= end; i++)
         result = result sep array[i]
     return result
+}
+
+############################################################
+# split2assoc
+# - splits a string and assigns the _values_ to the _keys_ of an associative array.
+function split2assoc(str, assoc, sep,    n, a, i) {
+    if (awk::typeof(sep) == "untyped") sep = FS
+    n = split(str, a, sep)
+    for (i = 1; i <= n; i++) assoc[a[i]]
 }
 
 ############################################################
