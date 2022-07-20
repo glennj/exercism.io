@@ -1,6 +1,5 @@
 import "io" for File
-//import "essentials" for Strings
-import "./byte" for Byte
+import "essentials" for Strings
 
 class Grep {
   static grep(pattern, files) {
@@ -8,8 +7,8 @@ class Grep {
   }
 
   static grep(pattern, files, flags) {
-    var grepper = new(pattern, files, flags)
-    return grepper.run
+    var grep = new(pattern, files, flags)
+    return grep.run
   }
 
   construct new(pattern, files, flags) {
@@ -18,12 +17,10 @@ class Grep {
     
     _files = files
     _pattern = pattern
-
-    //if ( _flags["-i"]) { _pattern = Strings.downcase(pattern) }
+    if ( _flags["-i"]) { _pattern = Strings.downcase(pattern) }
+    
     // ref https://github.com/joshgoebel/wren-essentials/blob/0d116a1658fdcd3a33496e5e0f69fbe9f01e5b38/src/modules/strings.wren#L29
-    //if (!_flags["-x"]) { _pattern = "*" + _pattern + "*" }
-
-    if ( _flags["-i"]) { _pattern = Byte.downcase(pattern) }
+    if (!_flags["-x"]) { _pattern = "*" + _pattern + "*" }
   }
 
   run {
@@ -51,12 +48,8 @@ class Grep {
   }
 
   matches(line) { 
-    //var cmp_line = _flags["-i"] ? Strings.downcase(line) : line
-    //var is_match = Strings.globMatch(cmp_line, _pattern)
-
-    var cmp_line = _flags["-i"] ? Byte.downcase(line) : line
-    var is_match = _flags["-x"] ? (cmp_line == _pattern) : cmp_line.contains(_pattern)
-
+    var cmp_line = _flags["-i"] ? Strings.downcase(line) : line
+    var is_match = Strings.globMatch(cmp_line, _pattern)
     return (is_match && !_flags["-v"]) || (!is_match && _flags["-v"])  // xor
   }
   

@@ -12,7 +12,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("One file, one match, print line numbers flag") {
+  do.test("One file, one match, print line numbers flag") {
     Expect.value(
       Grep.grep("Forbidden", ["paradise-lost.txt"], ["-n"])
     ).toBe([
@@ -20,7 +20,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("One file, one match, case-insensitive flag") {
+  do.test("One file, one match, case-insensitive flag") {
     Expect.value(
       Grep.grep("FORBIDDEN", ["paradise-lost.txt"], ["-i"])
     ).toBe([
@@ -28,7 +28,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("One file, one match, print file names flag") {
+  do.test("One file, one match, print file names flag") {
     Expect.value(
       Grep.grep("Forbidden", ["paradise-lost.txt"], ["-l"])
     ).toBe([
@@ -36,7 +36,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("One file, one match, match entire lines flag") {
+  do.test("One file, one match, match entire lines flag") {
     Expect.value(
       Grep.grep("With loss of Eden, till one greater Man", ["paradise-lost.txt"], ["-x"])
     ).toBe([
@@ -44,7 +44,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("One file, one match, multiple flags") {
+  do.test("One file, one match, multiple flags") {
     Expect.value(
       Grep.grep("OF ATREUS, Agamemnon, KIng of MEN.", ["iliad.txt"], ["-n", "-i", "-x"])
     ).toBe([
@@ -52,7 +52,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("One file, several matches, no flags") {
+  do.test("One file, several matches, no flags") {
     Expect.value(
       Grep.grep("may", ["midsummer-night.txt"])
     ).toBe([
@@ -62,7 +62,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("One file, several matches, print line numbers flag") {
+  do.test("One file, several matches, print line numbers flag") {
     Expect.value(
       Grep.grep("may", ["midsummer-night.txt"], ["-n"])
     ).toBe([
@@ -72,13 +72,13 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("One file, several matches, match entire lines flag") {
+  do.test("One file, several matches, match entire lines flag") {
     Expect.value(
       Grep.grep("may", ["midsummer-night.txt"], ["-x"])
     ).toBe([])
   }
 
-  skip.test("One file, several matches, case-insensitive flag") {
+  do.test("One file, several matches, case-insensitive flag") {
     Expect.value(
       Grep.grep("ACHILLES", ["iliad.txt"], ["-i"])
     ).toBe([
@@ -87,7 +87,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("One file, several matches, inverted flag") {
+  do.test("One file, several matches, inverted flag") {
     Expect.value(
       Grep.grep("Of", ["paradise-lost.txt"], ["-v"])
     ).toBe([
@@ -99,13 +99,13 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("One file, no matches, various flags") {
+  do.test("One file, no matches, various flags") {
     Expect.value(
       Grep.grep("Gandalf", ["iliad.txt"], ["-n", "-l", "-x", "-i"])
     ).toBe([])
   }
 
-  skip.test("One file, one match, file flag takes precedence over line flag") {
+  do.test("One file, one match, file flag takes precedence over line flag") {
     Expect.value(
       Grep.grep("ten", ["iliad.txt"], ["-n", "-l"])
     ).toBe([
@@ -113,7 +113,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("One file, several matches, inverted and match entire lines flags") {
+  do.test("One file, several matches, inverted and match entire lines flags") {
     Expect.value(
       Grep.grep("Illustrious into Ades premature,", ["iliad.txt"], ["-x", "-v"])
     ).toBe([
@@ -128,7 +128,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("Multiple files, one match, no flags") {
+  do.test("Multiple files, one match, no flags") {
     Expect.value(
       Grep.grep("Agamemnon", ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"])
     ).toBe([
@@ -136,7 +136,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("Multiple files, several matches, no flags") {
+  do.test("Multiple files, several matches, no flags") {
     Expect.value(
       Grep.grep("may", ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"])
     ).toBe([
@@ -146,7 +146,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("Multiple files, several matches, print line numbers flag") {
+  do.test("Multiple files, several matches, print line numbers flag") {
     Expect.value(
       Grep.grep("that", ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"], ["-n"])
     ).toBe([
@@ -157,7 +157,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("Multiple files, one match, print file names flag") {
+  do.test("Multiple files, one match, print file names flag") {
     Expect.value(
       Grep.grep("who", ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"], ["-l"])
     ).toBe([
@@ -166,7 +166,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("Multiple files, several matches, case-insensitive flag") {
+  do.test("Multiple files, several matches, case-insensitive flag") {
     Expect.value(
       Grep.grep("TO", ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"], ["-i"])
     ).toBe([
@@ -183,7 +183,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("Multiple files, several matches, inverted flag") {
+  do.test("Multiple files, several matches, inverted flag") {
     Expect.value(
       Grep.grep("a", ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"], ["-v"])
     ).toBe([
@@ -193,7 +193,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("Multiple files, one match, match entire lines flag") {
+  do.test("Multiple files, one match, match entire lines flag") {
     Expect.value(
       Grep.grep("But I beseech your grace that I may know", ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"], ["-x"])
     ).toBe([
@@ -201,7 +201,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("Multiple files, one match, multiple flags") {
+  do.test("Multiple files, one match, multiple flags") {
     Expect.value(
       Grep.grep("WITH LOSS OF EDEN, TILL ONE GREATER MAN", ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"], ["-n", "-i", "-x"])
     ).toBe([
@@ -209,13 +209,13 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("Multiple files, no matches, various flags") {
+  do.test("Multiple files, no matches, various flags") {
     Expect.value(
       Grep.grep("Frodo", ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"], ["-n", "-l", "-x", "-i"])
     ).toBe([])
   }
 
-  skip.test("Multiple files, several matches, file flag takes precedence over line number flag") {
+  do.test("Multiple files, several matches, file flag takes precedence over line number flag") {
     Expect.value(
       Grep.grep("who", ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"], ["-n", "-l"])
     ).toBe([
@@ -224,7 +224,7 @@ var testSuite = Testie.new("Grep") { |do, skip|
     ])
   }
 
-  skip.test("Multiple files, several matches, inverted and match entire lines flags") {
+  do.test("Multiple files, several matches, inverted and match entire lines flags") {
     Expect.value(
       Grep.grep("Illustrious into Ades premature,", ["iliad.txt", "midsummer-night.txt", "paradise-lost.txt"], ["-x", "-v"])
     ).toBe([
