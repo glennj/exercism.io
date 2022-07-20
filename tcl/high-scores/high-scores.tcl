@@ -6,7 +6,6 @@ oo::class create HighScores {
     constructor {} {
         set scores [list]
     }
-
     method addScores {args} {
         lappend scores {*}$args
     }

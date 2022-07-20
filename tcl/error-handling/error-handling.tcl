@@ -17,6 +17,5 @@ proc handle_error {script} {
     return $result
 }
 
-
 # `custom_error_message` -- just delegate to `error`
 interp alias "" custom_error_message "" error

@@ -65,14 +65,24 @@ test anagram-12 "anagrams must use all letters exactly once" -body {
     findAnagrams tapper {patter}
 } -returnCodes ok -result {} 
 
-skip anagram-13
-test anagram-13 "words are not anagrams of themselves (case-insensitive)" -body {
-    findAnagrams BANANA {BANANA Banana banana}
+skip anagram-13a
+test anagram-13a "words are not anagrams of themselves" -body {
+    findAnagrams BANANA {BANANA}
+} -returnCodes ok -result {} 
+
+skip anagram-13b
+test anagram-13b "words are not anagrams of themselves even if letter case is partially different" -body {
+    findAnagrams BANANA {Banana}
+} -returnCodes ok -result {} 
+
+skip anagram-13c
+test anagram-13c "words are not anagrams of themselves even if letter case is completely different" -body {
+    findAnagrams BANANA {banana}
 } -returnCodes ok -result {} 
 
 skip anagram-14
 test anagram-14 "words other than themselves can be anagrams" -body {
-    findAnagrams LISTEN {Listen Silent LISTEN}
+    findAnagrams LISTEN {Silent LISTEN}
 } -returnCodes ok -result {Silent} 
 
 

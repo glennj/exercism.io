@@ -14,7 +14,6 @@ proc largestSeriesProduct {digits span} {
     return $max
 }
 
-
 proc assert {condition errMsg} {
     if {![uplevel 1 [list expr $condition]]} {
         error $errMsg

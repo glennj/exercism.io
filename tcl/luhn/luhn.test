@@ -106,7 +106,12 @@ test luhn-20 "invalid long number with an even remainder" -body {
 } -returnCodes ok -match boolean -result false
 
 skip luhn-21
-test luhn-21 "non-numeric, non-space char in the middle with a sum that's divisible by 10 isn't allowed" -body {
+test luhn-21 "invalid long number with a remainder divisible by 5" -body {
+    luhn "1 2345 6789 1234 5678 9013"
+} -returnCodes ok -match boolean -result false
+
+skip luhn-22
+test luhn-22 "non-numeric, non-space char in the middle with a sum that's divisible by 10 isn't allowed" -body {
     luhn "59%59"
 } -returnCodes ok -match boolean -result false
 

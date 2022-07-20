@@ -51,102 +51,107 @@ test yacht-9 "Yacht of 3s counted as fives" -body {
 } -returnCodes ok -result 0
 
 skip yacht-10
-test yacht-10 "Sixes" -body {
+test yacht-10 "Fives" -body {
+    score {1 5 3 5 3} "fives"
+} -returnCodes ok -result 10
+
+skip yacht-11
+test yacht-11 "Sixes" -body {
     score {2 3 4 5 6} "sixes"
 } -returnCodes ok -result 6
 
-skip yacht-11
-test yacht-11 "Full house two small, three big" -body {
+skip yacht-12
+test yacht-12 "Full house two small, three big" -body {
     score {2 2 4 4 4} "full house"
 } -returnCodes ok -result 16
 
-skip yacht-12
-test yacht-12 "Full house three small, two big" -body {
+skip yacht-13
+test yacht-13 "Full house three small, two big" -body {
     score {5 3 3 5 3} "full house"
 } -returnCodes ok -result 19
 
-skip yacht-13
-test yacht-13 "Two pair is not a full house" -body {
+skip yacht-14
+test yacht-14 "Two pair is not a full house" -body {
     score {2 2 4 4 5} "full house"
 } -returnCodes ok -result 0
 
-skip yacht-14
-test yacht-14 "Four of a kind is not a full house" -body {
+skip yacht-15
+test yacht-15 "Four of a kind is not a full house" -body {
     score {1 4 4 4 4} "full house"
 } -returnCodes ok -result 0
 
-skip yacht-15
-test yacht-15 "Yacht is not a full house" -body {
+skip yacht-16
+test yacht-16 "Yacht is not a full house" -body {
     score {2 2 2 2 2} "full house"
 } -returnCodes ok -result 0
 
-skip yacht-16
-test yacht-16 "Four of a Kind" -body {
+skip yacht-17
+test yacht-17 "Four of a Kind" -body {
     score {6 6 4 6 6} "four of a kind"
 } -returnCodes ok -result 24
 
-skip yacht-17
-test yacht-17 "Yacht can be scored as Four of a Kind" -body {
+skip yacht-18
+test yacht-18 "Yacht can be scored as Four of a Kind" -body {
     score {3 3 3 3 3} "four of a kind"
 } -returnCodes ok -result 12
 
-skip yacht-18
-test yacht-18 "Full house is not Four of a Kind" -body {
+skip yacht-19
+test yacht-19 "Full house is not Four of a Kind" -body {
     score {3 3 3 5 5} "four of a kind"
 } -returnCodes ok -result 0
 
-skip yacht-19
-test yacht-19 "Little Straight" -body {
+skip yacht-20
+test yacht-20 "Little Straight" -body {
     score {3 5 4 1 2} "little straight"
 } -returnCodes ok -result 30
 
-skip yacht-20
-test yacht-20 "Little Straight as Big Straight" -body {
+skip yacht-21
+test yacht-21 "Little Straight as Big Straight" -body {
     score {1 2 3 4 5} "big straight"
 } -returnCodes ok -result 0
 
-skip yacht-21
-test yacht-21 "Four in order but not a little straight" -body {
+skip yacht-22
+test yacht-22 "Four in order but not a little straight" -body {
     score {1 1 2 3 4} "little straight"
 } -returnCodes ok -result 0
 
-skip yacht-22
-test yacht-22 "No pairs but not a little straight" -body {
+skip yacht-23
+test yacht-23 "No pairs but not a little straight" -body {
     score {1 2 3 4 6} "little straight"
 } -returnCodes ok -result 0
 
-skip yacht-23
-test yacht-23 "Minimum is 1, maximum is 5, but not a little straight" -body {
+skip yacht-24
+test yacht-24 "Minimum is 1, maximum is 5, but not a little straight" -body {
     score {1 1 3 4 5} "little straight"
 } -returnCodes ok -result 0
 
-skip yacht-24
-test yacht-24 "Big Straight" -body {
+skip yacht-25
+test yacht-25 "Big Straight" -body {
     score {4 6 2 5 3} "big straight"
 } -returnCodes ok -result 30
 
-skip yacht-25
-test yacht-25 "Big Straight as little straight" -body {
+skip yacht-26
+test yacht-26 "Big Straight as little straight" -body {
     score {6 5 4 3 2} "little straight"
 } -returnCodes ok -result 0
 
-skip yacht-26
-test yacht-26 "No pairs but not a big straight" -body {
+skip yacht-27
+test yacht-27 "No pairs but not a big straight" -body {
     score {6 5 4 3 1} "big straight"
 } -returnCodes ok -result 0
 
-skip yacht-27
-test yacht-27 "Choice" -body {
+skip yacht-28
+test yacht-28 "Choice" -body {
     score {3 3 5 6 6} "choice"
 } -returnCodes ok -result 23
 
-skip yacht-28
-test yacht-28 "Yacht as choice" -body {
+skip yacht-29
+test yacht-29 "Yacht as choice" -body {
     score {2 2 2 2 2} "choice"
 } -returnCodes ok -result 10
 
-skip yacht-29
-test yacht-29 "Invalid category" -body {
+skip yacht-30
+test yacht-30 "Invalid category" -body {
     score {2 2 3 3 4} "two pairs"
 } -returnCodes error -result "Invalid category"
 

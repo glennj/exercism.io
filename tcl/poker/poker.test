@@ -108,6 +108,26 @@ test poker-10 "both hands have two identically ranked pairs, tie goes to remaini
     {JD QH JS 8D QC}
 }
 
+skip poker-29
+test poker-29 "both hands have two pairs that add to the same value, win goes to highest pair" -body {
+    bestHands {
+        {6S 6H 3S 3H AS}
+        {7H 7S 2H 2S AC}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {7H 7S 2H 2S AC}
+}
+
+skip poker-30
+test poker-30 "two pairs first ranked by largest pair" -body {
+    bestHands {
+        {5C 2S 5S 4H 4C}
+        {6S 2S 6H 7C 2C}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {6S 2S 6H 7C 2C}
+}
+
 skip poker-11
 test poker-11 "three of a kind beats two pair" -body {
     bestHands {

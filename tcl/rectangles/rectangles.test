@@ -124,4 +124,17 @@ test rect-13 "large input with many rectangles" -body {
     }
 } -result 60
 
+skip rect-14
+test rect-14 "rectangles have four sides" -body {
+    rectangles {
+        "+-+ +-+"
+        "| | | |"
+        "+-+-+-+"
+        "  | |  "
+        "+-+-+-+"
+        "| | | |"
+        "+-+ +-+"
+    }
+} -result 5
+
 cleanupTests

@@ -223,6 +223,13 @@ test complex-9.4 "Exponential of a number with real and imaginary part" -body {
     $d toList
 } -returnCodes ok -match pairOfFloats -result {-2 0}
 
+skip complex-9.5
+test complex-9.5 "Exponential resulting in a number with real and imaginary part" -body {
+    set c [ComplexNumber new [expr {log(2) / 2}] [expr {$PI / 4}]]
+    set d [$c exp]
+    $d toList
+} -returnCodes ok -match pairOfFloats -result {1 1}
+
 ############################################################
 # Operations between real numbers and complex numbers.
 #

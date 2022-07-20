@@ -2,6 +2,7 @@ proc tournamentResults {filename} {
     [Tournament new $filename] results
 }
 
+
 # ---------------------------------------------------------
 oo::class create Tournament {
     variable filename teams

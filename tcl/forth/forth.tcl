@@ -1,7 +1,4 @@
-# class-based solution inspired by @moniquelive
-# https://exercism.org/tracks/pharo-smalltalk/exercises/forth/solutions/moniquelive
-
-source ./stack.tcl
+source stack.tcl
 
 proc evalForth {input} {
     [Forth new $input] evaluate
@@ -9,12 +6,12 @@ proc evalForth {input} {
 
 ############################################################
 oo::class create Forth {
-    variable stack operations inputLines
-
+    variable stack macros inputLines
+ 
     constructor {input} {
         set stack [Stack new]
-        set inputLines [split [string tolower $input] \n]
-        set operations [ForthOperations new $stack]
+        set macros [dict create]
+        set inputLines [split [string toupper $input] \n]
     }
 
     method evaluate {} {
@@ -24,218 +21,96 @@ oo::class create Forth {
         return [lreverse [$stack contents]]
     }
 
-    method EvaluateLine {instructions} {
-        if {[lindex $instructions 0] eq ":"} {
-            # a user-defined operation
-            # assume last instruction is ";"
-            $operations add [lrange $instructions 1 end-1]
+    # reminder, by default only methods starting with
+    # a lower-case letter are exported (public)
 
-        } else {
-            foreach instruction $instructions {
-                try {
-                    set token [Number new $stack $instruction]
-                } trap {Forth NaN} {} {
-                    try {
-                        set token [$operations get $instruction]
-                    } trap {Forth UnknownOperation} {} {
-                        error "undefined operation"
-                    }
-                }
-                $token execute
+    method EvaluateLine {instructions} {
+        while {[llength $instructions] > 0} {
+            set instructions [lassign $instructions token]
+
+            if {[dict exists $macros $token]} {
+                set instructions [linsert $instructions 0 {*}[dict get $macros $token]]
+
+            } elseif {[string is integer -strict $token]} {
+                $stack push $token
+
+            } elseif {$token in {+ - * /}} {
+                my ArithmeticOperation $token
+
+            } elseif {$token in {DUP DROP SWAP OVER}} {
+                my $token
+
+            } elseif {$token eq ":"} {
+                # TODO validate last token is a semicolon
+                my AddMacro [lrange $instructions 0 end-1]
+                set instructions [list]
+
+            } else {
+                error "undefined operation"
             }
         }
     }
-}
 
-############################################################
-# the catalog of operations
-oo::class create ForthOperations {
-    variable operations
-    variable stack
-    constructor {aStack} {
-        set stack $aStack
-        set operations [dict create]
-        # populate the initial catalog of operations
-        dict set operations "+"    [Add new $stack]
-        dict set operations "-"    [Subtract new $stack]
-        dict set operations "*"    [Multiply new $stack]
-        dict set operations "/"    [Divide new $stack]
-        dict set operations "drop" [Drop new $stack]
-        dict set operations "dup"  [Dup new $stack]
-        dict set operations "over" [Over new $stack]
-        dict set operations "swap" [Swap new $stack]
+    method ArithmeticOperation {op} {
+        my CheckStack 2
+        set b [$stack pop]
+        set a [$stack pop]
+        $stack push [expr "$a $op $b"]
+        return
     }
-    method stack {} {
-        return $stack
-    }
-    method get {opname} {
-        try {
-            return [dict get $operations $opname]
-        } trap {TCL LOOKUP DICT} {} {
-            return -code error -errorcode {Forth UnknownOperation}
-        }
-    }
-    method add {instructions} {
-        set op [UserDefined new $instructions [self]]
-        dict set operations [$op name] $op
-    }
-}
 
-############################################################
-oo::class create ForthToken {
-    variable stack
-    constructor {aStack} {
-        set stack $aStack
+    method DUP {} {
+        my CheckStack 1
+        $stack push [$stack peek]
+        return
     }
-    method requireStackSize {n} {
+
+    method DROP {} {
+        my CheckStack 1
+        $stack pop
+        return
+    }
+
+    method SWAP {} {
+        my CheckStack 2
+        set b [$stack pop]
+        set a [$stack pop]
+        $stack push $b
+        $stack push $a
+        return
+    }
+ 
+    method OVER {} {
+        my CheckStack 2
+        set b [$stack pop]
+        set a [$stack peek]
+        $stack push $b
+        $stack push $a
+        return
+    }
+
+    # check if the stack has the minimum number of items
+    method CheckStack {n} {
         if {$n > 0 && [$stack isEmpty]} {
             error "empty stack"
         } elseif {$n > 1 && [$stack size] == 1} {
             error "only one value on the stack"
         }
     }
-    method execute {} {
-        error "subclass responsibility"
-    }
-}
 
-############################################################
-oo::class create Number {
-    superclass ForthToken
-    variable value
-    variable stack
-    constructor {aStack aValue} {
-        if {![string is integer -strict $aValue]} {
-            return -code error -errorcode {Forth NaN}
-        }
-        set value $aValue
-        next $aStack
-    }
-    method execute {} {
-        $stack push $value
-    }
-}
-
-############################################################
-oo::class create UserDefined {
-    variable definition
-    variable name
-    constructor {tokens operations} {
-        set stack [$operations stack]
-        set tokens [lassign $tokens name]
-        if {[catch {Number new $stack $name}] == 0} {
+    method AddMacro {instructions} {
+        set instructions [lassign $instructions key]
+        if {[string is integer -strict $key]} {
             error "illegal operation"
         }
-        set definition [list]
-        foreach token $tokens {
-            try {
-                lappend definition [Number new $stack $token]
-            } trap {Forth NaN} {} {
-                try {
-                    lappend definition {*}[$operations get $token]
-                } trap {Forth UnknownOperation} {} {
-                    error "unknown operation"
-                }
+        set value [list]
+        foreach token $instructions {
+            if {[dict exists $macros $token]} {
+                lappend value {*}[dict get $macros $token]
+            } else {
+                lappend value $token
             }
         }
-    }
-    method name {} {
-        return $name
-    }
-    method execute {} {
-        foreach token $definition {
-            $token execute
-        }
-    }
-}
-
-############################################################
-oo::class create Add {
-    superclass ForthToken
-    variable stack
-    method execute {} {
-        my requireStackSize 2
-        set a [$stack pop]
-        set b [$stack pop]
-        $stack push [expr {$b + $a}]
-    }
-}
-
-oo::class create Subtract {
-    superclass ForthToken
-    variable stack
-    method execute {} {
-        my requireStackSize 2
-        set a [$stack pop]
-        set b [$stack pop]
-        $stack push [expr {$b - $a}]
-    }
-}
-
-oo::class create Multiply {
-    superclass ForthToken
-    variable stack
-    method execute {} {
-        my requireStackSize 2
-        set a [$stack pop]
-        set b [$stack pop]
-        $stack push [expr {$b * $a}]
-    }
-}
-
-oo::class create Divide {
-    superclass ForthToken
-    variable stack
-    method execute {} {
-        my requireStackSize 2
-        set a [$stack pop]
-        if {$a == 0} then {error "divide by zero"}
-        set b [$stack pop]
-        $stack push [expr {$b / $a}]
-    }
-}
-
-############################################################
-oo::class create Drop {
-    superclass ForthToken
-    variable stack
-    method execute {} {
-        my requireStackSize 1
-        $stack pop
-        return
-    }
-}
-
-oo::class create Dup {
-    superclass ForthToken
-    variable stack
-    method execute {} {
-        my requireStackSize 1
-        $stack push [$stack peek]
-        return
-    }
-}
-
-oo::class create Over {
-    superclass ForthToken
-    variable stack
-    method execute {} {
-        my requireStackSize 2
-        set a [$stack pop]
-        set b [$stack peek]
-        [$stack push $a] push $b
-        return
-    }
-}
-
-oo::class create Swap {
-    superclass ForthToken
-    variable stack
-    method execute {} {
-        my requireStackSize 2
-        set a [$stack pop]
-        set b [$stack pop]
-        [$stack push $a] push $b
-        return
+        dict set macros $key $value
     }
 }

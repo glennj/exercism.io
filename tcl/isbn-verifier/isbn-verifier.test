@@ -25,6 +25,11 @@ test isbn-4 "check digit is a character other than X" -body {
     isValid "3-598-21507-A"
 } -returnCodes ok -match boolean -result false
 
+skip isbn-xyz
+test isbn-xyz "invalid check digit in isbn is not treated as zero" -body {
+    isValid "4-598-21507-B"
+} -returnCodes ok -match boolean -result false
+
 skip isbn-5
 test isbn-5 "invalid character in isbn" -body {
     isValid "3-598-P1581-X"

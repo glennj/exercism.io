@@ -25,6 +25,7 @@ proc startServer {args} {
     log "exiting"
 }
 
+
 proc timestamp {} {
     clock format [clock seconds] -format "%Y-%m-%d %T"
 }
@@ -41,6 +42,7 @@ proc incoming {sock addr port} {
 }
 
 proc hangman {sock} {
+    global word
     set client [dict get $::clients $sock]
 
     if {[eof $sock]} {
@@ -50,7 +52,7 @@ proc hangman {sock} {
         return
     }
 
-    if {[gets $sock line] == -1} {
+    if {![gets $sock line]} {
         log "can't read a line from $client"
         return
     }
@@ -73,7 +75,6 @@ proc hangman {sock} {
             guess $letter
             puts $sock [currentStatus]
             if {[gameOver]} {
-                log "game over: $::state"
                 set ::forever now
             }
         }
@@ -88,7 +89,7 @@ proc gameOver {} {
 }
 
 proc currentStatus {} {
-    list $::badGuesses [mask] $::state
+    return [list $::badGuesses [mask] $::state]
 }
 
 proc mask {} {
