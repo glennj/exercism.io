@@ -38,4 +38,7 @@ class Math {
       n = n + 1
     }
   }
+
+  static min(a, b) { a < b ? a : b }
+  static max(a, b) { a < b ? b : a }
 }

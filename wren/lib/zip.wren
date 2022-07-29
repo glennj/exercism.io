@@ -52,18 +52,12 @@ class Zip is Sequence {
 
   iterate(iter) {
     if (iter == null) {
-      if (count == 0) {
-        return false
-      }
+      if (count == 0) return false
       return 0
     }
-    iter = iter + 1
-    if (iter == count) {
-      return false
-    }
-    return iter
+    if (iter + 1 == count) return false
+    return iter + 1
   }
 
-  //iteratorValue(iter) { [_list1[iter], _list2[iter]] }
   iteratorValue(iter) { _lists.map {|lst| lst[iter]}.toList }
 }
