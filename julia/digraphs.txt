@@ -1,4 +1,5 @@
 vim digraphs for julialang
+See `:dig!`
 
 Operators
        ^K + 
@@ -19,3 +20,5 @@ bitwise xor \
 delta   D*      Δ       &#916;
 pi      p*      π       &#960;
 exp     n/a     ℯ       &#8495;
+
+timex   /\      ×

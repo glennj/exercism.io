@@ -13,7 +13,7 @@ defmodule Knapsack do
       than the current weight limit)
     * m[i,w] = max(m[i-1,w], m[i-1,w-w_{i}]+v_{i}) if w_{i} <= w.
 
-  The solution can then be found by calculating m[n,W]. 
+  The solution can then be found by extracting m[n,W]. 
   """
 
   @type item :: %{value: integer, weight: integer}

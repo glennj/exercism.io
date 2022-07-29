@@ -15,6 +15,7 @@ defmodule Matrix do
 
   """
   @spec transpose(matrix :: t()) :: t()
+
   # def transpose(matrix), do: Enum.zip(matrix) |> Enum.map(&Tuple.to_list/1)
 
   # Simpler:
