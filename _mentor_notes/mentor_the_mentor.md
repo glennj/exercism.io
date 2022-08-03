@@ -35,3 +35,10 @@ IFS=';' read -r a b c <<<"$line"
 Have fun with the next exercise; feel free to post here if you have more comments or questions.
 <!-- -->
 If you're satisfied with this solution, feel free to "End discussion" to finalize the mentoring process.
+
+
+"
+Sometimes the test runner infrastructure can be a bit flaky.
+The returned error message gives no insight.
+I'd suggest making a tiny cosmetic change and submit again to trigger a new test run.
+"
