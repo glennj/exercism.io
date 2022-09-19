@@ -42,6 +42,32 @@ PROCINFO["sorted_in"] = and($1, 16) ? "@ind_num_desc" : "@ind_num_asc"
 for (i in handshake) ...
 ```
 
+## Variables are global
+
+All AWK variables are global in scope, with one exception: 
+function parameters are scoped to the function.
+
+```awk
+function myfunc(a) {
+    b = 20
+    print "in myfunc, a=" a " and b=" b
+}
+BEGIN {
+    a = 1
+    b = 2
+    print "before, a=" a " and b=" b
+    myfunc(10)
+    print "after, a=" a " and b=" b
+}
+```
+```sh
+$ gawk -f scope_demo.awk </dev/null
+before, a=1 and b=2
+in myfunc, a=10 and b=20
+after, a=1 and b=20
+```
+
+
 
 ---
 

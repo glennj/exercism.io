@@ -255,6 +255,8 @@ section, and [this Stack Overflow answer](https://stackoverflow.com/a/64117854/7
 * [Q: TclOO: Difference between declaring variable as “class” level or in
   constructor](https://stackoverflow.com/q/58071069/7552)
 * [Q: Using `lmap` to filter list of strings](https://stackoverflow.com/q/30489106/7552)
+* [classify characters by character class](https://stackoverflow.com/a/73534451/7552)
+    - follows [the same effort for bash](https://github.com/glennj/exercism.io/blob/main/_mentor_notes/bash.md#exploring-character-classes)
 
 ### Tcl wiki
 
