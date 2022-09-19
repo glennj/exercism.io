@@ -3,7 +3,7 @@ require_relative 'robot_name'
 
 class RobotTest < Minitest::Test
   def skip; end
-  NAME_REGEXP = /^[A-Z]{2}\d{3}$/.freeze
+  NAME_REGEXP = /^[A-Z]{2}\d{3}$/
 
   def setup
     Robot.forget
