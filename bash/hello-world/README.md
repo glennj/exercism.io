@@ -5,11 +5,10 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
 
-The classical introductory exercise. Just say "Hello, World!".
+The classical introductory exercise.
+Just say "Hello, World!".
 
-["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is
-the traditional first program for beginning programming in a new language
-or environment.
+["Hello, World!"][hello-world] is the traditional first program for beginning programming in a new language or environment.
 
 The objectives are simple:
 
@@ -18,6 +17,10 @@ The objectives are simple:
 - Submit your solution and check it at the website.
 
 If everything goes well, you will be ready to fetch your first real exercise.
+
+[hello-world]: http://en.wikipedia.org/wiki/%22Hello,_world!%22_program
+
+## Welcome to Bash!
 
 Unlike many other languages here, bash is a bit of a special snowflake.
 If you are on a Mac or other unix-y platform, you almost definitely
@@ -30,11 +33,11 @@ multiple versions of bash that can be frustratingly incompatible. Luckily
 we shouldn't hit those differences for these basic examples, and if you
 can get the tests to pass on your machine, we are doing great.
 
-## Installation
+### Installation
 
 Please follow [these instructions](https://exercism.org/docs/tracks/bash/installation) to install `bash` on your system.
 
-## Testing
+### Testing
 
 Please follow [these instructions](https://exercism.org/docs/tracks/bash/tests) to learn more about testing with `bash`.
 

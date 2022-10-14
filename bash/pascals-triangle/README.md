@@ -1,14 +1,13 @@
-# Pascals Triangle
+# Pascal's Triangle
 
-Welcome to Pascals Triangle on Exercism's Bash Track.
+Welcome to Pascal's Triangle on Exercism's Bash Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
 
 Compute Pascal's triangle up to a given number of rows.
 
-In Pascal's Triangle each number is computed by adding the numbers to
-the right and left of the current position in the previous row.
+In Pascal's Triangle each number is computed by adding the numbers to the right and left of the current position in the previous row.
 
 ```text
     1
