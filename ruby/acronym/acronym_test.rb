@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require_relative 'acronym'
 
-# Common test data version: 1.7.0 cacf1f1
 class AcronymTest < Minitest::Test
   def skip; end
   def test_basic

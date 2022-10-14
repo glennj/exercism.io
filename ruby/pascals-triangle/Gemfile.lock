@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    memoist (0.16.2)
+    minitest (5.16.3)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  memoist
+  minitest
+
+BUNDLED WITH
+   2.3.23

@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require_relative 'high_scores'
 
-# Common test data version: 5.0.0 7dfb96c
 class HighScoresTest < Minitest::Test
   def skip; end
   def test_list_of_scores
@@ -46,7 +45,7 @@ class HighScoresTest < Minitest::Test
     assert_equal expected, HighScores.new(scores).personal_top_three
   end
 
-  def test_personal_top_when_there_are_less_than_3 # rubocop:disable Naming/VariableNumber
+  def test_personal_top_when_there_are_less_than_3
     skip
     scores = [30, 70]
     expected = [70, 30]

@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require_relative 'microwave'
 
-# Common test data version: 1.7.0 cacf1f1
 class MicrowaveTest < Minitest::Test
   def skip; end
   def test_one_second

@@ -5,11 +5,10 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
 
-A Pythagorean triplet is a set of three natural numbers, {a, b, c}, for
-which,
+A Pythagorean triplet is a set of three natural numbers, {a, b, c}, for which,
 
 ```text
-a**2 + b**2 = c**2
+a² + b² = c²
 ```
 
 and such that,
@@ -21,7 +20,7 @@ a < b < c
 For example,
 
 ```text
-3**2 + 4**2 = 9 + 16 = 25 = 5**2.
+3² + 4² = 5².
 ```
 
 Given an input integer N, find all Pythagorean triplets for which `a + b + c = N`.

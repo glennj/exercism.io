@@ -81,6 +81,7 @@ And $51.20 is the price with the biggest discount.
 - @Insti
 - @jpotts244
 - @kotp
+- @PaulT89
 - @tryantwit
 
 ### Based on

@@ -1,4 +1,9 @@
-require 'memoist'   # gem install memoist
+# (sudo) gem install bundler
+# bundle config set --local path 'vendor/bundle'
+# bundle install
+# bundle exec ruby pascals_triangle_test.rb
+
+require 'memoist'
 
 class Triangle
   extend Memoist

@@ -31,7 +31,7 @@ module Translation
 
   def of_rna(strand)
     proteins = []
-    strand.scan(/.../).each do |codon|
+    strand.scan(/.{1,3}/).each do |codon|
       raise InvalidCodonError unless CODON_TO_PROTEIN.key? codon
       break if CODON_TO_PROTEIN[codon] == 'STOP'
 

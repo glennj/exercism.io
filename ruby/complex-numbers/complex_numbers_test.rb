@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require_relative 'complex_numbers'
 
-# Common test data version: 1.3.0 1e1c9ca
 class ComplexNumbersTest < Minitest::Test
   def skip; end
   def test_real_part_of_a_purely_real_number
@@ -172,7 +171,7 @@ class ComplexNumbersTest < Minitest::Test
     assert_equal expected, ComplexNumber.new(0, Math::PI).exp
   end
 
-  def test_exponential_of_0 # rubocop:disable Naming/VariableNumber
+  def test_exponential_of_0
     skip
     expected = ComplexNumber.new(1, 0)
     assert_equal expected, ComplexNumber.new(0, 0).exp

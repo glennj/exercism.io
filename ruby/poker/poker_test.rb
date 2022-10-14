@@ -3,8 +3,6 @@ require_relative 'poker'
 
 class PokerTest < Minitest::Test
   def skip; end
-  # rubocop:disable Naming/VariableNumber
-
   def test_one_hand
     high_of_jack = %w[4S 5S 7H 8D JC]
     game = Poker.new([high_of_jack])
@@ -196,6 +194,4 @@ class PokerTest < Minitest::Test
     game = Poker.new(hands)
     assert_equal [spade_straight_to_9, diamond_straight_to_9], game.best_hand
   end
-
-  # rubocop:enable Naming/VariableNumber
 end

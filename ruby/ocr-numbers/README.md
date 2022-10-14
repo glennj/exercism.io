@@ -1,12 +1,13 @@
-# Ocr Numbers
+# OCR Numbers
 
-Welcome to Ocr Numbers on Exercism's Ruby Track.
+Welcome to OCR Numbers on Exercism's Ruby Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
 
-Given a 3 x 4 grid of pipes, underscores, and spaces, determine which number is
-represented, or whether it is garbled.
+Given a 3 x 4 grid of pipes, underscores, and spaces, determine which number is represented, or whether it is garbled.
+
+## Step One
 
 To begin with, convert a simple binary font to a string containing 0 or 1.
 
@@ -34,15 +35,19 @@ If the input is the correct size, but not recognizable, your program should retu
 
 If the input is the incorrect size, your program should return an error.
 
+## Step Two
+
 Update your program to recognize multi-character binary strings, replacing garbled numbers with ?
+
+## Step Three
 
 Update your program to recognize all numbers 0 through 9, both individually and as part of a larger string.
 
 ```text
- _ 
+ _
  _|
-|_ 
-   
+|_
+
 ```
 
 Is converted to "2"
@@ -56,24 +61,27 @@ Is converted to "2"
 
 Is converted to "1234567890"
 
-Update your program to handle multiple numbers, one per line. When converting several lines, join the lines with commas.
+## Step Four
+
+Update your program to handle multiple numbers, one per line.
+When converting several lines, join the lines with commas.
 
 ```text
-    _  _ 
+    _  _
   | _| _|
   ||_  _|
-         
-    _  _ 
-|_||_ |_ 
+
+    _  _
+|_||_ |_
   | _||_|
-         
- _  _  _ 
+
+ _  _  _
   ||_||_|
   ||_| _|
-         
+
 ```
 
-Is converted to "123,456,789"
+Is converted to "123,456,789".
 
 Some editors trim whitespace. If you rely on trailing whitespace in a multiline string,
 instead use a format that doesn't rely on trailing whitespace, or adjust the settings in your editor.
