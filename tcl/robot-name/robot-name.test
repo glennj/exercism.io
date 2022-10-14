@@ -6,7 +6,7 @@ source testHelpers.tcl
 ############################################################
 source "robot-name.tcl"
 
-#configure -verbose {body error msec}
+configure -verbose {body error msec}
 
 test robot-1 "can create a robot" -setup {
     resetRobotNames

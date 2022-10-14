@@ -15,7 +15,7 @@ set cases {
     dominoes-6 "can't be chained" false  {{1 2} {4 1} {2 3}}
 }
 
-# This meets the requirement of being possibly-Euclidean.  All vertices
+# This meets the requirement of being possibly-Eulerian.  All vertices
 # have even degree.  Nevertheless, there is no chain here, as there's no
 # way to get from 1 to 2.  This test (and the two following) prevent
 # solutions from using the even-degree test as the sole criterion, as
@@ -39,6 +39,13 @@ lappend cases {*}{
     dominoes-12 "nine elements" true  {{1 2} {5 3} {3 1} {1 2} {2 4} {1 6} {2 3} {3 4} {5 6}}
 }
 
+# Some solutions only check if each stone has at least two other 
+# neighbors, but this test case should still fail due to
+# the separate loops not being linked.
+lappend cases {*}{
+    dominoes-13 "separate three-domino loops" false  {{1 2} {2 3} {3 1} {4 5} {5 6} {6 4}}
+}
+
 skip {
     dominoes-2
     dominoes-3
@@ -51,6 +58,7 @@ skip {
     dominoes-10
     dominoes-11
     dominoes-12
+    dominoes-13
 }
 
 foreach {name description result input} $cases {

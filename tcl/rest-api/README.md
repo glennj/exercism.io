@@ -1,6 +1,6 @@
-# Rest Api
+# REST API
 
-Welcome to Rest Api on Exercism's Tcl Track.
+Welcome to REST API on Exercism's Tcl Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
@@ -9,7 +9,7 @@ Implement a RESTful API for tracking IOUs.
 
 Four roommates have a habit of borrowing money from each other frequently, and have trouble remembering who owes whom, and how much.
 
-Your task is to implement a simple [RESTful API](https://en.wikipedia.org/wiki/Representational_state_transfer) that receives [IOU](https://en.wikipedia.org/wiki/IOU)s as POST requests, and can deliver specified summary information via GET requests.
+Your task is to implement a simple [RESTful API][restful-wikipedia] that receives [IOU][iou]s as POST requests, and can deliver specified summary information via GET requests.
 
 ## API Specification
 
@@ -41,10 +41,16 @@ Your task is to implement a simple [RESTful API](https://en.wikipedia.org/wiki/R
 
 ## Other Resources
 
-- [https://restfulapi.net/](https://restfulapi.net/)
+- [REST API Tutorial][restfulapi]
 - Example RESTful APIs
-  - [GitHub](https://developer.github.com/v3/)
-  - [Reddit](https://www.reddit.com/dev/api/)
+  - [GitHub][github-rest]
+  - [Reddit][reddit-rest]
+
+[restful-wikipedia]: https://en.wikipedia.org/wiki/Representational_state_transfer
+[iou]: https://en.wikipedia.org/wiki/IOU
+[github-rest]: https://developer.github.com/v3/
+[reddit-rest]: https://www.reddit.com/dev/api/
+[restfulapi]: https://restfulapi.net/
 
 ## Source
 

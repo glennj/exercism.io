@@ -86,8 +86,18 @@ test triangle-16 "scalene: all sides are equal" -body {
 } -returnCodes ok -match boolean -result false
 
 skip triangle-17
-test triangle-17 "scalene: two sides are equal" -body {
+test triangle-17 "scalene: first and second sides are equal" -body {
      triangle::is scalene {4 4 3} 
+} -returnCodes ok -match boolean -result false
+
+skip triangle-20
+test triangle-20 "scalene: second and third sides are equal" -body {
+     triangle::is scalene {3 4 3} 
+} -returnCodes ok -match boolean -result false
+
+skip triangle-21
+test triangle-21 "scalene: first and third sides are equal" -body {
+     triangle::is scalene {4 3 3} 
 } -returnCodes ok -match boolean -result false
 
 skip triangle-18

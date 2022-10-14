@@ -188,6 +188,17 @@ test poker-16 "aces can start a straight (A 2 3 4 5)" -body {
     {4D AH 3S 2D 5C}
 }
 
+skip poker-31
+test poker-31 "aces cannot be in the middle of a straight (Q K A 2 3)" -body {
+    bestHands {
+        {2C 3D 7H 5H 2S}
+        {QS KH AC 2D 3S}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {2C 3D 7H 5H 2S}
+}
+
+
 skip poker-17
 test poker-17 "both hands with a straight, tie goes to highest ranked card" -body {
     bestHands {
@@ -298,6 +309,37 @@ test poker-27 "straight flush beats four of a kind" -body {
     {7S 8S 9S 6S 10S}
 }
 
+skip poker-32
+test poker-32 "aces can end a straight flush (10 J Q K A)" -body {
+    bestHands {
+        {KC AH AS AD AC}
+        {10C JC QC KC AC}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {10C JC QC KC AC}
+}
+
+skip poker-33
+test poker-33 "aces can start a straight flush (A 2 3 4 5)" -body {
+    bestHands {
+        {KS AH AS AD AC}
+        {4H AH 3H 2H 5H}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {4H AH 3H 2H 5H}
+}
+
+skip poker-34
+test poker-34 "aces cannot be in the middle of a straight flush (Q K A 2 3)" -body {
+    bestHands {
+        {2C AC QC 10C KC}
+        {QH KH AH 2H 3H}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {2C AC QC 10C KC}
+}
+
+
 skip poker-28
 test poker-28 "both hands have straight flush, tie goes to highest-ranked card" -body {
     bestHands {
@@ -306,6 +348,16 @@ test poker-28 "both hands have straight flush, tie goes to highest-ranked card" 
     }
 } -returnCodes ok -match orderedLists -result {
     {5S 7S 8S 9S 6S}
+}
+
+skip poker-35
+test poker-35 "even though an ace is usually high, a 5-high straight flush is the lowest-scoring straight flush" -body {
+    bestHands {
+        {2H 3H 4H 5H 6H}
+        {4D AD 3D 2D 5D}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {2H 3H 4H 5H 6H}
 }
 
 cleanupTests

@@ -74,6 +74,11 @@ test matching-brackets-13 "paired and wrong nested brackets" -body {
     bracketsMatch "\[({]})"
 } -returnCodes ok -match boolean -result false
 
+skip matching-brackets-13b
+test matching-brackets-13b "paired and wrong nested brackets but innermost are correct" -body {
+    bracketsMatch "\[({}])"
+} -returnCodes ok -match boolean -result false
+
 skip matching-brackets-14
 test matching-brackets-14 "paired and incomplete brackets" -body {
     bracketsMatch "{}\["

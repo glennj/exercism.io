@@ -100,4 +100,11 @@ test word-count-13 "alternating word separators not detected as a word" -body {
     "one" 1 "two" 1 "three" 1
 }
 
+skip word-count-14
+test word-count-14 "quotation for word with apostrophe" -body {
+    countWords "can, can't, 'can't'" 
+} -returnCodes ok -match dictionary -result {
+    "can" 1 "can't" 2
+}
+
 cleanupTests

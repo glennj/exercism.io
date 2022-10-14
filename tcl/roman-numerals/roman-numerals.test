@@ -130,5 +130,15 @@ test roman-25 "1666 is MDCLXVI" -body {
     toroman 1666
 } -returnCodes ok -result "MDCLXVI"
 
+skip roman-26
+test roman-26 "3001 is MMMI" -body {
+    toroman 3001
+} -returnCodes ok -result "MMMI"
+
+skip roman-27
+test roman-27 "3999 is MMMCMXCIX" -body {
+    toroman 3999
+} -returnCodes ok -result "MMMCMXCIX"
+
 
 cleanupTests
