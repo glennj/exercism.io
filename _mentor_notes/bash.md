@@ -308,6 +308,30 @@ Regarding passing arrays around, there are 3 ways to do it without stringifying:
     declare -p my_array
     ```
 
+<!-- -->
+
+<!-- https://exercism.org/mentoring/discussions/33fe341522b740268e2c63766cbdc294 -->
+
+(in reponse to: "I actually did it a bit strangely, I realize, where I pass the current bracket but not stack. In general, passing args is a bit verbose. What's a good practice here? Anything important to watch out in either case?")
+
+bash has 2 variable scopes: global and local.
+
+* global variables can be read/written anywhere in the file
+* local variables (declared using the `local` or `declare` commands while inside a function). 
+    * local variables can be read/written in the function **and any function called from it** (and further descendants), but not in the _parent_ scope
+
+None of the variables here are `local`, so technically you don't _need_ to pass any of them (except `main "$@"` since functions get their own  positional parameters so there's no "global $1")
+
+But of course there's a reason why functions with arguments were invented: global variables get hard to work with pretty quickly ("where does this variable come from?")
+
+Another factor is that bash variables are kind of difficult to pass around. (I can talk more about this if you want.)
+
+I don't know that there's one answer to the question. 
+
+Personally, I try to code shell programs similarly like I would with other languages, mostly so that they are easier to read:
+
+* I use `local` for variables that should be scoped to the function
+* I try to restrict global variables to only constants, or perhaps some blob representing global state.
 
 <!-- ........................................................ -->
 ## Arithmetic
