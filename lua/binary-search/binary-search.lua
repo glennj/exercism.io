@@ -1,19 +1,5 @@
-local function is_sorted(array)
-    for i = 2, #array do
-        if array[i-1] > array[i] then return false end
-    end
-    return true
-end
-
+-- Iteratively,
 local function find(array, search_for)
-    --[[ We ought to verify that the array is sorted.
-    --   However, this upsets the traced array's access count,
-    --   and causes the tests' assertions to fail.
-    if not is_sorted(array) then
-        error("array is not sorted")
-    end
-    --]]
-
     local i = 1
     local j = #array
 
@@ -33,4 +19,26 @@ local function find(array, search_for)
     return -1       -- not found
 end
 
-return find
+-- Recursively,
+local function find_rec(array, search_for)
+    local function searcher(i, j)
+        if i > j then
+            return -1
+        end
+
+        local mid = (i + j) // 2
+        local val = array[mid]
+
+        if search_for == val then
+            return mid
+        elseif search_for < val then
+            return searcher(i, mid - 1)
+        else
+            return searcher(mid + 1, j)
+        end
+    end
+
+    return searcher(1, #array)
+end
+
+return find_rec
