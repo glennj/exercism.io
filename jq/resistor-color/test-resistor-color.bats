@@ -16,7 +16,7 @@ END_INPUT
 
     assert_success
     expected=0
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Color codes:White' {
@@ -33,7 +33,7 @@ END_INPUT
 
     assert_success
     expected=9
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Color codes:Orange' {
@@ -50,7 +50,7 @@ END_INPUT
 
     assert_success
     expected=3
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Colors' {
@@ -65,6 +65,6 @@ END_INPUT
 
     assert_success
     expected='["black","brown","red","orange","yellow","green","blue","violet","grey","white"]'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 

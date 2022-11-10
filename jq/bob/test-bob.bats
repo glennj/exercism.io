@@ -13,7 +13,7 @@ END_INPUT
 
     assert_success
     expected='Whatever.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'shouting' {
@@ -27,7 +27,7 @@ END_INPUT
 
     assert_success
     expected='Whoa, chill out!'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'shouting gibberish' {
@@ -41,7 +41,7 @@ END_INPUT
 
     assert_success
     expected='Whoa, chill out!'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'asking a question' {
@@ -55,7 +55,7 @@ END_INPUT
 
     assert_success
     expected='Sure.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'asking a numeric question' {
@@ -69,7 +69,7 @@ END_INPUT
 
     assert_success
     expected='Sure.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'asking gibberish' {
@@ -83,7 +83,7 @@ END_INPUT
 
     assert_success
     expected='Sure.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'talking forcefully' {
@@ -97,7 +97,7 @@ END_INPUT
 
     assert_success
     expected='Whatever.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'using acronyms in regular speech' {
@@ -111,7 +111,7 @@ END_INPUT
 
     assert_success
     expected='Whatever.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'forceful question' {
@@ -125,7 +125,7 @@ END_INPUT
 
     assert_success
     expected='Calm down, I know what I'\''m doing!'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'shouting numbers' {
@@ -139,7 +139,7 @@ END_INPUT
 
     assert_success
     expected='Whoa, chill out!'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'no letters' {
@@ -153,7 +153,7 @@ END_INPUT
 
     assert_success
     expected='Whatever.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'question with no letters' {
@@ -167,7 +167,7 @@ END_INPUT
 
     assert_success
     expected='Sure.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'shouting with special characters' {
@@ -181,7 +181,7 @@ END_INPUT
 
     assert_success
     expected='Whoa, chill out!'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'shouting with no exclamation mark' {
@@ -195,7 +195,7 @@ END_INPUT
 
     assert_success
     expected='Whoa, chill out!'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'statement containing question mark' {
@@ -209,7 +209,7 @@ END_INPUT
 
     assert_success
     expected='Whatever.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'non-letters with question' {
@@ -223,7 +223,7 @@ END_INPUT
 
     assert_success
     expected='Sure.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'prattling on' {
@@ -237,7 +237,7 @@ END_INPUT
 
     assert_success
     expected='Sure.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'silence' {
@@ -251,7 +251,7 @@ END_INPUT
 
     assert_success
     expected='Fine. Be that way!'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'prolonged silence' {
@@ -265,7 +265,7 @@ END_INPUT
 
     assert_success
     expected='Fine. Be that way!'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'alternate silence' {
@@ -279,7 +279,7 @@ END_INPUT
 
     assert_success
     expected='Fine. Be that way!'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'multiple line question' {
@@ -293,7 +293,7 @@ END_INPUT
 
     assert_success
     expected='Whatever.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'starting with whitespace' {
@@ -307,7 +307,7 @@ END_INPUT
 
     assert_success
     expected='Whatever.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'ending with whitespace' {
@@ -321,7 +321,7 @@ END_INPUT
 
     assert_success
     expected='Sure.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'other whitespace' {
@@ -335,7 +335,7 @@ END_INPUT
 
     assert_success
     expected='Fine. Be that way!'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'non-question ending with whitespace' {
@@ -349,6 +349,6 @@ END_INPUT
 
     assert_success
     expected='Whatever.'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 

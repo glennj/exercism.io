@@ -1,6 +1,6 @@
-def reverse:
-  # reimplementing https://stedolan.github.io/jq/manual/v1.6/#reverse
-  reduce .[] as $elem ([]; [$elem] + .)
-;
+.value
+| (. / "") as $chars             # `/` on a string is like `split/1`
+| [range(length; 0; -1)]
+| map($chars[. - 1])
+| join("")
 
-.value | explode | reverse | implode

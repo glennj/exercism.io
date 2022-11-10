@@ -9,13 +9,12 @@
 # Task: output a JSON object with keys:
 
 40 as $expected_minutes_in_oven
-| 2 as $prep_mins_per_layer
-| (.actual_minutes_in_oven // 0) as $actual_mins
-| ($expected_minutes_in_oven - $actual_mins) as $remaining_minutes_in_oven
-| ((.number_of_layers // 1) * $prep_mins_per_layer) as $preparation_time
+| 2 as $prep_minutes_per_layer
+| ($prep_minutes_per_layer * (.number_of_layers // 1)) as $preparation_time
+| (.actual_minutes_in_oven // 0) as $actual_mins_in_oven
 | {
     $expected_minutes_in_oven,
-    $remaining_minutes_in_oven,
+    remaining_minutes_in_oven: ($expected_minutes_in_oven - $actual_mins_in_oven),
     $preparation_time,
-    total_time: ($preparation_time + $actual_mins)
+    total_time: ($preparation_time + $actual_mins_in_oven)
   }

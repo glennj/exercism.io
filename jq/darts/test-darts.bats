@@ -14,7 +14,7 @@ END_INPUT
 
     assert_success
     expected=0
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'On the outer circle' {
@@ -29,7 +29,7 @@ END_INPUT
 
     assert_success
     expected=1
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'On the middle circle' {
@@ -44,7 +44,7 @@ END_INPUT
 
     assert_success
     expected=5
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'On the inner circle' {
@@ -59,7 +59,7 @@ END_INPUT
 
     assert_success
     expected=10
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Exactly on centre' {
@@ -74,7 +74,7 @@ END_INPUT
 
     assert_success
     expected=10
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Near the centre' {
@@ -89,7 +89,7 @@ END_INPUT
 
     assert_success
     expected=10
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Just within the inner circle' {
@@ -104,7 +104,7 @@ END_INPUT
 
     assert_success
     expected=10
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Just outside the inner circle' {
@@ -119,7 +119,7 @@ END_INPUT
 
     assert_success
     expected=5
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Just within the middle circle' {
@@ -134,7 +134,7 @@ END_INPUT
 
     assert_success
     expected=5
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Just outside the middle circle' {
@@ -149,7 +149,7 @@ END_INPUT
 
     assert_success
     expected=1
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Just within the outer circle' {
@@ -164,7 +164,7 @@ END_INPUT
 
     assert_success
     expected=1
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Just outside the outer circle' {
@@ -179,7 +179,7 @@ END_INPUT
 
     assert_success
     expected=0
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Asymmetric position between the inner and middle circles' {
@@ -194,6 +194,6 @@ END_INPUT
 
     assert_success
     expected=5
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 

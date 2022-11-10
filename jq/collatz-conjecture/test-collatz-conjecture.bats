@@ -13,7 +13,7 @@ END_INPUT
 
     assert_success
     expected=0
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'divide if even' {
@@ -27,7 +27,7 @@ END_INPUT
 
     assert_success
     expected=4
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'even and odd steps' {
@@ -41,7 +41,7 @@ END_INPUT
 
     assert_success
     expected=9
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'large number of even and odd steps' {
@@ -55,7 +55,7 @@ END_INPUT
 
     assert_success
     expected=152
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'zero is an error' {
@@ -69,7 +69,7 @@ END_INPUT
 
     assert_failure
     expected='Only positive integers are allowed'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'negative value is an error' {
@@ -83,6 +83,6 @@ END_INPUT
 
     assert_failure
     expected='Only positive integers are allowed'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 

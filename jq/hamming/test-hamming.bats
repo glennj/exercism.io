@@ -14,7 +14,7 @@ END_INPUT
 
     assert_success
     expected=0
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'single letter identical strands' {
@@ -29,7 +29,7 @@ END_INPUT
 
     assert_success
     expected=0
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'single letter different strands' {
@@ -44,7 +44,7 @@ END_INPUT
 
     assert_success
     expected=1
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'long identical strands' {
@@ -59,7 +59,7 @@ END_INPUT
 
     assert_success
     expected=0
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'long different strands' {
@@ -74,7 +74,7 @@ END_INPUT
 
     assert_success
     expected=9
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'disallow first strand longer' {
@@ -89,7 +89,7 @@ END_INPUT
 
     assert_failure
     expected='strands must be of equal length'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'disallow second strand longer' {
@@ -104,7 +104,7 @@ END_INPUT
 
     assert_failure
     expected='strands must be of equal length'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'disallow empty first strand' {
@@ -119,7 +119,7 @@ END_INPUT
 
     assert_failure
     expected='strands must be of equal length'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'disallow empty second strand' {
@@ -134,6 +134,6 @@ END_INPUT
 
     assert_failure
     expected='strands must be of equal length'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 

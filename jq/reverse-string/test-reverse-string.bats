@@ -13,7 +13,7 @@ END_INPUT
 
     assert_success
     expected=''
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'a word' {
@@ -27,7 +27,7 @@ END_INPUT
 
     assert_success
     expected='tobor'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'a capitalized word' {
@@ -41,7 +41,7 @@ END_INPUT
 
     assert_success
     expected='nemaR'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'a sentence with punctuation' {
@@ -55,7 +55,7 @@ END_INPUT
 
     assert_success
     expected='!yrgnuh m'\''I'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'a palindrome' {
@@ -69,7 +69,7 @@ END_INPUT
 
     assert_success
     expected='racecar'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'an even-sized word' {
@@ -83,6 +83,6 @@ END_INPUT
 
     assert_success
     expected='reward'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 

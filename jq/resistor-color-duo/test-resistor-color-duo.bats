@@ -16,7 +16,7 @@ END_INPUT
 
     assert_success
     expected=10
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Blue and grey' {
@@ -33,7 +33,7 @@ END_INPUT
 
     assert_success
     expected=68
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Yellow and violet' {
@@ -50,7 +50,7 @@ END_INPUT
 
     assert_success
     expected=47
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'White and red' {
@@ -67,7 +67,7 @@ END_INPUT
 
     assert_success
     expected=92
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Orange and orange' {
@@ -84,7 +84,7 @@ END_INPUT
 
     assert_success
     expected=33
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Ignore additional colors' {
@@ -102,7 +102,7 @@ END_INPUT
 
     assert_success
     expected=51
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
 @test 'Black and brown, one-digit' {
@@ -119,6 +119,6 @@ END_INPUT
 
     assert_success
     expected=1
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 

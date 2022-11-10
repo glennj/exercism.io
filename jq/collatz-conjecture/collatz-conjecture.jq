@@ -1,13 +1,19 @@
 include "lib/assert";
 
 def steps:
-  def steps($count):
-    if . == 1 then $count
-    else
-      if . % 2 == 0 then . / 2 else . * 3 + 1 end
-      | steps($count + 1)
+  def _next_collatz:
+    if . % 2 == 0
+      then . / 2
+      else . * 3 + 1
     end
   ;
 
-  assert(. > 0; "Only positive integers are allowed")
-  | steps(0);
+  def _steps($n):
+    if . == 1
+      then $n
+      else _next_collatz | _steps($n + 1)
+    end
+  ;
+
+  assert(. > 0; "Only positive integers are allowed") | _steps(0)
+;
