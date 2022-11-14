@@ -215,3 +215,4 @@ END_INPUT
     expected='["123456","1 3456","  3456","  3 56","    56","    5"]'
     assert_equal "$output" "$expected"
 }
+

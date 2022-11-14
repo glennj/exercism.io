@@ -11,6 +11,6 @@ END_INPUT
 
     assert_success
     expected='Hello, World!'
-    assert_equal "$expected" "$output"
+    assert_equal "$output" "$expected"
 }
 
