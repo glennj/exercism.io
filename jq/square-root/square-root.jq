@@ -20,4 +20,4 @@ def find_root($root; $num; $b):
   end
 ;
 
-find_root(0; .radicand; .radicand | init_b)
+.radicand | find_root(0; .; init_b)

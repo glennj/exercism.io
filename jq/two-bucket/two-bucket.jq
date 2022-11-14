@@ -37,8 +37,8 @@ def solve:
   # first move: fill b1
   .b1 |= Bucket::fill | .moves = 1
 
-  # (potential) second move: fill b2 if it's the right size
-  | if .b2 | Bucket::size == .goal
+  # (potential) second move: fill b2 if its the right size
+  | if .b2.size == .goal
       then .b2 |= Bucket::fill | .moves += 1
       else .
     end

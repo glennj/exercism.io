@@ -8,7 +8,6 @@
 def new($name; $size): {$name, $size, amount: 0};
 
 def name: .name;
-def size: .size;
 def amount: .amount;
 def capacity: .size - .amount;
 
