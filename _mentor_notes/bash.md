@@ -1413,8 +1413,7 @@ manual](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expan
 <!-- -->
 
 Generally, you should encapsulate the main body of your script in a `main`
-function, like you may remember from the Hello World exercise.  It
-encapsulates a chunk of logic in one function to encourage re-use.
+function.  It encapsulates a chunk of logic in one function to encourage re-use.
 
 It is good practice, and becomes more and more important as your programs get bigger.
 
