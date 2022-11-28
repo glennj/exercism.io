@@ -15,10 +15,10 @@ The four nucleotides found in RNA are adenine (**A**), cytosine (**C**), guanine
 
 Given a DNA strand, its transcribed RNA strand is formed by replacing each nucleotide with its complement:
 
-* `G` -> `C`
-* `C` -> `G`
-* `T` -> `A`
-* `A` -> `U`
+- `G` -> `C`
+- `C` -> `G`
+- `T` -> `A`
+- `A` -> `U`
 
 ## Source
 
@@ -28,4 +28,4 @@ Given a DNA strand, its transcribed RNA strand is formed by replacing each nucle
 
 ### Based on
 
-Hyperphysics - http://hyperphysics.phy-astr.gsu.edu/hbase/Organic/transcription.html
+Hyperphysics - https://web.archive.org/web/20220408112140/http://hyperphysics.phy-astr.gsu.edu/hbase/Organic/transcription.html

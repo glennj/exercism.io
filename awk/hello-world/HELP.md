@@ -79,7 +79,7 @@ It's possible to submit an incomplete solution which allows you to:
 If you'd like help solving the exercise, check the following pages:
 
 - The [AWK track's documentation](https://exercism.org/docs/tracks/awk)
-- [Exercism's support channel on gitter](https://gitter.im/exercism/support)
+- [Exercism's programming category on the forum](https://forum.exercism.org/c/programming/5)
 - The [Frequently Asked Questions](https://exercism.org/docs/using/faqs)
 
 Should those resources not suffice, you could submit your (incomplete) solution to request mentoring.
@@ -88,8 +88,6 @@ Places to look for help for AWK questions:
 
 * [Stack Overflow `awk` tag][so].
 * check the Resources section of the [Stack Overflow `awk` tag into page][so-info].
-* the [exercism/awk][gitter-awk] gitter chat room.
-* the [exercism/support][gitter-support] gitter chat room.
 * raise an issue at the [exercism/awk][github] Github repository.
 * IRC: `irc://irc.liberachat.net/#awk`, `irc://irc.liberachat.net/#exercism`
     * see [Libera.chat][libera] if you're unfamiliar with IRC.
@@ -97,7 +95,5 @@ Places to look for help for AWK questions:
 
 [so]: https://stackoverflow.com/tags/awk
 [so-info]: https://stackoverflow.com/tags/awk/info
-[gitter-awk]: https://gitter.im/exercism/awk
-[gitter-support]: https://gitter.im/exercism/support
 [github]: https://github.com/exercism/awk
 [libera]: https://libera.chat

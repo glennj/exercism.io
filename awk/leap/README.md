@@ -24,7 +24,7 @@ Though our exercise adopts some very simple rules, there is more to learn!
 
 For a delightful, four minute explanation of the whole leap year phenomenon, go watch [this youtube video][video].
 
-[video]: http://www.youtube.com/watch?v=xX96xng7sAE
+[video]: https://www.youtube.com/watch?v=xX96xng7sAE
 
 ## Source
 
@@ -34,4 +34,4 @@ For a delightful, four minute explanation of the whole leap year phenomenon, go 
 
 ### Based on
 
-JavaRanch Cattle Drive, exercise 3 - http://www.javaranch.com/leap.jsp
+CodeRanch Cattle Drive, Assignment 3 - https://coderanch.com/t/718816/Leap

@@ -21,7 +21,7 @@ be able to say that they're 31.69 Earth-years old.
 
 If you're wondering why Pluto didn't make the cut, go watch [this YouTube video][pluto-video].
 
-[pluto-video]: http://www.youtube.com/watch?v=Z_2gbGXzFbs
+[pluto-video]: https://www.youtube.com/watch?v=Z_2gbGXzFbs
 
 ## Source
 
@@ -31,4 +31,4 @@ If you're wondering why Pluto didn't make the cut, go watch [this YouTube video]
 
 ### Based on
 
-Partially inspired by Chapter 1 in Chris Pine's online Learn to Program tutorial. - http://pine.fm/LearnToProgram/?Chapter=01
+Partially inspired by Chapter 1 in Chris Pine's online Learn to Program tutorial. - https://pine.fm/LearnToProgram/?Chapter=01

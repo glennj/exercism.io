@@ -81,7 +81,7 @@ The `grep` command should support multiple flags at once.
 For example, running `grep -l -v "hello" file1.txt file2.txt` should
 print the names of files that do not contain the string "hello".
 
-[grep]: http://pubs.opengroup.org/onlinepubs/9699919799/utilities/grep.html
+[grep]: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/grep.html
 
 ## AWK-track adjustments to the requirements
 
@@ -101,4 +101,4 @@ Like real grep, your program will return a **non-zero exit status** when _no mat
 
 ### Based on
 
-Conversation with Nate Foster. - http://www.cs.cornell.edu/Courses/cs3110/2014sp/hw/0/ps0.pdf
+Conversation with Nate Foster. - https://www.cs.cornell.edu/Courses/cs3110/2014sp/hw/0/ps0.pdf
