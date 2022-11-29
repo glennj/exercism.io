@@ -7,7 +7,7 @@
 ;; * string to be intern'ed must be uppercased
 ;; * need a `let` in the first do block so the loop variable
 ;;   is not shared between all the functions (every planet has
-;;   Neptune's orbit)
+;;    Neptune's orbit)
 
 (loop
   with seconds-per-earth-year = 31557600
