@@ -12,7 +12,7 @@ If you write your code in the exercise lisp file then load it with `(load "exerc
 
 ## Submitting your solution
 
-You can submit your solution using the `exercism submit hamming.lisp` command.
+You can submit your solution using the `exercism submit lillys-lasagna-leftovers.lisp` command.
 This command will upload your solution to the Exercism website and print the solution page's URL.
 
 It's possible to submit an incomplete solution which allows you to:

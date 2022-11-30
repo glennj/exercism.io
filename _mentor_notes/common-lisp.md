@@ -21,6 +21,33 @@ https://exercism.org/tracks/common-lisp/concepts
 
 `cond`, `case`, `if`, `when/unless`
 
+## Equality
+
+- `=`
+  - numbers only; relaxed about type
+- `eq` 
+  - object _identity_
+- `eql`
+  - numbers: same value _and type_
+  - chars: same value
+  - otherwise `eq`
+- `equal`
+  - lists: equal if each element is `equal`
+  - strings: equal if each element is `eql` (thus case _sensitive_)
+    - no other array type!
+  - otherwise `eql`
+- `equalp`
+  - numbers: some coersion performed: `(equalp 1 1.0) # => T`
+  - chars: case insensitive
+  - strings: case insensitive
+  - lists: equal if each element is `equalp`
+  - arrays: equal if each element is `equalp`
+  - structures: same type and all slots are `equalp`
+  - hash-tables: keys and values are `equalp`
+
+> It is generally considered better style to use type specific equality functions when one knows the types being compared.
+> For example `string=` rather than `equal`. 
+
 ## Predicates
 
 - "is it a ...?": `listp`, `stringp`, `arrayp`, `hash-table-p`
@@ -32,6 +59,57 @@ https://exercism.org/tracks/common-lisp/concepts
 
 Returns value of last expression.
 
+### Lambda list
+
+This is the name of the function's arg-list
+
+#### Optional parameters
+
+- `&optional` keyword
+- allows for default values
+- allows for predicate variable "was this value provided"
+
+```lisp
+(defun optional-parameters (&optional x (y 'default) (z nil z-supplied-p))
+  (list x y (if z-supplied-p (list :z-was-supplied z)
+                             (list :z-was-not-supplied z))))
+
+(optional-parameters)          ; => (NIL DEFAULT (:Z-WAS-NOT-SUPPLIED NIL))
+(optional-parameters 5 nil 10) ; => (5 DEFAULT (:Z-WAS-SUPPLIED 10))
+```
+
+#### Keyword parameters
+
+`&key` keyword for named parameters
+
+```lisp
+(defun keyword-parameters (&key x (y 'default) (z nil z-supplied-p))
+  (list x y (if z-supplied-p (list :z-was-supplied z)
+                             (list :z-was-not-supplied z))))
+
+(keyword-parameters)            ; => (NIL DEFAULT (:Z-WAS-NOT-SUPPLIED NIL))
+(keyword-parameters :y 5)       ; => (NIL 5 (:Z-WAS-NOT-SUPPLIED NIL))
+(keyword-parameters :z 10 :x 5) ; => (5 DEFAULT (:Z-WAS-SUPPLIED 10))
+```
+
+Care should be taken when combining optional and keyword parameters as the keyword name and argument could be consumed by optional parameters:
+```lisp
+(defun could-be-confusing (&optional x y &key z) (list x y z))
+(could-be-confusing :z 'huh?) ; => (:Z HUH? NIL)
+```
+
+#### Rest parameter
+
+- `&rest` keyword
+- slurps remaining arguments into a list
+
+```lisp
+(defun rest-of-it (req &optional opt &rest rest) (list req opt rest))
+(rest-of-it 1)         ; => (1 NIL NIL)
+(rest-of-it 1 2)       ; => (1 2 NIL)
+(rest-of-it 1 2 3)     ; => (1 2 (3))
+(rest-of-it 1 2 3 4 5) ; => (1 2 (3 4 5))
+```
 ## Multiple values
 
 A function can return multiple values. 
@@ -71,7 +149,94 @@ Capture multiple values bound to variables (temporarily)
 ;; => '(4 3 2 1)
 ```
 
-## Dates and times
+## Datatypes
+
+### Characters
+
+> Characters are represented as #\\ followed by its name. The 'name' for common characters such as 'A' or 'b' or '9' or '!' are simply that: so #\\A, #\\b, #\\9 and #\\!. Some non-graphical characters such as space or new-line have names such as #\\Space and #\\Newline.
+>
+> The standard only requires an implementation to have 96 characters (upper and lower case Latin alphabetic characters (A-Za-z), the digits (0-9), space (#\\Space), newline (#\\Newline) and punctuation (e.g. !$"'(),\_-./:;?+<=>#%&\*@[\\]{|}\`^~) However most implementations will offer more than that, including implementations which provide all Unicode characters.
+
+purpose | case-sensitive | case-insensitive
+--------|----------------|-----------------
+equality | `char=` | `char-equal`
+less than | `char<` | `char-lessp
+greater than | `char>` | `char-greaterp
+
+- predicates: `graphic-char-p`, `alpha-char-p`, `alphanumericp`, `digit-char-p`, `upper-case-p`, `lower-case-p`
+- case conversion: `char-upcase`, `char-downcase`
+
+### Strings
+
+- substring uses `subseq` since a string is a _vector_ of chars
+  - zero-based indexing
+- case sensitive equality: `string=` 
+- case insensitive equality: `string-equal` 
+- case conversion: `string-upcase`, `string-downcase`, `string-capitalize`
+
+#### Formatting strings
+
+> **format** _destination_ _control-string_ &rest _args_ => _result_
+
+"destination" is a _stream_
+
+> printing is done to the stream and there are two special values: `t` and `nil` for this argument.
+> `t` means to print to standard output (actually the stream to which the variable \*standard-output\* is bound)
+> and `nil` means to create a string and return it.
+
+
+
+
+
+### Arrays
+
+> **make-array** _dimensions_ &key _element-type_ _initial-element_ _initial-contents_ _adjustable_ _fill-pointer_ _displaced-to_ _displaced-index-offset_
+
+```lisp
+;; create
+(setf a (make-array 4))  ; => #(0 0 0 0)  ;; default value _probably_ implementation-dependent
+(setf a (make-array 4 :initial-contents '(11 22 33 44)))
+(setf b #(a b c))
+
+;; "lrepeat" -- use `:initial-element` keyword
+(make-array 3 :initial-element 7)       ; => #(7 7 7)
+(make-array '(2 3) :initial-element 7)  ; => #2A((7 7 7) (7 7 7))
+
+;; multi-dimensional
+(setf c #3A(((a b) (c d))
+            ((e f) (g h))
+            ((i j) (k l))))
+
+;; access
+(aref a 0)  ; => 11
+(aref c 1 1 1)  ; => H
+(aref c 0 1 0)  ; => C
+
+;; set value at an index
+(setf (aref b 1) 'YYY)    ; => YYY
+b                         ; => #(A YYY C)
+```
+
+### Hash tables
+
+```lisp
+;; create
+(setf h (make-hash-table))
+
+;; get
+(gethash :key h)
+
+;; get or default
+(gethash :key h :default-value)
+
+;; set
+(setf (gethash :key h) "new value")
+
+;; remove a key
+(remhash :key h)
+```
+
+### Dates and times
 
 Universal time: seconds since 1900-01-01T00:00:00Z
 ```lisp
@@ -136,72 +301,61 @@ But DST is a pain: don't assume your offset == your time zone
 ; => 5
 ```
 
-## Hash tables
+## Functional functions
+
+### Filter
 
 ```lisp
-;; create
-(setf h (make-hash-table))
+;; remove list items based on a predicate
+(remove-if #'evenp '(1 2 3 4 5)) ; => (1 3 5)
+(remove-if #'oddp '(1 3 5))      ; => ()
 
-;; get
-(gethash :key h)
-
-;; get or default
-(gethash :key h :default-value)
-
-;; set
-(setf (gethash :key h) "new value")
-
-;; remove a key
-(remhash :key h)
+;; remove specific elements
+(remove 1 '(1 2 1 3 1 4)) ; => (2 3 4)
+(remove #\l "hello")      ; => "heo"
 ```
 
-## Strings
+Note, `remove` uses `eql`
 
-- substring uses `subseq` since a string is a _vector_ of chars
-  - zero-based indexing
-- case sensitive equality: `string=` 
-- case insensitive equality: `string-equal` 
-- case conversion: `string-upcase`, `string-downcase`, `string-capitalize`
+### Map
 
-## Characters
+> **mapcar** _function_ &rest _lists+_ => _result-list_
 
-> Characters are represented as #\\ followed by its name. The 'name' for common characters such as 'A' or 'b' or '9' or '!' are simply that: so #\\A, #\\b, #\\9 and #\\!. Some non-graphical characters such as space or new-line have names such as #\\Space and #\\Newline.
->
-> The standard only requires an implementation to have 96 characters (upper and lower case Latin alphabetic characters (A-Za-z), the digits (0-9), space (#\\Space), newline (#\\Newline) and punctuation (e.g. !$"'(),\_-./:;?+<=>#%&\*@[\\]{|}\`^~) However most implementations will offer more than that, including implementations which provide all Unicode characters.
+- apply the function to the car of the list, then recurse with the cdr
+  ```lisp
+  (mapcar #'string '(a b c d e f))  ; => ("A" "B" "C" "D" "E" "F")
+  ```
 
-purpose | case-sensitive | case-insensitive
---------|----------------|-----------------
-equality | `char=` | `char-equal`
-less than | `char<` | `char-lessp
-greater than | `char>` | `char-greaterp
+  Note the syntax to name a function: `#'funcname`
 
-- predicates: `graphic-char-p`, `alpha-char-p`, `alphanumericp`, `digit-char-p`, `upper-case-p`, `lower-case-p`
-- case conversion: `char-upcase`, `char-downcase`
-## Arrays
+> **maplist** _function_ &rest _lists+_ => _result-list_
 
-> **make-array** _dimensions_ &key _element-type_ _initial-element_ _initial-contents_ _adjustable_ _fill-pointer_ _displaced-to_ _displaced-index-offset_
+- apply the function to the whole list, then recurse with the cdr
+  ```lisp
+  (maplist #'length '(a b c d e f))  ; => (6 5 4 3 2 1)
+  ```
 
-```lisp
-;; create
-(setf a (make-array 4))  ; => #(0 0 0 0)  ;; default value _probably_ implementation-dependent
-(setf a (make-array 4 :initial-contents '(11 22 33 44)))
-(setf b #(a b c))
+> **map** _result-type_ _function_ &rest _sequences+_ => _result_
 
-;; "lrepeat" -- use `:initial-element` keyword
-(make-array 3 :initial-element 7)       ; => #(7 7 7)
-(make-array '(2 3) :initial-element 7)  ; => #2A((7 7 7) (7 7 7))
+- more general purpose
+- "Applies function to successive sets of arguments in which one argument is obtained from each sequence.
+  The function is called first on all the elements with index 0, then on all those with index 1, and so on.
+  The result-type specifies the type of the resulting sequence."
+  ```lisp
+  (map 'string #'(lambda (x y)
+                   (char "01234567890ABCDEF" (mod (+ x y) 16)))
+        '(1 2 3 4)
+        '(10 9 8 7)) =>  "AAAA"
+  ```
 
-;; multi-dimensional
-(setf c #3A(((a b) (c d))
-            ((e f) (g h))
-            ((i j) (k l))))
+### Reduce
 
-;; access
-(aref a 0)  ; => 11
-(aref c 1 1 1)  ; => H
-(aref c 0 1 0)  ; => C
+> **reduce** _function_ _sequence_ &key _key_ _from-end_ _start_ _end_ _initial-value_ => _result_
 
-;; set value at an index
-(setf (aref b 1) 'YYY)    ; => YYY
-b                         ; => #(A YYY C)
-```
+<!-- ======================================== -->
+
+## Missing concepts
+
+- `setf`, `setq`, `define`
+- `let`
+- `loop`
