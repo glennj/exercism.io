@@ -5,6 +5,21 @@
 
 (in-package #:acronym)
 
+;; playing with macros
+(defmacro string-buffer () 
+  `(make-adjustable-string ""))
+
+(defmacro buf-append (buf c) 
+  `(vector-push-extend ,c ,buf))
+
+;;  https://stackoverflow.com/q/18045842/7552
+(defun make-adjustable-string (s)
+  (make-array (length s)
+    :fill-pointer (length s)
+    :adjustable t
+    :initial-contents s
+    :element-type (array-element-type s)))
+
 ;; A little state machine: iterating over the string,
 ;; - if we're looking for an alpha and we find one,
 ;;   append that char to the acronym and
@@ -27,18 +42,3 @@
                 (not (alpha-char-p c))) 
             (setf state :ALPHA)))))
     (string-upcase acronym)))
-
-;; playing with macros
-(defmacro string-buffer () 
-  `(make-adjustable-string ""))
-
-(defmacro buf-append (buf c) 
-  `(vector-push-extend ,c ,buf))
-
-;;  https://stackoverflow.com/q/18045842/7552
-(defun make-adjustable-string (s)
-  (make-array (length s)
-    :fill-pointer (length s)
-    :adjustable t
-    :initial-contents s
-    :element-type (array-element-type s)))

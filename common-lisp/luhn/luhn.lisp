@@ -1,11 +1,11 @@
 (in-package #:cl-user)
 (defpackage #:luhn
   (:use #:cl)
-  (:export #:is-valid))
+  (:export #:validp))
 
 (in-package #:luhn)
 
-(defun is-valid (input) 
+(defun validp (input) 
   (loop
     for i from (1- (length input)) downto 0
     for c = (elt input i)

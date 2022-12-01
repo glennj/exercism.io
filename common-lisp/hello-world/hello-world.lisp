@@ -1,9 +1,8 @@
 (defpackage #:hello-world
   (:use #:common-lisp)
-  (:export #:hello-world)
+  (:export #:hello)
   (:nicknames #:hw))
 
 (in-package #:hello-world)
 
-(defun hello-world () 
-  "Hello, World!")
+(defun hello () "Hello, World!")

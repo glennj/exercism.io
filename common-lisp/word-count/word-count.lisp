@@ -1,15 +1,16 @@
 (in-package #:cl-user)
-(defpackage #:phrase
+(defpackage #:word-count
   (:use #:cl)
-  (:export #:word-count))
-(in-package #:phrase)
+  (:export #:count-words))
 
-(defun word-count (sentence)
+(in-package #:word-count)
+
+(defun count-words (sentence)
   (loop
     with word = ""
     with word-counts = '()
     for c across sentence
-    if (alphanumericp c)
+    if (word-char-p c)
       do (setf word (string-append word (char-downcase c)))
     else
       if (string/= "" word)
@@ -22,13 +23,18 @@
     finally (return word-counts)))
 
 
+(defun word-char-p (c)
+  (or (alphanumericp c)
+      (char= #\' c)))
+
 (defun string-append (str c)
   (concatenate 'string str (list c)))
 
-(defun incr-word (word a-list)
+(defun incr-word (word counts)
   "Given an association list of (word . count), incr the count."
-  (let ((pair (assoc word a-list :test #'string=)))
+  (let* ((word (string-trim '(#\') word))
+         (pair (assoc word counts :test #'string=)))
     (if (null pair)
-      (push (cons word 1) a-list)
+      (push (cons word 1) counts)
       (incf (cdr pair)))
-    a-list))
+    counts))
