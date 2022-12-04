@@ -7,16 +7,17 @@
 (in-package :difference-of-squares)
 
 (defun sum (list) (reduce #'+ list))
-
 (defun range (n) (loop for i from 1 upto n collecting i))
+(defun square (n) (* n n))
+(defun squares (list) (mapcar #'square list))
 
 (defun square-of-sum (n)
   "Calculates the square of the sum for a given number."
-  (expt (sum (range n)) 2))
+  (square (sum (range n))))
 
 (defun sum-of-squares (n)
   "Calculates the sum of squares for a given number."
-  (sum (mapcar (lambda (x) (expt x 2)) (range n))))
+  (sum (squares (range n))))
 
 (defun difference (n)
   "Finds the diff. between the square of the sum and the sum of the squares."
