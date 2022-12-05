@@ -352,6 +352,29 @@ Note, `remove` uses `eql`
 
 > **reduce** _function_ _sequence_ &key _key_ _from-end_ _start_ _end_ _initial-value_ => _result_
 
+## Let
+
+Introduces a local scope for variables
+
+```lisp
+(let ((var-1 'value-1)
+      (var-2 'value-2)
+      (var-n 'value-n))
+  (body-1)
+  (body-n))
+```
+
+`let*` is the same except any `value-j` can refer to `value-i`
+(i.e. variables are defined in _series_ not in _parallel_)
+
+### Flet
+
+Like `let`, but we define local _functions_
+
+### Labels
+
+Like `flet`, but we `func-j` can call `func-i` (akin to `let*`)
+
 <!-- ======================================== -->
 
 ## Missing concepts
@@ -359,3 +382,5 @@ Note, `remove` uses `eql`
 - `setf`, `setq`, `define`
 - `let`
 - `loop`
+- `flet`, `labels`
+- macros

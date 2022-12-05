@@ -25,8 +25,9 @@ namespace eval difference::iterative {
     proc sequence {n} {
         yield
         for {set i 1} {$i <= $n} {incr i} {
-            yield $i
+            yield $i    ;# a truthy value
         }
+        yield 0         ;# a falsy value
     }
 
     proc foldl {initValue varnames coro body} {
@@ -35,7 +36,7 @@ namespace eval difference::iterative {
         upvar 1 $elemVarname  elem
 
         set acc $initValue
-        while {[set elem [$coro]] ne ""} {
+        while {[set elem [$coro]]} {
             set acc [uplevel 1 $body]
         }
         return $acc
