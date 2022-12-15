@@ -73,8 +73,10 @@ three"))))
 
 (test with-apostrophes
   (is (assert-alist-equal
-       '(("first" . 1) ("don't" . 2) ("laugh" . 1) ("then" . 1) ("cry" . 1))
-       (word-count:count-words "First: don't laugh. Then: don't cry."))))
+       '(("first" . 1) ("don't" . 2) ("laugh" . 1) ("then" . 1) ("cry" . 1)
+         ("you're" . 1) ("getting" . 1) ("it" . 1))
+       (word-count:count-words
+        "'First: don't laugh. Then: don't cry. You're getting it.'"))))
 
 
 (test with-quotations
@@ -105,6 +107,12 @@ three"))))
  ,two
  'three'"))))
 
+(test quotation-for-word-with-apostrophe
+  (is (assert-alist-equal
+       '(("can" . 1) ("can't" . 2))
+       (word-count:count-words "can, can't, 'can't'"))))
+
 (defun run-tests (&optional (test-or-suite 'word-count-suite))
   "Provides human readable results of test run. Default to entire suite."
   (run! test-or-suite))
+

@@ -5,14 +5,15 @@
 (in-package :sum-of-multiples)
 
 (defun multiples-below (factors limit)
-  (loop for f in factors
-        collect
-          (loop for i = f then (+ i f)
-                while (< i limit)
-                collect i)))
+  (let ((positive-factors (remove-if #'(lambda (n) (not (plusp n))) factors)))
+    (loop for f in positive-factors
+          appending
+            (loop for i = f then (+ i f)
+                  while (< i limit)
+                  collecting i)
+            into multiples
+          finally
+            (return (remove-duplicates multiples)))))
 
 (defun sum (factors limit)
-  (let* ((lists-of-multples (multiples-below factors limit))
-         (multiples (reduce #'append lists-of-multples))
-         (uniq-multiples (remove-duplicates multiples)))
-    (reduce #'+ uniq-multiples)))
+  (reduce #'+ (multiples-below factors limit)))

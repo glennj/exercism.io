@@ -14,3 +14,4 @@
         ((= el item) mid)
         ((< el item) (binary-find arr el left (1- mid)))
         (t           (binary-find arr el (1+ mid) right))))))
+

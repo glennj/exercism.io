@@ -12,6 +12,11 @@
 ;; Enter the testing package
 (in-package :strain-test)
 
+(defun under-10-p (n) (< n 10))
+
+(defun starts-with-z-p (s) (char= (char s 0) #\z))
+
+
 ;; Define and enter a new FiveAM test-suite
 (def-suite* strain-suite)
 
@@ -50,10 +55,6 @@
    (is
     (equal '("apple" "banana" "cherimoya")
            (strain:discard #'starts-with-z-p strs)))))
-
-(defun under-10-p (n) (< n 10))
-
-(defun starts-with-z-p (s) (char= (char s 0) #\z))
 
 (defun run-tests (&optional (test-or-suite 'strain-suite))
   "Provides human readable results of test run. Default to entire suite."

@@ -1,34 +1,20 @@
 (in-package #:cl-user)
 (defpackage #:triangle
   (:use #:cl)
-  (:export #:triangle))
+  (:export #:triangle-type-p))
 
 (in-package #:triangle)
 
-;; take 2
-;; I keep forgetting that comparison functions can take > 2 args
-(defun triangle (&rest sides)
-  (destructuring-bind (a b c) (sort sides #'<)
-    (cond
-      ((or (<= a 0) (<= (+ a b) c)) :illogical)
-      ((= a b c)  :equilateral)
-      ((/= a b c) :scalene)
-      (t          :isosceles))))
+(defun triangle-type-p (triangle-type &rest sides)
+  (labels ((valid-triangle-p (a b c) (and (> a 0)
+                                          (> (+ a b) c)))
+           (equilateral-p  (a b c) (= a b c))
+           (scalene-p      (a b c) (/= a b c))
+           (isosceles-p    (a b c) (not (scalene-p a b c))))
 
-;; first take
-; (defun triangle (a b c)
-;   (let ((sides (sort (list a b c) #'<)))
-;     (cond
-;       ;; a side of a triangle must be a positive number
-;       ((<= (nth 0 sides) 0) :illogical)
-;       ;; the sum of the shorter sides cannot exceed the longest side
-;       ((<= (+ (nth 0 sides) (nth 1 sides)) (nth 2 sides)) :illogical)
-;       ;; otherwise, now many uniq lengths do we have?
-;       (t (let ((uniq '()))
-;            (pushnew a uniq)
-;            (pushnew b uniq)
-;            (pushnew c uniq)
-;            (case (length uniq)
-;              (1 :equilateral)
-;              (2 :isosceles)
-;              (3 :scalene)))))))
+    (destructuring-bind (a b c) (sort sides #'<)
+      (when (valid-triangle-p a b c)
+        (case triangle-type
+          (:equilateral (equilateral-p  a b c))
+          (:scalene     (scalene-p      a b c))
+          (:isosceles   (isosceles-p    a b c)))))))

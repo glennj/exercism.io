@@ -5,12 +5,6 @@
 
 (in-package #:twelve-days)
 
-(defun recite (&optional begin end)
-  (loop
-    for i from (or begin 1) upto (or end begin 12)
-    collect (verse i) into verses
-    finally (return (format nil "~{~&~a~}" verses))))
-
 (defun verse (n)
   (loop
     with gifts = (list nil
@@ -39,3 +33,9 @@
               "~a my true love gave to me: ~{~a~^, ~}."
               xmas-day
               presents))))
+
+(defun recite (&optional begin end)
+  (loop
+    for i from (or begin 1) upto (or end begin 12)
+    collect (verse i) into verses
+    finally (return (format nil "~{~&~a~}" verses))))
