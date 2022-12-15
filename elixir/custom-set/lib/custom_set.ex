@@ -1,7 +1,7 @@
 defmodule CustomSet do
-  @opaque t :: %__MODULE__{map: map}
+  @opaque t :: %__MODULE__{data: map}
 
-  defstruct [map: %{}]
+  defstruct [data: %{}]
 
   @spec new(Enum.t()) :: t
   def new(enumerable) do
@@ -10,23 +10,23 @@ defmodule CustomSet do
 
   @spec add(t, any) :: t
   def add(custom_set, element) do
-    Map.update!(custom_set, :map, &Map.put_new(&1, element, :ok))
+    Map.update!(custom_set, :data, &Map.put_new(&1, element, :ok))
   end
 
   @spec empty?(t) :: boolean
   def empty?(custom_set) do
-    map_size(custom_set.map) == 0
+    map_size(custom_set.data) == 0
   end
 
   @spec contains?(t, any) :: boolean
   def contains?(custom_set, element) do
-    not is_nil(Map.get(custom_set.map, element))
+    not is_nil(Map.get(custom_set.data, element))
   end
 
   @spec subset?(t, t) :: boolean
   def subset?(custom_set_1, custom_set_2) do
     Enum.all?(
-      Map.keys(custom_set_1.map),
+      Map.keys(custom_set_1.data),
       &contains?(custom_set_2, &1)
     )
   end
@@ -34,21 +34,21 @@ defmodule CustomSet do
   @spec disjoint?(t, t) :: boolean
   def disjoint?(custom_set_1, custom_set_2) do
     not Enum.any?(
-      Map.keys(custom_set_1.map),
+      Map.keys(custom_set_1.data),
       &contains?(custom_set_2, &1)
     )
   end
 
   @spec equal?(t, t) :: boolean
   def equal?(custom_set_1, custom_set_2) do
-    map_size(custom_set_1.map) == map_size(custom_set_2.map) 
+    map_size(custom_set_1.data) == map_size(custom_set_2.data) 
     and subset?(custom_set_1, custom_set_2)
   end
 
   @spec intersection(t, t) :: t
   def intersection(custom_set_1, custom_set_2) do
     Enum.filter(
-      Map.keys(custom_set_1.map),
+      Map.keys(custom_set_1.data),
       &contains?(custom_set_2, &1)
     )
     |> new()
@@ -57,7 +57,7 @@ defmodule CustomSet do
   @spec difference(t, t) :: t
   def difference(custom_set_1, custom_set_2) do
     Enum.filter(
-      Map.keys(custom_set_1.map),
+      Map.keys(custom_set_1.data),
       &(not contains?(custom_set_2, &1))
     )
     |> new()
@@ -65,6 +65,6 @@ defmodule CustomSet do
 
   @spec union(t, t) :: t
   def union(custom_set_1, custom_set_2) do
-    Enum.reduce(Map.keys(custom_set_1.map), custom_set_2, &add(&2, &1))
+    Enum.reduce(Map.keys(custom_set_1.data), custom_set_2, &add(&2, &1))
   end
 end
