@@ -8,7 +8,7 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 
 ## Anonymous Functions
 
-Functions are treated as first class citizens in Elixir. This means functions:
+Functions are treated as first class citizens in Elixir. This means that:
 
 - Named and anonymous functions can be assigned to variables.
 - Named and anonymous functions can be passed around like data as arguments and return values.
@@ -47,18 +47,18 @@ variable.(1)
 
 Elixir supports many functions for working with bits found in the _Bitwise module_.
 
-- `&&&/2`: bitwise AND
-- `<<</2`: bitwise SHIFT LEFT
-- `>>>/2`: bitwise SHIFT RIGHT
-- `^^^/2`: bitwise XOR
-- `|||/2`: bitwise OR
-- `~~~/1`: bitwise NOT
+- `band/2`: bitwise AND
+- `bsl/2`: bitwise SHIFT LEFT
+- `bsr/2`: bitwise SHIFT RIGHT
+- `bxor/2`: bitwise XOR
+- `bor/2`: bitwise OR
+- `bnot/1`: bitwise NOT
 
-Here is an example how to use a bitwise operator:
+Here is an example how to use a bitwise function:
 
 ```elixir
-Bitwise.<<<(1, 2)
-# => 4
+Bitwise.bsl(1, 3)
+# => 8
 ```
 
 All bitwise functions only work on integers.
@@ -85,7 +85,7 @@ adder.(2)
 
 ## 2. Create a subtractor
 
-Implement `Secrets.secret_subtract/1`. It should return a function which takes one argument and subtracts from it the secret passed in to `secret_subtract`.
+Implement `Secrets.secret_subtract/1`. It should return a function which takes one argument and subtracts the secret passed in to `secret_subtract` from that argument.
 
 ```elixir
 subtractor = Secrets.secret_subtract(2)

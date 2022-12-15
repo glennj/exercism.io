@@ -8,7 +8,7 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 Search a file for lines matching a regular expression pattern. Return the line
 number and contents of each matching line.
 
-The Unix [`grep`](http://pubs.opengroup.org/onlinepubs/9699919799/utilities/grep.html) command can be used to search for lines in one or more files
+The Unix [`grep`][grep] command can be used to search for lines in one or more files
 that match a user-provided search query (known as the *pattern*).
 
 The `grep` command takes three arguments:
@@ -81,6 +81,8 @@ The `grep` command should support multiple flags at once.
 For example, running `grep -l -v "hello" file1.txt file2.txt` should
 print the names of files that do not contain the string "hello".
 
+[grep]: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/grep.html
+
 ## Source
 
 ### Created by
@@ -97,4 +99,4 @@ print the names of files that do not contain the string "hello".
 
 ### Based on
 
-Conversation with Nate Foster. - http://www.cs.cornell.edu/Courses/cs3110/2014sp/hw/0/ps0.pdf
+Conversation with Nate Foster. - https://www.cs.cornell.edu/Courses/cs3110/2014sp/hw/0/ps0.pdf

@@ -1,14 +1,13 @@
-# Pascals Triangle
+# Pascal's Triangle
 
-Welcome to Pascals Triangle on Exercism's Elixir Track.
+Welcome to Pascal's Triangle on Exercism's Elixir Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
 
 Compute Pascal's triangle up to a given number of rows.
 
-In Pascal's Triangle each number is computed by adding the numbers to
-the right and left of the current position in the previous row.
+In Pascal's Triangle each number is computed by adding the numbers to the right and left of the current position in the previous row.
 
 ```text
     1
@@ -39,4 +38,4 @@ the right and left of the current position in the previous row.
 
 ### Based on
 
-Pascal's Triangle at Wolfram Math World - http://mathworld.wolfram.com/PascalsTriangle.html
+Pascal's Triangle at Wolfram Math World - https://www.wolframalpha.com/input/?i=Pascal%27s+triangle

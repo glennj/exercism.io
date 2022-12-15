@@ -66,10 +66,9 @@ It's possible to submit an incomplete solution which allows you to:
 If you'd like help solving the exercise, check the following pages:
 
 - The [Elixir track's documentation](https://exercism.org/docs/tracks/elixir)
-- [Exercism's support channel on gitter](https://gitter.im/exercism/support)
+- [Exercism's programming category on the forum](https://forum.exercism.org/c/programming/5)
 - The [Frequently Asked Questions](https://exercism.org/docs/using/faqs)
 
 Should those resources not suffice, you could submit your (incomplete) solution to request mentoring.
 
 If you're stuck on something, it may help to look at some of the [available resources](https://exercism.org/docs/tracks/elixir/resources) out there where answers might be found.
-If you can't find what you're looking for in the documentation, feel free to ask help in the Exercism's BEAM [gitter channel](https://gitter.im/exercism/xerlang).

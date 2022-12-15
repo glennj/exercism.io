@@ -6,8 +6,7 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 
 ## Instructions
 
-A Pythagorean triplet is a set of three natural numbers, {a, b, c}, for
-which,
+A Pythagorean triplet is a set of three natural numbers, {a, b, c}, for which,
 
 ```text
 a² + b² = c²
@@ -22,7 +21,7 @@ a < b < c
 For example,
 
 ```text
-3² + 4² = 9 + 16 = 25 = 5².
+3² + 4² = 5².
 ```
 
 Given an input integer N, find all Pythagorean triplets for which `a + b + c = N`.
@@ -58,4 +57,4 @@ One or several of the tests of this exercise have been tagged as `:slow`, becaus
 
 ### Based on
 
-Problem 9 at Project Euler - http://projecteuler.net/problem=9
+Problem 9 at Project Euler - https://projecteuler.net/problem=9
