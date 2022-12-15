@@ -23,13 +23,13 @@ our @CHAIN = ( {},
 );
 
 sub recite {
-    my ($from, $to) = (shift)->@{'startVerse', 'endVerse'};
+    my ($from, $to) = @_;
     my @lines;
     for my $i ($from .. $to) {
-        push @lines, "" if $i > $from;
         push @lines, verse($i);
+        push @lines, "" if $i < $to;
     }
-    return \@lines;
+    return join "\n", @lines;
 }
 
 sub verse {

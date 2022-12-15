@@ -14,10 +14,10 @@ use List::Util qw/ max product /;
 use Carp;
 
 sub largest_product {
-    my ($digits, $span) = (shift)->@{'digits', 'span'};
+    my ($digits, $span) = @_;
     my @digits = split //, $digits;
 
-    croak 'span must be greater than zero'          unless $span >= 0;
+    croak 'span must not be negative'               if $span < 0;
     croak 'span must be smaller than string length' unless $span <= @digits;
     croak 'digits input must only contain digits'   if $digits =~ /\D/;
 

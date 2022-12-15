@@ -6,15 +6,15 @@ use 5.024;
 use strict;
 use warnings;
 
-#use Exporter::Easy  (OK => [qw/ rebase /]);
-use Exporter        qw/ import /;
-our @EXPORT_OK =    qw/ rebase /;
+use Exporter::Easy  (OK => [qw/ rebase /]);
+#use Exporter        qw/ import /;
+#our @EXPORT_OK =    qw/ rebase /;
 
 use List::Util      qw/ reduce all /;
 use Carp;
 
 sub rebase {
-    my ($iBase, $oBase, $digits) = (shift)->@{qw/inputBase outputBase digits/};
+    my ($digits, $iBase, $oBase) = @_;
 
     croak 'input base must be >= 2'  unless $iBase >= 2;
     croak 'output base must be >= 2' unless $oBase >= 2;

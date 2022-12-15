@@ -2,7 +2,6 @@
 
 package WordCount;
 
-
 #use strictures 2;
 use strict;
 use warnings;
@@ -18,7 +17,7 @@ sub count_words {
     my @words = ($sentence =~ m/[\w']+/g);
     return reduce {
         $b =~ s/^'|'$//g;   # trim leading/trailing quote
-        $a->{lc $b}++;
+        $a->{lc $b}++ if $b;
         $a;
     } {}, @words
 }

@@ -27,9 +27,9 @@ use Class::Tiny qw/ score /;
 sub BUILDARGS { return {score => pop} }
 
 sub allergic_to {
-    my ($input) = @_;
+    my ($item, $score) = @_;
     # delegate to a subroutine with a simpler signature
-    return is_allergic_to($input->{score}, $input->{item});
+    return is_allergic_to($score, $item);
 }
 
 sub is_allergic_to {

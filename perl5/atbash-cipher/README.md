@@ -1,6 +1,6 @@
 # Atbash Cipher
 
-Welcome to Atbash Cipher on Exercism's Perl 5 Track.
+Welcome to Atbash Cipher on Exercism's Perl Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
@@ -26,6 +26,7 @@ been an issue in the cipher's time.
 Ciphertext is written out in groups of fixed length, the traditional group size
 being 5 letters, leaving numbers unchanged, and punctuation is excluded.
 This is to make it harder to guess things based on word boundaries.
+All text will be encoded as lowercase letters.
 
 ## Examples
 

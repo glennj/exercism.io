@@ -17,7 +17,7 @@ use List::Util      qw/ all /;
 our ($EQ, $LE);
 
 sub binary_search {
-    my ($key, $list) = (shift)->@{qw/value array/};
+    my ($list, $key) = @_;
     ($EQ, $LE) = initialize($key, @$list);
     return binary_search_rec($key, $list, 0, $list->$#*);
 }

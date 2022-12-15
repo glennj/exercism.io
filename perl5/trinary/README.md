@@ -1,6 +1,6 @@
 # Trinary
 
-Welcome to Trinary on Exercism's Perl 5 Track.
+Welcome to Trinary on Exercism's Perl Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions

@@ -1,28 +1,46 @@
 package Meetup;
 
-use strictures 2;
-use Exporter::Easiest 'OK => meetup';
-use Carp;
-use DateTime;
-use List::MoreUtils qw/ firstidx /;
+#use strictures 2;
+use strict;
+use warnings;
 
+#use Exporter::Easiest 'OK => meetup';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ meetup /;
+
+use Carp;
+use Time::Piece;
+use Time::Seconds;
+
+sub last_day_of_month {
+    my ($mon, $year) = @_;
+    my $first_of_next_month =
+        $mon == 12 ? sprintf('%d-01-01', $year + 1)
+                   : sprintf('%d-%02d-01', $year, $mon + 1);
+    my $time = Time::Piece->strptime($first_of_next_month, '%Y-%m-%d');
+    return ($time - ONE_DAY)->mday;
+}
+
+sub day_index {
+    my $weekday = shift;
+    my $i = 0;
+    foreach my $day (qw/Sunday Monday Tuesday Wednesday Thursday Friday Saturday/) {
+        return $i if $day eq $weekday;
+        $i++;
+    }
+}
 
 sub meetup {
-    my ($year, $month, $week, $weekday) = (shift)->@{qw/year month week dayofweek/};
-
-    my $start = $week eq 'last'
-        ? DateTime->last_day_of_month( year => $year, month => $month )->day - 6
-        : {first => 1, second => 8, third => 15, fourth => 22, teenth => 13}->{$week};
-    croak "unknown week type: $week" if not defined $start;
-
-    my $dow = firstidx {lc $weekday eq $_} qw(monday tuesday wednesday thursday friday saturday sunday);
-    croak "unknown weekday name: $weekday" if $dow == -1;
-
-    my $datetime = DateTime->new( year => $year, month => $month, day => $start );
-
-    return $datetime
-        ->add(days => ($dow - $datetime->day_of_week_0) % 7)
-        ->ymd();
+    my ($input) = @_;
+    my ($week, $weekday, $month, $year) = $input =~ /(\w+) (\w+) of (\w+) (\d+)/;
+    my $month_start = Time::Piece->strptime("1 ${month} ${year}", "%d %B %Y");
+    my $start_day = $week eq 'Last'
+        ? (last_day_of_month($month_start->mon, $year) - 6)
+        : {First => 1, Second => 8, Third => 15, Fourth => 22, Teenth => 13}->{$week};
+    my $dow = day_index $weekday;
+    my $start_time = $month_start + ($start_day - 1) * ONE_DAY;
+    my $delta_days = ($dow - $start_time->day_of_week) % 7;
+    return ($start_time + $delta_days * ONE_DAY)->ymd;
 }
 
 1;

@@ -2,14 +2,16 @@
 ## no critic (Subroutines::ProhibitBuiltinHomonyms)
 
 use 5.024;
-use strictures 2;
+#use strictures 2;
+use strict;
+use warnings;
 
 package Clock;
 use Class::Tiny     qw/ minutes /;
 
 sub BUILDARGS {
-    my ($class, $args) = @_;
-    my ($hour, $minute) = $args->@{qw/hour minute/};
+    my ($class, %args) = @_;
+    my ($hour, $minute) = @args{qw/hour minute/};
     return {minutes => _normalize(($hour // 0) * 60 + ($minute // 0))};
 };
 
