@@ -1,5 +1,5 @@
-requires 'strictures', 2;
-requires 'Exporter::Easiest';
+#requires 'strictures', 2;
+#requires 'Exporter::Easiest';
 requires 'Tie::IxHash';
 
 on test => sub {

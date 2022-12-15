@@ -5,7 +5,7 @@
 # This has the potential for executing malicious code. We can
 # use Tcl's "safe interpreter" to help with this.
 
-source ../lib/dict.tcl
+source dict.tcl
 
 namespace eval DotFile {
     namespace export processDotFile

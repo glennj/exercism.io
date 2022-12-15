@@ -2,6 +2,9 @@
 
 package KindergartenGarden;
 
+# as of Dec 2022, this fails the exercism perl5 test runner
+# due to the unavailability of List::MoreUtils.
+
 #use strictures 2;
 use strict;
 use warnings;

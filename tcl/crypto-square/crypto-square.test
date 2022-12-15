@@ -10,6 +10,11 @@ test crypto-1 "empty plaintext results in an empty ciphertext" -body {
     encrypt ""
 } -returnCodes ok -result ""
 
+skip crypto-8
+test crypto-8 "normalization results in empty plaintext" -body {
+    encrypt "... --- ..."
+} -returnCodes ok -result ""
+
 skip crypto-2
 test crypto-2 "Lowercase" -body {
     encrypt "A"

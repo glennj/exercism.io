@@ -1,11 +1,19 @@
 package Hamming;
 
-use strictures 2;
-use Carp;
-use List::MoreUtils qw/ zip /;
-use List::Util      qw/ pairgrep /;
+# as of Dec 2022, this fails the exercism perl5 test runner
+# due to the unavailability of List::MoreUtils.
 
-use Exporter::Easiest 'OK => hamming_distance';
+#use strictures 2;
+use strict;
+use warnings;
+
+#use Exporter::Easiest 'OK => hamming_distance';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ hamming_distance /;
+
+use Carp;
+use List::Util      qw/ pairgrep /;
+use List::MoreUtils qw/ zip /;
 
 sub hamming_distance {
     my @a = split //, shift;

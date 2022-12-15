@@ -1,4 +1,4 @@
-source ../lib/set.tcl
+source set.tcl
 
 proc sumOfMultiples {factors limit} {
     set multiples [Set new]

@@ -1,5 +1,11 @@
 package Proverb;
-use strictures 2;
+
+#use strictures 2;
+use strict;
+use warnings;
+#use Exporter::Easiest 'OK => proverb';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ proverb /;
 
 sub proverb {
     my ($terms, $qualifier) = @_;

@@ -1,7 +1,9 @@
 package MinesweeperBoard;
 
 use 5.024;
-use strictures 2;
+#use strictures 2;
+use strict;
+use warnings;
 use Carp;
 use List::Util  qw/ all /;
 use Class::Tiny qw/ board size input /;

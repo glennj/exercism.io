@@ -1,6 +1,7 @@
 proc encrypt {plaintext} {
-    if {$plaintext eq ""} then {return ""}
     set input [regsub -all {[^[:alnum:]]} [string tolower $plaintext] ""]
+    if {$input eq ""} then {return ""}
+
     set segmentLength [expr {int(ceil(sqrt([string length $input])))}]
     set segments [regexp -all -inline ".{1,$segmentLength}" $input]
     # pad the last element with spaces

@@ -6,9 +6,9 @@ use 5.024;
 use strict;
 use warnings;
 
-use Exporter::Easy  (OK => [qw/ rebase /]);
-#use Exporter        qw/ import /;
-#our @EXPORT_OK =    qw/ rebase /;
+#use Exporter::Easy  (OK => [qw/ rebase /]);
+use Exporter        qw/ import /;
+our @EXPORT_OK =    qw/ rebase /;
 
 use List::Util      qw/ reduce all /;
 use Carp;

@@ -1,5 +1,4 @@
-#requires 'Moo'; # https://perldoc.pl/Moo
-requires 'strictures', 2;
+#requires 'strictures', 2;
 requires 'Set::Tiny';
 requires 'Class::Tiny';
 

@@ -1,5 +1,12 @@
 package RobotName;
-use strictures 2;
+
+# as of Dec 2022, this fails the exercism perl5 test runner
+# due to the unavailability of Set::Tiny
+
+#use strictures 2;
+use strict;
+use warnings;
+
 use Set::Tiny;
 our $NAMES = Set::Tiny->new();
 

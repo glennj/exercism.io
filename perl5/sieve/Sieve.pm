@@ -1,7 +1,14 @@
 package Sieve;
 
-use strictures 2;
-use Exporter::Easiest 'OK => find_primes';
+# as of Dec 2022, this fails the exercism perl5 test runner
+# due to the unavailability of Set::Tiny
+
+#use strictures 2;
+use strict;
+use warnings;
+#use Exporter::Easiest 'OK => find_primes';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ find_primes /;
 
 sub find_primes {
     my ($limit) = @_;

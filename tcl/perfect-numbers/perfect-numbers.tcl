@@ -1,4 +1,4 @@
-source ../lib/set.tcl
+source set.tcl
 
 namespace eval PerfectNumbers {
 

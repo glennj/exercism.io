@@ -1,7 +1,11 @@
 package Raindrops;
 
-use strictures 2;
-use Exporter::Easiest 'OK => raindrop';
+#use strictures 2;
+use strict;
+use warnings;
+#use Exporter::Easiest 'OK => raindrop';
+use Exporter qw/ import /;
+our @EXPORT_OK = qw/ raindrop /;
 
 # this module implements an "ordered hash" -- insertion order is preserved.
 use Tie::IxHash;
