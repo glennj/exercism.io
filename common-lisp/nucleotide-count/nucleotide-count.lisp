@@ -38,6 +38,7 @@
   (let ((counts (initialize-count-hash)))
     (maphash
       (lambda (key val)
+        (declare (ignore val))
         (setf (gethash key counts) (dna-count key strand)))
       counts)
     counts))
