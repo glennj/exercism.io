@@ -5,7 +5,9 @@
   (:export :spaces
            :string-pop
            :string-repeat
-           :char-digit-value))
+           :char-digit-value
+           :split-string
+           :join-strings))
 
 (in-package :string-utils)
 
@@ -34,3 +36,18 @@
 (defun char-digit-value (c)
   "The numeric value of an ascii digit: (char-digit-value #\3) => 3"
   (- (char-int c) (char-int #\0)))
+
+(defun split-string (str &key (separator #\Space) (trim nil))
+  "Split a string into a list of substrings separated by the given character."
+  (when trim (setf str (string-trim (list separator) str)))
+  (labels ((helper (str words &aux (pos (position separator str :test #'char=)))
+             (if (null pos)
+                 (append words (list str))
+                 (helper (subseq str (1+ pos))
+                         (append words (list (subseq str 0 pos)))))))
+    (helper str '())))
+
+(defun join-strings (strs &key (separator #\Space))
+  "Join a list of strings using the given separator."
+  (let ((fmt (format nil "~~{~~a~~^~a~~}" separator)))
+    (format nil fmt strs)))
