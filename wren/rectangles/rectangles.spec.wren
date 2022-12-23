@@ -6,16 +6,16 @@ Testie.test("Rectangles") { |do, skip|
     var r = Rectangles.new([])
     Expect.value(r.count).toEqual(0)
   }
-  do.test("no columns") {
+  skip.test("no columns") {
     var r = Rectangles.new([""])
     Expect.value(r.count).toEqual(0)
   }
-  do.test("no rectangles") {
+  skip.test("no rectangles") {
     var r = Rectangles.new([" "])
     Expect.value(r.count).toEqual(0)
   }
 
-  do.test("one rectangle") {
+  skip.test("one rectangle") {
     var r = Rectangles.new([
       "+-+",
       "| |",
@@ -24,7 +24,7 @@ Testie.test("Rectangles") { |do, skip|
     Expect.value(r.count).toEqual(1)
   }
 
-  do.test("two rectangles without shared parts") {
+  skip.test("two rectangles without shared parts") {
     var r = Rectangles.new([
       "  +-+",
       "  | |",
@@ -35,7 +35,7 @@ Testie.test("Rectangles") { |do, skip|
     Expect.value(r.count).toEqual(2)
   }
 
-  do.test("five rectangles with shared parts") {
+  skip.test("five rectangles with shared parts") {
     var r = Rectangles.new([
       "  +-+",
       "  | |",
@@ -46,7 +46,7 @@ Testie.test("Rectangles") { |do, skip|
     Expect.value(r.count).toEqual(5)
   }
 
-  do.test("rectangle of height 1 is counted") {
+  skip.test("rectangle of height 1 is counted") {
     var r = Rectangles.new([
       "+--+",
       "+--+"
@@ -54,7 +54,7 @@ Testie.test("Rectangles") { |do, skip|
     Expect.value(r.count).toEqual(1)
   }
 
-  do.test("rectangle of width 1 is counted") {
+  skip.test("rectangle of width 1 is counted") {
     var r = Rectangles.new([
       "++",
       "||",
@@ -63,7 +63,7 @@ Testie.test("Rectangles") { |do, skip|
     Expect.value(r.count).toEqual(1)
   }
 
-  do.test("1x1 square is counted") {
+  skip.test("1x1 square is counted") {
     var r = Rectangles.new([
       "++",
       "++"
@@ -71,7 +71,7 @@ Testie.test("Rectangles") { |do, skip|
     Expect.value(r.count).toEqual(1)
   }
 
-  do.test("rectangles must have four sides") {
+  skip.test("rectangles must have four sides") {
     var r = Rectangles.new([
       "+-+ +-+",
       "| | | |",
@@ -84,7 +84,7 @@ Testie.test("Rectangles") { |do, skip|
     Expect.value(r.count).toEqual(5)
   }
 
-  do.test("only complete rectangles are counted") {
+  skip.test("only complete rectangles are counted") {
     var r = Rectangles.new([
       "  +-+",
       "    |",
@@ -95,7 +95,7 @@ Testie.test("Rectangles") { |do, skip|
     Expect.value(r.count).toEqual(1)
   }
 
-  do.test("rectangles can be of different sizes") {
+  skip.test("rectangles can be of different sizes") {
     var r = Rectangles.new([
       "+------+----+",
       "|      |    |",
@@ -106,7 +106,7 @@ Testie.test("Rectangles") { |do, skip|
     Expect.value(r.count).toEqual(3)
   }
 
-  do.test("corner is required for a rectangle to be complete") {
+  skip.test("corner is required for a rectangle to be complete") {
     var r = Rectangles.new([
       "+------+----+",
       "|      |    |",
@@ -117,7 +117,7 @@ Testie.test("Rectangles") { |do, skip|
     Expect.value(r.count).toEqual(2)
   }
 
-  do.test("large input with many rectangles") {
+  skip.test("large input with many rectangles") {
     var r = Rectangles.new([
       "+---+--+----+",
       "|   +--+----+",

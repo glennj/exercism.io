@@ -6,7 +6,7 @@ Testie.test("Diamond") { |do, skip|
     Expect.that(Diamond.rows("A")).toEqual(["A"])
   }
 
-  do.test("Degenerate case with no row containing 3 distinct groups of spaces") {
+  skip.test("Degenerate case with no row containing 3 distinct groups of spaces") {
     // prettier-ignore
     Expect.that(Diamond.rows("B")).toEqual([
       " A ",
@@ -15,7 +15,7 @@ Testie.test("Diamond") { |do, skip|
     ])
   }
 
-  do.test("Smallest non-degenerate case with odd diamond side length") {
+  skip.test("Smallest non-degenerate case with odd diamond side length") {
     // prettier-ignore
     Expect.that(Diamond.rows("C")).toEqual([
       "  A  ",
@@ -26,7 +26,7 @@ Testie.test("Diamond") { |do, skip|
     ])
   }
 
-  do.test("Smallest non-degenerate case with even diamond side length") {
+  skip.test("Smallest non-degenerate case with even diamond side length") {
     Expect.that(Diamond.rows("D")).toEqual([
       "   A   ",
       "  B B  ",
@@ -38,7 +38,7 @@ Testie.test("Diamond") { |do, skip|
     ])
   }
 
-  do.test("Largest possible diamond") {
+  skip.test("Largest possible diamond") {
     Expect.that(Diamond.rows("Z")).toEqual([
       "                         A                         ",
       "                        B B                        ",

@@ -6,67 +6,67 @@ Testie.test("Matching Brackets") { |do, skip|
     Expect.value(Brackets.isPaired("[]")).toEqual(true)
   }
 
-  do.test("empty string") {
+  skip.test("empty string") {
     Expect.value(Brackets.isPaired("")).toEqual(true)
   }
 
-  do.test("unpaired brackets") {
+  skip.test("unpaired brackets") {
     Expect.value(Brackets.isPaired("[[")).toEqual(false)
   }
 
-  do.test("wrong ordered brackets") {
+  skip.test("wrong ordered brackets") {
     Expect.value(Brackets.isPaired("}{")).toEqual(false)
   }
 
-  do.test("wrong closing bracket") {
+  skip.test("wrong closing bracket") {
     Expect.value(Brackets.isPaired("{]")).toEqual(false)
   }
 
-  do.test("paired with whitespace") {
+  skip.test("paired with whitespace") {
     Expect.value(Brackets.isPaired("{ }")).toEqual(true)
   }
 
-  do.test("partially paired brackets") {
+  skip.test("partially paired brackets") {
     Expect.value(Brackets.isPaired("{[])")).toEqual(false)
   }
 
-  do.test("simple nested brackets") {
+  skip.test("simple nested brackets") {
     Expect.value(Brackets.isPaired("{[]}")).toEqual(true)
   }
 
-  do.test("several paired brackets") {
+  skip.test("several paired brackets") {
     Expect.value(Brackets.isPaired("{}[]")).toEqual(true)
   }
 
-  do.test("paired and nested brackets") {
+  skip.test("paired and nested brackets") {
     Expect.value(Brackets.isPaired("([{}({}[])])")).toEqual(true)
   }
 
-  do.test("unopened closing brackets") {
+  skip.test("unopened closing brackets") {
     Expect.value(Brackets.isPaired("{[)][]}")).toEqual(false)
   }
 
-  do.test("unpaired and nested brackets") {
+  skip.test("unpaired and nested brackets") {
     Expect.value(Brackets.isPaired("([{])")).toEqual(false)
   }
 
-  do.test("paired and wrong nested brackets") {
+  skip.test("paired and wrong nested brackets") {
     Expect.value(Brackets.isPaired("[({]})")).toEqual(false)
   }
 
-  do.test("paired and incomplete brackets") {
+  skip.test("paired and incomplete brackets") {
     Expect.value(Brackets.isPaired("{}[")).toEqual(false)
   }
 
-  do.test("too many closing brackets") {
+  skip.test("too many closing brackets") {
     Expect.value(Brackets.isPaired("[]]")).toEqual(false)
   }
 
-  do.test("math expression") {
+  skip.test("math expression") {
     Expect.value(Brackets.isPaired("(((185 + 223.85) * 15) - 543)/2")).toEqual(true)
   }
 
-  do.test("complex latex expression") {
+  skip.test("complex latex expression") {
     Expect.value(
       Brackets.isPaired(
         "\\left(\\begin{array}{cc} \\frac{1}{3} & x\\\\ \\mathrm{e}^{x} &... x^2 \\end{array}\\right)"

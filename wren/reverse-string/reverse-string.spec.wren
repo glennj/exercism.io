@@ -8,31 +8,31 @@ Testie.test("Hello World") { |do, skip|
     Expect.value(actual).toEqual(expected)
   }
 
-  do.test("a word") {
+  skip.test("a word") {
     var expected = "tobor"
     var actual = StringUtil.reverse("robot")
     Expect.value(actual).toEqual(expected)
   }
 
-  do.test("a capitalized word") {
+  skip.test("a capitalized word") {
     var expected = "nemaR"
     var actual = StringUtil.reverse("Ramen")
     Expect.value(actual).toEqual(expected)
   }
 
-  do.test("a sentence with punctuation") {
+  skip.test("a sentence with punctuation") {
     var expected = "!yrgnuh ma I"
     var actual = StringUtil.reverse("I am hungry!")
     Expect.value(actual).toEqual(expected)
   }
 
-  do.test("a palindrome") {
+  skip.test("a palindrome") {
     var expected = "racecar"
     var actual = StringUtil.reverse("racecar")
     Expect.value(actual).toEqual(expected)
   }
 
-  do.test("an even-sized word") {
+  skip.test("an even-sized word") {
     var expected = "reward"
     var actual = StringUtil.reverse("drawer")
     Expect.value(actual).toEqual(expected)

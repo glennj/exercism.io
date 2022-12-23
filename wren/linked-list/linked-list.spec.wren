@@ -9,7 +9,7 @@ Testie.test("Linked List") { |do, skip|
     Expect.value(list.pop()).toEqual(7)
   }
 
-  do.test("push/pop add and remove at the end of the list respectively") {
+  skip.test("push/pop add and remove at the end of the list respectively") {
     var list = LinkedList.new()
     list.push(11)
     list.push(13)
@@ -17,13 +17,13 @@ Testie.test("Linked List") { |do, skip|
     Expect.value(list.pop()).toEqual(11)
   }
 
-  do.test("shift gets only element in the list") {
+  skip.test("shift gets only element in the list") {
     var list = LinkedList.new()
     list.push(17)
     Expect.value(list.shift()).toEqual(17)
   }
 
-  do.test("shift gets elements from the beginning of the list") {
+  skip.test("shift gets elements from the beginning of the list") {
     var list = LinkedList.new()
     list.push(23)
     list.push(5)
@@ -31,7 +31,7 @@ Testie.test("Linked List") { |do, skip|
     Expect.value(list.shift()).toEqual(5)
   }
   
-  do.test("unshift adds element to beginning of the list") {
+  skip.test("unshift adds element to beginning of the list") {
     var list = LinkedList.new()
     list.unshift(23)
     list.unshift(5)
@@ -39,7 +39,7 @@ Testie.test("Linked List") { |do, skip|
     Expect.value(list.shift()).toEqual(23)
   }
 
-  do.test("pop, push, shift, and unshift can be used in any order") {
+  skip.test("pop, push, shift, and unshift can be used in any order") {
     var list = LinkedList.new()
     list.push(1)
     list.push(2)
@@ -55,20 +55,20 @@ Testie.test("Linked List") { |do, skip|
     Expect.value(list.shift()).toEqual(3)
   }
 
-  do.test("count an empty list") {
+  skip.test("count an empty list") {
     var list = LinkedList.new()
     Expect.value(list.count).toEqual(0)
   }
 
 
-  do.test("count a list with items") {
+  skip.test("count a list with items") {
     var list = LinkedList.new()
     list.push(37)
     list.push(1)
     Expect.value(list.count).toEqual(2)
   }
 
-  do.test("count is correct after mutation") {
+  skip.test("count is correct after mutation") {
     var list = LinkedList.new()
     list.push(31)
     Expect.value(list.count).toEqual(1)
@@ -80,7 +80,7 @@ Testie.test("Linked List") { |do, skip|
     Expect.value(list.count).toEqual(0)
   }
 
-  do.test("shift gets only element in the list") {
+  skip.test("shift gets only element in the list") {
     var list = LinkedList.new()
     list.push(41)
     list.push(59)
@@ -91,7 +91,7 @@ Testie.test("Linked List") { |do, skip|
     Expect.value(list.pop()).toEqual(47)
   }
 
-  do.test("shifting to empty doesn't break the list") {
+  skip.test("shifting to empty doesn't break the list") {
     var list = LinkedList.new()
     list.push(41)
     list.push(59)
@@ -102,14 +102,14 @@ Testie.test("Linked List") { |do, skip|
     Expect.value(list.shift()).toEqual(47)
   }
 
-  do.test("push/pop add and remove at the end of the list respectively") {
+  skip.test("push/pop add and remove at the end of the list respectively") {
     var list = LinkedList.new()
     list.push(61)
     list.delete(61)
     Expect.value(list.count).toEqual(0)
   }
 
-  do.test("deletes the element with the specified value from the list") {
+  skip.test("deletes the element with the specified value from the list") {
     var list = LinkedList.new()
     list.push(71)
     list.push(83)
@@ -122,7 +122,7 @@ Testie.test("Linked List") { |do, skip|
     Expect.value(list.shift()).toEqual(71)
   }
 
-  do.test("deletes the element with the specified value from the list, re-assigns tail") {
+  skip.test("deletes the element with the specified value from the list, re-assigns tail") {
     var list = LinkedList.new()
     list.push(71)
     list.push(83)
@@ -135,7 +135,7 @@ Testie.test("Linked List") { |do, skip|
     Expect.value(list.pop()).toEqual(71)
   }
 
-  do.test("deletes the element with the specified value from the list, re-assigns head") {
+  skip.test("deletes the element with the specified value from the list, re-assigns head") {
     var list = LinkedList.new()
     list.push(71)
     list.push(83)
@@ -148,7 +148,7 @@ Testie.test("Linked List") { |do, skip|
     Expect.value(list.shift()).toEqual(79)
   }
 
-  do.test("deletes the first of two elements") {
+  skip.test("deletes the first of two elements") {
     var list = LinkedList.new()
     list.push(97)
     list.push(101)
@@ -159,7 +159,7 @@ Testie.test("Linked List") { |do, skip|
     Expect.value(list.pop()).toEqual(101)
   }
 
-  do.test("deletes the second of two elements") {
+  skip.test("deletes the second of two elements") {
     var list = LinkedList.new()
     list.push(97)
     list.push(101)
@@ -170,7 +170,7 @@ Testie.test("Linked List") { |do, skip|
     Expect.value(list.pop()).toEqual(97)
   }
 
-  do.test("delete does not modify the list if the element is not found") {
+  skip.test("delete does not modify the list if the element is not found") {
     var list = LinkedList.new()
     list.push(89)
     list.delete(103)
@@ -178,7 +178,7 @@ Testie.test("Linked List") { |do, skip|
     Expect.value(list.count).toEqual(1)
   }
 
-  do.test("deletes only the first occurrence") {
+  skip.test("deletes only the first occurrence") {
     var list = LinkedList.new()
     list.push(73)
     list.push(9)
@@ -196,7 +196,7 @@ Testie.test("Linked List") { |do, skip|
 
   // bonus test: uncomment for extra credit
   /*
-  do.test("iteration") {
+  skip.test("iteration") {
     var list = LinkedList.new()
     list.push(10)
     list.push(20)

@@ -1,19 +1,10 @@
 class ListOps {
   construct new() {
-    init_([])
+    _data = []
   }
-  construct new(elements) {
-    init_(elements)
-  }
-  init_(elements) {
-    _data = elements[0..-1]
-  }
-  /* could be:
   construct new(elements) {
     _data = elements[0..-1]
   }
-  static new() { new([]) }
-  */
 
   toList { _data[0..-1] }
 

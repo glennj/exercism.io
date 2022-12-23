@@ -11,19 +11,19 @@ Testie.test("SquareRoot") { |do, skip|
       Expect.value(SquareRoot.squareRoot(4)).toEqual(2)
     }
 
-    do.test("root of 5") {
+    skip.test("root of 5") {
       Expect.value(SquareRoot.squareRoot(25)).toEqual(5)
     }
 
-    do.test("root of 81") {
+    skip.test("root of 81") {
       Expect.value(SquareRoot.squareRoot(81)).toEqual(9)
     }
 
-    do.test("root of 196") {
+    skip.test("root of 196") {
       Expect.value(SquareRoot.squareRoot(196)).toEqual(14)
     }
 
-    do.test("root of 65025") {
+    skip.test("root of 65025") {
       Expect.value(SquareRoot.squareRoot(65025)).toEqual(255)
     }
 
