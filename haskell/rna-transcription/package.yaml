@@ -1,11 +1,11 @@
-name: leap
-version: 1.6.0.10
+name: rna-transcription
+version: 1.3.0.10
 
 dependencies:
   - base
 
 library:
-  exposed-modules: LeapYear
+  exposed-modules: DNA
   source-dirs: src
   ghc-options: -Wall
   # dependencies:
@@ -17,5 +17,5 @@ tests:
     main: Tests.hs
     source-dirs: test
     dependencies:
-      - leap
+      - rna-transcription
       - hspec
