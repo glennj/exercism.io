@@ -8,12 +8,12 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 
 ## Functions
 
-You can define your own custom functions in `jq` to encapsulate whatever logic you need.
-Functions act just like builtins: they take an input and emit zero, one or more outputs.
+You can define your own **custom functions** in `jq` to encapsulate whatever logic you need.
+_Functions_ act just like builtins: they take an input and emit zero, one or more outputs.
 
 ### Defining a function
 
-You can define a `jq` function using the following syntax:
+You can define a `jq` _function_ using the following syntax:
 
 ```jq
 # no arguments
@@ -31,7 +31,7 @@ def funcname(args): expression;
 
 ### Where to put functions
 
-Functions must be defined before they are used: this is an error:
+_Functions_ must be defined before they are used: this is an error:
 
 ```jq
 def A: B(10);
@@ -40,11 +40,11 @@ A
 # => error: B/1 is not defined
 ```
 
-This implies you have to place functions at the top of your jq code, prior to the "main" expression.
+This implies you have to place _functions_ at the top of your `jq` code, prior to the "main" expression.
 
 #### Nested functions
 
-Functions can be nested:
+_Functions_ can be nested:
 
 ```jq
 def A:
@@ -55,16 +55,16 @@ A
 # => 11
 ```
 
-Here, the `B` function is only visible in the body of `A`.
+Here, the `B` _function_ is only visible in the body of `A`.
 
 ### Scope
 
-A function introduces a new scope for variables and nested functons.
+A _function_ introduces a new **scope** for variables and nested functons.
 
 ### Arguments
 
-Function arguments are separated by _semi-colons_ not commas.
-For example, a function that takes a number, and then adds a number and multiplies by a number:
+_Function_ arguments are separated by _semi-colons_ not commas.
+For example, a _function_ that takes a number, and then adds a number and multiplies by a number:
 
 ```jq
 def add_mul(adder; multiplier): (. + adder) * multiplier;
@@ -85,7 +85,7 @@ Using a comma instead of a semi-colon will attempt to call a _1-argument_ `add_m
 
 #### Arguments are _expressions_
 
-Function arguments are filters, not values.
+**Function arguments** are filters, not values.
 In this sense, they act like what other languages describe as callbacks:
 
 Using the `add_mul` function as an example:
@@ -105,7 +105,7 @@ What's happening here?
 
 #### Arguments as values
 
-Sometimes you'll want to "materialize" an argument into a variable:
+Sometimes you'll want to "materialize" an _argument_ into a variable:
 
 ```jq
 def my_func(arg):
@@ -122,13 +122,13 @@ def my_func($arg):
 ;
 ```
 
-Take note that this is just "syntactic sugar": the name `arg` with no `$` is still in scope in the function.
+Take note that this is just "syntactic sugar": the name `arg` with no `$` is still in scope in the _function_.
 
 ### Arity
 
-Functions have an "arity" -- the number of arguments they take.
+_Functions_ have an **arity** -- the number of _arguments_ they take.
 
-Functions can use the same name with different arities.
+_Functions_ can use the same name with different _arities_.
 The builtin [`range`][man-range] function demonstrates this: `range/1`, `range/2` and `range/3` all co-exist.
 
 This can be useful for defining recursive functions that carry state via arguments.

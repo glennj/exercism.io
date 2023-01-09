@@ -9,7 +9,7 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 ## Variables
 
 Recall that a `jq` program is a _pipeline of expressions_.
-Variable assigmnent follows this rule: a variable assignment is an expression that looks like:
+**Variable assigmnent** follows this rule: a _variable assignment_ is an expression that looks like:
 
 ```jq
 ... | expr as $varname | ...
@@ -17,7 +17,7 @@ Variable assigmnent follows this rule: a variable assignment is an expression th
 
 ### The filter outputs the input
 
-Like the _identity expression_ `.`, the variable assignment's output is the same as its input.
+Like the _identity expression_ `.`, the _variable assignment_'s output is the same as its input.
 Setting the variable's value is a side-effect.
 
 Example, showing `.` after the assignment is the same as the initial input:
@@ -35,7 +35,7 @@ Variables defined in functions (we'll get to functions later) are "local" to the
 ### Variable names
 
 The variable must begin with `$`.
-The rest of the variable name is an "identifier": starts with a letter or underscore followed by letters, numbers or underscores.
+The rest of the variable name is an **identifier**: starts with a letter or underscore followed by letters, numbers or underscores.
 
 ### Destructuring assignment
 
