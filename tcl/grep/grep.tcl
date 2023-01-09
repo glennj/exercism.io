@@ -7,15 +7,16 @@ namespace eval ::fileutil::grep {
     ########################################
     proc grep {args} {
         lassign [parseArgs $args] opts pattern files
-        set result {}
+        set results {}
         foreach file $files {
-            lappend result {*}[grepFile $file $pattern $opts]
+            lappend results {*}[grepFile $file $pattern $opts]
         }
-        join $result \n
+        join $results \n
     }
 
     ########################################
     proc parseArgs {arguments} {
+        # https://core.tcl-lang.org/tcllib/doc/trunk/embedded/md/tcllib/files/modules/cmdline/cmdline.md
         set opts [::cmdline::getoptions arguments {
             {i "case insensitive"}
             {l "filename only"}
@@ -27,8 +28,13 @@ namespace eval ::fileutil::grep {
         # remaining args are the pattern and the files
         set files [lassign $arguments pattern]
 
-        if {[dict get $opts x]} then {set pattern "^${pattern}$"}
-        if {[dict get $opts i]} then {set pattern [string tolower $pattern]}
+        if {[dict get $opts x]} {
+            set pattern "^${pattern}$"
+        }
+        if {[dict get $opts i]} {
+            # https://www.tcl-lang.org/man/tcl8.6/TclCmd/re_syntax.htm#M82
+            set pattern "(?i)$pattern"
+        }
         dict set opts nfiles [llength $files]
 
         list $opts $pattern $files
@@ -56,9 +62,7 @@ namespace eval ::fileutil::grep {
 
     ########################################
     proc isMatch {line pattern opts} {
-        if {[dict get $opts i]} {
-            set line [string tolower $line]
-        }
+        # https://www.tcl-lang.org/man/tcl8.6/TclCmd/expr.htm#M17
         expr {[regexp $pattern $line] ^ [dict get $opts v]}
     }
 
