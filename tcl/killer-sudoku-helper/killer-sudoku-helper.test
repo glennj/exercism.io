@@ -1,0 +1,74 @@
+#!/usr/bin/env tclsh
+package require tcltest
+namespace import ::tcltest::*
+source testHelpers.tcl
+configure -verbose {body error usec}
+
+############################################################
+source "killer-sudoku-helper.tcl"
+
+test sudoku-1 "Trivial 1-digit cages => 1" -body {
+    combinations 1 1 {}
+} -returnCodes ok -match listOfLists -result {1}
+
+skip sudoku-2
+test sudoku-2 "Trivial 1-digit cages => 2" -body {
+    combinations 2 1 {}
+} -returnCodes ok -match listOfLists -result {2}
+
+skip sudoku-3
+test sudoku-3 "Trivial 1-digit cages => 3" -body {
+    combinations 3 1 {}
+} -returnCodes ok -match listOfLists -result {3}
+
+skip sudoku-4
+test sudoku-4 "Trivial 1-digit cages => 4" -body {
+    combinations 4 1 {}
+} -returnCodes ok -match listOfLists -result {4}
+
+skip sudoku-5
+test sudoku-5 "Trivial 1-digit cages => 5" -body {
+    combinations 5 1 {}
+} -returnCodes ok -match listOfLists -result {5}
+
+skip sudoku-6
+test sudoku-6 "Trivial 1-digit cages => 6" -body {
+    combinations 6 1 {}
+} -returnCodes ok -match listOfLists -result {6}
+
+skip sudoku-7
+test sudoku-7 "Trivial 1-digit cages => 7" -body {
+    combinations 7 1 {}
+} -returnCodes ok -match listOfLists -result {7}
+
+skip sudoku-8
+test sudoku-8 "Trivial 1-digit cages => 8" -body {
+    combinations 8 1 {}
+} -returnCodes ok -match listOfLists -result {8}
+
+skip sudoku-9
+test sudoku-9 "Trivial 1-digit cages => name" -body {
+    combinations 9 1 {}
+} -returnCodes ok -match listOfLists -result {9}
+
+skip sudoku-10
+test sudoku-10 "Cage with sum 45 contains all digits 1:9" -body {
+    combinations 45 9 {}
+} -returnCodes ok -match listOfLists -result {{1 2 3 4 5 6 7 8 9}}
+
+skip sudoku-11
+test sudoku-11 "Cage with only 1 possible combination" -body {
+    combinations 7 3 {}
+} -returnCodes ok -match listOfLists -result {{1 2 4}}
+
+skip sudoku-12
+test sudoku-12 "Cage with several combinations" -body {
+    combinations 10 2 {}
+} -returnCodes ok -match listOfLists -result {{1 9} {2 8} {3 7} {4 6}}
+
+skip sudoku-13
+test sudoku-13 "Cage with several combinations that is restricted" -body {
+    combinations 10 2 {1 4}
+} -returnCodes ok -match listOfLists -result {{2 8} {3 7}}
+
+cleanupTests
