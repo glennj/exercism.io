@@ -7,7 +7,7 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 
 The classical introductory exercise. Just say "Hello, World!".
 
-["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is
+["Hello, World!"](https://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is
 the traditional first program for beginning programming in a new language
 or environment.
 
@@ -42,4 +42,4 @@ but it is up to you to define the function.
 
 ### Based on
 
-This is an exercise to introduce users to using Exercism - http://en.wikipedia.org/wiki/%22Hello,_world!%22_program
+This is an exercise to introduce users to using Exercism - https://en.wikipedia.org/wiki/%22Hello,_world!%22_program

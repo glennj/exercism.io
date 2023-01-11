@@ -20,8 +20,8 @@ secondsPerYear planet =
         Saturn  -> 29.447498
         Uranus  -> 84.016846
         Neptune -> 164.79132
-    where secondsPerEarthYear = 31557600
+    where
+        secondsPerEarthYear = 31557600
 
 ageOn :: Planet -> Float -> Float
 ageOn planet seconds = seconds / secondsPerYear planet
-    
