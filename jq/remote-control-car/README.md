@@ -63,7 +63,7 @@ A _function_ introduces a new **scope** for variables and nested functons.
 
 ### Arguments
 
-_Function_ arguments are separated by _semi-colons_ not commas.
+_Function_ **arguments** are separated by _semi-colons_ not commas.
 For example, a _function_ that takes a number, and then adds a number and multiplies by a number:
 
 ```jq
@@ -72,6 +72,7 @@ def add_mul(adder; multiplier): (. + adder) * multiplier;
 10 | add_mul(5; 4)    # => 60
 ```
 
+<!-- prettier-ignore -->
 ~~~~exercism/note
 Semi-colons are needed because comma already has a purpose in `jq`: an operator that joins streams.
 
@@ -83,9 +84,11 @@ Using a comma instead of a semi-colon will attempt to call a _1-argument_ `add_m
 ```
 ~~~~
 
+<!-- prettier-ignore-end -->
+
 #### Arguments are _expressions_
 
-**Function arguments** are filters, not values.
+Function _arguments_ are filters, not values.
 In this sense, they act like what other languages describe as callbacks:
 
 Using the `add_mul` function as an example:
@@ -158,9 +161,9 @@ def my_map(func):
 A `jq` module is a file containing only functions.
 Modules are included into a jq program with the [`include`][man-include] or [`import`][man-import] commands.
 
-[man-range]: https://stedolan.github.io/jq/manual/#range(upto),range(from;upto)range(from;upto;by)
-[man-import]: https://stedolan.github.io/jq/manual/#importRelativePathStringasNAME[%3Cmetadata%3E];
-[man-include]: https://stedolan.github.io/jq/manual/#includeRelativePathString[%3Cmetadata%3E];
+[man-range]: https://stedolan.github.io/jq/manual/v1.6/#range(upto),range(from;upto)range(from;upto;by)
+[man-import]: https://stedolan.github.io/jq/manual/v1.6/#importRelativePathStringasNAME[%3Cmetadata%3E];
+[man-include]: https://stedolan.github.io/jq/manual/v1.6/#includeRelativePathString[%3Cmetadata%3E];
 
 ## Instructions
 

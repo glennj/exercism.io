@@ -4,6 +4,7 @@
 
 This exercise will get you two write `jq` filters for four tasks.
 Because a `jq` program is a _single expression_, those four filters need to be joined with commas.
+Use parentheses around the sub-expressions to control the order of operations.
 
 ## 1. Extract the shopping list name
 

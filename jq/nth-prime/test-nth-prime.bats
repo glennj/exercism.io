@@ -13,7 +13,7 @@ load bats-extra
 }
 
 @test 'second prime' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -n -r -f nth-prime.jq --argjson n 2
 
@@ -23,7 +23,7 @@ load bats-extra
 }
 
 @test 'sixth prime' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -n -r -f nth-prime.jq --argjson n 6
 
@@ -43,7 +43,7 @@ load bats-extra
 }
 
 @test 'there is no zeroth prime' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -n -r -f nth-prime.jq --argjson n 0
 

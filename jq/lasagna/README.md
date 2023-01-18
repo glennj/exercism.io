@@ -123,7 +123,7 @@ In the context of setting a variable, this is very handy for providing a default
 
 #### Arithmetic operators
 
-* `+`, `-`, `*` are the usual numeric addition, subtraction and multiplication operators.
+- `+`, `-`, `*` are the usual numeric addition, subtraction and multiplication operators.
 
 ## Instructions
 

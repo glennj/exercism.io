@@ -36,7 +36,7 @@ END_INPUT
     assert_line --index 1 true
 }
 
-@test 'does not recognize word characters after "chatbot"' {
+@test 'does not recognize word characters after «chatbot»' {
     ## task 1
     run jq -R '
         include "regular-chatbot";

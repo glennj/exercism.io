@@ -34,7 +34,6 @@
 - The pattern is "comma followed by zero or more whitespace".
 - We have to use the **2-arity** `split` filter; there are no flags that need to be specified.
 
-
 [flags]: https://stedolan.github.io/jq/manual/v1.6/#RegularexpressionsPCRE
 [regex-test]: https://stedolan.github.io/jq/manual/v1.6/#test(val),test(regex;flags)
 [regex-gsub]: https://stedolan.github.io/jq/manual/v1.6/#gsub(regex;string),gsub(regex;string;flags)

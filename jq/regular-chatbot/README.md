@@ -20,6 +20,7 @@ Different tools implement different versions of regular expressions.
 
 The specific syntax used by `jq` version 1.6 can be [found on the Oniguruma GitHub repo][onig-syntax].
 
+<!-- prettier-ignore -->
 ~~~~exercism/caution
 `jq` does not have any special syntax for regular expressions.
 They are simply expressed as strings.
@@ -27,6 +28,8 @@ That means that any backslashes in the regular expression need to be escaped in 
 
 For example, the digit character class (`\d`) must be written as `"\\d"`.
 ~~~~
+
+<!-- prettier-ignore-end -->
 
 ### Regex Functions
 
@@ -60,6 +63,7 @@ STRING | match([REGEX, FLAGS])
 ```
 
 This filter outputs:
+
 - nothing if there was no match, or
 - an object containing various properties if there was a match.
 
@@ -85,7 +89,7 @@ This example looks for two identical consecutive vowels by using the backref syn
 #    }
 ```
 
-The `match` filter returns an object for _each_ match. 
+The `match` filter returns an object for _each_ match.
 This example shows the `"g"` flag in action to find all the vowels.
 
 ```jq
@@ -152,11 +156,14 @@ If you know the parts that you want to **discard**, use `split`.
 STRING | split(REGEX; FLAGS)
 ```
 
+<!-- prettier-ignore -->
 ~~~~exercism/caution
 The **1-arity** `split` filter treats its argument as a **fixed string**.
 
 To use a regex with `split`, you **must** provide the 2nd argument; it's OK to use an empty string.
 ~~~~
+
+<!-- prettier-ignore-end -->
 
 An example that splits a string on arbitrary whitespace.
 
@@ -232,7 +239,7 @@ For example
 
 You have been hired as a Regular Expression Specialist in a company that is developing a Chatbot.
 
-It is in a very basic phase of development. 
+It is in a very basic phase of development.
 Your mission is to use Regular Expressions to improve the Chatbot's ability to understand and generate natural language.
 
 ## Check Valid Command
@@ -261,7 +268,7 @@ When the Chatbot receives user messages, each emoji is represented as the string
 Implement the `remove_emoji` method which takes a string and removes all the emoji throughout the message.
 
 Lines not containing emojis should be returned unmodified.
-Just remove the emoji string. 
+Just remove the emoji string.
 Do not adjust the whitespace.
 
 ```jq
@@ -300,6 +307,7 @@ Example conversation:
 > **User**: I learned a lot from exercism.org, there's lots of great stuff there.
 
 Implement the function `get_domains` which returns an array of website domains.
+
 ```jq
 "I learned a lot from exercism.org and google.com" | get_domains
 # => ["exercism.org", "google.com"]
@@ -321,10 +329,10 @@ If the input string contains "My name is Someone.", capture the name and return 
 
 ## Very Simple CSV Parsing
 
-Yielding to "creeping featuritis", we'll add a CSV parsing function to the Chatbot. 
+Yielding to "creeping featuritis", we'll add a CSV parsing function to the Chatbot.
 
 Implement the `parse_csv` function that takes a string and returns an array of the resulting fields.
-The field separator should be "comma plus optional whitespace". 
+The field separator should be "comma plus optional whitespace".
 
 We won't worry about any of the edge cases with the CSV format (such as fields containing commas).
 
