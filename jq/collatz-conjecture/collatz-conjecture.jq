@@ -8,12 +8,14 @@ def steps:
     end
   ;
 
-  def _steps($n):
-    if . == 1
-      then $n
-      else _next_collatz | _steps($n + 1)
-    end
+  def _steps:
+    . as [$num, $step]
+    | if $num == 1
+        then $step
+        else [($num | _next_collatz), $step + 1] | _steps
+      end
   ;
 
-  assert(. > 0; "Only positive integers are allowed") | _steps(0)
+  assert(. > 0; "Only positive integers are allowed")
+  | [., 0] | _steps
 ;

@@ -1,3 +1,8 @@
+# I'm using `transpose` below. It fills "missing" elements from shorter arrays with null
+#
+#       $ echo '[[1,2],["a","b","c"]]' | jq -c 'transpose'
+#       [[1,"a"],[2,"b"],[null,"c"]]
+
 # input: an array
 # output: the array with all trailing nulls removed
 def trim_trailing_nulls:

@@ -4,5 +4,5 @@
 | map(select($n % .value == 0))
 | if length == 0
     then $n
-    else map(.key) | join("")
+    else map(.key) | add
   end

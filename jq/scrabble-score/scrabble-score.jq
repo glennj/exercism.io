@@ -1,3 +1,5 @@
+# this is compact but not particularly efficient
+
 [
   {value:  1, letters: "AEIOULNRST"},
   {value:  2, letters: "DG"},

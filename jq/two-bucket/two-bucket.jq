@@ -19,9 +19,11 @@ def solve:
   ;
 
   def _solve:
+    # two base cases
     if   (.b1 | Bucket::amount) == .goal then _winner(.b1; .b2)
     elif (.b2 | Bucket::amount) == .goal then _winner(.b2; .b1)
     else
+      # recursive case
       if   .b1 | Bucket::isEmpty then .b1 |= Bucket::fill
       elif .b2 | Bucket::isFull  then .b2 |= Bucket::empty
       else 
