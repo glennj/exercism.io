@@ -1,5 +1,5 @@
-local split = require("split")  -- https://luarocks.org/modules/telemachus/split
-                                -- luarocks install split
+-- Penlight modules are dependencies of busted
+local stringx = require('pl.stringx')
 
 local trim_result
 local transpose_matrix
@@ -14,7 +14,7 @@ local transpose = function (input)
         trim_result(
             transpose_matrix(
                 equalize_length(
-                    split.split(input, "\n")
+                    stringx.splitlines(input)
                 )
             )
         )

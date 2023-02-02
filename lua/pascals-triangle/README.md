@@ -1,6 +1,6 @@
-# Pascals Triangle
+# Pascal's Triangle
 
-Welcome to Pascals Triangle on Exercism's Lua Track.
+Welcome to Pascal's Triangle on Exercism's Lua Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions

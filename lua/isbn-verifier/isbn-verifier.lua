@@ -1,3 +1,5 @@
+local seq = require('pl.seq')
+
 local validate_isbn = function (input)
     isbn = (input or ""):gsub("-", "")
 
@@ -7,16 +9,18 @@ local validate_isbn = function (input)
     end
 
     -- convert chars to digits
-    local digits = {}
-    for char in isbn:gmatch(".") do
-        digits[#digits+1] = char == "X" and 10 or tonumber(char)
+    local digit_value = function(char)
+        return (char == "X" and 10 or tonumber(char))
     end
+    local digits = seq.map(digit_value, isbn:gmatch("."))
 
-    -- apply ISBN formula
+    -- get the ISBN sum
     local sum = 0
-    for i, d in ipairs(digits) do
-        sum = sum + d * (11 - i)
+    local accumulator = function(idx, digit)
+        sum = sum + digit * (11 - idx)
     end
+    seq.foreach(seq.enum(digits), accumulator)
+
     return sum % 11 == 0
 end
 
