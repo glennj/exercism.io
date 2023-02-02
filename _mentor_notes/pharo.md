@@ -140,3 +140,24 @@ SpaceAge >> ageOnPlanet: planet at: seconds [
 But as [@moniquelive mentioned](https://exercism.org/mentoring/discussions/854b5ce624064dd5bc30fc9d0ba5af94):
 
 > I used `planetStr asClass new` first, but then Pharo warned me to use this call instead :)))
+
+<!-- ===================================================== -->
+## Exercise: reverse-string
+
+There is a convenience method for
+```smalltalk
+    stream := WriteStream on: (String new: aSize). 
+    "add stuff to stream"
+    ^ stream contents.
+```
+It's the `streamContents:` method
+```smalltalk
+    ^ String new: aSize
+        streamContents: [:stream |
+            "add stuff to stream"
+        ].
+```
+The block implicitly returns the stream contents when complete.
+The underlying implementation is pretty much exactly the same as the first code snippet.
+
+
