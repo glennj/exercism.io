@@ -1,7 +1,7 @@
 module LogLevels
 
 let message (logLine: string): string = 
-    let idx = logLine.IndexOf(": ")
+    let idx = logLine.IndexOf("]")
     logLine.Substring(idx + 2).Trim()
 
 let logLevel(logLine: string): string = 
