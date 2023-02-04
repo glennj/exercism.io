@@ -4,9 +4,9 @@ type Triangle = float list
 
 
 let valid (triangle: Triangle) =
-    let sides = triangle |> List.sort |> List.toArray
-    let a, b, c = sides[0], sides[1], sides[2]
-    a > 0 && a + b >= c
+    match List.sort triangle with
+    | [a; b; c] -> a > 0 && a + b >= c
+    | _ -> false
 
 let numDistinctSides (triangle: Triangle) =
     triangle |> List.distinct |> List.length

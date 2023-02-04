@@ -9,3 +9,23 @@
 ### Awaiting
 
 - [Triangle](https://exercism.org/tracks/fsharp/exercises/triangle/mentor_request)
+
+
+## An experiment
+
+How to capture an operator as a function?
+
+https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/operator-overloading#overloaded-operator-names
+
+```fsharp
+let compare (operand1: int) (cmp: int -> int -> bool) (operand2: int): bool =
+    cmp operand1 operand2
+
+let res = compare 4 op_Equality 6
+
+printfn  $"{res}"       // False
+```
+
+## F# scripting
+
+https://learn.microsoft.com/en-us/dotnet/fsharp/tools/fsharp-interactive/ 
