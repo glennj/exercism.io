@@ -30,6 +30,8 @@ end
 ```
 Looking back at my solutions, I chose the latter style.
 
+## Declaring classes
+
 For declaring a class, I tried to follow this convention:
 ```lua
 local Robot = {}        -- 1. name the class
