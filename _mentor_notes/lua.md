@@ -38,11 +38,14 @@ Robot.__index = Robot   -- 2. set the index
 function Robot:new(attributes)
     local robot = {}    -- 3. name the new instance
 
-    -- 4. do stuff with the attributes
-
-    -- 5. set the metatable
+    -- 4. set the metatable
     --    since `new` is called on the class, `self` is the class
     setmetatable(robot, self)   
+
+    -- 5. do stuff with the attributes
+    --    `robot` is a proper instance now, so it's OK to call methods.
+    --    +> robot:location("assembly line")
+
     return robot        -- 6. return the new instance
 end
 

@@ -29,8 +29,17 @@ using_indirect_variables() {
     echo "${output:-$1}"
 }
 
+a_compact_style() {
+    local num=$1
+    function drop() { (( num % $1 == 0 )) && echo "$2"; }
+    # shellcheck disable=SC2155
+    local raindrops=$(drop 3 Pling)$(drop 5 Plang)$(drop 7 Plong)
+    echo "${raindrops:-$num}"
+}
+
 # extended patterns are enabled inside [[...]]
 [[ $# -ne 1 || $1 != +([0-9]) ]] && exit 1
 
 ##using_array "$1"
-using_indirect_variables "$1"
+##using_indirect_variables "$1"
+a_compact_style "$1"
