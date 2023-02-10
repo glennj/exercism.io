@@ -14,11 +14,11 @@ let private pourInto recipient donor =
     ( {donor with Amount = donor.Amount - quantity},
       {recipient with Amount = recipient.Amount + quantity} )
 
-let gameOver moves winner loser =
-    {Moves = moves; GoalBucket = winner.Id; OtherBucket = loser.Amount}
-
 
 let private solve first second goal =
+    let gameOver moves winner loser =
+        {Moves = moves; GoalBucket = winner.Id; OtherBucket = loser.Amount}
+
     let rec solver moves a b =
         // IMO, writing the following as a match expression doesn't add clarity
         if   a.Amount = goal then gameOver moves a b
@@ -33,6 +33,7 @@ let private solve first second goal =
     if first.Size = goal || second.Size <> goal then
         solver 1 (fill first) second
     else
+        // first != goal and second == goal
         solver 2 (fill first) (fill second)
 
 
