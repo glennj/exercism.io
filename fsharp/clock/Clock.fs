@@ -1,6 +1,6 @@
 module Clock
 
-type Clock = Clock of minutes: int
+type Clock = Clock of int
 
 let private MinutesPerHour = 60
 let private HoursPerDay = 24

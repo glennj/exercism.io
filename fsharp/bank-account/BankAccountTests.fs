@@ -54,7 +54,7 @@ let ``Account can be closed`` () =
     getBalance account |> should equal None
     account |> should not' (equal None)
     
-[<Fact(Skip = "Remove this Skip property to run this test")>]
+[<Fact>]
 let ``Account can be updated from multiple threads`` () =
     let account = 
         mkBankAccount()

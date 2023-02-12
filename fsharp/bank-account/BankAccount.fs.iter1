@@ -1,0 +1,22 @@
+module BankAccount
+
+type Account = //Account of balance: decimal * isOpen: bool
+    { mutable Balance: decimal
+      IsOpen: bool }
+
+let mkBankAccount(): Account = {Balance = 0.0m; IsOpen = false }
+
+let openAccount (account: Account): Account = 
+    {account with IsOpen = true}
+
+let closeAccount (account: Account): Account =
+    {account with IsOpen = false}
+
+let updateBalance (change: decimal) (account: Account): Account = 
+    account.Balance <- account.Balance + change
+    account
+
+let getBalance (account: Account): decimal option = 
+    if account.IsOpen
+        then Some account.Balance
+        else None    
