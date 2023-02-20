@@ -2,12 +2,14 @@
 
 Welcome to Twelve Days on Exercism's Python Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
+If you get stuck on the exercise, check out `HINTS.md`, but try and solve it without using those first :)
 
 ## Instructions
 
 Your task in this exercise is to write code that returns the lyrics of the song: "The Twelve Days of Christmas."
 
-"The Twelve Days of Christmas" is a common English Christmas carol. Each subsequent verse of the song builds on the previous verse.
+"The Twelve Days of Christmas" is a common English Christmas carol.
+Each subsequent verse of the song builds on the previous verse.
 
 The lyrics your code returns should _exactly_ match the full song text shown below.
 
@@ -39,6 +41,19 @@ On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, 
 On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.
 ```
 
+## Test-driven development
+
+ Be sure to check the comments at the top of the tests file.
+ They will be helpful in understanding the expected output of your function.
+
+This challenge _could_ be solved with a minimum of code and a lot of hardcoded text which is duplicated between the verses.
+However, this song is a type of [cumulative song][cumulative song], where each new verse builds on the verse that comes before it.
+For more of a programming challenge, consider assembling each verse from its parts.
+For example, for each verse, the day changes and the gift changes, and the rest of the verse is pretty much the same.
+What might be a good strategy for avoiding repetition?
+
+[cumulative song]: https://en.wikipedia.org/wiki/Cumulative_song
+
 ## Source
 
 ### Created by
@@ -60,4 +75,4 @@ On the twelfth day of Christmas my true love gave to me: twelve Drummers Drummin
 
 ### Based on
 
-Wikipedia - http://en.wikipedia.org/wiki/The_Twelve_Days_of_Christmas_(song)
+Wikipedia - https://en.wikipedia.org/wiki/The_Twelve_Days_of_Christmas_(song)

@@ -1,6 +1,6 @@
-# Sum Of Multiples
+# Sum of Multiples
 
-Welcome to Sum Of Multiples on Exercism's Python Track.
+Welcome to Sum of Multiples on Exercism's Python Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
