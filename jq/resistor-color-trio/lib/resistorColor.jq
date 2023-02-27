@@ -22,11 +22,11 @@ def resistorValue($powerColor):
 ;
 
 # input is a numeric resistance value
-def withUnits:
+def withUnits($unit):
   def _withUnits($idx):
     if .value > 0 and .value % 1000 == 0
       then .value /= 1000 | _withUnits($idx + 1)
-      else . + {unit: (["", "kilo", "mega", "giga"][$idx] + "ohms")}
+      else . + {unit: (["", "kilo", "mega", "giga"][$idx] + $unit)}
     end
   ;
   {value: .} | _withUnits(0)
