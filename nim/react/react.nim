@@ -1,14 +1,13 @@
-import sequtils, strformat
-import sugar
-
+import std/sequtils
+ 
 type
-  Callback = int->void
-  ComputeFunc = seq[int]->int
+  Callback = proc(val: int)
+  ComputeFunc = proc(vals: seq[int]): int {.noSideEffect.}  # func "type"
 
   Cell* = ref object of RootObj
-    id: int
     value: int
     listeners: seq[ComputeCell]
+    callbacks: seq[Callback]
 
   InputCell = ref object of Cell
 
@@ -16,15 +15,6 @@ type
     inputs: seq[Cell]
     previousValue: int
     computeFunction: ComputeFunc
-    callbacks: seq[Callback]
-
-  Reactor = ref object
-
-var ID = 0
-
-
-# I don't see why this exercise really needs a reactor type
-proc newReactor*(): Reactor = Reactor()
 
 ############################################################
 # Cell procs
@@ -51,33 +41,26 @@ proc `value=`*(cell: Cell, value: int) =
 ############################################################
 # InputCell procs
 #
-proc createInput*(r: Reactor, value: int): InputCell =
-  ID.inc
-  result = InputCell(value: value, id: ID)
-
+proc newInputCell*(value: int): Cell =
+  result = InputCell(value: value)
 
 ############################################################
 # ComputeCell procs
 #
-proc createCompute*(
-    r: Reactor,
-    inputs: seq[Cell],
-    function: ComputeFunc
-): ComputeCell =
-  ID.inc
-  result = ComputeCell(inputs: inputs, computeFunction: function, id: ID)
+proc newComputeCell*(inputs: seq[Cell], function: ComputeFunc): Cell =
+  let computeCell = ComputeCell(inputs: inputs, computeFunction: function)
   for cell in inputs:
-    cell.listeners.add result
-  result.recompute()
-  result.previousValue = result.value
+    cell.listeners.add computeCell
+  computeCell.recompute()
+  computeCell.previousValue = computeCell.value
+  computeCell
 
 proc recompute(cell: ComputeCell) =
   cell.value = cell.computeFunction(cell.inputs.mapIt(it.value))
   cell.recomputeListeners()
 
-proc addCallback*(cell: ComputeCell, callback: Callback): Callback =
+proc addCallback*(cell: Cell, callback: Callback) =
   cell.callbacks.add callback
-  callback
 
 proc fireCallbacks(cell: ComputeCell) =
   if cell.value != cell.previousValue:
@@ -86,15 +69,5 @@ proc fireCallbacks(cell: ComputeCell) =
       cb(cell.value)
     cell.fireListenerCallbacks()
 
-proc removeCallback*(cell: ComputeCell, callback: Callback) =
+proc removeCallback*(cell: Cell, callback: Callback) =
   cell.callbacks.keepItIf(it != callback)
-
-
-############################################################
-# This was for debugging
-# How to get the object's actual (descendant) type?
-proc `$`(cell: Cell, cellType: typedesc = Cell): string =
-  var cellType = "Cell"
-  if cell of InputCell: cellType = "InputCell"
-  if cell of ComputeCell: cellType = "ComputeCell"
-  &"{$cellType}(id: {cell.id}, value: {cell.value})"
