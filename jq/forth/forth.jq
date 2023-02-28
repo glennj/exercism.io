@@ -60,7 +60,8 @@ def evaluate(words):
 ;
 
 ############################################################
-reduce .instructions[] as $line ({stack: [], cmds: {}};
+reduce .instructions[] as $line (
+  {stack: [], cmds: {}};                                # <- the "global" state object
   evaluate($line | ascii_downcase | split("\\s+";""))
 )
 | .stack

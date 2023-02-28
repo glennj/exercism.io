@@ -518,7 +518,12 @@ END_INPUT
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f forth.jq << 'END_INPUT'
-{ "instructions": [ ": dup-twice dup dup ;", "1 dup-twice" ] }
+        {
+          "instructions": [
+            ": dup-twice dup dup ;",
+            "1 dup-twice"
+          ]
+        }
 END_INPUT
 
     assert_success
