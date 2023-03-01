@@ -27,6 +27,5 @@ pharo-staging/
 problem-specifications/
 
 # ignore these tracks for now
-go/
 php/
 csharp/
