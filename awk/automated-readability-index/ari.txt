@@ -1,0 +1,5 @@
+ARI was designed for military use in 1967.
+It was for real-time monitoring of readability on typewriters.
+It offered an automated counting method.
+It has similar results to other frameworks.
+This validates its accuracy.
