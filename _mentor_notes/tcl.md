@@ -182,6 +182,31 @@ proc select {varName elements condition} {
 ---
 <!-- #################################################### -->
 
+https://exercism.org/mentoring/discussions/4b0554b1a0204a49b0ade0278b8a8e5b
+
+> Upvar makes the same work that global but with more control over the level of stack. Is this correct?
+> 
+> Is this equivalent?: global c with upvar 0 c
+
+This is a pretty big topic. Tcl uses a stack to maintain "execution frames". The frame will store things like local variables and some sort of execution pointer. When the code calls a procedure, the current frame is paused and a new frame is created and added to the frame stack. Ref [https://wiki.tcl-lang.org/page/stack+frame](https://wiki.tcl-lang.org/page/stack+frame)
+
+From the perspective of the `uplevel` and `upvar` commands, the **current frame** is `0`, the **caller's frame** is `1`, and so on up to the initial ("global") frame. _At the same time_, the **global frame** is `#0`, the next frame in the stack is `#1` and so on down to the current frame.
+
+In a proc, these two commands are identical:
+```tcl
+global foo
+# and
+upvar #0 foo foo
+```
+
+Now `variable` is different because we're dealing with namespaces.
+
+* in the context of a `namespace eval name {...}` the `variable` command is like `set`, initializing the variable inside the namespace.
+* in the context of a procedure in that same namespace, `variable` is like `global`, linking the variable to the namespace level.
+
+---
+<!-- #################################################### -->
+
 ## TclOO Notes
 
 in very broad brush strokes, classes and instances are implemented as Tcl
