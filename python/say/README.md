@@ -54,16 +54,6 @@ Put it all together to get nothing but plain English.
 
 The program must also report any values that are out of range.
 
-### Extensions
-
-Use _and_ (correctly) when spelling out the number in English:
-
-- 14 becomes "fourteen".
-- 100 becomes "one hundred".
-- 120 becomes "one hundred and twenty".
-- 1002 becomes "one thousand and two".
-- 1323 becomes "one thousand three hundred and twenty-three".
-
 ## Exception messages
 
 Sometimes it is necessary to [raise an exception](https://docs.python.org/3/tutorial/errors.html#raising-exceptions). When you do this, you should always include a **meaningful error message** to indicate what the source of the error is. This makes your code more readable and helps significantly with debugging. For situations where you know that the error source will be a certain type, you can choose to raise one of the [built in error types](https://docs.python.org/3/library/exceptions.html#base-classes), but should still include a meaningful message.

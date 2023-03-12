@@ -13,7 +13,7 @@ end
 function create_rotation(n::Int)::Dict{Char, Char}
     n %= 26
 
-    alphabet = collect('a':'z')
+    alphabet = collect('a':'z') 
     rotated = collect(alphabet[n+1:end])
     append!(rotated, alphabet[1:n])
 

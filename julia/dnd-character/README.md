@@ -1,6 +1,6 @@
-# Dnd Character
+# D&D Character
 
-Welcome to Dnd Character on Exercism's Julia Track.
+Welcome to D&D Character on Exercism's Julia Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions

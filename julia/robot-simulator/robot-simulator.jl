@@ -21,7 +21,7 @@ mutable struct Robot
     end
 end
 
-position(robot::Robot) = robot.pos
+position(robot::Robot) = robot.pos 
 heading(robot::Robot)  = robot.head
 
 function show(io::IO, robot::Robot)
