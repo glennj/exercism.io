@@ -1,11 +1,8 @@
 package gigasecond
 
-import (
-	"strconv"
-	"time"
-)
+import "time"
 
-var Gigasecond, _ = time.ParseDuration(strconv.Itoa(1_000_000_000) + "s")
+var Gigasecond = 1_000_000_000 * time.Second
 
 func AddGigasecond(t time.Time) time.Time {
 	return t.Add(Gigasecond)
