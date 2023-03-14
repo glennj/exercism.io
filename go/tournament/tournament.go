@@ -11,7 +11,7 @@ import (
 func Tally(reader io.Reader, writer io.Writer) error {
 	teams, err := processInput(reader)
 	if err != nil {
-		return err
+		return fmt.Errorf("could not process the input: %w", err)
 	}
 
 	sort.Sort(teams)
@@ -20,9 +20,13 @@ func Tally(reader io.Reader, writer io.Writer) error {
 }
 
 // ---------------------------------------------------------
-func processInput(reader io.Reader) (teams Teams, err error) {
+func processInput(reader io.Reader) (Teams, error) {
 	bytes, err := io.ReadAll(reader)
-	if err != nil { return }
+	if err != nil {
+		return nil, fmt.Errorf("error reading input: %w", err)
+	}
+
+	teams := Teams{}
 
 	for _, line := range strings.Split(string(bytes), "\n") {
 		line = strings.TrimSpace(line)
@@ -32,8 +36,7 @@ func processInput(reader io.Reader) (teams Teams, err error) {
 
 		fields := strings.Split(line, ";")
 		if len(fields) != 3 {
-			err = errors.New("must be 3 fields per line")
-			return
+			return nil, errors.New(fmt.Sprintf("line must have 3 fields '%s'", line))
 		}
 
 		home := teams.GetTeam(fields[0])
@@ -50,24 +53,27 @@ func processInput(reader io.Reader) (teams Teams, err error) {
 			home.Draw()
 			away.Draw()
 		default:
-			err = errors.New("invalid result")
-			return
+			return nil, errors.New(fmt.Sprintf("invalid result in line '%s'", line))
 		}
 	}
-	return
+	return teams, nil
 }
 
 // ---------------------------------------------------------
-func emitOutput(writer io.Writer, teams Teams) (err error) {
+func emitOutput(writer io.Writer, teams Teams) error {
 	f := "%-30v | %2v | %2v | %2v | %2v | %2v\n"
 
-	_, err = io.WriteString(writer, fmt.Sprintf(f, "Team", "MP", "W", "D", "L", "P"))
-	if err != nil { return }
+	_, err := io.WriteString(writer, fmt.Sprintf(f, "Team", "MP", "W", "D", "L", "P"))
+	if err != nil {
+		return fmt.Errorf("cannot write header: %w", err)
+	}
 
 	for _, t := range teams {
 		row := fmt.Sprintf(f, t.Name, t.Matches, t.Wins, t.Draws, t.Losses, t.Points)
-		_, err = io.WriteString(writer, row)
-		if err != nil { return }
+		_, err := io.WriteString(writer, row)
+		if err != nil {
+			return fmt.Errorf("cannot write row '%s': %w", row, err)
+		}
 	}
-	return
+	return nil
 }
