@@ -33,7 +33,7 @@ var reLower = regexp.MustCompile(`[[:lower:]]`)
 
 func regexpHey(remark string) string {
 	s := len(remark) == 0
-	_, q := strings.CutSuffix(remark, "?")
+	q := strings.HasSuffix(remark, "?")
 	y := reUpper.MatchString(remark) && !reLower.MatchString(remark)
 
 	return response(s, y, q)
