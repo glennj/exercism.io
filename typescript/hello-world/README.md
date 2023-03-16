@@ -24,7 +24,7 @@ If everything goes well, you will be ready to fetch your first real exercise.
 Go through the setup instructions for TypeScript to
 install the necessary dependencies:
 
-http://exercism.io/languages/typescript
+[https://exercism.org/docs/tracks/typescript/installation](https://exercism.org/docs/tracks/typescript/installation)
 
 ## Requirements
 

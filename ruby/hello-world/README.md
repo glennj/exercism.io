@@ -18,7 +18,7 @@ The objectives are simple:
 
 If everything goes well, you will be ready to fetch your first real exercise.
 
-[hello-world]: http://en.wikipedia.org/wiki/%22Hello,_world!%22_program
+[hello-world]: https://en.wikipedia.org/wiki/%22Hello,_world!%22_program
 
 ## Source
 
@@ -49,4 +49,4 @@ If everything goes well, you will be ready to fetch your first real exercise.
 
 ### Based on
 
-This is an exercise to introduce users to using Exercism - http://en.wikipedia.org/wiki/%22Hello,_world!%22_program
+This is an exercise to introduce users to using Exercism - https://en.wikipedia.org/wiki/%22Hello,_world!%22_program

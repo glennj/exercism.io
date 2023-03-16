@@ -18,7 +18,7 @@ The objectives are simple:
 
 If everything goes well, you will be ready to fetch your first real exercise.
 
-[hello-world]: http://en.wikipedia.org/wiki/%22Hello,_world!%22_program
+[hello-world]: https://en.wikipedia.org/wiki/%22Hello,_world!%22_program
 
 ## Welcome to Bash!
 
@@ -65,4 +65,4 @@ Please follow [these instructions](https://exercism.org/docs/tracks/bash/tests) 
 
 ### Based on
 
-This is an exercise to introduce users to using Exercism - http://en.wikipedia.org/wiki/%22Hello,_world!%22_program
+This is an exercise to introduce users to using Exercism - https://en.wikipedia.org/wiki/%22Hello,_world!%22_program

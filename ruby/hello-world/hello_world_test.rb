@@ -12,8 +12,6 @@ rescue LoadError => e
 end
 
 class HelloWorldTest < Minitest::Test
-  def skip; end
-  def skip; end
   def test_say_hi
     # skip
     assert_equal "Hello, World!", HelloWorld.hello
