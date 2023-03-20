@@ -24,11 +24,11 @@ func Sieve(limit int) []int {
 }
 
 func newCollander(limit int) Collander {
-	sieve := make(Collander, 0, limit+1)
-	sieve = append(sieve, false) // 0 is not prime
-	sieve = append(sieve, false) // 1 is not prime
+	sieve := make(Collander, limit+1)
+	sieve[0] = false // 0 is not prime
+	sieve[1] = false // 1 is not prime
 	for i := 2; i <= limit; i++ {
-		sieve = append(sieve, true) // primality TBD
+		sieve[i] = true // primality TBD
 	}
 	return sieve
 }
@@ -54,3 +54,8 @@ func (s Collander) nextPrime(prev int) int {
 	}
 	return len(s)
 }
+
+/* benchmarks
+ *
+ * BenchmarkSieve-2          536972              2330 ns/op            5264 B/op          9 allocs/op
+ */
