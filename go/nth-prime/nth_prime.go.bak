@@ -1,0 +1,120 @@
+package prime
+
+import "errors"
+
+//lint:file-ignore U1000 only one func will actually be used
+
+func Nth(n int) (prime int, err error) {
+	if n < 1 {
+		return 0, errors.New("there is no zeroth prime")
+	}
+	if n == 1 {
+		return 2, nil
+	}
+
+	prime, err = using_array_of_primes(n)
+	//prime, err = not_using_array(n)
+	return
+}
+
+// ------------------------------------------------------------
+func using_array_of_primes(n int) (int, error) {
+	primes := make([]int, 0, n)
+	primes = append(primes, 2)
+	primes = append(primes, 3)
+
+	// closure: determine if the given number is prime
+	isPrime := func(n int) bool {
+		for _, p := range primes {
+			if p*p > n {
+				break
+			}
+			if n%p == 0 {
+				return false
+			}
+		}
+		return true
+	}
+
+	// closure: find the next prime number
+	nextPrime := func() int {
+		candidate := primes[len(primes)-1]
+		for {
+			candidate += 2
+			if isPrime(candidate) {
+				break
+			}
+		}
+		return candidate
+	}
+
+	for n > len(primes) {
+		primes = append(primes, nextPrime())
+	}
+
+	return primes[n-1], nil
+}
+
+/*
+ * $ go test
+ * PASS
+ * ok      prime   0.009s
+ *
+ * $ go test --bench=. --benchmem
+ * goos: linux
+ * goarch: amd64
+ * pkg: prime
+ * cpu: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+ * BenchmarkNth-2               187           6394831 ns/op           81920 B/op          1 allocs/op
+ * PASS
+ * ok      prime   1.853s
+ */
+
+// ------------------------------------------------------------
+func not_using_array(n int) (int, error) {
+	// closure: determine if the given number is prime
+	isPrime := func(n int) bool {
+		for f := 3; f*f <= n; f += 2 {
+			if n%f == 0 {
+				return false
+			}
+		}
+		return true
+	}
+
+	// closure: find the next prime number
+	nextPrime := func(candidate int) int {
+		for {
+			candidate += 2
+			if isPrime(candidate) {
+				break
+			}
+		}
+		return candidate
+	}
+
+	prime := 3
+	for count := 2; count < n; count++ {
+		prime = nextPrime(prime)
+	}
+
+	return prime, nil
+}
+
+/* This is close to 2x slower.
+ * It has to allocate much less memory, but the isPrime closure
+ * needs to do a lot more loop iterations.
+ *
+ * $ go test
+ * PASS
+ * ok      prime   0.016s
+ *
+ * $ go test --bench=. --benchmem
+ * goos: linux
+ * goarch: amd64
+ * pkg: prime
+ * cpu: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+ * BenchmarkNth-2               100          11792986 ns/op               0 B/op          0 allocs/op
+ * PASS
+ * ok      prime   1.205s
+ */

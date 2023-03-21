@@ -64,13 +64,9 @@ func small(n int64) string {
 	case n == 90: return "ninety"
 	case n <= 99:
 		tens, ones := divmod(n, 10)
-		result := small(tens * 10)
-		if ones > 0 {
-			result += "-" + small(ones)
-		}
-		return result
-	default:
-		panic("don't call small with n >= 100")
+		return small(tens * 10) + "-" + small(ones)
+    default:
+        panic("value too big for small(n)")
 	}
 }
 

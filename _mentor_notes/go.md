@@ -71,3 +71,29 @@ if x := somefunc(); x { ...
 which localizes `x` to the if statement.
 
 
+## Using external packages
+
+The Go test runner allows only these non-standard packages
+
+- https://pkg.go.dev/golang.org/x/exp
+
+```sh
+$ go get golang.org/x/exp@v0.0.0-20221006183845-316c7553db56
+go: downloading golang.org/x/exp v0.0.0-20221006183845-316c7553db56
+go: downgraded golang.org/x/exp v0.0.0-20230315142452-642cacee5cc0 => v0.0.0-20221006183845-316c7553db56
+
+$ go mod tidy
+
+# ... edit/test ...
+
+$ exercism submit nth-prime.go go.mod go.sum
+```
+
+**Only that specific package version is allowed.**
+
+The `go.mod` and `go.sum` files must be submitted.
+
+See
+
+- https://github.com/exercism/go-test-runner/#external-go-packages
+- https://github.com/exercism/go-test-runner/blob/main/external-packages/go.mod
