@@ -30,6 +30,8 @@ end
 ```
 Looking back at my solutions, I chose the latter style.
 
+[Simple Lua Classes][slc] in the lua-users wiki favours the latter style.
+
 ## Declaring classes
 
 For declaring a class, I tried to follow this convention:
@@ -69,3 +71,4 @@ Some more discussion about [Object Oriented Programming][oop] in Lua.
 
 [style]: http://lua-users.org/wiki/LuaStyleGuide
 [oop]: http://lua-users.org/wiki/ObjectOrientedProgramming
+[slc]: http://lua-users.org/wiki/SimpleLuaClasses
