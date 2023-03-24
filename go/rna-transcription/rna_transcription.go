@@ -59,6 +59,6 @@ func iterativeToRNA(dna string) string {
  * iterative with a string Builder for output
  * BenchmarkRNATranscription        3546974               324.2 ns/op            16 B/op          5 allocs/op
  *
- * iterative with a slice for outut
- *
+ * iterative with a slice for outut -- this being slowest surprises
+ * BenchmarkRNATranscription        2678782               452.1 ns/op            64 B/op          5 allocs/op
  */
