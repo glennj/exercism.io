@@ -79,10 +79,10 @@ AddBorder("Welcome!", 10)
 
 Should return the following:
 
-```go
-// **********
-// Welcome!
-// **********
+```
+**********
+Welcome!
+**********
 ```
 
 ## 3. Clean up old marketing messages
