@@ -8,7 +8,8 @@ var ErrEmpty = errors.New("stack is empty")
 // Stack represents a stack of generic elements
 type Stack[T any] []T
 
-func newStack[T any]() Stack[T] {
+// NewStack -- a new empty stack
+func NewStack[T any]() Stack[T] {
 	return Stack[T]{}
 }
 

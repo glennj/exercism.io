@@ -1,0 +1,84 @@
+package circular
+
+/* This implementation uses a fixed-size slice of bytes,
+ * and tracks a read index and a write index.
+ */
+
+import "errors"
+
+var (
+	ErrEmpty = errors.New("buffer is empty")
+	ErrFull  = errors.New("buffer is full")
+)
+
+type Buffer struct {
+	bytes      []byte
+	readIndex  int
+	writeIndex int
+	count      int
+}
+
+func NewBuffer(size int) *Buffer {
+	return &Buffer{bytes: make([]byte, size)}
+}
+
+func (b *Buffer) incrIndex(idx int) int {
+	return (idx + 1) % len(b.bytes)
+}
+
+func (b *Buffer) isFull() bool {
+	return b.count == len(b.bytes)
+}
+
+func (b *Buffer) isEmpty() bool {
+	return b.count == 0
+}
+
+func (b *Buffer) ReadByte() (byte, error) {
+	if b.isEmpty() {
+		return 0, ErrEmpty
+	}
+	value := b.bytes[b.readIndex]
+	b.readIndex = b.incrIndex(b.readIndex)
+	b.count--
+	return value, nil
+}
+
+func (b *Buffer) WriteByte(c byte) error {
+	if b.isFull() {
+		return ErrFull
+	}
+	b.bytes[b.writeIndex] = c
+	b.writeIndex = b.incrIndex(b.writeIndex)
+	b.count++
+	return nil
+}
+
+func (b *Buffer) Overwrite(c byte) {
+	if b.isFull() {
+		b.ReadByte()
+	}
+	b.WriteByte(c)
+}
+
+func (b *Buffer) Reset() {
+	b.readIndex = b.writeIndex
+	b.count = 0
+}
+
+/* benchmarks
+ * goarch: amd64
+ * pkg: standard
+ * cpu: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+ * BenchmarkOverwrite
+ * BenchmarkOverwrite-2   	72242638	        16.82 ns/op	4294757040.48 MB/s	       0 B/op	       0 allocs/op
+ * BenchmarkWriteRead
+ * BenchmarkWriteRead-2   	70738850	        16.96 ns/op	4172097440.48 MB/s	       0 B/op	       0 allocs/op
+ */
+
+// Implement a circular buffer of bytes supporting both overflow-checked writes
+// and unconditional, possibly overwriting, writes.
+//
+// We chose the provided API so that Buffer implements io.ByteReader
+// and io.ByteWriter and can be used (size permitting) as a drop in
+// replacement for anything using that interface.

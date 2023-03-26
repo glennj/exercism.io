@@ -5,7 +5,7 @@ package brackets
 
 // Bracket comment ...
 func Bracket(input string) bool {
-	stack := newStack[rune]()
+	stack := NewStack[rune]()
 
 	for _, c := range input {
 		switch c {
