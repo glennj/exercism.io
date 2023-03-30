@@ -1,7 +1,6 @@
 Available:
 [3,"crypto-square"]
 [3,"wordy"]
-[3,"kindergarten-garden"]
 [3,"scale-generator"]
 [4,"parallel-letter-frequency"]
 [4,"tree-building"]
@@ -97,6 +96,7 @@ Completed:
 [3,"sublist"]
 [3,"list-ops"]
 [3,"bottle-song"]
+[3,"kindergarten-garden"]
 [4,"robot-name"]
 [4,"run-length-encoding"]
 [4,"perfect-numbers"]
