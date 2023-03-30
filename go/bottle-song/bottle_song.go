@@ -18,9 +18,10 @@ const (
 func Recite(startBottles, takeDown int) []string {
 	song := make([]string, 0, 5*takeDown-1)
 	for i := 0; i < takeDown; i++ {
+		song = append(song, "")
 		song = append(song, verse(startBottles-i)...)
 	}
-	return song[:len(song)-1]
+	return song[1:]
 }
 
 func verse(n int) []string {
@@ -29,7 +30,6 @@ func verse(n int) []string {
 		"",
 		fmt.Sprintf("And if one %s should accidentally fall,", bottles(1)),
 		fmt.Sprintf("There'll be %s %s %s.", number(n-1), bottles(n-1), where),
-		"",
 	}
 	lines[1] = lines[0]
 	return lines
