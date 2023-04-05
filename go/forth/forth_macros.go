@@ -6,19 +6,15 @@ import (
 )
 
 type Macros struct {
-	m map[string][]string
+	macros map[string][]string
 }
 
 func NewMacros() *Macros {
-	return &Macros{m: map[string][]string{}}
-}
-
-func (m *Macros) Put(name string, macro []string) {
-	m.m[name] = macro
+	return &Macros{macros: map[string][]string{}}
 }
 
 func (m *Macros) Get(name string) (macro []string, ok bool) {
-	macro, ok = m.m[name]
+	macro, ok = m.macros[name]
 	return
 }
 
@@ -41,9 +37,6 @@ func (m *Macros) Record(tokens []string) error {
 			macro = append(macro, word)
 		}
 	}
-	m.Put(name, macro)
+	m.macros[name] = macro
 	return nil
 }
-
-// benchmarked
-// BenchmarkForth     28886             43342 ns/op           10480 B/op        359 allocs/op

@@ -1,38 +1,38 @@
 package forth
 
 import (
+	"container/list"
 	"errors"
-	"stack"
 )
 
 var (
+	ErrEmpty            = errors.New("stack is empty")
 	ErrUnderflow        = errors.New("not enough values on the stack")
 	ErrUnknownOperation = errors.New("unknown operation")
 	ErrDivZero          = errors.New("divide by zero")
 )
 
 type ForthStack struct {
-	stack stack.Stack[int]
+	deque *list.List
 }
 
 func NewForthStack() *ForthStack {
-	return &ForthStack{stack: stack.NewStack[int]()}
+	return &ForthStack{deque: list.New()}
 }
 
 func (s *ForthStack) ToSlice() []int {
-	size := s.stack.Size()
-	result := make([]int, size)
-	for i := 0; i < size; i++ {
-		result[i] = s.stack[i]
+	result := make([]int, 0, s.deque.Len())
+	for elem := s.deque.Front(); elem != nil; elem = elem.Next() {
+		result = append(result, elem.Value.(int))
 	}
 	return result
 }
 
 func (s *ForthStack) want(n int) error {
 	if n > 0 {
-		size := s.stack.Size()
+		size := s.deque.Len()
 		if size == 0 {
-			return stack.ErrEmpty
+			return ErrEmpty
 		}
 		if size < n {
 			return ErrUnderflow
@@ -42,7 +42,15 @@ func (s *ForthStack) want(n int) error {
 }
 
 func (s *ForthStack) Push(n int) {
-	s.stack.Push(n)
+	s.deque.PushBack(n)
+}
+
+func (s *ForthStack) Pop() (int, error) {
+	elem := s.deque.Back()
+	if elem == nil {
+		return 0, ErrEmpty
+	}
+	return s.deque.Remove(elem).(int), nil
 }
 
 func (s *ForthStack) ArithmeticOp(op string) error {
@@ -50,27 +58,21 @@ func (s *ForthStack) ArithmeticOp(op string) error {
 	if err != nil {
 		return err
 	}
-	b, err := s.stack.Pop()
-	if err != nil {
-		return err
-	}
-	a, err := s.stack.Pop()
-	if err != nil {
-		return err
-	}
+	b, _ := s.Pop()
+	a, _ := s.Pop()
 
 	switch op {
 	case "+":
-		s.stack.Push(a + b)
+		s.Push(a + b)
 	case "-":
-		s.stack.Push(a - b)
+		s.Push(a - b)
 	case "*":
-		s.stack.Push(a * b)
+		s.Push(a * b)
 	case "/":
 		if b == 0 {
 			return ErrDivZero
 		}
-		s.stack.Push(a / b)
+		s.Push(a / b)
 	default:
 		return ErrUnknownOperation
 	}
@@ -78,30 +80,19 @@ func (s *ForthStack) ArithmeticOp(op string) error {
 }
 
 func (s *ForthStack) Dup() error {
-	err := s.want(1)
-	if err != nil {
-		return err
-	}
-	a, err := s.stack.Pop()
+	a, err := s.Pop()
 	if err != nil {
 		return err
 	}
 
-	s.stack.Push(a)
-	s.stack.Push(a)
+	s.Push(a)
+	s.Push(a)
 	return nil
 }
 
 func (s *ForthStack) Drop() error {
-	err := s.want(1)
-	if err != nil {
-		return err
-	}
-	_, err = s.stack.Pop()
-	if err != nil {
-		return err
-	}
-	return nil
+	_, err := s.Pop()
+	return err
 }
 
 func (s *ForthStack) Over() error {
@@ -109,18 +100,12 @@ func (s *ForthStack) Over() error {
 	if err != nil {
 		return err
 	}
-	b, err := s.stack.Pop()
-	if err != nil {
-		return err
-	}
-	a, err := s.stack.Pop()
-	if err != nil {
-		return err
-	}
+	b, _ := s.Pop()
+	a, _ := s.Pop()
 
-	s.stack.Push(a)
-	s.stack.Push(b)
-	s.stack.Push(a)
+	s.Push(a)
+	s.Push(b)
+	s.Push(a)
 	return nil
 }
 
@@ -129,16 +114,10 @@ func (s *ForthStack) Swap() error {
 	if err != nil {
 		return err
 	}
-	b, err := s.stack.Pop()
-	if err != nil {
-		return err
-	}
-	a, err := s.stack.Pop()
-	if err != nil {
-		return err
-	}
+	b, _ := s.Pop()
+	a, _ := s.Pop()
 
-	s.stack.Push(b)
-	s.stack.Push(a)
+	s.Push(b)
+	s.Push(a)
 	return nil
 }
