@@ -5,20 +5,18 @@ import (
 	"strconv"
 )
 
-type Macros struct {
-	macros map[string][]string
+type Macros map[string][]string
+
+func NewMacros() Macros {
+	return make(map[string][]string)
 }
 
-func NewMacros() *Macros {
-	return &Macros{macros: map[string][]string{}}
-}
-
-func (m *Macros) Get(name string) (macro []string, ok bool) {
-	macro, ok = m.macros[name]
+func (m Macros) Get(name string) (macro []string, ok bool) {
+	macro, ok = m[name]
 	return
 }
 
-func (m *Macros) Record(tokens []string) error {
+func (m Macros) Record(tokens []string) error {
 	if len(tokens) < 2 || tokens[len(tokens)-1] != ";" {
 		return fmt.Errorf("malformed macro")
 	}
@@ -30,13 +28,13 @@ func (m *Macros) Record(tokens []string) error {
 
 	macro := []string{}
 	for _, word := range words {
-		defn, ok := m.Get(word)
+		defn, ok := m[word]
 		if ok {
 			macro = append(macro, defn...)
 		} else {
 			macro = append(macro, word)
 		}
 	}
-	m.macros[name] = macro
+	m[name] = macro
 	return nil
 }

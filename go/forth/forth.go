@@ -20,7 +20,7 @@ func Forth(input []string) ([]int, error) {
 	return stack.ToSlice(), nil
 }
 
-func processLine(line string, stack *ForthStack, macros *Macros) error {
+func processLine(line string, stack *ForthStack, macros Macros) error {
 	var (
 		tokens = strings.Fields(line)
 		token  string
@@ -70,4 +70,4 @@ Loop:
 }
 
 // benchmarked
-// BenchmarkForth     28886             43342 ns/op           10480 B/op        359 allocs/op
+// BenchmarkForth-2           37560             33744 ns/op           18225 B/op        472 allocs/op
