@@ -1,9 +1,6 @@
 Available:
 [3,"crypto-square"]
-[3,"wordy"]
 [3,"scale-generator"]
-[4,"tree-building"]
-[4,"twelve-days"]
 [4,"ledger"]
 [4,"rail-fence-cipher"]
 [4,"diamond"]
@@ -90,6 +87,8 @@ Completed:
 [3,"list-ops"]
 [3,"bottle-song"]
 [3,"kindergarten-garden"]
+[3,"wordy"]
+
 [4,"robot-name"]
 [4,"run-length-encoding"]
 [4,"perfect-numbers"]
@@ -104,6 +103,9 @@ Completed:
 [4,"allergies"]
 [4,"bank-account"]
 [4,"grep"]
+[4,"twelve-days"]
+[4,"tree-building"]
+
 [5,"secret-handshake"]
 [5,"binary-search"]
 [5,"two-bucket"]
