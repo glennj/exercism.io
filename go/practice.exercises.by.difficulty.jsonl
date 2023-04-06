@@ -1,6 +1,4 @@
 Available:
-[3,"crypto-square"]
-[3,"scale-generator"]
 [4,"ledger"]
 [4,"rail-fence-cipher"]
 [4,"diamond"]
@@ -88,7 +86,8 @@ Completed:
 [3,"bottle-song"]
 [3,"kindergarten-garden"]
 [3,"wordy"]
-
+[3,"crypto-square"]
+[3,"scale-generator"]
 [4,"robot-name"]
 [4,"run-length-encoding"]
 [4,"perfect-numbers"]
