@@ -2324,6 +2324,7 @@ and [glob patterns](https://www.gnu.org/software/bash/manual/bash.html#Pattern-M
     To conclude, I hope you learned something about glob patterns, and
     if you prefer to use regexes then don't let me stop you.
 
+---
 <!-- -->
 
 Testing if a parameter is an integer:
@@ -2367,6 +2368,7 @@ $ value=$(($1))
 bash: 42x: value too great for base (error token is "42x")
 ```
 
+---
 <!--
     here-string vs pipe
     https://exercism.io/mentor/solutions/79bf2ee3402c45c792af8e89b15bbfb8
@@ -2480,6 +2482,8 @@ sys	0m0.034s
 Note the use of the printf process substitution. Using a `<<<"$string"`
 here-string redirection adds a trailing newline.
 
+---
+
 <!-- -->
 <!-- https://exercism.io/mentor/solutions/46664b6978834cd7a3283e0be7a37335
     explaining the while read -n1 loop
@@ -2519,6 +2523,7 @@ That's where we get
 while IFS= read -r -n1 line; do ...; done < <(printf '%s' "$1")
 ```
 
+---
 <!-- -->
 
 (similar explanation about reading strings a character at a time,
