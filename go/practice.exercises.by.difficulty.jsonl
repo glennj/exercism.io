@@ -1,7 +1,6 @@
 Available:
 [4,"ledger"]
 [4,"rail-fence-cipher"]
-[4,"diamond"]
 [4,"rectangles"]
 [4,"food-chain"]
 [4,"house"]
@@ -103,6 +102,7 @@ Completed:
 [4,"tree-building"]
 [4,"pascals-triangle"]
 [4,"spiral-matrix"]
+[4,"diamond"]
 
 [5,"secret-handshake"]
 [5,"binary-search"]

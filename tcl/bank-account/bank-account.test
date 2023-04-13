@@ -127,7 +127,6 @@ test bank-account-15 "adjust balance concurrently" -body {
     # BankAccount class: passing messages between threads
     # does all the locking for us transparently.
 
-    # sudo apt install tcl-thread # or equivalent
     package require Thread
 
     BankAccount create theAccount

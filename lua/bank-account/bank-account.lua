@@ -1,11 +1,11 @@
 local BankAccount = {}
+BankAccount.__index = BankAccount
 
 local AccountStatus = { Open = true, Closed = false }
 
 function BankAccount:new()
     local acct = {}
     setmetatable(acct, self)
-    self.__index = self
 
     acct._balance = 0
     acct._status = AccountStatus.Open

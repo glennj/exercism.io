@@ -70,4 +70,9 @@ Loop:
 }
 
 // benchmarked
-// BenchmarkForth-2           37560             33744 ns/op           18225 B/op        472 allocs/op
+//
+// using my hand-stiched stack
+// BenchmarkForth     28886             43342 ns/op           10480 B/op        359 allocs/op
+//
+// using container/list as a stack
+// BenchmarkForth     21145             52534 ns/op           18224 B/op        472 allocs/op
