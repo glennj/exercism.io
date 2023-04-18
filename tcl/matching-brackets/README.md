@@ -6,6 +6,7 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 ## Instructions
 
 Given a string containing brackets `[]`, braces `{}`, parentheses `()`, or any combination thereof, verify that any and all pairs are matched and nested correctly.
+The string may also contain other characters, which for the purposes of this exercise should be ignored.
 
 Tcl is a [very simple language](https://tcl.tk/man/tcl8.6/TclCmd/Tcl.htm),
 but the way they interpreter parses code has a couple of nasty edge cases.

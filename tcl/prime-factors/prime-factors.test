@@ -60,7 +60,8 @@ test pf-11 "product of primes" -body {
     factors 901255
 } -returnCodes ok -result {5 17 23 461}
 
-test pf-11 "factors include a large prime" -body {
+skip pf-12
+test pf-12 "factors include a large prime" -body {
     factors 93819012551
 } -returnCodes ok -result {11 9539 894119}
 

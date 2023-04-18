@@ -6,29 +6,29 @@ source testHelpers.tcl
 ############################################################
 source "strain.tcl"
 
-test strain-1.1 "empty keep" -body {
+test strain-1.1 "keep on empty list returns empty list" -body {
     keep e {} {expr {$e < 10}}
 } -returnCodes ok -result {}
 
 skip strain-1.2
-test strain-1.2 "keep everything" -body {
+test strain-1.2 "keeps everything" -body {
     keep e {1 2 3} {expr {$e < 10}}
 } -returnCodes ok -result {1 2 3}
 
 skip strain-1.3
-test strain-1.3 "keep nothing" -body {
+test strain-1.3 "keeps nothing" -body {
     keep e {1 2 3} {expr {$e > 10}}
 } -returnCodes ok -result {}
 
 skip strain-1.4
-test strain-1.4 "keep odd" -body {
-    keep e {1 2 3 4} {expr {$e % 2 == 1}}
+test strain-1.4 "keep first and last" -body {
+    keep e {1 2 3} {expr {$e % 2 == 1}}
 } -returnCodes ok -result {1 3}
 
 skip strain-1.5
-test strain-1.5 "keep even" -body {
-    keep e {1 2 3 4} {expr {$e % 2 == 0}}
-} -returnCodes ok -result {2 4}
+test strain-1.5 "keep neither first not last" -body {
+    keep e {1 2 3} {expr {$e % 2 == 0}}
+} -returnCodes ok -result {2}
 
 skip strain-1.6
 test strain-1.6 "keep z strings" -body {
@@ -52,28 +52,28 @@ test strain-1.7 "keep lists" -body {
 
 
 skip strain-2.1
-test strain-2.1 "empty discard" -body {
+test strain-2.1 "discard on empty list returns empty list" -body {
     discard e {} {expr {$e < 10}}
 } -returnCodes ok -result {}
 
 skip strain-2.2
-test strain-2.2 "discard everything" -body {
+test strain-2.2 "discards everything" -body {
     discard e {1 2 3} {expr {$e < 10}}
 } -returnCodes ok -result {}
 
 skip strain-2.3
-test strain-2.3 "discard nothing" -body {
+test strain-2.3 "discards nothing" -body {
     discard e {1 2 3} {expr {$e > 10}}
 } -returnCodes ok -result {1 2 3}
 
 skip strain-2.4
-test strain-2.4 "discard odd" -body {
-    discard e {1 2 3 4} {expr {$e % 2 == 1}}
-} -returnCodes ok -result {2 4}
+test strain-2.4 "discard first and last" -body {
+    discard e {1 2 3} {expr {$e % 2 == 1}}
+} -returnCodes ok -result {2}
 
 skip strain-2.5
-test strain-2.5 "discard even" -body {
-    discard e {1 2 3 4} {expr {$e % 2 == 0}}
+test strain-2.5 "discard neither first nor last" -body {
+    discard e {1 2 3} {expr {$e % 2 == 0}}
 } -returnCodes ok -result {1 3}
 
 skip strain-2.6

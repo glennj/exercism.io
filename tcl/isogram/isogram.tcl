@@ -1,7 +1,7 @@
 interp alias "" isIsogram "" isIsogram_early_return
 
 ############################################################
-# a few different implementations that would work
+# a few different implementations that would work 
 
 proc isIsogram_iterate {input} {
     # remove non-alphabetic chars

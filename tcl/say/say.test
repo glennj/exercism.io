@@ -30,6 +30,16 @@ test say-5 "twenty-two" -body {
     say 22
 } -returnCodes ok -result "twenty-two"
 
+skip say-16
+test say-16 "thirty" -body {
+    say 30
+} -returnCodes ok -result "thirty"
+
+skip say-17
+test say-17 "ninety-nine" -body {
+    say 99
+} -returnCodes ok -result "ninety-nine"
+
 skip say-6
 test say-6 "one hundred" -body {
     say 100
@@ -39,6 +49,16 @@ skip say-7
 test say-7 "one hundred twenty-three" -body {
     say 123
 } -returnCodes ok -result "one hundred twenty-three"
+
+skip say-18
+test say-18 "two hundred" -body {
+    say 200
+} -returnCodes ok -result "two hundred"
+
+skip say-19
+test say-19 "nine hundred ninety-nine" -body {
+    say 999
+} -returnCodes ok -result "nine hundred ninety-nine"
 
 skip say-8
 test say-8 "one thousand" -body {

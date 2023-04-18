@@ -107,6 +107,16 @@ test pp-1.10 "empty result for largest if no palindrome in the range" -body {
     set factors
 } -returnCodes ok -result {}
 
+skip pp-1.11
+test pp-1.11 "smallest product does not use the smallest factor" -body {
+    lassign [palindromeProducts smallest 3215 4000] value factors
+    set expected 10988901
+    if {$value != $expected} {
+        error "incorrect value: actual $value; expecting $expected"
+    }
+    set factors
+} -returnCodes ok -result {{3297 3333}}
+
 
 skip pp-2.1
 test pp-2.1 "error result for smallest if min is more than max" -body {

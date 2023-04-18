@@ -52,4 +52,4 @@ Success!
 
 ### Based on
 
-The Prime Factors Kata by Uncle Bob - http://butunclebob.com/ArticleS.UncleBob.ThePrimeFactorsKata
+The Prime Factors Kata by Uncle Bob - https://web.archive.org/web/20221026171801/http://butunclebob.com/ArticleS.UncleBob.ThePrimeFactorsKata

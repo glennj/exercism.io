@@ -3,7 +3,7 @@ package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
-configure -verbose {body error usec}
+# configure -verbose {body error usec}
 
 ############################################################
 source "bank-account.tcl"
