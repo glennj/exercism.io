@@ -1,0 +1,319 @@
+{
+  "exercises": [
+    {
+      "slug": "hello-world-service",
+      "type": "practice",
+      "title": "Hello World Service",
+      "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/rest-api.svg",
+      "difficulty": "easy",
+      "blurb": "The classical introductory exercise. Just create an HTTP service to say \"Hello, World!\".",
+      "is_external": false,
+      "is_unlocked": true,
+      "is_recommended": true,
+      "links": {
+        "self": "/tracks/ballerina/exercises/hello-world-service"
+      }
+    },
+    {
+      "slug": "greeting-service",
+      "type": "practice",
+      "title": "Greeting Service",
+      "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/say.svg",
+      "difficulty": "easy",
+      "blurb": "Make an HTTP service to say \"Hello\".",
+      "is_external": false,
+      "is_unlocked": true,
+      "is_recommended": false,
+      "links": {
+        "self": "/tracks/ballerina/exercises/greeting-service"
+      }
+    },
+    {
+      "slug": "service-composition",
+      "type": "practice",
+      "title": "Service Composition",
+      "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/object-relational-mapping.svg",
+      "difficulty": "medium",
+      "blurb": "In this exercise, you will use Ballerina Records to organize the request payloads and ensure successful communication with external reservation endpoints.",
+      "is_external": false,
+      "is_unlocked": true,
+      "is_recommended": false,
+      "links": {
+        "self": "/tracks/ballerina/exercises/service-composition"
+      }
+    },
+    {
+      "slug": "service-invocation",
+      "type": "practice",
+      "title": "Service Invocation",
+      "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/forth.svg",
+      "difficulty": "easy",
+      "blurb": "Calling APIs is an important part of writing code on the internet.",
+      "is_external": false,
+      "is_unlocked": true,
+      "is_recommended": false,
+      "links": {
+        "self": "/tracks/ballerina/exercises/service-invocation"
+      }
+    },
+    {
+      "slug": "basics-transformation-csv",
+      "type": "practice",
+      "title": "CSV Fuel Allowance",
+      "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/car-purchase.svg",
+      "difficulty": "medium",
+      "blurb": "As a member of the digital operations team, your task is to read this CSV file and write the results to another CSV file.",
+      "is_external": false,
+      "is_unlocked": true,
+      "is_recommended": false,
+      "links": {
+        "self": "/tracks/ballerina/exercises/basics-transformation-csv"
+      }
+    },
+    {
+      "slug": "basics-transformation-json",
+      "type": "practice",
+      "title": "JSON Fuel Allowance",
+      "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/car-purchase.svg",
+      "difficulty": "medium",
+      "blurb": "As a member of the digital operations team, your task is to read this JSON file and write the results to another JSON file.",
+      "is_external": false,
+      "is_unlocked": true,
+      "is_recommended": false,
+      "links": {
+        "self": "/tracks/ballerina/exercises/basics-transformation-json"
+      }
+    },
+    {
+      "slug": "basics-transformation-xml",
+      "type": "practice",
+      "title": "XML Fuel Allowance",
+      "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/car-purchase.svg",
+      "difficulty": "medium",
+      "blurb": "As a member of the digital operations team, your task is to read this XML file and write the results to another XML file.",
+      "is_external": false,
+      "is_unlocked": true,
+      "is_recommended": false,
+      "links": {
+        "self": "/tracks/ballerina/exercises/basics-transformation-xml"
+      }
+    },
+    {
+      "slug": "basics-monitor-rush",
+      "type": "practice",
+      "title": "Monitor Rush",
+      "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/city-office.svg",
+      "difficulty": "medium",
+      "blurb": "Every employee wants to work in the new office because each cubicle has state-of-the-art monitors. The HR department is overwhelmed with such requests and came up with a cubicle allocation system with the help of its digital operations team.",
+      "is_external": false,
+      "is_unlocked": true,
+      "is_recommended": false,
+      "links": {
+        "self": "/tracks/ballerina/exercises/basics-monitor-rush"
+      }
+    },
+    {
+      "slug": "hello-world",
+      "type": "tutorial",
+      "title": "Hello World",
+      "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/hello-world.svg",
+      "difficulty": "easy",
+      "blurb": "The classical introductory exercise. Just say \"Hello, World!\".",
+      "is_external": false,
+      "is_unlocked": true,
+      "is_recommended": false,
+      "links": {
+        "self": "/tracks/ballerina/exercises/hello-world"
+      }
+    },
+    {
+      "slug": "calculator-service",
+      "type": "practice",
+      "title": "Calculator Service",
+      "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/simple-calculator.svg",
+      "difficulty": "easy",
+      "blurb": "HTTP endpoints are better with type checking. Adding a Record type to a POST request will ensure the correct data is sent every time.",
+      "is_external": false,
+      "is_unlocked": true,
+      "is_recommended": false,
+      "links": {
+        "self": "/tracks/ballerina/exercises/calculator-service"
+      }
+    },
+    {
+      "slug": "echo-service",
+      "type": "practice",
+      "title": "Echo Service",
+      "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/anagram.svg",
+      "difficulty": "easy",
+      "blurb": "Creating a service in ballerina is easy. Now you can add a query parameter and a relative path.",
+      "is_external": false,
+      "is_unlocked": true,
+      "is_recommended": false,
+      "links": {
+        "self": "/tracks/ballerina/exercises/echo-service"
+      }
+    },
+    {
+      "slug": "error-handling",
+      "type": "practice",
+      "title": "Service Error Handling",
+      "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/error-handling.svg",
+      "difficulty": "easy",
+      "blurb": "There are a few ways to handle errors in Ballerina.",
+      "is_external": false,
+      "is_unlocked": true,
+      "is_recommended": false,
+      "links": {
+        "self": "/tracks/ballerina/exercises/error-handling"
+      }
+    }
+  ],
+  "solutions": [
+    {
+      "uuid": "d141c14abf2b4a9295a701ab72f0835e",
+      "private_url": "https://exercism.org/tracks/ballerina/exercises/hello-world",
+      "public_url": "https://exercism.org/tracks/ballerina/exercises/hello-world/solutions/glennj",
+      "status": "published",
+      "mentoring_status": "none",
+      "published_iteration_head_tests_status": "passed",
+      "has_notifications": false,
+      "num_views": 0,
+      "num_stars": 0,
+      "num_comments": 0,
+      "num_iterations": 1,
+      "num_loc": 0,
+      "is_out_of_date": false,
+      "published_at": "2023-04-17T13:39:21Z",
+      "completed_at": "2023-04-17T13:39:21Z",
+      "updated_at": "2023-04-17T13:39:22Z",
+      "last_iterated_at": "2023-04-17T13:39:15Z",
+      "exercise": {
+        "slug": "hello-world",
+        "title": "Hello World",
+        "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/hello-world.svg"
+      },
+      "track": {
+        "slug": "ballerina",
+        "title": "Ballerina",
+        "icon_url": "https://dg8krxphbh767.cloudfront.net/tracks/ballerina.svg"
+      }
+    },
+    {
+      "uuid": "326b1f665dfd4646b4edc6a6658336e0",
+      "private_url": "https://exercism.org/tracks/ballerina/exercises/hello-world-service",
+      "public_url": "https://exercism.org/tracks/ballerina/exercises/hello-world-service/solutions/glennj",
+      "status": "started",
+      "mentoring_status": "none",
+      "published_iteration_head_tests_status": "not_queued",
+      "has_notifications": false,
+      "num_views": 0,
+      "num_stars": 0,
+      "num_comments": 0,
+      "num_iterations": 0,
+      "num_loc": null,
+      "is_out_of_date": false,
+      "published_at": null,
+      "completed_at": null,
+      "updated_at": "2023-04-18T19:40:11Z",
+      "last_iterated_at": null,
+      "exercise": {
+        "slug": "hello-world-service",
+        "title": "Hello World Service",
+        "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/rest-api.svg"
+      },
+      "track": {
+        "slug": "ballerina",
+        "title": "Ballerina",
+        "icon_url": "https://dg8krxphbh767.cloudfront.net/tracks/ballerina.svg"
+      }
+    },
+    {
+      "uuid": "bfee0b8fe66c40deaad1b23a0a181f36",
+      "private_url": "https://exercism.org/tracks/ballerina/exercises/calculator-service",
+      "public_url": "https://exercism.org/tracks/ballerina/exercises/calculator-service/solutions/glennj",
+      "status": "published",
+      "mentoring_status": "none",
+      "published_iteration_head_tests_status": "passed",
+      "has_notifications": false,
+      "num_views": 0,
+      "num_stars": 0,
+      "num_comments": 0,
+      "num_iterations": 3,
+      "num_loc": 0,
+      "is_out_of_date": false,
+      "published_at": "2023-04-18T19:00:25Z",
+      "completed_at": "2023-04-18T19:00:25Z",
+      "updated_at": "2023-04-18T19:00:27Z",
+      "last_iterated_at": "2023-04-18T18:57:04Z",
+      "exercise": {
+        "slug": "calculator-service",
+        "title": "Calculator Service",
+        "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/simple-calculator.svg"
+      },
+      "track": {
+        "slug": "ballerina",
+        "title": "Ballerina",
+        "icon_url": "https://dg8krxphbh767.cloudfront.net/tracks/ballerina.svg"
+      }
+    },
+    {
+      "uuid": "b7805df0fb5d41bd82a632ba543ffa90",
+      "private_url": "https://exercism.org/tracks/ballerina/exercises/echo-service",
+      "public_url": "https://exercism.org/tracks/ballerina/exercises/echo-service/solutions/glennj",
+      "status": "published",
+      "mentoring_status": "none",
+      "published_iteration_head_tests_status": "exceptioned",
+      "has_notifications": false,
+      "num_views": 0,
+      "num_stars": 0,
+      "num_comments": 0,
+      "num_iterations": 2,
+      "num_loc": 0,
+      "is_out_of_date": false,
+      "published_at": "2023-04-18T13:03:53Z",
+      "completed_at": "2023-04-18T13:03:53Z",
+      "updated_at": "2023-04-18T19:04:42Z",
+      "last_iterated_at": "2023-04-18T19:04:42Z",
+      "exercise": {
+        "slug": "echo-service",
+        "title": "Echo Service",
+        "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/anagram.svg"
+      },
+      "track": {
+        "slug": "ballerina",
+        "title": "Ballerina",
+        "icon_url": "https://dg8krxphbh767.cloudfront.net/tracks/ballerina.svg"
+      }
+    },
+    {
+      "uuid": "3c4bcb0959394dbaa35682c5f36937ab",
+      "private_url": "https://exercism.org/tracks/ballerina/exercises/error-handling",
+      "public_url": "https://exercism.org/tracks/ballerina/exercises/error-handling/solutions/glennj",
+      "status": "published",
+      "mentoring_status": "none",
+      "published_iteration_head_tests_status": "passed",
+      "has_notifications": false,
+      "num_views": 0,
+      "num_stars": 0,
+      "num_comments": 0,
+      "num_iterations": 2,
+      "num_loc": 0,
+      "is_out_of_date": false,
+      "published_at": "2023-04-18T19:03:24Z",
+      "completed_at": "2023-04-18T19:03:24Z",
+      "updated_at": "2023-04-18T19:03:25Z",
+      "last_iterated_at": "2023-04-18T19:02:46Z",
+      "exercise": {
+        "slug": "error-handling",
+        "title": "Service Error Handling",
+        "icon_url": "https://dg8krxphbh767.cloudfront.net/exercises/error-handling.svg"
+      },
+      "track": {
+        "slug": "ballerina",
+        "title": "Ballerina",
+        "icon_url": "https://dg8krxphbh767.cloudfront.net/tracks/ballerina.svg"
+      }
+    }
+  ]
+}
