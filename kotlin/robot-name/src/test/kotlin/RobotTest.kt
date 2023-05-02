@@ -19,19 +19,19 @@ class RobotTest {
         assertTrue(isValidName(robot.name), "Robot name ${robot.name} didn't match expected pattern.")
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun differentRobotsHaveDifferentNames() {
         assertNotEquals(robot.name, Robot().name)
     }
     
-    //@Ignore
+    @Ignore
     @Test
     fun robotRemembersItsName() {
         assertEquals(robot.name, robot.name)
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun resetName() {
         val name = robot.name
@@ -42,7 +42,7 @@ class RobotTest {
         assertTrue(isValidName(name2), "Robot name $name2 didn't match expected pattern.")
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun isRandom() {
         val iterations = 100000

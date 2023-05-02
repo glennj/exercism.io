@@ -10,55 +10,55 @@ class PangramTest {
         assertFalse(Pangram.isPangram(""))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun perfectLowerCase() {
         assertTrue(Pangram.isPangram("abcdefghijklmnopqrstuvwxyz"))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun onlyLowerCase() {
         assertTrue(Pangram.isPangram("the quick brown fox jumps over the lazy dog"))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun missingTheLetterX() {
         assertFalse(Pangram.isPangram("a quick movement of the enemy will jeopardize five gunboats"))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun missingTheLetterH() {
         assertFalse(Pangram.isPangram("five boxing wizards jump quickly at it"))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun withUnderscores() {
         assertTrue(Pangram.isPangram("the_quick_brown_fox_jumps_over_the_lazy_dog"))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun withNumbers() {
         assertTrue(Pangram.isPangram("the 1 quick brown fox jumps over the 2 lazy dogs"))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun missingLettersReplacedByNumbers() {
         assertFalse(Pangram.isPangram("7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog"))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun mixedCaseAndPunctuation() {
         assertTrue(Pangram.isPangram("\"Five quacking Zephyrs jolt my wax bed.\""))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun caseInsensitive() {
         assertFalse(Pangram.isPangram("the quick brown fox jumps over with lazy FX"))

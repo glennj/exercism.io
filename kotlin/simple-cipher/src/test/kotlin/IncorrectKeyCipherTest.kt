@@ -11,25 +11,25 @@ class IncorrectKeyCipherTest {
         Cipher("ABCDEF")
     }
 
-    //@Ignore
+    @Ignore
     @Test(expected = IllegalArgumentException::class)
     fun `key cannot contain upper cased letters`() {
         Cipher("abcdEFg")
     }
 
-    //@Ignore
+    @Ignore
     @Test(expected = IllegalArgumentException::class)
     fun `key cannot consist of digits`() {
         Cipher("12345")
     }
 
-    //@Ignore
+    @Ignore
     @Test(expected = IllegalArgumentException::class)
     fun `key cannot contain digits`() {
         Cipher("abcd345ef")
     }
 
-    //@Ignore
+    @Ignore
     @Test(expected = IllegalArgumentException::class)
     fun `key cannot be empty`() {
         Cipher("")

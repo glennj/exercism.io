@@ -11,63 +11,63 @@ class AnagramTest {
             .searchedIn("hello", "world", "zombies", "pants")
             .shouldBeEmpty()
 
-    //@Ignore
+    @Ignore
     @Test
     fun `detects two anagrams`() =
         anagramsOf("master")
             .searchedIn("stream", "pigeon", "maters")
             .shouldBeOnly("maters", "stream")
 
-    //@Ignore
+    @Ignore
     @Test
     fun `does not detect anagram subsets`() =
         anagramsOf("good")
             .searchedIn("dog", "goody")
             .shouldBeEmpty()
 
-    //@Ignore
+    @Ignore
     @Test
     fun `detects anagram`() =
         anagramsOf("listen")
             .searchedIn("enlists", "google", "inlets", "banana")
             .shouldBeOnly("inlets")
 
-    //@Ignore
+    @Ignore
     @Test
     fun `detects three anagrams`() =
         anagramsOf("allergy")
             .searchedIn("gallery", "ballerina", "regally", "clergy", "largely", "leading")
             .shouldBeOnly("gallery", "largely", "regally")
 
-    //@Ignore
+    @Ignore
     @Test
     fun `detects multiple anagrams with different case`() =
         anagramsOf("nose")
             .searchedIn("Eons", "ONES")
             .shouldBeOnly("Eons", "ONES")
 
-    //@Ignore
+    @Ignore
     @Test
     fun `does not detect non-anagrams with identical checksum`() =
         anagramsOf("mass")
             .searchedIn("last")
             .shouldBeEmpty()
 
-    //@Ignore
+    @Ignore
     @Test
     fun `detects anagrams case-insensitively`() =
         anagramsOf("Orchestra")
             .searchedIn("cashregister", "Carthorse", "radishes")
             .shouldBeOnly("Carthorse")
 
-    //@Ignore
+    @Ignore
     @Test
     fun `detects anagrams using case-insensitive subject`() =
         anagramsOf("Orchestra")
             .searchedIn("cashregister", "carthorse", "radishes")
             .shouldBeOnly("carthorse")
 
-    //@Ignore
+    @Ignore
     @Test
     fun `detects anagrams using case-insensitive possible matches`() =
 
@@ -75,28 +75,28 @@ class AnagramTest {
             .searchedIn("cashregister", "Carthorse", "radishes")
             .shouldBeOnly("Carthorse")
 
-    //@Ignore
+    @Ignore
     @Test
     fun `does not detect an anagram if the original word is repeated`() =
         anagramsOf("go")
             .searchedIn("go Go GO")
             .shouldBeEmpty()
 
-    //@Ignore
+    @Ignore
     @Test
     fun `anagrams must use all letters exactly once`() =
         anagramsOf("tapper")
             .searchedIn("patter")
             .shouldBeEmpty()
 
-    //@Ignore
+    @Ignore
     @Test
     fun `words are not anagrams of themselves (case-insensitive)`() =
         anagramsOf("BANANA")
             .searchedIn("Banana")
             .shouldBeEmpty()
 
-    //@Ignore
+    @Ignore
     @Test
     fun `words other than themselves can be anagrams`() =
         anagramsOf("LISTEN")

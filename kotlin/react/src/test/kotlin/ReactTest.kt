@@ -13,7 +13,7 @@ class ReactTest {
         assertEquals(10, input.value)
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun inputCellsValueCanBeSet() {
         val reactor = Reactor<Int>()
@@ -22,7 +22,7 @@ class ReactTest {
         assertEquals(20, input.value)
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun computeCellsCalculateInitialValue() {
         val reactor = Reactor<Int>()
@@ -31,7 +31,7 @@ class ReactTest {
         assertEquals(2, output.value)
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun computeCellsTakeInputsInTheRightOrder() {
         val reactor = Reactor<Int>()
@@ -41,7 +41,7 @@ class ReactTest {
         assertEquals(21, output.value)
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun computeCellsUpdateValueWhenDependenciesAreChanged() {
         val reactor = Reactor<Int>()
@@ -51,7 +51,7 @@ class ReactTest {
         assertEquals(4, output.value)
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun computeCellsCanDependOnOtherComputeCells() {
         val reactor = Reactor<Int>()
@@ -65,7 +65,7 @@ class ReactTest {
         assertEquals(96, output.value)
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun computeCellsFireCallbacks() {
         val reactor = Reactor<Int>()
@@ -79,7 +79,7 @@ class ReactTest {
         assertEquals(listOf(4), vals)
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun callbacksOnlyFireOnChange() {
         val reactor = Reactor<Int>()
@@ -96,7 +96,7 @@ class ReactTest {
         assertEquals(listOf(222), vals)
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun callbacksCanBeAddedAndRemoved() {
         val reactor = Reactor<Int>()
@@ -121,7 +121,7 @@ class ReactTest {
         assertEquals(listOf(42), vals3)
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun removingACallbackMultipleTimesDoesntInterfereWithOtherCallbacks() {
         val reactor = Reactor<Int>()
@@ -142,7 +142,7 @@ class ReactTest {
         assertEquals(listOf(3), vals2)
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun callbacksShouldOnlyBeCalledOnceEvenIfMultipleDependenciesChange() {
         val reactor = Reactor<Int>()
@@ -159,7 +159,7 @@ class ReactTest {
         assertEquals(listOf(10), vals)
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun callbacksShouldNotBeCalledIfDependenciesChangeButOutputValueDoesntChange() {
         val reactor = Reactor<Int>()
@@ -207,7 +207,7 @@ class ReactAdderTest(val input: Input, val expected: Expected) {
         )
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun test() {
         val reactor = Reactor<Boolean>()

@@ -23,17 +23,3 @@ class BaseConverter(val fromBase: Int, val digits: IntArray) {
         return newDigits.toIntArray()
     }
 }
-
-/*
- * community
- *
- * https://exercism.io/tracks/kotlin/exercises/all-your-base/solutions/7f31f69cdc2d4ea2a10530eceff6269e
- *
-  fun convertToBase(newBase: Int, n: Int = value): IntArray {
-    require(newBase > 1) { "Bases must be at least 2." }
-
-    return if (n < newBase) intArrayOf(n)
-    else convertToBase(newBase, n / newBase) + n % newBase
-  }
-
- */

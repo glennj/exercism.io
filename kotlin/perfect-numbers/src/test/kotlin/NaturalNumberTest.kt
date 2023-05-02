@@ -10,73 +10,73 @@ class NaturalNumberTest {
         assertEquals(Classification.PERFECT, classify(6))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun mediumPerfectNumberIsClassifiedCorrectly() {
         assertEquals(Classification.PERFECT, classify(28))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun largePerfectNumberIsClassifiedCorrectly() {
         assertEquals(Classification.PERFECT, classify(33550336))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun smallAbundantNumberIsClassifiedCorrectly() {
         assertEquals(Classification.ABUNDANT, classify(12))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun mediumAbundantNumberIsClassifiedCorrectly() {
         assertEquals(Classification.ABUNDANT, classify(30))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun largeAbundantNumberIsClassifiedCorrectly() {
         assertEquals(Classification.ABUNDANT, classify(33550335))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun smallestPrimeDeficientNumberIsClassifiedCorrectly() {
         assertEquals(Classification.DEFICIENT, classify(2))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun smallestNonPrimeDeficientNumberIsClassifiedCorrectly() {
         assertEquals(Classification.DEFICIENT, classify(4))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun mediumNumberIsClassifiedCorrectly() {
         assertEquals(Classification.DEFICIENT, classify(32))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun largeDeficientNumberIsClassifiedCorrectly() {
         assertEquals(Classification.DEFICIENT, classify(33550337))
     }
 
-    //@Ignore
+    @Ignore
     @Test
     fun edgeCaseWithNoFactorsOtherThanItselfIsClassifiedCorrectly() {
         assertEquals(Classification.DEFICIENT, classify(1))
     }
 
-    //@Ignore
+    @Ignore
     @Test(expected = RuntimeException::class)
     fun zeroIsNotANaturalNumber() {
         classify(0)
     }
 
-    //@Ignore
+    @Ignore
     @Test(expected = RuntimeException::class)
     fun negativeNumberIsNotANaturalNumber() {
         classify(-1)

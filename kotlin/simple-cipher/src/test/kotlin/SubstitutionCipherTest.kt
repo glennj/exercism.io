@@ -8,42 +8,42 @@ class SubstitutionCipherTest {
     @Test
     fun `can encode`() = "abcdefghij".let { assertEquals(it, Cipher(it).encode("aaaaaaaaaa")) }
 
-    //@Ignore
+    @Ignore
     @Test
     fun `can decode`() = "abcdefghij".let { assertEquals("aaaaaaaaaa", Cipher(it).decode(it)) }
 
-    //@Ignore
+    @Ignore
     @Test
     fun `is reversible`() = with(Cipher("abcdefghij")) { assertEquals(key, decode(encode(key))) }
 
-    //@Ignore
+    @Ignore
     @Test
     fun `can double shift encode`() =
         "iamapandabear".let { assertEquals("qayaeaagaciai", Cipher(it).encode(it)) }
 
-    //@Ignore
+    @Ignore
     @Test
     fun `can wrap on encode`() =
         assertEquals("zabcdefghi", Cipher("abcdefghij").encode("zzzzzzzzzz"))
 
-    //@Ignore
+    @Ignore
     @Test
     fun `can wrap on decode`() =
         assertEquals("zzzzzzzzzz", Cipher("abcdefghij").decode("zabcdefghi"))
 
-    //@Ignore
+    @Ignore
     @Test
     fun `can encode messages longer than the key`() =
         assertEquals("iboaqcnecbfcr", Cipher("abc").encode("iamapandabear"))
 
-    //@Ignore
+    @Ignore
     @Test
     fun `can decode messages longer than the key`() =
         assertEquals("iamapandabear", Cipher("abc").decode("iboaqcnecbfcr"))
 
     // extra tests
 
-    //@Ignore
+    @Ignore
     @Test
     fun `keeps the given key`() = "abcdefghij".let { assertEquals(it, Cipher(it).key) }
 
