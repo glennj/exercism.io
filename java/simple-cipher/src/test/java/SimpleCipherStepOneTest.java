@@ -29,21 +29,21 @@ public class SimpleCipherStepOneTest {
         assertEquals(cipherText, cipherWithDefaultKey.encode(plainText));
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void cipherCanDecode() {
         String cipherText = "aaaaaaaaaa";
         assertEquals(cipherText, cipherWithDefaultKey.decode(cipherWithDefaultKey.getKey().substring(0, 10)));
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void cipherIsReversible() {
         String plainText = "abcdefghij";
         assertEquals(plainText, cipherWithDefaultKey.decode(cipherWithDefaultKey.encode(plainText)));
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void keyIsLowercaseLetters() {
         String key = cipherWithDefaultKey.getKey();

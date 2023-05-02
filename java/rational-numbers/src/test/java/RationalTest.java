@@ -22,7 +22,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testAddAPositiveRationalNumberAndANegativeRationalNumber() {
         Rational expected = new Rational(-1, 6);
@@ -30,7 +30,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testAddTwoNegativeRationalNumbers() {
         Rational expected = new Rational(-7, 6);
@@ -38,7 +38,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testAddARationalNumberToItsAdditiveInverse() {
         Rational expected = new Rational(0, 1);
@@ -46,7 +46,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testSubtractTwoPositiveRationalNumbers() {
         Rational expected = new Rational(-1, 6);
@@ -54,7 +54,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testSubtractAPositiveRationalNumberAndANegativeRationalNumber() {
         Rational expected = new Rational(7, 6);
@@ -62,7 +62,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testSubtractTwoNegativeRationalNumbers() {
         Rational expected = new Rational(1, 6);
@@ -70,7 +70,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testSubtractARationalNumberFromItself() {
         Rational expected = new Rational(0, 1);
@@ -78,7 +78,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testMultiplyTwoPositiveRationalNumbers() {
         Rational expected = new Rational(1, 3);
@@ -86,7 +86,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testMultiplyANegativeRationalNumberByAPositiveRationalNumber() {
         Rational expected = new Rational(-1, 3);
@@ -94,7 +94,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testMultiplyTwoNegativeRationalNumbers() {
         Rational expected = new Rational(1, 3);
@@ -102,7 +102,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testMultiplyARationalNumberByItsReciprocal() {
         Rational expected = new Rational(1, 1);
@@ -110,7 +110,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testMultiplyARationalNumberByOne() {
         Rational expected = new Rational(1, 2);
@@ -118,7 +118,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testMultiplyARationalNumberByZero() {
         Rational expected = new Rational(0, 1);
@@ -126,7 +126,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testDivideTwoPositiveRationalNumbers() {
         Rational expected = new Rational(3, 4);
@@ -134,7 +134,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testDivideAPositiveRationalNumberByANegativeRationalNumber() {
         Rational expected = new Rational(-3, 4);
@@ -142,7 +142,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testDivideTwoNegativeRationalNumbers() {
         Rational expected = new Rational(3, 4);
@@ -150,7 +150,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testDivideARationalNumberByOne() {
         Rational expected = new Rational(1, 2);
@@ -158,7 +158,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testAbsoluteValueOfAPositiveRationalNumber() {
         Rational expected = new Rational(1, 2);
@@ -166,7 +166,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testAbsoluteValueOfAPositiveRationalNumberWithNegativeNumeratorAndDenominator() {
         Rational expected = new Rational(1, 2);
@@ -174,7 +174,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testAbsoluteValueOfANegativeRationalNumber() {
         Rational expected = new Rational(1, 2);
@@ -182,7 +182,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testAbsoluteValueOfANegativeRationalNumberWithNegativeDenominator() {
         Rational expected = new Rational(1, 2);
@@ -190,7 +190,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testAbsoluteValueOfZero() {
         Rational expected = new Rational(0, 1);
@@ -198,7 +198,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testRaiseAPositiveRationalNumberToAPositiveIntegerPower() {
         Rational expected = new Rational(1, 8);
@@ -206,7 +206,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testRaiseANegativeRationalNumberToAPositiveIntegerPower() {
         Rational expected = new Rational(-1, 8);
@@ -214,7 +214,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testRaiseZeroToAnIntegerPower() {
         Rational expected = new Rational(0, 1);
@@ -222,7 +222,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testRaiseOneToAnIntegerPower() {
         Rational expected = new Rational(1, 1);
@@ -230,7 +230,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testRaiseAPositiveRationalNumberToThePowerOfZero() {
         Rational expected = new Rational(1, 1);
@@ -238,7 +238,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testRaiseARealNumberToAPositiveRationalNumber() {
         double expected = 16.0;
@@ -246,7 +246,7 @@ public class RationalTest {
         assertDoublesEqual(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testRaiseARealNumberToANegativeRationalNumber() {
         double expected = 1.0 / 3;
@@ -254,7 +254,7 @@ public class RationalTest {
         assertDoublesEqual(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testReduceAPositiveRationalNumberToLowestTerms() {
         Rational expected = new Rational(1, 2);
@@ -262,7 +262,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testReduceANegativeRationalNumberToLowestTerms() {
         Rational expected = new Rational(-2, 3);
@@ -270,7 +270,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testReduceARationalNumberWithANegativeDenominatorToLowestTerms() {
         Rational expected = new Rational(-1, 3);
@@ -278,7 +278,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testReduceZeroToLowestTerms() {
         Rational expected = new Rational(0, 1);
@@ -286,7 +286,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testReduceAnIntegerToLowestTerms() {
         Rational expected = new Rational(-2, 1);
@@ -294,7 +294,7 @@ public class RationalTest {
         assertEquals(expected, actual);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testReduceOneToLowestTerms() {
         Rational expected = new Rational(1, 1);

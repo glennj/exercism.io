@@ -32,7 +32,7 @@ public class PalindromeCalculatorTest {
         checkPalindromeWithFactorsMatchesExpected(expected, expectedValue, palindromes, palindromes.firstKey());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void largestPalindromeFromSingleDigitFactors() {
         List<List<Integer>> expected = Collections.unmodifiableList(
@@ -48,7 +48,7 @@ public class PalindromeCalculatorTest {
         checkPalindromeWithFactorsMatchesExpected(expected, expectedValue, palindromes, palindromes.lastKey());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void largestPalindromeFromDoubleDigitFactors() {
         List<List<Integer>> expected = Collections.unmodifiableList(
@@ -64,7 +64,7 @@ public class PalindromeCalculatorTest {
         checkPalindromeWithFactorsMatchesExpected(expected, expectedValue, palindromes, palindromes.lastKey());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void smallestPalindromeFromDoubleDigitFactors() {
         List<List<Integer>> expected = Collections.unmodifiableList(
@@ -80,7 +80,7 @@ public class PalindromeCalculatorTest {
         checkPalindromeWithFactorsMatchesExpected(expected, expectedValue, palindromes, palindromes.firstKey());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void largestPalindromeFromTripleDigitFactors() {
         List<List<Integer>> expected = Collections.unmodifiableList(
@@ -96,7 +96,7 @@ public class PalindromeCalculatorTest {
         checkPalindromeWithFactorsMatchesExpected(expected, expectedValue, palindromes, palindromes.lastKey());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void smallestPalindromeFromTripleDigitFactors() {
         List<List<Integer>> expected = Collections.unmodifiableList(
@@ -112,7 +112,7 @@ public class PalindromeCalculatorTest {
         checkPalindromeWithFactorsMatchesExpected(expected, expectedValue, palindromes, palindromes.firstKey());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void smallestPalindromeFromQuadDigitFactors() {
         List<List<Integer>> expected = Collections.unmodifiableList(
@@ -128,7 +128,7 @@ public class PalindromeCalculatorTest {
         checkPalindromeWithFactorsMatchesExpected(expected, expectedValue, palindromes, palindromes.firstKey());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void largestPalindromeFromQuadDigitFactors() {
         List<List<Integer>> expected = Collections.unmodifiableList(
@@ -144,7 +144,7 @@ public class PalindromeCalculatorTest {
         checkPalindromeWithFactorsMatchesExpected(expected, expectedValue, palindromes, palindromes.lastKey());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void emtpyResultSmallestNoPalindromeInRange() {
 
@@ -153,7 +153,7 @@ public class PalindromeCalculatorTest {
         assertTrue(palindromes.isEmpty());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void emptyResultLargestNoPalindromeInRange() {
 
@@ -162,7 +162,7 @@ public class PalindromeCalculatorTest {
         assertTrue(palindromes.isEmpty());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void errorSmallestMinIsMoreThanMax() {
         IllegalArgumentException expected =
@@ -175,7 +175,7 @@ public class PalindromeCalculatorTest {
             .hasMessage("invalid input: min must be <= max");
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void errorLargestMinIsMoreThanMax() {
         IllegalArgumentException expected =

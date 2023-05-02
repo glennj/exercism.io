@@ -1,5 +1,5 @@
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.util.List;
 import org.junit.Ignore;
@@ -20,7 +20,7 @@ public class SatelliteTest {
         assertThat(tree.postorder()).isEmpty();
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void treeWithOneItem() {
         List<Character> preorder = List.of('a');
@@ -33,7 +33,7 @@ public class SatelliteTest {
         assertThat(tree.postorder()).containsExactly('a');
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void treeWithManyItems() {
         List<Character> preorder = List.of('a', 'i', 'x', 'f', 'r');
@@ -46,45 +46,37 @@ public class SatelliteTest {
         assertThat(tree.postorder()).containsExactly('i', 'f', 'r', 'x', 'a');
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void rejectTraversalsOfDifferentLengths() {
         List<Character> preorder = List.of('a', 'b');
         List<Character> inorder = List.of('b', 'a', 'r');
 
-        IllegalArgumentException expected =
-            assertThrows(
-                IllegalArgumentException.class,
-                () -> satellite.treeFromTraversals(preorder, inorder));
-        assertThat(expected)
-            .hasMessage("traversals must have the same length");
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> satellite.treeFromTraversals(preorder, inorder))
+                .withMessage("traversals must have the same length");
+
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void rejectInconsistentTraversalsOfSameLength() {
         List<Character> preorder = List.of('x', 'y', 'z');
         List<Character> inorder = List.of('a', 'b', 'c');
 
-        IllegalArgumentException expected =
-            assertThrows(
-                IllegalArgumentException.class,
-                () -> satellite.treeFromTraversals(preorder, inorder));
-        assertThat(expected)
-            .hasMessage("traversals must have the same elements");
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> satellite.treeFromTraversals(preorder, inorder))
+                .withMessage("traversals must have the same elements");
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void rejectTraversalsWithRepeatedItems() {
         List<Character> preorder = List.of('a', 'b', 'a');
         List<Character> inorder = List.of('b', 'a', 'a');
 
-        IllegalArgumentException expected =
-            assertThrows(
-                IllegalArgumentException.class,
-                () -> satellite.treeFromTraversals(preorder, inorder));
-        assertThat(expected)
-            .hasMessage("traversals must contain unique items");
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> satellite.treeFromTraversals(preorder, inorder))
+                .withMessage("traversals must contain unique items");
     }
 }

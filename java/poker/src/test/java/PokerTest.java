@@ -13,7 +13,7 @@ public class PokerTest {
         assertEquals(Collections.singletonList(hand), new Poker(Collections.singletonList(hand)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void highestCardWins() {
         String highest8 = "4D 5S 6S 8D 3C";
@@ -23,7 +23,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(highest8, highest10, highestJ)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void tieHasMultipleWinners() {
         String highest8 = "4D 5S 6S 8D 3C";
@@ -34,7 +34,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(highest8, highest10, highestJh, highestJd)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void sameHighCards() {
         String nextHighest3 = "3S 5H 6S 8D 7H";
@@ -43,7 +43,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(nextHighest3, nextHighest2)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void nothingVsOnePair() {
         String nothing = "4S 5H 6C 8D KH";
@@ -52,7 +52,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(nothing, pairOf4)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void twoPairs() {
         String pairOf2 = "4S 2H 6S 2D JH";
@@ -61,7 +61,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(pairOf2, pairOf4)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void onePairVsDoublePair() {
         String pairOf8 = "2S 8H 6S 8D JH";
@@ -70,7 +70,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(pairOf8, doublePair)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void twoDoublePairs() {
         String doublePair2And8 = "2S 8H 2D 8D 3H";
@@ -79,7 +79,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(doublePair2And8, doublePair4And5)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void sameHighestPair() {
         String doublePair2AndQ = "2S QS 2C QD JH";
@@ -88,7 +88,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(doublePairJAndQ, doublePair2AndQ)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void identicallyRankedPairs() {
         String kicker8 = "JD QH JS 8D QC";
@@ -96,7 +96,7 @@ public class PokerTest {
         assertEquals(Collections.singletonList(kicker8), new Poker(Arrays.asList(kicker8, kicker2)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void doublePairVsThree() {
         String doublePair2And8 = "2S 8H 2H 8D JH";
@@ -105,7 +105,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(doublePair2And8, threeOf4)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void twoThrees() {
         String threeOf2 = "2S 2H 2C 8D JH";
@@ -113,7 +113,7 @@ public class PokerTest {
         assertEquals(Collections.singletonList(threeOf1), new Poker(Arrays.asList(threeOf2, threeOf1)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void sameThreesMultipleDecks() {
         String remainingCard7 = "4S AH AS 7C AD";
@@ -122,7 +122,7 @@ public class PokerTest {
                 new Poker(Arrays.asList(remainingCard7, remainingCard8)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void threeVsStraight() {
         String threeOf4 = "4S 5H 4C 8D 4H";
@@ -130,7 +130,7 @@ public class PokerTest {
         assertEquals(Collections.singletonList(straight), new Poker(Arrays.asList(threeOf4, straight)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void acesCanEndAStraight() {
         String hand = "4S 5H 4C 8D 4H";
@@ -139,7 +139,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(hand, straightEndsA)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void acesCanStartAStraight() {
         String hand = "4S 5H 4C 8D 4H";
@@ -148,7 +148,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(hand, straightStartA)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void twoStraights() {
         String straightTo8 = "4S 6C 7S 8D 5H";
@@ -157,7 +157,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(straightTo8, straightTo9)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void theLowestStraightStartsWithAce() {
         String straight = "2H 3C 4D 5D 6H";
@@ -166,7 +166,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(straight, straightStartA)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void straightVsFlush() {
         String straightTo8 = "4C 6H 7D 8D 5H";
@@ -175,7 +175,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(straightTo8, flushTo7)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void twoFlushes() {
         String flushTo8 = "4H 7H 8H 9H 6H";
@@ -183,7 +183,7 @@ public class PokerTest {
         assertEquals(Collections.singletonList(flushTo8), new Poker(Arrays.asList(flushTo8, flushTo7)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void flushVsFull() {
         String flushTo8 = "3H 6H 7H 8H 5H";
@@ -191,7 +191,7 @@ public class PokerTest {
         assertEquals(Collections.singletonList(full), new Poker(Arrays.asList(full, flushTo8)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void twoFulls() {
         String fullOf4By9 = "4H 4S 4D 9S 9D";
@@ -200,7 +200,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(fullOf4By9, fullOf5By8)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void twoFullssameThripletMultipleDecks() {
         String fullOf5By9 = "5H 5S 5D 9S 9D";
@@ -209,7 +209,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(fullOf5By9, fullOf5By8)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void fullVsSquare() {
         String full = "4S 5H 4D 5D 4H";
@@ -217,7 +217,7 @@ public class PokerTest {
         assertEquals(Collections.singletonList(squareOf3), new Poker(Arrays.asList(full, squareOf3)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void twoSquares() {
         String squareOf2 = "2S 2H 2C 8D 2D";
@@ -226,7 +226,7 @@ public class PokerTest {
                      new Poker(Arrays.asList(squareOf2, squareOf5)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void sameSquaresMultipleDecks() {
         String kicker2 = "3S 3H 2S 3D 3C";
@@ -234,7 +234,7 @@ public class PokerTest {
         assertEquals(Collections.singletonList(kicker4), new Poker(Arrays.asList(kicker2, kicker4)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void squareVsStraightFlush() {
         String squareOf5 = "4S 5H 5S 5D 5C";
@@ -243,7 +243,7 @@ public class PokerTest {
                 new Poker(Arrays.asList(squareOf5, straightFlushTo9)).getBestHands());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void twoStraightFlushes() {
         String straightFlushTo8 = "4H 6H 7H 8H 5H";

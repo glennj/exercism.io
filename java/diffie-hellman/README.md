@@ -1,6 +1,6 @@
-# Diffie Hellman
+# Diffie-Hellman
 
-Welcome to Diffie Hellman on Exercism's Java Track.
+Welcome to Diffie-Hellman on Exercism's Java Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions

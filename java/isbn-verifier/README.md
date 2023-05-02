@@ -1,6 +1,6 @@
-# Isbn Verifier
+# ISBN Verifier
 
-Welcome to Isbn Verifier on Exercism's Java Track.
+Welcome to ISBN Verifier on Exercism's Java Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions

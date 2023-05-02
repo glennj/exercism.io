@@ -29,7 +29,7 @@ public class ParallelLetterFrequencyTest {
         assertEquals(expectedOutput, p.letterCounts());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void oneLetterIsCorrectlyCounted() {
         String input = "a";
@@ -43,7 +43,7 @@ public class ParallelLetterFrequencyTest {
         assertEquals(expectedOutput, p.letterCounts());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void resultsAreCaseInsensitive() {
         String input = "Aa";
@@ -58,7 +58,7 @@ public class ParallelLetterFrequencyTest {
     }
 
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void biggerEmptyTextsStillReturnNoResults() {
         StringBuilder b = new StringBuilder();
@@ -72,7 +72,7 @@ public class ParallelLetterFrequencyTest {
         assertEquals(expectedOutput, p.letterCounts());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void manyRepetitionsOfTheSameTextGiveAPredictableResult() {
         StringBuilder b = new StringBuilder();
@@ -93,7 +93,7 @@ public class ParallelLetterFrequencyTest {
     }
 
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void punctuationDoesntCount() {
         ParallelLetterFrequency p = new ParallelLetterFrequency(starSpangledBanner);
@@ -101,7 +101,7 @@ public class ParallelLetterFrequencyTest {
         assertFalse(p.letterCounts().containsKey((int) ','));
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void numbersDontCount() {
         ParallelLetterFrequency p = new ParallelLetterFrequency("Testing, 1, 2, 3");

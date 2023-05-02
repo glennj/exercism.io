@@ -34,7 +34,7 @@ public class DiffieHellmanTest {
 
     // Note: due to the nature of randomness, there is always a chance that this test fails
     // Be sure to check the actual generated values
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testPrivateKeyRandomlyGenerated() {
         BigInteger prime = BigInteger.valueOf(7919);
@@ -44,7 +44,7 @@ public class DiffieHellmanTest {
         assertNotEquals(privateKeyA, privateKeyB);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testPublicKeyCorrectlyCalculated() {
         BigInteger primeA = BigInteger.valueOf(23);
@@ -55,7 +55,7 @@ public class DiffieHellmanTest {
         assertEquals(expected, diffieHellman.publicKey(primeA, primeB, privateKey));
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testSecretKeyCorrectlyCalculated() {
         BigInteger prime = BigInteger.valueOf(23);
@@ -66,7 +66,7 @@ public class DiffieHellmanTest {
         assertEquals(expected, diffieHellman.secret(prime, publicKey, privateKey));
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void testExchange() {
         BigInteger primeA = BigInteger.valueOf(23);

@@ -17,7 +17,7 @@ public class PhoneNumberTest {
         );
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void cleansNumbersWithDots() {
         String expectedNumber = "2234567890";
@@ -28,7 +28,7 @@ public class PhoneNumberTest {
         );
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void cleansNumbersWithMultipleSpaces() {
         String expectedNumber = "2234567890";
@@ -39,7 +39,7 @@ public class PhoneNumberTest {
         );
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void invalidWhen9Digits() {
         IllegalArgumentException expected =
@@ -51,7 +51,7 @@ public class PhoneNumberTest {
             .hasMessage("incorrect number of digits");
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void invalidWhen11DigitsDoesNotStartWith1() {
         IllegalArgumentException expected =
@@ -63,7 +63,7 @@ public class PhoneNumberTest {
             .hasMessage("11 digits must start with 1");
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void validWhen11DigitsAndStartingWith1() {
         String expectedNumber = "2234567890";
@@ -74,7 +74,7 @@ public class PhoneNumberTest {
         );
     }
     
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void validWhen11DigitsAndStartingWith1EvenWithPunctuation() {
         String expectedNumber = "2234567890";
@@ -85,7 +85,7 @@ public class PhoneNumberTest {
         );
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void invalidWhenMoreThan11Digits() {
         IllegalArgumentException expected =
@@ -97,7 +97,7 @@ public class PhoneNumberTest {
             .hasMessage("more than 11 digits");
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void invalidWithLetters() {
         IllegalArgumentException expected =
@@ -109,7 +109,7 @@ public class PhoneNumberTest {
             .hasMessage("letters not permitted");
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void invalidWithPunctuations() {
         IllegalArgumentException expected =
@@ -121,7 +121,7 @@ public class PhoneNumberTest {
             .hasMessage("punctuations not permitted");
     }
     
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void invalidIfAreaCodeStartsWith0() {
         IllegalArgumentException expected =
@@ -133,7 +133,7 @@ public class PhoneNumberTest {
             .hasMessage("area code cannot start with zero");
     }
     
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void invalidIfAreaCodeStartsWith1() {
         IllegalArgumentException expected =
@@ -145,7 +145,7 @@ public class PhoneNumberTest {
             .hasMessage("area code cannot start with one");
     }
     
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void invalidIfExchangeCodeStartsWith0() {
         IllegalArgumentException expected =
@@ -157,7 +157,7 @@ public class PhoneNumberTest {
             .hasMessage("exchange code cannot start with zero");
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void invalidIfExchangeCodeStartsWith1() {
         IllegalArgumentException expected =
@@ -169,7 +169,7 @@ public class PhoneNumberTest {
             .hasMessage("exchange code cannot start with one");
     }
     
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void invalidIfAreaCodeStartsWith0OnValid11DigitNumber() {
         IllegalArgumentException expected =
@@ -181,7 +181,7 @@ public class PhoneNumberTest {
             .hasMessage("area code cannot start with zero");
     }
     
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void invalidIfAreaCodeStartsWith1OnValid11DigitNumber() {
         IllegalArgumentException expected =
@@ -193,7 +193,7 @@ public class PhoneNumberTest {
             .hasMessage("area code cannot start with one");
     }
     
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void invalidIfExchangeCodeStartsWith0OnValid11DigitNumber() {
         IllegalArgumentException expected =
@@ -205,7 +205,7 @@ public class PhoneNumberTest {
             .hasMessage("exchange code cannot start with zero");
     }
     
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void invalidIfExchangeCodeStartsWith1OnValid11DigitNumber() {
         IllegalArgumentException expected =

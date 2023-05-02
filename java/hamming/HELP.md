@@ -38,12 +38,10 @@ Choose your operating system:
      ```
    *(Don't worry about the tests failing, at first, this is how you begin each exercise.)*
 
-5. Solve the exercise.  Find and work through the `TUTORIAL.md` guide ([view on GitHub](https://github.com/exercism/java/blob/main/exercises/practice/hello-world/TUTORIAL.md)).
+5. Solve the exercise.  Find and work through the `instructions.append.md` guide ([view on GitHub](https://github.com/exercism/java/blob/main/exercises/practice/hello-world/.docs/instructions.append.md#tutorial)).
 
 
 Good luck!  Have fun!
-
-If you get stuck, at any point, don't forget to reach out for [help](http://exercism.io/languages/java/help).
 
 ----
 
@@ -71,11 +69,9 @@ If you get stuck, at any point, don't forget to reach out for [help](http://exer
     ```
    *(Don't worry about the tests failing, at first, this is how you begin each exercise.)*
 
-4. Solve the exercise.  Find and work through the `TUTORIAL.md` guide ([view on GitHub](https://github.com/exercism/java/blob/master/exercises/practice/hello-world/TUTORIAL.md)).
+4. Solve the exercise.  Find and work through the `instructions.append.md` guide ([view on GitHub](https://github.com/exercism/java/blob/main/exercises/practice/hello-world/.docs/instructions.append.md#tutorial)).
 
 Good luck!  Have fun!
-
-If you get stuck, at any point, don't forget to reach out for [help](http://exercism.io/languages/java/help).
 
 ----
 
@@ -104,11 +100,9 @@ If you get stuck, at any point, don't forget to reach out for [help](http://exer
     ```
    *(Don't worry about the tests failing, at first, this is how you begin each exercise.)*
 
-4. Solve the exercise.  Find and work through the `TUTORIAL.md` guide ([view on GitHub](https://github.com/exercism/java/blob/main/exercises/practice/hello-world/TUTORIAL.md)).
+4. Solve the exercise.  Find and work through the `instructions.append.md` guide ([view on GitHub](https://github.com/exercism/java/blob/main/exercises/practice/hello-world/.docs/instructions.append.md#tutorial)).
 
 Good luck!  Have fun!
-
-If you get stuck, at any point, don't forget to reach out for [help](http://exercism.io/languages/java/help).
 
 ## Submitting your solution
 
@@ -125,7 +119,7 @@ It's possible to submit an incomplete solution which allows you to:
 If you'd like help solving the exercise, check the following pages:
 
 - The [Java track's documentation](https://exercism.org/docs/tracks/java)
-- [Exercism's support channel on gitter](https://gitter.im/exercism/support)
+- [Exercism's programming category on the forum](https://forum.exercism.org/c/programming/5)
 - The [Frequently Asked Questions](https://exercism.org/docs/using/faqs)
 
 Should those resources not suffice, you could submit your (incomplete) solution to request mentoring.

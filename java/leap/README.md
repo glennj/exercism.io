@@ -29,7 +29,7 @@ phenomenon, go watch [this youtube video][video].
 [video]: http://www.youtube.com/watch?v=xX96xng7sAE
 
 Before you start, make sure you understand how to write code that can pass the test cases.
-For more context, check out this [tutorial](https://github.com/exercism/java/blob/master/exercises/hello-world/TUTORIAL.md).
+For more context, check out this [tutorial](https://github.com/exercism/java/blob/main/exercises/practice/hello-world/.docs/instructions.append.md#tutorial).
 
 Most Java exercises include multiple test cases. These cases are structured to
 support a useful process known as

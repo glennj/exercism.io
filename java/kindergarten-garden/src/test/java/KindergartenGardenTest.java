@@ -15,7 +15,7 @@ public class KindergartenGardenTest {
         );
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void singleStudent2() {
         assertThat(
@@ -25,7 +25,7 @@ public class KindergartenGardenTest {
         );
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void twoStudents() {
         assertThat(
@@ -35,7 +35,7 @@ public class KindergartenGardenTest {
         );
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void oneGardenSecondStudent() {
         assertThat(
@@ -45,7 +45,7 @@ public class KindergartenGardenTest {
         );
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void oneGardenThirdStudent() {
         assertThat(
@@ -55,7 +55,7 @@ public class KindergartenGardenTest {
         );
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void fullGardenFirstStudent() {
         assertThat(
@@ -65,7 +65,7 @@ public class KindergartenGardenTest {
         );
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void fullGardenSecondStudent() {
         assertThat(
@@ -75,7 +75,7 @@ public class KindergartenGardenTest {
         );
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void fullGardenSecondToLastStudent() {
         assertThat(
@@ -85,7 +85,7 @@ public class KindergartenGardenTest {
         );
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void fullGardenLastStudent() {
         assertThat(

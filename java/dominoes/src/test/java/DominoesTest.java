@@ -1,6 +1,5 @@
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -23,7 +22,7 @@ public class DominoesTest {
         assertEquals("The output list should be empty.", 0, chain.size());
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void singletonInputSingletonOutput() throws ChainNotFoundException {
         Dominoes dominoes = new Dominoes();
@@ -36,7 +35,7 @@ public class DominoesTest {
         assertValidChain(dominoesList, chain);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void singletonCantBeChainedTest() {
         Dominoes dominoes = new Dominoes();
@@ -44,15 +43,12 @@ public class DominoesTest {
         Domino[] dominoesArray = {new Domino(1, 2)};
         List<Domino> dominoesList = Arrays.asList(dominoesArray);
 
-        ChainNotFoundException expected =
-            assertThrows(
-                ChainNotFoundException.class,
-                () -> dominoes.formChain(dominoesList));
-
-        assertThat(expected).hasMessage("No domino chain found.");
+        assertThatExceptionOfType(ChainNotFoundException.class)
+                .isThrownBy(() -> dominoes.formChain(dominoesList))
+                .withMessage("No domino chain found.");
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void threeElementsTest() throws ChainNotFoundException {
         Dominoes dominoes = new Dominoes();
@@ -65,7 +61,7 @@ public class DominoesTest {
         assertValidChain(dominoesList, chain);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void canReverseDominoesTest() throws ChainNotFoundException {
         Dominoes dominoes = new Dominoes();
@@ -78,7 +74,7 @@ public class DominoesTest {
         assertValidChain(dominoesList, chain);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void cantBeChainedTest() {
         Dominoes dominoes = new Dominoes();
@@ -86,15 +82,12 @@ public class DominoesTest {
         Domino[] dominoesArray = {new Domino(1, 2), new Domino(4, 1), new Domino(2, 3)};
         List<Domino> dominoesList = Arrays.asList(dominoesArray);
 
-        ChainNotFoundException expected =
-            assertThrows(
-                ChainNotFoundException.class,
-                () -> dominoes.formChain(dominoesList));
-
-        assertThat(expected).hasMessage("No domino chain found.");
+        assertThatExceptionOfType(ChainNotFoundException.class)
+                .isThrownBy(() -> dominoes.formChain(dominoesList))
+                .withMessage("No domino chain found.");
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void disconnectedSimpleTest() {
         Dominoes dominoes = new Dominoes();
@@ -102,15 +95,12 @@ public class DominoesTest {
         Domino[] dominoesArray = {new Domino(1, 1), new Domino(2, 2)};
         List<Domino> dominoesList = Arrays.asList(dominoesArray);
 
-        ChainNotFoundException expected =
-            assertThrows(
-                ChainNotFoundException.class,
-                () -> dominoes.formChain(dominoesList));
-
-        assertThat(expected).hasMessage("No domino chain found.");
+        assertThatExceptionOfType(ChainNotFoundException.class)
+                .isThrownBy(() -> dominoes.formChain(dominoesList))
+                .withMessage("No domino chain found.");
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void disconnectedDoubleLoopTest() {
         Dominoes dominoes = new Dominoes();
@@ -118,15 +108,12 @@ public class DominoesTest {
         Domino[] dominoesArray = {new Domino(1, 2), new Domino(2, 1), new Domino(3, 4), new Domino(4, 3)};
         List<Domino> dominoesList = Arrays.asList(dominoesArray);
 
-        ChainNotFoundException expected =
-            assertThrows(
-                ChainNotFoundException.class,
-                () -> dominoes.formChain(dominoesList));
-
-        assertThat(expected).hasMessage("No domino chain found.");
+        assertThatExceptionOfType(ChainNotFoundException.class)
+                .isThrownBy(() -> dominoes.formChain(dominoesList))
+                .withMessage("No domino chain found.");
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void disconnectedSingleIsolatedTest() {
         Dominoes dominoes = new Dominoes();
@@ -134,15 +121,12 @@ public class DominoesTest {
         Domino[] dominoesArray = {new Domino(1, 2), new Domino(2, 3), new Domino(3, 1), new Domino(4, 4)};
         List<Domino> dominoesList = Arrays.asList(dominoesArray);
 
-        ChainNotFoundException expected =
-            assertThrows(
-                ChainNotFoundException.class,
-                () -> dominoes.formChain(dominoesList));
-
-        assertThat(expected).hasMessage("No domino chain found.");
+        assertThatExceptionOfType(ChainNotFoundException.class)
+                .isThrownBy(() -> dominoes.formChain(dominoesList))
+                .withMessage("No domino chain found.");
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void needBacktrackTest() throws ChainNotFoundException {
         Dominoes dominoes = new Dominoes();
@@ -156,7 +140,7 @@ public class DominoesTest {
         assertValidChain(dominoesList, chain);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void separateLoopsTest() throws ChainNotFoundException {
         Dominoes dominoes = new Dominoes();
@@ -170,7 +154,7 @@ public class DominoesTest {
         assertValidChain(dominoesList, chain);
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void nineElementsTest() throws ChainNotFoundException {
         Dominoes dominoes = new Dominoes();
@@ -182,6 +166,20 @@ public class DominoesTest {
         List<Domino> chain = dominoes.formChain(dominoesList);
 
         assertValidChain(dominoesList, chain);
+    }
+
+    @Ignore("Remove to run test")
+    @Test
+    public void seperateThreeDominoLoopsTest() {
+        Dominoes dominoes = new Dominoes();
+
+        Domino[] dominoesArray = {new Domino(1, 2), new Domino(2, 3), new Domino(3, 1),
+            new Domino(4, 5), new Domino(5, 6), new Domino (6, 4)};
+        List<Domino> dominoesList = Arrays.asList(dominoesArray);
+
+        assertThatExceptionOfType(ChainNotFoundException.class)
+                .isThrownBy(() -> dominoes.formChain(dominoesList))
+                .withMessage("No domino chain found.");
     }
 
     private void assertValidChain(List<Domino> inputDominoes, List<Domino> outputDominoes) {

@@ -7,7 +7,7 @@ public class SimpleCipherStepTwoSubsitutionTest {
 
     private Cipher cipherWithDefaultKey = new Cipher("abcdefghij");
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void cipherCanEncode() {
         String plainText = "aaaaaaaaaa";
@@ -15,7 +15,7 @@ public class SimpleCipherStepTwoSubsitutionTest {
         assertEquals(cipherText, cipherWithDefaultKey.encode(plainText));
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void cipherCanDecode() {
         String plainText = "abcdefghij";
@@ -23,14 +23,14 @@ public class SimpleCipherStepTwoSubsitutionTest {
         assertEquals(cipherText, cipherWithDefaultKey.decode(plainText));
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void cipherIsReversibleGivenKey() {
         String plainText = "abcdefghij";
         assertEquals(plainText, cipherWithDefaultKey.decode(cipherWithDefaultKey.encode(plainText)));
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void cipherCanDoubleShiftEncode() {
         String plainText = "iamapandabear";
@@ -38,7 +38,7 @@ public class SimpleCipherStepTwoSubsitutionTest {
         assertEquals(cipherText, new Cipher(plainText).encode(plainText));
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void cipherCanWrapEncode() {
         String plainText = "zzzzzzzzzz";
@@ -46,7 +46,7 @@ public class SimpleCipherStepTwoSubsitutionTest {
         assertEquals(cipherText, cipherWithDefaultKey.encode(plainText));
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void cipherCanWrapDecode() {
         String plainText = "zabcdefghi";
@@ -54,7 +54,7 @@ public class SimpleCipherStepTwoSubsitutionTest {
         assertEquals(cipherText, cipherWithDefaultKey.decode(plainText));
     }
 
-    //@Ignore("Remove to run test")
+    @Ignore("Remove to run test")
     @Test
     public void cipherMessageLongerThanKey() {
         String plainText = "iamapandabear";
