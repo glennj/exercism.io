@@ -1,5 +1,5 @@
 [package]
 org = "ballerina_exercism"
-name = "hello_world"
+name = "service_composition"
 version = "0.1.0"
-distribution = "2201.5.0"
+distribution = "2201.1.2"

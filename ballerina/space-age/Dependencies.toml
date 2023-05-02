@@ -27,12 +27,12 @@ modules = [
 
 [[package]]
 org = "ballerina_exercism"
-name = "hello_world"
+name = "space_age"
 version = "0.1.0"
 dependencies = [
 	{org = "ballerina", name = "test"}
 ]
 modules = [
-	{org = "ballerina_exercism", packageName = "hello_world", moduleName = "hello_world"}
+	{org = "ballerina_exercism", packageName = "space_age", moduleName = "space_age"}
 ]
 
