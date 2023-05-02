@@ -1,6 +1,6 @@
-# Rna Transcription
+# RNA Transcription
 
-Welcome to Rna Transcription on Exercism's TypeScript Track.
+Welcome to RNA Transcription on Exercism's TypeScript Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions

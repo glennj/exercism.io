@@ -1,6 +1,6 @@
-# Ocr Numbers
+# OCR Numbers
 
-Welcome to Ocr Numbers on Exercism's TypeScript Track.
+Welcome to OCR Numbers on Exercism's TypeScript Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions

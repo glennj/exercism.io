@@ -27,5 +27,8 @@
     "lint": "yarn lint:types && yarn lint:ci",
     "lint:types": "yarn tsc --noEmit -p .",
     "lint:ci": "eslint . --ext .tsx,.ts"
+  },
+  "dependencies": {
+    "yarn": "^1.22.19"
   }
 }

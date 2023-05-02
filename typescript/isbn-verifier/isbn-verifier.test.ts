@@ -1,7 +1,7 @@
 import { isValid } from './isbn-verifier'
 
 describe('ISBN Verifier', () => {
-  it('valid isbn number', () => {
+  it('valid isbn', () => {
     expect(isValid('3-598-21508-8')).toBeTruthy()
   })
 
@@ -9,7 +9,7 @@ describe('ISBN Verifier', () => {
     expect(isValid('3-598-21508-9')).toBeFalsy()
   })
 
-  it('valid isbn number with a check digit of 10', () => {
+  it('valid isbn with a check digit of 10', () => {
     expect(isValid('3-598-21507-X')).toBeTruthy()
   })
 
@@ -17,7 +17,11 @@ describe('ISBN Verifier', () => {
     expect(isValid('3-598-21507-A')).toBeFalsy()
   })
 
-  it('invalid character in isbn', () => {
+  it('invalid check digit in isbn is not treated as zero', () => {
+    expect(isValid('4-598-21507-B')).toBeFalsy()
+  })
+
+  it('invalid character in isbn is not treated as zero', () => {
     expect(isValid('3-598-2K507-0')).toBeFalsy()
   })
 
@@ -37,16 +41,20 @@ describe('ISBN Verifier', () => {
     expect(isValid('359821507')).toBeFalsy()
   })
 
+  it('too long isbn', () => {
+    expect(isValid('3-598-21507-XX')).toBeFalsy()
+  })
+
   it('too long isbn and no dashes', () => {
     expect(isValid('3598215078X')).toBeFalsy()
   })
 
-  it('isbn without check digit', () => {
-    expect(isValid('3-598-21507')).toBeFalsy()
+  it('too short isbn', () => {
+    expect(isValid('00')).toBeFalsy()
   })
 
-  it('too long isbn', () => {
-    expect(isValid('3-598-21507-XX')).toBeFalsy()
+  it('isbn without check digit', () => {
+    expect(isValid('3-598-21507')).toBeFalsy()
   })
 
   it('check digit of X should not be used for 0', () => {
@@ -55,5 +63,21 @@ describe('ISBN Verifier', () => {
 
   it('empty isbn', () => {
     expect(isValid('')).toBeFalsy()
+  })
+
+  it('input is 9 characters', () => {
+    expect(isValid('134456729')).toBeFalsy()
+  })
+
+  it('invalid characters are not ignored after checking length', () => {
+    expect(isValid('3132P34035')).toBeFalsy()
+  })
+
+  it('invalid characters are not ignored before checking length', () => {
+    expect(isValid('3598P215088')).toBeFalsy()
+  })
+
+  it('input is too long but contains a valid isbn', () => {
+    expect(isValid('98245726788')).toBeFalsy()
   })
 })

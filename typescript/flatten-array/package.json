@@ -14,9 +14,9 @@
     "@babel/plugin-syntax-bigint": "^7.8.3",
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-typescript": "^7.15.0",
+    "@exercism/eslint-config-typescript": "^0.2.3",
     "@types/jest": "^26.0.24",
     "@types/node": "^16.4.13",
-    "@exercism/eslint-config-typescript": "^0.2.3",
     "babel-jest": "^27.0.6",
     "core-js": "^3.15.2",
     "eslint": "^7.32.0",
@@ -29,5 +29,8 @@
     "lint": "yarn lint:types && yarn lint:ci",
     "lint:types": "yarn tsc --noEmit -p .",
     "lint:ci": "eslint . --ext .tsx,.ts"
+  },
+  "dependencies": {
+    "yarn": "^1.22.19"
   }
 }
