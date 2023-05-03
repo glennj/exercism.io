@@ -6,9 +6,9 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 
 ## Introduction
 
-A function allows to group code into a reusable unit.
+A function is a block of organized, reusable code that is used to perform some action.
 There are multiple ways to define functions in JavaScript.
-Here we will look at _function declarations_ and _function expressions_..
+Here we will look at _function declarations_ and _function expressions_.
 Other possibilities like [arrow functions][concept-arrow-functions] will be covered in other concepts.
 
 ## Function Declaration
@@ -16,7 +16,7 @@ Other possibilities like [arrow functions][concept-arrow-functions] will be cove
 The standard way of defining a function in JavaScript is a _function declaration_, also called _function definition_ or _function statement_.
 
 It consists of the `function` keyword, the name of the function, and a comma-separated list of parameters in round brackets.
-This is followed by the function body (the code that should be executed) wrapped in curly brackets.
+This is followed by the function body (collection of statements that defines what a function does) wrapped in curly brackets.
 
 ```javascript
 function someName(param1, param2, param3) {
@@ -24,7 +24,7 @@ function someName(param1, param2, param3) {
 }
 ```
 
-In JavaScript a function is invoked (called) by stating the function name followed by round brackets that contain the arguments.
+In JavaScript, a function is invoked (called) by stating the function name followed by parentheses that contain the arguments.
 
 ```javascript
 someName(arg1, arg2, arg3);
@@ -40,9 +40,9 @@ When working with parameters inside the function body, be aware of possible side
   However, if you modify such an argument (e.g. add a key to an object), that also modifies the original value that was passed in.
 
 By default, all parameters defined in the function declaration are optional in JavaScript.
-If you provide less arguments than there are parameters, the missing arguments will be `undefined` inside the function, see [Null and Undefined][concept-null-undefined].
-In many cases it makes sense to assign a more appropriate default value than `undefined`.
-This can by done by specifying default parameters directly in the function definition.
+If you provide fewer arguments than there are parameters, the missing arguments will be `undefined` inside the function, see [Null and Undefined][concept-null-undefined].
+In many cases, it makes sense to assign a more appropriate default value than `undefined`.
+This can be done by specifying default parameters directly in the function definition.
 
 ```javascript
 function someName(param1 = defaultValue1, param2 = defaultValue2) {
@@ -52,9 +52,7 @@ function someName(param1 = defaultValue1, param2 = defaultValue2) {
 
 ## Return Statement
 
-Using the `return` statement, you can pass the result of a function to the code that called it.
-There can be multiple `return` statements in a function.
-The execution of the function ends as soon as it hits one of those `return`s.
+A `return` statement ends the function execution and specifies a value to be returned to the function caller. A function can have multiple `return` statements.
 
 ```javascript
 function checkNumber(num) {
@@ -66,8 +64,8 @@ function checkNumber(num) {
 }
 ```
 
-If you use a naked return or no return at all, the result of the function is `undefined`.
-There are no implicit returns in JavaScript.
+The result of a function that `return`s no value or does not have a `return` statement is `undefined`.
+There are no implicit `return`s in JavaScript.
 
 ```javascript
 function nakedReturn(a) {
@@ -111,7 +109,7 @@ const someFunction = function (param) {
 };
 
 someOtherFunction(function (param) {
-  //...
+  // ...
 });
 
 const obj = {
@@ -141,7 +139,7 @@ When you have lasagna in the oven, you want to know whether you can already take
 To make sure the lasagna does not burn in the oven, you usually set a timer.
 But sometimes you forget about that.
 
-Write a function `cookingStatus` with that accepts the remaining time on the timer in minutes as a parameter.
+Write a function `cookingStatus` that accepts the remaining time on the timer in minutes as a parameter.
 The function has three possible results.
 
 - If the timer shows `0`, it should return `'Lasagna is done.'`.
@@ -161,7 +159,7 @@ cookingStatus();
 ## 2. Estimate the preparation time
 
 For the next lasagna that you will prepare, you want to make sure you have enough time reserved so you can enjoy the cooking.
-You already made a plan which layers your lasagna will have.
+You already made a plan with all the layers your lasagna will have.
 Now you want to estimate how long the preparation will take based on that.
 
 Implement a function `preparationTime` that accepts an array of layers and the average preparation time per layer in minutes.
@@ -200,7 +198,7 @@ The friend sent you the list of ingredients and told you the last item on the li
 Now you want to add that secret ingredient to your recipe as well.
 
 Write a function `addSecretIngredient` that accepts two arrays of ingredients as parameters.
-The first parameter is the list your friend sent you, the second is the ingredient list for your own recipe.
+The first parameter is the list your friend sent you and the second is the ingredient list for your own recipe.
 The function should add the last item from your friend's list to the end of your list.
 The array that represents your recipe should be modified directly and the function should not return anything.
 However, the first argument should not be modified.

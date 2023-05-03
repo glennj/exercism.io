@@ -95,7 +95,7 @@ numbers;
 
 ```javascript
 const numbers = [1, 'two', 3, 'four'];
-numbers.splice(2, 1, 'one');
+numbers.splice(2, 1, 'one'); // => [3]
 numbers;
 // => [1, 'two', 'one', 'four']
 ```
@@ -121,6 +121,10 @@ of a certain card corresponds to the index in the array. That means
 position 0 refers to the first card, position 1 to the second card
 etc.
 
+```exercism/note
+All functions should update the array of cards and then return the modified array - a common way of working known as the Builder pattern, which allows you to nicely daisy-chain functions together.
+```
+
 ## 1. Retrieve a card from a stack
 
 To pick a card, return the card at index `position` from
@@ -135,13 +139,13 @@ getItem([1, 2, 4, 1], position);
 ## 2. Exchange a card in the stack
 
 Perform some sleight of hand and exchange the card at index `position`
-with the new card provided.
+with the replacement card provided.
 Return the adjusted stack.
 
 ```javascript
 const position = 2;
-const newCard = 6;
-setItem([1, 2, 4, 1], position, newCard);
+const replacementCard = 6;
+setItem([1, 2, 4, 1], position, replacementCard);
 // => [1, 2, 6, 1]
 ```
 

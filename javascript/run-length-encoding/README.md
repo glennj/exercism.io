@@ -1,6 +1,6 @@
-# Run Length Encoding
+# Run-Length Encoding
 
-Welcome to Run Length Encoding on Exercism's JavaScript Track.
+Welcome to Run-Length Encoding on Exercism's JavaScript Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions

@@ -10,7 +10,7 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 
 Besides primitive data types like `number` and `string`, there is another important data type in JavaScript called `object`.
 Objects are collections of key-value pairs.
-As such, they can be used as what is often referred to as maps or dictionaries in other languages.
+As such, they can be used in the same way as what are often referred to as maps or dictionaries in other languages.
 
 In other languages, all values in a map often need to have the same data type.
 In JavaScript, only the type of the key is restricted: it has to be a string.
@@ -220,7 +220,7 @@ Implement `updateScore`, which takes 3 parameters:
 The function should return the score board after the update was done.
 
 ```javascript
-updateScore({"Freyja Ćirić", 12771008}, "Freyja Ćirić", 73)
+updateScore({ 'Freyja Ćirić': 12771008 }, 'Freyja Ćirić', 73);
 // => {"Freyja Ćirić", 12771081}
 ```
 

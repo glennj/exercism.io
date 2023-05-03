@@ -91,7 +91,7 @@ describe('composeTransform', () => {
     expect(composed(0, 0)).toEqual([-6, 10]);
   });
 
-  test('should compose in the opposite order: g(f(x))', () => {
+  test('should compose in the opposite order: f(g(x))', () => {
     const composed = composeTransform(translator, scaler);
     expect(composed(0, 0)).toEqual([-18, 20]);
   });
@@ -127,5 +127,15 @@ describe('memoizeTransform', () => {
     expect(memoizedTransform(2, 2)).toEqual([4, 4]);
     expect(memoizedTransform(1, 1)).toEqual([2, 2]);
     expect(mockFunction).toBeCalledTimes(3);
+  });
+
+  test('should recalculate when a new function is passed in', () => {
+    const sumFunction = (x, y) => x + y;
+    const differenceFunction = (x, y) => x - y;
+    const memoizedSum = memoizeTransform(sumFunction);
+    const memoizedDifference = memoizeTransform(differenceFunction);
+
+    expect(memoizedSum(1, 2)).toEqual(3);
+    expect(memoizedDifference(1, 2)).toEqual(-1);
   });
 });
