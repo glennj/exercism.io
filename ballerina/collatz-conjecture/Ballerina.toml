@@ -1,0 +1,4 @@
+[package]
+org = "ballerina_exercism"
+name = "collatz_conjecture"
+version = "0.1.0"
