@@ -12,7 +12,7 @@ Once you get the first test passing, remove the `enable: false` property from th
 
 ## Submitting your solution
 
-You can submit your solution using the `exercism submit roman_numerals.bal` command.
+You can submit your solution using the `exercism submit robot_simulator.bal` command.
 This command will upload your solution to the Exercism website and print the solution page's URL.
 
 It's possible to submit an incomplete solution which allows you to:

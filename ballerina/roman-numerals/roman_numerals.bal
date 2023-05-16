@@ -3,6 +3,37 @@
 # + number - the integer to convert
 # + return - the Roman number as a string
 function roman(int number) returns string {
+    // with inspiration from https://exercism.org/tracks/ballerina/exercises/roman-numerals/solutions/matthew02
+
+    var dec2rom = function(int digit, string I, string V, string X) returns string {
+        match digit {
+            1 => {return I;}
+            2 => {return I + I;}
+            3 => {return I + I + I;}
+            4 => {return I + V;}
+            5 => {return V;}
+            6 => {return V + I;}
+            7 => {return V + I + I;}
+            8 => {return V + I + I + I;}
+            9 => {return I + X;}
+            _ => {return "";}
+        }
+    };
+
+    string numerals = "IVXLCDM  ";
+    int n = number;
+    int i = 0;
+    string roman = "";
+
+    while n > 0 {
+        roman = dec2rom(n % 10, numerals[i], numerals[i+1], numerals[i+2]) + roman;
+        i += 2;
+        n /= 10;
+    }
+    return roman;
+}
+
+function roman_ii(int number) returns string {
     int n = number;     // function parameters are immutable
     string r = "";
     while n >= 1000 { r +=  "M"; n -= 1000; }
