@@ -287,10 +287,22 @@ section, and [this Stack Overflow answer](https://stackoverflow.com/a/64117854/7
 
 [Brace your expr-essions](https://wiki.tcl-lang.org/page/Brace+your+expr-essions)
 
-It's best practice to (almost) always "brace your expr-essions". This
-applies to the `expr` command but also `if` and `while`. See
-[Brace your expr-essions](https://wiki.tcl-lang.org/page/Brace+your+expr-essions)
+It's best practice to "brace your expr-essions".
+This applies to the `expr` command but also `if` and `while`.
+See [Brace your expr-essions](https://wiki.tcl-lang.org/page/Brace+your+expr-essions)
 and a similar discussion on the [`if` wiki page](https://wiki.tcl-lang.org/page/if#c0af59c387e4e754fbfe4d65236c77b7a9f9e5496baea85a10dfa1447e83f6b7)
+
+Here's a (somewhat contrived) example why it's important:
+```tcl
+set x 10
+if {$x > 0} {
+      puts "true $x"
+} elseif [set x -5] {
+      puts "false $x"
+}
+# => false -5
+```
+by the time `{$x > 0}` is being evaluated, the variable may have an unexpected value.
 
 ---
 ## Namespace variables
