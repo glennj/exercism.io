@@ -2235,8 +2235,7 @@ declare -g "$1=$((1 - $?))"
 
 <!-- -->
 
-Interesting reading: [Why is printf better than
-echo?](https://unix.stackexchange.com/questions/65803/why-is-printf-better-than-echo)
+Interesting reading: [Why is printf better than echo?](https://unix.stackexchange.com/questions/65803/why-is-printf-better-than-echo)
 
 <!-- -->
 
