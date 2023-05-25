@@ -1,0 +1,5 @@
+[package]
+org = "ballerina_exercism"
+name = "sum_of_multiples"
+version = "0.1.0"
+distribution = "2201.5.0"

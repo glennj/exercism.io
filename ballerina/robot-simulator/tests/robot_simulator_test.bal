@@ -8,7 +8,7 @@ function createRobotAtOriginFacingNorth() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function createRobotAtNetativePositionFacingSouth() {
     Robot robot = newRobot({"x": -1, "y": -1}, SOUTH);
@@ -17,7 +17,7 @@ function createRobotAtNetativePositionFacingSouth() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function createRobotWithDefaultAttributes() {
     Robot robot = newRobot();
@@ -26,7 +26,7 @@ function createRobotWithDefaultAttributes() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function rotatingClockwiseChangesNorthToEast() {
     Robot robot = newRobot();
@@ -36,7 +36,7 @@ function rotatingClockwiseChangesNorthToEast() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function rotatingClockwiseChangesEastToSouth() {
     Robot robot = newRobot(direction = EAST);
@@ -46,7 +46,7 @@ function rotatingClockwiseChangesEastToSouth() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function rotatingClockwiseChangesSouthToWest() {
     Robot robot = newRobot(direction = SOUTH);
@@ -56,7 +56,7 @@ function rotatingClockwiseChangesSouthToWest() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function rotatingClockwiseChangesWestToNorth() {
     Robot robot = newRobot(direction = WEST);
@@ -65,7 +65,7 @@ function rotatingClockwiseChangesWestToNorth() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function rotatingCounterClockwiseChangesNorthToWest() {
     Robot robot = newRobot();
@@ -75,7 +75,7 @@ function rotatingCounterClockwiseChangesNorthToWest() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function rotatingCounterClockwiseChangesEastToNorth() {
     Robot robot = newRobot(direction = EAST);
@@ -85,7 +85,7 @@ function rotatingCounterClockwiseChangesEastToNorth() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function rotatingCounterClockwiseChangesSouthToEast() {
     Robot robot = newRobot(direction = SOUTH);
@@ -95,7 +95,7 @@ function rotatingCounterClockwiseChangesSouthToEast() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function rotatingCounterClockwiseChangesWestToSouth() {
     Robot robot = newRobot(direction = WEST);
@@ -105,7 +105,7 @@ function rotatingCounterClockwiseChangesWestToSouth() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function movingForwardFacingNorthIncrementsY() {
     Robot robot = newRobot();
@@ -115,7 +115,7 @@ function movingForwardFacingNorthIncrementsY() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function movingForwardFacingSouthDecrementsY() {
     Robot robot = newRobot(direction = SOUTH);
@@ -125,7 +125,7 @@ function movingForwardFacingSouthDecrementsY() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function movingForwardFacingEastIncrementsX() {
     Robot robot = newRobot(direction = EAST);
@@ -135,7 +135,7 @@ function movingForwardFacingEastIncrementsX() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function movingForwardFacingWestDecrementsX() {
     Robot robot = newRobot(direction = WEST);
@@ -145,7 +145,7 @@ function movingForwardFacingWestDecrementsX() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function movingEastAndNorthFromREADME() {
     Robot robot = newRobot({"x": 7, "y": 3}, NORTH);
@@ -155,7 +155,7 @@ function movingEastAndNorthFromREADME() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function movingWestAndNorth() {
     Robot robot = newRobot({"x": 0, "y": 0}, NORTH);
@@ -165,7 +165,7 @@ function movingWestAndNorth() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function movingWestAndSouth() {
     Robot robot = newRobot({"x": 2, "y": -7}, EAST);
@@ -175,7 +175,7 @@ function movingWestAndSouth() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function movingEastAndNorth() {
     Robot robot = newRobot({"x": 8, "y": 4}, SOUTH);
@@ -185,7 +185,7 @@ function movingEastAndNorth() {
 }
 
 @test:Config {
-    enable: false
+    //enable: false
 }
 function invalidInstructionsAreIgnored() {
     Robot robot = newRobot();
