@@ -1,0 +1,16 @@
+[
+    {
+        "employeeId": 2413,
+        "gasFillUpCount": 4,
+        "totalFuelCost": 161.92962,
+        "totalGallons": 46.292,
+        "totalMilesAccrued": 458
+    },
+    {
+        "employeeId": 3423,
+        "gasFillUpCount": 2,
+        "totalFuelCost": 98.57552,
+        "totalGallons": 23.944,
+        "totalMilesAccrued": 185
+    }
+]

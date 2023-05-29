@@ -1,0 +1,32 @@
+<s:FuelEvents xmlns:s="http://www.so2w.org">
+    <s:FuelEvent employeeId="2413">
+        <s:odometerReading>4089</s:odometerReading>
+        <s:gallons>21.682</s:gallons>
+        <s:gasPrice>3.46</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="3423">
+        <s:odometerReading>6582</s:odometerReading>
+        <s:gallons>15.248</s:gallons>
+        <s:gasPrice>4.56</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="2413">
+        <s:odometerReading>4127</s:odometerReading>
+        <s:gallons>4.221</s:gallons>
+        <s:gasPrice>3.40</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="2413">
+        <s:odometerReading>4349</s:odometerReading>
+        <s:gallons>11.192</s:gallons>
+        <s:gasPrice>4.10</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="3423">
+        <s:odometerReading>6767</s:odometerReading>
+        <s:gallons>8.696</s:gallons>
+        <s:gasPrice>3.34</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="2413">
+        <s:odometerReading>4547</s:odometerReading>
+        <s:gallons>9.197</s:gallons>
+        <s:gasPrice>2.90</s:gasPrice>
+    </s:FuelEvent>
+</s:FuelEvents>

@@ -1,0 +1,38 @@
+[
+    {
+        "employeeId": 2413,
+        "odometerReading": 4089,
+        "gallons": 21.682,
+        "gasPrice": 3.46
+    },
+    {
+        "employeeId": 3423,
+        "odometerReading": 6582,
+        "gallons": 15.248,
+        "gasPrice": 4.56
+    },
+    {
+        "employeeId": 2413,
+        "odometerReading": 4127,
+        "gallons": 4.221,
+        "gasPrice": 3.40
+    },
+    {
+        "employeeId": 2413,
+        "odometerReading": 4349,
+        "gallons": 11.192,
+        "gasPrice": 4.10
+    },
+    {
+        "employeeId": 3423,
+        "odometerReading": 6767,
+        "gallons": 8.696,
+        "gasPrice": 3.34
+    },
+    {
+        "employeeId": 2413,
+        "odometerReading": 4547,
+        "gallons": 9.197,
+        "gasPrice": 2.90
+    }
+]

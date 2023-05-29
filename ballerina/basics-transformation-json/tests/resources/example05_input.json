@@ -1,0 +1,620 @@
+[
+    {
+        "employeeId": 7689,
+        "odometerReading": 4089,
+        "gallons": 21.682,
+        "gasPrice": 3.45
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 4127,
+        "gallons": 4.221,
+        "gasPrice": 3.39
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 4349,
+        "gallons": 11.192,
+        "gasPrice": 4.09
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 4547,
+        "gallons": 9.197,
+        "gasPrice": 2.89
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 4673,
+        "gallons": 6.584,
+        "gasPrice": 2.86
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 6609,
+        "gallons": 11.374,
+        "gasPrice": 3.59
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 7026,
+        "gallons": 11.354,
+        "gasPrice": 3.25
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 5074,
+        "gallons": 20.970,
+        "gasPrice": 2.79
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 5271,
+        "gallons": 9.524,
+        "gasPrice": 2.59
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 5469,
+        "gallons": 10.535,
+        "gasPrice": 2.89
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 7296,
+        "gallons": 6.580,
+        "gasPrice": 3.49
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 5689,
+        "gallons": 11.904,
+        "gasPrice": 2.69
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 5907,
+        "gallons": 10.875,
+        "gasPrice": 3.10
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 6089,
+        "gallons": 8.465,
+        "gasPrice": 2.77
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 6255,
+        "gallons": 7.932,
+        "gasPrice": 4.34
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 6582,
+        "gallons": 15.248,
+        "gasPrice": 4.55
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 7620,
+        "gallons": 7.988,
+        "gasPrice": 3.92
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 7898,
+        "gallons": 6.546,
+        "gasPrice": 2.59
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 8115,
+        "gallons": 5.264,
+        "gasPrice": 3.79
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 8252,
+        "gallons": 3.655,
+        "gasPrice": 3.16
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 6767,
+        "gallons": 8.696,
+        "gasPrice": 3.39
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 7111,
+        "gallons": 22.065,
+        "gasPrice": 3.39
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 7408,
+        "gallons": 21.868,
+        "gasPrice": 3.99
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 8409,
+        "gallons": 3.929,
+        "gasPrice": 2.68
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 8706,
+        "gallons": 7.363,
+        "gasPrice": 3.39
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 7736,
+        "gallons": 22.065,
+        "gasPrice": 3.39
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 8014,
+        "gallons": 17.242,
+        "gasPrice": 3.49
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 8285,
+        "gallons": 15.020,
+        "gasPrice": 3.35
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 8536,
+        "gallons": 17.339,
+        "gasPrice": 3.25
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 9297,
+        "gallons": 11.528,
+        "gasPrice": 3.70
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 9706,
+        "gallons": 11.548,
+        "gasPrice": 3.09
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 8803,
+        "gallons": 18.154,
+        "gasPrice": 2.97
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 9013,
+        "gallons": 12.915,
+        "gasPrice": 2.93
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 9358,
+        "gallons": 21.397,
+        "gasPrice": 2.99
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 10027,
+        "gallons": 8.611,
+        "gasPrice": 3.15
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 9695,
+        "gallons": 22.151,
+        "gasPrice": 3.49
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 10038,
+        "gallons": 19.944,
+        "gasPrice": 3.49
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 10414,
+        "gallons": 21.925,
+        "gasPrice": 3.33
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 10778,
+        "gallons": 15.959,
+        "gasPrice": 3.55
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 10950,
+        "gallons": 16.333,
+        "gasPrice": 3.66
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 11098,
+        "gallons": 6.798,
+        "gasPrice": 3.75
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 11281,
+        "gallons": 10.151,
+        "gasPrice": 2.54
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 11710,
+        "gallons": 21.769,
+        "gasPrice": 3.29
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 11955,
+        "gallons": 14.853,
+        "gasPrice": 3.55
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 12411,
+        "gallons": 22.072,
+        "gasPrice": 2.47
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 12772,
+        "gallons": 19.851,
+        "gasPrice": 2.99
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 10357,
+        "gallons": 8.516,
+        "gasPrice": 2.79
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 10811,
+        "gallons": 11.662,
+        "gasPrice": 3.29
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 11226,
+        "gallons": 10.838,
+        "gasPrice": 3.99
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 11647,
+        "gallons": 11.263,
+        "gasPrice": 4.05
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 12987,
+        "gallons": 14.191,
+        "gasPrice": 2.99
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 13130,
+        "gallons": 9.709,
+        "gasPrice": 2.99
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 13525,
+        "gallons": 20.992,
+        "gasPrice": 2.99
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 13785,
+        "gallons": 19.441,
+        "gasPrice": 3.21
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 14074,
+        "gallons": 18.371,
+        "gasPrice": 3.04
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 14270,
+        "gallons": 16.309,
+        "gasPrice": 3.18
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 14515,
+        "gallons": 15.815,
+        "gasPrice": 2.97
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 14716,
+        "gallons": 12.129,
+        "gasPrice": 1.65
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 15048,
+        "gallons": 21.447,
+        "gasPrice": 3.21
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 15298,
+        "gallons": 19.243,
+        "gasPrice": 1.93
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 15518,
+        "gallons": 19.030,
+        "gasPrice": 2.14
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 15817,
+        "gallons": 21.534,
+        "gasPrice": 3.17
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 16163,
+        "gallons": 21.214,
+        "gasPrice": 2.73
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 16467,
+        "gallons": 21.982,
+        "gasPrice": 3.44
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 16670,
+        "gallons": 14.779,
+        "gasPrice": 2.85
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 16973,
+        "gallons": 22.003,
+        "gasPrice": 2.99
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 17298,
+        "gallons": 21.377,
+        "gasPrice": 3.06
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 17523,
+        "gallons": 10.712,
+        "gasPrice": 2.92
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 17894,
+        "gallons": 21.029,
+        "gasPrice": 3.24
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 18199,
+        "gallons": 20.114,
+        "gasPrice": 3.47
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 18502,
+        "gallons": 19.013,
+        "gasPrice": 3.18
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 18886,
+        "gallons": 22.161,
+        "gasPrice": 3.48
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 19134,
+        "gallons": 12.602,
+        "gasPrice": 3.49
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 19505,
+        "gallons": 18.198,
+        "gasPrice": 3.57
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 19808,
+        "gallons": 19.189,
+        "gasPrice": 3.66
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 20073,
+        "gallons": 2.089,
+        "gasPrice": 3.90
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 20249,
+        "gallons": 22.354,
+        "gasPrice": 3.79
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 20659,
+        "gallons": 22.634,
+        "gasPrice": 3.79
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 20932,
+        "gallons": 15.088,
+        "gasPrice": 3.95
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 21260,
+        "gallons": 21.908,
+        "gasPrice": 4.05
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 21576,
+        "gallons": 19.193,
+        "gasPrice": 3.69
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 21980,
+        "gallons": 11.268,
+        "gasPrice": 4.09
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 22108,
+        "gallons": 18.695,
+        "gasPrice": 3.59
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 22471,
+        "gallons": 22.094,
+        "gasPrice": 3.99
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 22724,
+        "gallons": 19.248,
+        "gasPrice": 3.69
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 23050,
+        "gallons": 22.331,
+        "gasPrice": 3.69
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 23321,
+        "gallons": 5.228,
+        "gasPrice": 4.07
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 12010,
+        "gallons": 9.3335,
+        "gasPrice": 3.99
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 12420,
+        "gallons": 11.444,
+        "gasPrice": 4.09
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 23431,
+        "gallons": 22.467,
+        "gasPrice": 4.05
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 23736,
+        "gallons": 19.193,
+        "gasPrice": 3.69
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 23896,
+        "gallons": 22.864,
+        "gasPrice": 3.99
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 24148,
+        "gallons": 21.568,
+        "gasPrice": 4.00
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 24338,
+        "gallons": 14.166,
+        "gasPrice": 3.99
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 24631,
+        "gallons": 21.854,
+        "gasPrice": 3.79
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 24890,
+        "gallons": 19.604,
+        "gasPrice": 4.19
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 25616,
+        "gallons": 9.011,
+        "gasPrice": 4.09
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 25746,
+        "gallons": 18.865,
+        "gasPrice": 4.15
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 26014,
+        "gallons": 21.770,
+        "gasPrice": 3.99
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 26321,
+        "gallons": 20.004,
+        "gasPrice": 4.99
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 12830,
+        "gallons": 11.528,
+        "gasPrice": 3.70
+    },
+    {
+        "employeeId": 7689,
+        "odometerReading": 26609,
+        "gallons": 21.699,
+        "gasPrice": 4.99
+    },
+    {
+        "employeeId": 2876,
+        "odometerReading": 13279,
+        "gallons": 11.464,
+        "gasPrice": 4.79
+    }
+]

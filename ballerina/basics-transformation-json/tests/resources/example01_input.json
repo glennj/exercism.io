@@ -1,0 +1,14 @@
+[
+    {
+        "employeeId": 2312,
+        "odometerReading": 230,
+        "gallons": 18.561,
+        "gasPrice": 4.56
+    },
+    {
+        "employeeId": 2312,
+        "odometerReading": 500,
+        "gallons": 19.345,
+        "gasPrice": 4.89
+    }
+]

@@ -1,0 +1,417 @@
+<s:FuelEvents xmlns:s="http://www.so2w.org">
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>4089</s:odometerReading>
+        <s:gallons>21.682</s:gallons>
+        <s:gasPrice>3.45</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>4127</s:odometerReading>
+        <s:gallons>4.221</s:gallons>
+        <s:gasPrice>3.39</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>4349</s:odometerReading>
+        <s:gallons>11.192</s:gallons>
+        <s:gasPrice>4.09</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>4547</s:odometerReading>
+        <s:gallons>9.197</s:gallons>
+        <s:gasPrice>2.89</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>4673</s:odometerReading>
+        <s:gallons>6.584</s:gallons>
+        <s:gasPrice>2.86</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>5074</s:odometerReading>
+        <s:gallons>20.970</s:gallons>
+        <s:gasPrice>2.79</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>5271</s:odometerReading>
+        <s:gallons>9.524</s:gallons>
+        <s:gasPrice>2.59</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>5469</s:odometerReading>
+        <s:gallons>10.535</s:gallons>
+        <s:gasPrice>2.89</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>5689</s:odometerReading>
+        <s:gallons>11.904</s:gallons>
+        <s:gasPrice>2.69</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>5907</s:odometerReading>
+        <s:gallons>10.875</s:gallons>
+        <s:gasPrice>3.10</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>6089</s:odometerReading>
+        <s:gallons>8.465</s:gallons>
+        <s:gasPrice>2.77</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>6255</s:odometerReading>
+        <s:gallons>7.932</s:gallons>
+        <s:gasPrice>4.34</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>6582</s:odometerReading>
+        <s:gallons>15.248</s:gallons>
+        <s:gasPrice>4.55</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>6767</s:odometerReading>
+        <s:gallons>8.696</s:gallons>
+        <s:gasPrice>3.39</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>7111</s:odometerReading>
+        <s:gallons>22.065</s:gallons>
+        <s:gasPrice>3.39</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>7408</s:odometerReading>
+        <s:gallons>21.868</s:gallons>
+        <s:gasPrice>3.99</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>7736</s:odometerReading>
+        <s:gallons>22.065</s:gallons>
+        <s:gasPrice>3.39</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>8014</s:odometerReading>
+        <s:gallons>17.242</s:gallons>
+        <s:gasPrice>3.49</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>8285</s:odometerReading>
+        <s:gallons>15.020</s:gallons>
+        <s:gasPrice>3.35</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>8536</s:odometerReading>
+        <s:gallons>17.339</s:gallons>
+        <s:gasPrice>3.25</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>8803</s:odometerReading>
+        <s:gallons>18.154</s:gallons>
+        <s:gasPrice>2.97</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>9013</s:odometerReading>
+        <s:gallons>12.915</s:gallons>
+        <s:gasPrice>2.93</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>9358</s:odometerReading>
+        <s:gallons>21.397</s:gallons>
+        <s:gasPrice>2.99</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>9695</s:odometerReading>
+        <s:gallons>22.151</s:gallons>
+        <s:gasPrice>3.49</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>10038</s:odometerReading>
+        <s:gallons>19.944</s:gallons>
+        <s:gasPrice>3.49</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>10414</s:odometerReading>
+        <s:gallons>21.925</s:gallons>
+        <s:gasPrice>3.33</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>10778</s:odometerReading>
+        <s:gallons>15.959</s:gallons>
+        <s:gasPrice>3.55</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>10950</s:odometerReading>
+        <s:gallons>16.333</s:gallons>
+        <s:gasPrice>3.66</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>11098</s:odometerReading>
+        <s:gallons>6.798</s:gallons>
+        <s:gasPrice>3.75</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>11281</s:odometerReading>
+        <s:gallons>10.151</s:gallons>
+        <s:gasPrice>2.54</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>11710</s:odometerReading>
+        <s:gallons>21.769</s:gallons>
+        <s:gasPrice>3.29</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>11955</s:odometerReading>
+        <s:gallons>14.853</s:gallons>
+        <s:gasPrice>3.55</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>12411</s:odometerReading>
+        <s:gallons>22.072</s:gallons>
+        <s:gasPrice>2.47</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>12772</s:odometerReading>
+        <s:gallons>19.851</s:gallons>
+        <s:gasPrice>2.99</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>12987</s:odometerReading>
+        <s:gallons>14.191</s:gallons>
+        <s:gasPrice>2.99</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>13130</s:odometerReading>
+        <s:gallons>9.709</s:gallons>
+        <s:gasPrice>2.99</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>13525</s:odometerReading>
+        <s:gallons>20.992</s:gallons>
+        <s:gasPrice>2.99</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>13785</s:odometerReading>
+        <s:gallons>19.441</s:gallons>
+        <s:gasPrice>3.21</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>14074</s:odometerReading>
+        <s:gallons>18.371</s:gallons>
+        <s:gasPrice>3.04</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>14270</s:odometerReading>
+        <s:gallons>16.309</s:gallons>
+        <s:gasPrice>3.18</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>14515</s:odometerReading>
+        <s:gallons>15.815</s:gallons>
+        <s:gasPrice>2.97</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>14716</s:odometerReading>
+        <s:gallons>12.129</s:gallons>
+        <s:gasPrice>1.65</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>15048</s:odometerReading>
+        <s:gallons>21.447</s:gallons>
+        <s:gasPrice>3.21</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>15298</s:odometerReading>
+        <s:gallons>19.243</s:gallons>
+        <s:gasPrice>1.93</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>15518</s:odometerReading>
+        <s:gallons>19.030</s:gallons>
+        <s:gasPrice>2.14</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>15817</s:odometerReading>
+        <s:gallons>21.534</s:gallons>
+        <s:gasPrice>3.17</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>16163</s:odometerReading>
+        <s:gallons>21.214</s:gallons>
+        <s:gasPrice>2.73</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>16467</s:odometerReading>
+        <s:gallons>21.982</s:gallons>
+        <s:gasPrice>3.44</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>16670</s:odometerReading>
+        <s:gallons>14.779</s:gallons>
+        <s:gasPrice>2.85</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>16973</s:odometerReading>
+        <s:gallons>22.003</s:gallons>
+        <s:gasPrice>2.99</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>17298</s:odometerReading>
+        <s:gallons>21.377</s:gallons>
+        <s:gasPrice>3.06</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>17523</s:odometerReading>
+        <s:gallons>10.712</s:gallons>
+        <s:gasPrice>2.92</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>17894</s:odometerReading>
+        <s:gallons>21.029</s:gallons>
+        <s:gasPrice>3.24</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>18199</s:odometerReading>
+        <s:gallons>20.114</s:gallons>
+        <s:gasPrice>3.47</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>18502</s:odometerReading>
+        <s:gallons>19.013</s:gallons>
+        <s:gasPrice>3.18</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>18886</s:odometerReading>
+        <s:gallons>22.161</s:gallons>
+        <s:gasPrice>3.48</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>19134</s:odometerReading>
+        <s:gallons>12.602</s:gallons>
+        <s:gasPrice>3.49</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>19505</s:odometerReading>
+        <s:gallons>18.198</s:gallons>
+        <s:gasPrice>3.57</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>19808</s:odometerReading>
+        <s:gallons>19.189</s:gallons>
+        <s:gasPrice>3.66</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>20073</s:odometerReading>
+        <s:gallons>2.089</s:gallons>
+        <s:gasPrice>3.90</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>20249</s:odometerReading>
+        <s:gallons>22.354</s:gallons>
+        <s:gasPrice>3.79</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>20659</s:odometerReading>
+        <s:gallons>22.634</s:gallons>
+        <s:gasPrice>3.79</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>20932</s:odometerReading>
+        <s:gallons>15.088</s:gallons>
+        <s:gasPrice>3.95</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>21260</s:odometerReading>
+        <s:gallons>21.908</s:gallons>
+        <s:gasPrice>4.05</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>21576</s:odometerReading>
+        <s:gallons>19.193</s:gallons>
+        <s:gasPrice>3.69</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>21980</s:odometerReading>
+        <s:gallons>11.268</s:gallons>
+        <s:gasPrice>4.09</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>22108</s:odometerReading>
+        <s:gallons>18.695</s:gallons>
+        <s:gasPrice>3.59</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>22471</s:odometerReading>
+        <s:gallons>22.094</s:gallons>
+        <s:gasPrice>3.99</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>22724</s:odometerReading>
+        <s:gallons>19.248</s:gallons>
+        <s:gasPrice>3.69</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>23050</s:odometerReading>
+        <s:gallons>22.331</s:gallons>
+        <s:gasPrice>3.69</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>23321</s:odometerReading>
+        <s:gallons>5.228</s:gallons>
+        <s:gasPrice>4.07</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>23431</s:odometerReading>
+        <s:gallons>22.467</s:gallons>
+        <s:gasPrice>4.05</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>23736</s:odometerReading>
+        <s:gallons>19.193</s:gallons>
+        <s:gasPrice>3.69</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>23896</s:odometerReading>
+        <s:gallons>22.864</s:gallons>
+        <s:gasPrice>3.99</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>24148</s:odometerReading>
+        <s:gallons>21.568</s:gallons>
+        <s:gasPrice>4.00</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>24338</s:odometerReading>
+        <s:gallons>14.166</s:gallons>
+        <s:gasPrice>3.99</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>24631</s:odometerReading>
+        <s:gallons>21.854</s:gallons>
+        <s:gasPrice>3.79</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>24890</s:odometerReading>
+        <s:gallons>19.604</s:gallons>
+        <s:gasPrice>4.19</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>25616</s:odometerReading>
+        <s:gallons>9.011</s:gallons>
+        <s:gasPrice>4.09</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>25746</s:odometerReading>
+        <s:gallons>18.865</s:gallons>
+        <s:gasPrice>4.15</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>26014</s:odometerReading>
+        <s:gallons>21.770</s:gallons>
+        <s:gasPrice>3.99</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>26321</s:odometerReading>
+        <s:gallons>20.004</s:gallons>
+        <s:gasPrice>4.99</s:gasPrice>
+    </s:FuelEvent>
+    <s:FuelEvent employeeId="7689">
+        <s:odometerReading>26609</s:odometerReading>
+        <s:gallons>21.699</s:gallons>
+        <s:gasPrice>4.99</s:gasPrice>
+    </s:FuelEvent>
+</s:FuelEvents>
