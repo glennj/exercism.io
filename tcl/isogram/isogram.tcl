@@ -57,6 +57,23 @@ proc isIsogram_non_regex {input} {
     return true
 }
 
+# this version has excellent performance when the repetition is early or late in the string
+# but quite bad when there are no duplicates
+# inspired by https://exercism.org/tracks/tcl/exercises/isogram/solutions/ammar-Mohamed-elz3eeem
+proc isIsogram_recursive {input} {
+    _recursive_helper [string tolower $input]
+}
+proc _recursive_helper {str} {
+    if {$str eq ""} {
+        return true
+    }
+    set letter [string range $str 0 0]
+    if {[string is alpha $letter] && [string first $letter $str] != [string last $letter $str]} {
+        return false
+    }
+    tailcall _recursive_helper [string range $str 1 end]
+}
+
 ############################################################
 proc benchmark {} {
     set procs [info procs isIsogram_*]
