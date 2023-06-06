@@ -1,8 +1,0 @@
-[package]
-org = "ballerina_exercism"
-name = "hello_world"
-version = "0.1.0"
-distribution = "2201.2.3"
-
-[build-options]
-observabilityIncluded = true
