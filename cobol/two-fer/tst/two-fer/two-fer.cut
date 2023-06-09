@@ -1,0 +1,15 @@
+TESTSUITE 'Tests for Two-Fer'
+
+TestCase "No name given"
+	PERFORM TWO-FER
+	EXPECT WS-RESULT = "One for you, one for me."
+
+TestCase "A name given"
+	MOVE "Alice" TO WS-NAME
+	PERFORM TWO-FER
+	EXPECT WS-RESULT = "One for Alice, one for me."
+
+TestCase "Another name given"
+	MOVE "Keith" TO WS-NAME
+	PERFORM TWO-FER
+	EXPECT WS-RESULT = "One for Keith, one for me."
