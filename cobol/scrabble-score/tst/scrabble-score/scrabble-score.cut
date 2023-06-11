@@ -1,0 +1,54 @@
+TestCase "lowercase letter"
+	MOVE "a" TO WS-WORD
+	PERFORM SCRABBLE-SCORE
+	EXPECT WS-RESULT = 1
+
+TestCase "uppercase letter"
+	MOVE "A" TO WS-WORD
+	PERFORM SCRABBLE-SCORE
+	EXPECT WS-RESULT = 1
+
+TestCase "valuable letter"
+	MOVE "f" TO WS-WORD
+	PERFORM SCRABBLE-SCORE
+	EXPECT WS-RESULT = 4
+
+TestCase "short word"
+	MOVE "at" TO WS-WORD
+	PERFORM SCRABBLE-SCORE
+	EXPECT WS-RESULT = 2
+
+TestCase "short, valuable word"
+	MOVE "zoo" TO WS-WORD
+	PERFORM SCRABBLE-SCORE
+	EXPECT WS-RESULT = 12
+
+TestCase "medium word"
+	MOVE "street" TO WS-WORD
+	PERFORM SCRABBLE-SCORE
+	EXPECT WS-RESULT = 6
+
+TestCase "medium, valuable word"
+	MOVE "quirky" TO WS-WORD
+	PERFORM SCRABBLE-SCORE
+	EXPECT WS-RESULT = 22
+
+TestCase "long, mixed-case word"
+	MOVE "OxyphenButazone" TO WS-WORD
+	PERFORM SCRABBLE-SCORE
+	EXPECT WS-RESULT = 41
+
+TestCase "english-like word"
+	MOVE "pinata" TO WS-WORD
+	PERFORM SCRABBLE-SCORE
+	EXPECT WS-RESULT = 8
+
+TestCase "empty input"
+	MOVE "" TO WS-WORD
+	PERFORM SCRABBLE-SCORE
+	EXPECT WS-RESULT = 0
+
+TestCase "entire alphabet available"
+	MOVE "abcdefghijklmnopqrstuvwxyz" TO WS-WORD
+	PERFORM SCRABBLE-SCORE
+	EXPECT WS-RESULT = 87

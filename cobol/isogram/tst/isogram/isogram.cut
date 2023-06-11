@@ -1,0 +1,69 @@
+TestCase "empty string"
+	MOVE '' TO WS-PHRASE
+	PERFORM ISOGRAM
+	EXPECT WS-RESULT = 1
+
+TestCase "isogram with only lower case characters"
+	MOVE 'isogram' TO WS-PHRASE
+	PERFORM ISOGRAM
+	EXPECT WS-RESULT = 1
+
+TestCase "word with one duplicated character"
+	MOVE 'eleven' TO WS-PHRASE
+	PERFORM ISOGRAM
+	EXPECT WS-RESULT = 0
+
+TestCase "word with one duplicated character from the end of the alphabet"
+	MOVE 'zzyzx' TO WS-PHRASE
+	PERFORM ISOGRAM
+	EXPECT WS-RESULT = 0
+
+TestCase "longest reported english isogram"
+	MOVE 'subdermatoglyphic' TO WS-PHRASE
+	PERFORM ISOGRAM
+	EXPECT WS-RESULT = 1
+
+TestCase "word with duplicated character in mixed case"
+	MOVE 'Alphabet' TO WS-PHRASE
+	PERFORM ISOGRAM
+	EXPECT WS-RESULT = 0
+
+TestCase "word with duplicated character in mixed case, lowercase first"
+	MOVE 'alphAbet' TO WS-PHRASE
+	PERFORM ISOGRAM
+	EXPECT WS-RESULT = 0
+
+TestCase "hypothetical isogrammic word with hyphen"
+	MOVE 'thumbscrew-japingly' TO WS-PHRASE
+	PERFORM ISOGRAM
+	EXPECT WS-RESULT = 1
+
+TestCase "hypothetical word with duplicated character following hyphen"
+	MOVE 'thumbscrew-jappingly' TO WS-PHRASE
+	PERFORM ISOGRAM
+	EXPECT WS-RESULT = 0
+
+TestCase "isogram with duplicated hyphen"
+	MOVE 'six-year-old' TO WS-PHRASE
+	PERFORM ISOGRAM
+	EXPECT WS-RESULT = 1
+
+TestCase "made-up name that is an isogram"
+	MOVE 'Emily Jung Schwartzkopf' TO WS-PHRASE
+	PERFORM ISOGRAM
+	EXPECT WS-RESULT = 1
+
+TestCase "duplicated character in the middle"
+	MOVE 'accentor' TO WS-PHRASE
+	PERFORM ISOGRAM
+	EXPECT WS-RESULT = 0
+
+TestCase "same first and last characters"
+	MOVE 'angola' TO WS-PHRASE
+	PERFORM ISOGRAM
+	EXPECT WS-RESULT = 0
+
+TestCase "word with duplicated character and with two hyphens"
+	MOVE 'up-to-date' TO WS-PHRASE
+	PERFORM ISOGRAM
+	EXPECT WS-RESULT = 0

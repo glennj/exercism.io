@@ -1,0 +1,54 @@
+TestCase "empty sentence"
+	MOVE '' TO WS-SENTENCE
+	PERFORM PANGRAM
+	EXPECT WS-RESULT = 0
+
+TestCase "perfect lower case"
+	MOVE 'abcdefghijklmnopqrstuvwxyz' TO WS-SENTENCE
+	PERFORM PANGRAM
+	EXPECT WS-RESULT = 1
+
+TestCase "only lower case"
+	MOVE 'the quick brown fox jumps over the lazy dog' TO WS-SENTENCE
+	PERFORM PANGRAM
+	EXPECT WS-RESULT = 1
+
+TestCase "missing the letter 'x'"
+	MOVE 'a quick movement of the enemy will jeopardize five gunboats' TO WS-SENTENCE
+	PERFORM PANGRAM
+	EXPECT WS-RESULT = 0
+
+TestCase "missing the letter 'h'"
+	MOVE 'five boxing wizards jump quickly at it' TO WS-SENTENCE
+	PERFORM PANGRAM
+	EXPECT WS-RESULT = 0
+
+TestCase "with underscores"
+	MOVE 'the_quick_brown_fox_jumps_over_the_lazy_dog' TO WS-SENTENCE
+	PERFORM PANGRAM
+	EXPECT WS-RESULT = 1
+
+TestCase "with numbers"
+	MOVE 'the 1 quick brown fox jumps over the 2 lazy dogs' TO WS-SENTENCE
+	PERFORM PANGRAM
+	EXPECT WS-RESULT = 1
+
+TestCase "missing letters replaced by numbers"
+	MOVE '7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog' TO WS-SENTENCE
+	PERFORM PANGRAM
+	EXPECT WS-RESULT = 0
+
+TestCase "mixed case and punctuation"
+	MOVE '"Five quacking Zephyrs jolt my wax bed."' TO WS-SENTENCE
+	PERFORM PANGRAM
+	EXPECT WS-RESULT = 1
+
+TestCase "case insensitive"
+	MOVE 'the quick brown fox jumps over with lazy FX' TO WS-SENTENCE
+	PERFORM PANGRAM
+	EXPECT WS-RESULT = 0
+
+TestCase "a-m and A-M are 26 different characters but not a pangram"
+	MOVE 'abcdefghijklm ABCDEFGHIJKLM' TO WS-SENTENCE
+	PERFORM PANGRAM
+	EXPECT WS-RESULT = 0

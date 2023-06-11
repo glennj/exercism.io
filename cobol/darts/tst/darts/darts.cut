@@ -1,0 +1,77 @@
+TestCase "Missed target"
+	MOVE -9 TO WS-X
+	MOVE 9 TO WS-Y
+	PERFORM DARTS
+	EXPECT WS-RESULT = 0
+
+TestCase "On the outer circle"
+	MOVE 0 TO WS-X
+	MOVE 10 TO WS-Y
+	PERFORM DARTS
+	EXPECT WS-RESULT = 1
+
+TestCase "On the middle circle"
+	MOVE -5 TO WS-X
+	MOVE 0 TO WS-Y
+	PERFORM DARTS
+	EXPECT WS-RESULT = 5
+
+TestCase "On the inner circle"
+	MOVE 0 TO WS-X
+	MOVE -1 TO WS-Y
+	PERFORM DARTS
+	EXPECT WS-RESULT = 10
+
+TestCase "Exactly on centre"
+	MOVE 0 TO WS-X
+	MOVE 0 TO WS-Y
+	PERFORM DARTS
+	EXPECT WS-RESULT = 10
+
+TestCase "Near the centre"
+	MOVE -0.1 TO WS-X
+	MOVE -0.1 TO WS-Y
+	PERFORM DARTS
+	EXPECT WS-RESULT = 10
+
+TestCase "Just within the inner circle"
+	MOVE 0.7 TO WS-X
+	MOVE 0.7 TO WS-Y
+	PERFORM DARTS
+	EXPECT WS-RESULT = 10
+
+TestCase "Just outside the inner circle"
+	MOVE 0.8 TO WS-X
+	MOVE -0.8 TO WS-Y
+	PERFORM DARTS
+	EXPECT WS-RESULT = 5
+
+TestCase "Just within the middle circle"
+	MOVE -3.5 TO WS-X
+	MOVE 3.5 TO WS-Y
+	PERFORM DARTS
+	EXPECT WS-RESULT = 5
+
+TestCase "Just outside the middle circle"
+	MOVE -3.6 TO WS-X
+	MOVE -3.6 TO WS-Y
+	PERFORM DARTS
+	EXPECT WS-RESULT = 1
+
+TestCase "Just within the outer circle"
+	MOVE -7 TO WS-X
+	MOVE 7 TO WS-Y
+	PERFORM DARTS
+	EXPECT WS-RESULT = 1
+
+TestCase "Just outside the outer circle"
+	MOVE 7.1 TO WS-X
+	MOVE -7.1 TO WS-Y
+	PERFORM DARTS
+	EXPECT WS-RESULT = 0
+
+TestCase "Asymmetric position between the inner and middle circles"
+	MOVE 0.5 TO WS-X
+	MOVE -4 TO WS-Y
+	PERFORM DARTS
+	EXPECT WS-RESULT = 5
