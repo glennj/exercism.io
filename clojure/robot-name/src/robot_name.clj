@@ -1,7 +1,7 @@
 (ns robot-name)
 
-;; global state: all-names is a reference to a set
-(def all-names (ref #{}))
+;; global state: all-names is a atom of a set
+(def all-names (atom #{}))
 
 ;; forward declarations
 (declare robot-name reset-name rand-name)
@@ -17,13 +17,14 @@
   (deref robot))
 
 ;; Mutates the robot, and returns the new name.
-;; Not efficient for generating hundreds of thousands of names.
+;; Not efficient for generating hundreds of thousands of names:
+;; the better strategy is to generate all possible names and shuffle them.
 (defn reset-name [robot]
   (let [new-name (rand-name)]
     (if (contains? @all-names new-name)
       (recur robot)
-      (dosync
-        (alter all-names conj new-name)
+      (do
+        (reset! all-names (conj @all-names new-name))
         (reset! robot new-name)))))
 
 (def alphabet "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
