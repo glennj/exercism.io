@@ -1,0 +1,92 @@
+TestCase "queen with a valid position"
+	MOVE "2,2" TO WS-QUEEN
+	MOVE "create" TO WS-PROPERTY
+	PERFORM QUEEN-ATTACK
+	EXPECT WS-RESULT = 1
+
+TestCase "queen must have positive row"
+	MOVE "-2,2" TO WS-QUEEN
+	MOVE "create" TO WS-PROPERTY
+	PERFORM QUEEN-ATTACK
+	EXPECT WS-RESULT = 0
+
+TestCase "queen must have row on board"
+	MOVE "8,4" TO WS-QUEEN
+	MOVE "create" TO WS-PROPERTY
+	PERFORM QUEEN-ATTACK
+	EXPECT WS-RESULT = 0
+
+TestCase "queen must have positive column"
+	MOVE "2,-2" TO WS-QUEEN
+	MOVE "create" TO WS-PROPERTY
+	PERFORM QUEEN-ATTACK
+	EXPECT WS-RESULT = 0
+
+TestCase "queen must have column on board"
+	MOVE "4,8" TO WS-QUEEN
+	MOVE "create" TO WS-PROPERTY
+	PERFORM QUEEN-ATTACK
+	EXPECT WS-RESULT = 0
+
+TestCase "cannot attack"
+	MOVE "2,4" TO WS-WHITE_QUEEN
+	MOVE "6,6" TO WS-BLACK_QUEEN
+	MOVE "canAttack" TO WS-PROPERTY
+	PERFORM QUEEN-ATTACK
+	EXPECT WS-RESULT = 0
+
+TestCase "can attack on same row"
+	MOVE "2,4" TO WS-WHITE_QUEEN
+	MOVE "2,6" TO WS-BLACK_QUEEN
+	MOVE "canAttack" TO WS-PROPERTY
+	PERFORM QUEEN-ATTACK
+	EXPECT WS-RESULT = 1
+
+TestCase "can attack on same column"
+	MOVE "4,5" TO WS-WHITE_QUEEN
+	MOVE "2,5" TO WS-BLACK_QUEEN
+	MOVE "canAttack" TO WS-PROPERTY
+	PERFORM QUEEN-ATTACK
+	EXPECT WS-RESULT = 1
+
+TestCase "can attack on first diagonal"
+	MOVE "2,2" TO WS-WHITE_QUEEN
+	MOVE "0,4" TO WS-BLACK_QUEEN
+	MOVE "canAttack" TO WS-PROPERTY
+	PERFORM QUEEN-ATTACK
+	EXPECT WS-RESULT = 1
+
+TestCase "can attack on second diagonal"
+	MOVE "2,2" TO WS-WHITE_QUEEN
+	MOVE "3,1" TO WS-BLACK_QUEEN
+	MOVE "canAttack" TO WS-PROPERTY
+	PERFORM QUEEN-ATTACK
+	EXPECT WS-RESULT = 1
+
+TestCase "can attack on third diagonal"
+	MOVE "2,2" TO WS-WHITE_QUEEN
+	MOVE "1,1" TO WS-BLACK_QUEEN
+	MOVE "canAttack" TO WS-PROPERTY
+	PERFORM QUEEN-ATTACK
+	EXPECT WS-RESULT = 1
+
+TestCase "can attack on fourth diagonal"
+	MOVE "1,7" TO WS-WHITE_QUEEN
+	MOVE "0,6" TO WS-BLACK_QUEEN
+	MOVE "canAttack" TO WS-PROPERTY
+	PERFORM QUEEN-ATTACK
+	EXPECT WS-RESULT = 1
+
+TestCase "cannot attack if falling diagonals are only the same when reflected across the longest falling diagonal"
+	MOVE "4,1" TO WS-WHITE_QUEEN
+	MOVE "2,5" TO WS-BLACK_QUEEN
+	MOVE "canAttack" TO WS-PROPERTY
+	PERFORM QUEEN-ATTACK
+	EXPECT WS-RESULT = 0
+
+TestCase "cannot attack if invalid position"
+	MOVE "4,1" TO WS-WHITE_QUEEN
+	MOVE "-2,5" TO WS-BLACK_QUEEN
+	MOVE "canAttack" TO WS-PROPERTY
+	PERFORM QUEEN-ATTACK
+	EXPECT WS-RESULT = 0
