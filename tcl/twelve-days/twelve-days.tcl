@@ -1,13 +1,17 @@
+source seq.tcl
+
 namespace eval TwelveDays {
+    namespace import ::seq::seq
     namespace export verse sing
 
     variable ordinal {
-        "" first second third fourth fifth sixth
+        "--zero--"
+        first second third fourth fifth sixth
         seventh eighth ninth tenth eleventh twelfth
     }
 
     variable gifts {
-        ""
+        "--zero--"
         "a Partridge in a Pear Tree"
         "two Turtle Doves"
         "three French Hens"
@@ -22,24 +26,22 @@ namespace eval TwelveDays {
         "twelve Drummers Drumming"
     }
 
-    variable verse {On the %s day of Christmas my true love gave to me: %s.}
+    variable fmt {On the %s day of Christmas my true love gave to me: %s.}
 
     proc verse {n} {
         variable ordinal
         variable gifts
-        variable verse
+        variable fmt
 
-        set days [lreverse [lrange $gifts 1 $n]]
+        set presents [lreverse [lrange $gifts 1 $n]]
         if {$n > 1} {
-            lset days end "and [lindex $days end]"
+            lset presents end "and [lindex $presents end]"
         }
-        format $verse [lindex $ordinal $n] [join $days ", "]
+        format $fmt [lindex $ordinal $n] [join $presents ", "]
     }
 
     proc sing {from to} {
-        for {set i $from} {$i <= $to} {incr i} {
-            lappend days [verse $i]
-        }
+        set days [lmap i [seq -from $from -to $to] {verse $i}]
         return [join $days \n]
     }
 }

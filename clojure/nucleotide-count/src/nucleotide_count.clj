@@ -19,4 +19,5 @@
 
 (defn count-of-nucleotide-in-strand [nucleotide strand]
   (validate-nucleotide nucleotide)
-  (get (nucleotide-counts strand) nucleotide))
+  (-> (nucleotide-counts strand)
+      (get nucleotide)))
