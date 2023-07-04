@@ -1,0 +1,42 @@
+TESTSUITE 'Tests for hamming'
+
+BEFORE-EACH
+	MOVE 00 TO WS-HAMMING
+END-BEFORE
+
+TestCase "EMPTY STRANDS"
+	MOVE " " TO WS-DNA-1
+	MOVE " " TO WS-DNA-2
+	PERFORM HAMMING
+	EXPECT WS-HAMMING = 00
+
+TestCase "Single letter identical strands"
+	MOVE "A" TO WS-DNA-1
+	MOVE "A" TO WS-DNA-2
+	PERFORM HAMMING
+	EXPECT WS-HAMMING = 00
+
+TestCase "Single letter different strands"
+	MOVE "G" TO WS-DNA-1
+	MOVE "T" TO WS-DNA-2
+	PERFORM HAMMING
+	EXPECT WS-HAMMING = 01
+
+TestCase "Long identical strands"
+	MOVE "GGACTGAAATCTG" TO WS-DNA-1
+	MOVE "GGACTGAAATCTG" TO WS-DNA-2
+	PERFORM HAMMING
+	EXPECT WS-HAMMING = 00
+
+TestCase "long different strands"
+	MOVE "GGACGGATTCTG" TO WS-DNA-1
+	MOVE "AGGACGGATTCT" TO WS-DNA-2
+	PERFORM HAMMING
+	EXPECT WS-HAMMING = 09
+
+TestCase "Disallow strands of different length"
+	MOVE "GGACGGATTCTG" TO WS-DNA-1
+	MOVE "AGGACG" TO WS-DNA-2
+	PERFORM HAMMING
+	EXPECT WS-HAMMING = 00
+	EXPECT WS-ERROR = "Strands must be of equal length"
