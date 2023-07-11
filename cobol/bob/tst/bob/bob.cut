@@ -1,0 +1,126 @@
+TestCase "stating something"
+	MOVE "Tom-ay-to, tom-aaaah-to." TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Whatever."
+
+TestCase "shouting"
+	MOVE "WATCH OUT!" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Whoa, chill out!"
+
+TestCase "shouting gibberish"
+	MOVE "FCECDFCAAB" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Whoa, chill out!"
+
+TestCase "asking a question"
+	MOVE "Does this cryogenic chamber make me look fat?" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Sure."
+
+TestCase "asking a numeric question"
+	MOVE "You are, what, like 15?" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Sure."
+
+TestCase "asking gibberish"
+	MOVE "fffbbcbeab?" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Sure."
+
+TestCase "talking forcefully"
+	MOVE "Hi there!" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Whatever."
+
+TestCase "using acronyms in regular speech"
+	MOVE "It's OK if you don't want to go work for NASA." TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Whatever."
+
+TestCase "forceful question"
+	MOVE "WHAT'S GOING ON?" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Calm down, I know what I'm doing!"
+
+TestCase "shouting numbers"
+	MOVE "1, 2, 3 GO!" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Whoa, chill out!"
+
+TestCase "no letters"
+	MOVE "1, 2, 3" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Whatever."
+
+TestCase "question with no letters"
+	MOVE "4?" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Sure."
+
+TestCase "shouting with special characters"
+	MOVE "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Whoa, chill out!"
+
+TestCase "shouting with no exclamation mark"
+	MOVE "I HATE THE DENTIST" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Whoa, chill out!"
+
+TestCase "statement containing question mark"
+	MOVE "Ending with ? means a question." TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Whatever."
+
+TestCase "non-letters with question"
+	MOVE ":) ?" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Sure."
+
+TestCase "prattling on"
+	MOVE "Wait! Hang on. Are you going to be OK?" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Sure."
+
+TestCase "silence"
+	MOVE "" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Fine. Be that way!"
+
+TestCase "prolonged silence"
+	MOVE "          " TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Fine. Be that way!"
+
+TestCase "alternate silence"
+	MOVE "          " TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Fine. Be that way!"
+
+TestCase "multiple line question"
+	MOVE "Does this cryogenic chamber make me look fat?
+No." TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Whatever."
+
+TestCase "starting with whitespace"
+	MOVE "         hmmmmmmm..." TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Whatever."
+
+TestCase "ending with whitespace"
+	MOVE "Okay if like my  spacebar  quite a bit?   " TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Sure."
+
+TestCase "other whitespace"
+	MOVE "	
+	" TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Fine. Be that way!"
+
+TestCase "non-question ending with whitespace"
+	MOVE "This is a statement ending with whitespace      " TO WS-HEYBOB
+	PERFORM BOB
+	EXPECT WS-RESULT = "Whatever."
