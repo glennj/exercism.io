@@ -1,72 +1,47 @@
 local rle = {}
 
-local encode_run = function(char, count)
-    return count == 1 and char or ("%d%s"):format(count, char)
-end
-
 --------------------------------------------------------------------
 -- Other languages, those with more complete regex implmementations,
--- allow backreferences in the pattern. For example, ruby can do
+-- allow backreferences in the pattern. For example, Julia can do
 --[[
-      def encode(input)
-        input.scan(/((.)\2*)/).reduce('') do |encoded, (run, char)|
-          encoded + (run.length > 1 ? run.length.to_s : '') + char
-        end
-      end
---]]
--- However, Lua's patterns are simpler, so we iterate over the chars.
---------------------------------------------------------------------
-rle.encode = function(input)
-    local runs = {}
-    local prev = ""
-    local count = 0
-
-    for i = 1, #input do
-        local char = input:sub(i,i)
-        if char == prev then
-            count = count + 1
-        else
-            if prev ~= "" then
-                runs[#runs+1] = encode_run(prev, count)
+        function encode(s)
+            function shrink(s)
+                len = length(s)
+                num = len == 1 ? "" : string(len)
+                num * s[1]
             end
-            prev = char
-            count = 1
+
+            replace(s, r"(.)\1*" => shrink)
         end
-        if i == #input then     -- last run
-            runs[#runs+1] = encode_run(char, count)
+--]]
+-- However, Lua's patterns are simpler, so we iterate over the patterns.
+--------------------------------------------------------------------
+
+rle.encode = function(input)
+    local encoded = input
+    -- an optimization: if we see 100 A's we only need to
+    -- globally replace when we see the first one.
+    local seen = {}
+
+    for char in input:gmatch(".") do
+        if not seen[char] then
+            -- ensure the pattern captures runs of 2 or more
+            local pattern = char .. char .. "+"
+            encoded = encoded:gsub(pattern, function(s)
+                return tostring(#s) .. s:sub(1,1)
+            end)
+            seen[char] = true
         end
     end
-    return table.concat(runs)
+    return encoded
 end
 
 --------------------------------------------------------------------
 rle.decode = function(input)
-    local decoded = ""
-    for n, c in input:gmatch("(%d*)(%D)") do
-        decoded = decoded .. c:rep(n == "" and 1 or tonumber(n))
-    end
-    return decoded
+    return input:gsub("(%d+)(%D)", function(n, c)
+        return c:rep(tonumber(n))
+    end)
 end
 
 --------------------------------------------------------------------
 return rle
-
-
---[[ https://exercism.io/tracks/lua/exercises/run-length-encoding/solutions/1bd86fef3c9a42cab0e967bc635655d9 
--- clever community solution: use `gsub` for runs of 2 or more
---
-        function rle.encode(decoded)
-            for character in decoded:gmatch(".") do
-                decoded = decoded:gsub(character:rep(2) .. "+", function(match)
-                    return tostring(#match) .. character 
-                end)
-            end
-            return decoded
-        end
-
-        function rle.decode(encoded)
-            return encoded:gsub("(%d+)(.)", function(length, character)
-                return character:rep(length)
-            end)
-        end
---]]
