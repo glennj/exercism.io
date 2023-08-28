@@ -1,0 +1,53 @@
+needs console/loaded
+
+: isword?  \ x -- x f
+   dup  >kind  ns:w   n:= 
+;
+
+: test_eq \ s x w -- | s w x --
+   isword? !if swap then
+   a:new swap 0 swap a:! 0 a:@ nip w:exec
+   n:= if
+    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
+   else
+    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+   then 
+;
+
+: test_eqs \ s x w -- | s w x -- 
+   isword? !if swap then
+   a:new swap 0 swap a:! 0 a:@ nip w:exec
+   s:= if
+    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
+   else
+    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+   then 
+;
+
+: test_true \ s w --
+   a:new swap 0 swap a:! 0 a:@ nip w:exec
+   if
+    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
+   else
+    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+   then 
+;
+
+: test_false \ s w --
+   a:new swap 0 swap a:! 0 a:@ nip w:exec
+   !if
+    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
+   else
+    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+   then 
+;
+
+: test_null \ s w --
+   a:new swap 0 swap a:! 0 a:@ nip w:exec
+   null? if
+    drop con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
+   else
+    drop con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+   then 
+;
+

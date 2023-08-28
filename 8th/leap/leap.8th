@@ -1,0 +1,16 @@
+\ true if the number is zero
+: zero? \ n -- T
+  0 n:= ;
+  
+\ is x divisible by y? 
+: divisible-by? \ x y -- T
+  n:mod zero? ;
+
+: leap-year? \ n -- T
+  dup 4   divisible-by? !if false else
+  dup 100 divisible-by? !if true  else
+  dup 400 divisible-by? !if false else
+                            true
+  then then then
+  nip
+  ;

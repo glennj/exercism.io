@@ -1,0 +1,41 @@
+: silent? \ s -- T
+  s:len 0 n:= 
+  ;
+
+: matches? \ s r -- T
+  r:match    \ s r -- r n
+  "in matches?" . cr
+  .s
+  0 n:= not
+  nip
+  ;
+
+: question? \ s -- T
+  /[?]$/ matches? ;
+
+: yelling? \ s -- T
+  dup  /[[:alpha:]]/ matches?
+  swap /[[:upper:]]/ matches?
+  and ;
+  
+: bob \ s -- s
+  dup . cr
+  \ remove all whitespace
+  /\s+/ "" s:replace!
+
+  silent? if drop "Fine. Be that way!" ;; then
+
+  dup question?
+  swap yelling?
+  .s
+
+  "..test shouted question" . cr
+  2dup and .s if 2drop  "Whoa, chill out!" ;; then
+  .s "..test shouting" . cr 
+  if drop "Calm down, I know what I'm doing!" ;; then
+  .s "..test question" . cr 
+  if "Sure." ;; then
+"..nothing" . cr
+  "Whatever."
+  .s
+  ;

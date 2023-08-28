@@ -1,0 +1,21 @@
+: default-if-empty \ ? s -- s
+  swap
+  null? if
+    drop    \ drop the null, leaving the default
+  else
+    dup "" = if
+      drop  \ drop the empty string, leaving the default
+    else
+      swap  \ restore the stack and
+      drop  \ drop the default value, leaving the original
+    then
+  then
+  ;
+
+: two-fer \ ? -- s
+  \ check for null or empty argument, providing the default value
+  "you" default-if-empty
+
+  \ create the result string
+  "One for " <+ ", one for me." +
+  ;

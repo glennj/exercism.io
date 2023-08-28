@@ -1,0 +1,72 @@
+requires console
+
+\ place to store test name to keep it out of the stack
+\ until needed
+\ null var, test-name
+
+: isword?  \ x -- x f
+   dup  >kind  ns:w   n:= 
+;
+
+: test_eq \ s x w -- | s w x --
+   \ rot test-name !
+   isword? !if swap then
+   >r r> w:exec
+   n:= if
+    \ test-name @
+    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
+   else
+    \ test-name @
+    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+   then 
+;
+
+: test_eqs \ s x w -- | s w x -- 
+   \ rot test-name !
+   isword? !if swap then
+   >r r> w:exec
+   s:= if
+    \ test-name @
+    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
+   else
+    \ test-name @
+    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+   then 
+;
+
+: test_true \ s w --
+   \ swap test-name !
+   r> >r w:exec
+   if
+    \ test-name @
+    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
+   else
+    \ test-name @
+    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+   then 
+;
+
+: test_false \ s w --
+   \ swap test-name !
+   >r r> w:exec
+   !if
+    \ test-name @
+    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
+   else
+    \ test-name @
+    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+   then 
+;
+
+: test_null \ s w --
+   \ swap test-name !
+   >r r> w:exec
+   null? if
+    \ test-name @
+    drop con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
+   else
+    \ test-name @
+    drop con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+   then 
+;
+

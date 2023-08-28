@@ -1,0 +1,3 @@
+"test-words.8th" dup . cr f:include
+"hello-world.8th" dup . cr f:include
+"hello-world-tests.8th" dup . cr f:include

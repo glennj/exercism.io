@@ -1,0 +1,19 @@
+"prolonged silence" ( "    " bob ) "Fine. Be that way!" test_eqs
+"silence" ( "" bob ) "Fine. Be that way!" test_eqs
+"shouting numbers" ( "1, 2, 3 GO!" bob ) "Whoa, chill out!" test_eqs
+"no letters" ( "1, 2, 3" bob ) "Whatever." test_eqs
+"question with no letters" ( "4?" bob ) "Sure." test_eqs
+"multiple line question" ( "Does this cryogenic chamber make me look fat?\nno" bob ) "Whatever." test_eqs
+"asking a question" ( "Does this cryogenic chamber make me look fat?" bob ) "Sure." test_eqs
+"statement containing question mark" ( "Ending with ? means a question." bob ) "Whatever." test_eqs
+"shouting with no exclamation mark" ( "I HATE YOU" bob ) "Whoa, chill out!" test_eqs
+"using acronyms in regular speech" ( "It's OK if you don't want to go to the DMV." bob ) "Whatever." test_eqs
+"speaking forcefully" ( "Let's go make out behind the gym!" bob ) "Whatever." test_eqs
+"stating something" ( "Tom-ay-to, tom-aaaah-to." bob ) "Whatever." test_eqs
+"shouting" ( "WATCH OUT!" bob ) "Whoa, chill out!" test_eqs
+"forceful question" ( "WHAT THE HELL WERE YOU THINKING?" bob ) "Calm down, I know what I'm doing!" test_eqs
+"prattling on" ( "Wait! Hang on. Are you going to be OK?" bob ) "Sure." test_eqs
+"asking a numeric question" ( "You are, what, like 15?" bob ) "Sure." test_eqs
+"shouting with special characters" ( "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!" bob ) "Whoa, chill out!" test_eqs
+
+bye
