@@ -1,0 +1,27 @@
+needs incs/numeric-predicates.8th
+
+\ two strings must be the same length and > 0
+: valid-lengths?  \ s1 s2 -- s1 s2 T
+  s:len swap over
+  3 pick s:len nip
+  n:= !if drop false ;; then
+  swap zero? if false ;; then
+  true
+  ;
+
+\ increment the diff count if x1 != x2
+: hamming-counter   \ n x1 x2 --
+  s:= !if r> n:1+ >r then
+  drop    \ drops n
+  ;
+
+: distance \ s1 s2 -- n
+  valid-lengths? !if 2drop null ;; then
+
+  null s:/
+  swap null s:/
+  0 >r
+  ' hamming-counter a:2each
+  2drop
+  r>
+  ;

@@ -1,0 +1,9 @@
+: pos? \ n -- T
+  0 n:> ;
+
+: zero? \ n -- T
+  0 n:= ;
+
+\ is x divisible by y? 
+: divisible-by? \ x y -- T
+  n:mod zero? ;

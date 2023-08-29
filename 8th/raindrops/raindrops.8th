@@ -1,0 +1,25 @@
+needs incs/numeric-predicates.8th
+
+: check-sound \ s1 n1 s2 n2 -- s3 n1
+  rot dup rot                           \ s1 s2 n1 n1 n2
+  divisible-by?                         \ s1 s2 n1 T
+  if                                    \ s1 s2 n1
+    -rot s:+ swap                       \ s3 n1
+  else
+    nip                                 \ s1 n1
+  then
+  ;
+
+: raindrops \ n -- s
+  "" over                               \ num sounds num
+  "Pling" 3 check-sound
+  "Plang" 5 check-sound
+  "Plong" 7 check-sound
+  drop
+
+  s:len zero? if
+    drop >s
+  else
+    nip
+  then
+  ;

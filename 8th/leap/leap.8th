@@ -1,10 +1,4 @@
-\ true if the number is zero
-: zero? \ n -- T
-  0 n:= ;
-  
-\ is x divisible by y? 
-: divisible-by? \ x y -- T
-  n:mod zero? ;
+needs incs/numeric-predicates.8th
 
 : leap-year? \ n -- T
   dup 4   divisible-by? !if false else

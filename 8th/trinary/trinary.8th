@@ -1,0 +1,21 @@
+needs python/any
+
+3 constant radix
+
+: >digits \ s -- a
+  null s:/              \ split string into characters
+  ' >n a:map            \ map digit characters to numbers
+                        \ return null if any non-digits
+  dup ( null? nip ) a:any if drop null then
+  ;
+
+: trinary> \ s -- n
+  >digits
+
+  \ assertions
+  null? if drop 0 ;; then
+  dup ( radix n:< ) a:all !if drop 0 ;; then
+
+  \ accumulate the decimal value
+  ( swap radix n:* n:+ ) 0 a:reduce
+  ;

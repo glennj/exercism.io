@@ -1,0 +1,11 @@
+"empty strands" ( "" "" distance ) test_null
+"single letter identical strands" 0 ( "A" "A" distance ) test_eq
+"long indentical strands" 0 ( "GGACTGAAATCTG" "GGACTGAAATCTG" distance ) test_eq
+"single letter different strands" 1 ( "G" "T" distance ) test_eq
+"long different strands" 9 ( "GGACGGATTCTG" "AGGACGGATTCT" distance ) test_eq
+"disallow empty first strand"  ( "" "G" distance ) test_null
+"disallow first strand longer"  ( "AATG" "AAA" distance ) test_null
+"disallow second strand longer"  ( "ATA" "AGTG" distance ) test_null
+"disallow empty second strand"  ( "G" "" distance ) test_null
+
+bye

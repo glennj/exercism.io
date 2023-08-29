@@ -1,0 +1,49 @@
+needs incs/numeric-predicates.8th
+
+\ sort 3 items numerically
+: 3sort \ b a c -- a b c (sorted)
+  3 a:close
+  "n:cmp" w:find
+  a:sort
+  a:open
+  ;
+
+\ triangle inequality test
+: valid? \ a b c -- T
+  3sort
+
+  \ 1. smallest side must be > 0 length
+  2 pick pos? !if 3drop false ;; then
+
+  \ 2. longgest side must be < than the sum of 2 smaller sides
+  -rot    \ a b c -- c a b
+  n:+
+  n:<
+  ;
+
+
+: equilateral? \ a b c -- T
+  3dup valid? !if 3drop false ;; then
+
+  2 pick n:=      \ a=c?
+  -rot   n:=      \ a=b?
+  and
+  ;
+
+
+: _isosceles? \ a b c -- T
+  2dup      n:= if 3drop true ;; then   \ b=c?
+  3dup drop n:= if 3drop true ;; then   \ a=b?
+  nip       n:=                         \ a=c?
+  ;
+
+: isosceles? \ a b c -- T
+  3dup valid? !if 3drop false ;; then
+  _isosceles?
+  ;
+
+
+: scalene? \ a b c -- T
+  3dup valid? !if 3drop false ;; then
+  _isosceles? not
+  ;
