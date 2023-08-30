@@ -1,10 +1,11 @@
 [0, 2, 4, 6, 8, 1, 3, 5, 7, 9] constant doubled
 
 : luhn \ s -- T
+  \ remove all whitespace
   /\s+/ "" s:replace!
 
   \ test for non-digits
-  dup /\D/ r:match 0 n:= !if 2drop false ;; then
+  dup /\D/ s:search if 2drop false ;; then
   drop
 
   \ convert to an array of digits, reversed

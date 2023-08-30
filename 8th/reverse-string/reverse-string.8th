@@ -1,0 +1,11 @@
+: empty? dup "" s:= ;
+
+: _rev \ s s -- s
+  empty? if drop ;; then  \ recursive base case
+  0 s:@ swap              \ s s -- s c s    extract first character
+  0 1 s:- -rot            \ s c s -- s s c  drop first character
+  s:<+ swap               \ s s c -- s s    prepend the char to the reversed string
+  recurse ;
+
+: reverse \ s -- s
+  "" swap _rev ;

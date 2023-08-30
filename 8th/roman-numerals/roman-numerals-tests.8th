@@ -1,0 +1,27 @@
+"1 is I" ( 1 n:>roman ) "I" test_eqs
+"2 is II" ( 2 n:>roman ) "II" test_eqs
+"3 is III" ( 3 n:>roman ) "III" test_eqs
+"4 is IV" ( 4 n:>roman ) "IV" test_eqs
+"5 is V" ( 5 n:>roman ) "V" test_eqs
+"6 is VI" ( 6 n:>roman ) "VI" test_eqs
+"9 is IX" ( 9 n:>roman ) "IX" test_eqs
+"27 is XXVII" ( 27 n:>roman ) "XXVII" test_eqs
+"48 is XLVIII" ( 48 n:>roman ) "XLVIII" test_eqs
+"49 is XLIX" ( 49 n:>roman ) "XLIX" test_eqs
+"59 is LIX" ( 59 n:>roman ) "LIX" test_eqs
+"93 is XCIII" ( 93 n:>roman ) "XCIII" test_eqs
+"141 is CXLI" ( 141 n:>roman ) "CXLI" test_eqs
+"163 is CLXIII" ( 163 n:>roman ) "CLXIII" test_eqs
+"402 is CDII" ( 402 n:>roman ) "CDII" test_eqs
+"575 is DLXXV" ( 575 n:>roman ) "DLXXV" test_eqs
+"911 is CMXI" ( 911 n:>roman ) "CMXI" test_eqs
+"1024 is MXXIV" ( 1024 n:>roman ) "MXXIV" test_eqs
+"3000 is MMM" ( 3000 n:>roman ) "MMM" test_eqs
+"16 is XVI" ( 16 n:>roman ) "XVI" test_eqs
+"66 is LXVI" ( 66 n:>roman ) "LXVI" test_eqs
+"166 is CLXVI" ( 166 n:>roman ) "CLXVI" test_eqs
+"666 is DCLXVI" ( 666 n:>roman ) "DCLXVI" test_eqs
+"1666 is MDCLXVI" ( 1666 n:>roman ) "MDCLXVI" test_eqs
+"3001 is MMMI" ( 3001 n:>roman ) "MMMI" test_eqs
+"3999 is MMMCMXCIX" ( 3999 n:>roman ) "MMMCMXCIX" test_eqs
+bye

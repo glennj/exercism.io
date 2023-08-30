@@ -1,0 +1,20 @@
+with: n
+
+\ the recursive heart of the solution
+: _collatz \ n -- n
+  dup 1 = if ;; then
+  dup odd? if 3 * 1+ else 2 / then
+  ' 1+ rop!
+  recurse
+  ;
+
+: collatz \ n -- n
+  dup 1 < if drop null ;; then
+  \ the counter lives on the r-stack
+  0 >r
+  _collatz
+  r>
+  nip
+  ;
+
+;with

@@ -1,0 +1,18 @@
+\ sorted in order of least to most frequently used
+"zjqxkvbpgwyfmculdhrsnioate" constant alphabet
+
+\ need a binary result: matching at index 0 must be a true result
+: contains? \ s c -- T
+  s:search null? not nip ;
+
+\ a recursive approach allows for early returns
+: _pangram \ s s -- T
+  dup "" s:= if 2drop true ;; then  \ no more letters to search for
+  0 s:@ rot swap                    \ extract the next letter
+  contains? !if 2drop false ;; then
+  swap 0 1 s:-                      \ drop the letter from the alphabet
+  recurse
+  ;
+
+: pangram? \ s -- T
+  s:lc alphabet _pangram ;

@@ -1,0 +1,12 @@
+"empty sentence"  ( "" pangram? ) test_false
+"missing letters replaced by numbers"  ( "7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog" pangram?  ) test_false
+"mixed case and punctuation"  ( "\"Five quacking Zephyrs jolt my wax bed.\"" pangram? ) test_true
+"missing letter x"  ( "a quick movement of the enemy will jeopardize five gunboats" pangram? ) test_false
+"perfect lower case"  ( "abcdefghijklmnopqrstuvwxyz" pangram?  ) test_true
+"missing letter h"  ( "five boxing wizards jump quickly at it" pangram?  ) test_false
+"with numbers"  ( "the 1 quick brown fox jumps over the 2 lazy dogs" pangram?  ) test_true
+"only lower case"  ( "the quick brown fox jumps over the lazy dog" pangram?  ) test_true
+"missing d and g"  ( "the quick brown fox jumps over with lazy FX" pangram?  ) test_false
+"with underscores"  ( "the_quick_brown_fox_jumps_over_the_lazy_dog" pangram?  ) test_true
+
+bye

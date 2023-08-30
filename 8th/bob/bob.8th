@@ -1,12 +1,7 @@
-\ I haven't seen a truly boolean regex matching word
-: matches? \ s r -- T
-  r:match    \ s r -- r n
-  0 n:= not
-  nip
-  ;
+needs incs/string.8th
 
 : question? \ s -- T
-  /[?]$/ matches? ;
+  "\\?" endswith? ;
 
 : yelling? \ s -- T
   dup  /[[:alpha:]]/ matches?
@@ -20,9 +15,7 @@
   
 \ Bob responds to input with an output
 : bob \ s -- s
-  \ trim trailing whitespace
-  /\s+$/ "" s:replace!
-
+  s:trim
   silent? if drop "Fine. Be that way!" ;; then
 
   dup question?

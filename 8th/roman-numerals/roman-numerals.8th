@@ -1,0 +1,21 @@
+: _roman \ a n -- a
+  dup 999 n:> if 1000 n:- swap "M"  a:push swap recurse then
+  dup 899 n:> if  800 n:- swap "CM" a:push swap recurse then
+  dup 499 n:> if  500 n:- swap "D"  a:push swap recurse then
+  dup 399 n:> if  400 n:- swap "CD" a:push swap recurse then
+  dup  99 n:> if  100 n:- swap "C"  a:push swap recurse then
+  dup  89 n:> if   90 n:- swap "XC" a:push swap recurse then
+  dup  49 n:> if   50 n:- swap "L"  a:push swap recurse then
+  dup  39 n:> if   40 n:- swap "XL" a:push swap recurse then
+  dup   9 n:> if   10 n:- swap "X"  a:push swap recurse then
+  dup   8 n:> if    9 n:- swap "IX" a:push swap recurse then
+  dup   4 n:> if    5 n:- swap "V"  a:push swap recurse then
+  dup   3 n:> if    4 n:- swap "IV" a:push swap recurse then
+  dup   0 n:> if    1 n:- swap "I"  a:push swap recurse then
+  drop
+  ;
+
+: n:>roman  \ n -- s
+  [] _roman
+  "" a:join
+  ;

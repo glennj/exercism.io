@@ -1,0 +1,3 @@
+"test-words.8th" dup . cr f:include
+"reverse-string.8th" dup . cr f:include
+"reverse-string-tests.8th" dup . cr f:include

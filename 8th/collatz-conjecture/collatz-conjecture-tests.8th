@@ -1,0 +1,8 @@
+"zero steps for one" ( 1 collatz ) 0 test_eq
+"large number of even and odd steps" ( 1000000 collatz )  152 test_eq 
+"even and odd steps" ( 12 collatz ) 9 test_eq
+"divide if even" ( 16 collatz )  4 test_eq
+"zero is an error" ( 0 collatz )  test_null
+"negative value is an error" ( -15 collatz ) test_null
+
+bye

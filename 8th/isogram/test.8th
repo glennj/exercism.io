@@ -1,0 +1,3 @@
+"test-words.8th" dup . cr f:include
+"isogram.8th" dup . cr f:include
+"isogram-tests.8th" dup . cr f:include

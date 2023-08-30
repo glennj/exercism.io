@@ -1,0 +1,8 @@
+"an empty string" ( "" reverse ) "" test_eqs
+"a word" ( "robot" reverse ) "tobor" test_eqs
+"a capitalized word" ( "Ramen" reverse ) "nemaR" test_eqs
+"a sentence with punctuation" ( "I'm hungry!" reverse ) "!yrgnuh m'I" test_eqs
+"a palindrome" ( "racecar" reverse ) "racecar" test_eqs
+"an even-sized word" ( "drawer" reverse ) "reward" test_eqs
+
+bye

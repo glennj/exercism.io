@@ -1,0 +1,9 @@
+\ does a string match a regex?
+: matches? \ s r -- T
+  \ search returns the offset if found or null
+  s:search nip null? nip not ;
+
+\ using glob matching, does a string end with the suffix?
+\ need to take care to escape glob-special chars in the suffix.
+: endswith? \ s s -- T
+  "*" s:<+ s:globmatch ;
