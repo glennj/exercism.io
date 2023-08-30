@@ -1,0 +1,15 @@
+: digits \ n -- a
+  >s null s:/ ' >n a:map ;
+
+: armstrong-sum \ n -- n
+  digits
+  a:len >r
+  ( r@ n:^ n:+ ) 0 a:reduce
+  rdrop
+  ;
+  TODO: attempt a recursive version where we don't need to go to string and back
+
+: armstrong? \ n -- T
+  dup armstrong-sum
+  n:=
+  ;

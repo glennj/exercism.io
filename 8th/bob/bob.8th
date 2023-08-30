@@ -1,11 +1,6 @@
-: silent? \ s -- T
-  s:len 0 n:= 
-  ;
-
+\ I haven't seen a truly boolean regex matching word
 : matches? \ s r -- T
   r:match    \ s r -- r n
-  "in matches?" . cr
-  .s
   0 n:= not
   nip
   ;
@@ -15,27 +10,27 @@
 
 : yelling? \ s -- T
   dup  /[[:alpha:]]/ matches?
-  swap /[[:upper:]]/ matches?
+  swap /[[:lower:]]/ matches? not
   and ;
+
+\ we have already trimmed whitespace
+: silent? \ s -- T
+  s:len 0 n:= 
+  ;
   
+\ Bob responds to input with an output
 : bob \ s -- s
-  dup . cr
-  \ remove all whitespace
-  /\s+/ "" s:replace!
+  \ trim trailing whitespace
+  /\s+$/ "" s:replace!
 
   silent? if drop "Fine. Be that way!" ;; then
 
   dup question?
   swap yelling?
-  .s
+  2dup and      \ yelled-question?
 
-  "..test shouted question" . cr
-  2dup and .s if 2drop  "Whoa, chill out!" ;; then
-  .s "..test shouting" . cr 
-  if drop "Calm down, I know what I'm doing!" ;; then
-  .s "..test question" . cr 
-  if "Sure." ;; then
-"..nothing" . cr
-  "Whatever."
-  .s
+  if 2drop "Calm down, I know what I'm doing!" ;; then  \ a yelled question
+  if drop  "Whoa, chill out!"                  ;; then  \ yelling
+  if       "Sure."                             ;; then  \ question
+           "Whatever."
   ;

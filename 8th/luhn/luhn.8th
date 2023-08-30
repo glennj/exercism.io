@@ -1,0 +1,29 @@
+[0, 2, 4, 6, 8, 1, 3, 5, 7, 9] constant doubled
+
+: luhn \ s -- T
+  /\s+/ "" s:replace!
+
+  \ test for non-digits
+  dup /\D/ r:match 0 n:= !if 2drop false ;; then
+  drop
+
+  \ convert to an array of digits, reversed
+  s:rev "" s:/ ' >n a:map
+
+  \ 1 digit numbers are invalid
+  a:len 1 n:= if drop false ;; then
+
+  \ double every 2nd digit
+  false >r
+  ( r@ if
+      doubled swap a:@ 
+      nip
+    then
+    ' not rop!
+  ) a:map
+  rdrop
+
+  \ add up the digits and see if it's evenly divisible by 10
+  ' n:+ 0 a:reduce
+  10 n:mod 0 n:=
+  ;
