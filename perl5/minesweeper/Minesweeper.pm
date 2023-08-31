@@ -13,8 +13,10 @@ our @EXPORT_OK = qw/ annotate /;
 use MinesweeperBoard;
 
 sub annotate {
-    my ($rows) = @_;
-    return MinesweeperBoard->new($rows)->annotate;
+    my ($board) = @_;
+    my $rows = [ split /\n/, $board ];
+    my $result = MinesweeperBoard->new($rows)->annotate;
+    return join "\n", @$result;
 }
 
 1;
