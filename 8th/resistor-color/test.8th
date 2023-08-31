@@ -1,0 +1,3 @@
+"test-words.8th" dup . cr f:include
+"resistor-color.8th" dup . cr f:include
+"resistor-color-tests.8th" dup . cr f:include

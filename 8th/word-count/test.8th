@@ -1,0 +1,3 @@
+"test-words.8th" dup . cr f:include
+"word-count.8th" dup . cr f:include
+"word-count-tests.8th" dup . cr f:include

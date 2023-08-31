@@ -1,0 +1,44 @@
+: frequencies \ a -- m
+  ( tuck 0 m:@? n:1+ _swap m:! ) m:new a:reduce ;
+
+: single tuck 0 m:@? nip n:* ;
+: ones   1 single ;
+: twos   2 single ;
+: threes 3 single ;
+: fours  4 single ;
+: fives  5 single ;
+: sixes  6 single ;
+
+: choice
+  m:open
+  ( swap >n n:* ) a:2map
+  ' n:+ 0 a:reduce ;
+
+: full-house
+  m:len 2 n:= !if drop 0 ;then
+  m:vals 3 ' n:= a:indexof null? if 3drop 0 ;then
+  2drop choice ;
+
+: 4-or-5 \ n -- T
+  dup 4 n:= if drop true else 5 n:= then ;
+
+: four-of-a-kind
+  m:open
+  ( 4-or-5 if >n 4 n:* else drop 0 then ) a:2map
+  ' n:+ 0 a:reduce ;
+
+: straight \ m s -- n
+  swap
+  m:keys nip ' s:cmp a:sort "" a:join
+  s:= if 30 else 0 then ;
+
+: little-straight "12345" straight ;
+: big-straight    "23456" straight ;
+
+: yacht m:len 1 n:= if 50 else 0 then nip ;
+
+: play_yacht \ a s -- n
+  swap frequencies
+  swap " " "-" s:replace!  w:find null? if "unknown category" throw ;then
+  w:exec
+  ;

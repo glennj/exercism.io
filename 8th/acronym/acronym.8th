@@ -1,0 +1,17 @@
+: clean-input \ s -- s
+  "'" "" s:replace!
+  /[^[:alpha:]]/ " " s:replace!
+  s:trim s:uc ;
+
+: split \ s -- a
+  /\s+/ s:/ ;
+
+: first-char \ s -- c
+  0 s:@ nip ;
+
+: acronym \ s -- s
+  clean-input
+  split
+  ' first-char a:map
+  ' s:+ "" a:reduce
+  ;

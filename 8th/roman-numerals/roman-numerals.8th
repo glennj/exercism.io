@@ -1,21 +1,34 @@
+: n:>= \ n n -- T
+  2dup n:= -rot n:> or ;
+
+: _check_n  \ a n m s -- a n2 T
+  -rot 2dup \ a s n m n m
+  n:>= if   \ a s n m
+    n:-     \ a s n2
+    -rot a:push swap true
+  else 
+    drop nip false
+  then
+  ;
+  
 : _roman \ a n -- a
-  dup 999 n:> if 1000 n:- swap "M"  a:push swap recurse then
-  dup 899 n:> if  800 n:- swap "CM" a:push swap recurse then
-  dup 499 n:> if  500 n:- swap "D"  a:push swap recurse then
-  dup 399 n:> if  400 n:- swap "CD" a:push swap recurse then
-  dup  99 n:> if  100 n:- swap "C"  a:push swap recurse then
-  dup  89 n:> if   90 n:- swap "XC" a:push swap recurse then
-  dup  49 n:> if   50 n:- swap "L"  a:push swap recurse then
-  dup  39 n:> if   40 n:- swap "XL" a:push swap recurse then
-  dup   9 n:> if   10 n:- swap "X"  a:push swap recurse then
-  dup   8 n:> if    9 n:- swap "IX" a:push swap recurse then
-  dup   4 n:> if    5 n:- swap "V"  a:push swap recurse then
-  dup   3 n:> if    4 n:- swap "IV" a:push swap recurse then
-  dup   0 n:> if    1 n:- swap "I"  a:push swap recurse then
-  drop
+  1000  "M" _check_n if recurse ;; then
+   900 "CM" _check_n if recurse ;; then
+   500  "D" _check_n if recurse ;; then
+   400 "CD" _check_n if recurse ;; then
+   100  "C" _check_n if recurse ;; then
+    90 "XC" _check_n if recurse ;; then
+    50  "L" _check_n if recurse ;; then
+    40 "XL" _check_n if recurse ;; then
+    10  "X" _check_n if recurse ;; then
+     9 "IX" _check_n if recurse ;; then
+     5  "V" _check_n if recurse ;; then
+     4 "IV" _check_n if recurse ;; then
+     1  "I" _check_n if recurse ;; then
+  drop \ we've reached zero
   ;
 
 : n:>roman  \ n -- s
-  [] _roman
+  a:new swap _roman
   "" a:join
   ;

@@ -1,0 +1,29 @@
+\ replace all "non-word" characters with space
+: clean-string \ s -- s
+  /[^[:alnum:]']/ " " s:replace! s:lc s:trim ;
+
+\ split a string on whitespace
+: >words \ s -- a
+  /\s+/ s:/ ;
+
+\ remove leading/trailing single quotes from a string
+: trim-quotes \ s -- s
+  /^\'|\'$/ "" s:replace! ;
+
+\ increment the value of a map's key
+: m:incr \ m x -- m
+  with: m
+    swap over     \ x m x
+    0 !?          \ x m
+    over @ n:1+   \ x m n
+    _swap         \ m x n
+    !             \ m
+  ;with
+  ;
+
+: word-count \ s -- m
+  clean-string
+  >words
+  ' trim-quotes a:map
+  ' m:incr m:new a:reduce
+  ;

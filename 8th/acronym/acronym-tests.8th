@@ -1,0 +1,11 @@
+"ignoring punctuation and casing" "CMOS" ( "Complementary metal-oxide semiconductor" acronym ) test_eqs
+"ignores punctuation" "FIFO" ( "First In, First Out" acronym ) test_eqs
+"from phrases with acronyms" "GIMP" ( "GNU Image Manipulation Program" acronym ) test_eqs
+"from phrases with apostrophes" "HC" ( "Halley's Comet" acronym ) test_eqs
+"from title case" "PNG" ( "Portable Network Graphics" acronym ) test_eqs
+"from lower case" "ROR" ( "Ruby on Rails" acronym ) test_eqs
+"from a very long abbreviation" "ROTFLSHTMDCOALM" ( "Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me" acronym ) test_eqs
+"from phrases with consecutive delimiters" "SIMUFTA" ( "Something - I made up from thin air" acronym ) test_eqs
+"from phrases with underscore emphasis" "TRNT" ( "The Road _Not_ Taken" acronym ) test_eqs
+
+bye
