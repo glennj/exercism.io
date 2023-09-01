@@ -1,0 +1,13 @@
+: hypot \ x y -- sqrt(x^2 + y^2)
+  n:sqr swap n:sqr n:+ n:sqrt ;
+
+: n:<= \ x y -- T
+  2dup n:= -rot n:< or ;
+
+: darts-score \ n n -- n
+  hypot
+  dup  1 n:<= if drop 10 ;then
+  dup  5 n:<= if drop  5 ;then
+  dup 10 n:<= if drop  1 ;then
+  drop 0
+  ;
