@@ -1,0 +1,3 @@
+"test-words.8th" dup . cr f:include
+"gigasecond.8th" dup . cr f:include
+"gigasecond-tests.8th" dup . cr f:include

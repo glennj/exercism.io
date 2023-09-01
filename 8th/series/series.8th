@@ -1,0 +1,20 @@
+: slices \ s n -- a
+  \ assertions
+  dup 1 n:< if 2drop a:new ;then   \ slice len must not be < 1
+
+  (*
+    over s:len nip
+    swap dup >r         \ slice len to rstack
+    n:- >r              \ stringlen - slicelen to rstack
+    a:new swap
+    ( \ a s n
+      _dup r@ s:slice
+      _swap a:push
+      swap
+    ) 0 r> loop
+    drop
+  *)
+  \ all of that can be replaced by
+
+  >r "" s:/ ( "" a:join ) r> 1 a:map+
+  ;

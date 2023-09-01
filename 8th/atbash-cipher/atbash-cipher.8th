@@ -1,0 +1,17 @@
+: encode-char \ c -- c
+  dup 'a 'z n:between if
+    'z swap n:- 'a n:+ 
+  then
+  ;
+
+\ decode FROM a cipher
+: atbash> \ s -- s
+  /[^[:alnum:]]/ "" s:replace! s:lc
+  ' encode-char s:map
+  ;
+
+\ encode TO a cipher
+: >atbash \ s -- s
+  atbash>
+  [5] s:/ " " a:join
+  ;

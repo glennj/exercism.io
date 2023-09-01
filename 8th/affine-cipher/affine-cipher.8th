@@ -1,0 +1,48 @@
+"abcdefghijklmnopqrstuvwxyz" s:len nip constant M
+
+: prepare-input /[^[:alnum:]]/ "" s:replace! s:lc ;
+
+: valid-key M n:gcd 1 n:= ;
+
+\ ---------------------------------------------------------
+: encode-char \ a b c1 -- a b c2
+  dup 'a 'z n:between if
+    'a n:-
+    third n:* over n:+ M n:mod    \ E(x) = (a * x + b) % m
+    'a n:+
+  then
+  ;
+
+: >code \ s a b -- s
+  over valid-key !if 3drop null ;then
+  rot prepare-input
+  ' encode-char s:map
+  2nip
+  [5] s:/ " " a:join
+  ;
+
+\ ---------------------------------------------------------
+\ Find n where a * n mod M == 1
+: mmi \ a -- a_inv
+  (
+    dup
+    third n:* M n:mod 1 n:= if break ;then
+    drop
+  ) 0 M n:1- loop
+  nip ;
+
+: decode-char \ b a_inv c1 -- b a_inv c2
+  dup 'a 'z n:between if
+    'a n:-
+    third n:- over n:* M n:mod    \ D(y) = (a_inv * (y - b)) % m
+    'a n:+
+  then
+  ;
+
+: code> \ s a b -- s
+  over valid-key !if 3drop null ;then
+  swap mmi
+  rot prepare-input
+  ' decode-char s:map
+  2nip
+  ;
