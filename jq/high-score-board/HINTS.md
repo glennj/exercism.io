@@ -36,9 +36,9 @@
   We can use [`map_values`][man-map_values], or [`.[]`][man-brackets] to output a stream of values.
 - The `add` expression can be used to find the sum of a list of numbers.
 
-[man-plus]: https://stedolan.github.io/jq/manual/v1.6/#Addition:+
-[man-del]: https://stedolan.github.io/jq/manual/v1.6/#del(path_expression)
-[man-update-assignment]: https://stedolan.github.io/jq/manual/v1.6/#Arithmeticupdate-assignment:+=,-=,*=,/=,%=,//=
-[man-map_values]: https://stedolan.github.io/jq/manual/v1.6/#map(x),map_values(x)
+[man-plus]: https://jqlang.github.io/jq/manual/v1.6/#Addition:+
+[man-del]: https://jqlang.github.io/jq/manual/v1.6/#del(path_expression)
+[man-update-assignment]: https://jqlang.github.io/jq/manual/v1.6/#Arithmeticupdate-assignment:+=,-=,*=,/=,%=,//=
+[man-map_values]: https://jqlang.github.io/jq/manual/v1.6/#map(x),map_values(x)
 
-[man-brackets]: https://stedolan.github.io/jq/manual/v1.6/#Array/ObjectValueIterator:.[]
+[man-brackets]: https://jqlang.github.io/jq/manual/v1.6/#Array/ObjectValueIterator:.[]

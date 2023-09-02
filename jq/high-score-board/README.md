@@ -20,7 +20,7 @@ The _name_ **must be a string**.
 Another word for _name_ is _key_.
 
 The _value_ can be of any JSON type.
-Different _values_ in the same object can be different type, like this example.
+Different _values_ in the same object can be of different types, like this example.
 
 <!-- prettier-ignore -->
 ```json
@@ -106,7 +106,7 @@ Use the `del` function to remove a key.
 It returns the updated object.
 
 ```jq
-{name: "Jane", age: 42} | del(.age)   # => {name: "Jane"}
+{name: "Jane", age: 42} | del(.age)   # => {"name": "Jane"}
 ```
 
 The parameter to `del` is an **index expression** (using dot- or bracket-notation) that resolves to a key in the object.
