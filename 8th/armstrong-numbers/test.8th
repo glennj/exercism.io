@@ -1,3 +1,4 @@
 "test-words.8th" dup . cr f:include
 "armstrong-numbers.8th" dup . cr f:include
 "armstrong-numbers-tests.8th" dup . cr f:include
+bye

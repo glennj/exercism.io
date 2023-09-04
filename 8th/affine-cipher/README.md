@@ -86,9 +86,9 @@ Simply type `8th test.8th`. It is assumed that the 8th binary is declared in the
  
 ### From a REPL
  
-Start 8th loading test-words.8th and your solution file:
-`8th -f test-words.8th -f affine-cipher-tests.8th`
-This will start a CLI session where you can run tests interactively by copying and pasting them in from affine-cipher-tests.8th or by entering your own. 
+Start 8th loading test-words.8th: `8th -f test-words.8th`.
+This will start a CLI session where, once you’ve written some code in your solution file, you can load it with `"affine-cipher.8th" f:include`
+and you can run the tests with `"affine-cipher-tests.8th" f:include` or you can copy and paste a single test from that file or enter your own. 
  
 ### Editing the affine-cipher-tests.8th file
  

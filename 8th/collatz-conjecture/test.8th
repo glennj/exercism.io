@@ -1,3 +1,4 @@
 "test-words.8th" dup . cr f:include
 "collatz-conjecture.8th" dup . cr f:include
 "collatz-conjecture-tests.8th" dup . cr f:include
+bye

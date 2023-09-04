@@ -8,4 +8,3 @@
 "from phrases with consecutive delimiters" "SIMUFTA" ( "Something - I made up from thin air" acronym ) test_eqs
 "from phrases with underscore emphasis" "TRNT" ( "The Road _Not_ Taken" acronym ) test_eqs
 
-bye

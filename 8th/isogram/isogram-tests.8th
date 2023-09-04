@@ -13,4 +13,3 @@
 "same first and last characters" ( "angola" isogram? ) test_false
 "word with duplicated character and with two hyphens" ( "up-to-date" isogram? ) test_false
 
-bye

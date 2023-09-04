@@ -1,3 +1,4 @@
 "test-words.8th" dup . cr f:include
 "hamming.8th" dup . cr f:include
 "hamming-tests.8th" dup . cr f:include
+bye

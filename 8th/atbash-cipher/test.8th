@@ -1,3 +1,4 @@
 "test-words.8th" dup . cr f:include
 "atbash-cipher.8th" dup . cr f:include
 "atbash-cipher-tests.8th" dup . cr f:include
+bye

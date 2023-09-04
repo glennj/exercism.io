@@ -41,9 +41,9 @@ Simply type `8th test.8th`. It is assumed that the 8th binary is declared in the
  
 ### From a REPL
  
-Start 8th loading test-words.8th and your solution file:
-`8th -f test-words.8th -f collatz-conjecture-tests.8th`
-This will start a CLI session where you can run tests interactively by copying and pasting them in from collatz-conjecture-tests.8th or by entering your own. 
+Start 8th loading test-words.8th: `8th -f test-words.8th`.
+This will start a CLI session where, once you’ve written some code in your solution file, you can load it with `"collatz-conjecture.8th" f:include`
+and you can run the tests with `"collatz-conjecture-tests.8th" f:include` or you can copy and paste a single test from that file or enter your own. 
  
 ### Editing the collatz-conjecture-tests.8th file
  

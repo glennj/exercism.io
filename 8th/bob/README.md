@@ -3,22 +3,36 @@
 Welcome to Bob on Exercism's 8th Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
+## Introduction
+
+Bob is a [lackadaisical][] teenager.
+He likes to think that he's very cool.
+And he definitely doesn't get excited about things.
+That wouldn't be cool.
+
+When people talk to him, his responses are pretty limited.
+
+[lackadaisical]: https://www.collinsdictionary.com/dictionary/english/lackadaisical
+
 ## Instructions
 
-Bob is a lackadaisical teenager. In conversation, his responses are very limited.
+Your task is to determine what Bob will reply to someone when they say something to him or ask him a question.
 
-Bob answers 'Sure.' if you ask him a question, such as "How are you?".
+Bob only ever answers one of five things:
 
-He answers 'Whoa, chill out!' if you YELL AT HIM (in all capitals).
-
-He answers 'Calm down, I know what I'm doing!' if you yell a question at him.
-
-He says 'Fine. Be that way!' if you address him without actually saying
-anything.
-
-He answers 'Whatever.' to anything else.
-
-Bob's conversational partner is a purist when it comes to written communication and always follows normal rules regarding sentence punctuation in English.
+- **"Sure."**
+  This is his response if you ask him a question, such as "How are you?"
+  The convention used for questions is that it ends with a question mark.
+- **"Whoa, chill out!"**
+  This is his answer if you YELL AT HIM.
+  The convention used for yelling is ALL CAPITAL LETTERS.
+- **"Calm down, I know what I'm doing!"**
+  This is what he says if you yell a question at him.
+- **"Fine. Be that way!"**
+  This is how he responds to silence.
+  The convention used for silence is nothing, or various combinations of whitespace characters.
+- **"Whatever."**
+  This is what he answers to anything else.
 
 ## Running and testing your solutions
  
@@ -28,9 +42,9 @@ Simply type `8th test.8th`. It is assumed that the 8th binary is declared in the
  
 ### From a REPL
  
-Start 8th loading test-words.8th and your solution file:
-`8th -f test-words.8th -f bob-tests.8th`
-This will start a CLI session where you can run tests interactively by copying and pasting them in from bob-tests.8th or by entering your own. 
+Start 8th loading test-words.8th: `8th -f test-words.8th`.
+This will start a CLI session where, once you’ve written some code in your solution file, you can load it with `"bob.8th" f:include`
+and you can run the tests with `"bob-tests.8th" f:include` or you can copy and paste a single test from that file or enter your own. 
  
 ### Editing the bob-tests.8th file
  
@@ -44,4 +58,4 @@ This is encouraged at the beginning of your journey. Insert a back-slash space b
 
 ### Based on
 
-Inspired by the 'Deaf Grandma' exercise in Chris Pine's Learn to Program tutorial. - http://pine.fm/LearnToProgram/?Chapter=06
+Inspired by the 'Deaf Grandma' exercise in Chris Pine's Learn to Program tutorial. - https://pine.fm/LearnToProgram/?Chapter=06

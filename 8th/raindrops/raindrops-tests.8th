@@ -17,4 +17,3 @@
 "2 to the power 3 does not make a raindrop sound as 3 is the exponent not the base" ( 8 raindrops ) "8" test_eqs
 "the sound of 9 is Pling as it has a factor 3" ( 9 raindrops ) "Pling" test_eqs
 
-bye

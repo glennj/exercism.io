@@ -28,4 +28,3 @@
 "Choice" 23 ( [3, 3, 5, 6, 6] "choice"  play_yacht ) test_eq
 "Yacht as choice" 10 ( [2, 2, 2, 2, 2] "choice"  play_yacht ) test_eq
 
-bye

@@ -8,4 +8,3 @@
 "year divisible by 400 is leap year"  ( 2000 leap-year? ) test_true
 "year divisible by 400 but not by 125 is still a leap year"  ( 2400 leap-year? ) test_true
 
-bye
