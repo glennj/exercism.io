@@ -12,7 +12,7 @@ Replace `exercise_name` with the name of the exercise (e.g. `all_your_base`).
 
 ## Submitting your solution
 
-You can submit your solution using the `exercism submit hamming.nim` command.
+You can submit your solution using the `exercism submit dnd_character.nim` command.
 This command will upload your solution to the Exercism website and print the solution page's URL.
 
 It's possible to submit an incomplete solution which allows you to:
