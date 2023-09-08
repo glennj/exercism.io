@@ -11,6 +11,14 @@ struct RationalNumber{T<:Integer} <: Real
         _n, _d = _normalize(n, d)
         new(_n, _d)
     end
+    function RationalNumber{T}(n::Integer) where {T<:Integer}
+        new(n, one(n))
+    end
+end
+
+# thanks to https://exercism.org/tracks/julia/exercises/rational-numbers/solutions/vyu
+function Base.promote_rule(::Type{T}, ::Type{RationalNumber{U}}) where {T,U<:Integer}
+    RationalNumber{promote_type(T, U)}
 end
 
 RationalNumber(n::T, d::T) where {T<:Integer} = RationalNumber{T}(n,d)
