@@ -1,3 +1,4 @@
+9 tests
 "empty strands" ( "" "" distance ) test_null
 "single letter identical strands" 0 ( "A" "A" distance ) test_eq
 "long indentical strands" 0 ( "GGACTGAAATCTG" "GGACTGAAATCTG" distance ) test_eq

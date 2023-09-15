@@ -1,3 +1,4 @@
+4 tests 
 "Unnamed person test with empty string" ( "" two-fer ) "One for you, one for me." test_eqs
 "Unnamed person test with null" ( null two-fer ) "One for you, one for me." test_eqs
 "One for the judge" ( "Jedoon" two-fer ) "One for Jedoon, one for me." test_eqs

@@ -1,3 +1,4 @@
+18 tests
 "the sound of 1 is 1" ( 1 raindrops ) "1" test_eqs
 "the sound for 10 is Plang as it has a factor 5" ( 10 raindrops ) "Plang" test_eqs
 "the sound for 105 is PlingPlangPlong as it has factors 3, 5 and 7" ( 105 raindrops ) "PlingPlangPlong" test_eqs

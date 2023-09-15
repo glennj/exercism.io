@@ -1,3 +1,5 @@
+11 tests
+
 "slices of one from one" 
     ( "1" 1 slices ) 
     ["1"] 

@@ -1,72 +1,114 @@
-requires console
+needs console/loaded
 
-\ place to store test name to keep it out of the stack
-\ until needed
-\ null var, test-name
+-1 var, test-count
+
+: tests \ n -- 
+    test-count ! 
+;
+
+: decr-test-count \ --
+    test-count @ n:1- test-count !
+;
 
 : isword?  \ x -- x f
    dup  >kind  ns:w   n:= 
 ;
 
 : test_eq \ s x w -- | s w x --
-   \ rot test-name !
+   decr-test-count
    isword? !if swap then
-   >r r> w:exec
+   w:exec
    n:= if
-    \ test-name @
     con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
    else
-    \ test-name @
     con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
    then 
 ;
 
 : test_eqs \ s x w -- | s w x -- 
-   \ rot test-name !
+   decr-test-count
    isword? !if swap then
-   >r r> w:exec
+   w:exec
    s:= if
-    \ test-name @
     con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
    else
-    \ test-name @
     con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
    then 
 ;
 
 : test_true \ s w --
-   \ swap test-name !
-   r> >r w:exec
+   decr-test-count
+   w:exec
    if
-    \ test-name @
     con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
    else
-    \ test-name @
     con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
    then 
 ;
 
 : test_false \ s w --
-   \ swap test-name !
-   >r r> w:exec
+   decr-test-count
+   w:exec
    !if
-    \ test-name @
     con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
    else
-    \ test-name @
     con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
    then 
 ;
 
 : test_null \ s w --
-   \ swap test-name !
-   >r r> w:exec
+   decr-test-count
+   w:exec
    null? if
-    \ test-name @
     drop con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
    else
-    \ test-name @
     drop con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
    then 
 ;
 
+\ compare arrays by testing elements with string equality
+: test_eqa \ s x w -- | s w x -- 
+   decr-test-count
+   isword? !if swap then
+   w:exec
+   ' s:= a:= nip nip if
+    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
+   else
+    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+   then 
+;
+
+
+: test_map_eq \ m m -- 
+   decr-test-count
+   isword? !if swap then
+   w:exec
+   ' n:= m:= if
+    2drop
+    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
+   else
+    2drop
+    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+   then 
+;
+
+: test_map_neq \ m m -- 
+   decr-test-count
+   isword? !if swap then
+   w:exec
+   ' n:= m:= !if
+    2drop
+    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
+   else
+    2drop
+    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+   then 
+;
+
+( test-count @ 0 n:= 
+  !if 
+  con:red con:onBlack
+  "... FAIL - not all tests completed" . 
+  con:white con:onBlack 
+  cr 
+  then ) onexit

@@ -1,3 +1,4 @@
+26 tests
 "1 is I" ( 1 n:>roman ) "I" test_eqs
 "2 is II" ( 2 n:>roman ) "II" test_eqs
 "3 is III" ( 3 n:>roman ) "III" test_eqs

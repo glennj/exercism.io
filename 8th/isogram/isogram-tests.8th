@@ -1,3 +1,4 @@
+14 tests
 "empty string" ( "" isogram? ) test_true
 "isogram with only lower case characters" ( "isogram" isogram? ) test_true
 "word with one duplicated character" ( "eleven" isogram? ) test_false

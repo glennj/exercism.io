@@ -1,3 +1,4 @@
+10 tests
 "1 is decimal 1" ( "1" trinary> ) 1  test_eq
 "2 is decimal 2" ( "2" trinary> ) 2  test_eq
 "10 is decimal 3" ( "10" trinary> ) 3  test_eq

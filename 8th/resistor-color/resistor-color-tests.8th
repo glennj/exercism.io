@@ -1,3 +1,4 @@
+4 tests 
 "Black" ( "black" color-code ) 0 test_eq
 "White" ( "white" color-code ) 9 test_eq
 "Orange" ( "orange" color-code ) 3 test_eq

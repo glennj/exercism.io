@@ -1,3 +1,4 @@
+5 tests
 "date only specification of time" ( [2011, 4, 25, 0, 0, 0, 0] d:join +gigasecond [2043,1, 1,1,46,40,0] d:join d:= ) test_true
 "second test for date only specification of time" ( [1977, 6, 13, 0, 0, 0, 0] d:join +gigasecond [2009, 2,19,1,46,40,0] d:join d:= ) test_true
 "third test for date only specification of time" ( [1959, 7, 19, 0, 0, 0, 0] d:join +gigasecond [1991, 3,27,1,46,40,0] d:join d:= ) test_true

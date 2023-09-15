@@ -1,3 +1,4 @@
+17 tests
 "prolonged silence" ( "    " bob ) "Fine. Be that way!" test_eqs
 "silence" ( "" bob ) "Fine. Be that way!" test_eqs
 "shouting numbers" ( "1, 2, 3 GO!" bob ) "Whoa, chill out!" test_eqs

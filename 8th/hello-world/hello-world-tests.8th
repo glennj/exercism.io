@@ -1,1 +1,2 @@
+1 tests
 "hello world test" "Hello, World!" ( hello-world ) test_eqs

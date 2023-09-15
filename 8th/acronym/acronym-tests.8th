@@ -1,3 +1,4 @@
+9 tests
 "ignoring punctuation and casing" "CMOS" ( "Complementary metal-oxide semiconductor" acronym ) test_eqs
 "ignores punctuation" "FIFO" ( "First In, First Out" acronym ) test_eqs
 "from phrases with acronyms" "GIMP" ( "GNU Image Manipulation Program" acronym ) test_eqs

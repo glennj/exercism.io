@@ -1,12 +1,23 @@
 needs console/loaded
 
+-1 var, test-count
+
+: tests \ n -- 
+    test-count ! 
+;
+
+: decr-test-count \ --
+    test-count @ n:1- test-count !
+;
+
 : isword?  \ x -- x f
    dup  >kind  ns:w   n:= 
 ;
 
 : test_eq \ s x w -- | s w x --
+   decr-test-count
    isword? !if swap then
-   a:new swap 0 swap a:! 0 a:@ nip w:exec
+   w:exec
    n:= if
     con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
    else
@@ -15,8 +26,9 @@ needs console/loaded
 ;
 
 : test_eqs \ s x w -- | s w x -- 
+   decr-test-count
    isword? !if swap then
-   a:new swap 0 swap a:! 0 a:@ nip w:exec
+   w:exec
    s:= if
     con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
    else
@@ -25,7 +37,8 @@ needs console/loaded
 ;
 
 : test_true \ s w --
-   a:new swap 0 swap a:! 0 a:@ nip w:exec
+   decr-test-count
+   w:exec
    if
     con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
    else
@@ -34,7 +47,8 @@ needs console/loaded
 ;
 
 : test_false \ s w --
-   a:new swap 0 swap a:! 0 a:@ nip w:exec
+   decr-test-count
+   w:exec
    !if
     con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
    else
@@ -43,7 +57,8 @@ needs console/loaded
 ;
 
 : test_null \ s w --
-   a:new swap 0 swap a:! 0 a:@ nip w:exec
+   decr-test-count
+   w:exec
    null? if
     drop con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
    else
@@ -51,21 +66,23 @@ needs console/loaded
    then 
 ;
 
-: test_map_neq \ m m -- 
+\ compare arrays by testing elements with string equality
+: test_eqa \ s x w -- | s w x -- 
+   decr-test-count
    isword? !if swap then
-   a:new swap 0 swap a:! 0 a:@ nip w:exec
-   ' n:= m:= !if
-    2drop
+   w:exec
+   ' s:= a:= nip nip if
     con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
    else
-    2drop
     con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
    then 
 ;
 
+
 : test_map_eq \ m m -- 
+   decr-test-count
    isword? !if swap then
-   a:new swap 0 swap a:! 0 a:@ nip w:exec
+   w:exec
    ' n:= m:= if
     2drop
     con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
@@ -75,5 +92,23 @@ needs console/loaded
    then 
 ;
 
+: test_map_neq \ m m -- 
+   decr-test-count
+   isword? !if swap then
+   w:exec
+   ' n:= m:= !if
+    2drop
+    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
+   else
+    2drop
+    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+   then 
+;
 
-
+( test-count @ 0 n:= 
+  !if 
+  con:red con:onBlack
+  "... FAIL - not all tests completed" . 
+  con:white con:onBlack 
+  cr 
+  then ) onexit

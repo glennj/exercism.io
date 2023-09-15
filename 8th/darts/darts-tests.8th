@@ -1,3 +1,4 @@
+13 tests
 "Missed target" 0 ( -9 9 darts-score ) test_eq
 "On the outer circle" 1 ( 0 10 darts-score ) test_eq
 "On the middle circle" 5 ( -5 0 darts-score ) test_eq

@@ -1,3 +1,4 @@
+21 tests
 "invalid: 0 0 0" ( 0 0 0 equilateral? ) test_false
 "equilateral with floating point" ( 0.5 0.5 0.5 equilateral? ) test_true
 "equilateral 2 2 2" ( 2 2 2 equilateral? ) test_true

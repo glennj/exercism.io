@@ -1,3 +1,4 @@
+9 tests
 "year not divisible by 4 in common year"  ( 2015 leap-year? ) test_false
 "year divisible by 100 but not by 3 is still not a leap year"  ( 1900 leap-year? ) test_false
 "year divisible by 2, not divisible by 4 in common year"  ( 1970 leap-year? ) test_false

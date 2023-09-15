@@ -1,3 +1,4 @@
+11 tests
 "Zero is an Armstrong number"    ( 0 armstrong?  ) test_true
 "Single digit numbers are Armstrong numbers"    ( 5 armstrong?  ) test_true
 "There are no 2 digit Armstrong Numbers"    ( 10 armstrong?  ) test_false

@@ -1,3 +1,4 @@
+14 tests
 "count one word"   ( "word" word-count ) { "word":1 } test_map_eq
 "count one of each word"   ( "one of each" word-count ) { "one":1,"of":1,"each":1 } test_map_eq
 "multiple occurrences of a word"   ( "one fish two fish red fish blue fish" word-count ) { "one":1,"fish":4,"two":1,"red":1,"blue":1 } test_map_eq
@@ -12,4 +13,3 @@
 "multiple spaces not detected as a word"   ( " multiple whitespaces" word-count ) { "multiple":1,"whitespaces":1 } test_map_eq
 "alternating word separators not detected as a word"   ( ",\n,one,\n ,two \n 'three'" word-count ) { "one":1,"two":1,"three":1 } test_map_eq
 "quotation for word with apostrophe"   ( "can, can't, 'can't'" word-count ) { "can":1,"can't":2 } test_map_eq
-
