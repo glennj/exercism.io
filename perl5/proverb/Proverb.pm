@@ -9,6 +9,7 @@ our @EXPORT_OK = qw/ proverb /;
 
 sub proverb {
     my ($terms, $qualifier) = @_;
+    return "" if $terms->@* == 0;
     $qualifier //= "";
     $qualifier .= " " if $qualifier;
     my @lines = map {

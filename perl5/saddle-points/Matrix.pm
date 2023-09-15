@@ -3,13 +3,14 @@
 package Matrix;
 
 use 5.024;
-use strictures 2;
+use strict;
+use warnings;
+
 use List::Util  qw/ reduce min max any /;
-use List::MoreUtils qw/ firstidx /;
 
 sub new {
-    my ($class, $text) = @_;
-    my @rows = map { [split] } split /\n/, $text;
+    my ($class, $rows) = @_;
+    my @rows = @$rows;
 
     # assume the matrix is square
     my $cols = reduce {$a->[$b] = [map {$_->[$b]} @rows]; $a} [], 0 .. $rows[0]->$#*;

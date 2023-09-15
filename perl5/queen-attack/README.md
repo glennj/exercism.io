@@ -44,4 +44,4 @@ In this case, that answer would be yes, they can, because both pieces share a di
 
 ### Based on
 
-J Dalbey's Programming Practice problems - http://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html
+J Dalbey's Programming Practice problems - https://users.csc.calpoly.edu/~jdalbey/103/Projects/ProgrammingPractice.html

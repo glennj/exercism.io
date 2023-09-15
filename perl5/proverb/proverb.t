@@ -1,91 +1,67 @@
 #!/usr/bin/env perl
-use strict;
-use warnings;
+use Test2::V0;
 
-use Test2::Bundle::More;
-use JSON::PP qw(decode_json);
-use FindBin  qw($Bin);
+use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
-my $module = 'Proverb';
-my $sub    = 'proverb';
+use Proverb qw<proverb>;
 
-my $cases;
-{
-    local $/ = undef;
-    $cases = decode_json scalar <DATA>;
-}
+is( # begin: e974b73e-7851-484f-8d6d-92e07fe742fc
+    proverb( [] ),
+    "",
+    "zero pieces",
+); # end: e974b73e-7851-484f-8d6d-92e07fe742fc
 
-plan 3 + @$cases;
+is( # begin: 2fcd5f5e-8b82-4e74-b51d-df28a5e0faa4
+    proverb( ["nail"] ),
+    <<'TEXT' =~ s/\n$//r,
+And all for the want of a nail.
+TEXT
+    "one piece",
+); # end: 2fcd5f5e-8b82-4e74-b51d-df28a5e0faa4
 
-ok -e "$Bin/$module.pm", "missing $module.pm"
-    or BAIL_OUT("You need to create a class called $module.pm");
+is( # begin: d9d0a8a1-d933-46e2-aa94-eecf679f4b0e
+    proverb( [ "nail", "shoe" ] ),
+    <<'TEXT' =~ s/\n$//r,
+For want of a nail the shoe was lost.
+And all for the want of a nail.
+TEXT
+    "two pieces",
+); # end: d9d0a8a1-d933-46e2-aa94-eecf679f4b0e
 
-eval "use $module";
-ok !$@, "Cannot load $module.pm"
-    or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
+is( # begin: c95ef757-5e94-4f0d-a6cb-d2083f5e5a83
+    proverb( [ "nail", "shoe", "horse" ] ),
+    <<'TEXT' =~ s/\n$//r,
+For want of a nail the shoe was lost.
+For want of a shoe the horse was lost.
+And all for the want of a nail.
+TEXT
+    "three pieces",
+); # end: c95ef757-5e94-4f0d-a6cb-d2083f5e5a83
 
-can_ok( $module, 'proverb' )
-    or BAIL_OUT("Missing package $module; or missing sub proverb()");
+is( # begin: 433fb91c-35a2-4d41-aeab-4de1e82b2126
+    proverb( [ "nail", "shoe", "horse", "rider", "message", "battle", "kingdom" ] ),
+    <<'TEXT' =~ s/\n$//r,
+For want of a nail the shoe was lost.
+For want of a shoe the horse was lost.
+For want of a horse the rider was lost.
+For want of a rider the message was lost.
+For want of a message the battle was lost.
+For want of a battle the kingdom was lost.
+And all for the want of a nail.
+TEXT
+    "full proverb",
+); # end: 433fb91c-35a2-4d41-aeab-4de1e82b2126
 
-$sub = "${module}::proverb";
+is( # begin: c1eefa5a-e8d9-41c7-91d4-99fab6d6b9f7
+    proverb( [ "pin", "gun", "soldier", "battle" ] ),
+    <<'TEXT' =~ s/\n$//r,
+For want of a pin the gun was lost.
+For want of a gun the soldier was lost.
+For want of a soldier the battle was lost.
+And all for the want of a pin.
+TEXT
+    "four pieces modernized",
+); # end: c1eefa5a-e8d9-41c7-91d4-99fab6d6b9f7
 
-foreach my $c (@$cases) {
-    no strict 'refs';
-    my $expected = join "" => @{ $c->{expected} };
-    is $sub->( $c->{param}, $c->{qualifier} || "" ), $expected, $c->{name};
-}
-
-__DATA__
-[
-    {
-        "param"     : ["nail", "shoe"],
-        "expected"  : ["For want of a nail the shoe was lost.\n",
-                      "And all for the want of a nail."],
-        "name"      : "one consequence"
-    },
-    {
-        "param"     : ["nail", "shoe", "horse"],
-        "expected"  : ["For want of a nail the shoe was lost.\n",
-                       "For want of a shoe the horse was lost.\n",
-                       "And all for the want of a nail."],
-        "name"      : "two consequences"
-    },
-    {
-        "param"     : ["nail", "shoe", "horse", "rider"],
-        "expected"  : ["For want of a nail the shoe was lost.\n",
-                       "For want of a shoe the horse was lost.\n",
-                       "For want of a horse the rider was lost.\n",
-                       "And all for the want of a nail."],
-        "name"      : "three consequences"
-    },
-    {
-        "param"     : ["key", "value"],
-        "expected"  : ["For want of a key the value was lost.\n",
-                      "And all for the want of a key."],
-        "name"      : "one consequence, new items"
-    },
-    {
-        "param"     : ["nail", "shoe", "horse", "rider", "message", "battle", "kingdom"],
-        "expected"  : ["For want of a nail the shoe was lost.\n",
-                       "For want of a shoe the horse was lost.\n",
-                       "For want of a horse the rider was lost.\n",
-                       "For want of a rider the message was lost.\n",
-                       "For want of a message the battle was lost.\n",
-                       "For want of a battle the kingdom was lost.\n",
-                       "And all for the want of a nail."],
-        "name"      : "whole proverb"
-    },
-    {
-        "param"     : ["nail", "shoe", "horse", "rider", "message", "battle", "kingdom"],
-        "qualifier" : "horseshoe",
-        "expected"  : ["For want of a nail the shoe was lost.\n",
-                       "For want of a shoe the horse was lost.\n",
-                       "For want of a horse the rider was lost.\n",
-                       "For want of a rider the message was lost.\n",
-                       "For want of a message the battle was lost.\n",
-                       "For want of a battle the kingdom was lost.\n",
-                       "And all for the want of a horseshoe nail."],
-        "name"      : "whole proverb with qualifier"
-    }
-]
+done_testing;
