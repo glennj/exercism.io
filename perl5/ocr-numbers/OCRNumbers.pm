@@ -7,7 +7,7 @@ use warnings;
 
 #use Exporter::Easiest 'OK => convert';
 use Exporter qw/ import /;
-our @EXPORT_OK = qw/ convert /;
+our @EXPORT_OK = qw/ convert_ocr /;
 
 use Carp;
 use List::Util  qw/ all /;
@@ -25,12 +25,13 @@ our %NUMBERS = (
     ' _ |_| _|' => 9,
 );
 
-sub convert {
-    my ($lines) = @_;
-    croak "Number of input lines is not a multiple of four" if @$lines % 4 != 0;
+sub convert_ocr {
+    my ($text) = @_;
+    my @lines = split /\n/, $text;
+    croak "Number of input lines is not a multiple of four" if @lines % 4 != 0;
 
     # collect lines 0,1,2 and 4,5,6 and 8,9,10 and ... as "groups"
-    my @groups = map {[ @$lines[4*$_ .. 4*$_+2] ]} 0 .. (@$lines / 4 - 1);
+    my @groups = map {[ @lines[4*$_ .. 4*$_+2] ]} 0 .. (@lines / 4 - 1);
 
     for my $group (@groups) {
         croak "Number of input columns is not a multiple of three"
