@@ -20,8 +20,8 @@ sub clean_number {
     croak "punctuations not permitted" if $num =~ /\p{Punct}/;
 
     $num =~ s/\D//g;
-    croak "incorrect number of digits" if length($num) < 10;
-    croak "more than 11 digits" if length($num) > 11;
+    croak "must not be fewer than 10 digits" if length($num) < 10;
+    croak "must not be greater than 11 digits" if length($num) > 11;
     croak "11 digits must start with 1"
         if length($num) == 11 && $num !~ /^1/;
 

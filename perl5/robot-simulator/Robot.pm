@@ -1,60 +1,45 @@
 #!perl
 
-use Simulator;
+use v5.38;
 
 package Robot;
 
-use strictures 2;
-use List::Util  qw/ none first /;
-use Carp;
-use subs 'orient';
+use Moo;
 
-use Class::Tiny qw( orient coordinates );
+has x => ( is => 'rwp' );
+has y => ( is => 'rwp' );
+has direction => ( is => 'rwp' );
 
-our @BEARINGS = qw( north east south west );
-our %ADVANCES = (
-    north => [0, 1],  east => [1, 0],
-    south => [0, -1], west => [-1, 0]
-);
-
-sub orient { 
-    my ($self, $orientation) = @_;
-    if (not defined $orientation) {
-        return $self->{orient};
+sub enact($self, $instructions) {
+    for my $instruction (split //, $instructions) {
+        if    ($instruction eq "L") { $self->turnLeft }
+        elsif ($instruction eq "R") { $self->turnRight }
+        elsif ($instruction eq "A") { $self->advance }
     }
-    if (none {$orientation eq $_} @BEARINGS) {
-        croak "ArgumentError: invalid orientation '$orientation'";
-    }
-    $self->{orient} = $orientation;
-    return;
+    return $self;
 }
 
-sub bearing { return shift->orient; }
-
-sub turn_right { return shift->_turn_dir(+1); }
-sub turn_left  { return shift->_turn_dir(-1); }
-
-sub _turn_dir {
-    my ($self, $direction) = @_;
-    croak 'Error: robot has no orientation' unless $self->bearing;
-    my $idx = first {$BEARINGS[$_] eq $self->bearing} 0..$#BEARINGS;
-    $self->orient( $BEARINGS[($idx + $direction) % @BEARINGS] );
-    return;
+sub turnRight($self) {
+    $self->_set_direction( {
+        'north' => 'east',
+        'east'  => 'south',
+        'south' => 'west',
+        'west'  => 'north',
+    }->{$self->direction} );
 }
 
-sub at {
-    my ($self, $x, $y) = @_;
-    $self->coordinates([$x, $y]);
-    return;
+sub turnLeft($self) {
+    $self->_set_direction( {
+        'north' => 'west',
+        'west'  => 'south',
+        'south' => 'east',
+        'east'  => 'north',
+    }->{$self->direction} );
 }
 
-sub advance {
-    my ($self) = @_;
-    my $step = $ADVANCES{ $self->bearing };
-    my $loc = $self->coordinates;
-    croak 'Error: robot has no coordinates' unless $loc;
-    $self->at( $loc->[0] + $step->[0], $loc->[1] + $step->[1] );
-    return;
+sub advance($self) {
+    if    ($self->direction eq 'north') { $self->_set_y( $self->y + 1) }
+    elsif ($self->direction eq 'east')  { $self->_set_x( $self->x + 1) }
+    elsif ($self->direction eq 'south') { $self->_set_y( $self->y - 1) }
+    elsif ($self->direction eq 'west')  { $self->_set_x( $self->x - 1) }
 }
-
-1;

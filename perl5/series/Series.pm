@@ -1,19 +1,13 @@
 package Series;
 
-use 5.024;
+use v5.38;
 
-#use strictures 2;
-use strict;
-use warnings;
-
-#use Exporter::Easiest 'OK => slices';
 use Exporter qw/ import /;
 our @EXPORT_OK = qw/ slices /;
 
 use Carp;
 
-sub slices {
-    my ($series, $size) = (shift)->@{'series', 'sliceLength'};
+sub slices($series, $size) {
     my $len = length $series;
 
     croak "series cannot be empty" if $len == 0;
