@@ -1,99 +1,63 @@
 #!/usr/bin/env perl
 use Test2::V0;
-use JSON::PP;
-use constant JSON => JSON::PP->new;
 
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
 use SpaceAge qw<age_on_planet>;
 
-my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
+is( # begin: 84f609af-5a91-4d68-90a3-9e32d8a5cd34
+    age_on_planet( "Earth", 1000000000 ),
+    31.69,
+    "age on Earth",
+); # end: 84f609af-5a91-4d68-90a3-9e32d8a5cd34
 
-imported_ok qw<age_on_planet> or bail_out;
+is( # begin: ca20c4e9-6054-458c-9312-79679ffab40b
+    age_on_planet( "Mercury", 2134835688 ),
+    280.88,
+    "age on Mercury",
+); # end: ca20c4e9-6054-458c-9312-79679ffab40b
 
-for my $case (@test_cases) {
-    is(
-        age_on_planet( $case->{input} ),
-        $case->{expected},
-        $case->{description},
-    );
-}
+is( # begin: 502c6529-fd1b-41d3-8fab-65e03082b024
+    age_on_planet( "Venus", 189839836 ),
+    9.78,
+    "age on Venus",
+); # end: 502c6529-fd1b-41d3-8fab-65e03082b024
+
+is( # begin: 9ceadf5e-a0d5-4388-9d40-2c459227ceb8
+    age_on_planet( "Mars", 2129871239 ),
+    35.88,
+    "age on Mars",
+); # end: 9ceadf5e-a0d5-4388-9d40-2c459227ceb8
+
+is( # begin: 42927dc3-fe5e-4f76-a5b5-f737fc19bcde
+    age_on_planet( "Jupiter", 901876382 ),
+    2.41,
+    "age on Jupiter",
+); # end: 42927dc3-fe5e-4f76-a5b5-f737fc19bcde
+
+is( # begin: 8469b332-7837-4ada-b27c-00ee043ebcad
+    age_on_planet( "Saturn", 2000000000 ),
+    2.15,
+    "age on Saturn",
+); # end: 8469b332-7837-4ada-b27c-00ee043ebcad
+
+is( # begin: 999354c1-76f8-4bb5-a672-f317b6436743
+    age_on_planet( "Uranus", 1210123456 ),
+    0.46,
+    "age on Uranus",
+); # end: 999354c1-76f8-4bb5-a672-f317b6436743
+
+is( # begin: 80096d30-a0d4-4449-903e-a381178355d8
+    age_on_planet( "Neptune", 1821023456 ),
+    0.35,
+    "age on Neptune",
+); # end: 80096d30-a0d4-4449-903e-a381178355d8
+
+like( # begin: 57b96e2a-1178-40b7-b34d-f3c9c34e4bf4
+    dies( sub { age_on_planet "Sun", 680804807 } ),
+    qr/not a planet/,
+    "invalid planet causes error",
+); # end: 57b96e2a-1178-40b7-b34d-f3c9c34e4bf4
 
 done_testing;
-
-__DATA__
-[
-  {
-    "description": "age on Earth",
-    "expected": 31.69,
-    "input": {
-      "planet": "Earth",
-      "seconds": 1000000000
-    },
-    "property": "age"
-  },
-  {
-    "description": "age on Mercury",
-    "expected": 280.88,
-    "input": {
-      "planet": "Mercury",
-      "seconds": 2134835688
-    },
-    "property": "age"
-  },
-  {
-    "description": "age on Venus",
-    "expected": 9.78,
-    "input": {
-      "planet": "Venus",
-      "seconds": 189839836
-    },
-    "property": "age"
-  },
-  {
-    "description": "age on Mars",
-    "expected": 35.88,
-    "input": {
-      "planet": "Mars",
-      "seconds": 2129871239
-    },
-    "property": "age"
-  },
-  {
-    "description": "age on Jupiter",
-    "expected": 2.41,
-    "input": {
-      "planet": "Jupiter",
-      "seconds": 901876382
-    },
-    "property": "age"
-  },
-  {
-    "description": "age on Saturn",
-    "expected": 2.15,
-    "input": {
-      "planet": "Saturn",
-      "seconds": 2000000000
-    },
-    "property": "age"
-  },
-  {
-    "description": "age on Uranus",
-    "expected": 0.46,
-    "input": {
-      "planet": "Uranus",
-      "seconds": 1210123456
-    },
-    "property": "age"
-  },
-  {
-    "description": "age on Neptune",
-    "expected": 0.35,
-    "input": {
-      "planet": "Neptune",
-      "seconds": 1821023456
-    },
-    "property": "age"
-  }
-]

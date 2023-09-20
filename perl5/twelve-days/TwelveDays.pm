@@ -1,12 +1,7 @@
 package TwelveDays;
 
-use 5.024;
+use v5.38;
 
-#use strictures 2;
-use strict;
-use warnings;
-
-#use Exporter::Easiest 'OK => recite';
 use Exporter qw/ import /;
 our @EXPORT_OK = qw/ recite /;
 
@@ -26,19 +21,19 @@ my @gifts = (
     ['twelfth',  'twelve Drummers Drumming'],
 );
 
-sub verse {
-    my ($n) = @_;
+sub verse;
+
+sub recite($start, $end) {
+    return join "\n", map {verse $_} $start .. $end;
+}
+
+sub verse($n) {
     return 
         "On the $gifts[$n][0] day of Christmas my true love gave to me: "
         . join(', ', map {$gifts[$_][1]} reverse 2 .. $n)
         . ($n > 1 ? ', and ' : '') 
         . $gifts[1][1]
         . '.';
-}
-
-sub recite {
-    my ($start, $end) = (shift)->@{'start', 'end'};
-    return join "\n", map {verse $_} $start .. $end;
 }
 
 1;

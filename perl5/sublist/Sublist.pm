@@ -1,41 +1,16 @@
 package Sublist;
 
-use 5.024;
+use v5.38;
 
-#use strictures 2;
-use strict;
-use warnings;
-
-#use Exporter::Easiest 'OK => compare_lists';
 use Exporter qw/ import /;
 our @EXPORT_OK = qw/ compare_lists /;
 
-## no critic (ValuesAndExpressions::ProhibitConstantPragma)
 use constant False => 0;
 use constant True  => 1;
 
-=begin
-# This method will be unrealiable, assuming the join character
-# does not appear in the data.
-
-sub compare_lists {
-    my ($one, $two) = (shift)->@{'listOne', 'listTwo'}; 
-    # stringify the lists: join with ASCII "unit separator" char
-    my $x = join "\x1f", @$one;
-    my $y = join "\x1f", @$two;
-
-    return "equal"     if $x eq $y;
-    return "sublist"   if index($y, $x) > -1;
-    return "superlist" if index($x, $y) > -1;
-    return "unequal";
-}
-=cut
-
 sub contains;
 
-sub compare_lists {
-    my ($one, $two) = (shift)->@{'listOne', 'listTwo'}; 
-
+sub compare_lists($one, $two) {
     if (contains $one, $two) {
         return "equal" if $one->$#* == $two->$#*;
         return "superlist";

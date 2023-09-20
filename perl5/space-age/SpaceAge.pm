@@ -1,12 +1,8 @@
 package SpaceAge;
 
-use 5.024;
+use v5.38;
+use Carp;
 
-#use strictures 2;
-use strict;
-use warnings;
-
-#use Exporter::Easiest 'OK => age_on_planet';
 use Exporter qw/ import /;
 our @EXPORT_OK = qw/ age_on_planet /;
 
@@ -22,8 +18,9 @@ our %RELATIVE_YEARS = (
     neptune => 164.79132,
 );
 
-sub age_on_planet {
-    my ($planet, $seconds) = (shift)->@{'planet', 'seconds'};
+sub age_on_planet($planet, $seconds) {
+    croak "not a planet" unless exists $RELATIVE_YEARS{lc $planet};
+
     return sprintf "%.2f", $seconds / $SEC_PER_EARTH_YEAR 
                                     / $RELATIVE_YEARS{lc $planet};
 }
