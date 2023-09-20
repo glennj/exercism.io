@@ -1,49 +1,27 @@
 #!/usr/bin/env perl
 use Test2::V0;
-use JSON::PP;
-use constant JSON => JSON::PP->new;
 
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
 use TwoFer qw<two_fer>;
 
-my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
-plan 4;
+is( # begin: 1cf3e15a-a3d7-4a87-aeb3-ba1b43bc8dce
+    two_fer(),
+    "One for you, one for me.",
+    "no name given",
+); # end: 1cf3e15a-a3d7-4a87-aeb3-ba1b43bc8dce
 
-imported_ok qw<two_fer> or bail_out;
+is( # begin: b4c6dbb8-b4fb-42c2-bafd-10785abe7709
+    two_fer("Alice"),
+    "One for Alice, one for me.",
+    "a name given",
+); # end: b4c6dbb8-b4fb-42c2-bafd-10785abe7709
 
-for my $case (@test_cases) {
-    is $case->{input}{name}
-        ? two_fer( $case->{input}{name} )
-        : two_fer(),
-        $case->{expected}, $case->{description};
-}
+is( # begin: 3549048d-1a6e-4653-9a79-b0bda163e8d5
+    two_fer("Bob"),
+    "One for Bob, one for me.",
+    "another name given",
+); # end: 3549048d-1a6e-4653-9a79-b0bda163e8d5
 
-__DATA__
-[
-  {
-    "description": "no name given",
-    "expected": "One for you, one for me.",
-    "input": {
-      "name": null
-    },
-    "property": "twoFer"
-  },
-  {
-    "description": "a name given",
-    "expected": "One for Alice, one for me.",
-    "input": {
-      "name": "Alice"
-    },
-    "property": "twoFer"
-  },
-  {
-    "description": "another name given",
-    "expected": "One for Bob, one for me.",
-    "input": {
-      "name": "Bob"
-    },
-    "property": "twoFer"
-  }
-]
+done_testing;

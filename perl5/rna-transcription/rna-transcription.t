@@ -1,70 +1,45 @@
 #!/usr/bin/env perl
 use Test2::V0;
-use JSON::PP;
-use constant JSON => JSON::PP->new;
 
 use FindBin qw<$Bin>;
 use lib $Bin, "$Bin/local/lib/perl5";
 
 use RNA qw<to_rna>;
 
-my @test_cases = do { local $/; @{ JSON->decode(<DATA>) }; };
-plan 7;
+is( # begin: b4631f82-c98c-4a2f-90b3-c5c2b6c6f661
+    to_rna(""),
+    "",
+    "Empty RNA sequence",
+); # end: b4631f82-c98c-4a2f-90b3-c5c2b6c6f661
 
-imported_ok qw<to_rna> or bail_out;
+is( # begin: a9558a3c-318c-4240-9256-5d5ed47005a6
+    to_rna("C"),
+    "G",
+    "RNA complement of cytosine is guanine",
+); # end: a9558a3c-318c-4240-9256-5d5ed47005a6
 
-for my $case (@test_cases) {
-    is to_rna( $case->{input}{dna} ), $case->{expected}, $case->{description};
-}
+is( # begin: 6eedbb5c-12cb-4c8b-9f51-f8320b4dc2e7
+    to_rna("G"),
+    "C",
+    "RNA complement of guanine is cytosine",
+); # end: 6eedbb5c-12cb-4c8b-9f51-f8320b4dc2e7
 
-__DATA__
-[
-  {
-    "description": "Empty RNA sequence",
-    "expected": "",
-    "input": {
-      "dna": ""
-    },
-    "property": "toRna"
-  },
-  {
-    "description": "RNA complement of cytosine is guanine",
-    "expected": "G",
-    "input": {
-      "dna": "C"
-    },
-    "property": "toRna"
-  },
-  {
-    "description": "RNA complement of guanine is cytosine",
-    "expected": "C",
-    "input": {
-      "dna": "G"
-    },
-    "property": "toRna"
-  },
-  {
-    "description": "RNA complement of thymine is adenine",
-    "expected": "A",
-    "input": {
-      "dna": "T"
-    },
-    "property": "toRna"
-  },
-  {
-    "description": "RNA complement of adenine is uracil",
-    "expected": "U",
-    "input": {
-      "dna": "A"
-    },
-    "property": "toRna"
-  },
-  {
-    "description": "RNA complement",
-    "expected": "UGCACCAGAAUU",
-    "input": {
-      "dna": "ACGTGGTCTTAA"
-    },
-    "property": "toRna"
-  }
-]
+is( # begin: 870bd3ec-8487-471d-8d9a-a25046488d3e
+    to_rna("T"),
+    "A",
+    "RNA complement of thymine is adenine",
+); # end: 870bd3ec-8487-471d-8d9a-a25046488d3e
+
+is( # begin: aade8964-02e1-4073-872f-42d3ffd74c5f
+    to_rna("A"),
+    "U",
+    "RNA complement of adenine is uracil",
+); # end: aade8964-02e1-4073-872f-42d3ffd74c5f
+
+is( # begin: 79ed2757-f018-4f47-a1d7-34a559392dbf
+    to_rna("ACGTGGTCTTAA"),
+    "UGCACCAGAAUU",
+    "RNA complement",
+); # end: 79ed2757-f018-4f47-a1d7-34a559392dbf
+
+done_testing;
