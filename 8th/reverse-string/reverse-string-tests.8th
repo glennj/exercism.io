@@ -6,3 +6,5 @@
 "a palindrome" ( "racecar" reverse ) "racecar" test_eqs
 "an even-sized word" ( "drawer" reverse ) "reward" test_eqs
 
+
+end-of-tests

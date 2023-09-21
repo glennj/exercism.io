@@ -22,3 +22,5 @@
 "broken triangle #1" ( 0 3 3 scalene? ) test_false
 "broken triangle #2" ( 0 3 0 scalene? ) test_false
 
+
+end-of-tests

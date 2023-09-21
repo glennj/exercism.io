@@ -10,3 +10,5 @@
 "invalid trinary is decimal 0" ( "carrot" trinary> ) 0  test_eq
 "digits from 3 to 9 are invalid" ( "123" trinary> ) 0  test_eq
 
+
+end-of-tests

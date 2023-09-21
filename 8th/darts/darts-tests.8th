@@ -13,3 +13,5 @@
 "Just outside the outer circle" 0 ( 7.1 -7.1 darts-score ) test_eq
 "Asymmetric position between the inner and middle circles" 5 ( 0.5 -4 darts-score ) test_eq
 
+
+end-of-tests

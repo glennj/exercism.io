@@ -1,13 +1,22 @@
 needs console/loaded
+con:onBlack
 
 -1 var, test-count
+var tests-passed
+var tests-failed
 
 : tests \ n -- 
     test-count ! 
 ;
 
-: decr-test-count \ --
-    test-count @ n:1- test-count !
+: test-passed \ s --
+    tests-passed @ n:1+ tests-passed !
+    con:green . space " ... OK" . con:white cr
+;
+
+: test-failed \ s --
+    tests-failed @ n:1+ tests-failed !
+    con:red . space " ... FAIL" . con:white cr
 ;
 
 : isword?  \ x -- x f
@@ -15,100 +24,84 @@ needs console/loaded
 ;
 
 : test_eq \ s x w -- | s w x --
-   decr-test-count
    isword? !if swap then
    w:exec
-   n:= if
-    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
-   else
-    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
-   then 
+   n:=
+   if test-passed else test-failed then 
 ;
 
 : test_eqs \ s x w -- | s w x -- 
-   decr-test-count
    isword? !if swap then
    w:exec
-   s:= if
-    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
-   else
-    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
-   then 
+   s:=
+   if test-passed else test-failed then 
 ;
 
 : test_true \ s w --
-   decr-test-count
    w:exec
-   if
-    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
-   else
-    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
-   then 
+   if test-passed else test-failed then 
 ;
 
 : test_false \ s w --
-   decr-test-count
    w:exec
-   !if
-    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
-   else
-    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
-   then 
+   if test-failed else test-passed then 
 ;
 
 : test_null \ s w --
-   decr-test-count
    w:exec
-   null? if
-    drop con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
-   else
-    drop con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
-   then 
+   null? nip
+   if test-passed else test-failed then 
 ;
 
 \ compare arrays by testing elements with string equality
 : test_eqa \ s x w -- | s w x -- 
-   decr-test-count
    isword? !if swap then
    w:exec
-   ' s:= a:= nip nip if
-    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
-   else
-    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
-   then 
+   ' s:= a:= 2nip
+   if test-passed else test-failed then 
 ;
 
 
-: test_map_eq \ m m -- 
-   decr-test-count
+: test_map_eq \ m w -- | w m -- 
    isword? !if swap then
    w:exec
-   ' n:= m:= if
-    2drop
-    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
-   else
-    2drop
-    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
-   then 
+   ' n:= m:= 2nip
+   if test-passed else test-failed then 
 ;
 
-: test_map_neq \ m m -- 
-   decr-test-count
+: test_map_neq \ m w -- | w m -- 
    isword? !if swap then
    w:exec
-   ' n:= m:= !if
-    2drop
-    con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
-   else
-    2drop
-    con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
-   then 
+   ' n:= m:= 2nip
+   if test-failed else test-passed then 
 ;
 
-( test-count @ 0 n:= 
-  !if 
-  con:red con:onBlack
-  "... FAIL - not all tests completed" . 
-  con:white con:onBlack 
-  cr 
-  then ) onexit
+\ Num passed + num failed should == num tests
+: all-tests-run? \ -- T
+    tests-passed @ tests-failed @ n:+ test-count @ n:=
+;
+
+( all-tests-run?  
+  !if con:red "... FAIL - not all tests completed" . con:white cr then
+) onexit
+
+\ Print a summary of the tests run
+( con:white
+  test-count   @ . space "tests planned - " .
+  tests-passed @ . space "passed - " .
+  tests-failed @ . space "failed" . cr
+) onexit
+
+\ Set the exit status:
+\   0 = all OK
+\   1 = not all tests were run (some error occurred)
+\   2 = some tests failed
+: end-of-tests \ --
+    all-tests-run?
+    if
+      tests-failed @ 0 n:= if 0 else 2 then
+    else
+      1
+    then
+    die
+;

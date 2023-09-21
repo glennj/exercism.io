@@ -15,3 +15,5 @@
 "decode with too many spaces" ( "vc vix    r hn" atbash> ) "exercism" test_eqs
 "decode with no spaces" ( "zmlyhgzxovrhlugvmzhgvkkrmthglmv" atbash> ) "anobstacleisoftenasteppingstone" test_eqs
 
+
+end-of-tests

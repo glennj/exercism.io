@@ -9,3 +9,5 @@
 "disallow second strand longer"  ( "ATA" "AGTG" distance ) test_null
 "disallow empty second strand"  ( "G" "" distance ) test_null
 
+
+end-of-tests

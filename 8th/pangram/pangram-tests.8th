@@ -10,3 +10,5 @@
 "missing d and g"  ( "the quick brown fox jumps over with lazy FX" pangram?  ) test_false
 "with underscores"  ( "the_quick_brown_fox_jumps_over_the_lazy_dog" pangram?  ) test_true
 
+
+end-of-tests

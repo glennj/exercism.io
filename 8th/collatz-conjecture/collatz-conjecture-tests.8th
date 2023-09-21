@@ -6,3 +6,5 @@
 "zero is an error" ( 0 collatz )  test_null
 "negative value is an error" ( -15 collatz ) test_null
 
+
+end-of-tests

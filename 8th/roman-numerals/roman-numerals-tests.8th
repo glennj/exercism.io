@@ -25,3 +25,5 @@
 "1666 is MDCLXVI" ( 1666 n:>roman ) "MDCLXVI" test_eqs
 "3001 is MMMI" ( 3001 n:>roman ) "MMMI" test_eqs
 "3999 is MMMCMXCIX" ( 3999 n:>roman ) "MMMCMXCIX" test_eqs
+
+end-of-tests

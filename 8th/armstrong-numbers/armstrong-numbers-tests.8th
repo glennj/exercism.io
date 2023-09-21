@@ -11,3 +11,5 @@
 "Armstrong number containing seven zeroes" ( 186709961001538790100634132976990 armstrong? ) test_true
 "The largest and last Armstrong number" ( 115132219018763992565095597973971522401 armstrong? ) test_true
 
+
+end-of-tests
