@@ -5,9 +5,12 @@ BEGIN {
     FS = "[-T:]"
 }
 
-NF == 3 { datespec = $1 " " $2 " " $3 " 0 0 0" }
-NF == 6 { datespec = $1 " " $2 " " $3 " " $4 " " $5 " " $6 }
-{
-    epoch = mktime(datespec, 1)
+{ 
+    # initialize the hour/minute/second fields if they are absent
+    $4 += 0; $5 += 0; $6 += 0
+
+    # because OFS is a space (the default), $0 is now a space-separated string
+    epoch = mktime($0, 1)
+
     print strftime("%FT%T", epoch + gigasecond, 1)
 }
