@@ -32,5 +32,12 @@ def apply_monday_bonus:
 # Calculate the total score of all players.
 #   input: a score board object.
 #   output: the sum of all scores, or zero for an empty board.
+#
+# Notes:
+# 1. passing an object to `.[]` returns a stream of the object's values.
+# 2. `add` is only documented to work on arrays but it also works to add an object's values.
+#    It is implemented as (https://github.com/jqlang/jq/blob/8f81668014f4df2654aa9ab674b5498aa9446441/src/builtin.jq#L11C1-L12C1):
+#       def add: reduce .[] as $x (null; . + $x);
+#       
 def total_score:
-  [.[]] | add // 0;
+  add // 0;
