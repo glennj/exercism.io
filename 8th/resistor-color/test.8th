@@ -1,4 +1,13 @@
-"test-words.8th" dup . cr f:include
-"resistor-color.8th" dup . cr f:include
-"resistor-color-tests.8th" dup . cr f:include
-bye
+"resistor-color.8th" f:include
+needs exercism/test
+
+4 tests 
+
+"Black"  ( "black" color-code )  0 equal?
+SKIP-REST-OF-TESTS
+"White"  ( "white" color-code )  9 equal?
+"Orange" ( "orange" color-code ) 3 equal?
+
+"Colors" ( colors ) ["black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white"] equal?
+
+end-of-tests

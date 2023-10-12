@@ -1,4 +1,8 @@
-"test-words.8th" dup . cr f:include
-"hello-world.8th" dup . cr f:include
-"hello-world-tests.8th" dup . cr f:include
-bye
+"hello-world.8th" f:include
+needs exercism/test
+
+1 tests
+
+"hello world test" "Hello, World!" ( hello-world ) equal?
+
+end-of-tests
