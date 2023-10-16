@@ -1,0 +1,11 @@
+: keys-to-values \ m key value -- m
+    swap >n >r
+    ( s:lc r@ m:! ) a:each!
+    drop rdrop
+;
+
+: transform \ m -- m
+    m:new swap
+    ' keys-to-values m:each
+    drop
+;

@@ -1,0 +1,69 @@
+(*  Based on algorithm at https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes#Pseudocode
+ *  with one optimization: the inner loop reduces the number of iterations
+ *  - from:
+ *      for i = 2, 3, 4, ..., not exceeding √n do
+ *          mark-multiples-of i
+ *  - to:
+ *      mark-multiples-of 2
+ *      for i = 3, 5, 7, ..., not exceeding √n do
+ *          mark-multiples-of i
+ *)
+
+: make-flag-array \ n -- n a
+    ( drop true ) 0 third a:generate
+    0 false a:!
+    1 false a:!
+;
+
+\ if n is 2 then step by 2  (2, 4, 6, ...)
+\ otherwise step by n*2     (e.g. 3, 9, 15, 21, ...)
+: +step \ n -- n
+    r@ dup 2 n:= if 1 else 2 then n:*
+    n:+
+;
+
+: mark-multiples-of \ n a n -- n a n
+    dup >r a:@ if
+        r@ r@ n:*               \ n a i
+        repeat
+            dup fourth n:> if break else
+                dup -rot        \ n i a i
+                false a:!       \ n i a
+                swap +step      \ n a i
+            then
+        again
+        drop
+    then
+    r>
+;
+
+: mark-multiples-nonprime \ n a -- n a
+    2 mark-multiples-of
+    n:1+ repeat
+        dup fourth n:sqrt n:> if break else
+            mark-multiples-of
+            2 n:+
+        then
+    again
+    drop
+;
+
+: extract-primes \ n a -- a
+    a:new swap
+    ( if a:push else drop then ) a:each
+    drop nip
+;
+
+: validate-input \ n -- n
+    dup 0 n:> !if
+        f:stderr "n must be greater than zero." f:write
+        1 die
+    then
+;
+
+: primes \ n -- a
+    validate-input
+    make-flag-array
+    mark-multiples-nonprime
+    extract-primes
+;

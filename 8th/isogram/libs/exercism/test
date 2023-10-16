@@ -11,7 +11,8 @@ var tests-skipped
 true var, run-test
 
 \ Some utility words
-: test-passed \ s --
+: test-passed \ s x x --   \\ test name, expected value, actual value
+    2drop
     1 tests-passed n:+!
     con:green con:onBlack . space " ... OK" . con:white con:onBlack cr
 ;
@@ -21,9 +22,12 @@ true var, run-test
     con:cyan con:onBlack . space " ... SKIPPED" . con:white con:onBlack cr
 ;
 
-: test-failed \ s --
+: test-failed \ s x x --   \\ test name, expected value, actual value
     1 tests-failed n:+!
+    rot
     con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
+    "    Actual:    «" . . "»" . cr
+    "    Expected:  «" . . "»" . cr cr
 ;
 
 : isword?  \ x -- x f
@@ -85,24 +89,28 @@ true var, run-test
    run-test? !if 2drop test-skipped ;; then
    isword? !if swap then
    w:exec
+   2dup             \ so test-failed can show actual and expected
    eq? if test-passed else test-failed then
 ;
 
 : true? \ s w --
    run-test? !if drop test-skipped ;; then
    w:exec
+   true swap dup    \ so test-failed can show actual and expected
    if test-passed else test-failed then 
 ;
 
 : false? \ s w --
    run-test? !if drop test-skipped ;; then
    w:exec
+   false swap dup    \ so test-failed can show actual and expected
    !if test-passed else test-failed then 
 ;
 
 : null? \ s w --
    run-test? !if drop test-skipped ;; then
    w:exec
+   null swap dup     \ so test-failed can show actual and expected
    G:null? nip if test-passed else test-failed then 
 ;
 
