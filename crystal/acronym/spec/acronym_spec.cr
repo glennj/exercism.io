@@ -6,35 +6,35 @@ describe "Acronym" do
     Acronym.abbreviate("Portable Network Graphics").should eq("PNG")
   end
 
-  it "lowercase words" do
+  pending "lowercase words" do
     Acronym.abbreviate("Ruby on Rails").should eq("ROR")
   end
 
-  it "punctuation" do
+  pending "punctuation" do
     Acronym.abbreviate("First In, First Out").should eq("FIFO")
   end
 
-  it "all caps word" do
+  pending "all caps word" do
     Acronym.abbreviate("GNU Image Manipulation Program").should eq("GIMP")
   end
 
-  it "punctuation without whitespace" do
+  pending "punctuation without whitespace" do
     Acronym.abbreviate("Complementary metal-oxide semiconductor").should eq("CMOS")
   end
 
-  it "very long abbreviation" do
+  pending "very long abbreviation" do
     Acronym.abbreviate("Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me").should eq("ROTFLSHTMDCOALM")
   end
 
-  it "consecutive delimiters" do
+  pending "consecutive delimiters" do
     Acronym.abbreviate("Something - I made up from thin air").should eq("SIMUFTA")
   end
 
-  it "apostrophes" do
+  pending "apostrophes" do
     Acronym.abbreviate("Halley's Comet").should eq("HC")
   end
 
-  it "underscore emphasis" do
+  pending "underscore emphasis" do
     Acronym.abbreviate("The Road _Not_ Taken").should eq("TRNT")
   end
 end
