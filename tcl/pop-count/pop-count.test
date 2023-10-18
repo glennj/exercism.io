@@ -1,0 +1,28 @@
+#!/usr/bin/env tclsh
+package require tcltest
+namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
+source "pop-count.tcl"
+
+test pop-count-1 "0 eggs" -body {
+    eggCount 0
+} -returnCodes ok -result 0
+
+skip pop-count-2
+test pop-count-2 "1 egg" -body {
+    eggCount 16
+} -returnCodes ok -result 1
+
+skip pop-count-3
+test pop-count-3 "4 eggs" -body {
+    eggCount 89
+} -returnCodes ok -result 4
+
+skip pop-count-4
+test pop-count-4 "13 eggs" -body {
+    eggCount 2000000000
+} -returnCodes ok -result 13
+
+cleanupTests
