@@ -8,14 +8,7 @@ users/
 .stack-work/
 *.cabal
 
-# editors
-.vstags
-.vscode/
-.*.sw?
-.sw?
-.editorconfig
-
-.DS_Store
+# editors -- configred in ~/.config/git/ignore
 
 # my exercism test-all results
 *.broken.*
@@ -29,3 +22,6 @@ problem-specifications/
 # ignore these tracks for now
 php/
 csharp/
+
+# fish_wrapper
+_by_exercise/
