@@ -1,5 +1,6 @@
 (ns card-games)
 
+
 (defn rounds
   "Takes the current round number and returns 
    a `list` with that round and the _next two_."
@@ -17,7 +18,7 @@
   "Takes a list of rounds played and a round number.
    Returns `true` if the round is in the list, `false` if not."
   [l n]
-  (boolean (some #(= % n) l)))
+  (boolean (some #{n} l)))
 
 (defn card-average
   "Returns the average value of a hand"
@@ -34,6 +35,9 @@
         approx2 (float (nth hand (/ (count hand) 2)))]
     (or (= avg approx1) (= avg approx2))))
 
+;; ------------------------------------------------------------
+;; Previous task 6
+(comment
 (defn average-even-odd?
   "Returns true if the average of the cards at even indexes 
    is the same as the average of the cards at odd indexes."
@@ -42,6 +46,23 @@
         evens (for [pair with-idx :when (even? (last pair))] (first pair))
         odds  (for [pair with-idx :when (odd?  (last pair))] (first pair))]
     (= (card-average evens) (card-average odds))))
+)
+;; ------------------------------------------------------------
+(defn extract-elements-at
+  "From a collection, extract elements where the index satisfies the predicate.
+   This is a decorate-filter-undecorate pattern."
+  [coll pred]
+  (->> (map-indexed list coll)
+       (filter (fn [pair] (pred (first pair))))
+       (map last)))
+  
+(defn average-even-odd?
+  "Returns true if the average of the cards at even indexes 
+   is the same as the average of the cards at odd indexes."
+  [hand]
+  (= (card-average (extract-elements-at hand even?))
+     (card-average (extract-elements-at hand odd?))))
+;; ------------------------------------------------------------
 
 (defn maybe-double-last
   "If the last card is a Jack (11), doubles its value

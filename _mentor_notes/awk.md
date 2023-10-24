@@ -67,6 +67,17 @@ in myfunc, a=10 and b=20
 after, a=1 and b=20
 ```
 
+## Exercises
+
+<!-- ------------------------------------- -->
+
+### two-fer
+
+A more awk-ish way to approach this:
+* set the variable to the default value in the BEGIN block.
+* for each subsequent line, if the line is not empty then overwrite the variable with the contents of the line.
+* in the END block, print the output.
+
 
 
 ---

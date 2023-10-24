@@ -1,22 +1,6 @@
 local rle = {}
 
 --------------------------------------------------------------------
--- Other languages, those with more complete regex implmementations,
--- allow backreferences in the pattern. For example, Julia can do
---[[
-        function encode(s)
-            function shrink(s)
-                len = length(s)
-                num = len == 1 ? "" : string(len)
-                num * s[1]
-            end
-
-            replace(s, r"(.)\1*" => shrink)
-        end
---]]
--- However, Lua's patterns are simpler, so we iterate over the patterns.
---------------------------------------------------------------------
-
 rle.encode = function(input)
     local encoded = input
     -- an optimization: if we see 100 A's we only need to
