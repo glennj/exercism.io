@@ -4,13 +4,20 @@
 #include <stdint.h>
 
 typedef enum {
-    BLACK, BROWN, RED,    ORANGE, YELLOW,
-    GREEN, BLUE,  VIOLET, GREY,   WHITE
+    BLACK = 0,
+    BROWN,
+    RED,
+    ORANGE,
+    YELLOW,
+    GREEN,
+    BLUE,
+    VIOLET,
+    GREY,
+    WHITE
 } resistor_band_t;
 
-resistor_band_t* colors();
+const resistor_band_t* colors(void);
 
 uint16_t color_code(resistor_band_t color);
 
 #endif
-
