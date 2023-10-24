@@ -34,3 +34,4 @@ Some test cases may use duplicate stones in a chain solution, assume that multip
 - @kotp
 - @NeimadTL
 - @tryantwit
+- @kytrinyx

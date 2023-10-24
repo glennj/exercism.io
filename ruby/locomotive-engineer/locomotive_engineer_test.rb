@@ -3,11 +3,6 @@ require_relative 'locomotive_engineer'
 
 class LocomotiveEngineerTest < Minitest::Test
   def skip; end
-  def skip; end
-  def skip; end
-  def skip; end
-  def skip; end
-  def skip; end
   def test_get_array_of_wagons_with_a_few_inputs
     assert_equal [1, 5, 2, 7, 4], LocomotiveEngineer.generate_list_of_wagons(1, 5, 2, 7, 4)
   end

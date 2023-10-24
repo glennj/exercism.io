@@ -1,14 +1,16 @@
-class Matrix
-  attr_reader :rows, :columns
+class Grid
+  def self.saddle_points(input)
+    self.new(input).saddle_points
+  end
 
   private
 
-  attr_reader :r_max, :c_min
+  attr_reader :rows, :columns, :r_max, :c_min
 
   public
 
-  def initialize(string)
-    @rows = string.lines.map { |row| row.split(' ').map(&:to_i) }
+  def initialize(input)
+    @rows = input
     @columns = @rows.transpose
     @r_max = @rows.map(&:max)
     @c_min = @columns.map(&:min)
@@ -19,7 +21,9 @@ class Matrix
     rows.length.times do |x|
       columns.length.times do |y|
         value = rows[x][y]
-        sp << [x, y] if value == r_max[x] && value == c_min[y]
+        if value == r_max[x] && value == c_min[y]
+          sp << {"row" => x + 1, "column" => y + 1}
+        end
       end
     end
     sp

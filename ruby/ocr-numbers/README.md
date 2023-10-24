@@ -112,4 +112,4 @@ instead use a format that doesn't rely on trailing whitespace, or adjust the set
 
 ### Based on
 
-Inspired by the Bank OCR kata - http://codingdojo.org/cgi-bin/wiki.pl?KataBankOCR
+Inspired by the Bank OCR kata - https://codingdojo.org/kata/BankOCR/

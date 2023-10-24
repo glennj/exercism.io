@@ -61,6 +61,7 @@ For instance `3-598-21507-X` is a valid ISBN-10.
 - @kotp
 - @pgaspar
 - @tryantwit
+- @kytrinyx
 
 ### Based on
 

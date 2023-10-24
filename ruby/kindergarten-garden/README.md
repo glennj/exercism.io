@@ -8,9 +8,8 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 Given a diagram, determine which plants each child in the kindergarten class is
 responsible for.
 
-The kindergarten class is learning about growing plants. The teacher
-thought it would be a good idea to give them actual seeds, plant them in
-actual dirt, and grow actual plants.
+The kindergarten class is learning about growing plants.
+The teacher thought it would be a good idea to give them actual seeds, plant them in actual dirt, and grow actual plants.
 
 They've chosen to grow grass, clover, radishes, and violets.
 
@@ -30,8 +29,8 @@ There are 12 children in the class:
 - Eve, Fred, Ginny, Harriet,
 - Ileana, Joseph, Kincaid, and Larry.
 
-Each child gets 4 cups, two on each row. Their teacher assigns cups to
-the children alphabetically by their names.
+Each child gets 4 cups, two on each row.
+Their teacher assigns cups to the children alphabetically by their names.
 
 The following diagram represents Alice's plants:
 
@@ -41,12 +40,11 @@ VR......................
 RG......................
 ```
 
-In the first row, nearest the windows, she has a violet and a radish.  In the
-second row she has a radish and some grass.
+In the first row, nearest the windows, she has a violet and a radish.
+In the second row she has a radish and some grass.
 
-Your program will be given the plants from left-to-right starting with
-the row nearest the windows. From this, it should be able to determine
-which plants belong to each student.
+Your program will be given the plants from left-to-right starting with the row nearest the windows.
+From this, it should be able to determine which plants belong to each student.
 
 For example, if it's told that the garden looks like so:
 
@@ -64,8 +62,9 @@ While asking for Bob's plants would yield:
 
 - Clover, grass, clover, clover
 
-In this exercise you're going to be using a concept called dynamic programming. https://en.wikipedia.org/wiki/Dynamic_programming
-Your solution could use the class method `#define_singleton_method` or the combination of `#method_missing` and `#respond_to_missing`.
+The exercise requires you to write a class that provides a method for each child in the kindergarten.
+You can make your work less repetitive (and more fun!) if, instead of manually defining 12 different methods, you use a bit of metaprogramming.
+If you're not sure where to start, explore the `method_missing` or `define_method` methods.
 
 ## Source
 
@@ -86,4 +85,4 @@ Your solution could use the class method `#define_singleton_method` or the combi
 
 ### Based on
 
-Random musings during airplane trip. - http://jumpstartlab.com
+Exercise by the JumpstartLab team for students at The Turing School of Software and Design. - https://turing.edu

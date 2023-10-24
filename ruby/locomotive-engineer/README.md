@@ -132,7 +132,7 @@ The syntax error is not tied to the data structure.
 
 ### Decomposing an array with the single splat operator (`*`)
 
-When [decomposing an **array**][decomposition] you can use the splat operator (`*`) to capture the "leftover" values.
+When [decomposing an **array**][decompose] you can use the splat operator (`*`) to capture the "leftover" values.
 This is clearer than slicing the **array** (_which in some situations is less readable_).
 For example, we can extract the first element and then assign the remaining values into a new **array** without the first element:
 
@@ -435,7 +435,7 @@ This exercise could easily be solved using slicing, indexing, and various `hash`
 However, we would like you to practice packing, unpacking, and multiple assignment in solving each of the tasks below.
 ```
 
-## 1. Create an list of all wagons
+## 1. Create a list of all wagons
 
 Your friend has been keeping track of each wagon identifier (ID), but they are never sure how many wagons the system is going to have to process at any given time. It would be much easier for the rest of the logistics program to have this data packaged into a unified **array**.
 

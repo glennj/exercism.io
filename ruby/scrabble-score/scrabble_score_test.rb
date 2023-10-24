@@ -3,6 +3,7 @@ require_relative 'scrabble_score'
 
 class ScrabbleScoreTest < Minitest::Test
   def skip; end
+  def skip; end
   def test_lowercase_letter
     # skip
     assert_equal 1, Scrabble.new("a").score

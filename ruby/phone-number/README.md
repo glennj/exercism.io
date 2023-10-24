@@ -64,4 +64,4 @@ should all produce the output
 
 ### Based on
 
-Event Manager by JumpstartLab - http://tutorials.jumpstartlab.com/projects/eventmanager.html
+Exercise by the JumpstartLab team for students at The Turing School of Software and Design. - https://turing.edu

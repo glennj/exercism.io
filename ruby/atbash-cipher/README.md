@@ -51,4 +51,4 @@ All text will be encoded as lowercase letters.
 
 ### Based on
 
-Wikipedia - http://en.wikipedia.org/wiki/Atbash
+Wikipedia - https://en.wikipedia.org/wiki/Atbash

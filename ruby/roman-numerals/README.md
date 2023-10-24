@@ -67,4 +67,4 @@ Learn more about [Roman numberals on Wikipedia][roman-numerals].
 
 ### Based on
 
-The Roman Numeral Kata - http://codingdojo.org/cgi-bin/index.pl?KataRomanNumerals
+The Roman Numeral Kata - https://codingdojo.org/kata/RomanNumerals/

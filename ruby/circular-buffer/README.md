@@ -68,4 +68,4 @@ Because there is space available, if the client again uses overwrite to store C 
 
 ### Based on
 
-Wikipedia - http://en.wikipedia.org/wiki/Circular_buffer
+Wikipedia - https://en.wikipedia.org/wiki/Circular_buffer

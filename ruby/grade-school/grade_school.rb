@@ -1,28 +1,24 @@
 class School
-  private
-
-  attr_reader :school
-
-  public
-
   def initialize
-    @school = Hash.new { |h, k| h[k] = [] }
-  end
-
-  def students(grade)
-    school[grade]
+    @directory = Hash.new { |h, k| h[k] = [] }
   end
 
   def add(name, grade)
-    school[grade] << name
-    school[grade].sort!
+    return false if include?(name)
+
+    @directory[grade].append(name).sort!
+    true
   end
 
-  def students_by_grade
-    school.keys
-          .sort
-          .reduce([]) do |result, grade|
-            result << { grade: grade, students: students(grade) }
-          end
+  def include?(name)
+    @directory.values.any? { |students| students.include? name }
+  end
+
+  def grade(grade)
+    @directory[grade]
+  end
+
+  def roster
+    @directory.keys.sort.reduce([]) { |result, grade| result + grade(grade) }
   end
 end

@@ -334,4 +334,4 @@ Go to the store and buy some more, 99 bottles of beer on the wall.
 
 ### Based on
 
-Learn to Program by Chris Pine - http://pine.fm/LearnToProgram/?Chapter=06
+Learn to Program by Chris Pine - https://pine.fm/LearnToProgram/?Chapter=06

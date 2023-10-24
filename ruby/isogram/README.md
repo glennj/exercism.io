@@ -38,6 +38,7 @@ The word *isograms*, however, is not an isogram, because the s repeats.
 - @pgaspar
 - @securitylater
 - @tryantwit
+- @kytrinyx
 
 ### Based on
 

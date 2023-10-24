@@ -42,4 +42,4 @@ No line of the output text should be a static, unchanging string; all should var
 
 ### Based on
 
-Wikipedia - http://en.wikipedia.org/wiki/For_Want_of_a_Nail
+Wikipedia - https://en.wikipedia.org/wiki/For_Want_of_a_Nail

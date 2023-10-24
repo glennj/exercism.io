@@ -49,4 +49,4 @@ Most of the methods listed in the article are not methods specifically for Array
 
 ### Based on
 
-A subset of the Problem 8 at Project Euler - http://projecteuler.net/problem=8
+A subset of the Problem 8 at Project Euler - https://projecteuler.net/problem=8

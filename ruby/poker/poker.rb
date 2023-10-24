@@ -16,6 +16,7 @@ class Poker
   end
 end
 
+###################################################################
 class PokerHand
   attr_reader :value, :cards_ranked, :original
 

@@ -3,6 +3,8 @@ require_relative 'pascals_triangle'
 
 class TriangleTest < Minitest::Test
   def skip; end
+  def skip; end
+  def skip; end
   def test_one_row
     triangle = Triangle.new(1)
     assert_equal [[1]], triangle.rows

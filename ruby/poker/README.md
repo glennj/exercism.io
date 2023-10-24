@@ -7,8 +7,9 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 
 Pick the best hand(s) from a list of poker hands.
 
-See [wikipedia](https://en.wikipedia.org/wiki/List_of_poker_hands) for an
-overview of poker hands.
+See [wikipedia][poker-hands] for an overview of poker hands.
+
+[poker-hands]: https://en.wikipedia.org/wiki/List_of_poker_hands
 
 ## Source
 
@@ -26,6 +27,7 @@ overview of poker hands.
 - @kotp
 - @moveson
 - @tryantwit
+- @kytrinyx
 
 ### Based on
 

@@ -29,6 +29,7 @@ Write some code to determine whether a number is an Armstrong number.
 - @guygastineau
 - @iHiD
 - @kotp
+- @kytrinyx
 
 ### Based on
 

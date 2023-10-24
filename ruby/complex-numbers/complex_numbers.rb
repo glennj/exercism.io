@@ -1,7 +1,7 @@
 class ComplexNumber
   attr_reader :real, :imaginary
 
-  def initialize(real, imaginary)
+  def initialize(real, imaginary = 0)
     @real = real
     @imaginary = imaginary
   end
@@ -11,24 +11,24 @@ class ComplexNumber
   end
 
   def +(other)
-    ComplexNumber.new(real + other.real, imaginary + other.imaginary)
+    self.class.new(real + other.real, imaginary + other.imaginary)
   end
 
   def -(other)
-    ComplexNumber.new(real - other.real, imaginary - other.imaginary)
+    self.class.new(real - other.real, imaginary - other.imaginary)
   end
 
   def *(other)
     r = real * other.real - imaginary * other.imaginary
     i = imaginary * other.real + real * other.imaginary
-    ComplexNumber.new(r, i)
+    self.class.new(r, i)
   end
 
   def /(other)
     denom = (other.real**2 + other.imaginary**2).to_f
     r = (real * other.real + imaginary * other.imaginary) / denom
     i = (imaginary * other.real - real * other.imaginary) / denom
-    ComplexNumber.new(r, i)
+    self.class.new(r, i)
   end
 
   def abs
@@ -36,15 +36,12 @@ class ComplexNumber
   end
 
   def conjugate
-    @conjugate ||= ComplexNumber.new(real, -imaginary)
+    @conjugate ||= self.class.new(real, -imaginary)
   end
 
   # thanks IEEE floating point numbers, have to round
   def exp
-    @exp ||= ComplexNumber.new((Math::E**real).round(15), 0) \
-           * ComplexNumber.new(
-               Math.cos(imaginary).round(15),
-               Math.sin(imaginary).round(15)
-             )
+    @exp ||= self.class.new(Math::E**real, 0) \
+           * self.class.new(Math.cos(imaginary), Math.sin(imaginary))
   end
 end

@@ -20,6 +20,7 @@ module Translation
     'UAG' => 'STOP',
     'UGA' => 'STOP'
   }.freeze
+  
 
   module_function
 
