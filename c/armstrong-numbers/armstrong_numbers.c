@@ -1,8 +1,15 @@
 #include "armstrong_numbers.h"
+#include <math.h>
+
+int armstrong_sum(int number);
+int digit_length(int number);
+int ipow(int base, int exponent);
+
 
 bool is_armstrong_number(int candidate) {
     return candidate == armstrong_sum(candidate);
 }
+
 
 int armstrong_sum(int number) {
     int length = digit_length(number);
