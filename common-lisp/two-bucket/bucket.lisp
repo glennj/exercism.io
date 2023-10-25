@@ -21,19 +21,20 @@
 (defclass bucket ()
   ((name
      :reader name
-     :initarg :name
      :type string
+     :initform "aBucket"
+     :initarg :name
      :documentation "the name of the bucket")
    (size
      :reader size
+     :type integer
      :initform 0
      :initarg :size
-     :type integer
      :documentation "the size of the bucket")
    (amount 
      :accessor amount
-     :initform 0
      :type integer
+     :initform 0
      :documentation "the ammount currently in the bucket"))
   (:documentation "A class to represent a bucket"))
 

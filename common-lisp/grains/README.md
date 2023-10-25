@@ -27,4 +27,4 @@ Write code that shows:
 
 ### Based on
 
-JavaRanch Cattle Drive, exercise 6 - http://www.javaranch.com/grains.jsp
+The CodeRanch Cattle Drive, Assignment 6 - https://coderanch.com/wiki/718824/Grains

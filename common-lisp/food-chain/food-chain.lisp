@@ -38,9 +38,8 @@
     (push (i-know animal) lines)
     (when action (push action lines))
     (unless (eq animal :horse)
-            (do ((j i (1- j)))
-                ((= j 0))
-              (push (she-swallowed (elt *animals* j) (elt *animals* (1- j))) lines))
+            (loop :for j :from i :downto 1
+                  :do (push (she-swallowed (elt *animals* j) (elt *animals* (1- j))) lines))
             (push i-dont-know lines))
     (format nil "~{~a~^~%~}" (reverse lines))))
 

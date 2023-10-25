@@ -25,6 +25,7 @@ It's possible to submit an incomplete solution which allows you to:
 If you'd like help solving the exercise, check the following pages:
 
 - The [Common Lisp track's documentation](https://exercism.org/docs/tracks/common-lisp)
+- The [Common Lisp track's programming category on the forum](https://forum.exercism.org/c/programming/common-lisp)
 - [Exercism's programming category on the forum](https://forum.exercism.org/c/programming/5)
 - The [Frequently Asked Questions](https://exercism.org/docs/using/faqs)
 

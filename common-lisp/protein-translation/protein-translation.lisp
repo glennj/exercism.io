@@ -13,9 +13,9 @@
     ((string= codon "UGG") "Tryptophan")
     ((member codon '("UUU" "UUC") :test #'string=) "Phenylalanine")
     ((member codon '("UUA" "UUG") :test #'string=) "Leucine")
+    ((member codon '("UCU" "UCC" "UCA" "UCG") :test #'string=) "Serine")
     ((member codon '("UAU" "UAC") :test #'string=) "Tyrosine")
     ((member codon '("UGU" "UGC") :test #'string=) "Cysteine")
-    ((member codon '("UCU" "UCC" "UCA" "UCG") :test #'string=) "Serine")
     ((member codon '("UAA" "UAG" "UGA") :test #'string=) "STOP")
     (t (error 'invalid-protein))))
 

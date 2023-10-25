@@ -54,16 +54,6 @@ Put it all together to get nothing but plain English.
 
 The program must also report any values that are out of range.
 
-### Extensions
-
-Use _and_ (correctly) when spelling out the number in English:
-
-- 14 becomes "fourteen".
-- 100 becomes "one hundred".
-- 120 becomes "one hundred and twenty".
-- 1002 becomes "one thousand and two".
-- 1323 becomes "one thousand three hundred and twenty-three".
-
 ## Source
 
 ### Created by
