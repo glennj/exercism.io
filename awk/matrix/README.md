@@ -136,4 +136,4 @@ BEGIN {
 
 ### Based on
 
-Warmup to the `saddle-points` warmup. - http://jumpstartlab.com
+Exercise by the JumpstartLab team for students at The Turing School of Software and Design. - https://turing.edu

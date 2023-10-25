@@ -23,4 +23,4 @@ If your language provides methods in the standard library to deal with prime num
 
 ### Based on
 
-A variation on Problem 7 at Project Euler - http://projecteuler.net/problem=7
+A variation on Problem 7 at Project Euler - https://projecteuler.net/problem=7

@@ -1,6 +1,6 @@
-# Ocr Numbers
+# OCR Numbers
 
-Welcome to Ocr Numbers on Exercism's AWK Track.
+Welcome to OCR Numbers on Exercism's AWK Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
@@ -91,4 +91,4 @@ Is converted to "123,456,789".
 
 ### Based on
 
-Inspired by the Bank OCR kata - http://codingdojo.org/cgi-bin/wiki.pl?KataBankOCR
+Inspired by the Bank OCR kata - https://codingdojo.org/kata/BankOCR/

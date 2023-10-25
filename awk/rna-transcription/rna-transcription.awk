@@ -1,10 +1,7 @@
 #!/usr/bin/env gawk -f
-
 @include "arrays"
 @include "join"
-
 BEGIN {FS = ""}
-
 function transcribe(nucleotide) {
     switch (nucleotide) {
         case "C": return "G"
@@ -16,7 +13,6 @@ function transcribe(nucleotide) {
             exit 1
     }
 }
-
 {
     n = split($0, dna)
     arrays::init(rna)

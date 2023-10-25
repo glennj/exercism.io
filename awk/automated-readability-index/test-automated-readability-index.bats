@@ -43,8 +43,7 @@ EOF
 }
 
 teardown() {
-    #rm -f exercism.txt billy.txt ari.txt
-    :
+    rm -f exercism.txt billy.txt ari.txt
 }
 
 # Test grepping a single file

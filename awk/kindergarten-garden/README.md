@@ -70,4 +70,4 @@ While asking for Bob's plants would yield:
 
 ### Based on
 
-Random musings during airplane trip. - http://jumpstartlab.com
+Exercise by the JumpstartLab team for students at The Turing School of Software and Design. - https://turing.edu
