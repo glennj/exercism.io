@@ -33,7 +33,7 @@ const resistor_band_t* colors(void) {
  *   the lifetime of the program execution, *and* the value is
  *   initialized once
  *      https://en.cppreference.com/w/c/language/storage_duration#Storage_duration
- * - `const` to state that the returned pointer is read-only:
+ * - `const` to state that the returned pointer points to a read-only thingy:
  *      https://en.cppreference.com/w/c/language/type#Compatible_types
  *   this will not compile:
  *          const resistor_band_t* cs = colors();
