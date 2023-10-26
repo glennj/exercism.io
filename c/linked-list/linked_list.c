@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "linked_list.h"
+#include <stdio.h>
 
 // First, the structures
 struct list_node {
@@ -13,139 +14,133 @@ struct list {
    size_t count;
 };
 
+// ------------------------------------------------------------
 // Allocations
-static void initialize_list(struct list *list) {
-    list->head = NULL;
-    list->tail = NULL;
-    list->count = 0;
-}
 
 struct list *list_create(void) {
-    struct list *list = (struct list *) malloc(sizeof(struct list));
-    initialize_list(list);
+    struct list *list = malloc(sizeof *list);
+    if (list != NULL) {
+        list->head = NULL;
+        list->tail = NULL;
+        list->count = 0;
+    }
     return list;
 }
 
-static struct list_node *list_node_create(ll_data_t data) {
-    struct list_node *node = (struct list_node *) malloc(sizeof(struct list_node));
-    node->prev = NULL;
-    node->next = NULL;
-    node->data = data;
+static struct list_node *
+list_node_create(
+        struct list_node *prev,
+        struct list_node *next,
+        ll_data_t data
+) {
+    struct list_node *node = malloc(sizeof *node);
+    if (node != NULL) {
+        node->prev = prev;
+        node->next = next;
+        node->data = data;
+    }
     return node;
 }
 
-// List manipulation functions
+// Destroy an entire list
+// First, free all the nodes; then, free the list
+void list_destroy(struct list *list) {
+    assert(list != NULL);
+    while (list->count)
+        list_shift(list);
+    free(list);
+}
+
+// ------------------------------------------------------------
 size_t list_count(const struct list *list) {
+    assert(list != NULL);
     return list->count;
 }
 
-void list_push(struct list *list, ll_data_t item_data) {
-    struct list_node *node = list_node_create(item_data);
-    if (list->tail == NULL) {
+// ------------------------------------------------------------
+// push, unshift: adding nodes
+
+static struct list_node *
+list_add_node(
+        struct list *list,
+        struct list_node *prev,
+        struct list_node *next,
+        ll_data_t data
+) {
+    struct list_node *node = list_node_create(prev, next, data);
+    assert(node != NULL);
+
+    if (prev == NULL) {         // adding at the head
         list->head = node;
+        if (list->tail == NULL) list->tail = node;
+        if (next != NULL) next->prev = node;
     }
-    else {
-        list->tail->next = node;
-        node->prev = list->tail;
+    else if (next == NULL) {    // adding at the tail
+        list->tail = node;
+        if (list->head == NULL) list->head = node;
+        if (prev != NULL) prev->next = node;
     }
-    list->tail = node;
+    // TODO case where prev and next are both non-null
+    //      if we want to add some kind of list_insert function.
+
     list->count += 1;
+    return node;
 }
 
-ll_data_t list_pop(struct list *list) {
-    assert(list->count > 0);
-
-    struct list_node *node = list->tail;
-    ll_data_t value = node->data;
-    if (node->prev == NULL) {
-        initialize_list(list);
-    }
-    else {
-        list->tail = node->prev;
-        list->count -= 1;
-    }
-    free(node);
-    return value;
+void list_push(struct list *list, ll_data_t item_data) {
+    assert(list != NULL);
+    list_add_node(list, list->tail, NULL, item_data);
 }
 
 void list_unshift(struct list *list, ll_data_t item_data) {
-    struct list_node *node = list_node_create(item_data);
-    if (list->head == NULL) {
-        list->tail = node;
-    }
-    else {
-        list->head->prev = node;
-        node->next = list->head;
-    }
-    list->head = node;
-    list->count += 1;
+    assert(list != NULL);
+    list_add_node(list, NULL, list->head, item_data);
 }
 
-ll_data_t list_shift(struct list *list) {
-    assert(list->count > 0);
+// ------------------------------------------------------------
+// pop, shift, delete: removing nodes
 
-    struct list_node *node = list->head;
-    ll_data_t value = node->data;
-    if (node->next == NULL) {
-        initialize_list(list);
-    }
-    else {
+static ll_data_t
+list_remove_node(
+        struct list *list,
+        struct list_node *node
+) {
+    if (node->prev == NULL)
         list->head = node->next;
-        list->count -= 1;
-    }
+    else
+        node->prev->next = node->next;
+
+    if (node->next == NULL)
+        list->tail = node->prev;
+    else
+        node->next->prev = node->prev;
+
+    ll_data_t value = node->data;
     free(node);
+    list->count -= 1;
     return value;
 }
 
+ll_data_t list_shift(struct list *list) {
+    assert(list != NULL);
+    assert(list->head != NULL);
+    return list_remove_node(list, list->head);
+}
+
+ll_data_t list_pop(struct list *list) {
+    assert(list != NULL);
+    assert(list->tail != NULL);
+    return list_remove_node(list, list->tail);
+}
+
 void list_delete(struct list *list, ll_data_t data) {
+    assert(list != NULL);
     struct list_node *node = list->head;
     while (node != NULL) {
-        if (node->data != data) {
-            node = node->next;
-            continue;
+        if (node->data == data) {
+            list_remove_node(list, node);
+            return;
         }
-
-        if (node->next != NULL && node->prev != NULL) {
-            node->prev->next = node->next;
-            node->next->prev = node->prev;
-        }
-        else if (node->next != NULL) {
-            node->next->prev = NULL;
-            list->head = node->next;
-        }
-        else if (node->prev != NULL) {
-            node->prev->next = NULL;
-            list->tail = node->prev;
-        }
-        list->count -= 1;
-        free(node);
-        return;
+        node = node->next;
     }
 }
-
-// Destroy an entire list
-void list_destroy(struct list *list) {
-    // first, free all the nodes
-    while (list->count)
-        list_shift(list);
-    // then, free the list
-    free(list);
-}
-
-/*
-This destroy func gives me the error
-```none
-free(): double free detected in tcache 2
-```
-```c
-void list_destroy(struct list *list) {
-    struct list_node *node = list->head;
-    while (node != NULL) {
-		struct list_node *next = node->next;
-        free(node);
-        node = next;
-    }
-    free(list);
-}
-```
-*/
