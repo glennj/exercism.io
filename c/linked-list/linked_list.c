@@ -70,18 +70,15 @@ list_add_node(
     struct list_node *node = list_node_create(prev, next, data);
     assert(node != NULL);
 
-    if (prev == NULL) {         // adding at the head
+    if (prev == NULL)
         list->head = node;
-        if (list->tail == NULL) list->tail = node;
-        if (next != NULL) next->prev = node;
-    }
-    else if (next == NULL) {    // adding at the tail
+    else
+        prev->next = node;
+
+    if (next == NULL)
         list->tail = node;
-        if (list->head == NULL) list->head = node;
-        if (prev != NULL) prev->next = node;
-    }
-    // TODO case where prev and next are both non-null
-    //      if we want to add some kind of list_insert function.
+    else
+        next->prev = node;
 
     list->count += 1;
     return node;

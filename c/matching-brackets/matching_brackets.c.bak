@@ -1,0 +1,64 @@
+#include "matching_brackets.h"
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+
+static char *make_stack(size_t size) {
+    char *stack = malloc(size * sizeof *stack);
+    assert(stack != NULL);
+    memset(stack, '\0', size);
+    return stack;
+}
+
+static void push(char*stack, unsigned *pidx, char c) {
+    stack[(*pidx)++] = c;
+}
+
+static char pop(char *stack, unsigned *pidx) {
+    char c = stack[--*pidx];
+    stack[*pidx] = '\0';
+    return c;
+}
+
+static bool matches(char *stack, unsigned *pidx, char c) {
+    if (*pidx == 0)
+        return false;
+    return pop(stack, pidx) == c;
+}
+
+bool is_paired(const char *input) {
+    char *stack = make_stack(strlen(input));
+    unsigned idx = 0;
+
+    for (const char *p = input; *p; p++) {
+        switch (*p) {
+            case '(':
+            case '[':
+            case '{':
+                push(stack, &idx, *p);
+                break;
+            case ')':
+                if (!matches(stack, &idx, '(')) {
+                    free(stack);
+                    return false;
+                }
+                break;
+            case ']':
+                if (!matches(stack, &idx, '[')) {
+                    free(stack);
+                    return false;
+                }
+                break;
+            case '}':
+                if (!matches(stack, &idx, '{')) {
+                    free(stack);
+                    return false;
+                }
+                break;
+        }
+    }
+    free(stack);
+    return idx == 0;
+}
+
