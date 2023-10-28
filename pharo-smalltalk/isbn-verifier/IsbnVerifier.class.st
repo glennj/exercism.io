@@ -30,15 +30,6 @@ IsbnVerifier >> isValidIsbn: aString [
 
 { #category : #transforming }
 IsbnVerifier >> isbnDigits: aString [
-	"if the ISBN string is well-formed, returns an collection of digit values.
-	 otherwise, returns a bogus collection.
-	 examples:
-	   self isbnDigits: '123456789X' >>> #(1 2 3 4 5 6 7 8 9 10).
-	   self isbnDigits: '123456789' >>> #(-1).
-	   self isbnDigits: 'X123456789' >>> #(-1).
-	"
-	| digits |
 
-	digits := aString asArray select: #isIsbnCharacter thenCollect: #isbnCharacterValue.
-	^ digits isValidIsbnDigitArray ifTrue: [ digits ] ifFalse: [ #(-1) ]
+	^ aString asArray select: #isIsbnCharacter thenCollect: #isbnCharacterValue
 ]
