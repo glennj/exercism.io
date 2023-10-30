@@ -1,0 +1,30 @@
+#!/usr/bin/env -S fish -N
+
+# looking at remaining exercises in December
+# and what is unimplemented in wren
+
+awk '
+    ARGIND == 1 {all[$1]; next}
+    ARGIND == 2 {delete all[$1]; next}
+    ARGIND == 3 {wren[$1] = $2; next}
+    END {
+        PROCINFO["sorted_in"] = "@ind_str_asc"
+        printf "%-20s\t%s\n", "Exercise", "Wren?"
+        for (e in all)
+            printf "%-20s\t%s\n", e, wren[e]
+    }
+'   (fish -Nc '
+            cd ~/.cache/exercism/configlet/problem-specifications/exercises
+            for e in *
+                test -f $e/canonical-data.json; and echo $e
+            end
+            and printf "%s\n" *
+        ' | psub) \
+    (fish -Nc '
+            cd ~/src/exercism/exercism.io/_12in23
+            and printf "%s\n" *
+            echo "hello-world"
+        ' | psub) \
+    (jq -r '
+            .exercises.practice[] | [.slug, .difficulty] | @tsv
+        ' ~/src/exercism/tracks/wren/config.json | psub)
