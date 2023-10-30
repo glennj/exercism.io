@@ -4,21 +4,21 @@ import kotlin.test.assertEquals
 
 class ClockAddTest {
 
-    @Ignore
+    //@Ignore
     @Test
     fun `add minutes`() =
         Clock(10, 0)
             .plusMinutes(3)
             .shouldBe("10:03")
 
-    @Ignore
+    //@Ignore
     @Test
     fun `add no minutes`() =
         Clock(6, 41)
             .plusMinutes(0)
             .shouldBe("06:41")
 
-    @Ignore
+    //@Ignore
     @Test
     fun `add to next hour`() =
         Clock(0, 45)
@@ -26,7 +26,7 @@ class ClockAddTest {
             .shouldBe("01:25")
 
 
-    @Ignore
+    //@Ignore
     @Test
     fun `add more than one hour`() =
         Clock(10, 0)
@@ -34,7 +34,7 @@ class ClockAddTest {
             .shouldBe("11:01")
 
 
-    @Ignore
+    //@Ignore
     @Test
     fun `add more than two hours with carry`() =
         Clock(0, 45)
@@ -42,7 +42,7 @@ class ClockAddTest {
             .shouldBe("03:25")
 
 
-    @Ignore
+    //@Ignore
     @Test
     fun `add across midnight`() =
         Clock(23, 59)
@@ -50,7 +50,7 @@ class ClockAddTest {
             .shouldBe("00:01")
 
 
-    @Ignore
+    //@Ignore
     @Test
     fun `add more than one day`() =
         Clock(5, 32)
@@ -58,7 +58,7 @@ class ClockAddTest {
             .shouldBe("06:32")
 
 
-    @Ignore
+    //@Ignore
     @Test
     fun `add more than two days`() =
         Clock(1, 1)

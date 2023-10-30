@@ -10,63 +10,63 @@ class RotationalCipherTest {
         assertEquals("a", cipher.encode("a"))
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testRotateLowercaseABy1NoWrapAround() {
         val cipher = RotationalCipher(1)
         assertEquals("b", cipher.encode("a"))
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testRotateLowercaseABy26SingleWrapAround() {
         val cipher = RotationalCipher(26)
         assertEquals("a", cipher.encode("a"))
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testRotateLowercaseMBy13NoWrapAround() {
         val cipher = RotationalCipher(13)
         assertEquals("z", cipher.encode("m"))
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testRotateLowercaseNBy1SingleWrapAround() {
         val cipher = RotationalCipher(13)
         assertEquals("a", cipher.encode("n"))
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testRotateCapitalLettersNoWrapAround() {
         val cipher = RotationalCipher(5)
         assertEquals("TRL", cipher.encode("OMG"))
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testSpacesAreUnalteredByRotation() {
         val cipher = RotationalCipher(5)
         assertEquals("T R L", cipher.encode("O M G"))
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testNumbersAreUnalteredByRotation() {
         val cipher = RotationalCipher(4)
         assertEquals("Xiwxmrk 1 2 3 xiwxmrk", cipher.encode("Testing 1 2 3 testing"))
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testPunctuationIsUnalteredByRotation() {
         val cipher = RotationalCipher(21)
         assertEquals("Gzo'n zvo, Bmviyhv!", cipher.encode("Let's eat, Grandma!"))
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testAllLettersRotateCorrectly() {
         val cipher = RotationalCipher(13)

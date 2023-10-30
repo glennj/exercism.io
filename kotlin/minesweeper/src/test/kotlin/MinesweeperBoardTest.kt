@@ -23,7 +23,7 @@ class MinesweeperBoardTest {
         assertEquals(expectedNumberedBoard, actualNumberedBoard)
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testInputBoardWithOneRowAndNoColumns() {
         val inputBoard = listOf("")
@@ -33,7 +33,7 @@ class MinesweeperBoardTest {
         assertEquals(expectedNumberedBoard, actualNumberedBoard)
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testInputBoardWithNoMines() {
         val inputBoard = listOf(
@@ -53,7 +53,7 @@ class MinesweeperBoardTest {
         assertEquals(expectedNumberedBoard, actualNumberedBoard)
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testInputBoardWithOnlyMines() {
         val inputBoard = listOf(
@@ -73,7 +73,7 @@ class MinesweeperBoardTest {
         assertEquals(expectedNumberedBoard, actualNumberedBoard)
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testInputBoardWithSingleMineAtCenter() {
         val inputBoard = listOf(
@@ -93,7 +93,7 @@ class MinesweeperBoardTest {
         assertEquals(expectedNumberedBoard, actualNumberedBoard)
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testInputBoardWithMinesAroundPerimeter() {
         val inputBoard = listOf(
@@ -113,7 +113,7 @@ class MinesweeperBoardTest {
         assertEquals(expectedNumberedBoard, actualNumberedBoard)
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testInputBoardWithSingleRowAndTwoMines() {
         val inputBoard = listOf(" * * ")
@@ -125,7 +125,7 @@ class MinesweeperBoardTest {
         assertEquals(expectedNumberedBoard, actualNumberedBoard)
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testInputBoardWithSingleRowAndTwoMinesAtEdges() {
         val inputBoard = listOf("*   *")
@@ -137,7 +137,7 @@ class MinesweeperBoardTest {
         assertEquals(expectedNumberedBoard, actualNumberedBoard)
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testInputBoardWithSingleColumnAndTwoMines() {
         val inputBoard = listOf(
@@ -161,7 +161,7 @@ class MinesweeperBoardTest {
         assertEquals(expectedNumberedBoard, actualNumberedBoard)
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testInputBoardWithSingleColumnAndTwoMinesAtEdges() {
         val inputBoard = listOf(
@@ -185,7 +185,7 @@ class MinesweeperBoardTest {
         assertEquals(expectedNumberedBoard, actualNumberedBoard)
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testInputBoardWithMinesInCross() {
         val inputBoard = listOf(
@@ -209,7 +209,7 @@ class MinesweeperBoardTest {
         assertEquals(expectedNumberedBoard, actualNumberedBoard)
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun testLargeInputBoard() {
         val inputBoard = listOf(

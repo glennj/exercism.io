@@ -6,27 +6,27 @@ class ReverseStringTest {
     @Test
     fun `empty string`() = assertEquals("", reverse(""))
 
-    @Ignore
+    //@Ignore
     @Test
     fun `single word`() = assertEquals("tobor", reverse("robot"))
 
-    @Ignore
+    //@Ignore
     @Test
     fun `capitalized word`() = assertEquals("nemaR", reverse("Ramen"))
 
-    @Ignore
+    //@Ignore
     @Test
     fun `sentence with punctuation`() = assertEquals("!yrgnuh m'I", reverse("I'm hungry!"))
 
-    @Ignore
+    //@Ignore
     @Test
     fun `palindrome word`() = assertEquals("racecar", reverse("racecar"))
 
-    @Ignore
+    //@Ignore
     @Test
     fun `even-sized word`() = assertEquals("reward", reverse("drawer"))
 
-    @Ignore
+    //@Ignore
     @Test
     fun `apply twice`() {
         val input = "input"

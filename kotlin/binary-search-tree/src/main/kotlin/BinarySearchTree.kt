@@ -44,6 +44,6 @@ class BinarySearchTree<T : Comparable<T>> {
     fun height(node: Node<T>? = root): Int =
         when(node) {
             null -> 0
-            else -> listOf(height(node.left), height(node.right)).max()!! + 1
+            else -> listOf(height(node.left), height(node.right)).maxOrNull()!! + 1
         }
 }

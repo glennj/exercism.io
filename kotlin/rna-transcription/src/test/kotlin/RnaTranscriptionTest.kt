@@ -7,22 +7,22 @@ class RnaTranscriptionTest {
     fun `empty RNA` ()= assertEquals("", transcribeToRna(""))
 
     @Test
-    @Ignore
+    //@Ignore
     fun `RNA complement of cytosine is guanine`() = assertEquals("G", transcribeToRna("C"))
 
-    @Ignore
+    //@Ignore
     @Test
     fun `RNA complement of guanine is cytosine`() = assertEquals("C", transcribeToRna("G"))
 
-    @Ignore
+    //@Ignore
     @Test
     fun `RNA complement of thymine is adenine`() = assertEquals("A", transcribeToRna("T"))
 
-    @Ignore
+    //@Ignore
     @Test
     fun `RNA complement of adenine is uracil`() = assertEquals("U", transcribeToRna("A"))
 
-    @Ignore
+    //@Ignore
     @Test
     fun `compound RNA`() = assertEquals("UGCACCAGAAUU", transcribeToRna("ACGTGGTCTTAA"))
 }

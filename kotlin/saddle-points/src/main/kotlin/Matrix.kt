@@ -6,10 +6,14 @@ class Matrix(private val m: List<List<Int>>) {
 
     private fun findSaddlePoints(): Set<MatrixCoordinate> {
         val saddlePoints: MutableSet<MatrixCoordinate> = mutableSetOf()
-        val rowMaximum = m.map { it.max() }
+        if (m.isEmpty() || m.first().isEmpty()) {
+            return saddlePoints
+        }
+
+        val rowMaximum = m.map { it.maxOrNull()!! }
         val colMinimum = m.first().indices
                 .map { i -> m.map { row -> row[i] } }
-                .map { it.min() }
+                .map { it.minOrNull()!! }
 
         // check each cell for its saddle-pointiness
         for (r in m.indices) {

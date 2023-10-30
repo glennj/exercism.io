@@ -15,31 +15,31 @@ class HammingTest {
         assertEquals(0, Hamming.compute("", ""))
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun `single letter identical strands`() {
         assertEquals(0, Hamming.compute("A", "A"))
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun `single letter different strands`() {
         assertEquals(1, Hamming.compute("G", "T"))
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun `long identical strands`() {
         assertEquals(0, Hamming.compute("GGACTGAAATCTG", "GGACTGAAATCTG"))
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun `long different strands`() {
         assertEquals(9, Hamming.compute("GGACGGATTCTG", "AGGACGGATTCT"))
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun `disallow first strand longer`() {
         expectedException.expect(IllegalArgumentException::class.java)
@@ -48,7 +48,7 @@ class HammingTest {
         Hamming.compute("AATG", "AAA")
     }
 
-    @Ignore
+    //@Ignore
     @Test
     fun `disallow second strand longer`() {
         expectedException.expect(IllegalArgumentException::class.java)
