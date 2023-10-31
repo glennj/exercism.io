@@ -33,6 +33,14 @@ load bats-extra
     assert_output 'Timezone not set'
 }
 
+@test message_contains_colon {
+    ## task 1
+    run jq -rn --arg line '[INFO]: The current time is 12:34:56' \
+        'include "log-line-parser"; $line | message'
+    assert_success
+    assert_output 'The current time is 12:34:56'
+}
+
 @test error_log_level {
     ## task 2
     run jq -rn --arg line '[ERROR]: Disk full' \
