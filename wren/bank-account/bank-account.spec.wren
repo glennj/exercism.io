@@ -8,14 +8,14 @@ Testie.test("Bank account") { |do, skip|
     Expect.value(account.balance).toEqual(0)
   }
 
-  skip.test("can deposit money") {
+  do.test("can deposit money") {
     var account = BankAccount.new()
     account.open()
     account.deposit(100)
     Expect.value(account.balance).toEqual(100)
   }
 
-  skip.test("can deposit money sequentially") {
+  do.test("can deposit money sequentially") {
     var account = BankAccount.new()
     account.open()
     account.deposit(100)
@@ -23,7 +23,7 @@ Testie.test("Bank account") { |do, skip|
     Expect.value(account.balance).toEqual(150)
   }
 
-  skip.test("can withdraw money") {
+  do.test("can withdraw money") {
     var account = BankAccount.new()
     account.open()
     account.deposit(100)
@@ -31,7 +31,7 @@ Testie.test("Bank account") { |do, skip|
     Expect.value(account.balance).toEqual(50)
   }
 
-  skip.test("can withdraw money sequentially") {
+  do.test("can withdraw money sequentially") {
     var account = BankAccount.new()
     account.open()
     account.deposit(100)
@@ -40,7 +40,7 @@ Testie.test("Bank account") { |do, skip|
     Expect.value(account.balance).toEqual(0)
   }
 
-  skip.test("checking balance of closed account throws error") {
+  do.test("checking balance of closed account throws error") {
     var account = BankAccount.new()
     account.open()
     account.close()
@@ -49,7 +49,7 @@ Testie.test("Bank account") { |do, skip|
     }.abortsWith("Bank account error")
   }
 
-  skip.test("deposit into closed account throws error") {
+  do.test("deposit into closed account throws error") {
     var account = BankAccount.new()
     account.open()
     account.close()
@@ -58,7 +58,7 @@ Testie.test("Bank account") { |do, skip|
     }.abortsWith("Bank account error")
   }
 
-  skip.test("withdraw from closed account throws error") {
+  do.test("withdraw from closed account throws error") {
     var account = BankAccount.new()
     account.open()
     account.close()
@@ -67,14 +67,14 @@ Testie.test("Bank account") { |do, skip|
     }.abortsWith("Bank account error")
   }
 
-  skip.test("close already closed account throws error") {
+  do.test("close already closed account throws error") {
     var account = BankAccount.new()
     Expect.that {
       account.close()
     }.abortsWith("Bank account error")
   }
 
-  skip.test("open already opened account throws error") {
+  do.test("open already opened account throws error") {
     var account = BankAccount.new()
     account.open()
     Expect.that {
@@ -82,7 +82,7 @@ Testie.test("Bank account") { |do, skip|
     }.abortsWith("Bank account error")
   }
 
-  skip.test("reopened account does not retain balance") {
+  do.test("reopened account does not retain balance") {
     var account = BankAccount.new()
     account.open()
     account.deposit(50)
@@ -91,7 +91,7 @@ Testie.test("Bank account") { |do, skip|
     Expect.value(account.balance).toEqual(0)
   }
 
-  skip.test("cannot withdraw more than deposited") {
+  do.test("cannot withdraw more than deposited") {
     var account = BankAccount.new()
     account.open()
     account.deposit(25)
@@ -100,7 +100,7 @@ Testie.test("Bank account") { |do, skip|
     }.abortsWith("Bank account error")
   }
 
-  skip.test("cannot withdraw negative amount") {
+  do.test("cannot withdraw negative amount") {
     var account = BankAccount.new()
     account.open()
     account.deposit(100)
@@ -109,7 +109,7 @@ Testie.test("Bank account") { |do, skip|
     }.abortsWith("Bank account error")
   }
 
-  skip.test("cannot deposit negative amount") {
+  do.test("cannot deposit negative amount") {
     var account = BankAccount.new()
     account.open()
     Expect.that {

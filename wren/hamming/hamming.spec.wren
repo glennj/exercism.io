@@ -6,41 +6,41 @@ Testie.test("Hamming") { |do, skip|
     Expect.value(Hamming.compute("", "")).toEqual(0)
   }
 
-  skip.test("single letter identical strands") {
+  do.test("single letter identical strands") {
     Expect.value(Hamming.compute("A", "A")).toEqual(0)
   }
 
-  skip.test("single letter different strands") {
+  do.test("single letter different strands") {
     Expect.value(Hamming.compute("G", "T")).toEqual(1)
   }
 
-  skip.test("long identical strands") {
+  do.test("long identical strands") {
     Expect.value(Hamming.compute("GGACTGAAATCTG", "GGACTGAAATCTG")).toEqual(0)
   }
 
-  skip.test("long different strands") {
+  do.test("long different strands") {
     Expect.value(Hamming.compute("GGACGGATTCTG", "AGGACGGATTCT")).toEqual(9)
   }
 
-  skip.test("disallow first strand longer") {
+  do.test("disallow first strand longer") {
     Expect.that {
       Hamming.compute("AATG", "AAA")
     }.abortsWith("strands must be of equal length")
   }
 
-  skip.test("disallow second strand longer") {
+  do.test("disallow second strand longer") {
     Expect.that {
       Hamming.compute("ATA", "AGTG")
     }.abortsWith("strands must be of equal length")
   }
 
-  skip.test("disallow left empty strand") {
+  do.test("disallow left empty strand") {
     Expect.that {
       Hamming.compute("", "G")
     }.abortsWith("strands must be of equal length")
   }
 
-  skip.test("disallow right empty strand") {
+  do.test("disallow right empty strand") {
     Expect.that {
       Hamming.compute("G", "")
     }.abortsWith("strands must be of equal length")

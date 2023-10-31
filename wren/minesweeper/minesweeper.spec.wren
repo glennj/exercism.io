@@ -6,65 +6,65 @@ Testie.test("Minesweeper") { |do, skip|
     Expect.value(Minesweeper.annotate([])).toEqual([])
   }
 
-  skip.test("handles no columns") {
+  do.test("handles no columns") {
     Expect.value(Minesweeper.annotate([""])).toEqual([""])
   }
 
-  skip.test("handles no mines") {
+  do.test("handles no mines") {
     var input = ["   ", "   ", "   "]
     var expected = ["   ", "   ", "   "]
     Expect.value(Minesweeper.annotate(input)).toEqual(expected)
   }
 
-  skip.test("handles minefield with only mines") {
+  do.test("handles minefield with only mines") {
     var input = ["***", "***", "***"]
     var expected = ["***", "***", "***"]
     Expect.value(Minesweeper.annotate(input)).toEqual(expected)
   }
 
-  skip.test("handles mine surrounded by spaces") {
+  do.test("handles mine surrounded by spaces") {
     var input = ["   ", " * ", "   "]
     var expected = ["111", "1*1", "111"]
     Expect.value(Minesweeper.annotate(input)).toEqual(expected)
   }
 
-  skip.test("handles space surrounded by mines") {
+  do.test("handles space surrounded by mines") {
     var input = ["***", "* *", "***"]
     var expected = ["***", "*8*", "***"]
     Expect.value(Minesweeper.annotate(input)).toEqual(expected)
   }
 
-  skip.test("handles horizontal line") {
+  do.test("handles horizontal line") {
     var input = [" * * "]
     var expected = ["1*2*1"]
     Expect.value(Minesweeper.annotate(input)).toEqual(expected)
   }
 
-  skip.test("handles horizontal line, mines at edges") {
+  do.test("handles horizontal line, mines at edges") {
     var input = ["*   *"]
     var expected = ["*1 1*"]
     Expect.value(Minesweeper.annotate(input)).toEqual(expected)
   }
 
-  skip.test("handles vertical line") {
+  do.test("handles vertical line") {
     var input = [" ", "*", " ", "*", " "]
     var expected = ["1", "*", "2", "*", "1"]
     Expect.value(Minesweeper.annotate(input)).toEqual(expected)
   }
 
-  skip.test("handles vertical line, mines at edges") {
+  do.test("handles vertical line, mines at edges") {
     var input = ["*", " ", " ", " ", "*"]
     var expected = ["*", "1", " ", "1", "*"]
     Expect.value(Minesweeper.annotate(input)).toEqual(expected)
   }
 
-  skip.test("handles cross") {
+  do.test("handles cross") {
     var input = ["  *  ", "  *  ", "*****", "  *  ", "  *  "]
     var expected = [" 2*2 ", "25*52", "*****", "25*52", " 2*2 "]
     Expect.value(Minesweeper.annotate(input)).toEqual(expected)
   }
 
-  skip.test("handles large minefield") {
+  do.test("handles large minefield") {
     var input = [" *  * ", "  *   ", "    * ", "   * *", " *  * ", "      "]
     var expected = [
       "1*22*1",

@@ -13,7 +13,7 @@ Testie.test("Simple Cipher") { |do, skip|
       }
     }
 
-    skip.test("Can encode") {
+    do.test("Can encode") {
       var cipher = SimpleCipher.new()
       var plaintext = "aaaaaaaaaa"
       var encoded = cipher.encode(plaintext)
@@ -21,7 +21,7 @@ Testie.test("Simple Cipher") { |do, skip|
       Expect.value(encoded).toEqual(expected)
     }
 
-    skip.test("Can decode") {
+    do.test("Can decode") {
       var cipher = SimpleCipher.new()
       var plaintext = "aaaaaaaaaa"
       var ciphertext = cipher.key[0...plaintext.count]
@@ -29,7 +29,7 @@ Testie.test("Simple Cipher") { |do, skip|
       Expect.value(decoded).toEqual(plaintext)
     }
 
-    skip.test("Is reversible") {
+    do.test("Is reversible") {
       var cipher = SimpleCipher.new()
       var plaintext = "abdefghij"
       var encoded = cipher.encode(plaintext)
@@ -39,21 +39,21 @@ Testie.test("Simple Cipher") { |do, skip|
   }
 
   do.describe("Substitution cipher") {
-    skip.test("Can encode") {
+    do.test("Can encode") {
       var key = "abcdefghij"
       var cipher = SimpleCipher.new(key)
       var plaintext = "aaaaaaaaaa"
       Expect.value(cipher.encode(plaintext)).toEqual(key)
     }
 
-    skip.test("Can decode") {
+    do.test("Can decode") {
       var key = "abcdefghij"
       var cipher = SimpleCipher.new(key)
       var plaintext = "aaaaaaaaaa"
       Expect.value(cipher.decode(key)).toEqual(plaintext)
     }
 
-    skip.test("Is reversible") {
+    do.test("Is reversible") {
       var key = "abdefghij"
       var cipher = SimpleCipher.new(key)
       var encoded = cipher.encode(key)
@@ -61,7 +61,7 @@ Testie.test("Simple Cipher") { |do, skip|
       Expect.value(decoded).toEqual(key)
     }
 
-    skip.test("Can double shift encode") {
+    do.test("Can double shift encode") {
       var key = "iamapandabear"
       var cipher = SimpleCipher.new(key)
       var encoded = cipher.encode(key)
@@ -69,25 +69,25 @@ Testie.test("Simple Cipher") { |do, skip|
       Expect.value(encoded).toEqual(expected)
     }
 
-    skip.test("Can wrap on encode") {
+    do.test("Can wrap on encode") {
       var cipher = SimpleCipher.new("abcdefghij")
       var encoded = cipher.encode("zzzzzzzzzz")
       Expect.value(encoded).toEqual("zabcdefghi")
     }
 
-    skip.test("Can wrap on decode") {
+    do.test("Can wrap on decode") {
       var cipher = SimpleCipher.new("abcdefghij")
       var decoded = cipher.decode("zabcdefghi")
       Expect.value(decoded).toEqual("zzzzzzzzzz")
     }
 
-    skip.test("Can encode messages longer than the key") {
+    do.test("Can encode messages longer than the key") {
       var cipher = SimpleCipher.new("abc")
       var encoded = cipher.encode("iamapandabear")
       Expect.value(encoded).toEqual("iboaqcnecbfcr")
     }
 
-    skip.test("Can decode messages longer than the key") {
+    do.test("Can decode messages longer than the key") {
       var cipher = SimpleCipher.new("abc")
       var decoded = cipher.decode("iboaqcnecbfcr")
       Expect.value(decoded).toEqual("iamapandabear")
