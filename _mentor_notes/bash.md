@@ -910,7 +910,7 @@ surprises (particularly about unquoted variables).
 
 <!-- Some more details -->
 
-`[[` does not do word splitting or filename expansion on unquoted variables,
+The [manual says](https://www.gnu.org/software/bash/manual/bash.html#index-_007b_005b),: "The words between the [[ and ]] do not undergo word splitting and filename expansion."
 so I say that it has few surprises. Consider:
 ```
 $ var=""
@@ -930,7 +930,7 @@ empty
 ```
 
 <details><summary>Click for
-details about why `[` gives incorrect results if you want.</summary>
+details about why <code>[</code> gives incorrect results if you want.</summary>
 
 ---
 The deep dive: the `test`, `[` and `[[` commands all act the same in that
