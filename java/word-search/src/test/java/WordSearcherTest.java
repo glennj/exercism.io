@@ -1,10 +1,13 @@
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class WordSearcherTest {
 
@@ -29,10 +32,10 @@ public class WordSearcherTest {
                 }
         );
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testLocatesOneWordWrittenLeftToRight() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -47,10 +50,10 @@ public class WordSearcherTest {
                 }
         );
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testShouldLocateTheSameWordLeftToRightInDifferentPosition() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -65,10 +68,10 @@ public class WordSearcherTest {
                 }
         );
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testShouldLocateADifferentLeftToRightWord() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -83,10 +86,10 @@ public class WordSearcherTest {
                 }
         );
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testShouldLocateThatDifferentLeftToRightWordInADifferentPosition() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -101,10 +104,10 @@ public class WordSearcherTest {
                 }
         );
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testShouldLocateLeftToRightWordInTwoLineGrid() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -120,10 +123,10 @@ public class WordSearcherTest {
                 }
         );
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testShouldLocateLeftToRightWordInThreeLineGrid() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -140,10 +143,10 @@ public class WordSearcherTest {
                 }
         );
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testLocatesWordWrittenLeftToRightInTenLineGrid() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -167,10 +170,10 @@ public class WordSearcherTest {
                 }
         );
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testLocatesSameWordWrittenLeftToRightInDifferentTenLineGrid() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -194,10 +197,10 @@ public class WordSearcherTest {
                 }
         );
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testLocatesDifferentWordWrittenLeftToRightInTenLineGrid() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -221,10 +224,10 @@ public class WordSearcherTest {
                 }
         );
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testShouldLocateMultipleWords() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -249,10 +252,10 @@ public class WordSearcherTest {
                 }
         );
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testShouldLocateASingleWordRightToLeft() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -267,10 +270,10 @@ public class WordSearcherTest {
                 }
         );
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testShouldLocateMultipleWordsWrittenInDifferentHorizontalDirections() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -295,10 +298,10 @@ public class WordSearcherTest {
                 }
         );
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testLocatesWordsWrittenTopToBottom() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -324,10 +327,10 @@ public class WordSearcherTest {
                 }
         );
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testLocatesWordsWrittenBottomToTop() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -352,10 +355,10 @@ public class WordSearcherTest {
                         {'j', 'a', 'l', 'a', 'y', 'c', 'a', 'l', 'm', 'p'},
                         {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}});
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testLocatesWordsWrittenTopLeftToBottomRight() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -381,10 +384,10 @@ public class WordSearcherTest {
                         {'j', 'a', 'l', 'a', 'y', 'c', 'a', 'l', 'm', 'p'},
                         {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}});
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testLocatesWordsWrittenBottomRightToTopLeft() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -411,10 +414,10 @@ public class WordSearcherTest {
                         {'j', 'a', 'l', 'a', 'y', 'c', 'a', 'l', 'm', 'p'},
                         {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}});
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testLocatesWordsWrittenBottomLeftToTopRight() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -442,10 +445,10 @@ public class WordSearcherTest {
                         {'j', 'a', 'l', 'a', 'y', 'c', 'a', 'l', 'm', 'p'},
                         {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}});
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testLocatesWordsWrittenTopRightToBottomLeft() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -474,10 +477,10 @@ public class WordSearcherTest {
                         {'j', 'a', 'l', 'a', 'y', 'c', 'a', 'l', 'm', 'p'},
                         {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}});
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testFailsToLocateAWordsThatIsNotInThePuzzle() {
         Map<String, Optional<WordLocation>> expectedLocations = new HashMap<>();
@@ -507,7 +510,7 @@ public class WordSearcherTest {
                         {'j', 'a', 'l', 'a', 'y', 'c', 'a', 'l', 'm', 'p'},
                         {'c', 'l', 'o', 'j', 'u', 'r', 'e', 'r', 'm', 't'}});
 
-        assertEquals(expectedLocations, actualLocations);
+        assertThat(actualLocations).isEqualTo(expectedLocations);
     }
 
 }

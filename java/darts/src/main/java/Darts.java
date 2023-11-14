@@ -5,16 +5,8 @@ class Darts {
     private static int OUTER_SCORE  =  1;
     private static int MIDDLE_SCORE =  5;
     private static int INNER_SCORE  = 10;
-    
-    private double x;
-    private double y;
 
-    Darts(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    int score() {
+    int score(double x, double y) {
         double distance = Math.sqrt(x * x + y * y);
         int score = 0;
         if (distance <= INNER_RADIUS) {

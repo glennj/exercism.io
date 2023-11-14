@@ -1,11 +1,11 @@
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SieveTest {
 
@@ -14,37 +14,37 @@ public class SieveTest {
         Sieve sieve = new Sieve(1);
         List<Integer> expectedOutput = Collections.emptyList();
 
-        assertEquals(expectedOutput, sieve.getPrimes());
+        assertThat(sieve.getPrimes()).isEqualTo(expectedOutput);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void findFirstPrime() {
         Sieve sieve = new Sieve(2);
         List<Integer> expectedOutput = Collections.singletonList(2);
 
-        assertEquals(expectedOutput, sieve.getPrimes());
+        assertThat(sieve.getPrimes()).isEqualTo(expectedOutput);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void findPrimesUpTo10() {
         Sieve sieve = new Sieve(10);
         List<Integer> expectedOutput = Arrays.asList(2, 3, 5, 7);
 
-        assertEquals(expectedOutput, sieve.getPrimes());
+        assertThat(sieve.getPrimes()).isEqualTo(expectedOutput);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void limitIsPrime() {
         Sieve sieve = new Sieve(13);
         List<Integer> expectedOutput = Arrays.asList(2, 3, 5, 7, 11, 13);
 
-        assertEquals(expectedOutput, sieve.getPrimes());
+        assertThat(sieve.getPrimes()).isEqualTo(expectedOutput);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void findPrimesUpTo1000() {
         Sieve sieve = new Sieve(1000);
@@ -58,6 +58,6 @@ public class SieveTest {
                 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983,
                 991, 997);
 
-        assertEquals(expectedOutput, sieve.getPrimes());
+        assertThat(sieve.getPrimes()).isEqualTo(expectedOutput);
     }
 }

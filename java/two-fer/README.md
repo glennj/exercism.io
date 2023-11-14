@@ -3,19 +3,27 @@
 Welcome to Two Fer on Exercism's Java Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
+## Introduction
+
+In some English accents, when you say "two for" quickly, it sounds like "two fer".
+Two-for-one is a way of saying that if you buy one, you also get one for free.
+So the phrase "two-fer" often implies a two-for-one offer.
+
+Imagine a bakery that has a holiday offer where you can buy two cookies for the price of one ("two-fer one!").
+You go for the offer and (very generously) decide to give the extra cookie to a friend.
+
 ## Instructions
 
-`Two-fer` or `2-fer` is short for two for one. One for you and one for me.
+Your task is to determine what you will say as you give away the extra cookie.
 
-Given a name, return a string with the message:
+If your friend likes cookies, and is named Do-yun, then you will say:
 
 ```text
-One for name, one for me.
+One for Do-yun, one for me.
 ```
 
-Where "name" is the given name.
-
-However, if the name is missing, return the string:
+If your friend doesn't like cookies, you give the cookie to the next person in line at the bakery.
+Since you don't know their name, you will say _you_ instead.
 
 ```text
 One for you, one for me.
@@ -23,15 +31,15 @@ One for you, one for me.
 
 Here are some examples:
 
-|Name    |String to return
-|:-------|:------------------
-|Alice   |One for Alice, one for me.
-|Bob     |One for Bob, one for me.
-|        |One for you, one for me.
-|Zaphod  |One for Zaphod, one for me.
+| Name   | Dialogue                    |
+| :----- | :-------------------------- |
+| Alice  | One for Alice, one for me.  |
+| Bohdan | One for Bohdan, one for me. |
+|        | One for you, one for me.    |
+| Zaphod | One for Zaphod, one for me. |
 
 Before you start, make sure you understand how to write code that can pass the test cases.
-For more context, check out this [tutorial](https://github.com/exercism/java/blob/master/exercises/hello-world/TUTORIAL.md).
+For more context, check out this [tutorial](https://github.com/exercism/java/blob/main/exercises/practice/hello-world/.docs/instructions.append.md#tutorial).
 
 Most Java exercises include multiple test cases. These cases are structured to
 support a useful process known as

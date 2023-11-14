@@ -9,9 +9,10 @@ class CryptoSquare {
     private final String ciphertext;
 
     CryptoSquare(String plaintext) {
-        ciphertext = plaintext.isEmpty()
+        String normalized = prepare(plaintext);
+        ciphertext = normalized.isEmpty()
                 ? ""
-                : encode(split(prepare(plaintext)));
+                : encode(split(normalized));
     }
 
     String getCiphertext() { return ciphertext; }
@@ -40,11 +41,13 @@ class CryptoSquare {
         );
         this.size = (int)Math.ceil(Math.sqrt(normalized.length()));
 
-        // pad with spaces so the length is a multiple of `size`
-        normalized.append(String.join(
-                "",
-                Collections.nCopies(normalized.length() % size, " ")
-        ));
+        if (size > 0) {
+            // pad with spaces so the length is a multiple of `size`
+            normalized.append(String.join(
+                    "",
+                    Collections.nCopies(normalized.length() % size, " ")
+            ));
+        }
 
         return normalized.toString();
     }

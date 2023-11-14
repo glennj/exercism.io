@@ -19,27 +19,18 @@ public class TwoferTest {
                 .isEqualTo("One for you, one for me.");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void aNameGiven() {
         assertThat(twofer.twofer("Alice"))
                 .isEqualTo("One for Alice, one for me.");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void anotherNameGiven() {
         assertThat(twofer.twofer("Bob"))
                 .isEqualTo("One for Bob, one for me.");
-    }
-
-    /* Track specific */
-
-    @Ignore("Remove to run test")
-    @Test
-    public void emptyStringIsNotTheSameAsNull() {
-        assertThat(twofer.twofer(""))
-                .isEqualTo("One for , one for me.");
     }
 
 }

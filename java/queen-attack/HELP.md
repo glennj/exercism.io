@@ -106,7 +106,7 @@ Good luck!  Have fun!
 
 ## Submitting your solution
 
-You can submit your solution using the `exercism submit src/main/java/QueenAttackCalculator.java` command.
+You can submit your solution using the `exercism submit src/main/java/QueenAttackCalculator.java src/main/java/Queen.java` command.
 This command will upload your solution to the Exercism website and print the solution page's URL.
 
 It's possible to submit an incomplete solution which allows you to:
@@ -119,6 +119,7 @@ It's possible to submit an incomplete solution which allows you to:
 If you'd like help solving the exercise, check the following pages:
 
 - The [Java track's documentation](https://exercism.org/docs/tracks/java)
+- The [Java track's programming category on the forum](https://forum.exercism.org/c/programming/java)
 - [Exercism's programming category on the forum](https://forum.exercism.org/c/programming/5)
 - The [Frequently Asked Questions](https://exercism.org/docs/using/faqs)
 

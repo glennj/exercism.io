@@ -4,11 +4,18 @@ public class BankAccount {
     private int balance = 0;
     private Status status = Status.CLOSED;
 
-    synchronized void open() {
+    synchronized void open() throws BankAccountActionInvalidException {
+        if (status == Status.OPEN)
+            throw new BankAccountActionInvalidException("Account already open");
+
         status = Status.OPEN;
     }
 
-    synchronized void close() {
+    synchronized void close() throws BankAccountActionInvalidException {
+        if (status == Status.CLOSED)
+            throw new BankAccountActionInvalidException("Account not open");
+
+        balance = 0;
         status = Status.CLOSED;
     }
 

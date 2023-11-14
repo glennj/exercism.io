@@ -1,4 +1,4 @@
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,10 +21,10 @@ public class SchoolTest {
         school = new School();
         school.add("Aimee", 2);
         List<String> expected = Arrays.asList("Aimee");
-        assertEquals(expected, school.roster());
+        assertThat(school.roster()).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void addingMoreStudentsAddsThemToTheSameSortedRoster() {
         school = new School();
@@ -33,28 +33,28 @@ public class SchoolTest {
         school.add("James", grade);
         school.add("Paul", grade);
         List<String> expected = Arrays.asList("Blair", "James", "Paul");
-        assertEquals(expected, school.roster());
+        assertThat(school.roster()).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void addingStudentsToDifferentGradesAddsThemToTheSameSortedRoster() {
         school = new School();
         school.add("Chelsea", 3);
         school.add("Logan", 7);
         List<String> expected = Arrays.asList("Chelsea", "Logan");
-        assertEquals(expected, school.roster());
+        assertThat(school.roster()).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void rosterReturnsAnEmptyListIfThereAreNoStudentsEnrolled() {
         school = new School();
         List<String> expected = Arrays.asList();
-        assertEquals(expected, school.roster());
+        assertThat(school.roster()).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void studentNamesWithGradesAreDisplayedInTheSameSortedRoster() {
         school = new School();
@@ -66,10 +66,10 @@ public class SchoolTest {
         school.add("Jim", 3);
         school.add("Charlie", 1);
         List<String> expected = Arrays.asList("Anna", "Barb", "Charlie", "Alex", "Peter", "Zoe", "Jim");
-        assertEquals(expected, school.roster());
+        assertThat(school.roster()).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void gradeReturnsTheStudentsInThatGradeInAlphabeticalOrder() {
         school = new School();
@@ -77,14 +77,14 @@ public class SchoolTest {
         school.add("Bradley", 5);
         school.add("Jeff", 1);
         List<String> expected = Arrays.asList("Bradley", "Franklin");
-        assertEquals(expected, school.grade(5));
+        assertThat(school.grade(5)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void gradeReturnsAnEmptyListIfThereAreNoStudentsInThatGrade() {
         school = new School();
         List<String> expected = Arrays.asList();
-        assertEquals(expected, school.grade(1));
+        assertThat(school.grade(1)).isEqualTo(expected);
     }
 }

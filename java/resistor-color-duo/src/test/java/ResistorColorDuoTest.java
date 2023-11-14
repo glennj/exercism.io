@@ -19,7 +19,7 @@ public class ResistorColorDuoTest {
         ).isEqualTo(10);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testBlueAndGrey() {
         assertThat(
@@ -27,7 +27,7 @@ public class ResistorColorDuoTest {
         ).isEqualTo(68);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testYellowAndViolet() {
         assertThat(resistorColorDuo.value(
@@ -35,7 +35,7 @@ public class ResistorColorDuoTest {
         ).isEqualTo(47);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testOrangeAndOrange() {
         assertThat(
@@ -43,7 +43,7 @@ public class ResistorColorDuoTest {
         ).isEqualTo(33);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testIgnoreAdditionalColors() {
         assertThat(

@@ -5,19 +5,20 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
 
-The classical introductory exercise. Just say "Hello, World!".
+The classical introductory exercise.
+Just say "Hello, World!".
 
-["Hello, World!"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) is
-the traditional first program for beginning programming in a new language
-or environment.
+["Hello, World!"][hello-world] is the traditional first program for beginning programming in a new language or environment.
 
 The objectives are simple:
 
-- Write a function that returns the string "Hello, World!".
+- Modify the provided code so that it produces the string "Hello, World!".
 - Run the test suite and make sure that it succeeds.
 - Submit your solution and check it at the website.
 
 If everything goes well, you will be ready to fetch your first real exercise.
+
+[hello-world]: https://en.wikipedia.org/wiki/%22Hello,_world!%22_program
 
 Since this is your first Java exercise, we've included a detailed [Tutorial](#tutorial)
 that guides you through your solution. Check it out for tips and
@@ -80,7 +81,14 @@ With a working solution that we've reviewed, we're ready to submit it to
 exercism.org.
 You can submit the solution using the online editor or locally using the [Exercism CLI](https://exercism.org/docs/using/solving-exercises/working-locally):
 - To submit the exercise locally, first [install the exercism CLI](https://exercism.org/docs/using/solving-exercises/working-locally) if you haven't already  and then submit the files of your solution, e.g:
-
+```
+ $ exercism submit <file location>
+```
+replace <file location> with the relative location of your hello-world.java file.
+so if you are working in "C:\exercism\java\hello-world" then the command would be
+ ```
+  $ exercism submit .\src\main\java\Blackjack.java
+ ```
 - If you want to use the online editor to submit your solution, just click the "Submit" button!
 
 For a closer look at submitting a solution locally:
@@ -156,4 +164,4 @@ https://github.com/exercism/docs/tree/main/building
 
 ### Based on
 
-This is an exercise to introduce users to using Exercism - http://en.wikipedia.org/wiki/%22Hello,_world!%22_program
+This is an exercise to introduce users to using Exercism - https://en.wikipedia.org/wiki/%22Hello,_world!%22_program

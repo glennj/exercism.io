@@ -1,6 +1,5 @@
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,7 +14,7 @@ public class SimpleLinkedListTest {
         assertThat(list.size()).isEqualTo(0);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void canCreateFromArray() {
         Character[] values = new Character[]{'1', '2', '3'};
@@ -23,17 +22,15 @@ public class SimpleLinkedListTest {
         assertThat(list.size()).isEqualTo(3);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void popOnEmptyListWillThrow() {
         SimpleLinkedList<String> list = new SimpleLinkedList<String>();
 
-        assertThrows(
-            NoSuchElementException.class,
-            list::pop);
+        assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(list::pop);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void popReturnsLastAddedElement() {
         SimpleLinkedList<Integer> list = new SimpleLinkedList<Integer>();
@@ -45,7 +42,7 @@ public class SimpleLinkedListTest {
         assertThat(list.size()).isEqualTo(0);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void reverseReversesList() {
         SimpleLinkedList<String> list = new SimpleLinkedList<String>();
@@ -62,7 +59,7 @@ public class SimpleLinkedListTest {
         assertThat(list.pop()).isEqualTo("5");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void canReturnListAsArray() {
         SimpleLinkedList<Character> list = new SimpleLinkedList<Character>();
@@ -72,15 +69,15 @@ public class SimpleLinkedListTest {
         list.push('6');
         list.push('5');
         Character[] expected = {'5', '6', '7', '8', '9'};
-        assertArrayEquals(expected, list.asArray(Character.class));
+        assertThat(list.asArray(Character.class)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void canReturnEmptyListAsEmptyArray() {
         SimpleLinkedList<Object> list = new SimpleLinkedList<Object>();
         Object[] expected = {};
-        assertArrayEquals(expected, list.asArray(Object.class));
+        assertThat(list.asArray(Object.class)).isEqualTo(expected);
     }
 
 }

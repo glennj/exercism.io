@@ -1,9 +1,13 @@
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class EtlTest {
@@ -25,10 +29,10 @@ public class EtlTest {
         };
         expected = Collections.unmodifiableMap(expected);
 
-        assertEquals(expected, etl.transform(old));
+        assertThat(etl.transform(old)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testTransformMoreValues() {
         Map<Integer, List<String>> old = new HashMap<Integer, List<String>>() {
@@ -49,10 +53,10 @@ public class EtlTest {
         };
         expected = Collections.unmodifiableMap(expected);
 
-        assertEquals(expected, etl.transform(old));
+        assertThat(etl.transform(old)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testMoreKeys() {
         Map<Integer, List<String>> old = new HashMap<Integer, List<String>>() {
@@ -73,10 +77,10 @@ public class EtlTest {
         };
         expected = Collections.unmodifiableMap(expected);
 
-        assertEquals(expected, etl.transform(old));
+        assertThat(etl.transform(old)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testFullDataset() {
         Map<Integer, List<String>> old = new HashMap<Integer, List<String>>() {
@@ -124,6 +128,6 @@ public class EtlTest {
         };
         expected = Collections.unmodifiableMap(expected);
 
-        assertEquals(expected, etl.transform(old));
+        assertThat(etl.transform(old)).isEqualTo(expected);
     }
 }

@@ -5,7 +5,14 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
 
-Output the lyrics to 'The Twelve Days of Christmas'.
+Your task in this exercise is to write code that returns the lyrics of the song: "The Twelve Days of Christmas."
+
+"The Twelve Days of Christmas" is a common English Christmas carol.
+Each subsequent verse of the song builds on the previous verse.
+
+The lyrics your code returns should _exactly_ match the full song text shown below.
+
+## Lyrics
 
 ```text
 On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree.
@@ -60,4 +67,4 @@ On the twelfth day of Christmas my true love gave to me: twelve Drummers Drummin
 
 ### Based on
 
-Wikipedia - http://en.wikipedia.org/wiki/The_Twelve_Days_of_Christmas_(song)
+Wikipedia - https://en.wikipedia.org/wiki/The_Twelve_Days_of_Christmas_(song)

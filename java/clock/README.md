@@ -43,4 +43,4 @@ For more information on how to override these methods, see [this JavaWorld artic
 
 ### Based on
 
-Pairing session with Erin Drummond - https://twitter.com/ebdrummond
+Pairing session with Erin Drummond

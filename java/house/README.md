@@ -7,14 +7,11 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 
 Recite the nursery rhyme 'This is the House that Jack Built'.
 
-> [The] process of placing a phrase of clause within another phrase of
-> clause is called embedding. It is through the processes of recursion
-> and embedding that we are able to take a finite number of forms (words
-> and phrases) and construct an infinite number of expressions.
-> Furthermore, embedding also allows us to construct an infinitely long
-> structure, in theory anyway.
+> [The] process of placing a phrase of clause within another phrase of clause is called embedding.
+> It is through the processes of recursion and embedding that we are able to take a finite number of forms (words and phrases) and construct an infinite number of expressions.
+> Furthermore, embedding also allows us to construct an infinitely long structure, in theory anyway.
 
-- [papyr.com](http://papyr.com/hypertextbooks/grammar/ph_noun.htm)
+- [papyr.com][papyr]
 
 The nursery rhyme reads as follows:
 
@@ -110,6 +107,8 @@ that ate the malt
 that lay in the house that Jack built.
 ```
 
+[papyr]: https://papyr.com/hypertextbooks/grammar/ph_noun.htm
+
 ## Source
 
 ### Created by
@@ -134,4 +133,4 @@ that lay in the house that Jack built.
 
 ### Based on
 
-British nursery rhyme - http://en.wikipedia.org/wiki/This_Is_The_House_That_Jack_Built
+British nursery rhyme - https://en.wikipedia.org/wiki/This_Is_The_House_That_Jack_Built

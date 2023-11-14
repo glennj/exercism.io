@@ -1,6 +1,5 @@
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,10 +17,11 @@ public class OpticalCharacterReaderTest {
                 "   "
         ));
 
-        assertEquals("0", parsedInput);
+        assertThat(parsedInput).isEqualTo("0");
+
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderRecognizesSingle1() {
         String parsedInput = new OpticalCharacterReader().parse(Arrays.asList(
@@ -31,10 +31,10 @@ public class OpticalCharacterReaderTest {
                 "   "
         ));
 
-        assertEquals("1", parsedInput);
+        assertThat(parsedInput).isEqualTo("1");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderReturnsQuestionMarkForUnreadableButCorrectlySizedInput() {
         String parsedInput = new OpticalCharacterReader().parse(Arrays.asList(
@@ -44,47 +44,40 @@ public class OpticalCharacterReaderTest {
                 "   "
         ));
 
-        assertEquals("?", parsedInput);
+        assertThat(parsedInput).isEqualTo("?");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderThrowsExceptionWhenNumberOfInputLinesIsNotAMultipleOf4() {
-        IllegalArgumentException expected =
-            assertThrows(
-                IllegalArgumentException.class,
-                () -> new OpticalCharacterReader()
-                    .parse(
-                        Arrays.asList(
-                            " _ ",
-                            "| |",
-                            "   ")));
 
-        assertThat(expected)
-            .hasMessage(
-                "Number of input rows must be a positive multiple of 4");
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> new OpticalCharacterReader()
+                        .parse(
+                                Arrays.asList(
+                                        " _ ",
+                                        "| |",
+                                        "   ")))
+                .withMessage("Number of input rows must be a positive multiple of 4");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderThrowsExceptionWhenNumberOfInputColumnsIsNotAMultipleOf3() {
-        IllegalArgumentException expected =
-            assertThrows(
-                IllegalArgumentException.class,
-                () -> new OpticalCharacterReader()
-                    .parse(
-                        Arrays.asList(
-                            "    ",
-                            "   |",
-                            "   |",
-                            "    ")));
 
-        assertThat(expected)
-            .hasMessage(
-                "Number of input columns must be a positive multiple of 3");
+
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> new OpticalCharacterReader()
+                        .parse(
+                                Arrays.asList(
+                                        "    ",
+                                        "   |",
+                                        "   |",
+                                        "    ")))
+                .withMessage("Number of input columns must be a positive multiple of 3");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderRecognizesBinarySequence110101100() {
         String parsedInput = new OpticalCharacterReader().parse(Arrays.asList(
@@ -94,10 +87,10 @@ public class OpticalCharacterReaderTest {
                 "                           "
         ));
 
-        assertEquals("110101100", parsedInput);
+        assertThat(parsedInput).isEqualTo("110101100");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderReplacesUnreadableDigitsWithQuestionMarksWithinSequence() {
         String parsedInput = new OpticalCharacterReader().parse(Arrays.asList(
@@ -107,10 +100,11 @@ public class OpticalCharacterReaderTest {
                 "                           "
         ));
 
-        assertEquals("11?10?1?0", parsedInput);
+
+        assertThat(parsedInput).isEqualTo("11?10?1?0");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderRecognizesSingle2() {
         String parsedInput = new OpticalCharacterReader().parse(Arrays.asList(
@@ -120,10 +114,10 @@ public class OpticalCharacterReaderTest {
                 "   "
         ));
 
-        assertEquals("2", parsedInput);
+        assertThat(parsedInput).isEqualTo("2");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderRecognizesSingle3() {
         String parsedInput = new OpticalCharacterReader().parse(Arrays.asList(
@@ -133,10 +127,10 @@ public class OpticalCharacterReaderTest {
                 "   "
         ));
 
-        assertEquals("3", parsedInput);
+        assertThat(parsedInput).isEqualTo("3");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderRecognizesSingle4() {
         String parsedInput = new OpticalCharacterReader().parse(Arrays.asList(
@@ -146,10 +140,10 @@ public class OpticalCharacterReaderTest {
                 "   "
         ));
 
-        assertEquals("4", parsedInput);
+        assertThat(parsedInput).isEqualTo("4");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderRecognizesSingle5() {
         String parsedInput = new OpticalCharacterReader().parse(Arrays.asList(
@@ -159,10 +153,10 @@ public class OpticalCharacterReaderTest {
                 "   "
         ));
 
-        assertEquals("5", parsedInput);
+        assertThat(parsedInput).isEqualTo("5");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderRecognizesSingle6() {
         String parsedInput = new OpticalCharacterReader().parse(Arrays.asList(
@@ -172,10 +166,10 @@ public class OpticalCharacterReaderTest {
                 "   "
         ));
 
-        assertEquals("6", parsedInput);
+        assertThat(parsedInput).isEqualTo("6");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderRecognizesSingle7() {
         String parsedInput = new OpticalCharacterReader().parse(Arrays.asList(
@@ -185,10 +179,10 @@ public class OpticalCharacterReaderTest {
                 "   "
         ));
 
-        assertEquals("7", parsedInput);
+        assertThat(parsedInput).isEqualTo("7");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderRecognizesSingle8() {
         String parsedInput = new OpticalCharacterReader().parse(Arrays.asList(
@@ -198,10 +192,10 @@ public class OpticalCharacterReaderTest {
                 "   "
         ));
 
-        assertEquals("8", parsedInput);
+        assertThat(parsedInput).isEqualTo("8");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderRecognizesSingle9() {
         String parsedInput = new OpticalCharacterReader().parse(Arrays.asList(
@@ -211,10 +205,10 @@ public class OpticalCharacterReaderTest {
                 "   "
         ));
 
-        assertEquals("9", parsedInput);
+        assertThat(parsedInput).isEqualTo("9");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderRecognizesSequence1234567890() {
         String parsedInput = new OpticalCharacterReader().parse(Arrays.asList(
@@ -224,10 +218,10 @@ public class OpticalCharacterReaderTest {
                 "                              "
         ));
 
-        assertEquals("1234567890", parsedInput);
+        assertThat(parsedInput).isEqualTo("1234567890");
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void testReaderRecognizesAndCorrectlyFormatsMultiRowInput() {
         String parsedInput = new OpticalCharacterReader().parse(Arrays.asList(
@@ -245,7 +239,7 @@ public class OpticalCharacterReaderTest {
                 "         "
         ));
 
-        assertEquals("123,456,789", parsedInput);
+        assertThat(parsedInput).isEqualTo("123,456,789");
     }
 
 }

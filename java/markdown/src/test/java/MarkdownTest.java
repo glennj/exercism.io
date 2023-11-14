@@ -21,7 +21,7 @@ public class MarkdownTest {
         assertThat(markdown.parse(input)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void italics() {
         String input = "_This will be italic_";
@@ -30,7 +30,7 @@ public class MarkdownTest {
         assertThat(markdown.parse(input)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void boldText() {
         String input = "__This will be bold__";
@@ -39,7 +39,7 @@ public class MarkdownTest {
         assertThat(markdown.parse(input)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void normalItalicsAndBoldText() {
         String input = "This will _be_ __mixed__";
@@ -48,7 +48,7 @@ public class MarkdownTest {
         assertThat(markdown.parse(input)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void withH1HeaderLevel() {
         String input = "# This will be an h1";
@@ -57,7 +57,7 @@ public class MarkdownTest {
         assertThat(markdown.parse(input)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void withH2HeaderLevel() {
         String input = "## This will be an h2";
@@ -66,7 +66,7 @@ public class MarkdownTest {
         assertThat(markdown.parse(input)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void withH6HeaderLevel() {
         String input = "###### This will be an h6";
@@ -75,7 +75,7 @@ public class MarkdownTest {
         assertThat(markdown.parse(input)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void unorderedLists() {
         String input = "* Item 1\n* Item 2";
@@ -84,7 +84,7 @@ public class MarkdownTest {
         assertThat(markdown.parse(input)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void aLittleBitOfEverything() {
         String input = "# Header!\n* __Bold Item__\n* _Italic Item_";
@@ -93,7 +93,7 @@ public class MarkdownTest {
         assertThat(markdown.parse(input)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void markdownSymbolsInTheHeaderShouldNotBeInterpreted() {
         String input = "# This is a header with # and * in the text";
@@ -102,7 +102,7 @@ public class MarkdownTest {
         assertThat(markdown.parse(input)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void markdownSymbolsInTheListItemTextShouldNotBeInterpreted() {
         String input = "* Item 1 with a # in the text\n* Item 2 with * in the text";
@@ -111,7 +111,7 @@ public class MarkdownTest {
         assertThat(markdown.parse(input)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void markdownSymbolsInTheParagraphTextShouldNotBeInterpreted() {
         String input = "This is a paragraph with # and * in the text";
@@ -120,7 +120,7 @@ public class MarkdownTest {
         assertThat(markdown.parse(input)).isEqualTo(expected);
     }
 
-    @Ignore("Remove to run test")
+    //@Ignore("Remove to run test")
     @Test
     public void markdownUnorderedListsCloseProperlyWithPrecedingAndFollowingLines() {
         String input = "# Start a list\n* Item 1\n* Item 2\nEnd a list";

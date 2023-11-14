@@ -8,34 +8,34 @@ class ComplexNumber {
     }
 
     double getReal() { return real; }
-    double getImag() { return imag; }
+    double getImaginary() { return imag; }
 
     ComplexNumber add(ComplexNumber other) {
         return new ComplexNumber(
                 real + other.getReal(),
-                imag + other.getImag()
+                imag + other.getImaginary()
         );
     }
 
-    ComplexNumber minus(ComplexNumber other) {
+    ComplexNumber subtract(ComplexNumber other) {
         return new ComplexNumber(
                 real - other.getReal(),
-                imag - other.getImag()
+                imag - other.getImaginary()
         );
     }
 
-    ComplexNumber times(ComplexNumber other) {
+    ComplexNumber multiply(ComplexNumber other) {
         return new ComplexNumber(
-                real * other.getReal() - imag * other.getImag(),
-                imag * other.getReal() + real * other.getImag()
+                real * other.getReal() - imag * other.getImaginary(),
+                imag * other.getReal() + real * other.getImaginary()
         );
     }
 
-    ComplexNumber div(ComplexNumber other) {
-        double denom = Math.pow(other.getReal(), 2) + Math.pow(other.getImag(), 2);
+    ComplexNumber divide(ComplexNumber other) {
+        double denom = Math.pow(other.getReal(), 2) + Math.pow(other.getImaginary(), 2);
         return new ComplexNumber(
-                (real * other.getReal() + imag * other.getImag()) / denom,
-                (imag * other.getReal() - real * other.getImag()) / denom
+                (real * other.getReal() + imag * other.getImaginary()) / denom,
+                (imag * other.getReal() - real * other.getImaginary()) / denom
         );
     }
 
@@ -50,6 +50,6 @@ class ComplexNumber {
     ComplexNumber exponentialOf() {
         ComplexNumber a = new ComplexNumber(Math.pow(Math.E, real), 0);
         ComplexNumber b = new ComplexNumber(Math.cos(imag), Math.sin(imag));
-        return a.times(b);
+        return a.multiply(b);
     }
 }
