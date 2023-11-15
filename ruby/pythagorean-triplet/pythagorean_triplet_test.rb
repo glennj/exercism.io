@@ -3,6 +3,7 @@ require_relative 'pythagorean_triplet'
 
 class PythagoreanTripletTest < Minitest::Test
   def skip; end
+  def skip; end
   def test_triplets_whose_sum_is_12
     # skip
     expected = [[3, 4, 5]]

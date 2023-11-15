@@ -1,40 +1,18 @@
-class Triplet
-  private
-
-  attr_reader :sides
-
-  public
-
-  def initialize(*sides)
-    @sides = sides.sort
-    raise ArgumentError if @sides.size != 3  ||
-                           @sides.first <= 0 ||
-                           @sides.take(2).sum <= @sides.last
-  end
-
-  def sum
-    sides.reduce(&:+)
-  end
-
-  def product
-    sides.reduce(&:*)
-  end
-
-  def pythagorean?
-    sides[0]**2 + sides[1]**2 == sides[2]**2
-  end
-
-  def self.where(max_factor: 1, min_factor: 1, sum: nil)
-    result = []
-    max_factor.downto(min_factor) do |c|
-      (c - 1).downto(min_factor) do |b|
-        a = Math.sqrt(c**2 - b**2)
-        next unless a > b && a == a.to_i
-
-        t = new(a, b, c)
-        result << t if t.pythagorean? && (sum.nil? || sum == t.sum)
-      end
+module PythagoreanTriplet
+  def triplets_with_sum(perimeter)
+    triplets = []
+    a = 0
+    while true do
+      a += 1
+      num = perimeter * (perimeter - 2 * a)
+      den = 2 * (perimeter - a)
+      b = num / den
+      break if b < a
+      next if num % den != 0
+      c = perimeter - a - b
+      triplets << [a, b, c]
     end
-    result
+    return triplets
   end
+  module_function :triplets_with_sum
 end
