@@ -1,0 +1,43 @@
+(module
+    (memory (export "mem") 1)
+
+    (global $ascii-A i32 (i32.const 65))
+    (global $ascii-C i32 (i32.const 67))
+    (global $ascii-G i32 (i32.const 71))
+    (global $ascii-T i32 (i32.const 84))
+
+    (func $inc (param i32) (result i32) (i32.add (local.get 0) (i32.const 1)))
+
+    (func (export "countNucleotides") (param $offset i32) (param $length i32) (result i32 i32 i32 i32)
+        (local $A i32) (local $C i32) (local $G i32) (local $T i32) 
+        (local $i i32) (local $c i32) (local $invalid-char i32)
+
+        (if (i32.gt_u (local.get $length) (i32.const 0))
+            (then
+                (block $break
+                    (loop $while
+                        (i32.load8_u (i32.add (local.get $offset) (local.get $i)))
+                        (local.set $c)
+
+                        (if (i32.eq (local.get $c) (global.get $ascii-A))
+                            (then (local.set $A (call $inc (local.get $A))))
+
+                        (else (if (i32.eq (local.get $c) (global.get $ascii-C))
+                            (then (local.set $C (call $inc (local.get $C))))
+
+                        (else (if (i32.eq (local.get $c) (global.get $ascii-G))
+                            (then (local.set $G (call $inc (local.get $G))))
+
+                        (else (if (i32.eq (local.get $c) (global.get $ascii-T))
+                            (then (local.set $T (call $inc (local.get $T))))
+
+                        (else
+                            (local.set $invalid-char (i32.const 1))
+                            (br $break)))))))))
+                        
+                        (local.set $i (call $inc (local.get $i)))
+                        (br_if $while (i32.lt_u (local.get $i) (local.get $length)))))))
+
+        (if (local.get $invalid-char)
+            (then (return (i32.const -1) (i32.const -1) (i32.const -1) (i32.const -1))))
+        (return (local.get $A) (local.get $C) (local.get $G) (local.get $T))))
