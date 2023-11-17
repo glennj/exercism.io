@@ -1,0 +1,64 @@
+(module
+  (memory (export "mem") 1)
+
+  (func $store_and_inc (param $position i32) (param $char i32) (result i32)
+    (i32.store8 (local.get $position) (local.get $char))
+    (i32.add (i32.const 1) (local.get $position)))
+
+  (func $write_name (param $p i32) (param $o i32) (param $len i32) (result i32)
+    (local $char i32)
+    (loop $loop
+      (local.set $char (i32.load8_u (local.get $o)))
+      (local.set $p (call $store_and_inc (local.get $p) (local.get $char)))
+      (local.set $o (i32.add (i32.const 1) (local.get $o)))
+      (local.set $len (i32.add (i32.const -1) (local.get $len)))
+      (i32.gt_u (local.get $len) (i32.const 0))
+      (br_if $loop)
+    )
+    (return (local.get $p))
+  )
+
+  (func (export "twoFer") (param $offset i32) (param $length i32) (result i32 i32)
+                ;; first take, bytes!
+                ;; start writing at offset zero
+    (local $p i32)
+
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const  79))) ;; "O"
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const 110))) ;; "n"
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const 101))) ;; "e"
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const  32))) ;; " "
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const 102))) ;; "f"
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const 111))) ;; "o"
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const 114))) ;; "r"
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const  32))) ;; " "
+    
+    (if (i32.eqz (local.get $length))
+      (then
+        (local.set $p (call $store_and_inc (local.get $p) (i32.const 121))) ;; "y"
+        (local.set $p (call $store_and_inc (local.get $p) (i32.const 111))) ;; "o"
+        (local.set $p (call $store_and_inc (local.get $p) (i32.const 117))) ;; "u"
+      )
+      (else
+        (local.set $p (call $write_name (local.get $p) (local.get $offset) (local.get $length)))
+      )
+    )
+
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const  44))) ;; ","
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const  32))) ;; " "
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const 111))) ;; "o"
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const 110))) ;; "n"
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const 101))) ;; "e"
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const  32))) ;; " "
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const 102))) ;; "f"
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const 111))) ;; "o"
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const 114))) ;; "r"
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const  32))) ;; " "
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const 109))) ;; "m"
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const 101))) ;; "e"
+    (local.set $p (call $store_and_inc (local.get $p) (i32.const  46))) ;; "."
+
+    (return
+      (i32.const 0)
+      (local.get $p))
+  )
+)

@@ -1,0 +1,48 @@
+(module
+  (memory (export "mem") 1)
+
+  (func $store_and_incr (param $position i32) (param $char i32) (result i32)
+    (i32.store8 (local.get $char) (local.get $position))
+    (return (i32.add (i32.const 1) (local.get $position))))
+
+
+  (func (export "twoFer") (param $offset i32) (param $length i32) (result i32 i32)
+    ;; first take, bytes!
+    ;; start writing at offset zero
+    (local $p i32)
+
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const  79))) ;; "O"
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const 110))) ;; "n"
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const 101))) ;; "e"
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const  32))) ;; " "
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const 102))) ;; "f"
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const 111))) ;; "o"
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const 114))) ;; "r"
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const  32))) ;; " "
+    
+    (if (i32.eqz (local.get $length))
+      (then
+        (local.set $p (call $store_and_incr (local.get $p) (i32.const 121))) ;; "y"
+        (local.set $p (call $store_and_incr (local.get $p) (i32.const 111))) ;; "o"
+        (local.set $p (call $store_and_incr (local.get $p) (i32.const 117))) ;; "u"
+      ))
+
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const  44))) ;; ","
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const  32))) ;; " "
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const 111))) ;; "o"
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const 110))) ;; "n"
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const 101))) ;; "e"
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const  32))) ;; " "
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const 102))) ;; "f"
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const 111))) ;; "o"
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const 114))) ;; "r"
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const  32))) ;; " "
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const 109))) ;; "m"
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const 101))) ;; "e"
+    (local.set $p (call $store_and_incr (local.get $p) (i32.const  46))) ;; "."
+
+    (return
+      (i32.const 0)
+      (i32.sub (local.get $p) (i32.const 1)))
+  )
+)
