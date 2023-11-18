@@ -57,39 +57,39 @@ describe("Rotational Cipher", () => {
     expect(rotate("a", 0)).toEqual("a");
   });
 
-  xtest("rotate a by 1", () => {
+  test("rotate a by 1", () => {
     expect(rotate("a", 1)).toEqual("b");
   });
 
-  xtest("rotate a by 26, same output as input", () => {
+  test("rotate a by 26, same output as input", () => {
     expect(rotate("a", 26)).toEqual("a");
   });
 
-  xtest("rotate m by 13", () => {
+  test("rotate m by 13", () => {
     expect(rotate("m", 13)).toEqual("z");
   });
 
-  xtest("rotate n by 13 with wrap around alphabet", () => {
+  test("rotate n by 13 with wrap around alphabet", () => {
     expect(rotate("n", 13)).toEqual("a");
   });
 
-  xtest("rotate capital letters", () => {
+  test("rotate capital letters", () => {
     expect(rotate("OMG", 5)).toEqual("TRL");
   });
 
-  xtest("rotate spaces", () => {
+  test("rotate spaces", () => {
     expect(rotate("O M G", 5)).toEqual("T R L");
   });
 
-  xtest("rotate numbers", () => {
+  test("rotate numbers", () => {
     expect(rotate("Testing 1 2 3 testing", 4)).toEqual("Xiwxmrk 1 2 3 xiwxmrk");
   });
 
-  xtest("rotate punctuation", () => {
+  test("rotate punctuation", () => {
     expect(rotate("Let's eat, Grandma!", 21)).toEqual("Gzo'n zvo, Bmviyhv!");
   });
 
-  xtest("rotate all letters", () => {
+  test("rotate all letters", () => {
     expect(rotate("The quick brown fox jumps over the lazy dog.", 13)).toEqual(
       "Gur dhvpx oebja sbk whzcf bire gur ynml qbt."
     );
