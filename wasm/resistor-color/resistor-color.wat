@@ -19,8 +19,7 @@
 
     
     ;; Utility functions
-    (func $inc (param $val i32) (result i32)
-        (i32.add (i32.const 1) (local.get $val)))
+    (func $inc (param i32) (result i32) (i32.add (i32.const 1) (local.get 0)))
 
     (func $str-eq (param $off1 i32) (param $off2 i32) (param $len i32) (result i32)
         (local $i i32)
