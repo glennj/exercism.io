@@ -1,23 +1,25 @@
 (module
     (memory (export "mem") 1)
 
-    (data (i32.const 0) "black,brown,red,orange,yellow,green,blue,violet,grey,white")
-    (global $colorsOffset i32 (i32.const 0))
+    (data (i32.const 200) "black,brown,red,orange,yellow,green,blue,violet,grey,white")
     (global $colorsLength i32 (i32.const 58))
 
     ;; offsets
-    (global $black  i32 (i32.const 0))
-    (global $brown  i32 (i32.const 6))
-    (global $red    i32 (i32.const 12))
-    (global $orange i32 (i32.const 16))
-    (global $yellow i32 (i32.const 23))
-    (global $green  i32 (i32.const 30))
-    (global $blue   i32 (i32.const 36))
-    (global $violet i32 (i32.const 41))
-    (global $grey   i32 (i32.const 48))
-    (global $white  i32 (i32.const 53))
+    (func $set-offsets
+        (i32.store8 (i32.const 0) (i32.const 200))  ;; "black"
+        (i32.store8 (i32.const 1) (i32.const 206))  ;; "brown"
+        (i32.store8 (i32.const 2) (i32.const 212))  ;; "red"
+        (i32.store8 (i32.const 3) (i32.const 216))  ;; "orange"
+        (i32.store8 (i32.const 4) (i32.const 223))  ;; "yellow"
+        (i32.store8 (i32.const 5) (i32.const 230))  ;; "green"
+        (i32.store8 (i32.const 6) (i32.const 236))  ;; "blue"
+        (i32.store8 (i32.const 7) (i32.const 241))  ;; "violet"
+        (i32.store8 (i32.const 8) (i32.const 248))  ;; "grey"
+        (i32.store8 (i32.const 9) (i32.const 253))) ;; "white"
 
-    
+    (start $set-offsets)
+
+
     ;; Utility functions
     (func $inc (param i32) (result i32) (i32.add (i32.const 1) (local.get 0)))
 
@@ -33,47 +35,26 @@
             (i32.load8_u (i32.add (local.get $off1) (local.get $i)))
             (i32.load8_u (i32.add (local.get $off2) (local.get $i)))
             (if (i32.ne) (then (return (i32.const 0))))
-              
+
             (local.set $i (call $inc (local.get $i)))
             (br $str-eq-loop)))
 
 
     ;; Return buffer of comma separated colors
     (func (export "colors") (result i32 i32)
-        (return (global.get $colorsOffset) (global.get $colorsLength)))
+        (return (i32.load8_u (i32.const 0)) (global.get $colorsLength)))
 
 
     ;; Given a valid resistor color, returns the associated value
     (func (export "colorCode") (param $offset i32) (param $len i32) (result i32)
+        (local $code i32)
+        (loop $loop (result i32)
+            (if (i32.eq (local.get $code) (i32.const 10))     ;; not found
+                (then (return (i32.const -1))))
 
-        (call $str-eq (global.get $black) (local.get $offset) (local.get $len))
-        (if (then (return (i32.const 0))))
+            ;; the offset for the colour of this $code is stored in memory at offset $code
+            (call $str-eq (i32.load8_u (local.get $code)) (local.get $offset) (local.get $len))
+            (if (then (return (local.get $code))))
 
-        (call $str-eq (global.get $brown) (local.get $offset) (local.get $len))
-        (if (then (return (i32.const 1))))
-
-        (call $str-eq (global.get $red) (local.get $offset) (local.get $len))
-        (if (then (return (i32.const 2))))
-
-        (call $str-eq (global.get $orange) (local.get $offset) (local.get $len))
-        (if (then (return (i32.const 3))))
-
-        (call $str-eq (global.get $yellow) (local.get $offset) (local.get $len))
-        (if (then (return (i32.const 4))))
-
-        (call $str-eq (global.get $green) (local.get $offset) (local.get $len))
-        (if (then (return (i32.const 5))))
-
-        (call $str-eq (global.get $blue) (local.get $offset) (local.get $len))
-        (if (then (return (i32.const 6))))
-
-        (call $str-eq (global.get $violet) (local.get $offset) (local.get $len))
-        (if (then (return (i32.const 7))))
-
-        (call $str-eq (global.get $grey) (local.get $offset) (local.get $len))
-        (if (then (return (i32.const 8))))
-
-        (call $str-eq (global.get $white) (local.get $offset) (local.get $len))
-        (if (then (return (i32.const 9))))
-
-        (return (i32.const -1))))
+            (local.set $code (call $inc (local.get $code)))
+            (br $loop))))
