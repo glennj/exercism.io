@@ -1,0 +1,33 @@
+A brief introduction to Kotlin
+- Developed by James Strachan starting in 2003. Project was adopted by Apache in 2015.
+- goal was to develop a dynamically typed language on the JVM. Reading from the original
+  blog post, the amount of boilerplate code while writing TDD test cases in Java was a
+  pain point.
+- python and ruby were major influences
+- groovy scripts can run like shell scripts without an explicit compilation.
+- Multi-paradigm: imperative, object-oriented, functional, declarative
+- powers such tools as Gradle, Grails, Spock, and scripting in Jenkins. Jira from
+  Atlassian allows groovy scripting to enhance workflows.
+
+Why it’s great
+- General purpose: can be used for almost any workload, including apps and websites.
+- Running on the JVM, all of its benefits apply: mature, highly performant VM and massive
+  number of libraries available
+- Alleviates many of the issues people might have with Java, such as checked exceptions,
+  null safety and verbosity
+- Modern language: advanced type inference, expression-based, coroutines, channels
+- Excellent tooling (is to be expected when the IDE itself is written in the language :)
+
+Standout features
+- Productive: Kotlin adopts the best parts of other languages, molding them into one
+  consistent, productive language, and in some cases even further improving on the
+  original (e.g. with local extension methods)
+- Coroutines: whilst in many languages, async/await is baked into the language, in Kotlin
+  that is implemented as a library using the language’s coroutines feature. Coroutines are
+  a way to deal with suspending functions, which provide a safer and less error-prone
+  abstraction for asynchronous operations than futures and promises.
+- Great concurrency: async/await, channels, immutability all help with getting excellent
+  concurrency
+- Compose multiplatform allows building shared UIs from the same code base using a
+  declarative syntax
+
