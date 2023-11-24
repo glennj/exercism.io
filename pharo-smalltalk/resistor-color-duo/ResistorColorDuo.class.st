@@ -1,3 +1,6 @@
+"
+I can calculate the value of a two-band resistor.
+"
 Class {
 	#name : #ResistorColorDuo,
 	#superclass : #Object,
@@ -11,10 +14,9 @@ ResistorColorDuo >> valueOf: color [
 		#( 'black' 'brown' 'red' 'orange' 'yellow'
 			'green' 'blue' 'violet' 'grey' 'white' )
 				indexOf: color 
-				ifAbsent: [ self error: ('invalid color ', color) ].
+				ifAbsent: [ self error: ('Invalid color ', color) ].
 	"index of 'black' is 1, but the _value_ is 0"
 	^ idx - 1
-
 ]
 
 { #category : #converting }

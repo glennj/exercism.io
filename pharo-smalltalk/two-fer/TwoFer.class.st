@@ -14,7 +14,7 @@ TwoFer >> who [
 
 { #category : #translating }
 TwoFer >> who: name [ 
-	^ name isNil 
-		ifTrue: [ self who ]
-		ifFalse: [ 'One for {1}, one for me.' format: {name} ].
+	^ name
+		ifNil: [ self who ]
+		ifNotNil: [ 'One for {1}, one for me.' format: {name} ].
 ]

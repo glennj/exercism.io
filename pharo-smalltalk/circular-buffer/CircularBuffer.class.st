@@ -1,12 +1,3 @@
-"
-I represent a ""circular buffer"". I have a capacity. 
-
-I can write an item to the buffer. If the buffer is full (the buffer size = the capacity) I will throw an error.
-
-I can read an item from the buffer in the same order as they were written. If the buffer is empty I will throw an error.
-
-I can overwrite an item. This is like a regular write except if the buffer is full, in which case I will overwrite the oldest item.
-"
 Class {
 	#name : #CircularBuffer,
 	#superclass : #Object,
