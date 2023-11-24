@@ -30,6 +30,22 @@ describe("CircularBuffer", () => {
     }
   });
 
+  test("initializing tiny buffer should succeed", () => {
+    expect(currentInstance.exports.init(10)).toEqual(0);
+  });
+  test("initializing one-page buffer should succeed", () => {
+    expect(currentInstance.exports.init(16384)).toEqual(0);
+  });
+  test("initializing four-page buffer should succeed", () => {
+    expect(currentInstance.exports.init(65536)).toEqual(0);
+  });
+  test("initializing five-page buffer should fail", () => {
+    expect(currentInstance.exports.init(65537)).toEqual(-1);
+  });
+
+  test("initializing exactly one full page of elements should succeed", () => {
+    expect(currentInstance.exports.init(1)).toEqual(0);
+  });
   test("reading empty buffer should fail", () => {
     expect(currentInstance.exports.init(1)).toEqual(0);
     expect(currentInstance.exports.read()).toEqual([-1, -1]);

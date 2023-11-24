@@ -1,10 +1,13 @@
 (module
-  (memory 1)
+  (import "console" "log_mem_as_u32" (func $log_mem_as_u32 (param i32) (param i32)))
+  (memory (export "mem") 1 4) ;; up to 4 pages of linear memory are allocatable
+
   (global $capacity (mut i32) (i32.const 0))
   (global $count    (mut i32) (i32.const 0))
   (global $readp    (mut i32) (i32.const 0))
   (global $writep   (mut i32) (i32.const 0))
-  (global $i32size  i32       (i32.const 4))
+  (global $i32Size  i32       (i32.const 4))
+  (global $pageSize i32       (i32.const 0x10000))
 
   (func $is-empty (result i32) (i32.eqz (global.get $count)))
   (func $is-full  (result i32) (i32.eq (global.get $count) (global.get $capacity)))
@@ -13,26 +16,41 @@
   (func $dec (param i32) (result i32) (i32.sub (local.get 0) (i32.const 1)))
 
   (func $incp (param i32) (result i32)
-    ;; in all its Forthy glory ...
+    ;; Forth style
     (local.get 0)
-    (global.get $i32size)
+    (global.get $i32Size)
     (i32.div_u)
     (call $inc)
     (global.get $capacity)
     (i32.rem_u)
-    (global.get $i32size)
+    (global.get $i32Size)
     (i32.mul))
 
+  (func $requested-capacity-too-big (param $requestedCapacity i32) (result i32)
+    (local $requestedBytes i32)
+    (local $availableBytes i32)
+    (local.set $requestedBytes (i32.mul (local.get $requestedCapacity)
+                                        (global.get $i32Size)))
+    (loop $loop (result i32)
+      (local.set $availableBytes (i32.mul (memory.size)
+                                          (global.get $pageSize)))
+      (if (i32.le_u (local.get $requestedBytes) (local.get $availableBytes))
+        (then (return (i32.const 0)))) ;; not too big
+      (memory.grow (i32.const 1))
+      (br_if $loop (i32.ne (i32.const -1)))
+      (return (i32.const 1)))) ;; cannot allocate enough memory: too big
+    
   ;;
   ;; Initialize a circular buffer of i32s with a given capacity
   ;;
-  ;; @param {i32} newCapacity - capacity of the circular buffer between 0 and 1024
-  ;;                            in order to fit in a single WebAssembly page
+  ;; @param {i32} newCapacity - capacity of the circular buffer
   ;;
   ;; @returns {i32} 0 on success or -1 on error
   ;; 
   (func (export "init") (param $newCapacity i32) (result i32)
-    ;; Q: When would this error? Should I be checking bounds? No tests for it.
+    (if (call $requested-capacity-too-big (local.get $newCapacity))
+      (then (return (i32.const -1))))
+
     (global.set $capacity (local.get $newCapacity))
     (call $clear)
     (i32.const 0))
