@@ -7,34 +7,16 @@ I think the authors took some inspiration from Perl in how they did it.
 * an object is initially just a simple datatype
 * there's some magic syntax to link the datatype to the functions.
 
-The colon notation is "syntactic sugar" that maps this call
-```lua
-someObj:someMethod(args)
-```
-to 
-```lua
-someMethod(someObj, args)
-```
-We can see why `self` needs to be the first argument.
+"Classes" and "objects" are Lua tables. 
+Methods are implemented as functions stored in the class table.
+Objects find their methods by setting their "metatable" to refer to the class.
 
-Since there are 2 ways to do it, just pick a style and be consistent with it.
-I don't know what the Lua community recommends: the [Lua Style Guide][style] doesn't have much to say about it.
-```lua
-function TheClass.aMethod(self, arg)
-    self.someInstanceVar = arg
-end
-function TheClass:anotherMethod(arg)
-    -- "self" is enforced as the instance
-    self.someOtherInstanceVar = arg
-end
-```
-Looking back at my solutions, I chose the latter style.
+[Simple Lua Classes][slc] in the lua-users wiki describes the technique.
 
-[Simple Lua Classes][slc] in the lua-users wiki favours the latter style.
 
 ## Declaring classes
 
-For declaring a class, I tried to follow this convention:
+For declaring a class, use this convention:
 ```lua
 local Robot = {}        -- 1. name the class
 Robot.__index = Robot   -- 2. set the index
@@ -47,13 +29,15 @@ function Robot:new(attributes)
     setmetatable(robot, self)   
 
     -- 5. do stuff with the attributes
+    robot.name = attributes.name or "Anonymous"
+
     --    `robot` is a proper instance now, so it's OK to call methods.
-    --    +> robot:location("assembly line")
+    --    robot:location("assembly line")
 
     return robot        -- 6. return the new instance
 end
 
-local my_robot = Robot:new({name: "Robbie"})
+local my_robot = Robot:new({name = "Robbie"})
 ```
 And if you want to be able to create instances like
 ```lua
@@ -67,6 +51,31 @@ setmetatable(Robot, {
 ```
 
 Some more discussion about [Object Oriented Programming][oop] in Lua.
+
+<!-- -->
+
+The colon notation is "syntactic sugar" that maps this call
+```lua
+someObj:someMethod(args)
+```
+to 
+```lua
+someMethod(someObj, args)
+```
+
+For defining a method, there are correspondingly 2 ways to do it.
+```lua
+function TheClass.aMethod(self, arg)
+    self.someInstanceVar = arg
+end
+function TheClass:anotherMethod(arg)
+    -- "self" is enforced as the instance
+    self.someOtherInstanceVar = arg
+end
+```
+Looking back at my solutions, I chose the latter style.
+
+[Simple Lua Classes][slc] in the lua-users wiki favours the latter style.
 
 
 [style]: http://lua-users.org/wiki/LuaStyleGuide
