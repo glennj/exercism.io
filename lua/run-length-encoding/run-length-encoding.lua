@@ -13,7 +13,7 @@ rle.encode = function(input)
     for char,_ in pairs(uniq) do
           local pattern = char .. char .. "+"
           encoded = encoded:gsub(pattern, function(s)
-              return tostring(#s) .. s:sub(1,1)
+              return tostring(#s) .. char
           end)
     end
     return encoded
