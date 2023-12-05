@@ -1,0 +1,7 @@
+"
+" Version: 1.1.0
+"
+
+Execute (Say Hi!):
+  let g:expected = "Hello, World!"
+  AssertEqual g:expected, Hello()

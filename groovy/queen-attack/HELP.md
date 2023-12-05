@@ -22,7 +22,7 @@ After the first test(s) pass, continue by commenting out or removing the `@Ignor
 
 ## Submitting your solution
 
-You can submit your solution using the `exercism submit src/main/groovy/QueenAttack.groovy` command.
+You can submit your solution using the `exercism submit src/main/groovy/Queen.groovy src/main/groovy/QueenAttack.groovy` command.
 This command will upload your solution to the Exercism website and print the solution page's URL.
 
 It's possible to submit an incomplete solution which allows you to:

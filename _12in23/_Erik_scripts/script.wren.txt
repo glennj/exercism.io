@@ -1,29 +1,24 @@
-A brief introduction to Groovy
-- Developed by James Strachan starting in 2003. Project was adopted by Apache in 2015.
-- goal was to develop a dynamically typed language on the JVM. Reading from the original
-  blog post, the amount of boilerplate code while writing TDD test cases in Java was a
-  pain point.
-- python and ruby were major influences
-- groovy scripts can run like shell scripts without an explicit compilation.
-- Multi-paradigm: imperative, object-oriented, functional, declarative
-- powers such tools as Gradle, Grails, Spock, and scripting in Jenkins.
-  A popular 3rd-party addon for Atlassian tools allows groovy scripting.
+A brief introduction to Wren
+- Written in 2016 by Bob Nystrom, the author of Crafting Interpreters
+- Goals: small, simple, fast.
+- familiar class-based OO syntax.
+- fits in a category of embeddable languages with Lua
+- dynamically typed, but statically _defined_; allows the compiler to be very fast.
 
 Why it’s great
-- General purpose: can be used for almost any workload, including apps and websites.
-- Running on the JVM, all of its benefits apply: mature, highly performant VM and massive
-  number of libraries available
-- Alleviates many of the issues people might have with Java, such as checked exceptions,
-  null safety and verbosity
-- Modern language: advanced type inference, closures
-- DSLs: flexible syntax enables creation of domain specific languages
+- Very lightweight
+- Really good documentation
+- Easy concurrency and coroutines with _fibers_
+- if you're familiar with Java or C++, you'll be right at home.
+- Most of the standard library is implemented in Wren, so you can see how it's implemented.
+- long-time Exercism contributor Josh Goebel has implemented wren-console, a more fully-featured
+  CLI for running scripts in the TDD Exercism environment. wren-console has a few added features
+  not included in the standard library, like JSON handling, String functionality, etc.
 
 Standout features
-- Flexible Syntax: dots and parentheses can be omitted
-- Beans: Groovy will auto-generate getters and setters
-- Functional programming: closures like Ruby's blocks; currying (partial application)
-- Metaprogramming: Classes can be "monkeypatched" using Prototype expansion.
-- Builders: quickly handle JSON, XML, HTML. Build with Swing for rapid GUI development.
-- Traits: Groovy Traits let you compose behaviours and properties in reusable chunks. Similar to ruby mixins.
-- builtin syntax for regular expressions.
-
+- Embeddable. The language creator was a former game developer: wanted to be able to add scripting facilities to games.
+  The C API is quite clean and simple.
+- Familiar syntax makes it quicker to get up to speed.
+- Methods can be overloaded by _arity_
+- Small but surprisingly complete standard library.
+- has "functions", akin to ruby blocks or groovy closures, to support functional programming.
