@@ -1,0 +1,36 @@
+\ Given the triangle perimeter "n" and the short adjacent side "a" of the triangle,
+\ calculate "b" the longer adjacent side:
+\     b = n * (n - 2*a) / (2 * (n - a))
+: calculate-b                   \ n a -- n a b rem
+  2dup n:- 2 n:* -rot           \ (2*(n-a)) n a
+  2dup 2 n:* n:- third n:*      \ (2*(n-a)) n a (n-2*a)*n
+  3 roll                        \ n a (n-2*a)*n (2*(n-a))
+  n:/mod swap                   \ n a b rem
+  ;
+ 
+
+\ Given a positive integer N, returns an array of Pythagorean triplets
+\ for which a + b + c = N. For example, with N = 1_000, the result contains
+\ exactly one triplet: [ [ 200, 375, 425 ] ].
+:  triplets-with-sum SED: n -- a
+  a:new >r                      \ n
+  2                             \ n "a"
+  repeat
+    n:1+
+    dup _swap                   \ a n a
+    calculate-b                 \ a n a b rem
+    3dup drop n:< !if           \ if a >= b, time to stop looping
+      drop drop drop drop drop
+      break
+    else                        \ a n a b rem
+      0 n:= !if
+        2drop swap              \ n a
+      else
+        3dup n:+ n:-            \ a n a b c
+        3 a:close               \ a n [a,b,c]
+        r> swap a:push >r swap  \ n a
+      then
+    then
+  again
+  r>
+;
