@@ -1,22 +1,11 @@
 function encode(s)
-   function shrink(s)
-      len = length(s)
-      num = len == 1 ? "" : string(len)
-      num * s[1]
-   end
-
-   replace(s, r"(.)\1*" => shrink)
+   replace(s, r"(.)\1+" => function(s)
+      string(length(s)) * s[1]
+   end)
 end
 
 function decode(s)
-   function expand(s)
-      num = s[1:end-1]
-      if isempty(num)
-         string(s[end])
-      else
-         repeat(s[end], parse(Int, num))
-      end
-   end
-
-   replace(s, r"(\d*)(\D)"=> expand)
+   replace(s, r"(\d+)(\D)"=> function(s)
+      repeat(s[end], parse(Int, s[1:end-1]))
+   end)
 end

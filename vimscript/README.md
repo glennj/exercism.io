@@ -1,5 +1,7 @@
 # VIM notes
 
+[Learn Vimscript the Hard Way](http://learnvimscriptthehardway.stevelosh.com/)
+
 ## Comparisons
 
 `:help expression-syntax`
@@ -35,6 +37,10 @@ else
 endif
 "" prints "two"
 ```
+
+## Variables
+
+`:he variable-scope`
 
 ## Functions
 
