@@ -6,9 +6,9 @@ function! Find(list, value) abort
         if a:value ==# a:list[mid]
             return mid
         elseif a:value <# a:list[mid]
-            j = mid - 1
+            let j = mid - 1
         else
-            i = mid + 1
+            let i = mid + 1
         endif
     endwhile
 
