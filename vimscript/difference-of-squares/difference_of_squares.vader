@@ -1,0 +1,46 @@
+"
+" Version: 1.2.0
+"
+
+Execute (square of sum 1):
+  let number = 1
+  let expected = 1
+  AssertEqual expected, SquareOfSum(number)
+
+Execute (square of sum 5):
+  let number = 5
+  let expected = 225
+  AssertEqual expected, SquareOfSum(number)
+
+Execute (square of sum 100):
+  let number = 100
+  let expected = 25502500
+  AssertEqual expected, SquareOfSum(number)
+Execute (sum of squares 1):
+  let number = 1
+  let expected = 1
+  AssertEqual expected, SumOfSquares(number)
+
+Execute (sum of squares 5):
+  let number = 5
+  let expected = 55
+  AssertEqual expected, SumOfSquares(number)
+
+Execute (sum of squares 100):
+  let number = 100
+  let expected = 338350
+  AssertEqual expected, SumOfSquares(number)
+Execute (difference of squares 1):
+  let number = 1
+  let expected = 0
+  AssertEqual expected, DifferenceOfSquares(number)
+
+Execute (difference of squares 5):
+  let number = 5
+  let expected = 170
+  AssertEqual expected, DifferenceOfSquares(number)
+
+Execute (difference of squares 100):
+  let number = 100
+  let expected = 25164150
+  AssertEqual expected, DifferenceOfSquares(number)
