@@ -1,12 +1,12 @@
-let s:ALLERGENS = ['eggs', 'peanuts', 'shellfish', 'strawberries', 'tomatoes', 'chocolate', 'pollen', 'cats']
+const s:ALLERGENS = ['eggs', 'peanuts', 'shellfish', 'strawberries', 'tomatoes', 'chocolate', 'pollen', 'cats']
 
+" for some reason, I can't use a lambda for this function
 function! s:isAllergic(score, idx, ...)
     return and(a:score >> a:idx, 1)
 endfunction
 
 function! List(score) abort
-    let Partial = function("s:isAllergic", [a:score])
-    return s:ALLERGENS->copy()->filter(Partial)
+    return s:ALLERGENS->copy()->filter(function("s:isAllergic", [a:score]))
 endfunction
 
 function! AllergicTo(score, allergy) abort

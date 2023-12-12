@@ -81,6 +81,8 @@ function s:customSetPrototype.Union(other)
   return Set(vs)
 endfunction
 
+lockvar! s:customSetPrototype
+
 " ------------------------------------------------------------
 function! Set(values) abort
   let o = s:customSetPrototype->copy()

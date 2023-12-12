@@ -22,5 +22,6 @@ function! Character() abort
     let character[ability] = Ability()
   endfor
   let character.hitpoints = 10 + Modifier(character.constitution)
+  lockvar! character
   return character
 endfunction

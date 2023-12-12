@@ -20,5 +20,6 @@ function! HighScores(scores) abort
                     \ ->slice(0,3)
     endfunction
 
+    lockvar! o
     return o
 endfunction

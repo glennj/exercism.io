@@ -1,5 +1,6 @@
 function! s:Node(value)
     let n = #{val: a:value, nxt: v:null}
+    lockvar n.val
 
     function n.Value()
         return self.val

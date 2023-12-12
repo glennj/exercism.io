@@ -1,4 +1,4 @@
-let s:SIZE = 64
+const s:SIZE = 64
 
 function! Square(number) abort
     if a:number < 1 || a:number > s:SIZE

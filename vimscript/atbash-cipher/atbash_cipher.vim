@@ -1,28 +1,21 @@
-"
-" Create an implementation of the atbash cipher, an ancient encryption system
-" created in the Middle East.
-"
-" Examples:
-"
-"   :echo AtbashEncode('test')
-"   gvhg
-"
-"   :echo AtbashDecode('gvhg')
-"   test
-"
-"   :echo AtbashDecode('gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt')
-"   thequickbrownfoxjumpsoverthelazydog
-"
-
+" ------------------------------------------------------------
 function! AtbashDecode(cipher) abort
-    let str = tolower(substitute(a:cipher, '[^[:alnum:]]', '', 'g'))
-    let str = tr(str, 'abcdefghijklmnopqrstuvwxyz', 'zyxwvutsrqponmlkjihgfedcba')
-    return str
+    return a:cipher
+            \ ->substitute('[^[:alnum:]]', '', 'g')
+            \ ->tolower()
+            \ ->tr('abcdefghijklmnopqrstuvwxyz', 'zyxwvutsrqponmlkjihgfedcba')
 endfunction
 
+" ------------------------------------------------------------
 function! AtbashEncode(plaintext) abort
-    let str = AtbashDecode(a:plaintext)
-    " let str = substitute(str, '.\{5\}', '& ', 'g')
-    " return substitute(str, ' $', '', '')
-    return join(split(str, '.\{5\}\zs'), ' ')
+    return AtbashDecode(a:plaintext)->s:grouped()
+endfunction
+
+function! s:grouped(str)
+    "let str = substitute(str, '.\{5\}', '& ', 'g')
+    "return substitute(str, ' $', '', '')
+
+    " :he split()
+    " > If you want to keep the separator you can also use '\zs' at the end of the pattern
+    return a:str->split('.\{5\}\zs')->join(' ')
 endfunction

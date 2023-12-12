@@ -24,12 +24,12 @@ function! SumOfSquares(number) abort
 endfunction
 
 " ------------------------------------------------------------
-function! s:identity(arg) abort
-  return a:arg
+function! s:identity(n) abort
+  return a:n
 endfunction
 
-function! s:square(arg) abort
-  return a:arg * a:arg
+function! s:square(n) abort
+  return a:n * a:n
 endfunction
 
 function! s:sum(number, elemFunc, sumFunc) abort

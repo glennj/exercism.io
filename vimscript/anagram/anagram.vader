@@ -1,0 +1,75 @@
+"
+" Version: 1.4.0
+"
+
+Execute (no matches):
+  let candidates = ['hello', 'world', 'zombies', 'pants']
+  let subject = "diaper"
+  let expected = []
+  AssertEqual expected, FindAnagrams(candidates, subject)
+
+Execute (detects two anagrams):
+  let candidates = ['stream', 'pigeon', 'maters']
+  let subject = "master"
+  let expected = ['stream', 'maters']
+  AssertEqual expected, FindAnagrams(candidates, subject)
+
+Execute (does not detect anagram subsets):
+  let candidates = ['dog', 'goody']
+  let subject = "good"
+  let expected = []
+  AssertEqual expected, FindAnagrams(candidates, subject)
+
+Execute (detects anagram):
+  let candidates = ['enlists', 'google', 'inlets', 'banana']
+  let subject = "listen"
+  let expected = ['inlets']
+  AssertEqual expected, FindAnagrams(candidates, subject)
+
+Execute (detects three anagrams):
+  let candidates = ['gallery', 'ballerina', 'regally', 'clergy', 'largely', 'leading']
+  let subject = "allergy"
+  let expected = ['gallery', 'regally', 'largely']
+  AssertEqual expected, FindAnagrams(candidates, subject)
+
+Execute (does not detect non-anagrams with identical checksum):
+  let candidates = ['last']
+  let subject = "mass"
+  let expected = []
+  AssertEqual expected, FindAnagrams(candidates, subject)
+
+Execute (detects anagrams case-insensitively):
+  let candidates = ['cashregister', 'Carthorse', 'radishes']
+  let subject = "Orchestra"
+  let expected = ['Carthorse']
+  AssertEqual expected, FindAnagrams(candidates, subject)
+
+Execute (detects anagrams using case-insensitive subject):
+  let candidates = ['cashregister', 'carthorse', 'radishes']
+  let subject = "Orchestra"
+  let expected = ['carthorse']
+  AssertEqual expected, FindAnagrams(candidates, subject)
+
+Execute (detects anagrams using case-insensitive possible matches):
+  let candidates = ['cashregister', 'Carthorse', 'radishes']
+  let subject = "orchestra"
+  let expected = ['Carthorse']
+  AssertEqual expected, FindAnagrams(candidates, subject)
+
+Execute (does not detect a anagram if the original word is repeated):
+  let candidates = ['go Go GO']
+  let subject = "go"
+  let expected = []
+  AssertEqual expected, FindAnagrams(candidates, subject)
+
+Execute (anagrams must use all letters exactly once):
+  let candidates = ['patter']
+  let subject = "tapper"
+  let expected = []
+  AssertEqual expected, FindAnagrams(candidates, subject)
+
+Execute (words are not anagrams of themselves (case-insensitive)):
+  let candidates = ['BANANA', 'Banana', 'banana']
+  let subject = "BANANA"
+  let expected = []
+  AssertEqual expected, FindAnagrams(candidates, subject)

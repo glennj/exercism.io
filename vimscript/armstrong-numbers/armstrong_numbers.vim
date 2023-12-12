@@ -3,9 +3,7 @@
 " each raised to the power of the overall number of digits.
 "
 function! IsArmstrongNumber(number) abort
-    let num = a:number
-    let sum = 0
-    let len = len(a:number)
+    let [num, len, sum] = [a:number, len(a:number), 0]
     while num > 0
         let digit = num % 10
         let sum += pow(digit, len)
