@@ -10,10 +10,7 @@ function! Steps(...) abort
     elseif a:1 == 1
         return a:2
     else
-        return Steps(NextCollatz(a:1), a:2 + 1)
+        let Next = {n -> n % 2 == 0 ? (n / 2) : (3 * n + 1)}
+        return Steps(Next(a:1), a:2 + 1)
     endif
-endfunction
-
-function! NextCollatz(n)
-    return a:n % 2 == 0 ? a:n/2 : 3*a:n + 1
 endfunction
