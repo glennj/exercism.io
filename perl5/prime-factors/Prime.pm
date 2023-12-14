@@ -1,5 +1,8 @@
 package Prime;
-use strictures 2;
+
+#use strictures 2;
+use strict;
+use warnings;
 
 sub prime_factor_generator;
 sub prime_number_generator;

@@ -1,4 +1,4 @@
-recommends 'Moo';       # https://perldoc.pl/Moo
+requires 'Moo';       # https://perldoc.pl/Moo
 suggests 'Mo';          # https://perldoc.pl/Mo
 suggests 'Moose';       # https://perldoc.pl/Moose
 suggests 'Object::Pad'; # https://perldoc.pl/Object::Pad

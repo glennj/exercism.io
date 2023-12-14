@@ -2,19 +2,20 @@
 
 ## Running the tests
 
-There is a Perl script with the extension `.t`, which will be used to test
-your solution. You can run through the tests by using the command:
+There is a Perl script with the extension `.t` contained in the `t/` directory, which will be used to test your solution.
+You can run through the tests by using the command:
 
 ```bash
-`prove .`
+`prove`
 ```
 
-Documentation about the assertions used in the test files can be found in
-[Test2::Manual::Testing::Introduction](https://metacpan.org/pod/Test2::Manual::Testing::Introduction).
+Documentation about the assertions used in the test files can be found in [Test2::Manual::Testing::Introduction][test2-manual].
+
+[test2-manual]: https://metacpan.org/pod/Test2::Manual::Testing::Introduction
 
 ## Submitting your solution
 
-You can submit your solution using the `exercism submit Say.pm` command.
+You can submit your solution using the `exercism submit lib/Say.pm` command.
 This command will upload your solution to the Exercism website and print the solution page's URL.
 
 It's possible to submit an incomplete solution which allows you to:
