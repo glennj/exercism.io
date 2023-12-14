@@ -4,11 +4,11 @@ local product_of_digits
 
 local largest_series_product = function (params)
     validate(params)
-    local prods = {}
-    for prod in span_products(params.digits, params.span) do
-        prods[#prods+1] = prod
+    local max = math.mininteger
+    for span in spans(params.digits, params.span) do
+        max = math.max(max, product_of_digits(span))
     end
-    return math.max(table.unpack(prods))
+    return max
 end
 
 validate = function(params)
@@ -18,11 +18,10 @@ validate = function(params)
     assert(params.span >= 0)
 end
 
-span_products = function(string, len)
+spans = function(string, len)
     return coroutine.wrap(function()
         for i = 1, #string - len + 1 do
-            local s = string:sub(i, i+len-1)
-            coroutine.yield(product_of_digits(s))
+            coroutine.yield(string:sub(i, i+len-1))
         end
     end)
 end

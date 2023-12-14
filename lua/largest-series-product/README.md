@@ -49,4 +49,4 @@ Let's work through an example, with the input `"63915"`.
 
 ### Based on
 
-A variation on Problem 8 at Project Euler - http://projecteuler.net/problem=8
+A variation on Problem 8 at Project Euler - https://projecteuler.net/problem=8
