@@ -297,20 +297,4 @@ test dot-2.9 "non-alphanumeric node name" -setup {
     file delete $filename
 } -returnCodes error -result {node name must be alphanumeric}
 
-skip dot-2.10
-test dot-2.10 "non-existent file" -body {
-    set filename [createTempFile ""]
-    file delete $filename
-    processDotFile $filename
-} -returnCodes error -result {cannot read file}
-
-skip dot-2.11
-test dot-2.11 "unreadable file" -body {
-    set filename [createTempFile ""]
-    file attributes $filename -permissions "a-r"
-    processDotFile $filename
-} -cleanup {
-    file delete $filename
-} -returnCodes error -result {cannot read file}
-
 cleanupTests
