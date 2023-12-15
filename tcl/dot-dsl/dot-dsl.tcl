@@ -5,7 +5,8 @@
 # This has the potential for executing malicious code. We can
 # use Tcl's "safe interpreter" to help with this.
 
-source dict.tcl
+package require Tcl 8.7
+
 
 namespace eval DotFile {
     namespace export processDotFile
@@ -101,7 +102,7 @@ namespace eval DotFile {
             addNode $b {}
 
             set edge [lsort [list $a $b]]
-            set edgeAttrs [dict getdef graph edges $edge {}]
+            set edgeAttrs [dict getdef $graph edges $edge {}]
             if {[llength $attrib] > 0} {
                 dict set edgeAttrs {*}$attrib
             }

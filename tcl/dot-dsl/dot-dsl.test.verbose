@@ -1,8 +1,9 @@
 #!/usr/bin/env tclsh
 package require tcltest
 namespace import ::tcltest::*
+configure -verbose {start body error pass}
 source testHelpers.tcl
-configure -verbose {body error usec}
+## configure -verbose {body error usec}
 
 ############################################################
 source "dot-dsl.tcl"
@@ -306,7 +307,7 @@ test dot-2.10 "non-existent file" -body {
 
 skip dot-2.11
 test dot-2.11 "unreadable file" -body {
-    set filename [createTempFile ""]
+    set filename [createTempFile "x"]
     file attributes $filename -permissions "a-r"
     processDotFile $filename
 } -cleanup {

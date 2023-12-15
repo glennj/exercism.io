@@ -6,7 +6,7 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 ## Instructions
 
 A [Domain Specific Language (DSL)][dsl] is a small language optimized for a specific domain.
-Since a DSL is targeted, it can greatly impact productivity/understanding by allowing the writer to declare *what* they want rather than *how*.
+Since a DSL is targeted, it can greatly impact productivity/understanding by allowing the writer to declare _what_ they want rather than _how_.
 
 One problem area where they are applied are complex customizations/configurations.
 
@@ -31,7 +31,7 @@ More information about the difference between internal and external DSLs can be 
 
 [dsl]: https://en.wikipedia.org/wiki/Domain-specific_language
 [dot-language]: https://en.wikipedia.org/wiki/DOT_(graph_description_language)
-[graphviz]: http://graphviz.org/
+[graphviz]: https://graphviz.org/
 [fowler-dsl]: https://martinfowler.com/bliki/DomainSpecificLanguage.html
 
 Although the DOT language has a [formal specification][DOT-spec], the tests for this exercise do not expect the full specification to be implemented.
