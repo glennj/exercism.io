@@ -18,10 +18,10 @@ to_base() {
     local -i to_base=$1 decimal=$2
     local -a digits
 
-    while ((decimal > 0)); do
-        ((digit = decimal % to_base))
+    while true; do
+        digits=("$((decimal % to_base))" "${digits[@]}")
         ((decimal /= to_base))
-        digits=("$digit" "${digits[@]}")
+        ((decimal == 0)) && break
     done
     echo "${digits[*]}"
 }

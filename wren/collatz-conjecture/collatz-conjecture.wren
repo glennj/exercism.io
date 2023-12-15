@@ -1,7 +1,7 @@
 class Collatz {
 
   static steps(n) {
-    if (n <= 0) Fiber.abort("Only positive numbers are allowed")
+    if (n <= 0) Fiber.abort("Only positive integers are allowed")
     //return steps_iterative_(n)
     return steps_recursive_(n)
   }

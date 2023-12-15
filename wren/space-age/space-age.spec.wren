@@ -33,4 +33,8 @@ Testie.test("Space Age") { |do, skip|
   do.test("age on Neptune") {
     Expect.value(Space.age("neptune", 1821023456)).toEqual(0.35)
   }
+
+  do.test("invalid planet causes error") {
+    Expect.that { Space.age("Sun", 680804807) }.toAbortWith("not a planet")
+  }
 }

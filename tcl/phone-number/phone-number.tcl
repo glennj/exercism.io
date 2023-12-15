@@ -7,8 +7,8 @@ proc clean {input} {
     assert {![regexp {[[:alpha:]]} $clean]} "letters not permitted"
     assert {![regexp {\D} $clean]} "punctuations not permitted"
 
-    assert {[string length $clean] >= 10} "incorrect number of digits"
-    assert {[string length $clean] <= 11} "more than 11 digits"
+    assert {[string length $clean] >= 10} "must not be fewer than 10 digits"
+    assert {[string length $clean] <= 11} "must not be greater than 11 digits"
     # remove country code if present
     if {[string length $clean] == 11 && [regsub {^1} $clean "" clean] != 1} {
         error "11 digits must start with 1"

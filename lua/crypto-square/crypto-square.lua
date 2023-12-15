@@ -16,14 +16,17 @@ CrypoSquare.segments = function(string)
     local text = CrypoSquare.normalized_plaintext(string)
     local size = CrypoSquare.size(text, true)
     local segments = {}
-    for i = 1, #text, size do
-        segments[#segments+1] = text:sub(i, i+size-1)
+    if #text > 0 then
+        for i = 1, #text, size do
+            segments[#segments+1] = text:sub(i, i+size-1)
+        end
     end
     return segments
 end
 
 CrypoSquare.ciphertext = function(string)
     local segments = CrypoSquare.segments(string)
+    if #segments == 0 then return "" end
     -- transpose the segments
     local columns = {}
     for c = 1, #segments[1] do

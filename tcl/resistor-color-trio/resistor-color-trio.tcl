@@ -1,7 +1,7 @@
 # reuse previous solution
 source ./resistor-color-duo.tcl
 
-proc ::resistorColor::label {first second third} {
+proc ::resistorColor::label {first second third args} {
     set value [expr {[value $first $second] * 10**[colorCode $third]}]
 
     set idx 0

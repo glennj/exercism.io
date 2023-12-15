@@ -14,6 +14,9 @@ class Space {
   }
 
   static age(planet, ageInSeconds) {
+    if (!__earthYearsPerOrbit.containsKey(planet)) {
+      Fiber.abort("not a planet")
+    }
     var planetaryYears = ageInSeconds /
       __secondsPerEarthYear /
       __earthYearsPerOrbit[planet]

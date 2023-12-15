@@ -37,7 +37,7 @@ test phone-1.5 "valid when 11 digits and starting with 1 even with punctuation" 
 skip phone-2.1
 test phone-2.1 "invalid when 9 digits" -body {
     clean "123456789"
-} -returnCodes error -result "incorrect number of digits"
+} -returnCodes error -result "must not be fewer than 10 digits"
 
 skip phone-2.2
 test phone-2.2 "invalid when 11 digits does not start with a 1" -body {
@@ -47,7 +47,7 @@ test phone-2.2 "invalid when 11 digits does not start with a 1" -body {
 skip phone-2.3
 test phone-2.3 "invalid when more than 11 digits" -body {
     clean "321234567890"
-} -returnCodes error -result "more than 11 digits"
+} -returnCodes error -result "must not be greater than 11 digits"
 
 skip phone-2.4
 test phone-2.4 "invalid with letters" -body {
