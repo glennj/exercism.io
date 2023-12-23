@@ -1,5 +1,8 @@
 use context essentials2020
 
+# provides a datatype, compare with matrix exercise
+# that provides a function that returns an object.
+
 provide: 
   data HighScores
 end
