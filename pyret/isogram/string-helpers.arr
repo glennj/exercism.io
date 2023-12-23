@@ -3,7 +3,6 @@ provide:
   string-is-lower,
   string-is-alpha,
   string-is-whitespace,
-  string-is-digit,
   string-is-non-word-char,
   string-is-all-upper
 end
@@ -48,14 +47,6 @@ fun string-is-whitespace(c):
   doc: "Return true if the one-character string c is a whitespace character."
   cp = string-to-code-point(c)
   [list: 8, 9, 10, 11, 13, 32].member(cp)
-end
-
-fun string-is-digit(character :: String) -> Boolean:
-  doc: 'Is the one-character string a digit?'
-  ("0" <= character) and (character <= "9")
-where:
-  string-is-digit("A") is false
-  string-is-digit("0") is true
 end
 
 # for `acronym` exercise
