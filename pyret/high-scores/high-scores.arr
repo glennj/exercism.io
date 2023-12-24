@@ -7,6 +7,8 @@ provide:
   data HighScores
 end
 
+import math as M
+
 data HighScores: high-scores(scores :: List<NumInteger>)
 with:
   method latest(self) -> NumInteger:
@@ -14,7 +16,7 @@ with:
   end,
 
   method personal-best(self) -> NumInteger:
-    self.scores.foldl({(score, max): num-max(max, score)}, 0)
+    M.max(self.scores)
   end,
 
   method personal-top-three(self) -> List<NumInteger>:

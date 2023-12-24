@@ -3,6 +3,7 @@ use context essentials2020 # Don't delete this line when using Pyret on Exercism
 provide: score end
 
 include string-dict
+import math as M
 
 tiles = [string-dict:
   'A', 1, 'E', 1, 'I', 1, 'O', 1, 'U', 1,
@@ -20,5 +21,5 @@ fun score(word):
   ^ string-to-upper(_)
   ^ string-explode(_)
   ^ map({(c): tiles.get(c).or-else(0)}, _)
-  ^ fold({(sum, n): sum + n}, 0, _)
+  ^ M.sum(_)
 end

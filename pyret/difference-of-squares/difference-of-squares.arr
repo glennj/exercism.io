@@ -2,9 +2,12 @@ use context essentials2020 # Don't delete this line when using Pyret on Exercism
 
 provide: square-of-sum, sum-of-squares, difference-of-squares end
 
+import math as M
+
 fun f0(number, f1, f2):
   range(1, number + 1)
-  ^ fold({(sum, n): sum + f1(n)}, 0, _)
+  ^ map(f1, _)
+  ^ M.sum(_)
   ^ f2(_)
 end
 
