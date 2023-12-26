@@ -6,8 +6,11 @@ provide:
   string-is-digit,
   string-is-punct,
   string-is-non-word-char,
-  string-is-all-upper
+  string-is-all-upper,
+  string-remove-all
 end
+
+import lists as L
 
 fun string-is-upper(character :: String) -> Boolean:
   doc: 'Is the one-character string an ASCII uppercase letter?'
@@ -104,3 +107,14 @@ fun string-ends-with(s, t):
   end
 end
 |#
+
+
+fun string-remove-all(s, cs):
+  doc: "Remove all the characters in list cs from string s"
+  string-explode(s)
+  ^ filter({(c): not(cs.member(c))}, _)
+  ^ L.join-str(_, '')
+where:
+  string-remove-all('hello', [list: 'e', 'l']) is "ho"
+  string-remove-all('hello', [list: '-']) is "hello"
+end

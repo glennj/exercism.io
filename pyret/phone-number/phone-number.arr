@@ -2,17 +2,17 @@ use context essentials2020 # Don't delete this line when using Pyret on Exercism
 
 provide: clean end
 
-include file("string-helpers.arr")
+import file("string-helpers.arr") as SH
+include from SH:
+  string-remove-all,
+  string-is-alpha,
+  string-is-punct
+end
 import lists as L
 
 fun clean(phone-number):
   # remove valid non-digits
-  a = phone-number
-      ^ string-replace(_, '(', '')
-      ^ string-replace(_, ')', '')
-      ^ string-replace(_, ' ', '')
-      ^ string-replace(_, '-', '')
-      ^ string-replace(_, '.', '')
+  a = string-remove-all(phone-number, [list: '(', ')', ' ', '-', '.'])
 
   # validating length
   b = string-explode(
@@ -21,8 +21,8 @@ fun clean(phone-number):
           | string-length(a) == 10 then: a
           | string-length(a) == 11 then:
               ask:
-                | not(string-starts-with(a, "1")) then: raise("11 digits must start with 1")
-                | otherwise: string-substring(a, 1, 11)
+                | string-starts-with(a, "1") then: string-substring(a, 1, 11)
+                | otherwise: raise("11 digits must start with 1")
               end
           | (string-length(a) == 12) and string-starts-with(a, "+1") then: string-substring(a, 2, 12)
           | otherwise: raise("must not be greater than 11 digits")
