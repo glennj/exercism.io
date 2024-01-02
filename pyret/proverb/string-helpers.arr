@@ -1,15 +1,14 @@
 provide:
-  string-is-alpha,
   string-is-upper,
   string-is-lower,
+  string-is-alpha,
   string-is-whitespace,
   string-is-digit,
   string-is-punct,
   string-is-non-word-char,
   string-is-all-upper,
   string-remove-all,
-  string-format,
-  string-trim
+  string-format
 end
 
 import lists as L
@@ -75,7 +74,7 @@ end
 # for `acronym` exercise
 fun string-is-non-word-char(character :: String) -> Boolean:
   doc: 'Is the character NOT a "word character" (letters or apostrophes)?'
-  not(string-is-alpha(character) or (character == "'") or string-is-digit(character))
+  not(string-is-alpha(character) or (character == "'"))
 where:
   string-is-non-word-char("A") is false
   string-is-non-word-char("a") is false
@@ -110,6 +109,7 @@ fun string-ends-with(s, t):
 end
 |#
 
+
 fun string-remove-all(s, cs):
   doc: "Remove all the characters in list cs from string s"
   string-explode(s)
@@ -128,17 +128,4 @@ fun string-format(format-string, strings):
 where:
   string-format('Hello, {1}!', [list: 'World']) is 'Hello, World!'
   string-format('He{1}{1}{2}, W{2}r{1}d!', [list: 'l', 'o']) is 'Hello, World!'
-end
-
-fun string-trim(s, x):
-  doc: "remove all xs from the start or end of a string"
-  ask:
-    | string-length(s) == 0 then: s
-    | string-starts-with(s, x) then: string-trim(string-substring(s, 1, string-length(s)), x)
-    | string-ends-with(s, x) then: string-trim(string-substring(s, 0, string-length(s) - 1), x)
-    | otherwise: s
-  end
-where:
-  string-trim("'hello world'", "'") is "hello world"
-  string-trim("'''hello", "'") is "hello"
 end

@@ -1,48 +1,36 @@
 use context essentials2020 # Don't delete this line when using Pyret on Exercism 
 
-provide:
-  data Character
-end
+provide-types *
+
+import math as M
 
 data Character:
-  | character(
-      strength :: NumInteger,
-      dexterity :: NumInteger,
-      constitution :: NumInteger,
-      intelligence :: NumInteger,
-      wisdom :: NumInteger,
-      charisma :: NumInteger
-    )
-    with:
-      method get-hitpoints(self):
-        self.modifier(self.constitution) + 10
-      end
-
   | blank-character()
     with:
-      method ability(self):
-        doc: "The sum of top 3 of 4 six-sided dice"
-        {sum; min} = for fold({s; m} from {0; 6}, _ from range(0, 4)):
-          die = 1 + num-random(6)
-          {s + die; num-min(m, die)}
-        end
-        sum - min
-      end,
-
-      method randomize-stats(self):
+    method randomize-stats(self) -> Character:
         character(
-          self.ability(), # strength
-          self.ability(), # dexterity
-          self.ability(), # constitution
-          self.ability(), # intelligence
-          self.ability(), # wisdom
-          self.ability()  # charisma
+          self.ability(),    #  strength 
+          self.ability(),    #  dexterity 
+          self.ability(),    #  constitution 
+          self.ability(),    #  intelligence 
+          self.ability(),    #  wisdom 
+          self.ability()     #  charisma 
         )
       end
 
-  sharing:
-    method modifier(self, points):
-      num-floor((points - 10) / 2)
-    end
-end
+  | character(strength, dexterity, constitution, intelligence, wisdom, charisma)
+    with:
+      method get-hitpoints(self):
+        10 + self.modifier(self.constitution)
+      end
 
+sharing:
+  method ability(self) -> NumInteger:
+    dice = range(0, 4).map({(_): num-random(6) + 1})
+    M.sum(dice) - M.min(dice)
+  end,
+
+  method modifier(self, value :: NumInteger) -> NumInteger:
+     num-floor((value - 10) / 2)
+  end
+end
