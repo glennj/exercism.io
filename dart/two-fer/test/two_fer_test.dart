@@ -11,11 +11,11 @@ void main() {
     test('a name given', () {
       final result = twoFer('Alice');
       expect(result, equals('One for Alice, one for me.'));
-    }, skip: true);
+    }, skip: false);
 
     test('another name given', () {
       final result = twoFer('Bob');
       expect(result, equals('One for Bob, one for me.'));
-    }, skip: true);
+    }, skip: false);
   });
 }

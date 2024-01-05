@@ -5,9 +5,9 @@ class PhoneNumber {
         .replaceAll(RegExp(r'[+().-]'), '');
 
     if (cleaned.length < 10)
-      throw FormatException('incorrect number of digits');
+      throw FormatException('must not be fewer than 10 digits');
     if (cleaned.length > 11)
-      throw FormatException('more than 11 digits');
+      throw FormatException('must not be greater than 11 digits');
     if (cleaned.length == 11) {
       if (!cleaned.startsWith('1'))
         throw FormatException('11 digits must start with 1');
