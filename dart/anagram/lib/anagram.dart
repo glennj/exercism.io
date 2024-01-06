@@ -1,3 +1,5 @@
+import 'listutils.dart';
+
 class Anagram {
   List<String> findAnagrams(String word, List<String> candidates) {
     var wordKey = (String word) {
@@ -11,7 +13,7 @@ class Anagram {
 
     var isAnagram = (candidate) {
       var lower = candidate.toLowerCase();
-      return wordLower != lower && key == wordKey(lower);
+      return wordLower != lower && ListUtils.equal(key, wordKey(lower));
     };
 
     return candidates.where(isAnagram).toList();
