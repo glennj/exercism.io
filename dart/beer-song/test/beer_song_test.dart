@@ -1,4 +1,5 @@
 import 'package:beer_song/beer_song.dart';
+import 'package:beer_song/beverage_song.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -8,7 +9,7 @@ void main() {
     group('verse', () {
       group('single verse', () {
         test('first verse, custom strings', () {
-          final cokeSong = BeverageSong('Coke', 'in the fridge');
+          final cokeSong = BeverageSong(liquid: 'Coke', where: 'in the fridge');
           final result = cokeSong.recite(99, 1);
           expect(
               result,
