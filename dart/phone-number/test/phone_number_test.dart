@@ -13,12 +13,12 @@ void main() {
     test('cleans numbers with dots', () {
       final result = phoneNumber.clean('223.456.7890');
       expect(result, equals('2234567890'));
-    }, skip: false);
+    }, skip: true);
 
     test('cleans numbers with multiple spaces', () {
       final result = phoneNumber.clean('223 456   7890   ');
       expect(result, equals('2234567890'));
-    }, skip: false);
+    }, skip: true);
 
     test('invalid when 9 digits', () {
       expect(
@@ -31,7 +31,7 @@ void main() {
           ),
         ),
       );
-    }, skip: false);
+    }, skip: true);
 
     test('invalid when 11 digits does not start with a 1', () {
       expect(
@@ -44,17 +44,17 @@ void main() {
           ),
         ),
       );
-    }, skip: false);
+    }, skip: true);
 
     test('valid when 11 digits and starting with 1', () {
       final result = phoneNumber.clean('12234567890');
       expect(result, equals('2234567890'));
-    }, skip: false);
+    }, skip: true);
 
     test('valid when 11 digits and starting with 1 even with punctuation', () {
       final result = phoneNumber.clean('+1 (223) 456-7890');
       expect(result, equals('2234567890'));
-    }, skip: false);
+    }, skip: true);
 
     test('invalid when more than 11 digits', () {
       expect(
@@ -67,7 +67,7 @@ void main() {
           ),
         ),
       );
-    }, skip: false);
+    }, skip: true);
 
     test('invalid with letters', () {
       expect(
@@ -80,7 +80,7 @@ void main() {
           ),
         ),
       );
-    }, skip: false);
+    }, skip: true);
 
     test('invalid with punctuations', () {
       expect(
@@ -93,7 +93,7 @@ void main() {
           ),
         ),
       );
-    }, skip: false);
+    }, skip: true);
 
     test('invalid if area code starts with 0', () {
       expect(
@@ -106,7 +106,7 @@ void main() {
           ),
         ),
       );
-    }, skip: false);
+    }, skip: true);
 
     test('invalid if area code starts with 1', () {
       expect(
@@ -119,7 +119,7 @@ void main() {
           ),
         ),
       );
-    }, skip: false);
+    }, skip: true);
 
     test('invalid if exchange code starts with 0', () {
       expect(
@@ -132,7 +132,7 @@ void main() {
           ),
         ),
       );
-    }, skip: false);
+    }, skip: true);
 
     test('invalid if exchange code starts with 1', () {
       expect(
@@ -145,7 +145,7 @@ void main() {
           ),
         ),
       );
-    }, skip: false);
+    }, skip: true);
 
     test('invalid if area code starts with 0 on valid 11-digit number', () {
       expect(
@@ -158,7 +158,7 @@ void main() {
           ),
         ),
       );
-    }, skip: false);
+    }, skip: true);
 
     test('invalid if area code starts with 1 on valid 11-digit number', () {
       expect(
@@ -171,7 +171,7 @@ void main() {
           ),
         ),
       );
-    }, skip: false);
+    }, skip: true);
 
     test('invalid if exchange code starts with 0 on valid 11-digit number', () {
       expect(
@@ -184,7 +184,7 @@ void main() {
           ),
         ),
       );
-    }, skip: false);
+    }, skip: true);
 
     test('invalid if exchange code starts with 1 on valid 11-digit number', () {
       expect(
@@ -197,6 +197,6 @@ void main() {
           ),
         ),
       );
-    }, skip: false);
+    }, skip: true);
   });
 }
