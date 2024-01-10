@@ -11,18 +11,20 @@ class Robot {
 
   void move(String instructions) {
     for (var instruction in instructions.split('')) {
-      // dart v3 doesn't require `break`
       switch (instruction) {
-        case 'R': _turn(1);
-        case 'L': _turn(-1);
-        case 'A': _advance();
-        default: throw Exception('Invalid instruction: $instruction');
+        case 'R' || 'L':
+          _turn(instruction);
+        case 'A':
+          _advance();
+        default:
+          throw Exception('Invalid instruction: $instruction');
       }
     }
   }
 
-  void _turn(int direction) {
-    var nextIdx = (orientation.index + direction) % _orientations.length;
+  void _turn(String direction) {
+    var addend = direction == 'R' ? 1 : -1;
+    var nextIdx = (orientation.index + addend) % _orientations.length;
     orientation = _orientations[nextIdx];
   }
 
