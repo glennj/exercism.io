@@ -1,18 +1,10 @@
-bool isASCIILetter(String char) {
-  // Hmm, does this depend on locale?
-  return char.compareTo('a') >= 0
-      && char.compareTo('z') <= 0;
-}
+// Hmm, does this depend on locale?
+bool isLower(String char) =>
+    char.compareTo('a') >= 0 && char.compareTo('z') <= 0;
 
-const ASCII_ALPHABET_SIZE = 26;
+const alphabetSize = 26;
 
 class Pangram {
-  bool isPangram(String word) {
-    var count = word.toLowerCase()
-                    .split('')
-                    .where(isASCIILetter)
-                    .toSet()
-                    .length;
-    return count == ASCII_ALPHABET_SIZE;
-  }
+  bool isPangram(String word) =>
+      alphabetSize == word.toLowerCase().split('').where(isLower).toSet().length;
 }
