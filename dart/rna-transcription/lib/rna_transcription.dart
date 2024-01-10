@@ -1,8 +1,7 @@
-class RnaTranscription {
-  final dna2rna = {'G': 'C', 'C': 'G', 'T': 'A', 'A': 'U'};
+const dna2rna = {'G': 'C', 'C': 'G', 'T': 'A', 'A': 'U'};
+final nucleotides = RegExp("[${dna2rna.keys.join('')}]");
 
+class RnaTranscription {
   String toRna(String dna) =>
-    dna.split('')
-       .map((nucleotide) => dna2rna[nucleotide])
-       .join('');
+      dna.replaceAllMapped(nucleotides, (m) => dna2rna[m[0]!]!);
 }
