@@ -1,4 +1,4 @@
-const DigitValue = <bool, List<int>>{
+const doubleValue = <bool, List<int>>{
   false: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
   true: [0, 2, 4, 6, 8, 1, 3, 5, 7, 9],
 };
@@ -6,8 +6,7 @@ const DigitValue = <bool, List<int>>{
 class Luhn {
   bool valid(String input) {
     var cleaned = input.replaceAll(RegExp(r'\s'), '');
-    if (RegExp(r'\D').hasMatch(cleaned) || cleaned.length == 1)
-      return false;
+    if (RegExp(r'\D').hasMatch(cleaned) || cleaned.length == 1) return false;
 
     /* using records requires pubspec.yaml changed from
      *    environment:
@@ -18,15 +17,10 @@ class Luhn {
      */
     var (sum, _) = cleaned
         .split('')
-        .map((digit) => int.parse(digit))
+        .map(int.parse)
         .toList()
         .reversed
-        .fold(
-          (0, false),
-          (acc, digit) {
-            var (sum, doubled) = acc;
-            return (sum + DigitValue[doubled]![digit], !doubled);
-          });
+        .fold((0, false), (state, d) => (state.$1 + doubleValue[state.$2]![d], !state.$2));
     return sum % 10 == 0;
   }
 }
