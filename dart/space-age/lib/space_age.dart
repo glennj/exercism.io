@@ -20,7 +20,6 @@ class SpaceAge {
     'Neptune': 164.79132
   };
 
-  double age({required String planet, required int seconds}) {
-    return (seconds / secondsPerEarthYear / (earthYearsPerOrbit[planet] ?? 1)).roundTo(2);
-  }
+  double age({required String planet, required int seconds}) =>
+      (seconds / secondsPerEarthYear / earthYearsPerOrbit[planet]!).roundTo(2);
 }
