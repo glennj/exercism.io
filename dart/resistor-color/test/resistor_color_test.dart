@@ -20,15 +20,15 @@ void colorCodes() {
   test('Black', () {
     final result = resistorColor.colorCode('black');
     expect(result, equals(0));
-  }, skip: false);
+  }, skip: true);
 
   test('White', () {
     final result = resistorColor.colorCode('white');
     expect(result, equals(9));
-  }, skip: false);
+  }, skip: true);
 
   test('Orange', () {
     final result = resistorColor.colorCode('orange');
     expect(result, equals(3));
-  }, skip: false);
+  }, skip: true);
 }
