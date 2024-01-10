@@ -1,7 +1,7 @@
 /* A word starts with a letter and can contain word chars and apostrophes.
  * I rely on regex "leftmost longest" matching to find the first letter of each word.
  */
-final WORD_RE = RegExp(r"([A-Za-z])[\w']*");
+final WORD_RE = RegExp(r"(\p{Alpha})[\w']*", unicode: true);
 
 class Acronym {
   String abbreviate(String input) => WORD_RE

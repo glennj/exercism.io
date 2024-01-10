@@ -1,5 +1,5 @@
-RegExp UPPER = RegExp(r'[A-Z]');
-RegExp LOWER = RegExp(r'[a-z]');
+RegExp UPPER = RegExp(r'\p{Uppercase}', unicode: true);
+RegExp LOWER = RegExp(r'\p{Lowercase}', unicode: true);
 
 class Bob {
   String response(String input) {

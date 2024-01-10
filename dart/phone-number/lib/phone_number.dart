@@ -1,5 +1,6 @@
 class PhoneNumber {
   String clean(String input) {
+    // remove valid non-digits
     var cleaned = input
         .replaceAll(RegExp(r'\s'), '')
         .replaceAll(RegExp(r'[+().-]'), '');
@@ -14,7 +15,7 @@ class PhoneNumber {
       cleaned = cleaned.substring(1);
     }
 
-    if (cleaned.contains(RegExp(r'[a-z]', caseSensitive: false)))
+    if (cleaned.contains(RegExp(r'\p{Alpha}', caseSensitive: false, unicode: true)))
       throw FormatException('letters not permitted');
     // we've already checked letters: any non-digits are "punctuation"
     if (RegExp(r'\D').hasMatch(cleaned))

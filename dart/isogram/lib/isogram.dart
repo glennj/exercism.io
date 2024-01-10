@@ -1,5 +1,4 @@
-//final ALPHA = RegExp(r'\p{Letter}', caseSensitive: false);
-final ALPHA = RegExp(r'[a-z]');
+final ALPHA = RegExp(r'\p{Alphabetic}', caseSensitive: false, unicode: true);
 
 extension on String {
   bool isLetter() => ALPHA.hasMatch(this);
