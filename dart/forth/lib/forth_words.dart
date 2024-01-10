@@ -1,5 +1,5 @@
 class ForthWords {
-  Map<String, List<String>> _words = {};
+  var _words = <String, List<String>>{};
 
   void add(List<String> tokens) {
     var word = tokens.removeAt(0);

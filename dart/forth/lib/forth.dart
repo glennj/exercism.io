@@ -15,8 +15,7 @@ class Forth {
    * different lines.
    */
   void evaluate(String program) {
-    LineSplitter
-        .split(program)
+    LineSplitter.split(program)
         .map((line) => line.toUpperCase().split(' '))
         .forEach(_eval);
   }
@@ -25,21 +24,15 @@ class Forth {
     while (tokens.isNotEmpty) {
       var token = tokens.removeAt(0);
       var number = int.tryParse(token);
-      if (number != null) _stack.push(number);
-      else if (_words.hasDefinition(token)) tokens = _words.get(token) + tokens;
-      else if (token == '+') _stack.add();
-      else if (token == '-') _stack.subtract();
-      else if (token == '*') _stack.multiply();
-      else if (token == '/') _stack.divide();
-      else if (token == 'DUP') _stack.dup();
-      else if (token == 'DROP') _stack.drop();
-      else if (token == 'SWAP') _stack.swap();
-      else if (token == 'OVER') _stack.over();
+      if (number != null)
+        _stack.push(number);
+      else if (_words.hasDefinition(token))
+        tokens = _words.get(token) + tokens;
       else if (token == ':') {
         _words.add(tokens);
         tokens = [];
-      }
-      else throw Exception('Unknown command');
+      } else
+        _stack.dispatch(token);
     }
   }
 }

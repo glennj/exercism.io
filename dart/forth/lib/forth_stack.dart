@@ -1,6 +1,20 @@
 class ForthStack {
   List<int> _stack = [];
 
+  void dispatch(String word) {
+    switch (word) {
+      case '+': add();
+      case '-': subtract();
+      case '*': multiply();
+      case '/': divide();
+      case 'DUP': dup();
+      case 'DROP': drop();
+      case 'SWAP': swap();
+      case 'OVER': over();
+      default: throw Exception('Unknown command');
+    }
+  }
+
   int get size => _stack.length;
 
   List<int> toList() => List<int>.from(_stack);

@@ -4,21 +4,20 @@ RegExp LOWER = RegExp(r'\p{Lowercase}', unicode: true);
 class Bob {
   String response(String input) {
     var trimmed = input.trimRight();
-    var result = (trimmed.endsWith('?') ? 1 : 0) +
-        (trimmed.contains(UPPER) && !trimmed.contains(LOWER) ? 2 : 0) +
-        (trimmed.length == 0 ? 4 : 0);
 
-    switch (result) {
-      case 4:
-        return 'Fine. Be that way!';
-      case 3:
-        return "Calm down, I know what I'm doing!";
-      case 2:
-        return 'Whoa, chill out!';
-      case 1:
-        return 'Sure.';
-      default:
-        return 'Whatever.';
-    }
+    var isSilence = trimmed.length == 0;
+    var isYelling = trimmed.contains(UPPER) && !trimmed.contains(LOWER);
+    var isQuestion = trimmed.endsWith('?');
+
+    /* switch _expressions_ require Dart v3:
+     * ensure the sdk environment constraint is altered in pubspec.yaml
+     */
+    return switch ((isSilence, isYelling, isQuestion)) {
+      (true, _, _)     => 'Fine. Be that way!',
+      (_, true, true)  => "Calm down, I know what I'm doing!",
+      (_, true, false) => 'Whoa, chill out!',
+      (_, false, true) => 'Sure.',
+      _                => 'Whatever.',
+    };
   }
 }

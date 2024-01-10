@@ -11,10 +11,11 @@ class Robot {
 
   void move(String instructions) {
     for (var instruction in instructions.split('')) {
+      // dart v3 doesn't require `break`
       switch (instruction) {
-        case 'R': _turn(1); break;
-        case 'L': _turn(-1); break;
-        case 'A': _advance(); break;
+        case 'R': _turn(1);
+        case 'L': _turn(-1);
+        case 'A': _advance();
         default: throw Exception('Invalid instruction: $instruction');
       }
     }
