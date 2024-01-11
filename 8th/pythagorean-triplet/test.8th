@@ -32,10 +32,6 @@ needs exercism/test
     [[3, 4, 5]]
     12 test-triplets-with-sum
 
-"no matching triplets for 1001"
-    []
-    1001 test-triplets-with-sum
-
 SKIP-REST-OF-TESTS
 
 "triplets whose sum is 108"
@@ -45,6 +41,10 @@ SKIP-REST-OF-TESTS
 "triplets whose sum is 1000"
     [[200, 375, 425]]
     1000 test-triplets-with-sum
+
+"no matching triplets for 1001"
+    []
+    1001 test-triplets-with-sum
 
 "returns all matching triplets"
     [[9, 40, 41], [15, 36, 39]]
