@@ -3,8 +3,8 @@ import 'forth_stack.dart';
 import 'forth_words.dart';
 
 class Forth {
-  ForthStack _stack = ForthStack();
-  ForthWords _words = ForthWords();
+  final _stack = ForthStack();
+  final _words = ForthWords();
 
   List<int> get stack => _stack.toList();
 
@@ -24,15 +24,16 @@ class Forth {
     while (tokens.isNotEmpty) {
       var token = tokens.removeAt(0);
       var number = int.tryParse(token);
-      if (number != null)
+      if (number != null) {
         _stack.push(number);
-      else if (_words.hasDefinition(token))
+      } else if (_words.hasDefinition(token)) {
         tokens = _words.get(token) + tokens;
-      else if (token == ':') {
+      } else if (token == ':') {
         _words.add(tokens);
         tokens = [];
-      } else
+      } else {
         _stack.dispatch(token);
+      }
     }
   }
 }

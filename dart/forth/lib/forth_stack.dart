@@ -1,5 +1,5 @@
 class ForthStack {
-  List<int> _stack = [];
+  final _stack = <int>[];
 
   void dispatch(String word) {
     switch (word) {

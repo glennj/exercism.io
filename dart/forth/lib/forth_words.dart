@@ -1,5 +1,5 @@
 class ForthWords {
-  var _words = <String, List<String>>{};
+  final _words = <String, List<String>>{};
 
   void add(List<String> tokens) {
     var word = tokens.removeAt(0);
