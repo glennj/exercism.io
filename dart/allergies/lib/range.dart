@@ -9,30 +9,30 @@ class Range with Iterable<int> {
 
   Range(this.start, this.end, [this.step = 1]) {
     // TODO negative step handling.
-    assert(this.step > 0);
+    assert(step > 0);
   }
 
   @override
-  Iterator<int> get iterator => RangeIterator(this.start, this.end, this.step);
+  Iterator<int> get iterator => RangeIterator(start, end, step);
 }
 
 class RangeIterator implements Iterator<int> {
   final int start;
   final int end;
   final int step;
-  int _i = 0;
+  int _current = 0;
 
   RangeIterator(this.start, this.end, this.step) {
-    this._i = this.start - this.step;
+    _current = start - step;
   }
 
   @override
-  int get current => this._i;
+  int get current => _current;
 
   @override
   bool moveNext() {
-    if (this._i < this.end) {
-      this._i += this.step;
+    if (_current < end) {
+      _current += step;
       return true;
     }
     return false;
