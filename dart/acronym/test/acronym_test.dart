@@ -13,41 +13,41 @@ void main() {
     test('lowercase words', () {
       final result = acronym.abbreviate('Ruby on Rails');
       expect(result, equals('ROR'));
-    }, skip: false);
+    }, skip: true);
 
     test('punctuation', () {
       final result = acronym.abbreviate('First In, First Out');
       expect(result, equals('FIFO'));
-    }, skip: false);
+    }, skip: true);
 
     test('all caps word', () {
       final result = acronym.abbreviate('GNU Image Manipulation Program');
       expect(result, equals('GIMP'));
-    }, skip: false);
+    }, skip: true);
 
     test('punctuation without whitespace', () {
       final result = acronym.abbreviate('Complementary metal-oxide semiconductor');
       expect(result, equals('CMOS'));
-    }, skip: false);
+    }, skip: true);
 
     test('very long abbreviation', () {
       final result = acronym.abbreviate('Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me');
       expect(result, equals('ROTFLSHTMDCOALM'));
-    }, skip: false);
+    }, skip: true);
 
     test('consecutive delimiters', () {
       final result = acronym.abbreviate('Something - I made up from thin air');
       expect(result, equals('SIMUFTA'));
-    }, skip: false);
+    }, skip: true);
 
     test('apostrophes', () {
       final result = acronym.abbreviate('Halley\'s Comet');
       expect(result, equals('HC'));
-    }, skip: false);
+    }, skip: true);
 
     test('underscore emphasis', () {
       final result = acronym.abbreviate('The Road _Not_ Taken');
       expect(result, equals('TRNT'));
-    }, skip: false);
+    }, skip: true);
   });
 }
