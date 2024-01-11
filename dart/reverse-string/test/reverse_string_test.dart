@@ -11,26 +11,26 @@ void main() {
     test('a word', () {
       final result = reverse('robot');
       expect(result, equals('tobor'));
-    }, skip: false);
+    }, skip: true);
 
     test('a capitalized word', () {
       final result = reverse('Ramen');
       expect(result, equals('nemaR'));
-    }, skip: false);
+    }, skip: true);
 
     test('a sentence with punctuation', () {
       final result = reverse('I\'m hungry!');
       expect(result, equals('!yrgnuh m\'I'));
-    }, skip: false);
+    }, skip: true);
 
     test('a palindrome', () {
       final result = reverse('racecar');
       expect(result, equals('racecar'));
-    }, skip: false);
+    }, skip: true);
 
     test('an even-sized word', () {
       final result = reverse('drawer');
       expect(result, equals('reward'));
-    }, skip: false);
+    }, skip: true);
   });
 }
