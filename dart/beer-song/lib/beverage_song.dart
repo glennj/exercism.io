@@ -1,15 +1,15 @@
 extension on String {
   // from perl: https://perldoc.pl/functions/ucfirst
   String ucFirst() {
-    if (length < 2)
-      return toUpperCase();
-    else
-      return this[0].toUpperCase() + substring(1);
+    return switch (length) {
+      < 2 => toUpperCase(),
+      _ => this[0].toUpperCase() + substring(1),
+    };
   }
 }
 
 class BeverageSong {
-  static const MAX = 99;
+  static const maxVerses = 99;
 
   // constructor allows stuff like:
   //    final juiceSong = BeverageSong(liquid: 'juice', where: 'in the fridge');
@@ -32,14 +32,14 @@ class BeverageSong {
 
   String _second(int n) {
     var b = '${_bottles(n - 1)} $where.';
-    if (n > 0)
-      return 'Take ${n == 1 ? "it" : "one"} down and pass it around, $b';
-    else
-      return 'Go to the store and buy some more, $b';
+    return switch (n) {
+      0 => 'Go to the store and buy some more, $b',
+      _ => 'Take ${n == 1 ? "it" : "one"} down and pass it around, $b',
+    };
   }
 
   String _bottles(int n) {
-    if (n < 0) n = MAX;
+    if (n < 0) n = maxVerses;
     return '${n == 0 ? "no more" : n} bottle${n == 1 ? "" : "s"} of $liquid';
   }
 }
