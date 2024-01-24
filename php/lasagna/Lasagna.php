@@ -18,7 +18,7 @@ class Lasagna
 
     function totalPreparationTime($layers_to_prep)
     {
-        return $this::MINUTES_PER_LAYER * $layers_to_prep;
+        return self::MINUTES_PER_LAYER * $layers_to_prep;
     }
 
     function totalElapsedTime($layers_to_prep, $elapsed_minutes)
