@@ -25,23 +25,3 @@ function array_each_cons(array $a, int $n): iterable
         yield array_slice($a, $i, $n);
     }
 }
-
-function array_all(callable $pred, array $array): bool
-{
-    foreach ($array as $elem) {
-        if (!$pred($elem)) {
-            return false;
-        }
-    }
-    return true;
-}
-
-function array_any(callable $pred, array $array): bool
-{
-    foreach ($array as $elem) {
-        if ($pred($elem)) {
-            return true;
-        }
-    }
-    return false;
-}
