@@ -1,16 +1,13 @@
 proc raindrops {number} {
-    dict for {divisor sound} {3 Pling 5 Plang 7 Plong} {
-        if {$number % $divisor == 0} {
-            append drops $sound
+    set Pling 3
+    set Plang 5
+    set Plong 7
+
+    set drops ""
+    foreach varname [info vars P*] {
+        if {$number % [set $varname] == 0} {
+            append drops $varname
         }
     }
-    setIfUnset drops $number
-    return $drops
-}
-
-proc setIfUnset {varname value} {
-    upvar 1 $varname var
-    if {![info exists var]} {
-        set var $value
-    }
+    expr {$drops eq "" ? $number : $drops}
 }
