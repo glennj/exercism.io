@@ -60,6 +60,7 @@ It's possible to submit an incomplete solution which allows you to:
 If you'd like help solving the exercise, check the following pages:
 
 - The [JavaScript track's documentation](https://exercism.org/docs/tracks/javascript)
+- The [JavaScript track's programming category on the forum](https://forum.exercism.org/c/programming/javascript)
 - [Exercism's programming category on the forum](https://forum.exercism.org/c/programming/5)
 - The [Frequently Asked Questions](https://exercism.org/docs/using/faqs)
 
