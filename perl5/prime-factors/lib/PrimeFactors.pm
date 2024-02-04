@@ -1,8 +1,11 @@
-package Prime;
+package PrimeFactors;
 
-#use strictures 2;
 use strict;
 use warnings;
+use v5.38;
+
+use Exporter qw<import>;
+our @EXPORT_OK = qw<factors>;
 
 sub prime_factor_generator;
 sub prime_number_generator;
@@ -87,5 +90,3 @@ sub factors {
     push @factors, $n if $n > 1;
     return \@factors;
 }
-
-1;
