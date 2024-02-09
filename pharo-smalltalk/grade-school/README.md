@@ -5,8 +5,7 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
 
-Given students' names along with the grade that they are in, create a roster
-for the school.
+Given students' names along with the grade that they are in, create a roster for the school.
 
 In the end, you should be able to:
 
@@ -16,31 +15,15 @@ In the end, you should be able to:
 - Get a list of all students enrolled in a grade
   - "Which students are in grade 2?"
   - "We've only got Jim just now."
-- Get a sorted list of all students in all grades.  Grades should sort
-  as 1, 2, 3, etc., and students within a grade should be sorted
-  alphabetically by name.
+- Get a sorted list of all students in all grades.
+  Grades should sort as 1, 2, 3, etc., and students within a grade should be sorted alphabetically by name.
   - "Who all is enrolled in school right now?"
-  - "Let me think. We have
-  Anna, Barb, and Charlie in grade 1,
-  Alex, Peter, and Zoe in grade 2
-  and Jim in grade 5.
-  So the answer is: Anna, Barb, Charlie, Alex, Peter, Zoe and Jim"
+  - "Let me think.
+    We have Anna, Barb, and Charlie in grade 1, Alex, Peter, and Zoe in grade 2 and Jim in grade 5.
+    So the answer is: Anna, Barb, Charlie, Alex, Peter, Zoe and Jim"
 
-Note that all our students only have one name.  (It's a small town, what
-do you want?)
-
-## For bonus points
-
-Did you get the tests passing and the code clean? If you want to, these
-are some additional things you could try:
-
-- If you're working in a language with mutable data structures and your
-  implementation allows outside code to mutate the school's internal DB
-  directly, see if you can prevent this. Feel free to introduce additional
-  tests.
-
-Then please share your thoughts in a comment on the submission. Did this
-experiment make the code better? Worse? Did you learn anything from it?
+Note that all our students only have one name (It's a small town, what do you want?) and each student cannot be added more than once to a grade or the roster.
+In fact, when a test attempts to add the same student more than once, your implementation should indicate that this is incorrect.
 
 It isn't strictly necessary to model students as a seperate object, you can use a convenient internal data strcture as the requirements are quite simple (and as long as it doesn't leak out into the results).Note: this exercise has been slightly modified from the problem-specification, as it makes more sense to seperate adding students and querying them in seperate methods (vs. having one method doing both, which feels less Pharo/Smalltalk like).
 
@@ -56,4 +39,4 @@ It isn't strictly necessary to model students as a seperate object, you can use 
 
 ### Based on
 
-A pairing session with Phil Battos at gSchool - http://gschool.it
+A pairing session with Phil Battos at gSchool

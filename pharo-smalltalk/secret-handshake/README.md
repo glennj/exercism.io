@@ -56,6 +56,7 @@ jump, double blink
 
 ~~~~exercism/note
 If you aren't sure what binary is or how it works, check out [this binary tutorial][intro-to-binary].
+
 [intro-to-binary]: https://medium.com/basecs/bits-bytes-building-with-binary-13cb4289aafa
 ~~~~
 
@@ -74,4 +75,4 @@ The Integer class has a bit manipulation protocol which may be useful.
 
 ### Based on
 
-Bert, in Mary Poppins - http://www.imdb.com/title/tt0058331/quotes/qt0437047
+Bert, in Mary Poppins - https://www.imdb.com/title/tt0058331/quotes/?item=qt0437047

@@ -62,4 +62,4 @@ While readability is preferred over efficiency, there is a solution that avoids 
 
 ### Based on
 
-The Jumpstart Lab team - http://jumpstartlab.com
+Based on an exercise by the JumpstartLab team for students at The Turing School of Software and Design. - https://turing.edu

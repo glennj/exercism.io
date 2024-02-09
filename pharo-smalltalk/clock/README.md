@@ -25,4 +25,4 @@ Try and encapsulate your implementation
 
 ### Based on
 
-Pairing session with Erin Drummond - https://twitter.com/ebdrummond
+Pairing session with Erin Drummond

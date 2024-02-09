@@ -52,4 +52,4 @@ The trick to this exercise understanding how to iterate accross a range of numbe
 
 ### Based on
 
-A variation on Problem 1 at Project Euler - http://projecteuler.net/problem=1
+A variation on Problem 1 at Project Euler - https://projecteuler.net/problem=1

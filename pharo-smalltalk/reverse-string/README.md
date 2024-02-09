@@ -3,13 +3,21 @@
 Welcome to Reverse String on Exercism's Pharo Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
+## Introduction
+
+Reversing strings (reading them from right to left, rather than from left to right) is a surprisingly common task in programming.
+
+For example, in bioinformatics, reversing the sequence of DNA or RNA strings is often important for various analyses, such as finding complementary strands or identifying palindromic sequences that have biological significance.
+
 ## Instructions
 
-Reverse a string
+Your task is to reverse a given string.
 
-For example:
-input: "cool"
-output: "looc"
+Some examples:
+
+- Turn `"stressed"` into `"desserts"`.
+- Turn `"strops"` into `"sports"`.
+- Turn `"racecar"` into `"racecar"`.
 
 While there are `#reversed` and `#reverseDo:` methods for Strings, can you figure out how to do this yourself using lower level character iteration and streams? 
 
