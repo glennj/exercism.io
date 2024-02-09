@@ -231,6 +231,4 @@ class ClockTest extends PHPUnit\Framework\TestCase
     {
         $this->assertEquals('22:10', (new Clock(-121, -5810))->__toString());
     }
-/*
-*/
 }

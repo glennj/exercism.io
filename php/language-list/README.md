@@ -23,7 +23,7 @@ $no_keys == $integer_keys // => equal returns true
 $no_keys === $integer_keys // => strictly equal returns true
 ```
 
-A values are of `mixed` type, and each value in an array is not required to be of the same type.
+All values are of `mixed` type, and each value in an array is not required to be of the same type.
 
 ### Using Arrays
 
@@ -70,7 +70,7 @@ language_list();
 
 ## 2. Modify function to create a list from any number of languages
 
-Modify the `language_list` function, so it takes a variadic argument or string languages.
+Modify the `language_list` function, so it takes a variadic argument of languages (strings).
 It should return the resulting list with the languages in the list.
 
 ```php
@@ -133,10 +133,10 @@ It should return the number of languages in the list.
 ```php
 <?php
 
-$language_list = $language_list("PHP", "Prolog", "Wren");
+$language_list = language_list("PHP", "Prolog", "Wren");
 // => ["PHP", "Prolog", "Wren"]
 language_list_length($language_list);
-// => 2
+// => 3
 ```
 
 ## Source

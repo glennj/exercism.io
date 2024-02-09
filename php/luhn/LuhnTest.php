@@ -100,6 +100,4 @@ class LuhnTest extends PHPUnit\Framework\TestCase
     {
         $this->assertFalse(isValid(" ABCDEF"));
     }
-    /*
-     */
 }

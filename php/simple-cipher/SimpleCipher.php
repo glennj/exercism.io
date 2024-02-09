@@ -38,11 +38,11 @@ class SimpleCipher
         while (strlen($this->key) < $len) {
             $this->key .= $this->key;
         }
-        for (
-            $encoded = '', $i = 0;
-            $i < $len;
-            $encoded .= $this->_cipherChar($text[$i], $this->key[$i], $direction), $i++
-        );
+
+        $encoded = '';
+        for ($i = 0; $i < $len; $i++) {
+            $encoded .= $this->_cipherChar($text[$i], $this->key[$i], $direction);
+        }
         return $encoded;
     }
 
@@ -57,11 +57,10 @@ class SimpleCipher
     private function _randomKey(): string
     {
         $letters = range('a', 'z');
-        for (
-            $key = '', $i = 0;
-            $i < KEY_SIZE;
-            $key .= $letters[array_rand($letters)], $i++
-        );
+        $key = '';
+        for ($i = 0; $i < KEY_SIZE; $i++) {
+            $key .= $letters[array_rand($letters)];
+        }
         return $key;
     }
 }

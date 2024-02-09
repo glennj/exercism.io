@@ -6,9 +6,9 @@ class Bob
 {
     public function respondTo(string $str): string
     {
-        $str = rtrim($str);
-        $isSilence = empty($str);
-        $isQuestion = str_ends_with($str, '?');
+        $cleaned = rtrim($str);
+        $isSilence = $cleaned == '';
+        $isQuestion = str_ends_with($cleaned, '?');
         $isYelling = preg_match('/[[:upper:]]/', $str)
                  && !preg_match('/[[:lower:]]/', $str);
 

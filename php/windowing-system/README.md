@@ -31,7 +31,7 @@ class Door
 
 Classes are instantiated with the `new` keyword, this allocates memory for the class instance and calls the classes constructor method.
 Instantiated classes may be assigned to a variable.
-To invoke the methods of a class instance, we can use the `->` access operator 
+To invoke the methods of a class instance, we can use the `->` access operator.
 
 ```php
 <?php
@@ -57,7 +57,7 @@ class Car
         $this->color = $color;
     }
 
-    function getColor(): string
+    function getColor()
     {
         return $this->color;
     }
@@ -74,7 +74,7 @@ In this exercise, you will be simulating a windowing based computer system.
 You will create some windows that can be moved and resized.
 The following image is representative of the values you will be working with below.
 
-```
+```text
  ╔════════════════════════════════════════════════════════════╗
  ║                                                            ║
  ║        position::$x,_                                      ║

@@ -98,6 +98,4 @@ class MatchingBracketsTest extends PHPUnit\Framework\TestCase
             . "\\mathrm{e}^{x} &... x^2 \\end{array}\\right)"
         ));
     }
-/*
-*/
 }
