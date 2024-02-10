@@ -5,7 +5,6 @@ declare(strict_types=1);
 const A = 97; // ord('a');
 const ALPHABET_SIZE = 26;
 const KEY_SIZE = 100;
-const KEY_PATTERN = '/^[a-z]+$/';
 
 class SimpleCipher
 {
@@ -15,7 +14,7 @@ class SimpleCipher
     {
         if (is_null($key)) {
             $this->key = $this->_randomKey();
-        } elseif (preg_match(KEY_PATTERN, $key)) {
+        } elseif (ctype_lower($key)) {
             $this->key = $key;
         } else {
             throw new InvalidArgumentException();

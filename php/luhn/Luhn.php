@@ -10,7 +10,7 @@ function isValid(string $number): bool
     ];
 
     $digits = preg_replace('/\s/', '', $number);
-    if (preg_match('/\D/', $digits) || strlen($digits) < 2) {
+    if (strlen($digits) < 2 || !ctype_digit($digits)) {
         return false;
     }
 
