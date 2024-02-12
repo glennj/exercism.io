@@ -160,4 +160,11 @@ It's the `streamContents:` method
 The block implicitly returns the stream contents when complete.
 The underlying implementation is pretty much exactly the same as the first code snippet.
 
+<!-- ===================================================== -->
+## Exercise: roman-numerals
 
+Strings are immutable.
+Appending to a string will build a new string.
+This can affect memory and performance.
+In the community solutions, you'll see the use of `String streamContents: [:aStream | ...]` -- this is like a StringBuilder you'll see in other languages.
+In the block, you'll typically use `aStream nextPut: something` or `aStream nextPutAll: someCollection` to add to the stream.
