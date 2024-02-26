@@ -88,19 +88,19 @@ to get tips and further reading about improvements.
 
 <!-- quick links -->
 
-[Shellcheck](https://shellcheck.net) warns [Argument mixes string and array](https://www.shellcheck.net/wiki/SC2145).
-[Shellcheck](https://shellcheck.net) warns [Assigning an array to a string](https://www.shellcheck.net/wiki/SC2124).
-[Shellcheck](https://shellcheck.net) warns [Useless echo? Instead of 'echo $(cmd)' just use cmd](https://www.shellcheck.net/wiki/SC2005).
-[Shellcheck](https://shellcheck.net) warns [Useless echo? Instead of 'cmd $(echo foo)' just use 'cmd foo'](https://www.shellcheck.net/wiki/SC2116).
-[Shellcheck](https://shellcheck.net) warns [Don't use variables in the printf format string.](https://www.shellcheck.net/wiki/SC2059).
-[Shellcheck](https://shellcheck.net) warns [Use "$@" (with quotes) to prevent whitespace problems.](https://www.shellcheck.net/wiki/SC2048).
-[Shellcheck](https://shellcheck.net) warns [Double quote array expansions to avoid re-splitting elements.](https://www.shellcheck.net/wiki/SC2068).
-[Shellcheck](https://shellcheck.net) warns [Quote parameters to `tr` to prevent glob expansion.](https://www.shellcheck.net/wiki/SC2060).
-[Shellcheck](https://shellcheck.net) warns [$/${} is unnecessary on arithmetic variables.](https://www.shellcheck.net/wiki/SC2004).
-[Shellcheck](https://shellcheck.net) warns [read without -r will mangle backslashes](https://www.shellcheck.net/wiki/SC2162).
-[Shellcheck](https://shellcheck.net) warns [Declare and assign separately to avoid masking return values](https://www.shellcheck.net/wiki/SC2155).
-[Shellcheck](https://shellcheck.net) warns [Double quote to prevent globbing and word splitting](https://www.shellcheck.net/wiki/SC2086).
-[Shellcheck](https://shellcheck.net) warns [Instead of `let expr`, prefer `(( expr ))`](https://www.shellcheck.net/wiki/SC2219).
+* [Shellcheck](https://shellcheck.net) warns [Argument mixes string and array](https://www.shellcheck.net/wiki/SC2145).
+* [Shellcheck](https://shellcheck.net) warns [Assigning an array to a string](https://www.shellcheck.net/wiki/SC2124).
+* [Shellcheck](https://shellcheck.net) warns [Useless echo? Instead of 'echo $(cmd)' just use cmd](https://www.shellcheck.net/wiki/SC2005).
+* [Shellcheck](https://shellcheck.net) warns [Useless echo? Instead of 'cmd $(echo foo)' just use 'cmd foo'](https://www.shellcheck.net/wiki/SC2116).
+* [Shellcheck](https://shellcheck.net) warns [Don't use variables in the printf format string.](https://www.shellcheck.net/wiki/SC2059).
+* [Shellcheck](https://shellcheck.net) warns [Use "$@" (with quotes) to prevent whitespace problems.](https://www.shellcheck.net/wiki/SC2048).
+* [Shellcheck](https://shellcheck.net) warns [Double quote array expansions to avoid re-splitting elements.](https://www.shellcheck.net/wiki/SC2068).
+* [Shellcheck](https://shellcheck.net) warns [Quote parameters to `tr` to prevent glob expansion.](https://www.shellcheck.net/wiki/SC2060).
+* [Shellcheck](https://shellcheck.net) warns [$/${} is unnecessary on arithmetic variables.](https://www.shellcheck.net/wiki/SC2004).
+* [Shellcheck](https://shellcheck.net) warns [read without -r will mangle backslashes](https://www.shellcheck.net/wiki/SC2162).
+* [Shellcheck](https://shellcheck.net) warns [Declare and assign separately to avoid masking return values](https://www.shellcheck.net/wiki/SC2155).
+* [Shellcheck](https://shellcheck.net) warns [Double quote to prevent globbing and word splitting](https://www.shellcheck.net/wiki/SC2086).
+* [Shellcheck](https://shellcheck.net) warns [Instead of `let expr`, prefer `(( expr ))`](https://www.shellcheck.net/wiki/SC2219).
 
 
 ### Shfmt
@@ -1784,7 +1784,7 @@ To get the formula to calculate the total, we can look at:
 
 <!-- -->
 
-bash by itself can handle this: the values for individual squares and the total all fit in a 64-bit integer. The key is print the values as _unsigned integers_.
+bash by itself can handle this: the values for individual squares and the total all fit in a 64-bit integer. The key is to print the values as _unsigned integers_.
 
 <!-- ........................................................ -->
 ## difference of squares
