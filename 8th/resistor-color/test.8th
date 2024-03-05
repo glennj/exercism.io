@@ -1,6 +1,6 @@
 "resistor-color.8th" f:include
 needs exercism/test
-
+with: test
 4 tests 
 
 "Black"  ( "black" color-code )  0 equal?
@@ -11,3 +11,4 @@ SKIP-REST-OF-TESTS
 "Colors" ( colors ) ["black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white"] equal?
 
 end-of-tests
+;with

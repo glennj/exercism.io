@@ -1,6 +1,6 @@
 "trinary.8th" f:include
 needs exercism/test
-
+with: test
 10 tests
 
 "1 is decimal 1"
@@ -56,3 +56,4 @@ SKIP-REST-OF-TESTS
     equal?
 
 end-of-tests
+;with

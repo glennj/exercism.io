@@ -1,0 +1,13 @@
+: eggCount  \ n -- n
+  0 >r             \ keep the count on the r-stack
+  repeat
+    dup 0 n:= if   \ stop when n = 0
+      break
+    else
+      dup 1 band   \ isolate zeroth bit 
+      r> n:+ >r    \ add to count
+      1 shr        \ and shift the input number
+    then
+  again
+  drop r>          \ drop the number and pull the count from r-stack
+;

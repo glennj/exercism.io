@@ -1,6 +1,6 @@
 "pythagorean-triplet.8th" f:include
 needs exercism/test
-
+with: test
 7 tests
 
 \ Compare a1 to a2. Individual elements are compared with w (e.g., n:cmp).
@@ -66,3 +66,4 @@ SKIP-REST-OF-TESTS
 \     1_000_000  test-triplets-with-sum
 
 end-of-tests
+;with

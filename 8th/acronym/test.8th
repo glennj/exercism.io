@@ -1,5 +1,6 @@
 "acronym.8th" f:include
 needs exercism/test
+with:test
 
 9 tests
 
@@ -51,3 +52,4 @@ SKIP-REST-OF-TESTS
     equal?
 
 end-of-tests
+;with

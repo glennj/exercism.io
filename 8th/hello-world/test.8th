@@ -1,8 +1,9 @@
 "hello-world.8th" f:include
 needs exercism/test
-
+with: test
 1 tests
 
 "hello world test" "Hello, World!" ( hello-world ) equal?
 
 end-of-tests
+;with

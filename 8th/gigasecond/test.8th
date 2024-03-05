@@ -1,6 +1,6 @@
 "gigasecond.8th" f:include
 needs exercism/test
-
+with: test
 5 tests
 
 \ Workaround for https://8th-dev.com/bin/bugs/tktview/624833cc8d
@@ -34,3 +34,4 @@ SKIP-REST-OF-TESTS
     equal?
 
 end-of-tests
+;with

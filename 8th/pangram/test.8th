@@ -1,6 +1,6 @@
 "pangram.8th" f:include
 needs exercism/test
-
+with: test
 10 tests
 
 "empty sentence"
@@ -46,3 +46,4 @@ SKIP-REST-OF-TESTS
     true?
 
 end-of-tests
+;with

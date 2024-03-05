@@ -1,6 +1,6 @@
 "etl.8th" f:include
 needs exercism/test
-
+with: test
 4 tests
 
 "single letter"
@@ -60,3 +60,4 @@ SKIP-REST-OF-TESTS
     equal?
 
 end-of-tests
+;with

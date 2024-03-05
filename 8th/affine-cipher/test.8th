@@ -1,5 +1,6 @@
 "affine-cipher.8th" f:include
 needs exercism/test
+with: test
 
 16 tests
 
@@ -84,3 +85,4 @@ SKIP-REST-OF-TESTS
     null?
 
 end-of-tests
+;with

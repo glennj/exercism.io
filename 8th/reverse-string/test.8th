@@ -1,6 +1,6 @@
 "reverse-string.8th" f:include
 needs exercism/test
-
+with: test
 6 tests
 
 "an empty string"
@@ -36,3 +36,4 @@ SKIP-REST-OF-TESTS
     equal?
 
 end-of-tests
+;with

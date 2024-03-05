@@ -1,6 +1,6 @@
 "yacht.8th" f:include
 needs exercism/test
-
+with: test
 29 tests 
 
 "Yacht"
@@ -151,3 +151,4 @@ SKIP-REST-OF-TESTS
     equal?
 
 end-of-tests
+;with

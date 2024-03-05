@@ -1,6 +1,6 @@
 "raindrops.8th" f:include
 needs exercism/test
-
+with: test
 18 tests
 
 "the sound of 1 is 1"
@@ -96,3 +96,4 @@ SKIP-REST-OF-TESTS
     equal?
 
 end-of-tests
+;with

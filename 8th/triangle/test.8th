@@ -1,6 +1,6 @@
 "triangle.8th" f:include
 needs exercism/test
-
+with: test
 21 tests
 
 "invalid: 0 0 0" ( 0 0 0 equilateral? ) false?
@@ -29,3 +29,4 @@ SKIP-REST-OF-TESTS
 "broken triangle #2"                 ( 0 3 0 scalene? ) false?
 
 end-of-tests
+;with

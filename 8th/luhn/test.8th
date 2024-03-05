@@ -1,6 +1,6 @@
 "luhn.8th" f:include
 needs exercism/test
-
+with: test
 22 tests
 
 "single digit strings can not be valid"
@@ -94,3 +94,4 @@ SKIP-REST-OF-TESTS
     false?
 
 end-of-tests
+;with

@@ -1,6 +1,6 @@
 "isogram.8th" f:include
 needs exercism/test
-
+with: test
 14 tests
 
 "empty string" ( "" isogram? ) true?
@@ -20,3 +20,4 @@ SKIP-REST-OF-TESTS
 "word with duplicated character and with two hyphens" ( "up-to-date" isogram? ) false?
 
 end-of-tests
+;with

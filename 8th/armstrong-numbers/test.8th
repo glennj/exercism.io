@@ -1,6 +1,6 @@
 "armstrong-numbers.8th" f:include
 needs exercism/test
-
+with: test
 11 tests
 
 "Zero is an Armstrong number"    ( 0 armstrong?  ) true?
@@ -17,3 +17,4 @@ SKIP-REST-OF-TESTS
 "The largest and last Armstrong number" ( 115132219018763992565095597973971522401 armstrong? ) true?
 
 end-of-tests
+;with

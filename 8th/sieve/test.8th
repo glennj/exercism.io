@@ -1,6 +1,6 @@
 "sieve.8th" f:include
 needs exercism/test
-
+with: test
 5 tests
 
 "no primes under two"
@@ -41,3 +41,4 @@ SKIP-REST-OF-TESTS
     equal?
 
 end-of-tests
+;with

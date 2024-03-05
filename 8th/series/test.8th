@@ -1,6 +1,6 @@
 "series.8th" f:include
 needs exercism/test
-
+with: test
 11 tests
 
 "slices of one from one" 
@@ -61,3 +61,4 @@ SKIP-REST-OF-TESTS
     equal?
 
 end-of-tests
+;with

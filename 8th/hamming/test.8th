@@ -1,6 +1,6 @@
 "hamming.8th" f:include
 needs exercism/test
-
+with: test
 9 tests
 
 "empty strands"
@@ -46,3 +46,4 @@ SKIP-REST-OF-TESTS
     null?
 
 end-of-tests
+;with

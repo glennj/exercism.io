@@ -1,6 +1,6 @@
 "collatz-conjecture.8th" f:include
 needs exercism/test
-
+with: test
 6 tests
 
 "zero steps for one"
@@ -34,3 +34,4 @@ SKIP-REST-OF-TESTS
     null?
 
 end-of-tests
+;with

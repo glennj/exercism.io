@@ -1,6 +1,6 @@
 "darts.8th" f:include
 needs exercism/test
-
+with: test
 13 tests
 
 "Missed target"
@@ -71,3 +71,4 @@ SKIP-REST-OF-TESTS
     equal?
 
 end-of-tests
+;with
