@@ -1,20 +1,28 @@
 oo::class create CircularBuffer {
     variable tape
+    variable capacity
+    variable count
     variable readPtr writePtr
-    variable NULL
 
     constructor {cap} {
-        set NULL \x0
-        set tape [lrepeat $cap $NULL]
+        set tape [lrepeat $cap ""]
+        set capacity $cap
         my clear
     }
 
+    method clear {} {
+        set count 0
+        set readPtr 0
+        set writePtr 0
+        return
+    }
+
     method empty? {} {
-        expr {[lindex $tape $readPtr] eq $NULL}
+        expr {$count == 0}
     }
 
     method full? {} {
-        expr {[lindex $tape $writePtr] ne $NULL}
+        expr {$count == $capacity}
     }
 
     method read {} {
@@ -22,8 +30,8 @@ oo::class create CircularBuffer {
             error "buffer is empty"
         }
         set value [lindex $tape $readPtr]
-        lset tape $readPtr $NULL
         my increment readPtr
+        incr count -1
         return $value
     }
 
@@ -33,13 +41,14 @@ oo::class create CircularBuffer {
         }
         lset tape $writePtr $value
         my increment writePtr
+        incr count
         return
     }
 
     method increment {ptrName} {
         upvar 1 $ptrName ptr
         # implement the circularity: wrap to zero when at end of tape
-        set ptr [expr {(1 + $ptr) % [llength $tape]}]
+        set ptr [expr {(1 + $ptr) % $capacity}]
     }
     unexport increment ;# private
 
@@ -49,12 +58,5 @@ oo::class create CircularBuffer {
             my read
         }
         my write $value
-    }
-
-    method clear {} {
-        set tape [lmap cell $tape {set NULL}]
-        set readPtr 0
-        set writePtr 0
-        return
     }
 }
