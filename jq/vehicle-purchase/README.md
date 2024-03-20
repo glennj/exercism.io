@@ -106,7 +106,17 @@ The input to the `if` filter will be passed to `B` or `C`.
 5 | if . % 2 == 0 then . / 2 else . * 4 end     # => 20
 ```
 
-The `else` clause is **mandatory** in the current `jq` release (version 1.6).
+~~~~exercism/note
+The `else` clause is **optional** in the current `jq` release (version 1.7):
+the following two statements are equivalent.
+
+```jq
+if A then B else . end
+if A then B end
+```
+
+The `else` clause is **mandatory** in the previous v1.6 release. 
+~~~~
 
 ### Nested If-Statements
 
@@ -168,9 +178,9 @@ To demonstrate
 
 In this exercise, you will write some code to help you prepare to buy a vehicle.
 
-You have three tasks: determine if you will need to get a licence; choose between two vehicles; and estimate the acceptable price for a used vehicle.
+You have three tasks: determine if you will need to get a license; choose between two vehicles; and estimate the acceptable price for a used vehicle.
 
-## 1. Determine if you will need a drivers licence
+## 1. Determine if you will need a drivers license
 
 Some kinds of vehicles require a drivers license to operate them.
 Assume only the kinds `"car"` and `"truck"` require a license; everything else can be operated without a license.
@@ -208,16 +218,16 @@ If it is more than 10 years old, it costs 50%.
 If the vehicle is at least 3 years old but not older than 10 years, it costs 70% of the original price.
 
 Implement the `resell_price` function that applies this logic using `if`, `elif` and `else`.
-It takes the an object holding the original price and the age of the vehicle and returns the estimated price in the dealership.
+It takes an object holding the original price and the age of the vehicle and returns the estimated price in the dealership.
 
 ```jq
-{"original_price: 1000, "age": 1} | resell_price
+{"original_price": 1000, "age": 1} | resell_price
 # => 800
 
-{"original_price: 1000, "age": 5} | resell_price
+{"original_price": 1000, "age": 5} | resell_price
 # => 700
 
-{"original_price: 1000, "age": 15} | resell_price
+{"original_price": 1000, "age": 15} | resell_price
 # => 500
 ```
 

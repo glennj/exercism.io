@@ -36,7 +36,7 @@ In the examples below you'll encounter:
     `sed` and `awk` both use the `-f` option for the same purpose.
     You will see this used in the test scripts for the practice exercises.
 
-The rest of this lesson will focus on the `jq` _lanaguage_.
+The rest of this lesson will focus on the `jq` _language_.
 ~~~~
 
 <!-- prettier-ignore-end -->
@@ -138,7 +138,7 @@ You can construct an _object_ with `{}` and `key: value` pairs.
 Quotes are not required around _keys_ that are "simple" strings.
 
 ```sh
-jq -n '{question: 6 * 9, answer: 42}'
+jq -n '{question: (6 * 9), answer: 42}'
 ```
 
 outputs
@@ -150,7 +150,7 @@ outputs
 }
 ```
 
-To treat the _key_ as an _expression_, you must wrap it in parentheses
+To treat the _key_ as an _expression_, you must wrap it in parentheses (the following also outputs the same as above).
 
 ```sh
 echo '[{"key":"question", "value":54}, {"key":"answer", "value":42}]' \
