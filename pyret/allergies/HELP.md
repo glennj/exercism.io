@@ -30,7 +30,7 @@ Looks shipshape, all 9 tests passed, mate!
 
 ## Submitting your solution
 
-You can submit your solution using the `exercism submit atbash-cipher.arr` command.
+You can submit your solution using the `exercism submit allergies.arr` command.
 This command will upload your solution to the Exercism website and print the solution page's URL.
 
 It's possible to submit an incomplete solution which allows you to:
