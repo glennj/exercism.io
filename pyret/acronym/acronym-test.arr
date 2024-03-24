@@ -72,12 +72,12 @@ data TestRun: test(run, active) end
 
 [list: 
   test(basic, true),
-  test(lowercase-words, true),
-  test(punctuation, true),
-  test(all-caps-word, true),
-  test(punctuation-without-whitespace, true),
-  test(very-long-abbreviation, true),
-  test(consecutive-delimiters, true),
-  test(apostrophes, true),
-  test(underscore-emphasis, true)
+  test(lowercase-words, false),
+  test(punctuation, false),
+  test(all-caps-word, false),
+  test(punctuation-without-whitespace, false),
+  test(very-long-abbreviation, false),
+  test(consecutive-delimiters, false),
+  test(apostrophes, false),
+  test(underscore-emphasis, false)
 ].each(lam(t): when t.active: t.run() end end)

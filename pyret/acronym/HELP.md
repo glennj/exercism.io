@@ -2,25 +2,13 @@
 
 ## Running the tests
 
-This track uses `pyret` which is [available as a NPM package][pyret-npm]. Once installed, you can run your exercise's test file by passing `pyret` its location relative to your current working directory.
+This track uses [the built-in testing framework][testing-docs].
+Once the [pyret-npm][pyret-npm] package has been installed, open the exercise folder and run the `pyret` executable, passing in the exercise's test file like `exercise-test.arr`.
 
 Linux/MacOS
 
 ```bash
-cd {path/to/exercise-folder-location}
-```
-
-Windows
-
-```powershell
-PS C:\Users\foobar> cd {path\to\exercise-folder-location}
-```
-
-Then you can run the tests by running the `pyret` command as shown below, replacing `{exercise-test.arr}` with the name of the test file.
-
-Linux/MacOS
-
-```bash
+$ cd {path/to/exercise-folder-location}
 $ pyret {exercise-test.arr}
 2/2 modules compiled ({exercise-test.arr})
 Cleaning up and generating standalone...
@@ -30,12 +18,14 @@ Looks shipshape, all 9 tests passed, mate!
 Windows
 
 ```powershell
+PS C:\Users\foobar> cd {path\to\exercise-folder-location}
 PS C:\Users\foobar\Exercism\pyret\exercise> pyret {exercise-test.arr}
 2/2 modules compiled ({exercise-test.arr})
 Cleaning up and generating standalone...
 Looks shipshape, all 9 tests passed, mate!
 ```
 
+[testing-docs]: https://pyret.org/docs/latest/testing.html
 [pyret-npm]: https://www.npmjs.com/package/pyret-npm
 
 ## Submitting your solution
@@ -61,12 +51,12 @@ Should those resources not suffice, you could submit your (incomplete) solution 
 
 Below are some resources for getting help if you run into trouble:
 
-* [Official Pyret Documentation]
-* [Pyret Discuss on Google Groups]
-* [Pyret Discord]
-* [Pyret Twitter]
+* [Official Documentation][official-docs]
+* [Pyret Discuss (Google Groups)][google-groups]
+* [@PyretLang][pyret-twitter]
+* [The Pyret Programming Discord][pyret-discord]
 
-[Official Pyret Documentation]: https://pyret.org/docs/latest/
-[Pyret Discuss on Google Groups]: https://groups.google.com/g/pyret-discuss
-[Pyret Discord]: https://discord.gg/9nFHuaBp
-[Pyret Twitter]: https://twitter.com/pyretlang
+[official-docs]: https://pyret.org/docs/latest/
+[google-groups]: https://groups.google.com/g/pyret-discuss
+[pyret-twitter]: https://twitter.com/pyretlang
+[pyret-discord]: https://discord.com/invite/7aFMB3b6Mt

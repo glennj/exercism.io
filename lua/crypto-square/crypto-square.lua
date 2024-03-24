@@ -12,13 +12,17 @@ CrypoSquare.size = function(string, is_normalized)
     return math.ceil(math.sqrt(len))
 end
 
+local rpad = function (s, len, fill)
+    return s .. (fill or " "):rep(len - #s)
+end
+
 CrypoSquare.segments = function(string)
     local text = CrypoSquare.normalized_plaintext(string)
     local size = CrypoSquare.size(text, true)
     local segments = {}
     if #text > 0 then
         for i = 1, #text, size do
-            segments[#segments+1] = text:sub(i, i+size-1)
+            segments[#segments+1] = rpad(text:sub(i, i+size-1), size)
         end
     end
     return segments
@@ -36,7 +40,7 @@ CrypoSquare.ciphertext = function(string)
         end
         columns[#columns+1] = table.concat(column)
     end
-    return table.concat(columns)
+    return table.concat(columns, " ")
 end
 
 CrypoSquare.normalized_ciphertext = function(string)
