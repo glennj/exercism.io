@@ -35,9 +35,17 @@ oo::class create CircularBuffer {
         return $value
     }
 
-    method write {value} {
+    forward write       my Write false
+    forward overwrite   my Write true
+
+    method Write {overwrite value} {
         if {[my full?]} {
-            error "buffer is full"
+            if {$overwrite} {
+                # discard oldest value
+                my read
+            } else {
+                error "buffer is full"
+            }
         }
         lset tape $writePtr $value
         my increment writePtr
@@ -51,12 +59,4 @@ oo::class create CircularBuffer {
         set ptr [expr {(1 + $ptr) % $capacity}]
     }
     unexport increment ;# private
-
-    method overwrite {value} {
-        if {[my full?]} {
-            # discard oldest value
-            my read
-        }
-        my write $value
-    }
 }
