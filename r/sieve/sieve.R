@@ -2,7 +2,8 @@ sieve <- function(limit) {
   if (limit <  2) return(c())
   if (limit == 2) return(c(2))
 
-  nums <- c(NA, 2:limit)
+  nums <- c(1:limit)
+  nums[1] <- NA
 
   for (i in 2:sqrt(limit)) {
     if (is.na(nums[i])) next  # seen it already

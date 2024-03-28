@@ -12,3 +12,14 @@ function sieve(limit::Integer)
     end
     filter(i -> i != nonprime, sieve)
 end
+
+# Erik's implementation
+#
+#   function sieve(limit::Integer)
+#       s = fill(true, limit)
+#       s[1] = false
+#       for i=2:limit j=2i:i:limit
+#           s[j] = false
+#       end
+#        findall(s)
+#   end
