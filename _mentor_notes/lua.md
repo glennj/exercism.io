@@ -103,6 +103,19 @@ setmetatable(Robot, {
 Some more discussion about [Object Oriented Programming][oop] in Lua.
 
 <!-- -->
+Re: `__index` -- it works like this:
+
+```lua
+obj = SomeClass:new()
+obj:someMethod()
+--[[
+1. does table obj have a someMethod key? no
+2. does the metatable of obj have a __index key? yes
+3. does the metavalue of __index have a someMethod key? yes
+4. ok, call that someMethod function (with "self" set to obj).
+--]]
+```
+<!-- -->
 
 The colon notation is "syntactic sugar" that maps this call
 ```lua
