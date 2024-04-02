@@ -12,6 +12,7 @@ class Bob {
     /* switch _expressions_ require Dart v3:
      * ensure the sdk environment constraint is altered in pubspec.yaml
      */
+    
     return switch ((isSilence, isYelling, isQuestion)) {
       (true, _, _) => 'Fine. Be that way!',
       (_, true, true) => "Calm down, I know what I'm doing!",

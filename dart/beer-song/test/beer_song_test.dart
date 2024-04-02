@@ -25,7 +25,7 @@ void main() {
                 '3 bottles of beer on the wall, 3 bottles of beer.',
                 'Take one down and pass it around, 2 bottles of beer on the wall.'
               ]));
-        }, skip: true);
+        }, skip: false);
 
         test('verse with 2 bottles', () {
           final result = beerSong.recite(2, 1);
@@ -35,7 +35,7 @@ void main() {
                 '2 bottles of beer on the wall, 2 bottles of beer.',
                 'Take one down and pass it around, 1 bottle of beer on the wall.'
               ]));
-        }, skip: true);
+        }, skip: false);
 
         test('verse with 1 bottle', () {
           final result = beerSong.recite(1, 1);
@@ -45,7 +45,7 @@ void main() {
                 '1 bottle of beer on the wall, 1 bottle of beer.',
                 'Take it down and pass it around, no more bottles of beer on the wall.'
               ]));
-        }, skip: true);
+        }, skip: false);
 
         test('verse with 0 bottles', () {
           final result = beerSong.recite(0, 1);
@@ -55,7 +55,7 @@ void main() {
                 'No more bottles of beer on the wall, no more bottles of beer.',
                 'Go to the store and buy some more, 99 bottles of beer on the wall.'
               ]));
-        }, skip: true);
+        }, skip: false);
       });
     });
 
@@ -72,7 +72,7 @@ void main() {
                 '98 bottles of beer on the wall, 98 bottles of beer.',
                 'Take one down and pass it around, 97 bottles of beer on the wall.'
               ]));
-        }, skip: true);
+        }, skip: false);
 
         test('last three verses', () {
           final result = beerSong.recite(2, 3);
@@ -88,7 +88,7 @@ void main() {
                 'No more bottles of beer on the wall, no more bottles of beer.',
                 'Go to the store and buy some more, 99 bottles of beer on the wall.'
               ]));
-        }, skip: true);
+        }, skip: false);
 
         test('all verses', () {
           final result = beerSong.recite(99, 100);
@@ -395,7 +395,7 @@ void main() {
                 'No more bottles of beer on the wall, no more bottles of beer.',
                 'Go to the store and buy some more, 99 bottles of beer on the wall.'
               ]));
-        }, skip: true);
+        }, skip: false);
       });
     });
   });
