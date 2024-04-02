@@ -1,0 +1,29 @@
+#!/usr/bin/env tclsh
+package require tcltest
+namespace import ::tcltest::*
+source testHelpers.tcl
+configure -verbose {body error usec}
+
+############################################################
+source "eliuds-eggs.tcl"
+
+test eliuds-eggs-1 "0 eggs" -body {
+    eggCount 0
+} -returnCodes ok -result 0
+
+skip eliuds-eggs-2
+test eliuds-eggs-2 "1 egg" -body {
+    eggCount 16
+} -returnCodes ok -result 1
+
+skip eliuds-eggs-3
+test eliuds-eggs-3 "4 eggs" -body {
+    eggCount 89
+} -returnCodes ok -result 4
+
+skip eliuds-eggs-4
+test eliuds-eggs-4 "13 eggs" -body {
+    eggCount 2000000000
+} -returnCodes ok -result 13
+
+cleanupTests
