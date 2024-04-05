@@ -1,12 +1,7 @@
-needs incs/numeric-predicates.8th
-
-\ two strings must be the same length and > 0
+\ two strings must be the same length
 : valid-lengths?  \ s1 s2 -- s1 s2 T
-  s:len swap over
-  3 pick s:len nip
-  n:= !if drop false ;; then
-  swap zero? if false ;; then
-  true
+  s:len rot s:len rot
+  n:= _swap
   ;
 
 \ increment the diff count if x1 != x2

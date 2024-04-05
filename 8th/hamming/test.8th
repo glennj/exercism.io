@@ -5,7 +5,8 @@ with: test
 
 "empty strands"
     ( "" "" distance )
-    null?
+    0
+    equal?
 
 SKIP-REST-OF-TESTS
 
