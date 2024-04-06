@@ -4,14 +4,14 @@ include acronym.ex
 
 set_test_verbosity(TEST_SHOW_ALL)
 
-test_equal("basic","PNG",acronym("Portable Network Graphics"))
-test_equal("lowercase words","ROR",acronym("Ruby on Rails"))
-test_equal("punctuation","FIFO",acronym("First In, First Out"))
-test_equal("all caps word","GIMP",acronym("GNU Image Manipulation Program"))
-test_equal("punctuation without whitespace","CMOS",acronym("Complementary metal-oxide semiconductor"))
-test_equal("very long abbreviation","ROTFLSHTMDCOALM",acronym("Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me"))
-test_equal("consecutive delimiters","SIMUFTA",acronym("Something - I made up from thin air"))
-test_equal("apostrophes","HC",acronym("Halley's Comet"))
-test_equal("underscore emphasis","TRNT",acronym("The Road _Not_ Taken"))
+test_equal("basic",acronym("Portable Network Graphics"),"PNG")
+test_equal("lowercase words",acronym("Ruby on Rails"),"ROR")
+test_equal("punctuation",acronym("First In, First Out"),"FIFO")
+test_equal("all caps word",acronym("GNU Image Manipulation Program"),"GIMP")
+test_equal("punctuation without whitespace",acronym("Complementary metal-oxide semiconductor"),"CMOS")
+test_equal("very long abbreviation",acronym("Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me"),"ROTFLSHTMDCOALM")
+test_equal("consecutive delimiters",acronym("Something - I made up from thin air"),"SIMUFTA")
+test_equal("apostrophes",acronym("Halley's Comet"),"HC")
+test_equal("underscore emphasis",acronym("The Road _Not_ Taken"),"TRNT")
 
 test_report() 

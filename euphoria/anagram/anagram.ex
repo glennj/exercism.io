@@ -2,13 +2,26 @@ include std/text.e
 include std/sort.e
 include std/sequence.e
 
+enum WORD, KEY
+
+type word(sequence w)
+    return length(w) = 2 and sequence(w[WORD]) and sequence(w[KEY])
+end type
+
 
 public function findAnagrams(sequence subject, sequence candidates)
-    sequence lc_subj = lower(subject)
-    return sort(filter(candidates, routine_id("filt"), {lc_subj, sort(lc_subj)}))
+    word subj = {lower(subject), key(subject)}
+
+    return sort(filter(candidates, routine_id("filt"), subj))
 end function
 
-function filt(sequence candidate, sequence subj_data)
-    sequence lc = lower(candidate)
-    return not equal(lc, subj_data[1]) and equal(sort(lc), subj_data[2])
+
+function filt(sequence candidate, word subj)
+    word cand = {lower(candidate), key(candidate)}
+
+    return not equal(cand[WORD], subj[WORD]) and equal(cand[KEY], subj[KEY])
+end function
+
+function key(sequence str)
+    return sort(lower(str))
 end function
