@@ -8,12 +8,12 @@ if [[ ${BASH_VERSINFO[0]} -lt 4 ]]; then
 else
 
     # a goofy solution
-    command_not_found_handle() { 
-        local cmd=$1; shift
-        local args=( "$@" )
-        printf "%s %s\n" "$cmd" "${args[*]}"
+    command_not_found_handle() {
+        local -l cmd=$1; shift
+        local -l args=( "$@" )
+        printf '%s, %s!\n' "${cmd^}" "${args[*]^}"
     }
 
-    Hello,      \
-        World!
+    hello WORLD
+
 fi
