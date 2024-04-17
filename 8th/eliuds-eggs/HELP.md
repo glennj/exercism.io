@@ -60,7 +60,7 @@ RUN_ALL_TESTS=true 8th -f test.8th
 
 ## Submitting your solution
 
-You can submit your solution using the `exercism submit pop-count.8th` command.
+You can submit your solution using the `exercism submit eliuds-eggs.8th` command.
 This command will upload your solution to the Exercism website and print the solution page's URL.
 
 It's possible to submit an incomplete solution which allows you to:

@@ -1,6 +1,6 @@
 "acronym.8th" f:include
 needs exercism/test
-with:test
+with: test
 
 9 tests
 

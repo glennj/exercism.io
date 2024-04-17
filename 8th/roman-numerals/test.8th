@@ -1,7 +1,7 @@
 "roman-numerals.8th" f:include
 needs exercism/test
 with: test
-26 tests
+27 tests
 
 "1 is I"
     ( 1 n:>roman )
@@ -128,6 +128,11 @@ SKIP-REST-OF-TESTS
 "3001 is MMMI"
     ( 3001 n:>roman )
     "MMMI"
+    equal?
+
+"3888 is MMMDCCCLXXXVIII"
+    ( 3888 n:>roman )
+    "MMMDCCCLXXXVIII"
     equal?
 
 "3999 is MMMCMXCIX"

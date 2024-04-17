@@ -1,6 +1,6 @@
-"pop-count.8th" f:include
+"eliuds-eggs.8th" f:include
 needs exercism/test
-
+with: test
 4 tests
 
 "0 eggs"
@@ -26,3 +26,4 @@ SKIP-REST-OF-TESTS
     equal?
 
 end-of-tests
+;with
