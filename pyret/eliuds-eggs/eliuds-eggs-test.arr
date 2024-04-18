@@ -1,6 +1,6 @@
 use context essentials2020
 
-include file("pop-count.arr")
+include file("eliuds-eggs.arr")
 
 #|
   When working offline, all tests except the first one are skipped by default.
@@ -35,7 +35,7 @@ end
 #|
   Code to run each test. Each line corresponds to a test above and whether it should be run.
   To mark a test to be run, replace `false` with `true` on that same line after the comma.
-  test(test-a, true) will be run. test(test-a, false) will be skipped.
+  test(test-a, true) will be run. test(test-a, true) will be skipped.
 |#
 
 data TestRun: test(run, active) end
