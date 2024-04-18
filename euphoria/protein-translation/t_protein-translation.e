@@ -1,0 +1,38 @@
+include std/unittest.e
+
+include protein-translation.ex
+
+set_test_verbosity(TEST_SHOW_ALL)
+
+test_equal("Empty RNA sequence results in no proteins", {}, proteins(""))
+test_equal("Methionine RNA sequence", {"Methionine"}, proteins("AUG"))
+test_equal("Phenylalanine RNA sequence 1", {"Phenylalanine"}, proteins("UUU"))
+test_equal("Phenylalanine RNA sequence 2", {"Phenylalanine"}, proteins("UUC"))
+test_equal("Leucine RNA sequence 1", {"Leucine"}, proteins("UUA"))
+test_equal("Leucine RNA sequence 2", {"Leucine"}, proteins("UUG"))
+test_equal("Serine RNA sequence 1", {"Serine"}, proteins("UCU"))
+test_equal("Serine RNA sequence 2", {"Serine"}, proteins("UCC"))
+test_equal("Serine RNA sequence 3", {"Serine"}, proteins("UCA"))
+test_equal("Serine RNA sequence 4", {"Serine"}, proteins("UCG"))
+test_equal("Tyrosine RNA sequence 1", {"Tyrosine"}, proteins("UAU"))
+test_equal("Tyrosine RNA sequence 2", {"Tyrosine"}, proteins("UAC"))
+test_equal("Cysteine RNA sequence 1", {"Cysteine"}, proteins("UGU"))
+test_equal("Cysteine RNA sequence 2", {"Cysteine"}, proteins("UGC"))
+test_equal("Tryptophan RNA sequence", {"Tryptophan"}, proteins("UGG"))
+test_equal("STOP codon RNA sequence 1", {}, proteins("UAA"))
+test_equal("STOP codon RNA sequence 2", {}, proteins("UAG"))
+test_equal("STOP codon RNA sequence 3", {}, proteins("UGA"))
+test_equal("Sequence of two protein codons translates into proteins", {"Phenylalanine", "Phenylalanine"}, proteins("UUUUUU"))
+test_equal("Sequence of two different protein codons translates into proteins", {"Leucine", "Leucine"}, proteins("UUAUUG"))
+test_equal("Translate RNA strand into correct protein list", {"Methionine", "Phenylalanine", "Tryptophan"}, proteins("AUGUUUUGG"))
+test_equal("Translation stops if STOP codon at beginning of sequence", {}, proteins("UAGUGG"))
+test_equal("Translation stops if STOP codon at end of two-codon sequence", {"Tryptophan"}, proteins("UGGUAG"))
+test_equal("Translation stops if STOP codon at end of three-codon sequence", {"Methionine", "Phenylalanine"}, proteins("AUGUUUUAA"))
+test_equal("Translation stops if STOP codon in middle of three-codon sequence", {"Tryptophan"}, proteins("UGGUAGUGG"))
+test_equal("Translation stops if STOP codon in middle of six-codon sequence", {"Tryptophan", "Cysteine", "Tyrosine"}, proteins("UGGUGUUAUUAAUGGUUU"))
+test_equal("Non-existing codon can't translate", {}, proteins("AAA"))
+test_equal("Unknown amino acids, not part of a codon, can't translate", {}, proteins("XYZ"))
+test_equal("Incomplete RNA sequence can't translate", {}, proteins("AUGU"))
+test_equal("Incomplete RNA sequence can translate if valid until a STOP codon", {"Phenylalanine", "Phenylalanine"}, proteins("UUCUUCUAAUGGU"))
+
+test_report()
