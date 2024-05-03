@@ -23,6 +23,6 @@ fn to_int(str: String, acc: Int) -> Int {
 }
 
 fn index(char: String) -> Int {
-  let assert [ascii, ..] = string.to_utf_codepoints(char)
-  string.utf_codepoint_to_int(ascii) - 97 // ascii "a"
+  let assert [cp, ..] = string.to_utf_codepoints(char)
+  string.utf_codepoint_to_int(cp) - 97 // ascii "a"
 }
