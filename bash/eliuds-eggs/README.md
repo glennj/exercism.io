@@ -1,6 +1,6 @@
-# Pop Count
+# Eliud's Eggs
 
-Welcome to Pop Count on Exercism's Bash Track.
+Welcome to Eliud's Eggs on Exercism's Bash Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Introduction
