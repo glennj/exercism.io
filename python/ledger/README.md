@@ -26,5 +26,7 @@ Please keep a log of what changes you've made and make a comment on the exercise
 
 ### Contributed to by
 
+- @BethanyG
 - @Dog
+- @IsaaG
 - @tqa236

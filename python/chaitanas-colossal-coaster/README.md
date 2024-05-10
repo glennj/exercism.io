@@ -407,5 +407,6 @@ Define the `sorted_names()` function that takes 1 argument,  `queue`, (the `list
 
 ### Contributed to by
 
+- @BethanyG
 - @valentin-p
 - @pranasziaukas

@@ -9,9 +9,11 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 In Python, a [tuple][tuple] is an _immutable_ collection of items in _sequence_.
 Like most collections, `tuples` can hold any (or multiple) data type(s) -- including other `tuples`.
 Tuples support all [common sequence operations][common sequence operations], but **do not** support [mutable sequence operations][mutable sequence operations].
+
 The elements of a tuple can be iterated over using the `for item in <tuple>` construct.
 If both element index and value are needed, `for index, item in enumerate(<tuple>)` can be used.
 Like any sequence, elements within `tuples` can be accessed via _bracket notation_ using a `0-based index` number from the left or a `-1-based index` number from the right.
+Tuples can also be copied in whole or in part using slice notation (_`<tuple>[<start>:<stop>:<step>]`_).
 
 
 ## Tuple Construction
@@ -66,7 +68,7 @@ Nested data structures can be included as `tuple` elements, including other `tup
 >>> nested_data_structures = ({"fish": "gold", "monkey": "brown", "parrot" : "grey"}, ("fish", "mammal", "bird"))
 ({"fish": "gold", "monkey": "brown", "parrot" : "grey"}, ("fish", "mammal", "bird"))
 
->>> nested_data_structures_1 : (["fish", "gold", "monkey", "brown", "parrot", "grey"], ("fish", "mammal", "bird"))
+>>> nested_data_structures_1 = (["fish", "gold", "monkey", "brown", "parrot", "grey"], ("fish", "mammal", "bird"))
 (["fish", "gold", "monkey", "brown", "parrot", "grey"], ("fish", "mammal", "bird"))
 ```
 
@@ -146,8 +148,8 @@ True
 ```
 
 [common sequence operations]: https://docs.python.org/3/library/stdtypes.html#common-sequence-operations
-[tuple]: https://docs.python.org/3/library/stdtypes.html#tuple
 [mutable sequence operations]: https://docs.python.org/3/library/stdtypes.html#mutable-sequence-types
+[tuple]: https://docs.python.org/3/library/stdtypes.html#tuple
 
 ## Instructions
 
@@ -274,4 +276,4 @@ Format and return the 'report' so that there is one cleaned record on each line.
 
 ### Created by
 
-- @bethanyg
+- @BethanyG

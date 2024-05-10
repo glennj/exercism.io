@@ -14,7 +14,7 @@ There are three different kinds of built-in numbers in Python : `ints`, `floats`
 
 `ints` are whole numbers. e.g. `1234`, `-10`, `20201278`.
 
-Integers in Python have [arbitrary precision][arbitrary-precision] -- the amount of digits is limited only by the available memory of the host system.
+Integers in Python have [arbitrary precision][arbitrary-precision] -- the number of digits is limited only by the available memory of the host system.
 
 ### floats
 
@@ -76,12 +76,12 @@ To convert a float to an integer, you can use `int()`. Also, to convert an integ
 3.0
 ```
 
-[arbitrary-precision]: https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic#:~:text=In%20computer%20science%2C%20arbitrary%2Dprecision,memory%20of%20the%20host%20system.
-[numeric-type-docs]: https://docs.python.org/3/library/stdtypes.html#typesnumeric
-[`int()` built in]: https://docs.python.org/3/library/functions.html#int
-[`float()` built in]: https://docs.python.org/3/library/functions.html#float
 [0.30000000000000004.com]: https://0.30000000000000004.com/
+[`float()` built in]: https://docs.python.org/3/library/functions.html#float
+[`int()` built in]: https://docs.python.org/3/library/functions.html#int
+[arbitrary-precision]: https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic#:~:text=In%20computer%20science%2C%20arbitrary%2Dprecision,memory%20of%20the%20host%20system.
 [floating point math]: https://docs.python.org/3.9/tutorial/floatingpoint.html
+[numeric-type-docs]: https://docs.python.org/3/library/stdtypes.html#typesnumeric
 
 ## Instructions
 
@@ -97,6 +97,7 @@ Create the `exchange_money()` function, taking 2 parameters:
 This function should return the value of the exchanged currency.
 
 **Note:** If your currency is USD and you want to exchange USD for EUR with an exchange rate of `1.20`, then `1.20 USD == 1 EUR`.
+
 ```python
 >>> exchange_money(127.5, 1.2)
 106.25
@@ -121,7 +122,7 @@ This function should return the amount of money that *is left* from the budget.
 Create the `get_value_of_bills()` function, taking 2 parameters:
 
 1. `denomination` : The value of a single bill.
-2. `number_of_bills` : Amount of bills you received.
+2. `number_of_bills` : The total number of bills.
 
 This exchanging booth only deals in cash of certain increments.
 The total you receive must be divisible by the value of one "bill" or unit, which can leave behind a fraction or remainder.
@@ -135,10 +136,10 @@ Unfortunately, the booth gets to keep the remainder/change as an added bonus.
 
 ## 4. Calculate number of bills
 
-Create the `get_number_of_bills()` function, taking `budget` and `denomination`.
+Create the `get_number_of_bills()` function, taking `amount` and `denomination`.
 
-This function should return the _number of new currency bills_ that you can receive within the given _budget_.
-In other words:  How many _whole bills_ of new currency fit into the amount of old currency you have in your budget?
+This function should return the _number of currency bills_ that you can receive within the given _amount_.
+In other words:  How many _whole bills_ of currency fit into the starting amount?
 Remember -- you can only receive _whole bills_, not fractions of bills, so remember to divide accordingly.
 Effectively, you are rounding _down_ to the nearest whole bill/denomination.
 
@@ -149,9 +150,9 @@ Effectively, you are rounding _down_ to the nearest whole bill/denomination.
 
 ## 5. Calculate leftover after exchanging into bills
 
-Create the `get_leftover_of_bills()` function, taking `budget` and `denomination`.
+Create the `get_leftover_of_bills()` function, taking `amount` and `denomination`.
 
-This function should return the _leftover amount_ that cannot be exchanged from your _budget_ given the denomination of bills.
+This function should return the _leftover amount_ that cannot be returned from your starting _amount_ given the denomination of bills.
 It is very important to know exactly how much the booth gets to keep.
 
 ```python
@@ -192,4 +193,6 @@ Remember that the currency *denomination* is a whole number, and cannot be sub-d
 
 ### Contributed to by
 
+- @BethanyG
+- @kytrinyx
 - @pranasziaukas

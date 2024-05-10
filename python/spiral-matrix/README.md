@@ -44,4 +44,4 @@ The matrix should be filled with natural numbers, starting from 1 in the top-lef
 
 ### Based on
 
-Reddit r/dailyprogrammer challenge #320 [Easy] Spiral Ascension. - https://www.reddit.com/r/dailyprogrammer/comments/6i60lr/20170619_challenge_320_easy_spiral_ascension/
+Reddit r/dailyprogrammer challenge #320 [Easy] Spiral Ascension. - https://web.archive.org/web/20230607064729/https://old.reddit.com/r/dailyprogrammer/comments/6i60lr/20170619_challenge_320_easy_spiral_ascension/

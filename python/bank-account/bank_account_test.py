@@ -1,9 +1,12 @@
-import sys
-import threading
-import time
+# These tests are auto-generated with test data from:
+# https://github.com/exercism/problem-specifications/tree/main/exercises/bank-account/canonical-data.json
+# File last updated on 2023-07-20
+
 import unittest
 
-from bank_account import BankAccount
+from bank_account import (
+    BankAccount,
+)
 
 
 class BankAccountTest(unittest.TestCase):
@@ -12,76 +15,86 @@ class BankAccountTest(unittest.TestCase):
         account.open()
         self.assertEqual(account.get_balance(), 0)
 
-    def test_can_deposit_money(self):
+    def test_single_deposit(self):
         account = BankAccount()
         account.open()
         account.deposit(100)
         self.assertEqual(account.get_balance(), 100)
 
-    def test_can_deposit_money_sequentially(self):
+    def test_multiple_deposits(self):
         account = BankAccount()
         account.open()
         account.deposit(100)
         account.deposit(50)
-
         self.assertEqual(account.get_balance(), 150)
 
-    def test_can_withdraw_money(self):
+    def test_withdraw_once(self):
         account = BankAccount()
         account.open()
         account.deposit(100)
-        account.withdraw(50)
+        account.withdraw(75)
+        self.assertEqual(account.get_balance(), 25)
 
-        self.assertEqual(account.get_balance(), 50)
-
-    def test_can_withdraw_money_sequentially(self):
+    def test_withdraw_twice(self):
         account = BankAccount()
         account.open()
         account.deposit(100)
-        account.withdraw(20)
         account.withdraw(80)
-
+        account.withdraw(20)
         self.assertEqual(account.get_balance(), 0)
 
-    def test_checking_balance_of_closed_account_throws_error(self):
+    def test_can_do_multiple_operations_sequentially(self):
+        account = BankAccount()
+        account.open()
+        account.deposit(100)
+        account.deposit(110)
+        account.withdraw(200)
+        account.deposit(60)
+        account.withdraw(50)
+        self.assertEqual(account.get_balance(), 20)
+
+    def test_cannot_check_balance_of_closed_account(self):
         account = BankAccount()
         account.open()
         account.close()
-
         with self.assertRaises(ValueError) as err:
             account.get_balance()
         self.assertEqual(type(err.exception), ValueError)
         self.assertEqual(err.exception.args[0], "account not open")
 
-    def test_deposit_into_closed_account(self):
+    def test_cannot_deposit_into_closed_account(self):
         account = BankAccount()
         account.open()
         account.close()
-
         with self.assertRaises(ValueError) as err:
             account.deposit(50)
         self.assertEqual(type(err.exception), ValueError)
         self.assertEqual(err.exception.args[0], "account not open")
 
+    def test_cannot_deposit_into_unopened_account(self):
+        account = BankAccount()
+        with self.assertRaises(ValueError) as err:
+            account.deposit(50)
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "account not open")
 
-    def test_withdraw_from_closed_account(self):
+    def test_cannot_withdraw_from_closed_account(self):
         account = BankAccount()
         account.open()
         account.close()
-
         with self.assertRaises(ValueError) as err:
             account.withdraw(50)
         self.assertEqual(type(err.exception), ValueError)
         self.assertEqual(err.exception.args[0], "account not open")
 
-    def test_close_already_closed_account(self):
+    def test_cannot_close_an_account_that_was_not_opened(self):
         account = BankAccount()
         with self.assertRaises(ValueError) as err:
             account.close()
         self.assertEqual(type(err.exception), ValueError)
         self.assertEqual(err.exception.args[0], "account not open")
 
-    def test_open_already_opened_account(self):
+    def test_cannot_open_an_already_opened_account(self):
         account = BankAccount()
         account.open()
         with self.assertRaises(ValueError) as err:
@@ -101,7 +114,6 @@ class BankAccountTest(unittest.TestCase):
         account = BankAccount()
         account.open()
         account.deposit(25)
-
         with self.assertRaises(ValueError) as err:
             account.withdraw(50)
         self.assertEqual(type(err.exception), ValueError)
@@ -111,7 +123,6 @@ class BankAccountTest(unittest.TestCase):
         account = BankAccount()
         account.open()
         account.deposit(100)
-
         with self.assertRaises(ValueError) as err:
             account.withdraw(-50)
         self.assertEqual(type(err.exception), ValueError)
@@ -120,40 +131,7 @@ class BankAccountTest(unittest.TestCase):
     def test_cannot_deposit_negative(self):
         account = BankAccount()
         account.open()
-
         with self.assertRaises(ValueError) as err:
             account.deposit(-50)
         self.assertEqual(type(err.exception), ValueError)
         self.assertEqual(err.exception.args[0], "amount must be greater than 0")
-
-    def test_can_handle_concurrent_transactions(self):
-        account = BankAccount()
-        account.open()
-        account.deposit(1000)
-
-        self.adjust_balance_concurrently(account)
-
-        self.assertEqual(account.get_balance(), 1000)
-
-    def adjust_balance_concurrently(self, account):
-        def transact():
-            account.deposit(5)
-            time.sleep(0.001)
-            account.withdraw(5)
-
-        # Greatly improve the chance of an operation being interrupted
-        # by thread switch, thus testing synchronization effectively
-        try:
-            sys.setswitchinterval(1e-12)
-        except AttributeError:
-            # For Python 2 compatibility
-            sys.setcheckinterval(1)
-
-        threads = [threading.Thread(target=transact) for _ in range(1000)]
-        for thread in threads:
-            thread.start()
-        for thread in threads:
-            thread.join()
-
-if __name__ == '__main__':
-    unittest.main()

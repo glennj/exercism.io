@@ -67,7 +67,7 @@ True
 ```
 
 Any ordered comparison of a number to a `NaN` (_not a number_) type is `False`.
-A confusing side-effect of Python's `NaN` definition is that `NaN` never compares equal to `NaN`.
+A confusing side effect of Python's `NaN` definition is that `NaN` never compares equal to `NaN`.
 
 ```python
 >>> x = float('NaN')
@@ -88,7 +88,7 @@ False
 Unlike numbers, strings (`str`) are compared [_lexicographically_][lexographic order], using their individual Unicode code points (_the result of passing each code point in the `str` to the built-in function [`ord()`][ord], which returns an `int`_).
 If all code points in both strings match and are _**in the same order**_, the two strings are considered equal.
 This comparison is done in a 'pair-wise' fashion - first-to-first, second-to-second, etc.
-Unlike in Python 2.x, in Python 3.x, `str` and `bytes` cannot be directly coerced/compared.
+In Python 3.x, `str` and `bytes` cannot be directly coerced/compared.
 
 ```python
 >>> 'Python' > 'Rust'
@@ -194,7 +194,6 @@ The operators `in` and `not in` test for _membership_.
 For string and bytes types, `<name> in <fullname>` is `True` _**if and only if**_ `<name>` is a substring of `<fullname>`.
 
 ```python
->>> 
 # A set of lucky numbers.
 >>> lucky_numbers = {11, 22, 33}
 >>> 22 in lucky_numbers
@@ -204,7 +203,9 @@ True
 False
 
 # A dictionary of employee information.
->>> employee = {'name': 'John Doe', 'id': 67826, 'age': 33, 'title': 'ceo'}
+>>> employee = {'name': 'John Doe', 
+                'id': 67826, 'age': 33, 
+                'title': 'ceo'}
 
 # Checking for the membership of certain keys.
 >>> 'age' in employee
@@ -311,7 +312,7 @@ Define the `value_of_ace(<card_one>, <card_two>)` function with parameters `card
 Your function will have to decide if the upcoming ace will get a value of 1 or a value of 11, and return that value.
 Remember: the value of the hand with the ace needs to be as high as possible _without_ going over 21.
 
-**Hint**: if we already have an ace in hand then its value would be 11.
+**Hint**: if we already have an ace in hand, then the value for the upcoming ace would be 1.
 
 ```python
 >>> value_of_ace('6', 'K')
@@ -323,7 +324,9 @@ Remember: the value of the hand with the ace needs to be as high as possible _wi
 
 ## 4. Determine a "Natural" or "Blackjack" Hand
 
-If the first two cards a player is dealt are an ace (`A`) and a ten-card (10, `K`, `Q` or `J`), giving a score of 21 in two cards, the hand is considered a `natural` or `blackjack`.
+If the first two cards a player is dealt are an ace (A) and a ten-card (_10, K , Q or J_), then the player has a score of 21. 
+This is known as a blackjack hand. 
+
 
 Define the `is_blackjack(<card_one>, <card_two>)` function with parameters `card_one` and `card_two`, which are a pair of cards.
 Determine if the two-card hand is a `blackjack`, and return the boolean `True` if it is, `False` otherwise.

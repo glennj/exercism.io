@@ -7,12 +7,10 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 
 Implement various kinds of error handling and resource management.
 
-An important point of programming is how to handle errors and close
-resources even if errors occur.
+An important point of programming is how to handle errors and close resources even if errors occur.
 
-This exercise requires you to handle various errors. Because error handling
-is rather programming language specific you'll have to refer to the tests
-for your track to see what's exactly required.
+This exercise requires you to handle various errors.
+Because error handling is rather programming language specific you'll have to refer to the tests for your track to see what's exactly required.
 
 For the `filelike_objects_are_closed_on_exception` function, the `filelike_object`
 will be an instance of a custom `FileLike` class defined in the test suite. This

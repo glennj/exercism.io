@@ -1,17 +1,12 @@
-"""Tests for the saddle-points exercise
+# These tests are auto-generated with test data from:
+# https://github.com/exercism/problem-specifications/tree/main/exercises/saddle-points/canonical-data.json
+# File last updated on 2023-07-19
 
-Implementation note:
-The saddle_points function must validate the input matrix and raise a
-ValueError with a meaningful error message if the matrix turns out to be
-irregular.
-"""
 import unittest
 
 from saddle_points import (
     saddle_points,
 )
-
-# Tests adapted from `problem-specifications//canonical-data.json`
 
 
 def sorted_points(point_list):

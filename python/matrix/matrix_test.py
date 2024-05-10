@@ -1,10 +1,12 @@
+# These tests are auto-generated with test data from:
+# https://github.com/exercism/problem-specifications/tree/main/exercises/matrix/canonical-data.json
+# File last updated on 2023-07-19
+
 import unittest
 
 from matrix import (
     Matrix,
 )
-
-# Tests adapted from `problem-specifications//canonical-data.json`
 
 
 class MatrixTest(unittest.TestCase):
@@ -39,7 +41,3 @@ class MatrixTest(unittest.TestCase):
     def test_extract_column_where_numbers_have_different_widths(self):
         matrix = Matrix("89 1903 3\n18 3 1\n9 4 800")
         self.assertEqual(matrix.column(2), [1903, 3, 4])
-
-
-if __name__ == "__main__":
-    unittest.main()

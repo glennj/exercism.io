@@ -1,10 +1,12 @@
+# These tests are auto-generated with test data from:
+# https://github.com/exercism/problem-specifications/tree/main/exercises/anagram/canonical-data.json
+# File last updated on 2024-02-28
+
 import unittest
 
 from anagram import (
     find_anagrams,
 )
-
-# Tests adapted from `problem-specifications//canonical-data.json`
 
 
 class AnagramTest(unittest.TestCase):
@@ -59,7 +61,7 @@ class AnagramTest(unittest.TestCase):
         self.assertCountEqual(find_anagrams("orchestra", candidates), expected)
 
     def test_does_not_detect_an_anagram_if_the_original_word_is_repeated(self):
-        candidates = ["go Go GO"]
+        candidates = ["goGoGO"]
         expected = []
         self.assertCountEqual(find_anagrams("go", candidates), expected)
 
@@ -91,3 +93,13 @@ class AnagramTest(unittest.TestCase):
         candidates = ["LISTEN", "Silent"]
         expected = ["Silent"]
         self.assertCountEqual(find_anagrams("LISTEN", candidates), expected)
+
+    def test_handles_case_of_greek_letters(self):
+        candidates = ["ΒΓΑ", "ΒΓΔ", "γβα", "αβγ"]
+        expected = ["ΒΓΑ", "γβα"]
+        self.assertCountEqual(find_anagrams("ΑΒΓ", candidates), expected)
+
+    def test_different_characters_may_have_the_same_bytes(self):
+        candidates = ["€a"]
+        expected = []
+        self.assertCountEqual(find_anagrams("a⬂", candidates), expected)

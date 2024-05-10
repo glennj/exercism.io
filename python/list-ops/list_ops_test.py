@@ -1,3 +1,7 @@
+# These tests are auto-generated with test data from:
+# https://github.com/exercism/problem-specifications/tree/main/exercises/list-ops/canonical-data.json
+# File last updated on 2023-07-19
+
 import unittest
 
 from list_ops import (
@@ -10,8 +14,6 @@ from list_ops import (
     filter as list_ops_filter,
     map as list_ops_map,
 )
-
-# Tests adapted from `problem-specifications//canonical-data.json`
 
 
 class ListOpsTest(unittest.TestCase):
@@ -63,11 +65,17 @@ class ListOpsTest(unittest.TestCase):
     def test_foldl_direction_independent_function_applied_to_non_empty_list(self):
         self.assertEqual(foldl(lambda acc, el: el + acc, [1, 2, 3, 4], 5), 15)
 
+    def test_foldl_direction_dependent_function_applied_to_non_empty_list(self):
+        self.assertEqual(foldl(lambda acc, el: el / acc, [1, 2, 3, 4], 24), 64)
+
     def test_foldr_empty_list(self):
         self.assertEqual(foldr(lambda acc, el: el * acc, [], 2), 2)
 
     def test_foldr_direction_independent_function_applied_to_non_empty_list(self):
         self.assertEqual(foldr(lambda acc, el: el + acc, [1, 2, 3, 4], 5), 15)
+
+    def test_foldr_direction_dependent_function_applied_to_non_empty_list(self):
+        self.assertEqual(foldr(lambda acc, el: el / acc, [1, 2, 3, 4], 24), 9)
 
     def test_reverse_empty_list(self):
         self.assertEqual(reverse([]), [])
@@ -84,13 +92,11 @@ class ListOpsTest(unittest.TestCase):
 
     def test_foldr_foldr_add_string(self):
         self.assertEqual(
-            foldr(lambda x, y: x + y, ["e", "x", "e", "r", "c", "i", "s", "m"], "!"),
+            foldr(
+                lambda acc, el: el + acc, ["e", "x", "e", "r", "c", "i", "s", "m"], "!"
+            ),
             "exercism!",
         )
 
     def test_reverse_reverse_mixed_types(self):
         self.assertEqual(reverse(["xyz", 4.0, "cat", 1]), [1, "cat", 4.0, "xyz"])
-
-
-if __name__ == "__main__":
-    unittest.main()

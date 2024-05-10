@@ -35,8 +35,6 @@ Implement breaking a number up into chunks of thousands.
 
 So `1234567890` should yield a list like 1, 234, 567, and 890, while the far simpler `1000` should yield just 1 and 0.
 
-The program must also report any values that are out of range.
-
 ## Step 3
 
 Now handle inserting the appropriate scale word between those chunks.
@@ -66,7 +64,7 @@ To raise a `ValueError` with a message, write the message as an argument to the 
 # if the number is negative
 raise ValueError("input out of range")
 
-# if the number is larger than 999,999,999,99
+# if the number is larger than 999,999,999,999
 raise ValueError("input out of range")
 ```
 

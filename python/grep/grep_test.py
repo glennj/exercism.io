@@ -1,11 +1,13 @@
+# These tests are auto-generated with test data from:
+# https://github.com/exercism/problem-specifications/tree/main/exercises/grep/canonical-data.json
+# File last updated on 2023-07-19
+
+import io
 import unittest
 
 from grep import (
     grep,
 )
-
-# Tests adapted from `problem-specifications//canonical-data.json`
-import io
 from unittest import mock
 
 FILE_TEXT = {
@@ -290,7 +292,3 @@ class GrepTest(unittest.TestCase):
             "paradise-lost.txt:Of Oreb, or of Sinai, didst inspire\n"
             "paradise-lost.txt:That Shepherd, who first taught the chosen Seed\n",
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

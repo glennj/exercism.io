@@ -1,10 +1,12 @@
+# These tests are auto-generated with test data from:
+# https://github.com/exercism/problem-specifications/tree/main/exercises/largest-series-product/canonical-data.json
+# File last updated on 2023-07-19
+
 import unittest
 
 from largest_series_product import (
     largest_product,
 )
-
-# Tests adapted from `problem-specifications//canonical-data.json`
 
 
 class LargestSeriesProductTest(unittest.TestCase):
@@ -45,12 +47,6 @@ class LargestSeriesProductTest(unittest.TestCase):
         self.assertEqual(
             err.exception.args[0], "span must be smaller than string length"
         )
-
-    def test_reports_1_for_empty_string_and_empty_product_0_span(self):
-        self.assertEqual(largest_product("", 0), 1)
-
-    def test_reports_1_for_nonempty_string_and_empty_product_0_span(self):
-        self.assertEqual(largest_product("123", 0), 1)
 
     def test_rejects_empty_string_and_nonzero_span(self):
         with self.assertRaises(ValueError) as err:

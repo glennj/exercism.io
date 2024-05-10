@@ -1,10 +1,12 @@
+# These tests are auto-generated with test data from:
+# https://github.com/exercism/problem-specifications/tree/main/exercises/phone-number/canonical-data.json
+# File last updated on 2023-07-19
+
 import unittest
 
 from phone_number import (
     PhoneNumber,
 )
-
-# Tests adapted from `problem-specifications//canonical-data.json`
 
 
 class PhoneNumberTest(unittest.TestCase):
@@ -24,7 +26,7 @@ class PhoneNumberTest(unittest.TestCase):
         with self.assertRaises(ValueError) as err:
             PhoneNumber("123456789")
         self.assertEqual(type(err.exception), ValueError)
-        self.assertEqual(err.exception.args[0], "incorrect number of digits")
+        self.assertEqual(err.exception.args[0], "must not be fewer than 10 digits")
 
     def test_invalid_when_11_digits_does_not_start_with_a_1(self):
         with self.assertRaises(ValueError) as err:
@@ -44,7 +46,7 @@ class PhoneNumberTest(unittest.TestCase):
         with self.assertRaises(ValueError) as err:
             PhoneNumber("321234567890")
         self.assertEqual(type(err.exception), ValueError)
-        self.assertEqual(err.exception.args[0], "more than 11 digits")
+        self.assertEqual(err.exception.args[0], "must not be greater than 11 digits")
 
     def test_invalid_with_letters(self):
         with self.assertRaises(ValueError) as err:

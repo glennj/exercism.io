@@ -46,3 +46,5 @@ raise ValueError('amount must be less than balance')
 - @cmccandless
 - @Dog
 - @tqa236
+- @bethanyg
+- @meatball133

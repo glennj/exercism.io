@@ -1,10 +1,12 @@
+# These tests are auto-generated with test data from:
+# https://github.com/exercism/problem-specifications/tree/main/exercises/connect/canonical-data.json
+# File last updated on 2023-07-19
+
 import unittest
 
 from connect import (
     ConnectGame,
 )
-
-# Tests adapted from `problem-specifications//canonical-data.json`
 
 
 class ConnectTest(unittest.TestCase):
@@ -108,7 +110,3 @@ class ConnectTest(unittest.TestCase):
         )
         winner = game.get_winner()
         self.assertEqual(winner, "X")
-
-
-if __name__ == "__main__":
-    unittest.main()

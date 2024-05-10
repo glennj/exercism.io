@@ -6,7 +6,7 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 
 ## Introduction
 
-Python represents true and false values with the `bool` type.
+Python represents true and false values with the [`bool`][bools] type, which is a subtype of `int`.
  There are only two values in this type: `True` and `False`.
   These values can be bound to a variable:
 
@@ -27,6 +27,8 @@ We can evaluate Boolean expressions using the `and`, `or`, and `not` operators:
 >>> true_variable = not False
 >>> false_variable = not True
 ```
+
+[bools]: https://docs.python.org/3/library/stdtypes.html#typebool
 
 ## Instructions
 
@@ -91,4 +93,4 @@ False
 ### Contributed to by
 
 - @cmccandless
-- @bethanyg
+- @BethanyG
