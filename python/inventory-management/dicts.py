@@ -32,7 +32,8 @@ def decrement_items(inventory, items):
     """
 
     for item in items:
-        inventory[item] = max(0, inventory.get(item, 0) - 1)
+        if item in inventory:
+            inventory[item] = max(0, inventory.get(item, 0) - 1)
     return inventory
 
 

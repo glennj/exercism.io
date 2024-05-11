@@ -23,9 +23,9 @@ class PhoneNumber(object):
 
         digits = [d for d in chars if d in string.digits]
         if len(digits) < 10:
-            raise ValueError("incorrect number of digits")
+            raise ValueError("must not be fewer than 10 digits")
         if len(digits) > 11:
-            raise ValueError("more than 11 digits")
+            raise ValueError("must not be greater than 11 digits")
         if len(digits) == 11:
             if digits[0] == '1':
                 digits = digits[1:]

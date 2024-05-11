@@ -34,8 +34,8 @@ def validate_records(rs):
     if any(r.record_id != i for i, r in enumerate(rs)):
         raise ValueError('Record id is invalid or out of order.')
     if rs[0].parent_id != 0:
-        raise ValueError('Node record_id should be smaller than it\'s parent_id.')
+        raise ValueError('Node parent_id should be smaller than it\'s record_id.')
     if any(r.record_id == r.parent_id for r in rs if r.record_id != 0):
         raise ValueError('Only root should have equal record and parent id.')
     if any(r.record_id < r.parent_id for r in rs if r.record_id != 0):
-        raise ValueError('Node record_id should be smaller than it\'s parent_id.')
+        raise ValueError('Node parent_id should be smaller than it\'s record_id.')

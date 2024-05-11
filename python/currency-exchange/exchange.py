@@ -42,6 +42,10 @@ def get_number_of_bills(budget, denomination):
     return int(budget / denomination)
 
 
+def get_leftover_of_bills(amount, denomination):
+    return amount - get_number_of_bills(amount, denomination) * denomination
+
+
 def actual_exchange_rate(exchange_rate, spread):
     return exchange_rate * (1 + spread/100)
 

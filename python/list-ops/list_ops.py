@@ -53,4 +53,4 @@ def filter(f, xs):
 
 
 def foldr(f, xs, acc):
-    return foldl(lambda a, x: f(x, a), reverse(xs), acc)
+    return foldl(lambda x, a: f(x, a), reverse(xs), acc)
