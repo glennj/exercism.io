@@ -24,11 +24,7 @@ namespace eval TicTacToe {
             error "Wrong turn order: O started"
         }
 
-        if {[string match {* *} $b]} {
-            return ongoing
-        }
-
-        return draw
+        return [expr {($X | $O) == 0b111111111 ? "draw" : "ongoing"}]
     }
 
     variable winningScores {

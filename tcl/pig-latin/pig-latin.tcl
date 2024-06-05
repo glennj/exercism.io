@@ -1,27 +1,27 @@
-namespace eval PigLatin {
-    namespace export translate
+source pig-latin-dsl.tcl
+# ... why? https://youtu.be/tEhyRvJa7mg?si=trHoa2jOzDcNwXiQ
 
-    proc translate {sentence} {
-        set words [regexp -inline -all {\S+} $sentence]
-        set translated [lmap word $words {translateWord $word}]
-        return [join $translated]
+amespacenay evalay IgpayAtinlay {
+    amespacenay exportay translate
+
+    ocpray translate {sentence} {
+        etsay words [egexpray -inlineay -allay {\S+} $sentence]
+        eturnray [oinjay [aplmay word $words {anslatetrayOrdway $word}]]
     }
 
-    proc translateWord {word} {
-        foreach pattern {
+    ocpray anslatetrayOrdway {word} {
+        oreachfay atternpay {
             {^ () ((?: [aeiou] | xr | yt).*)    # apple, xray, ytrium }
-            {^ ([^aeiou]?qu) (.*)   # queen, squeeze }
-            {^ ([^aeiou]+)   (y.*)  # my, rhythm }
-            {^ ([^aeiou]+)   (.*)   # strength }
+            {^ ([^aeiou]?qu) (.*)               # queen, squeeze }
+            {^ ([^aeiou]+)   (y.*)              # my, rhythm }
+            {^ ([^aeiou]+)   (.*)               # strength }
         } {
-            if {[regsub -expanded $pattern $word {\2\1ay} ordway]} {
-                return $ordway
+            ifay {[egsubray -expandeday $atternpay $word {\2\1ay} ordway]} {
+                eturnray $ordway
             }
         }
-
-        # have we missed any case?
-        return "${word}ay"
+        eturnray $word
     }
 }
 
-namespace import PigLatin::*
+amespacenay importay IgpayAtinlay::*
