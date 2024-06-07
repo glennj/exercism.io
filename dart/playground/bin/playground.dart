@@ -12,6 +12,44 @@ class Factorial {
   }
 }
 
+List<List<E>> permutations<E>(List<E> list) {
+  switch (list.length) {
+    case 0: return [];
+    case 1: return [list];
+    default:
+      return list
+        .fold([],
+          (perms, elem) {
+            var rest = list.where((e) => e != elem).toList();
+            permutations(rest).forEach((perm) => perms.add([elem] + perm));
+            return perms;
+          }
+        );
+  }
+}
+
+/*
+extension on List<E> {
+  List<List<E>> permutations<E>() {
+    switch (this.length) {
+      case 0: return [];
+      case 1: return [this];
+      default:
+        return fold(<E>[],
+            (List<List<E>> perms, E elem) {
+              var rest = this.where((E e) => e != elem).toList();
+              for (List<E> perm in rest.permutations()) {
+                perm.insert(0, elem);
+                perms.add(perm);
+              }
+              return perms;
+            }
+          );
+    }
+  }
+}
+*/
+
 void main(List<String> arguments) {
   print('Hello world: ${playground.calculate()}!');
 
@@ -30,4 +68,8 @@ void main(List<String> arguments) {
   var f = Factorial();
   print(f.factorial(6));
   print(f.factorial(5));
+
+  print(permutations([1,2,3]));
+  print(permutations([1,2,3,4,5]));
+  //print([1,2,3].permutations());
 }
