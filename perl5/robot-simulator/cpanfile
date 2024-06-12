@@ -1,5 +1,7 @@
-requires 'Moo';       # https://perldoc.pl/Moo
-suggests 'Mo';          # https://perldoc.pl/Mo
-suggests 'Moose';       # https://perldoc.pl/Moose
-suggests 'Object::Pad'; # https://perldoc.pl/Object::Pad
-suggests 'Class::Tiny'; # https://perldoc.pl/Class::Tiny#Why-this-instead-of-Moose-or-Moo?
+requires 'perl', '5.024';
+requires 'strictures', 2;
+requires 'Moo';
+
+on test => sub {
+    requires 'Test2::V0';
+};

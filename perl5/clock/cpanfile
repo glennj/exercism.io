@@ -1,5 +1,6 @@
-#requires 'strictures', 2;
-requires 'Class::Tiny';
+requires 'perl', '5.024';
+requires 'strictures', 2;
+requires 'Moo';
 
 on test => sub {
     requires 'Test2::V0';

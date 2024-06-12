@@ -6,7 +6,7 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 
 ## Instructions
 
-You're going to write come code to manage an inventory of items in a store.
+You're going to write some code to manage an inventory of items in a store.
 The inventory will be a hash reference containing the inventory items and their quantity.
 
 ## 1. Create a new inventory using the items

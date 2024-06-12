@@ -6,7 +6,9 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 
 ## Introduction
 
-## Packages and Modules## Importing
+## Packages and Modules
+
+### Importing
 
 A module is usually loaded with the `use` keyword.
 This will both load and call the `import` method on it, importing any exported symbols.
