@@ -20,7 +20,7 @@
     "babel-jest": "^27.0.6",
     "core-js": "^3.16.0",
     "eslint": "^7.32.0",
-    "jest": "^26.6.3"
+    "jest": "^29.7.0"
   },
   "dependencies": {},
   "scripts": {
