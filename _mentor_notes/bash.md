@@ -223,6 +223,31 @@ pass variables as function arguments.
 
 <!-- -->
 
+Another quirk: if you use a variable in a function without declaring it local, then bash will move up the call stack looking for its nearest declaration:
+
+```bash
+f1() {
+    local var=20
+    echo "in f1, var=$var"
+    f2
+}
+f2() {
+    echo "in f2, var=$var"
+}
+
+var=10
+echo "global var=$var"; f2
+# => global var=10
+# => in f2, var=10
+
+echo "global var=$var"; f1
+# => global var=10
+# => in f1, var=20
+# => in f2, var=20
+```
+
+<!-- -->
+
 A good design practice is to make functions as single-purpose as possible.
 If you have a function that does, say, a bunch of validation and then some
 calculations, you might consider breaking the function up:
