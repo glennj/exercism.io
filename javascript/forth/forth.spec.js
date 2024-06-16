@@ -309,5 +309,16 @@ describe('Forth', () => {
       forth.evaluate('1 swap');
       expect(forth.stack).toEqual([1, 1, 1, 1]);
     });
+
+    test('extra', () => {
+      forth.evaluate(': toto 1 ; : b toto ; : toto 2 ; toto b');
+      /*
+      forth.evaluate(': toto 1 ;');
+      forth.evaluate(': b toto ;');
+      forth.evaluate(': toto 2 ;');
+      forth.evaluate('b');
+      */
+      expect(forth.stack).toEqual([2, 1]);
+    });
   });
 });
