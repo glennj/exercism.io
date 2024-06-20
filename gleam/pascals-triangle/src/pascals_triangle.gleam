@@ -1,27 +1,26 @@
 import gleam/list
 
-type Row = List(Int)
-type Triangle = List(Row)
+type Row =
+  List(Int)
+
+type Triangle =
+  List(Row)
 
 pub fn rows(n: Int) -> Triangle {
-  case n {
-    0 -> []
-    1 -> [[1]]
-    _ -> build_rows(n, 2, rows(1))
+  construct(n, 0, [])
+}
+
+fn construct(n: Int, i: Int, triangle: Triangle) -> Triangle {
+  case i >= n {
+    True -> triangle
+    False -> construct(n, i + 1, list.append(triangle, one_row(i, 0, [])))
   }
 }
 
-fn build_rows(n: Int, row: Int, triangle: Triangle) -> Triangle {
-  case row {
-    r if r > n -> triangle
-    _ -> build_rows(n, row + 1, list.append(triangle, build_row(n, row, 0, [])))
-  }
-}
-
-fn build_row(n: Int, i: Int, j: Int, row: Row) -> Triangle {
-  case j {
-    c if c == n -> [row]
-    _ -> build_row(n, i, j + 1, [n_choose_k(i, j + 1), ..row])
+fn one_row(i: Int, j: Int, row: Row) -> Triangle {
+  case j > i {
+    True -> [row]
+    False -> one_row(i, j + 1, [n_choose_k(i, j), ..row])
   }
 }
 
@@ -32,6 +31,7 @@ fn n_choose_k(n: Int, k: Int) -> Int {
 // TODO memoize, somehow.
 fn factorial(n: Int) -> Int {
   case n {
+    0 -> 1
     1 -> 1
     _ -> n * factorial(n - 1)
   }
