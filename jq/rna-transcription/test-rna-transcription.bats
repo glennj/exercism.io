@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2022-11-02T20:59:43Z
 load bats-extra
+load bats-jq
 
 @test 'Empty RNA sequence' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

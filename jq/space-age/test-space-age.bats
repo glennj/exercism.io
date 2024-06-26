@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2022-11-02T20:59:49Z
 load bats-extra
+load bats-jq
 
 @test 'age on Earth' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

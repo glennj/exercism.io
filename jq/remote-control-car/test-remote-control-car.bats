@@ -1,5 +1,6 @@
 #!/usr/bin/env bats
 load bats-extra
+load bats-jq
 
 assert_key_value() {
     local expected=$1 key=$2

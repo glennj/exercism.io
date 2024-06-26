@@ -1,5 +1,6 @@
 #!/usr/bin/env bats
 load bats-extra
+load bats-jq
 
 @test error_message {
     ## task 1

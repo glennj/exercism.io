@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2022-11-02T20:59:03Z
 load bats-extra
+load bats-jq
 
 @test 'zero steps for one' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

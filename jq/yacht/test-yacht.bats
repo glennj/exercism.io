@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2024-06-07T22:08:03Z
 load bats-extra
+load bats-jq
 
 @test 'Yacht' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
@@ -24,7 +25,7 @@ END_INPUT
 }
 
 @test 'Not Yacht' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -45,7 +46,7 @@ END_INPUT
 }
 
 @test 'Ones' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -66,7 +67,7 @@ END_INPUT
 }
 
 @test 'Ones, out of order' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -87,7 +88,7 @@ END_INPUT
 }
 
 @test 'No ones' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -108,7 +109,7 @@ END_INPUT
 }
 
 @test 'Twos' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -129,7 +130,7 @@ END_INPUT
 }
 
 @test 'Fours' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -150,7 +151,7 @@ END_INPUT
 }
 
 @test 'Yacht counted as threes' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -171,7 +172,7 @@ END_INPUT
 }
 
 @test 'Yacht of 3s counted as fives' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -192,7 +193,7 @@ END_INPUT
 }
 
 @test 'Fives' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -213,7 +214,7 @@ END_INPUT
 }
 
 @test 'Sixes' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -234,7 +235,7 @@ END_INPUT
 }
 
 @test 'Full house two small, three big' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -255,7 +256,7 @@ END_INPUT
 }
 
 @test 'Full house three small, two big' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -276,7 +277,7 @@ END_INPUT
 }
 
 @test 'Two pair is not a full house' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -297,7 +298,7 @@ END_INPUT
 }
 
 @test 'Four of a kind is not a full house' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -318,7 +319,7 @@ END_INPUT
 }
 
 @test 'Yacht is not a full house' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -339,7 +340,7 @@ END_INPUT
 }
 
 @test 'Four of a Kind' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -360,7 +361,7 @@ END_INPUT
 }
 
 @test 'Yacht can be scored as Four of a Kind' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -381,7 +382,7 @@ END_INPUT
 }
 
 @test 'Full house is not Four of a Kind' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -402,7 +403,7 @@ END_INPUT
 }
 
 @test 'Little Straight' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -423,7 +424,7 @@ END_INPUT
 }
 
 @test 'Little Straight as Big Straight' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -444,7 +445,7 @@ END_INPUT
 }
 
 @test 'Four in order but not a little straight' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -465,7 +466,7 @@ END_INPUT
 }
 
 @test 'No pairs but not a little straight' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -486,7 +487,7 @@ END_INPUT
 }
 
 @test 'Minimum is 1, maximum is 5, but not a little straight' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -507,7 +508,7 @@ END_INPUT
 }
 
 @test 'Big Straight' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -528,7 +529,7 @@ END_INPUT
 }
 
 @test 'Big Straight as little straight' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {
@@ -549,7 +550,7 @@ END_INPUT
 }
 
 @test 'No pairs but not a big straight' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {

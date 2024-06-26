@@ -67,10 +67,19 @@ Then run tests with just:
 bats
 ```
 
+## Debugging in `jq`
+
+`jq` comes with a handy [`debug`][debug] filter.
+Use it while you are developing your exercise solutions to inspect the data that is currently in the jq pipline.
+See the [debugging doc][debugging] for more details.
+
+
 [bash]: https://exercism.org/docs/tracks/bash/tests
 [bats-assert]: https://github.com/bats-core/bats-assert
 [here-string]: https://www.gnu.org/software/bash/manual/bash.html#Here-Strings
 [so]: https://unix.stackexchange.com/a/80372/4667
+[debug]: https://jqlang.github.io/jq/manual/v1.7/#debug
+[debugging]: /docs/tracks/jq/debugging
 
 ## Submitting your solution
 
@@ -87,16 +96,18 @@ It's possible to submit an incomplete solution which allows you to:
 If you'd like help solving the exercise, check the following pages:
 
 - The [jq track's documentation](https://exercism.org/docs/tracks/jq)
+- The [jq track's programming category on the forum](https://forum.exercism.org/c/programming/jq)
 - [Exercism's programming category on the forum](https://forum.exercism.org/c/programming/5)
 - The [Frequently Asked Questions](https://exercism.org/docs/using/faqs)
 
 Should those resources not suffice, you could submit your (incomplete) solution to request mentoring.
 
-Need help?
+## Need more help?
 
 - Go to the [Exercism Community forum](https://forum.exercism.org) to get support and ask questions (or just chat!)
   - Use the [Exercism Support](https://forum.exercism.org/c/support/8) category if you face any issues with working in the web editor, or downloading or submitting your exercises locally.
   - Use the [Programming:jq](https://forum.exercism.org/c/programming/jq/133) category for jq-specific topics.
+- Join the community on [Exercism's Discord server](https://exercism.org/r/discord).
 - [StackOverflow](https://stackoverflow.com/questions/tagged/jq) can be used to search for your problem and see if it has been answered already.
   You can also ask and answer questions.
 - [Github issue tracker](https://github.com/exercism/jq/issues) is where we track our development and maintainance of `jq` exercises in exercism.

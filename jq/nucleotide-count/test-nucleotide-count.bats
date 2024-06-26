@@ -1,6 +1,16 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:33Z
+# generated on 2023-11-07T18:49:21Z
 load bats-extra
+load bats-jq
+
+assert_objects_equal() {
+    local result=$(
+        jq -n --argjson actual "$1" \
+              --argjson expected "$2" \
+            '$actual == $expected'
+    )
+    [[ $result == "true" ]]
+}
 
 @test 'empty strand' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
@@ -13,7 +23,7 @@ END_INPUT
 
     assert_success
     expected='{"A":0,"C":0,"G":0,"T":0}'
-    assert_equal "$output" "$expected"
+    assert_objects_equal "$output" "$expected"
 }
 
 @test 'can count one nucleotide in single-character input' {
@@ -27,7 +37,7 @@ END_INPUT
 
     assert_success
     expected='{"A":0,"C":0,"G":1,"T":0}'
-    assert_equal "$output" "$expected"
+    assert_objects_equal "$output" "$expected"
 }
 
 @test 'strand with repeated nucleotide' {
@@ -41,7 +51,7 @@ END_INPUT
 
     assert_success
     expected='{"A":0,"C":0,"G":7,"T":0}'
-    assert_equal "$output" "$expected"
+    assert_objects_equal "$output" "$expected"
 }
 
 @test 'strand with multiple nucleotides' {
@@ -55,7 +65,7 @@ END_INPUT
 
     assert_success
     expected='{"A":20,"C":12,"G":17,"T":21}'
-    assert_equal "$output" "$expected"
+    assert_objects_equal "$output" "$expected"
 }
 
 @test 'strand with invalid nucleotides' {
@@ -71,4 +81,3 @@ END_INPUT
     expected='Invalid nucleotide in strand'
     assert_equal "$output" "$expected"
 }
-

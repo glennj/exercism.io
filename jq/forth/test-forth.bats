@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2022-11-02T20:59:07Z
 load bats-extra
+load bats-jq
 
 @test 'parsing and numbers:numbers just get pushed onto the stack' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

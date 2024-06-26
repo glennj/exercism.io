@@ -23,3 +23,4 @@
   # Task 5: output true if any day this week has zero birds
   has_day_without_birds: (last | any(. == 0))
 }
+ 

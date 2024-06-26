@@ -62,15 +62,15 @@ def count_occurrences(x):
 
 In practice, iterating over lists and other enumerable data structures is most often done using builtin functions,
 such as `map` and `reduce`, or by [using streams][map-implementation] like `[.[] | select(...)]`.
-Under the hood, some builtins are [implemented using recursion][range-implementation].
+Under the hood, some builtins are [implemented using recursion][walk-implementation].
 
-[map-implementation]: https://github.com/stedolan/jq/blob/jq-1.6/src/builtin.jq#L3
-[range-implementation]: https://github.com/stedolan/jq/blob/jq-1.6/src/builtin.jq#L157
+[map-implementation]: https://github.com/jqlang/jq/blob/jq-1.7/src/builtin.jq#L3
+[walk-implementation]: https://github.com/jqlang/jq/blob/jq-1.7/src/builtin.jq#L248
 [wiki-fibonacci]: https://en.wikipedia.org/wiki/Fibonacci_number
 
 ## Instructions
 
-In this exercise you're going to implement a some recursive functions.
+In this exercise you're going to implement some recursive functions.
 
 ## 1. Implement a function to add the numbers in an array
 

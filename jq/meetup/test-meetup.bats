@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2022-11-02T20:59:18Z
 load bats-extra
+load bats-jq
 
 @test 'when teenth Monday is the 13th, the first day of the teenth week' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

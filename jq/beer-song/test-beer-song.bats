@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2022-11-02T20:58:59Z
 load bats-extra
+load bats-jq
 
 @test 'verse:single verse:first generic verse' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

@@ -10,4 +10,4 @@ def armstrong_sum:
   {n: ., e: digit_count, sum: 0} | _sum
 ;
 
-.number | . == armstrong_sum
+debug | .number | . == armstrong_sum | debug

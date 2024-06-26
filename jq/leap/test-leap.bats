@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2022-11-02T20:59:17Z
 load bats-extra
+load bats-jq
 
 @test 'year not divisible by 4 in common year' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

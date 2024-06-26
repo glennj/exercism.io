@@ -7,7 +7,7 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 
 Take a nested list and return a single flattened list with all values except nil/null.
 
-The challenge is to write a function that accepts an arbitrarily-deep nested list-like structure and returns a flattened structure without any nil/null values.
+The challenge is to take an arbitrarily-deep nested list-like structure and produce a flattened structure without any nil/null values.
 
 For example:
 

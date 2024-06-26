@@ -18,7 +18,7 @@ We will focus on the expressions that `jq` provides to utilize regexes.
 Different tools implement different versions of regular expressions.
 `jq` incorporates the [Oniguruma][oniguruma] regex library that is largely compatible with Perl v5.8 regexes.
 
-The specific syntax used by `jq` version 1.6 can be [found on the Oniguruma GitHub repo][onig-syntax].
+The specific syntax used by `jq` version 1.7 can be [found on the Oniguruma GitHub repo][onig-syntax].
 
 <!-- prettier-ignore -->
 ~~~~exercism/caution
@@ -127,7 +127,6 @@ The `scan` filter is similar to `match` with the `"g"` flag.
 ```jq
 STRING | scan(REGEX)
 STRING | scan(REGEX; FLAGS)
-STRING | scan([REGEX, FLAGS])
 ```
 
 `scan` will output a _stream_ of substrings.
@@ -146,6 +145,17 @@ Use the `[...]` array constructor to capture the substrings.
 "Goodbye Mars" | [ scan("[aeiou]") ]
 # => ["o", "o", "e", "a"]
 ```
+
+~~~~exercism/note
+Note that jq v1.6 does _not_ implement the 2-argument `scan` function, even though the version 1.6 manual [says it does][manual-scan-1.6]:
+
+* [version 1.7 source code][src-scan-1.7]
+* [version 1.6 source code][src-scan-1.6]
+
+[manual-scan-1.6]: https://jqlang.github.io/jq/manual/v1.6/#scan
+[src-scan-1.7]: https://github.com/jqlang/jq/blob/11c528d04d76c9b9553781aa76b073e4f40da008/src/builtin.jq#L92)
+[src-scan-1.6]: https://github.com/jqlang/jq/blob/2e01ff1fb69609540b2bdc4e62a60499f2b2fb8e/src/builtin.jq#L90)
+~~~~
 
 #### Splitting a String
 
@@ -231,9 +241,9 @@ For example
 ```
 
 [oniguruma]: https://github.com/kkos/oniguruma
-[onig-syntax]: https://github.com/kkos/oniguruma/blob/6fa38f4084b448592888ed9ee43c6e90a46b5f5c/doc/RE
-[jq-regex-funcs]: https://stedolan.github.io/jq/manual/v1.6/#RegularexpressionsPCRE
-[jq-interp]: https://stedolan.github.io/jq/manual/v1.6/#Stringinterpolation-%5C(foo)
+[onig-syntax]: https://github.com/kkos/oniguruma/blob/v6.9.9/doc/RE
+[jq-regex-funcs]: https://jqlang.github.io/jq/manual/v1.7/#regular-expressions
+[jq-interp]: https://jqlang.github.io/jq/manual/v1.7/#string-interpolation
 
 ## Instructions
 
@@ -242,7 +252,7 @@ You have been hired as a Regular Expression Specialist in a company that is deve
 It is in a very basic phase of development.
 Your mission is to use Regular Expressions to improve the Chatbot's ability to understand and generate natural language.
 
-## Check Valid Command
+## 1. Check Valid Command
 
 Apart from being smart, the Chatbot is also a loyal assistant.
 To ask the Chatbot something, the user must say the word "**Chatbot**" in the first position of the command.
@@ -260,7 +270,7 @@ Implement the function `is_valid_command` that helps the Chatbot recognize when 
 # => true
 ```
 
-## Remove Encrypted Emojis
+## 2. Remove Encrypted Emojis
 
 The Chatbot has a difficult time understanding how humans use emojis to express their emotions.
 When the Chatbot receives user messages, each emoji is represented as the string "emoji" followed by an _id number_.
@@ -276,7 +286,7 @@ Do not adjust the whitespace.
 # => "I love playing videogames  it's one of my hobbies"
 ```
 
-## Check Valid Phone Number
+## 3. Check Valid Phone Number
 
 At some point in the interaction with the Chatbot, the user will provide a phone number.
 The Chatbot can only call a number with a specific format.
@@ -295,7 +305,7 @@ The expected format is `(+NN) NNN-NNN-NNN`, where N is a digit.
 # => "Oops, it seems like I can't reach out to 659-771-594."
 ```
 
-## Get Website Link
+## 4. Get Website Link
 
 The Chatbot is a really curious software.
 Even though it can search the internet for a particular topic, it likes to ask users about cool websites to visit to find relevant information.
@@ -313,7 +323,7 @@ Implement the function `get_domains` which returns an array of website domains.
 # => ["exercism.org", "google.com"]
 ```
 
-## Greet the User
+## 5. Greet the User
 
 A polite Chatbot will speak to users by name.
 When a user introduces themselves, our Chatbot will detect their name and respond with a friendly greeting.
@@ -327,7 +337,7 @@ If the input string contains "My name is Someone.", capture the name and return 
 # => "Nice to meet you, Jean-Luc"
 ```
 
-## Very Simple CSV Parsing
+## 6. Very Simple CSV Parsing
 
 Yielding to "creeping featuritis", we'll add a CSV parsing function to the Chatbot.
 

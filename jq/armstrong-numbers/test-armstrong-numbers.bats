@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2024-06-14T21:01:19Z
 load bats-extra
+load bats-jq
 
 @test 'Zero is an Armstrong number' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

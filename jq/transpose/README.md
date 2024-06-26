@@ -73,4 +73,4 @@ That means that if a column in the input text contains only spaces on its bottom
 
 ### Based on
 
-Reddit r/dailyprogrammer challenge #270 [Easy]. - https://www.reddit.com/r/dailyprogrammer/comments/4msu2x/challenge_270_easy_transpose_the_input_text
+Reddit r/dailyprogrammer challenge #270 [Easy]. - https://web.archive.org/web/20230630051421/https://old.reddit.com/r/dailyprogrammer/comments/4msu2x/challenge_270_easy_transpose_the_input_text/

@@ -16,7 +16,7 @@ def solve:
       goalBucket: (goal | Bucket::name),
       otherBucket: (other | Bucket::amount)
     }
-  ;
+;
 
   def _solve:
     # two base cases

@@ -3,30 +3,22 @@
 Welcome to Meetup on Exercism's jq Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
-## Instructions
+## Introduction
 
-Recurring monthly meetups are generally scheduled on the given weekday of a given week each month.
-In this exercise you will be given the recurring schedule, along with a month and year, and then asked to find the exact date of the meetup.
+Every month, your partner meets up with their best friend.
+Both of them have very busy schedules, making it challenging to find a suitable date!
+Given your own busy schedule, your partner always double-checks potential meetup dates with you:
 
-For example a meetup might be scheduled on the _first Monday_ of every month.
-You might then be asked to find the date that this meetup will happen in January 2018.
-In other words, you need to determine the date of the first Monday of January 2018.
+- "Can I meet up on the first Friday of next month?"
+- "What about the third Wednesday?"
+- "Maybe the last Sunday?"
 
-Similarly, you might be asked to find:
+In this month's call, your partner asked you this question:
 
-- the third Tuesday of August 2019 (August 20, 2019)
-- the teenth Wednesday of May 2020 (May 13, 2020)
-- the fourth Sunday of July 2021 (July 25, 2021)
-- the last Thursday of November 2022 (November 24, 2022)
+- "I'd like to meet up on the teenth Thursday; is that okay?"
 
-The descriptors you are expected to process are: `first`, `second`, `third`, `fourth`, `last`, `teenth`.
-
-Note that descriptor `teenth` is a made-up word.
-
-It refers to the seven numbers that end in '-teen' in English: 13, 14, 15, 16, 17, 18, and 19.
-But general descriptions of dates use ordinal numbers, e.g. the _first_ Monday, the _third_ Tuesday.
-
-For the numbers ending in '-teen', that becomes:
+Confused, you ask what a "teenth" day is.
+Your partner explains that a teenth day, a concept they made up, refers to the days in a month that end in '-teenth':
 
 - 13th (thirteenth)
 - 14th (fourteenth)
@@ -36,11 +28,32 @@ For the numbers ending in '-teen', that becomes:
 - 18th (eighteenth)
 - 19th (nineteenth)
 
-So there are seven numbers ending in '-teen'.
-And there are also seven weekdays (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday).
-Therefore, it is guaranteed that each day of the week (Monday, Tuesday, ...) will have exactly one numbered day ending with "teen" each month.
+As there are also seven weekdays, it is guaranteed that each day of the week has _exactly one_ teenth day each month.
 
-If asked to find the teenth Saturday of August, 1953 (or, alternately the "Saturteenth" of August, 1953), we need to look at the calendar for August 1953:
+Now that you understand the concept of a teenth day, you check your calendar.
+You don't have anything planned on the teenth Thursday, so you happily confirm the date with your partner.
+
+## Instructions
+
+Your task is to find the exact date of a meetup, given a month, year, weekday and week.
+
+There are five week values to consider: `first`, `second`, `third`, `fourth`, `last`, `teenth`.
+
+For example, you might be asked to find the date for the meetup on the first Monday in January 2018 (January 1, 2018).
+
+Similarly, you might be asked to find:
+
+- the third Tuesday of August 2019 (August 20, 2019)
+- the teenth Wednesday of May 2020 (May 13, 2020)
+- the fourth Sunday of July 2021 (July 25, 2021)
+- the last Thursday of November 2022 (November 24, 2022)
+- the teenth Saturday of August 1953 (August 15, 1953)
+
+## Teenth
+
+The teenth week refers to the seven days in a month that end in '-teenth' (13th, 14th, 15th, 16th, 17th, 18th and 19th).
+
+If asked to find the teenth Saturday of August, 1953, we check its calendar:
 
 ```plaintext
     August 1953
@@ -53,7 +66,7 @@ Su Mo Tu We Th Fr Sa
 30 31
 ```
 
-The Saturday that has a number ending in '-teen' is August 15, 1953.
+From this we find that the teenth Saturday is August 15, 1953.
 
 ## Source
 
@@ -63,4 +76,4 @@ The Saturday that has a number ending in '-teen' is August 15, 1953.
 
 ### Based on
 
-Jeremy Hinegardner mentioned a Boulder meetup that happens on the Wednesteenth of every month - https://twitter.com/copiousfreetime
+Jeremy Hinegardner mentioned a Boulder meetup that happens on the Wednesteenth of every month

@@ -52,7 +52,8 @@ To solve the exercise, you will need to know about conditional expressions.
 As an _expression_, it is placed in a pipeline.
 
 Then syntax is: `if CONDITION then TRUE_EXPR else FALSE_EXPR end`.
-The `else` clause is required in jq v1.6.
+
+The `else` clause is optional in jq v1.7, but it is required in jq v1.6.
 
 ```jq
 42 | if . < 33 then "small" else "larger" end
@@ -69,9 +70,9 @@ Additional conditions use `elif`
 # => "medium"
 ```
 
-[man-types]: https://stedolan.github.io/jq/manual/v1.6/#TypesandValues
-[man-math]: https://stedolan.github.io/jq/manual/v1.6/#Math
-[if-then-else]: https://stedolan.github.io/jq/manual/v1.6/#if-then-else
+[man-types]: https://jqlang.github.io/jq/manual/v1.7/#types-and-values
+[man-math]: https://jqlang.github.io/jq/manual/v1.7/#math
+[if-then-else]: https://jqlang.github.io/jq/manual/v1.7/#if-then-else-end
 
 ## Instructions
 

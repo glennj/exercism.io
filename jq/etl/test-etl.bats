@@ -1,6 +1,16 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:06Z
+# generated on 2023-11-07T18:49:21Z
 load bats-extra
+load bats-jq
+
+assert_objects_equal() {
+    local result=$(
+        jq -n --argjson actual "$1" \
+              --argjson expected "$2" \
+            '$actual == $expected'
+    )
+    [[ $result == "true" ]]
+}
 
 @test 'single letter' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
@@ -17,7 +27,7 @@ END_INPUT
 
     assert_success
     expected='{"a":1}'
-    assert_equal "$output" "$expected"
+    assert_objects_equal "$output" "$expected"
 }
 
 @test 'single score with multiple letters' {
@@ -39,7 +49,7 @@ END_INPUT
 
     assert_success
     expected='{"a":1,"e":1,"i":1,"o":1,"u":1}'
-    assert_equal "$output" "$expected"
+    assert_objects_equal "$output" "$expected"
 }
 
 @test 'multiple scores with multiple letters' {
@@ -62,7 +72,7 @@ END_INPUT
 
     assert_success
     expected='{"a":1,"d":2,"e":1,"g":2}'
-    assert_equal "$output" "$expected"
+    assert_objects_equal "$output" "$expected"
 }
 
 @test 'multiple scores with differing numbers of letters' {
@@ -117,6 +127,5 @@ END_INPUT
 
     assert_success
     expected='{"a":1,"b":3,"c":3,"d":2,"e":1,"f":4,"g":2,"h":4,"i":1,"j":8,"k":5,"l":1,"m":3,"n":1,"o":1,"p":3,"q":10,"r":1,"s":1,"t":1,"u":1,"v":4,"w":4,"x":8,"y":4,"z":10}'
-    assert_equal "$output" "$expected"
+    assert_objects_equal "$output" "$expected"
 }
-

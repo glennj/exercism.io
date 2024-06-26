@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 
 load bats-extra
+load bats-jq
 
 @test 'rotate a by 0, same output as input' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2023-01-03T20:57:23Z
 load bats-extra
+load bats-jq
 
 @test 'Orange and orange and black' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

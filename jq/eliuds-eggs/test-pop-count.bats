@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2023-10-18T13:03:37Z
 load bats-extra
+load bats-jq
 
 @test '0 eggs' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

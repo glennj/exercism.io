@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2024-06-07T20:49:24Z
 load bats-extra
+load bats-jq
 
 @test 'ay is added to words that start with vowels:word beginning with a' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
@@ -17,7 +18,7 @@ END_INPUT
 }
 
 @test 'ay is added to words that start with vowels:word beginning with e' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -31,7 +32,7 @@ END_INPUT
 }
 
 @test 'ay is added to words that start with vowels:word beginning with i' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -45,7 +46,7 @@ END_INPUT
 }
 
 @test 'ay is added to words that start with vowels:word beginning with o' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -59,7 +60,7 @@ END_INPUT
 }
 
 @test 'ay is added to words that start with vowels:word beginning with u' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -73,7 +74,7 @@ END_INPUT
 }
 
 @test 'ay is added to words that start with vowels:word beginning with a vowel and followed by a qu' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -87,7 +88,7 @@ END_INPUT
 }
 
 @test 'first letter and ay are moved to the end of words that start with consonants:word beginning with p' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -101,7 +102,7 @@ END_INPUT
 }
 
 @test 'first letter and ay are moved to the end of words that start with consonants:word beginning with k' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -115,7 +116,7 @@ END_INPUT
 }
 
 @test 'first letter and ay are moved to the end of words that start with consonants:word beginning with x' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -129,7 +130,7 @@ END_INPUT
 }
 
 @test 'first letter and ay are moved to the end of words that start with consonants:word beginning with q without a following u' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -143,7 +144,7 @@ END_INPUT
 }
 
 @test 'some letter clusters are treated like a single consonant:word beginning with ch' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -157,7 +158,7 @@ END_INPUT
 }
 
 @test 'some letter clusters are treated like a single consonant:word beginning with qu' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -171,7 +172,7 @@ END_INPUT
 }
 
 @test 'some letter clusters are treated like a single consonant:word beginning with qu and a preceding consonant' {
-    #  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -185,7 +186,7 @@ END_INPUT
 }
 
 @test 'some letter clusters are treated like a single consonant:word beginning with th' {
-    #  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -199,7 +200,7 @@ END_INPUT
 }
 
 @test 'some letter clusters are treated like a single consonant:word beginning with thr' {
-    #  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -213,7 +214,7 @@ END_INPUT
 }
 
 @test 'some letter clusters are treated like a single consonant:word beginning with sch' {
-    #  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -227,7 +228,7 @@ END_INPUT
 }
 
 @test 'some letter clusters are treated like a single vowel:word beginning with yt' {
-    #  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -241,7 +242,7 @@ END_INPUT
 }
 
 @test 'some letter clusters are treated like a single vowel:word beginning with xr' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -255,7 +256,7 @@ END_INPUT
 }
 
 @test 'position of y in a word determines if it is a consonant or a vowel:y is treated like a consonant at the beginning of a word' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -269,7 +270,7 @@ END_INPUT
 }
 
 @test 'position of y in a word determines if it is a consonant or a vowel:y is treated like a vowel at the end of a consonant cluster' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -283,7 +284,7 @@ END_INPUT
 }
 
 @test 'position of y in a word determines if it is a consonant or a vowel:y as second letter in two letter word' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -297,7 +298,7 @@ END_INPUT
 }
 
 @test 'phrases are translated:a whole phrase' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {

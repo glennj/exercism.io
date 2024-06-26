@@ -80,7 +80,7 @@ The same shortcut works in the reverse sense for _object construction_
 
 ### Constants
 
-As shows in the above example, variables are handy for storing constants.
+As shown in the above example, variables are handy for storing constants.
 It's better to give constants a name rather than have "magic numbers" show up in the code.
 
 ### Often variables are not needed

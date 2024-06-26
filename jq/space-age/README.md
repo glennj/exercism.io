@@ -3,31 +3,55 @@
 Welcome to Space Age on Exercism's jq Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
-## Instructions
+## Introduction
 
-Given an age in seconds, calculate how old someone would be on:
+The year is 2525 and you've just embarked on a journey to visit all planets in the Solar System (Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus and Neptune).
+The first stop is Mercury, where customs require you to fill out a form (bureaucracy is apparently _not_ Earth-specific).
+As you hand over the form to the customs officer, they scrutinize it and frown.
+"Do you _really_ expect me to believe you're just 50 years old?
+You must be closer to 200 years old!"
 
-- Mercury: orbital period 0.2408467 Earth years
-- Venus: orbital period 0.61519726 Earth years
-- Earth: orbital period 1.0 Earth years, 365.25 Earth days, or 31557600 seconds
-- Mars: orbital period 1.8808158 Earth years
-- Jupiter: orbital period 11.862615 Earth years
-- Saturn: orbital period 29.447498 Earth years
-- Uranus: orbital period 84.016846 Earth years
-- Neptune: orbital period 164.79132 Earth years
+Amused, you wait for the customs officer to start laughing, but they appear to be dead serious.
+You realize that you've entered your age in _Earth years_, but the officer expected it in _Mercury years_!
+As Mercury's orbital period around the sun is significantly shorter than Earth, you're actually a lot older in Mercury years.
+After some quick calculations, you're able to provide your age in Mercury Years.
+The customs officer smiles, satisfied, and waves you through.
+You make a mental note to pre-calculate your planet-specific age _before_ future customs checks, to avoid such mix-ups.
 
-So if you were told someone were 1,000,000,000 seconds old, you should
-be able to say that they're 31.69 Earth-years old.
-
+~~~~exercism/note
 If you're wondering why Pluto didn't make the cut, go watch [this YouTube video][pluto-video].
 
-Note: The actual length of one complete orbit of the Earth around the sun is closer to 365.256 days (1 sidereal year).
+[pluto-video]: https://www.youtube.com/watch?v=Z_2gbGXzFbs
+~~~~
+
+## Instructions
+
+Given an age in seconds, calculate how old someone would be on a planet in our Solar System.
+
+One Earth year equals 365.25 Earth days, or 31,557,600 seconds.
+If you were told someone was 1,000,000,000 seconds old, their age would be 31.69 Earth-years.
+
+For the other planets, you have to account for their orbital period in Earth Years:
+
+| Planet  | Orbital period in Earth Years |
+| ------- | ----------------------------- |
+| Mercury | 0.2408467                     |
+| Venus   | 0.61519726                    |
+| Earth   | 1.0                           |
+| Mars    | 1.8808158                     |
+| Jupiter | 11.862615                     |
+| Saturn  | 29.447498                     |
+| Uranus  | 84.016846                     |
+| Neptune | 164.79132                     |
+
+~~~~exercism/note
+The actual length of one complete orbit of the Earth around the sun is closer to 365.256 days (1 sidereal year).
 The Gregorian calendar has, on average, 365.2425 days.
 While not entirely accurate, 365.25 is the value used in this exercise.
 See [Year on Wikipedia][year] for more ways to measure a year.
 
-[pluto-video]: https://www.youtube.com/watch?v=Z_2gbGXzFbs
 [year]: https://en.wikipedia.org/wiki/Year#Summary
+~~~~
 
 ## Source
 

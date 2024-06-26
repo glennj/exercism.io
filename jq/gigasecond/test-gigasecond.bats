@@ -1,5 +1,6 @@
 #!/usr/bin/env bats
 load bats-extra
+load bats-jq
 
 # Ensure date calculations are done using UTC time zone
 export TZ=UTC

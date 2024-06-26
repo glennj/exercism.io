@@ -34,12 +34,12 @@
 - The pattern is "comma followed by zero or more whitespace".
 - We have to use the **2-arity** `split` filter; there are no flags that need to be specified.
 
-[flags]: https://stedolan.github.io/jq/manual/v1.6/#RegularexpressionsPCRE
-[regex-test]: https://stedolan.github.io/jq/manual/v1.6/#test(val),test(regex;flags)
-[regex-gsub]: https://stedolan.github.io/jq/manual/v1.6/#gsub(regex;string),gsub(regex;string;flags)
-[regex-match]: https://stedolan.github.io/jq/manual/v1.6/#match(val),match(regex;flags)
-[regex-scan]: https://stedolan.github.io/jq/manual/v1.6/#scan(regex),scan(regex;flags)
-[regex-split]: https://stedolan.github.io/jq/manual/v1.6/#split(regex;flags)
-[regex-capture]: https://stedolan.github.io/jq/manual/v1.6/#capture(val),capture(regex;flags)
+[flags]: https://jqlang.github.io/jq/manual/v1.7/#regular-expressions
+[regex-test]: https://jqlang.github.io/jq/manual/v1.7/#test
+[regex-gsub]: https://jqlang.github.io/jq/manual/v1.7/#gsub
+[regex-match]: https://jqlang.github.io/jq/manual/v1.7/#match
+[regex-scan]: https://jqlang.github.io/jq/manual/v1.7/#scan
+[regex-split]: https://jqlang.github.io/jq/manual/v1.7/#split-2
+[regex-capture]: https://jqlang.github.io/jq/manual/v1.7/#capture
 [named-capture]: https://riptutorial.com/regex/example/2479/named-capture-groups
 [phone-validation]: https://www.w3resource.com/javascript/form/phone-no-validation.php

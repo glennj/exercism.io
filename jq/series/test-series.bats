@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2023-08-25T15:56:38Z
 load bats-extra
+load bats-jq
 
 @test 'slices of one from one' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

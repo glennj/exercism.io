@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 
 load bats-extra
+load bats-jq
 
 @test 'empty sentence' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

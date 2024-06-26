@@ -24,5 +24,5 @@
 
 - The one-argument version of the [any][manual-any] filter will be appropriate.
 
-[manual-add]: https://stedolan.github.io/jq/manual/v1.6/#add
-[manual-any]: https://stedolan.github.io/jq/manual/v1.6/#all,all(condition),all(generator;condition)
+[manual-add]: https://jqlang.github.io/jq/manual/v1.7/#add
+[manual-any]: https://jqlang.github.io/jq/manual/v1.7/#any

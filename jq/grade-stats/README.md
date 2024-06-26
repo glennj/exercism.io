@@ -79,7 +79,7 @@ The `add` builtin is actually [implemented with `reduce`][jq-code-add], but uses
 def add: reduce .[] as $x (null; . + $x);
 ```
 
-
+[jq-code-add]: https://github.com/jqlang/jq/blob/jq-1.7/src/builtin.jq#L11
 ~~~~
 
 <!-- prettier-ignore-end -->
@@ -103,9 +103,8 @@ def add: reduce .[] as $x (null; . + $x);
   | reduce .[] as $elem ([]; [$elem] + .)       # => ["D", "C", "B", "A"]
   ```
 
-[jq-code-add]: https://github.com/stedolan/jq/blob/jq-1.6/src/builtin.jq#L11
-[jq-man-reduce]: https://stedolan.github.io/jq/manual/v1.6/#Reduce
-[jq-man-iterator]: https://stedolan.github.io/jq/manual/v1.6/#Array/ObjectValueIterator:.[]
+[jq-man-reduce]: https://jqlang.github.io/jq/manual/v1.7/#reduce
+[jq-man-iterator]: https://jqlang.github.io/jq/manual/v1.7/#array-object-value-iterator
 
 ## Instructions
 
@@ -113,7 +112,7 @@ You are a teacher.
 At the end of the year, you have generated a numeric grade for each of your students.
 Now you need to translate that to a letter grade and count how many students have achieved each letter grade
 
-## Translate a numeric grade to a letter grade
+## 1. Translate a numeric grade to a letter grade
 
 The `letter_grade` function will take a numeric grade as input, and it will output the letter.
 Use these ranges:
@@ -132,10 +131,10 @@ Example:
 75 | letter_grade   # => "C"
 ```
 
-## Count the number of students for each letter grade
+## 2. Count the number of students for each letter grade
 
-The function `count_letter_grades` will take an object mapping a student's name to their grade.
-The output will be an object mapping the letter grade to the number of students with that grade.
+The function `count_letter_grades` will take an object mapping student names to their grades.
+The output will be an object mapping each letter grade to the number of students with that grade.
 
 Example:
 

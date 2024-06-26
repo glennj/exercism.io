@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 
 load bats-extra
+load bats-jq
 
 assert_objects_equal() {
     local result=$(

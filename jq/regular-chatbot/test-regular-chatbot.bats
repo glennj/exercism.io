@@ -1,5 +1,6 @@
 #!/usr/bin/env bats
 load bats-extra
+load bats-jq
 
 @test 'recognizes a command at the first position' {
     ## task 1

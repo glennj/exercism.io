@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2022-11-02T20:59:34Z
 load bats-extra
+load bats-jq
 
 @test 'Empty RNA sequence results in no proteins' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

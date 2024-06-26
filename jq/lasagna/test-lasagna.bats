@@ -1,5 +1,6 @@
 #!/usr/bin/env bats
 load bats-extra
+load bats-jq
 
 assert_key_value() {
     local result
@@ -52,6 +53,13 @@ END_INPUT
 END_INPUT
     assert_success
     assert_key_value 8 "preparation_time"
+}
+
+@test "Calculate the preparation time with no layers specified (default 1)" {
+    ## task 3
+    run jq -f lasagna.jq --null-input
+    assert_success
+    assert_key_value 2 "preparation_time"
 }
 
 @test "Total time elapsed with one layers" {

@@ -3,69 +3,57 @@
 Welcome to Raindrops on Exercism's jq Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
+## Introduction
+
+Raindrops is a slightly more complex version of the FizzBuzz challenge, a classic interview question.
+
 ## Instructions
 
-Your task is to convert a number into a string that contains raindrop sounds corresponding to certain potential factors.
-A factor is a number that evenly divides into another number, leaving no remainder.
-The simplest way to test if one number is a factor of another is to use the [modulo operation][modulo].
+Your task is to convert a number into its corresponding raindrop sounds.
 
-The rules of `raindrops` are that if a given number:
+If a given number:
 
-- has 3 as a factor, add 'Pling' to the result.
-- has 5 as a factor, add 'Plang' to the result.
-- has 7 as a factor, add 'Plong' to the result.
-- _does not_ have any of 3, 5, or 7 as a factor, the result should be the digits of the number.
+- is divisible by 3, add "Pling" to the result.
+- is divisible by 5, add "Plang" to the result.
+- is divisible by 7, add "Plong" to the result.
+- **is not** divisible by 3, 5, or 7, the result should be the number as a string.
 
 ## Examples
 
-- 28 has 7 as a factor, but not 3 or 5, so the result would be "Plong".
-- 30 has both 3 and 5 as factors, but not 7, so the result would be "PlingPlang".
-- 34 is not factored by 3, 5, or 7, so the result would be "34".
+- 28 is divisible by 7, but not 3 or 5, so the result would be `"Plong"`.
+- 30 is divisible by 3 and 5, but not 7, so the result would be `"PlingPlang"`.
+- 34 is not divisible by 3, 5, or 7, so the result would be `"34"`.
 
+~~~~exercism/note
+A common way to test if one number is evenly divisible by another is to compare the [remainder][remainder] or [modulus][modulo] to zero.
+Most languages provide operators or functions for one (or both) of these.
+
+[remainder]: https://exercism.org/docs/programming/operators/remainder
 [modulo]: https://en.wikipedia.org/wiki/Modulo_operation
+~~~~
 
 ## `jq` Tips
 
 The [`if-then-else` expression][if] will be helpful in this exercise.
 
-One thing to note: the version of `jq` used in this track is **1.6**.
-In this version, the `else` clause is **required**.
-
 An example:
 
 ```jq
-8, 12
-| if . < 10
-    then "\(.) is less than ten"
-    else "\(.) is more than ten"
-  end
+8, 10, 12 | if . < 10 then "\(.) is less than ten"
+            elif . > 10 then "\(.) is more than ten"
+            else "\(.) equals ten"
+            end
 ```
 
 outputs
 
 ```json
 "8 is less than ten"
+"10 equals ten"
 "12 is more than ten"
 ```
 
-But
-
-```jq
-8, 12
-| if . < 10 then "\(.) is less than ten" end
-```
-
-outputs
-
-```none
-jq: error: syntax error, unexpected end (Unix shell quoting issues?) at <top-level>, line 2:
-| if . < 10 then "\(.) is less than ten" end
-jq: error: Possibly unterminated 'if' statement at <top-level>, line 2:
-| if . < 10 then "\(.) is less than ten" end
-jq: 2 compile errors
-```
-
-[if]: https://stedolan.github.io/jq/manual/v1.6/#if-then-else
+[if]: https://jqlang.github.io/jq/manual/v1.7/#if-then-else-end
 
 ## Source
 

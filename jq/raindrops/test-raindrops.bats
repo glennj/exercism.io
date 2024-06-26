@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2022-11-02T20:59:38Z
 load bats-extra
+load bats-jq
 
 @test 'the sound for 1 is 1' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

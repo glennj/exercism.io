@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2023-08-25T13:21:10Z
 load bats-extra
+load bats-jq
 
 @test 'single digit strings can not be valid' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

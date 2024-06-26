@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 
 load bats-extra
+load bats-jq
 
 @test 'finds a value in an array with one element' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
