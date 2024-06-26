@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2024-06-14T20:09:36Z
 load bats-extra
+load bats-jq
 
 @test 'finds the largest product if span equals length' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # generated on 2022-11-02T20:59:04Z
 load bats-extra
+load bats-jq
 
 @test 'Missed target' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip

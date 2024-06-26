@@ -1,5 +1,6 @@
 #!/usr/bin/env bats
 load bats-extra
+load bats-jq
 
 @test requires_a_license_for_a_car {
     ## task 1
