@@ -1,4 +1,13 @@
 import 'package:playground/playground.dart' as playground;
+import 'dart:math';
+
+extension on double {
+  double roundTo(int decimalPlaces) {
+    var x = pow(10, decimalPlaces);
+    return (this * x).round() / x;
+  }
+}
+
 
 class Factorial {
   var _fs = <int>[1, 1, 2, 6, 24];
@@ -72,4 +81,6 @@ void main(List<String> arguments) {
   print(permutations([1,2,3]));
   print(permutations([1,2,3,4,5]));
   //print([1,2,3].permutations());
+
+  print(pi.roundTo(2));
 }

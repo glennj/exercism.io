@@ -16,10 +16,13 @@ function decimal_reducer(a, b) {
     return ibase * a + b
 }
 
-{
-    n = split($0, idigits)
-    decimal = arrays::reduce(idigits, "decimal_reducer", 0)
+{ n = split($0, idigits) }
+n == 0 { print ""; next }
 
+{ decimal = arrays::reduce(idigits, "decimal_reducer", 0) }
+decimal == 0 { print 0; next }
+
+{
     arrays::init(odigits)
     while (decimal > 0) {
         arrays::push(odigits, decimal % obase)
