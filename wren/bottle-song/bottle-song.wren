@@ -1,4 +1,4 @@
-import "./byte" for Byte
+import "essentials" for Strings  // https://github.com/joshgoebel/wren-essentials
 
 class BottleSong {
   static recite(startBottles, takeDown) {
@@ -30,7 +30,7 @@ class BottleSong {
     v.add("%(bottle(n)) hanging on the wall,")
     v.add(v[0])
     v.add("And if one green bottle should accidentally fall,")
-    v.add("There'll be %(Byte.downcase(bottle(n-1))) hanging on the wall.")
+    v.add("There'll be %(Strings.downcase(bottle(n-1))) hanging on the wall.")
     return v
   }
 

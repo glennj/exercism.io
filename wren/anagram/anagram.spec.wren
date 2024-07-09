@@ -65,19 +65,27 @@ Testie.test("Anagram") { |do, skip|
   }
 
   do.test("does not detect an anagram if the original word is repeated") {
-    Expect.value(Anagram.find("go", ["go Go GO"])).toEqual([])
+    Expect.value(Anagram.find("go", ["goGoGO"])).toEqual([])
   }
 
   do.test("anagrams must use all letters exactly once") {
     Expect.value(Anagram.find("tapper", ["patter"])).toEqual([])
   }
 
-  do.test("words are not anagrams of themselves (case-insensitive)") {
-    Expect.value(Anagram.find("BANANA", ["BANANA", "Banana", "banana"])).toEqual([])
+  do.test("words are not anagrams of themselves") {
+    Expect.value(Anagram.find("BANANA", ["BANANA"])).toEqual([])
+  }
+
+  do.test("words are not anagrams of themselves even if letter case is partially different") {
+    Expect.value(Anagram.find("BANANA", ["Banana"])).toEqual([])
+  }
+
+  do.test("words are not anagrams of themselves even if letter case is completely different") {
+    Expect.value(Anagram.find("BANANA", ["banana"])).toEqual([])
   }
 
   do.test("words other than themselves can be anagrams") {
-    Expect.value(Anagram.find("LISTEN", ["Listen", "Silent", "LISTEN"])).toEqual([
+    Expect.value(Anagram.find("LISTEN", ["LISTEN", "Silent"])).toEqual([
       "Silent",
     ])
   }

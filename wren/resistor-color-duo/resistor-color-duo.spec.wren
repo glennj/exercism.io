@@ -14,11 +14,19 @@ Testie.test("Resistor Color Duo") { |do, skip|
     Expect.value(ResistorDuo.decodedValue(["yellow", "violet"])).toEqual(47)
   }
 
+  do.test("White and red") {
+    Expect.value(ResistorDuo.decodedValue(["white", "red"])).toEqual(92)
+  }
+
   do.test("Orange and orange") {
     Expect.value(ResistorDuo.decodedValue(["orange", "orange"])).toEqual(33)
   }
 
   do.test("Ignore additional colors") {
     Expect.value(ResistorDuo.decodedValue(["green", "brown", "orange"])).toEqual(51)
+  }
+ 
+  do.test("Black and brown, one-digit") {
+    Expect.value(ResistorDuo.decodedValue(["black", "brown"])).toEqual(1)
   }
 }

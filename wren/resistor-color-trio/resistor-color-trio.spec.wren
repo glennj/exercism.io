@@ -36,6 +36,36 @@ Testie.test("Resistor Color Trio") { |do, skip|
     )
   }
 
+  do.test("Blue and violet and blue") {
+    Expect.value(ResistorColorTrio.new(["blue", "violet", "blue"]).label).toEqual(
+      makeLabel.call({ "value": 67, "unit": "megaohms" })
+    )
+  }
+
+  do.test("Minimum possible value") {
+    Expect.value(ResistorColorTrio.new(["black", "black", "black"]).label).toEqual(
+      makeLabel.call({ "value": 0, "unit": "ohms" })
+    )
+  }
+
+  do.test("Maximum possible value") {
+    Expect.value(ResistorColorTrio.new(["white", "white", "white"]).label).toEqual(
+      makeLabel.call({ "value": 99, "unit": "gigaohms" })
+    )
+  }
+
+  do.test("First two colors make an invalid octal number") {
+    Expect.value(ResistorColorTrio.new(["black", "grey", "black"]).label).toEqual(
+      makeLabel.call({ "value": 8, "unit": "ohms" })
+    )
+  }
+
+  do.test("Ignore extra colors") {
+    Expect.value(ResistorColorTrio.new(["blue", "green", "yellow", "orange"]).label).toEqual(
+      makeLabel.call({ "value": 650, "unit": "kiloohms" })
+    )
+  }
+
   // optional: error
   do.test("Invalid color") {
     Expect.that {

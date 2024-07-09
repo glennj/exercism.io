@@ -198,6 +198,12 @@ Testie.test("Complex Numbers") { |do, skip|
       Expect.value(Math.approxEqual(c.real, -2)).toBe(true)
       Expect.value(Math.approxEqual(c.imag, 0)).toBe(true)
     }
+
+    do.test("Exponential resulting in a number with real and imaginary part") {
+      var c = ComplexNumber.new(2.log / 2, Num.pi / 4).exp
+      Expect.value(Math.approxEqual(c.real, 1)).toBe(true)
+      Expect.value(Math.approxEqual(c.imag, 1)).toBe(true)
+    }
   }
 
   do.describe("Operations between real numbers and complex numbers") {

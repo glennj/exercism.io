@@ -107,5 +107,10 @@ Testie.test("D&D Character") { |do, skip|
     var Drizzt = Character.new()
 
     Expect.value(Drizzt.strength).toEqual(Drizzt.strength)
+    Expect.value(Drizzt.dexterity).toEqual(Drizzt.dexterity)
+    Expect.value(Drizzt.constitution).toEqual(Drizzt.constitution)
+    Expect.value(Drizzt.intelligence).toEqual(Drizzt.intelligence)
+    Expect.value(Drizzt.wisdom).toEqual(Drizzt.wisdom)
+    Expect.value(Drizzt.charisma).toEqual(Drizzt.charisma)
   }
 }

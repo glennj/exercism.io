@@ -286,6 +286,13 @@ Testie.test("Allergies") { |do, skip|
         "cats",
       ])
     }
+
+    do.test("no allergen score parts without highest valid score") {
+      var allergies = Allergies.new(257)
+      Expect.value(allergies.list()).toIncludeSameItemsAs([
+        "eggs",
+      ])
+    }
   }
 
   do.describe("random allergies") {

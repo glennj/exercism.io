@@ -4,7 +4,10 @@ import "wren-testie/testie" for Testie, Expect
 Testie.test("FoodChain") { |do, skip|
   do.test("fly") {
     var actual = FoodChain.recite(1)
-    var expected = [ "I know an old lady who swallowed a fly.", "I don't know why she swallowed the fly. Perhaps she'll die." ]
+    var expected = [
+      "I know an old lady who swallowed a fly.",
+      "I don't know why she swallowed the fly. Perhaps she'll die."
+    ]
     Expect.value(actual).toEqual(expected)
   }
 

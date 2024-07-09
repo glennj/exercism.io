@@ -27,8 +27,8 @@ Testie.test("Bank account") { |do, skip|
     var account = BankAccount.new()
     account.open()
     account.deposit(100)
-    account.withdraw(50)
-    Expect.value(account.balance).toEqual(50)
+    account.withdraw(75)
+    Expect.value(account.balance).toEqual(25)
   }
 
   do.test("can withdraw money sequentially") {
@@ -38,6 +38,17 @@ Testie.test("Bank account") { |do, skip|
     account.withdraw(20)
     account.withdraw(80)
     Expect.value(account.balance).toEqual(0)
+  }
+
+  do.test("can do multiple operations sequentially") {
+    var account = BankAccount.new()
+    account.open()
+    account.deposit(100)
+    account.deposit(110)
+    account.withdraw(200)
+    account.deposit(60)
+    account.withdraw(50)
+    Expect.value(account.balance).toEqual(20)
   }
 
   do.test("checking balance of closed account throws error") {
@@ -58,6 +69,13 @@ Testie.test("Bank account") { |do, skip|
     }.abortsWith("Bank account error")
   }
 
+  do.test("deposit into unopened account throws error") {
+    var account = BankAccount.new()
+    Expect.that {
+      account.deposit(50)
+    }.abortsWith("Bank account error")
+  }
+
   do.test("withdraw from closed account throws error") {
     var account = BankAccount.new()
     account.open()
@@ -67,7 +85,7 @@ Testie.test("Bank account") { |do, skip|
     }.abortsWith("Bank account error")
   }
 
-  do.test("close already closed account throws error") {
+  do.test("close unopened account throws error") {
     var account = BankAccount.new()
     Expect.that {
       account.close()

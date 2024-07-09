@@ -34,6 +34,10 @@ Testie.test("Luhn") { |do, skip|
     Expect.that(Luhn.valid("1 2345 6789 1234 5678 9012")).toEqual(false)
   }
 
+  do.test("invalid long number with a remainder divisible by 5") {
+    Expect.that(Luhn.valid("1 2345 6789 1234 5678 9013")).toEqual(false)
+  }
+
   do.test("valid number with an even number of digits") {
     Expect.that(Luhn.valid("095 245 88")).toEqual(true)
   }
@@ -64,6 +68,14 @@ Testie.test("Luhn") { |do, skip|
 
   do.test("input digit 9 is correctly converted to output digit 9") {
     Expect.that(Luhn.valid("091")).toEqual(true)
+  }
+
+  do.test("very long input is valid") {
+    Expect.that(Luhn.valid("9999999999 9999999999 9999999999 9999999999")).toEqual(true)
+  }
+
+  do.test("valid luhn with an odd number of digits and non zero first digit") {
+    Expect.that(Luhn.valid("109")).toEqual(true)
   }
 
   do.test("using ascii value for non-doubled non-digit isn't allowed") {

@@ -58,6 +58,14 @@ Testie.test("Flatten Array") { |do, skip|
     Expect.value(Flatten.flatten([1, 2, null])).toEqual([1, 2])
   }
 
+  do.test("consecutive null values at the front of the list are omitted from the final result") {
+    Expect.value(Flatten.flatten([null, null, 3])).toEqual([3])
+  }
+
+  do.test("consecutive null values in the missle of the list are omitted from the final result") {
+    Expect.value(Flatten.flatten([1, null, null, 4])).toEqual([1, 4])
+  }
+
   do.test("6 level nest list with null values") {
     Expect.value(Flatten.flatten([0, 2, [[2, 3], 8, [[100]], null, [[null]]], -2])).toEqual([
       0,

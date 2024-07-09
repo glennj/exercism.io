@@ -122,6 +122,11 @@ Testie.test("CustomSet") { |do, skip|
       var actual = CustomSet.new([1, 2, 3]).eql(CustomSet.new([1, 2, 3, 4]))
       Expect.value(actual).toBe(false)
     }
+
+    do.test("set is equal to a set constructed from an array with duplicates") {
+      var actual = CustomSet.new([1]).eql(CustomSet.new([1, 1]))
+      Expect.value(actual).toBe(true)
+    }
   }
 
   do.describe("add: unique elements can be added to a set") {
@@ -204,6 +209,12 @@ Testie.test("CustomSet") { |do, skip|
     do.test("difference of two non-empty sets is a set of elements that are only in the first set") {
       var actual = CustomSet.new([3, 2, 1]).difference(CustomSet.new([2, 4]))
       var expected = CustomSet.new([1, 3])
+      Expect.value(actual.eql(expected)).toBe(true)
+    }
+
+    do.test("difference removes all duplicates in the first set") {
+      var actual = CustomSet.new([1, 1]).difference(CustomSet.new([1]))
+      var expected = CustomSet.new([])
       Expect.value(actual.eql(expected)).toBe(true)
     }
   }

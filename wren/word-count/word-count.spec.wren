@@ -81,8 +81,11 @@ Testie.test("Words") { |do, skip|
       "laugh": 1,
       "then": 1,
       "cry": 1,
+      "you're": 1,
+      "getting": 1,
+      "it": 1,
     }
-    Expect.value(Words.count("First: don't laugh. Then: don't cry.")).toEqual(
+    Expect.value(Words.count("First: don't laugh. Then: don't cry. You're getting it.")).toEqual(
       expectedCounts
     )
   }
@@ -132,5 +135,13 @@ Testie.test("Words") { |do, skip|
       "three": 1
     }
     Expect.value(Words.count(",\n,one,\n ,two \n 'three'")).toEqual(expectedCounts)
+  }
+
+  do.test("quotation for word with apostrophe") {
+    var expectedCounts = {
+      "can": 1,
+      "can't": 2,
+    }
+    Expect.value(Words.count("can, can't, 'can't'")).toEqual(expectedCounts)
   }
 }

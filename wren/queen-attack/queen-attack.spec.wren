@@ -84,6 +84,11 @@ Testie.test("Queens") { |do, skip|
       var queens = QueenAttack.new({ "white": [2, 6], "black": [5, 3] })
       Expect.value(queens.canAttack).toEqual(true)
     }
+
+    do.test("cannot attack if falling diagonals are only the same when reflected across the longest falling diagonal") {
+      var queens = QueenAttack.new({ "white": [4, 1], "black": [2, 5] })
+      Expect.value(queens.canAttack).toEqual(false)
+    }
   }
 
   do.describe("Test the board visualisation") {

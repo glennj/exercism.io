@@ -18,6 +18,10 @@ Testie.test("ISBN Verifier") { |do, skip|
     Expect.value(ISBN.new("3-598-21507-A").isValid).toEqual(false)
   }
 
+  do.test("invalid check digit in isbn is not treated as zero") {
+    Expect.value(ISBN.new("4-598-21507-B").isValid).toEqual(false)
+  }
+
   do.test("invalid character in isbn") {
     Expect.value(ISBN.new("3-598-P1581-X").isValid).toEqual(false)
   }
@@ -62,8 +66,12 @@ Testie.test("ISBN Verifier") { |do, skip|
     Expect.value(ISBN.new("134456729").isValid).toEqual(false)
   }
 
-  do.test("invalid characters are not ignored") {
+  do.test("invalid characters are not ignored after checking length") {
     Expect.value(ISBN.new("3132P34035").isValid).toEqual(false)
+  }
+
+  do.test("invalid characters are not ignored before checking length") {
+    Expect.value(ISBN.new("3598P215088").isValid).toEqual(false)
   }
 
   do.test("input is too long but contains a valid isbn") {

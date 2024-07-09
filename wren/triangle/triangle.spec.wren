@@ -87,8 +87,18 @@ Testie.test("Triangle") { |do, skip|
       Expect.value(triangle.isScalene).toBe(false)
     }
 
-    do.test("two sides are equal") {
+    do.test("first and second sides are equal") {
       var triangle = Triangle.new(4, 4, 3)
+      Expect.value(triangle.isScalene).toBe(false)
+    }
+
+    do.test("first and third sides are equal") {
+      var triangle = Triangle.new(3, 4, 3)
+      Expect.value(triangle.isScalene).toBe(false)
+    }
+
+    do.test("second and third sides are equal") {
+      var triangle = Triangle.new(4, 3, 3)
       Expect.value(triangle.isScalene).toBe(false)
     }
 
