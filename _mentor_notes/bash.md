@@ -48,6 +48,7 @@ Exercises
 * [grains](#grains)
 * [armstrong numbers](#armstrong-numbers)
 * [difference of squares](#difference-of-squares)
+* [word-count](#word-count)
 
 Be sure to check out [the community solutions](https://exercism.io/tracks/bash/exercises/__SLUG__/solutions) to see other approaches.
 
@@ -1810,6 +1811,26 @@ To get the formula to calculate the total, we can look at:
 <!-- -->
 
 bash by itself can handle this: the values for individual squares and the total all fit in a 64-bit integer. The key is to print the values as _unsigned integers_.
+
+<details><summary>Click for spoilers:</summary>
+  
+```sh
+$ echo $((2 ** 64 - 1))
+-1
+$ printf '%d\n' $((2 ** 64 - 1))
+-1
+$ printf '%u\n' $((2 ** 64 - 1))
+18446744073709551615
+```
+</details>
+
+<!-- ........................................................ -->
+## word-count
+
+* http://forum.exercism.org/t/false-fails-on-bash-word-count-tests/11872
+* https://unix.stackexchange.com/q/627474/4667
+* https://exercism.org/tracks/bash/exercises/word-count/solutions/glennj
+
 
 <!-- ........................................................ -->
 ## difference of squares

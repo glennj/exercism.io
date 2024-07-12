@@ -2,6 +2,7 @@
 
 TOC
 * [Welcome back to Tcl](#welcome-back-to-tcl)
+* [Expressions](#expressions)
 * [Exception Handling](#exception-handling)
 * [indices](#indices)
 * [uplevel and upvar](#uplevel-and-upvar)
@@ -23,8 +24,8 @@ Exercises
 
 To catch up with Tcl 8.6, you might want to:
 * refresh your memory about 
-  [the dodekalogue](http://www.tcl-lang.org/man/tcl8.6/TclCmd/Tcl.htm) and the
-  [available commands](http://www.tcl-lang.org/man/tcl8.6/TclCmd/contents.htm)
+  [the dodekalogue][man-Tcl] and the
+  [available commands][man-contents]
 * read about [OO programming in Tcl](https://www.magicsplat.com/articles/oo.html)
 
 ---
@@ -32,7 +33,7 @@ To catch up with Tcl 8.6, you might want to:
 
 ## Exception Handling
 
-Tcl 8.6 introduced the [`try` command](http://www.tcl-lang.org/man/tcl8.6/TclCmd/try.htm).
+Tcl 8.6 introduced the [`try` command][man-try].
 This encapsulates a lot of the uses of `catch`
 
 ```tcl
@@ -59,6 +60,29 @@ divide by zero
 ARITH DIVZERO {divide by zero}
 ```
 So the error to be trapped is `lrange $errorCode 0 end-1`
+
+---
+<!-- #################################################### -->
+
+## Expressions
+
+The first argument to [`if`][man-if] and [`while`][man-while] and the 2nd argument to [`for`][man-for] are already handled by (the internal guts of) `expr`.
+It's not necessary to explicitly call [`expr`][man-expr]:
+
+```tcl
+for {set x 1} {$x <= [expr [llength $prec_row] - 1]} {incr x} {
+#
+for {set x 1} {$x <= [llength $prec_row] - 1} {incr x} {
+```
+
+There's a micro-optimization to make there: you don't need to recalcuate the list length for every iteration
+```tcl
+set len [llength $prec_row]
+for {set x 1} {$x <= $len - 1} {incr x} {
+```
+
+
+## Welcome back to Tcl
 
 <!-- #################################################### -->
 
@@ -90,7 +114,7 @@ of the string man page (lindex indices use the same rules).
 
 When you have a proc that receives a script to evaluate, you want to do the
 evaluation in _the **caller's** stack frame_.  You have to use the
-[`uplevel`](http://www.tcl-lang.org/man/tcl8.6/TclCmd/uplevel.htm) command
+[`uplevel`][man-uplevel] command
 to perform the script in the same context it was defined.
 I can provide more details if you want.
 
@@ -414,3 +438,12 @@ The ideal would be to have the output string hardcoded only once.
 Read the [`proc`](http://www.tcl-lang.org/man/tcl8.6/TclCmd/proc.htm) man
 page to learn about how to specify the default value in the argument list.
 
+
+[man-Tcl]: http://www.tcl-lang.org/man/tcl8.6/TclCmd/Tcl.htm 
+[man-contents]: http://www.tcl-lang.org/man/tcl8.6/TclCmd/contents.htm 
+[man-if]: http://www.tcl-lang.org/man/tcl8.6/TclCmd/if.htm
+[man-while]: http://www.tcl-lang.org/man/tcl8.6/TclCmd/while.htm
+[man-for]: http://www.tcl-lang.org/man/tcl8.6/TclCmd/for.htm
+[man-expr]: http://www.tcl-lang.org/man/tcl8.6/TclCmd/expr.htm 
+[man-try]: http://www.tcl-lang.org/man/tcl8.6/TclCmd/try.htm 
+[man-uplevel]: http://www.tcl-lang.org/man/tcl8.6/TclCmd/uplevel.htm 

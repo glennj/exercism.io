@@ -8,14 +8,9 @@ def steps:
     end
   ;
 
-  def _steps:
-    . as [$num, $step]
-    | if $num == 1
-        then $step
-        else [($num | _next_collatz), $step + 1] | _steps
-      end
-  ;
+  # `while` outputs the current value at each iteration.
+  # Capture the outputs and count them for the number of steps.
 
   assert(. > 0; "Only positive integers are allowed")
-  | [., 0] | _steps
+  | [while (. != 1; _next_collatz)] | length
 ;
