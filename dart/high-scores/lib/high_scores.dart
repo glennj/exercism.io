@@ -10,8 +10,8 @@ class HighScores {
   int personalBest() => maxOf(this.scores);
 
   List<int> personalTopThree() {
-    List<int> copy = List.from(this.scores);
-    copy.sort((a, b) => b - a);
-    return copy.take(3).toList();
+    // cascade notation
+    List<int> sorted = List.from(this.scores)..sort((a, b) => b - a);
+    return sorted.take(3).toList();
   }
 }
