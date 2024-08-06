@@ -9,11 +9,50 @@ git checkout pubspec.lock
 
 ---
 
-Since you have a function that returns a single expression, you can write it with [arrow notation](https://dart.dev/language/functions)
+    Since you have a function that returns a single expression, you can write it with [arrow notation](https://dart.dev/language/functions)
+    ```dart
+    int add(int a, int b) {
+    return a + b;
+    }
+    // or
+    int add(int a, int b) => a + b;
+    ```
+
+    This isn't necessarily an "improvement", more a matter of style.
+
+---
+
+This is a common anti-pattern:
 ```dart
-int add(int a, int b) {
-  return a + b;
+if (cond) {
+  return true;
+} else {
+  return false;
 }
-// or
-int add(int a, int b) => a + b;
 ```
+`cond` is already an expression that evaluates to a boolean value. You can return it directly.
+```dart
+return cond;
+```
+
+And then, if that's the only code in the function
+```dart
+bool myFunc(...) {
+  return cond;
+}
+```
+<!--
+then you can use Dart's [arrow notation](https://dart.dev/language/functions)
+-->
+then you can use Dart's [arrow notation](https://dart.dev/resources/dart-cheatsheet#arrow-syntax)
+```dart
+bool myFunc(...) => cond;
+```
+
+--- <!-- two-fer -->
+
+Instead of using an `if` statement, you can provide the default value in the function signature.
+<!--
+See [Optional positional parameters](https://dart.dev/language/functions#optional-positional-parameters) in the manual.
+-->
+See [Optional positional parameters](https://dart.dev/resources/dart-cheatsheet#optional-positional-parameters) in the Dart cheatsheet.

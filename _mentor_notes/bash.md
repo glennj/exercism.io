@@ -449,6 +449,10 @@ You can write
 ```bash
 (( total += increment ))
 ```
+And if the increment is 1
+```bash
+(( total++ ))
+```
 </details>
 
 <!-- -->
@@ -604,10 +608,11 @@ var="x";   echo ":+>${var:+alt1}"; echo " +>${var+alt2}"
 
 Get out of the habit of using ALLCAPS variable names, leave those as
 reserved by the shell. One day you'll write `PATH=something` and then
-[wonder](https://stackoverflow.com/q/27555060/7552) 
-[why](https://stackoverflow.com/q/28310594/7552).
-your script is
-[broken](https://unix.stackexchange.com/q/114596/4667) 
+wonder why your script is broken (
+[1](https://stackoverflow.com/q/27555060/7552), 
+[2](https://stackoverflow.com/q/28310594/7552),
+[3](https://unix.stackexchange.com/q/114596/4667) 
+).
 
 If you're using ALLCAPS to indicate a constant, use the `readonly` or
 `declare -r` builtins to let the shell know too.

@@ -67,6 +67,35 @@ in myfunc, a=10 and b=20
 after, a=1 and b=20
 ```
 
+---
+
+All AWK variables are global in scope, with one exception:
+function parameters are scoped to the function.
+This means, if you have variables in your function that should be "local",
+put them in the argument list.
+
+```awk
+function add(a, b,    total) {
+    total = a + b
+    return total
+}
+BEGIN {
+    print add(3, 4)
+    print "total is:", total
+}
+```
+outputs:
+```none
+7
+total is:
+```
+The BEGIN scope cannot see the `total` variable from the function.
+
+It is customary to separate "required" args from "local" args with 4 or more spaces.
+
+AWK doesn't mind if you pass it fewer arguments than appear in the args list.
+Those arguments are undefined until you define them.
+
 ## Exercises
 
 <!-- ------------------------------------- -->
