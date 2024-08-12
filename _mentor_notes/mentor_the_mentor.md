@@ -36,6 +36,8 @@ Have fun with the next exercise; feel free to post here if you have more comment
 <!-- -->
 If you're satisfied with this solution, feel free to "End discussion" to finalize the mentoring process.
 
+Whenever you're ready to move on, feel free to "End discussion".
+
 
 "
 Sometimes the test runner infrastructure can be a bit flaky.

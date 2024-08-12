@@ -9,16 +9,16 @@ git checkout pubspec.lock
 
 ---
 
-    Since you have a function that returns a single expression, you can write it with [arrow notation](https://dart.dev/language/functions)
-    ```dart
-    int add(int a, int b) {
-    return a + b;
-    }
-    // or
-    int add(int a, int b) => a + b;
-    ```
+Since you have a function that returns a single expression, you can write it with [arrow notation](https://dart.dev/language/functions)
+```dart
+int add(int a, int b) {
+  return a + b;
+}
+// or
+int add(int a, int b) => a + b;
+```
 
-    This isn't necessarily an "improvement", more a matter of style.
+This isn't necessarily an "improvement", more a matter of style.
 
 ---
 

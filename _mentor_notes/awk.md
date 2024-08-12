@@ -6,7 +6,6 @@
 - [Built-in Funtions](https://www.gnu.org/software/gawk/manual/html_node/Built_002din.html)
 - [Stack Overflow \[awk\] info page](https://stackoverflow.com/tags/awk/info)
 
-
 ## including files
 
 gawk lets you pull in library files with the [`@include` directive][include].
@@ -107,6 +106,28 @@ A more awk-ish way to approach this:
 * for each subsequent line, if the line is not empty then overwrite the variable with the contents of the line.
 * in the END block, print the output.
 
+### raindrops
+
+The last thing I'd like to mention is the divisors 3, 5, 7. You use those (correctly IMO) as the indexes in the drops array. But then they are hardcoded again in the for loop on line 10
+
+awk has a looping mechanism to iterate over the indexes of an array:
+```awk
+for (index in array) {...}
+```
+
+<details><summary>That may or may not iterate over the indexes in the the correct order; click for reasons:</summary>
+  
+---
+  
+Keep in mind that awk only has one kind of array, the associative array. The default iteration order is undefined (this is common to many programming languages).
+
+GNU awk lets you control the iteration order in several ways
+* order by _index_, numerically or alphabetically, increasing or decreasing
+* order by _value_, numerically or alphabetically, increasing or decreasing
+* with a custom sorting function
+
+More details at [Using Predefined Array Scanning Orders with gawk](https://www.gnu.org/software/gawk/manual/html_node/Controlling-Array-Traversal.html) in the manual.
+</details>
 
 
 ---

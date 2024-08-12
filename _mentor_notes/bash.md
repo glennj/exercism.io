@@ -550,6 +550,80 @@ Because the 2nd arithmetic expression had value zero, the command returned
 1, and then the shell exited (with status 1) due to `set -e`.
 
 
+<!-- https://exercism.org/mentoring/discussions/781195efb84d49c9918ebf1de53f953a
+ -->
+
+Thanks for your comment. I'll try to be more clear.
+
+`((...))` is the "arithmetic conditional" construct (see 
+[Conditional Constructs](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs)
+and scroll down to `((...))` -- there's no direct link).
+It's called a conditional construct because it can be used in an `if` command
+```bash
+if (( x == y + 1 )); then ...
+
+# that looks nicer than
+if [[ $x -eq $((y + 1)) ]]; then ...
+```
+In this context, we don't need to capture the _numerical result_ of the arithmetic expression, we only care about its _exit status_ 
+* the `if` command executes the `then` commands if the condition is "true" (a zero exit status) or
+* it executes the `else` commands if the condition is "false" (a non-zero exit status)
+
+`$((...))` is the [arithmetic expansion](https://www.gnu.org/software/bash/manual/bash.html#Arithmetic-Expansion) construct.
+The expression is evaluated and the numerical result is returned and can be captured in a variable.
+```bash
+z=$((z + 10))
+```
+
+Because variables can be modified in an arithmetic expression, it is cleaner (less "noisy") to use the conditional construct sometimes
+```bash
+((z += 10))
+```
+
+When we do it this way, we are not interested in the exit status.
+But we have to be aware there is one.
+
+What about `set -e`?
+
+Some people like to use a bash "strict mode" 
+([here](https://olivergondza.github.io/2019/10/01/bash-strict-mode.html) or
+[here](http://redsymbol.net/articles/unofficial-bash-strict-mode/)).
+In this "strict mode", if any command fails unexpectedly, then the script immediately aborts.
+Often that's what you want.
+Consider a script in a CI pipeline
+```bash
+#!/usr/bin/env bash
+build_the_thing
+deploy_the_thing
+```
+If the build step fails, you don't want to deploy it.
+
+The intent of this "strict mode" is to force the programmer to think about what can go wrong and handle it properly
+```bash
+#!/usr/bin/env bash
+build_the_thing && deploy_the_thing
+```
+or
+```bash
+#!/usr/bin/env bash
+if ! build_the_thing; then
+    echo "The build failed!" >&2
+    exit 1
+fi
+if ! deploy_the_thing; then
+    echo "Deployment failed!" >&2
+    exit 1
+fi
+```
+
+But bash has many many gotchas. Using the arithmetic conditional for "normal" math is one of them. You wouldn't expect `((count++))` to abort your script, but it can with `set -e` enabled.
+This forces the programmer to write things like
+```bash
+((count++)) || true
+```
+
+There's a detailed discussion about this at [BashPitfalls](http://mywiki.wooledge.org/BashPitfalls#set_-euo_pipefail)
+
 <!-- -->
 
 For check a value is in a range, instead of
