@@ -1,15 +1,15 @@
 #!/usr/bin/env gawk -f
 
 BEGIN {
-    if (num % 3 == 0) drops = drops "Pling"
-    if (num % 5 == 0) drops = drops "Plang"
-    if (num % 7 == 0) drops = drops "Plong"
+    # https://www.gnu.org/software/gawk/manual/html_node/Controlling-Scanning.html
+    PROCINFO["sorted_in"] = "@ind_num_asc"
 
-    if (drops)
-        print (drops ? drops : num)
-    else
-        print num
+    sounds[3] = "i"; sounds[5] = "a"; sounds[7] = "o"
+    drops = ""
 
-    # or
-    #   print (drops ? drops : num)
+    for (divisor in sounds)
+        if (num % divisor == 0)
+            drops = sprintf("%sPl%sng", drops, sounds[divisor])
+
+    print (drops ? drops : num)
 }
