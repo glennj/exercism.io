@@ -49,10 +49,33 @@ then you can use Dart's [arrow notation](https://dart.dev/resources/dart-cheatsh
 bool myFunc(...) => cond;
 ```
 
---- <!-- two-fer -->
+---
+
+When you find yourself doing
+```dart
+var result = SomeCollection();
+someList.forEach((elem) {
+    result = result + someFunc(elem)
+});
+```
+
+you can use a more functional style with [`fold`](https://api.dart.dev/stable/3.5.0/dart-core/Iterable/fold.html)
+```dart
+var result = someList.fold(
+    SomeCollection(),
+    (acc, elem) => acc + someFunc(elem)
+);
+```
+The return value from the 2nd argument becomes the accumulator value for the next iteration.
+
+---
+
+<!-- two-fer -->
 
 Instead of using an `if` statement, you can provide the default value in the function signature.
 <!--
 See [Optional positional parameters](https://dart.dev/language/functions#optional-positional-parameters) in the manual.
 -->
 See [Optional positional parameters](https://dart.dev/resources/dart-cheatsheet#optional-positional-parameters) in the Dart cheatsheet.
+
+

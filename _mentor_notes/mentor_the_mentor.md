@@ -30,6 +30,12 @@ IFS=';' read -r a b c <<<"$line"
   </details>
 </details>
 
+## when a student ends a session without applying suggestions
+
+You'll get more learning from a mentoring session if you apply the suggestions and submit new iterations.
+Often new questions come up in the back-and-forth between student and mentor that increase the benefits.
+
+
 ## Ending a mentoring conversation:
 
 Have fun with the next exercise; feel free to post here if you have more comments or questions.

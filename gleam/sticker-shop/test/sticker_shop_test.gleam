@@ -63,8 +63,7 @@ pub fn dollar_test() {
 }
 
 pub fn euro_test() {
-  let money: Money(Eur) = sticker_shop.euro(1)
-  should.equal(money, sticker_shop.euro(1))
+  let _money: Money(Eur) = sticker_shop.euro(1)
 }
 
 pub fn yen_test() {
@@ -95,12 +94,12 @@ pub fn total_euros_test() {
 
 pub fn total_yen_test() {
   [
-    sticker_shop.euro(480),
-    sticker_shop.euro(340),
-    sticker_shop.euro(455),
-    sticker_shop.euro(165),
-    sticker_shop.euro(100),
+    sticker_shop.yen(480),
+    sticker_shop.yen(340),
+    sticker_shop.yen(455),
+    sticker_shop.yen(165),
+    sticker_shop.yen(100),
   ]
   |> sticker_shop.total
-  |> should.equal(sticker_shop.euro(1540))
+  |> should.equal(sticker_shop.yen(1540))
 }
