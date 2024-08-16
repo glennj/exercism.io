@@ -1,5 +1,5 @@
 import gleam/list
-import student.{type Student}
+import student.{type Student, Student}
 
 pub type School =
   List(Student)
@@ -16,7 +16,7 @@ pub fn add(
   case contains(school, name) {
     True -> Error(Nil)
     False ->
-      [student.new(name, grade), ..school]
+      [Student(name, grade), ..school]
       |> list.sort(student.compare)
       |> Ok()
   }
