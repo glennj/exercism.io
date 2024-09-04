@@ -35,26 +35,6 @@
     "new": false
   },
   {
-    "repo": "exercism/analyzer-builder",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/analyzer-orchestrator",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/analyzer-pipeline",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/arkov",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
     "repo": "exercism/arm32-assembly",
     "status": "UNSUBSCRIBED",
     "new": false
@@ -80,16 +60,6 @@
     "new": false
   },
   {
-    "repo": "exercism/automated-analysis",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/automated-tests",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
     "repo": "exercism/awk",
     "status": "SUBSCRIBED",
     "new": false
@@ -97,11 +67,6 @@
   {
     "repo": "exercism/awk-test-runner",
     "status": "SUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/babashka",
-    "status": "UNSUBSCRIBED",
     "new": false
   },
   {
@@ -161,11 +126,6 @@
   },
   {
     "repo": "exercism/bitcoin",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/blazon",
     "status": "UNSUBSCRIBED",
     "new": false
   },
@@ -256,12 +216,7 @@
   },
   {
     "repo": "exercism/cli",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/cli.exercism.io",
-    "status": "UNSUBSCRIBED",
+    "status": "SUBSCRIBED",
     "new": false
   },
   {
@@ -281,11 +236,6 @@
   },
   {
     "repo": "exercism/clojure-test-runner",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/clojurescript",
     "status": "UNSUBSCRIBED",
     "new": false
   },
@@ -371,12 +321,7 @@
   },
   {
     "repo": "exercism/configlet",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/contributors",
-    "status": "UNSUBSCRIBED",
+    "status": "SUBSCRIBED",
     "new": false
   },
   {
@@ -470,79 +415,9 @@
     "new": false
   },
   {
-    "repo": "exercism/DEPRECATED-ada",
+    "repo": "exercism/delphi-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/deprecated-mentors",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/DEPRECATED.blog",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/DEPRECATED.cli-www",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/DEPRECATED.eio-api",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/DEPRECATED.ember-experiment",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/DEPRECATED.exercism.rb",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/DEPRECATED.help.exercism.io",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/DEPRECATED.javascript",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/DEPRECATED.rikki",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/DEPRECATED.rikki-ruby-analyzer",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/DEPRECATED.synopsis",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/DEPRECATED.trackler",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/DEPRECATED.v2-feedback",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/DEPRECATED.x-api",
-    "status": "UNSUBSCRIBED",
-    "new": false
+    "new": true
   },
   {
     "repo": "exercism/development-environment",
@@ -685,11 +560,6 @@
     "new": false
   },
   {
-    "repo": "exercism/exercism-pharo-tooling",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
     "repo": "exercism/Exercism.jl",
     "status": "UNSUBSCRIBED",
     "new": false
@@ -700,13 +570,8 @@
     "new": false
   },
   {
-    "repo": "exercism/fake",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
     "repo": "exercism/forth",
-    "status": "UNSUBSCRIBED",
+    "status": "SUBSCRIBED",
     "new": false
   },
   {
@@ -800,16 +665,6 @@
     "new": false
   },
   {
-    "repo": "exercism/gha-push-to-ecr",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/git-server",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
     "repo": "exercism/github-actions",
     "status": "SUBSCRIBED",
     "new": false
@@ -831,11 +686,6 @@
   },
   {
     "repo": "exercism/gleam-test-runner",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/gnu-apl",
     "status": "UNSUBSCRIBED",
     "new": false
   },
@@ -872,11 +722,6 @@
   {
     "repo": "exercism/groovy-test-runner",
     "status": "SUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/gui",
-    "status": "UNSUBSCRIBED",
     "new": false
   },
   {
@@ -925,22 +770,12 @@
     "new": false
   },
   {
-    "repo": "exercism/heartbeat",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
     "repo": "exercism/highlightjs-arturo",
     "status": "UNSUBSCRIBED",
     "new": false
   },
   {
     "repo": "exercism/highlightjs-gdscript",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/hiring-frontend-developer",
     "status": "UNSUBSCRIBED",
     "new": false
   },
@@ -991,16 +826,6 @@
   },
   {
     "repo": "exercism/j",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/j-analyzer",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/j-representer",
     "status": "UNSUBSCRIBED",
     "new": false
   },
@@ -1120,11 +945,6 @@
     "new": false
   },
   {
-    "repo": "exercism/legacy-docs",
-    "status": "SUBSCRIBED",
-    "new": false
-  },
-  {
     "repo": "exercism/lfe",
     "status": "UNSUBSCRIBED",
     "new": false
@@ -1150,42 +970,12 @@
     "new": false
   },
   {
-    "repo": "exercism/maintainer-sync",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/maintenance-mode",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/marketing",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/mentoring.exercism.io",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/meta",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
     "repo": "exercism/mips",
     "status": "UNSUBSCRIBED",
     "new": false
   },
   {
     "repo": "exercism/mips-test-runner",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/nginx-codebuild",
     "status": "UNSUBSCRIBED",
     "new": false
   },
@@ -1206,11 +996,6 @@
   },
   {
     "repo": "exercism/nim-test-runner",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/nix",
     "status": "UNSUBSCRIBED",
     "new": false
   },
@@ -1391,7 +1176,7 @@
   },
   {
     "repo": "exercism/pyret-test-runner",
-    "status": "UNSUBSCRIBED",
+    "status": "SUBSCRIBED",
     "new": false
   },
   {
@@ -1486,11 +1271,6 @@
   },
   {
     "repo": "exercism/red-test-runner",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/representer-dev-invoker",
     "status": "UNSUBSCRIBED",
     "new": false
   },
@@ -1600,11 +1380,6 @@
     "new": false
   },
   {
-    "repo": "exercism/seeds",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
     "repo": "exercism/shen",
     "status": "UNSUBSCRIBED",
     "new": false
@@ -1647,11 +1422,6 @@
   {
     "repo": "exercism/sqlite-test-runner",
     "status": "SUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/stub-analyzer",
-    "status": "UNSUBSCRIBED",
     "new": false
   },
   {
@@ -1710,26 +1480,6 @@
     "new": false
   },
   {
-    "repo": "exercism/test-maintainer-sync",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/test-runner-dev-invoker",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/test-runner-orchestrator",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/test-runner-orchestrator-old",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
     "repo": "exercism/tokei",
     "status": "UNSUBSCRIBED",
     "new": false
@@ -1746,11 +1496,6 @@
   },
   {
     "repo": "exercism/tooling-orchestrator",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/tooling-webserver",
     "status": "UNSUBSCRIBED",
     "new": false
   },
@@ -1795,32 +1540,7 @@
     "new": false
   },
   {
-    "repo": "exercism/v2-configlet",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/v2-migration-holding-page",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/v2-website",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/v3",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
     "repo": "exercism/v3-beta",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/v3-countdown",
     "status": "UNSUBSCRIBED",
     "new": false
   },
@@ -1830,17 +1550,7 @@
     "new": false
   },
   {
-    "repo": "exercism/v3-files",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
     "repo": "exercism/v3-launch",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/v3-website-bk",
     "status": "UNSUBSCRIBED",
     "new": false
   },
@@ -1961,11 +1671,6 @@
   },
   {
     "repo": "exercism/yamlscript-test-runner",
-    "status": "UNSUBSCRIBED",
-    "new": false
-  },
-  {
-    "repo": "exercism/z3",
     "status": "UNSUBSCRIBED",
     "new": false
   },

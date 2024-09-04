@@ -1,1 +1,1 @@
-Ref https://github.com/exercism/gh-notifications-manager
+../../gh-notifications-manager/README.md
