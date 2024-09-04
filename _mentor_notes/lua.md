@@ -1,5 +1,20 @@
 A caveat: I'm not a Lua programmer, though I did complete the track.
 
+## exercise: leap
+
+This is a common anti-pattern:
+```lua
+if cond then
+  return true
+else
+  return false
+end
+```
+`cond` is already an expression that evaluates to a boolean value. You can return it directly.
+```lua
+return cond
+```
+
 # metatables and metamethods
 
 https://exercism.org/mentoring/discussions/e43b7d8df6b348e48e39909bc5f2b815

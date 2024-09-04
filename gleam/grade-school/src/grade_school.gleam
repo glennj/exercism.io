@@ -1,5 +1,8 @@
 import gleam/list
-import student.{type Student, Student}
+import student.{
+  type Student,   // import the type,
+  Student         // and also the constructor function.
+}
 
 pub type School =
   List(Student)

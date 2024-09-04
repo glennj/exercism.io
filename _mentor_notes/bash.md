@@ -1610,6 +1610,27 @@ and scroll down to `((...))`
 ---
 </details>
 
+
+<details><summary>Instead of putting an arithmetic expansion inside the
+string-oriented <code>[...]</code>, you can use the arithmetic conditional
+construct. Click for details.</summary>
+
+---
+
+Instead of this
+```bash
+if [ $(( $1 % num )) -eq 0 ]; then
+```
+you can do this
+```bash
+if (( $1 % num == 0 )); then
+```
+see [here in the
+manual](https://www.gnu.org/software/bash/manual/bash.html#Conditional-Constructs)
+and scroll down to `((...))`
+</details>
+
+
 <!-- -->
 
 <details><summary>For maximum brevity, you can use the 
