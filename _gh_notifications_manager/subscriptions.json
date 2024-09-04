@@ -417,7 +417,7 @@
   {
     "repo": "exercism/delphi-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/development-environment",
