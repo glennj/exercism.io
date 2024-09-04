@@ -2,1986 +2,1986 @@
   {
     "repo": "exercism/.github",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/05ab1e",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/8th",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/8th-test-runner",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/abap",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/abap-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/admonition-block-formatter",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/analyzer-builder",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/analyzer-orchestrator",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/analyzer-pipeline",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/arkov",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/arm32-assembly",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/arm64-assembly",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/arm64-assembly-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/arturo",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/arturo-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/automated-analysis",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/automated-tests",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/awk",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/awk-test-runner",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/babashka",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/babel-preset-javascript",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/babel-preset-typescript",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/backlog",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/backup",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/ballerina",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/ballerina-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/bash",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/bash-analyzer",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/bash-test-runner",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/batch",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/batch-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/bitcoin",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/blazon",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/blog",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/bqn",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/bqn-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/bugs",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/c",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/c-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/c-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/c3lang",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/cairo",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/cairo-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/celery",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/ceylon",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/cfml",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/cfml-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/chapel",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/chapel-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/chatgpt-proxy",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/cli",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/cli.exercism.io",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/clojure",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/clojure-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/clojure-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/clojure-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/clojurescript",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/clojurescript-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/cobol",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/cobol-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/codemirror-lang-arturo",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/codemirror-lang-elixir",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/codemirror-lang-gleam",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/codemirror-lang-phix",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/codemirror-lang-wren",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/coffeescript",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/coffeescript-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/coinbase-commerce-ruby",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/common-lisp",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/common-lisp-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/common-lisp-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/common-lisp-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/config",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/configlet",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/contributors",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/coq",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/cpp",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/cpp-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/cpp-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/crystal",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/crystal-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/crystal-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/crystal-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/csharp",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/csharp-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/csharp-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/csharp-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/d",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/d-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/dart",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/dart-test-runner",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/dataweave",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/delphi",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/DEPRECATED-ada",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/deprecated-mentors",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/DEPRECATED.blog",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/DEPRECATED.cli-www",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/DEPRECATED.eio-api",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/DEPRECATED.ember-experiment",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/DEPRECATED.exercism.rb",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/DEPRECATED.help.exercism.io",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/DEPRECATED.javascript",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/DEPRECATED.rikki",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/DEPRECATED.rikki-ruby-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/DEPRECATED.synopsis",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/DEPRECATED.trackler",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/DEPRECATED.v2-feedback",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/DEPRECATED.x-api",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/development-environment",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/discord-bot-py",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/discussions",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/docs",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/dotnet-tests",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/elixir",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/elixir-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/elixir-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/elixir-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/elm",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/elm-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/elm-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/elm-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/emacs-lisp",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/emacs-lisp-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/emacs-lisp-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/erlang",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/erlang-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/erlang-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/erlang-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/erlang-tests-generator",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/eslint-config-javascript",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/eslint-config-tooling",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/eslint-config-typescript",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/euphoria",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/euphoria-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/exalysis",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/exercism",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/exercism-pharo-tooling",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/Exercism.jl",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/factor",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/fake",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/forth",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/forth-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/fortran",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/fortran-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/free-pascal",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/fsharp",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/fsharp-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/fsharp-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/fsharp-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/func",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/func-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/gdscript",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/gdscript-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/generic-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/generic-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/generic-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/generic-track",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/gh-notifications-manager",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/gha-ensure-issue-authorization",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/gha-push-to-ecr",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/git-server",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/github-actions",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/gleam",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/gleam-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/gleam-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/gleam-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/gnu-apl",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/gnucobol",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/go",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/go-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/go-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/go-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/groovy",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/groovy-test-runner",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/gui",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/guys-slack-bot",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/harbour",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/harbour-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/haskell",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/haskell-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/haxe",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/haxe-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/haxe-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/haxe-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/heartbeat",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/highlightjs-arturo",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/highlightjs-gdscript",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/hiring-frontend-developer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/homebrew-core",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/homebrew-wren",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/ideas",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/idris",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/idris-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/image-generator",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/images",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/interactive-cli-walkthrough",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/io",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/j",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/j-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/j-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/j-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/java",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/java-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/java-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/java-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/javascript",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/javascript-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/javascript-lib-jest-extensions",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/javascript-lib-static-analysis",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/javascript-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/javascript-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/job-application-process",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/jq",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/jq-test-runner",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/julia",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/julia-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/julia-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/julia-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/kotlin",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/kotlin-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/kotlin-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/language-agnostic-generator-mvp",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/language-servers",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/legacy-docs",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/lfe",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/lfe-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/lines-of-code-counter",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/lua",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/lua-test-runner",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/maintainer-sync",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/maintenance-mode",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/marketing",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/mentoring.exercism.io",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/meta",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/mips",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/mips-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/nginx-codebuild",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/nim",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/nim-docker-base",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/nim-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/nim-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/nix",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/objective-c",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/objective-c-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/ocaml",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/ocaml-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/odin",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/open-source-stats",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/org-wide-files",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/perl5",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/perl5-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/perl5-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/pharo-smalltalk",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/pharo-smalltalk-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/phix",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/phix-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/phix-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/phix-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/php",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/php-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/php-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/plsql",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/plsql-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/pony",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/pony-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/powershell",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/powershell-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/pr-commenter-action",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/probby",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/problem-specifications",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/project-management",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/prolog",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/prolog-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/public-relations",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/purescript",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/purescript-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/pyret",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/pyret-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/python",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/python-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/python-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/python-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/qsharp",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/r",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/r-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/racket",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/racket-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/raku",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/raku-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/raku-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/react-active-background",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/reasonml",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/reasonml-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/red",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/red-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/red-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/red-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/representer-dev-invoker",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/research_experiment_1",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/rexx",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/rexx-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/roc",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/roc-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/ruby",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/ruby-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/ruby-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/ruby-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/rust",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/rust-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/rust-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/rust-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/scala",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/scala-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/scala-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/scheme",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/scheme-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/sed",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/sed-test-runner",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/seed7",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/seeds",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/shen",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/sidekiq-monitor",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/sml",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/sml-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/snippet-extractor",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/snobol4",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/solidity",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/sqlite",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/sqlite-test-runner",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/stub-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/submission-tagger",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/support",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/swift",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/swift-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/swift-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/system-verilog",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/tact",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/tasm",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/tcl",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/tcl-test-runner",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/terraform",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/test-maintainer-sync",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/test-runner-dev-invoker",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/test-runner-orchestrator",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/test-runner-orchestrator-old",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/tokei",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/tooling-invoker",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/tooling-manager",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/tooling-orchestrator",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/tooling-webserver",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/tracks-maintenance-dashboard",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/twine2-story-format",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/typescript",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/typescript-analyzer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/typescript-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/typescript-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/unison",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/unison-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/v2-configlet",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/v2-migration-holding-page",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/v2-website",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/v3",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/v3-beta",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/v3-countdown",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/v3-dashboard",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/v3-files",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/v3-launch",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/v3-website-bk",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/vbnet",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/vbnet-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/vimscript",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/vimscript-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/vlang",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/vlang-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/vscode-exercism-cli",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/wasm",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/wasm-lib",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/wasm-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/wasm-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/website",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/website-copy",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/website-icons",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/windows-installer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/wip",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/wren",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/wren-representer",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/wren-test-runner",
     "status": "SUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/x86-64-assembly",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/x86-64-assembly-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/yak-shaving-test",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/yamlscript",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/yamlscript-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/z3",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/zig",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/zig-representer",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   },
   {
     "repo": "exercism/zig-test-runner",
     "status": "UNSUBSCRIBED",
-    "new": true
+    "new": false
   }
 ]
