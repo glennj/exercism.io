@@ -1,37 +1,44 @@
-local validate
-local span_products
-local product_of_digits
-
-local largest_series_product = function (params)
-    validate(params)
-    local max = math.mininteger
-    for span in spans(params.digits, params.span) do
-        max = math.max(max, product_of_digits(span))
+local function digits(str)
+    local ds = {}
+    for char in str:gmatch(".") do
+        local d = tonumber(char)
+        assert(d, "invalid digit")
+        table.insert(ds, d)
     end
-    return max
+    return ds
 end
 
-validate = function(params)
-    assert(params and params.digits and params.span)
-    assert(not params.digits:find("%D"))
-    assert(#params.digits >= params.span)
-    assert(params.span >= 0)
+local function slice(list, i, j)
+    return { table.unpack(list, i, j) }
 end
 
-spans = function(string, len)
-    return coroutine.wrap(function()
-        for i = 1, #string - len + 1 do
-            coroutine.yield(string:sub(i, i+len-1))
+local function each_span(list, len)
+    local iterator = function()
+        for i = 1, #list - len + 1 do
+            coroutine.yield(slice(list, i, i+len-1))
         end
-    end)
+    end
+    return coroutine.wrap(iterator)
 end
 
-product_of_digits = function(string)
+local function product(list)
     local product = 1
-    for char in string:gmatch("%d") do
-        product = product * tonumber(char)
+    for _, digit in ipairs(list) do
+        product = product * digit
     end
     return product
+end
+
+local function largest_series_product(params)
+    assert(params and params.digits and params.span, "invalid arguments")
+    assert(#params.digits >= params.span, "span too long")
+    assert(params.span >= 0, "span too short")
+
+    local largest = math.mininteger
+    for span in each_span(digits(params.digits), params.span) do
+        largest = math.max(largest, product(span))
+    end
+    return largest
 end
 
 return largest_series_product
