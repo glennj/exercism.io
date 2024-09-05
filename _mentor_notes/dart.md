@@ -53,16 +53,16 @@ bool myFunc(...) => cond;
 
 When you find yourself doing
 ```dart
-var result = SomeCollection();
-someList.forEach((elem) {
+var result = someValue;
+for (var elem in someList) {
     result = result + someFunc(elem)
-});
+}
 ```
 
 you can use a more functional style with [`fold`](https://api.dart.dev/stable/3.5.0/dart-core/Iterable/fold.html)
 ```dart
 var result = someList.fold(
-    SomeCollection(),
+    someValue,
     (acc, elem) => acc + someFunc(elem)
 );
 ```

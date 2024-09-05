@@ -1903,7 +1903,7 @@ bash -x bob.sh hello
 <!-- ........................................................ -->
 ## grains
 
-To get the formula to calculate the total, we can look at:
+There are formulae to determine the results without looping. See:
 
 * [summation](https://en.wikipedia.org/wiki/Summation) and
 * [geometric progression](https://en.wikipedia.org/wiki/Geometric_progression)
