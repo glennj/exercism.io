@@ -1,4 +1,3 @@
-# This is a stub file for the CoffeeScript track
 class BinarySearchTree
   constructor: (@data, @left = null, @right = null) ->
 
