@@ -1,0 +1,11 @@
+!yamlscript/v0
+
+defn divisible?(num div):
+  zero?: num % div
+
+defn multiple?(num factors):
+  boolean: 
+    some: #(zero? (rem num %1)) factors
+
+defn sum(factors limit):
+  (reduce + (filter #(multiple? %1 factors) (range limit)))

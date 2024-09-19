@@ -1,0 +1,20 @@
+#!/usr/bin/env ys-0
+
+require ys::taptest: :all
+
+use: 'two-fer'
+
+test::
+- name: No name given
+  code: two-fer(nil)
+  want: One for you, one for me.
+
+- name: A name given
+  code: two-fer('Alice')
+  want: One for Alice, one for me.
+
+- name: Another name given
+  code: two-fer('Bob')
+  want: One for Bob, one for me.
+
+done: 3

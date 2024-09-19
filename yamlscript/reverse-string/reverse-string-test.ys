@@ -1,0 +1,49 @@
+#!/usr/bin/env ys-0
+
+require ys::taptest: :all
+
+use: reverse-string
+
+test::
+- name: An empty string
+  code: reverse('')
+  want: ''
+
+- name: A word
+  code: reverse('robot')
+  want: tobor
+
+- name: A capitalized word
+  code: reverse('Ramen')
+  want: nemaR
+
+- name: A sentence with punctuation
+  code: reverse("I'm hungry!")
+  want: "!yrgnuh m'I"
+
+- name: A palindrome
+  code: reverse('racecar')
+  want: racecar
+
+- name: An even sized word
+  code: reverse('drawer')
+  want: reward
+
+- name: Wide characters
+  code: reverse('子猫')
+  want: 猫子
+
+# These two tests have been commented out because they might not be doable in
+# YAMLScript. Please reach out to a YAMLScript maintainer if you know how to.
+
+# - name: Grapheme cluster with pre-combined form
+#   code: reverse('Würstchenstand')
+#   want: dnatsnehctsrüW
+#
+# - name: Grapheme clusters
+#   code: reverse('ผู้เขียนโปรแกรม')
+#   want: มรกแรปโนยขีเผู้
+#
+# done: 9
+
+done: 7

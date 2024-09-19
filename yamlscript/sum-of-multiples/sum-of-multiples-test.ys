@@ -1,0 +1,72 @@
+#!/usr/bin/env ys-0
+
+require ys::taptest: :all
+
+use: sum-of-multiples
+
+test::
+- name: No multiples within limit
+  code: sum([3 5] 1)
+  want: 0
+
+- name: One factor has multiples within limit
+  code: sum([3 5] 4)
+  want: 3
+
+- name: More than one multiple within limit
+  code: sum([3] 7)
+  want: 9
+
+- name: More than one factor with multiples within limit
+  code: sum([3 5] 10)
+  want: 23
+
+- name: Each multiple is only counted once
+  code: sum([3 5] 100)
+  want: 2318
+
+- name: A much larger limit
+  code: sum([3 5] 1000)
+  want: 233168
+
+- name: Three factors
+  code: sum([7 13 17] 20)
+  want: 51
+
+- name: Factors not relatively prime
+  code: sum([4 6] 15)
+  want: 30
+
+- name: Some pairs of factors relatively prime and some not
+  code: sum([5 6 8] 150)
+  want: 4419
+
+- name: One factor is a multiple of another
+  code: sum([5 25] 51)
+  want: 275
+
+- name: Much larger factors
+  code: sum([43 47] 10000)
+  want: 2203160
+
+- name: All numbers are multiples of 1
+  code: sum([1] 100)
+  want: 4950
+
+- name: No factors means an empty sum
+  code: sum([] 10000)
+  want: 0
+
+- name: The only multiple of 0 is 0
+  code: sum([0] 1)
+  want: 0
+
+- name: The factor 0 does not affect the sum of multiples of other factors
+  code: sum([3 0] 4)
+  want: 3
+
+- name: Solutions using include-exclude must extend to cardinality greater than 3
+  code: sum([2 3 5 7 11] 10000)
+  want: 39614537
+
+done: 16

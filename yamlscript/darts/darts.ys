@@ -1,0 +1,10 @@
+!yamlscript/v0
+
+defn score(x y):
+  dist =:
+    math/hypot: x y
+  cond:
+    dist <= 1:  10
+    dist <= 5:   5
+    dist <= 10:  1
+    else:        0

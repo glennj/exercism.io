@@ -1,0 +1,8 @@
+!yamlscript/v0
+
+defn two-fer:
+  (): two-fer('you')
+  (name):
+    if nil?(name):
+      two-fer()
+      "One for $name, one for me."

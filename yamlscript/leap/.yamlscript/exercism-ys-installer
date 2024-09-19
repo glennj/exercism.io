@@ -1,0 +1,127 @@
+#!/env/bin/env bash
+
+set -euo pipefail
+
+intro-prompt() (
+  cat <<...
+--------------------------------------------------------------------------------
+
+This YAMLScript Exercism exercise requires the YAMLScript version $version
+interpreter command file to be installed here:
+
+  $prefix/bin/ys
+
+You can install it by pressing Enter now, or by running this command:
+
+  $make install-ys
+
+This should only take a few seconds and you only need to do this once.
+Other exercises will use the same file.
+
+See https://yamlscript.org/doc/install/ for more YAMLScript installation info.
+
+--------------------------------------------------------------------------------
+
+Would you like to install the 'ys' file now?
+
+...
+
+  printf "Press Enter to install. Ctl-C to Quit."; read -r
+)
+
+main() {
+  setup "$@"
+
+  install-from-local
+
+  $auto && intro-prompt
+
+  installed || install-from-release || true
+  installed || install-from-build || true
+  installed ||
+    die "Installing '$installed' failed. Giving up." \
+        "Consider filing an issue at: $gh_issue_url"
+
+  echo
+  echo 'Success!'
+  echo "$installed is now installed."
+  echo
+}
+
+installed() {
+  [[ -f $installed ]]
+}
+
+install-from-local() {
+  local path
+  path=$(command -v "$ysfq") || true
+  if [[ -f $path ]]; then
+    mkdir -p "$bin"
+    cp "$path" "$bin"/
+    ln -fs "$ysfq" "$bin/ys-0"
+    ln -fs "$ysfq" "$bin/ys"
+    (installed && $auto) && exit
+    true
+  fi
+}
+
+install-from-release() (
+  set -x
+  curl -s https://yamlscript.org/install |
+    BIN=1 VERSION="$version" PREFIX="$prefix" bash
+)
+
+install-from-build() (
+  cat <<...
+
+The binary release installation failed.
+We can attempt to build and install $ysfq now.
+This can take from 1 to 5 minutes to complete.
+
+...
+
+  printf "Press Enter to install. Ctl-C to Quit."; read -r
+
+  [[ -d /tmp && -w /tmp ]] ||
+    die "Can't write to /tmp" \
+        'Giving up.'
+
+  set -x
+
+  rm -fr "$yamlscript_clone"
+
+  git clone --branch="$version" "$yamlscript_repo" "$yamlscript_clone"
+
+  "$make" -C "$yamlscript_clone/ys" install PREFIX="$prefix"
+)
+
+setup() {
+  version=$1
+  prefix=$2
+  make=$3
+  auto=false
+  [[ ${4-} ]] && auto=true
+
+  [[ $version =~ ^0\.1\.[0-9]+$ ]] ||
+    die "Invalid YS_VERSION '$version'"
+
+  bin=$prefix/bin
+  ysfq=ys-$version
+  installed=$bin/$ysfq
+
+  if installed; then
+    echo "'$installed' is already installed."
+    exit
+  fi
+
+  yamlscript_repo=https://github.com/yaml/yamlscript
+  yamlscript_clone=/tmp/yamlscript-exercism
+  gh_issue_url=https://github.com/exercism/yamlscript/issues
+}
+
+die() {
+  printf '%s\n' "$@" >&2
+  exit 1
+}
+
+main "$@"

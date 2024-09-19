@@ -1,0 +1,56 @@
+#!/usr/bin/env ys-0
+
+require ys::taptest: :all
+
+use: darts
+
+test::
+- name: Missed target
+  code: score(-9 9)
+  want: 0
+
+- name: On the outer circle
+  code: score(0 10)
+  want: 1
+
+- name: On the middle circle
+  code: score(-5 0)
+  want: 5
+
+- name: On the inner circle
+  code: score(0 -1)
+  want: 10
+
+- name: Exactly on center
+  code: score(0 0)
+  want: 10
+
+- name: Near the center
+  code: score(-0.1 -0.1)
+  want: 10
+
+- name: Just within the inner circle
+  code: score(0.7 0.7)
+  want: 10
+
+- name: Just outside the inner circle
+  code: score(0.8 -0.8)
+  want: 5
+
+- name: Just within the middle circle
+  code: score(-3.5 3.5)
+  want: 5
+
+- name: Just outside the middle circle
+  code: score(-3.6 -3.6)
+  want: 1
+
+- name: Just within the outer circle
+  code: score(-7.0 7.0)
+  want: 1
+
+- name: Just outside the outer circle
+  code: score(7.1 -7.1)
+  want: 0
+
+done: 12
