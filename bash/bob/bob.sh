@@ -1,25 +1,22 @@
 #!/bin/bash
 
-source ./utils_string.bash
+# solving with extended glob patterns
+shopt -s extglob
 
-# Yelling: contains a letter and no lower-case letters
+input=${1//[[:space:]]/}
 
-isSilent()   { [[ -z "$1" ]]; }
-isQuestion() { [[ "$1" == *"?" ]]; }
-isYelling()  { [[ "$1" == *[[:alpha:]]* && "$1" != *[[:lower:]]* ]]; }
+# yelling is "contains an uppercase but no lowercase"
+# question ends with a question mark.
 
-input=$(str::trimright "$1")
-
-if isSilent "$input"; then
-    echo 'Fine. Be that way!'
-else
-    isQuestion "$input"; result+=$?
-    isYelling  "$input"; result+=$?
-
-    case $result in
-        00) echo "Calm down, I know what I'm doing!" ;;
-        01) echo 'Sure.' ;;
-        10) echo 'Whoa, chill out!' ;;
-        11) echo 'Whatever.' ;;
-    esac
-fi
+case $input in
+    *([^[:lower:]])[[:upper:]]*([^[:lower:]])[?] )
+        echo "Calm down, I know what I'm doing!" ;;
+    *([^[:lower:]])[[:upper:]]*([^[:lower:]]) )
+        echo 'Whoa, chill out!' ;;
+    *[?] )
+        echo 'Sure.' ;;
+    '' )
+        echo 'Fine. Be that way!' ;;
+    * )
+        echo 'Whatever.' ;;
+esac
