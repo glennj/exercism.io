@@ -1,15 +1,15 @@
-extension IntUpTo on int {
-  Range upto(int n) => Range(this, n);
-}
+// ref https://dart.dev/libraries/dart-core#iteration
 
-class Range with Iterable<int> {
+class Range extends Iterable<int> {
   final int start;
   final int end;
   final int step;
 
   Range(this.start, this.end, [this.step = 1]) {
-    // TODO negative step handling.
-    assert(this.step > 0);
+    // TODO downwards ranges
+    if (this.start > this.end)
+      throw ArgumentError('Start cannot be greater than end.');
+    if (this.step <= 0) throw ArgumentError('Step must be positive.');
   }
 
   @override
@@ -31,10 +31,7 @@ class RangeIterator implements Iterator<int> {
 
   @override
   bool moveNext() {
-    if (this._i < this.end) {
-      this._i += this.step;
-      return true;
-    }
-    return false;
+    this._i += this.step;
+    return this._i <= this.end;
   }
 }

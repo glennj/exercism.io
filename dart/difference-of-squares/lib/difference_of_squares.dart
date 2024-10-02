@@ -1,10 +1,10 @@
-import 'range.dart';
+import 'int_extensions.dart';
 
 typedef IntFn = int Function(int x);
 
 class DifferenceOfSquares {
   int _ident(int n) => n;
-  int _square(int n) => n * n;
+  int _square(int n) => n.pow(2);
 
   int squareOfSum(int n) => _doSum(n, _ident, _square);
   int sumOfSquares(int n) => _doSum(n, _square, _ident);
