@@ -6,6 +6,20 @@
 - [Built-in Funtions](https://www.gnu.org/software/gawk/manual/html_node/Built_002din.html)
 - [Stack Overflow \[awk\] info page](https://stackoverflow.com/tags/awk/info)
 
+## Fields
+
+In awk, think of `$` as an _operator_: "get me the value in the field referenced by the next thing"
+
+* `$1` -- the value of field 1
+* `$NF` -- the value of the field number contained in the NF variable
+    * similarly: `x = 10; print $x` prints the value of field 10.
+    * you can put expressions after `$` as well: `print $(NF - 1)` is the 2nd-last field
+* `$0` -- special, the current record.
+
+See [Fields](https://www.gnu.org/software/gawk/manual/html_node/Fields.html) in the manual.
+
+
+
 ## including files
 
 gawk lets you pull in library files with the [`@include` directive][include].
