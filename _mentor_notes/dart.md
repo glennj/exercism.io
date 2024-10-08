@@ -70,6 +70,15 @@ The return value from the 2nd argument becomes the accumulator value for the nex
 
 ---
 
+Regular Expressions:
+
+For further reading:
+* [the Dart RegExp API docs](https://api.dart.dev/stable/3.5.3/dart-core/RegExp-class.html)
+* [the ECMAScript regex specification](https://262.ecma-international.org/9.0/#sec-regexp-regular-expression-objects) -- very technical
+* [JavaScript regex docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions)
+
+---
+
 <!-- two-fer -->
 
 Instead of using an `if` statement, you can provide the default value in the function signature.
