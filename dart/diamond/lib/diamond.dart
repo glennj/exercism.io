@@ -8,7 +8,7 @@ class Diamond {
 
   List<String> rows(String letter) {
     int size = letter.codeUnitAt(0) - a + 1;
-    assert(1 <= size && size <= 26);
+    if (size < 1 || size > 26) throw new ArgumentError("Invalid letter");
 
     /* a list of strings holding the right-hand half of the rows
      * for the top half of the diamond.

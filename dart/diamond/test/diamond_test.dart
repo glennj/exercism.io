@@ -23,7 +23,7 @@ void main() {
             'B B',
             ' A ',
           ]));
-    }, skip: true);
+    }, skip: false);
 
     test('Smallest non-degenerate case with odd diamond side length', () {
       final result = diamond.rows('C');
@@ -36,7 +36,7 @@ void main() {
             ' B B ',
             '  A  ',
           ]));
-    }, skip: true);
+    }, skip: false);
 
     test('Smallest non-degenerate case with even diamond side length', () {
       final result = diamond.rows('D');
@@ -51,7 +51,7 @@ void main() {
             '  B B  ',
             '   A   ',
           ]));
-    }, skip: true);
+    }, skip: false);
 
     test('Largest possible diamond', () {
       final result = diamond.rows('Z');
@@ -110,6 +110,6 @@ void main() {
             '                        B B                        ',
             '                         A                         ',
           ]));
-    }, skip: true);
+    }, skip: false);
   });
 }
