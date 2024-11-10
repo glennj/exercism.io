@@ -1,13 +1,14 @@
 class BinarySearch
   constructor: (@values) ->
 
-  find: (value, left = 0, right = @values.length - 1) ->
+  find: (target, left = 0, right = @values.length - 1) ->
     throw new Error 'value not in array' if left > right
     mid = (left + right) // 2
+    val = @values.get(mid)
     switch
-      when value is @values[mid] then return mid
-      when value < @values[mid] then @find(value, left, mid - 1)
-      when value > @values[mid] then @find(value, mid + 1, right)
+      when target is val then return mid
+      when target < val then @find(target, left, mid - 1)
+      when target > val then @find(target, mid + 1, right)
       
       
 module.exports = BinarySearch
