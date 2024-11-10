@@ -44,6 +44,12 @@ If you're satisfied with this solution, feel free to "End discussion" to finaliz
 
 Whenever you're ready to move on, feel free to "End discussion".
 
+<!-- -->
+I'd encourage you to submit another iteration. You'll get more learning from a mentoring session if you apply the suggestions and submit new iterations. Often new questions come up in the back-and-forth between student and mentor that increase the benefits. Plus, you have the benefit of seeing the progression of your solutions through multiple iterations.
+
+Whenever you're ready to move on, feel free to "End discussion".
+<!-- -->
+
 
 "
 Sometimes the test runner infrastructure can be a bit flaky.
