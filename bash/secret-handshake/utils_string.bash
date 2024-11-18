@@ -49,7 +49,7 @@ str::chr() {
 str::join() {
     local IFS=$1
     shift
-    echo "$*"
+    printf '%s\n' "$*"
 }
 
 # retrieve the characters in a string
@@ -100,7 +100,7 @@ str::repeat() {
     # string of count spaces
     printf -v result "%*s" "$count" ""
     # replace spaces with the char
-    echo "${result// /$char}"
+    printf '%s\n' "${result// /$char}"
 }
 
 # In a string variable, set the character at a specific index
@@ -143,7 +143,7 @@ str::reverse() {
     for ((i = ${#1} - 1; i >= 0; i--)); do
         reversed+="${1:i:1}"
     done
-    echo "$reversed"
+    printf '%s\n' "$reversed"
 }
 
 # trim whitespace or chosen characters from the ends of a string
@@ -152,14 +152,14 @@ str::trimright() {
     # shellcheck disable=SC2034
     local str=$1 chars=${2:-[:space:]}
     # shellcheck disable=SC2016
-    with_shopt extglob 'echo "${str/%+([$chars])/}"'
+    with_shopt extglob 'printf "%s\n" "${str/%+([$chars])/}"'
 }
 
 str::trimleft() {
     # shellcheck disable=SC2034
     local str=$1 chars=${2:-[:space:]}
     # shellcheck disable=SC2016
-    with_shopt extglob 'echo "${str/#+([$chars])/}"'
+    with_shopt extglob 'printf "%s\n" "${str/#+([$chars])/}"'
 }
 
 str::trim() {
@@ -172,7 +172,7 @@ str::trim() {
 str::index() {
     local needle=$1 haystack=$2
     local prefix=${haystack%%"$needle"*}
-    [[ "$prefix" == "$haystack" ]] && echo -1 || echo "${#prefix}"
+    [[ "$prefix" == "$haystack" ]] && echo -1 || printf '%s\n' "${#prefix}"
 }
 
 # add commas to a number
@@ -189,7 +189,7 @@ str::commify() {
     local -a groups
     while [[ $n =~ (.{1,$size})$ ]]; do
         groups=("${BASH_REMATCH[1]}" "${groups[@]}")
-        n=${n%${BASH_REMATCH[1]}}
+        n=${n%"${BASH_REMATCH[1]}"}
     done
-    echo "${groups[*]}"
+    printf '%s\n' "${groups[*]}"
 }
