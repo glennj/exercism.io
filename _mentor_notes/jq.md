@@ -1,5 +1,16 @@
 # jq
 
+## shopping
+
+An alternative to exploding the array and then re-capturing it:
+```jq
+[ A | .[] | select(B) | C ] | D
+```
+is to use [`map`](https://jqlang.github.io/jq/manual/v1.7/#map-map_values)
+```jq
+A | map(select(B) | C) | D
+```
+
 ## regular-chatbot
 
 overall, very nice.

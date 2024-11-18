@@ -82,9 +82,15 @@ For further reading:
 <!-- two-fer -->
 
 Instead of using an `if` statement, you can provide the default value in the function signature.
-<!--
 See [Optional positional parameters](https://dart.dev/language/functions#optional-positional-parameters) in the manual.
--->
+<!--
 See [Optional positional parameters](https://dart.dev/resources/dart-cheatsheet#optional-positional-parameters) in the Dart cheatsheet.
+-->
 
 
+---
+
+<!-- main -->
+
+The presence of a `main` function indicates you're not using the provided tests.
+Please see [Testing on the Dart track](https://exercism.org/docs/tracks/dart/tests).

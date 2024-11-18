@@ -56,3 +56,18 @@ Sometimes the test runner infrastructure can be a bit flaky.
 The returned error message gives no insight.
 I'd suggest making a tiny cosmetic change and submit again to trigger a new test run.
 "
+
+## TDD
+
+The written instructions will give you a rough overview of the goal for the exercise.
+However, the tests actually represent the true requirements.
+
+Exercism practices "test-driven development" (TDD).
+You are given a complete test suite, and your goal is to write just enough code to make the tests pass.
+
+Note that Exercism has 70+ language tracks.
+The written instructions are stored in a central repository and are shared amongst all the tracks.
+Sometimes the instructions don't make sense for the particular language.
+Or the track maintainers may choose to write tests that don't strictly align with the written instructions.
+
+Look to the tests as the source of truth.
