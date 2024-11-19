@@ -10,17 +10,17 @@ class LeapTest extends AnyFunSuite with Matchers {
   }
 
   test("year divisible by 4, not divisible by 100: leap year") {
-    pending
+    //pending
     Leap.leapYear(1996) should be (true)
   }
 
   test("year divisible by 100, not divisible by 400: common year") {
-    pending
+    //pending
     Leap.leapYear(2100) should be (false)
   }
 
   test("year divisible by 400: leap year") {
-    pending
+    //pending
     Leap.leapYear(2000) should be (true)
   }
 }

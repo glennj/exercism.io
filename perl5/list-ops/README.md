@@ -30,3 +30,4 @@ Note, the ordering in which arguments are passed to the fold functions (`foldl`,
 - @kytrinyx
 - @m-dango
 - @rfilipo
+- @glennj
