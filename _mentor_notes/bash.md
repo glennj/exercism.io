@@ -49,6 +49,7 @@ Exercises
 * [armstrong numbers](#armstrong-numbers)
 * [difference of squares](#difference-of-squares)
 * [word-count](#word-count)
+* [anagram](#anagram)
 
 Be sure to check out [the community solutions](https://exercism.io/tracks/bash/exercises/__SLUG__/solutions) to see other approaches.
 
@@ -1930,7 +1931,21 @@ $ printf '%u\n' $((2 ** 64 - 1))
 * http://forum.exercism.org/t/false-fails-on-bash-word-count-tests/11872
 * https://unix.stackexchange.com/q/627474/4667
 * https://exercism.org/tracks/bash/exercises/word-count/solutions/glennj
+   
+<!-- ........................................................ -->
+## anagram
 
+One thing to beware of: the variable in the for loop is unquoted.
+This is necessary to iterate over the _words_ in the string.
+But it leaves you exposed to filename expansion.
+
+You'd expect this to return just one result, but there are two:
+```bash
+bash anagram.sh "shanagram." "grama.shan * grash-man"
+```
+
+You can turn off filename expansion with `set -f`.
+See [The Set Builtin](https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin) in the manual.
 
 <!-- ........................................................ -->
 ## difference of squares
