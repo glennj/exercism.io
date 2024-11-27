@@ -24,3 +24,9 @@ csharp/
 
 # fish_wrapper
 _by_exercise/
+
+# downloaded solution zips
+# https://exercism.org/api/v2/tracks/$TRACK/exercises/$SLUG/export_solutions
+# => __exercism_api_call -o solutions.zip tracks/$TRACK/exercises/$SLUG/export_solutions
+solutions.zip
+solutions/
