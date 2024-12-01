@@ -17,3 +17,9 @@ fun intWidth(n: int): int =
   else if n = 0
        then 1
        else 1 + floor(Math.log10(real n))
+  
+fun intReverse n =
+  let fun rev' (0, r) = r
+        | rev' (n, r) = rev' (n div 10, 10 * r + n mod 10)
+  in  rev' (n, 0)
+  end

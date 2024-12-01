@@ -2,7 +2,7 @@ use "sorting.sml";
 
 val lc = String.map Char.toLower
 
-val sortAscending = sort (fn (a, b) => a <= b)
+val sortAscending = sortBy op<=
 
 val hash = implode o sortAscending o explode o lc
 
