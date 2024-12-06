@@ -8,9 +8,11 @@ datatype allergen = Eggs
                   | Cats
 
 local
+
   val allergens = Array.fromList [ Eggs, Peanuts, Shellfish, Strawberries
                                  , Tomatoes, Chocolate, Pollen, Cats
                                  ]
+
   fun index a =
     case Array.findi (fn (_, v) => a = v) allergens
       of SOME (i, _) => i

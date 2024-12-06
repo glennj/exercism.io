@@ -6,4 +6,4 @@ fun keep f l =
   in  (rev o keep') (l, [])
   end
 
-fun discard f l = keep (fn x => (not o f) x) l
+fun discard f l = keep (not o f) l
