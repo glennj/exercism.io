@@ -1,3 +1,5 @@
+use "list-utils.sml";   (* slice, seq *)
+
 datatype relation =
     Equal
   | Superlist
@@ -9,15 +11,10 @@ local
   fun equals (l1: ''a list, l2: ''a list): bool =
     ListPair.allEq op= (l1, l2)
   infix equals
-  
-  fun listSlice (l: 'a list, offset: int, len: int): 'a list = 
-    List.take (List.drop (l, offset), len)
-
-  fun seq n = List.tabulate (n, (fn i => i))
 
   fun containsList (haystack: ''a list, needle: ''a list): bool =
     let val len = length needle
-    in  List.exists (fn i => needle equals (listSlice (haystack, i, len)))
+    in  List.exists (fn i => needle equals (slice (haystack, i, len)))
                     (seq (length haystack - len + 1))
     end
   infix containsList

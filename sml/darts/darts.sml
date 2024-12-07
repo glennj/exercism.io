@@ -1,4 +1,4 @@
-fun hypot (x: real, y: real): real = Math.sqrt(x * x + y * y)
+use "math-utils.sml";
 
 fun score (x: real, y: real): int =
   let val distance = hypot(x, y)

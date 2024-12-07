@@ -1,5 +1,5 @@
-use "list-utils.sml";
-use "sorting.sml";
+use "list-utils.sml";   (* uniqReal *)
+use "sorting.sml";      (* sortBy *)
 
 local
   val sortAscending = sortBy Real.<=

@@ -1,6 +1,7 @@
 local
   val gigaSecond = Time.fromSeconds 1000000000
 
+  (* I'm perplexed why this isn't in basis *)
   fun monthOf m =
     case m
       of  1 => Date.Jan |  2 => Date.Feb |  3 => Date.Mar |  4 => Date.Apr

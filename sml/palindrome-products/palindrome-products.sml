@@ -1,10 +1,6 @@
+use "int-utils.sml";    (* intReverse *)
+
 local
-  fun intReverse n =
-    let fun rev' (0, r) = r
-          | rev' (n, r) = rev' (n div 10, 10 * r + n mod 10)
-    in  rev' (n, 0)
-    end
-  
   fun isPalindrome n = n = intReverse n
 
   fun boundedFactors (min, max) num = bf' num min max []

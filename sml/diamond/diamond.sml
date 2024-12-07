@@ -1,3 +1,5 @@
+use "list-utils.sml";   (* seq *)
+
 local
   val A = Char.ord #"A"
   
@@ -14,9 +16,6 @@ local
              Array2.update (arr, row2, col2, letter) ;
              populate (arr, n, size, i + 1)
          end
-
-  fun seq (n: int): int list = 
-    List.tabulate (n, fn i => i)
 
   fun array2MapRows (f: 'a vector -> 'b) (arr: 'a Array2.array): 'b list =
     List.map (fn i => f (Array2.row (arr, i))) (seq (Array2.nRows arr))

@@ -15,10 +15,6 @@ fun uniq (xs: ''a list): ''a list = uniqBy op= xs
 fun seq (n: int): int list = 
   List.tabulate (n, fn i => i)
 
-(* extract a sublist *)
-fun slice (l: 'a list, offset: int, len: int): 'a list = 
-  List.take (List.drop (l, offset), len)
-
 (* kind of a mashup of `take` and `map` *)
 fun mapUntil (predicate: ''b -> bool) (transform: ''a -> ''b) (l: ''a list): ''b list =
   case l

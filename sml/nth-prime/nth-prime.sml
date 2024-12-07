@@ -14,11 +14,13 @@ local
     let fun next' p = if isPrime p then p else next' (p + 2)
     in  next' (List.last (!primes) + 2)
     end
+
+  fun addNextPrime () = primes := (!primes) @ [nextPrime ()]
+
 in
   fun nthPrime n =
     if n < 1                      then NONE
     else if length (!primes) >= n then SOME (List.nth (!primes, n - 1))
-    else let val () = primes := (!primes) @ [nextPrime ()]
-         in  nthPrime n
-         end
+    else ( addNextPrime (); nthPrime n )
+
 end

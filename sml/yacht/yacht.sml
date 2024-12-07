@@ -1,3 +1,5 @@
+use "sorting.sml";      (* sortBy *)
+
 datatype category =
     Ones
   | Twos
@@ -13,17 +15,8 @@ datatype category =
   | Yacht
 
 local
-  fun sortBy p lst =
-    let fun insertSorted (item, []) = [item]
-          | insertSorted (item, head::tail) =
-              if p(item, head)
-              then item::head::tail
-              else head::(insertSorted (item, tail))
-    in  List.foldl insertSorted [] lst
-    end
-  val sort = sortBy (fn (a, b) => a <= b)
+  val sort = sortBy op<=
   
-  (* Scoring function *)
   fun single die dice = die * (length o (List.filter (fn d => d = die))) dice
   
   fun yacht dice =
