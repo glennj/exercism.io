@@ -32,7 +32,18 @@ TOC
     * [exploring character classes](#exploring-character-classes)
     * [bash dot files at startup](#bash-dot-files-at-startup)
 
-Exercises
+# Syllabus
+
+The bash learning track is a work in progress, but you can access the concept documents online:
+
+1. [Commands and arguments](https://exercism.org/tracks/bash/concepts/commands-and-arguments)
+1. [Variables](https://exercism.org/tracks/bash/concepts/variables)
+1. [The Importance of Quoting](https://exercism.org/tracks/bash/concepts/quoting)
+1. [Conditionals](https://exercism.org/tracks/bash/concepts/conditionals)
+1. [Looping](https://exercism.org/tracks/bash/concepts/looping)
+1. [Pipelines and Command Lists](https://exercism.org/tracks/bash/concepts/pipelines)
+
+# Exercises
 
 * [error-handling](#error-handling)
 * [two-fer](#two-fer)
@@ -171,9 +182,10 @@ It is recommended that bash scripts start with
 ```bash
 #!/usr/bin/env bash
 ``` 
-That instructs the OS to run your script with bash (if you make it
-executable), and it allows people reading your code to know that 
-this is specifically a bash program. 
+The benefits include:
+* instructing the OS to run your script with bash (if you make it executable)
+* enabling syntax highlighting in your editor
+* allowing people reading your code to know that this is specifically a bash program. 
 
 <!-- -->
 
