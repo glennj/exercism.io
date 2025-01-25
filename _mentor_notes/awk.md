@@ -18,7 +18,13 @@ In awk, think of `$` as an _operator_: "get me the value in the field referenced
 
 See [Fields](https://www.gnu.org/software/gawk/manual/html_node/Fields.html) in the manual.
 
+## Truth Values
 
+A note about "truthiness" in awk: 
+* the number 0 is false; any other number is true,
+* the empty string is false; any other string is true
+
+https://www.gnu.org/software/gawk/manual/html_node/Truth-Values.html#index-truth-values
 
 ## including files
 

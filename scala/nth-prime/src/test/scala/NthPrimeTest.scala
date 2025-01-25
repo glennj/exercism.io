@@ -10,22 +10,22 @@ class NthPrimeTest extends AnyFunSuite with Matchers {
   }
 
   test("second prime") {
-    //pending
+    pending
     NthPrime.prime(2) should be (Some(3))
   }
 
   test("sixth prime") {
-    //pending
+    pending
     NthPrime.prime(6) should be (Some(13))
   }
 
   test("big prime") {
-    //pending
+    pending
     NthPrime.prime(10001) should be (Some(104743))
   }
 
   test("there is no zeroth prime") {
-    //pending
+    pending
     NthPrime.prime(0) should be (None)
   }
 }

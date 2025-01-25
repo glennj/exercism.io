@@ -26,5 +26,5 @@
 - To apply the filter parameter to an element, use the usual pipe syntax: `.element | filter`.
 - The base case is an empty array.
 
-[arrays-concept]: /tracks/jq/concepts/arrays
+[arrays-concept]: https://exercism.org/tracks/jq/concepts/arrays
 [manual-addition]: https://jqlang.github.io/jq/manual/v1.7/#addition

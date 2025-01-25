@@ -87,8 +87,16 @@ See [Optional positional parameters](https://dart.dev/language/functions#optiona
 See [Optional positional parameters](https://dart.dev/resources/dart-cheatsheet#optional-positional-parameters) in the Dart cheatsheet.
 -->
 
+---
+
+Well done! Many people miss the [optional positional parameters](https://dart.dev/language/functions#optional-positional-parameters).
 
 ---
+
+<!-- leap -->
+
+Can you combine the tests into one boolean expression (using [Logical operators](https://dart.dev/language/operators#logical-operators))?
+It often helps to say the leap year rules out loud using the words "and" and "or" and "not".
 
 <!-- main -->
 
