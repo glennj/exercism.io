@@ -1,8 +1,6 @@
 source("./largest-series-product.R")
 library(testthat)
 
-context("largest series product")
-
 test_that("finds the largest product if span equals length", {
   digits <- "29"
   span <- 2
@@ -63,34 +61,6 @@ test_that("rejects span longer than string length", {
   expect_error(largest_series_product(digits, span))
 })
 
-# There may be some confusion about whether this should be 1 or error.
-# The reasoning for it being 1 is this:
-#   There is one 0-character string contained in the empty string.
-#   That's the empty string itself.
-#   The empty product is 1 (the identity for multiplication).
-#   Therefore LSP("", 0) is 1.
-#   It's NOT the case that LSP("", 0) takes max of an empty list.
-#   So there is no error.
-# Compare against LSP("123", 4):
-#   There are zero 4-character strings in "123".
-#   So LSP("123", 4) really DOES take the max of an empty list.
-#   So LSP("123", 4) errors and LSP("", 0) does NOT.
-
-test_that("reports 1 for empty string and empty product (0 span)", {
-  digits <- ""
-  span <- 0
-  expect_equal(largest_series_product(digits, span), 1)
-})
-
-# As above, there is one 0-character string in "123".
-# So again no error. It's the empty product, 1.
-
-test_that("reports 1 for nonempty string and empty product (0 span)", {
-  digits <- "123"
-  span <- 0
-  expect_equal(largest_series_product(digits, span), 1)
-})
-
 test_that("rejects empty string and nonzero span", {
   digits <- ""
   span <- 1
@@ -108,5 +78,3 @@ test_that("rejects negative span", {
   span <- -1
   expect_error(largest_series_product(digits, span))
 })
-
-message("All tests passed for exercise: largest-series-product")

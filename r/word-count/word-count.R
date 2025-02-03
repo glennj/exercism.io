@@ -5,8 +5,8 @@ word_count <- function(phrase) {
   # as.list(table(regmatches(tolower(phrase), m)))
 
   return(phrase
-     %>% gregexpr("[[:alnum:]]+", .)     # find the words
-     %>% regmatches(tolower(phrase), .)  # extract them
-     %>% table                           # count them
+     %>% gregexpr("[[:alnum:]]+('[[:alnum:]]+)?", .)    # find the words
+     %>% regmatches(tolower(phrase), .)                 # extract them
+     %>% table                                          # count them
      %>% as.list)
 }
