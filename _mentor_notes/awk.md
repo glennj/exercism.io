@@ -6,6 +6,15 @@
 - [Built-in Funtions](https://www.gnu.org/software/gawk/manual/html_node/Built_002din.html)
 - [Stack Overflow \[awk\] info page](https://stackoverflow.com/tags/awk/info)
 
+## Syllabus
+
+The AWK syllabus is a work-in-progress.
+But a couple of the chapters are online:
+
+* [Fundamentals](https://exercism.org/tracks/awk/concepts/fundamentals)
+* [More about Patterns](https://exercism.org/tracks/awk/concepts/patterns)
+* [Numbers and Strings](https://exercism.org/tracks/awk/concepts/nums-strs)
+
 ## Fields
 
 In awk, think of `$` as an _operator_: "get me the value in the field referenced by the next thing"
