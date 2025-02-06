@@ -52,6 +52,9 @@ so you decide to use a function closure to create reusable transformation for `{
 
 Implement the `translate2d` function that returns a function making use of a closure to perform a repeatable 2d translation of a coordinate pair.
 
+> In Geometry, [translation][wiki-translate] refers to moving points, vectors or shapes the same distance in one direction.
+> It can be interpreted as addition of a constant to every point.
+
 ```javascript
 const moveCoordinatesRight2Px = translate2d(2, 0);
 const result = moveCoordinatesRight2Px(4, 8);
@@ -62,6 +65,9 @@ const result = moveCoordinatesRight2Px(4, 8);
 
 Implement the `scale2d` function that returns a function making use of a closure to perform a repeatable 2d scale of a coordinate pair.
 
+> In geometry, uniform [scaling][wiki-scale] refers to enlarging or shrinking vectors or shapes in the same direction.
+> It can be interpreted as multiplying every point by a constant (scaling factor).
+>
 > For this exercise, assume only positive scaling values.
 
 ```javascript
@@ -77,9 +83,9 @@ Combine two transformation functions to perform a repeatable transformation. Thi
 ```javascript
 const moveCoordinatesRight2Px = translate2d(2, 0);
 const doubleCoordinates = scale2d(2, 2);
-const composedTransformations = composeTransformation(
+const composedTransformations = composeTransform(
   moveCoordinatesRight2Px,
-  doubleCoordinates
+  doubleCoordinates,
 );
 const result = composedTransformations(0, 1);
 // result => [4, 2]
@@ -100,6 +106,9 @@ const memoizedScale = memoizeTransform(tripleScale);
 memoizedScale(4, 3); // => [12, 9], this is computed since it hasn't been computed before for the arguments
 memoizedScale(4, 3); // => [12, 9], this is remembered, since it was computed already
 ```
+
+[wiki-translate]: https://en.wikipedia.org/wiki/Translation_(geometry)
+[wiki-scale]: https://en.wikipedia.org/wiki/Scaling_(geometry)
 
 ## Source
 

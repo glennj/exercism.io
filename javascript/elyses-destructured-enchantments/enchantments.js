@@ -9,7 +9,7 @@
  * @returns {Card} the first card in the deck
  */
 export function getFirstCard(deck) {
-  const [first, ...rest] = deck;
+  const [first, ] = deck; // ignore the rest
   return first;
 }
 
@@ -21,7 +21,7 @@ export function getFirstCard(deck) {
  * @returns {Card} the second card in the deck
  */
 export function getSecondCard(deck) {
-  const [first, second, ...rest] = deck;
+  const [ , second, ] = deck; // ignores first element
   return second;
 }
 

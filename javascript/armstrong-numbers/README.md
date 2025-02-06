@@ -5,7 +5,7 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
 
-An [Armstrong number](https://en.wikipedia.org/wiki/Narcissistic_number) is a number that is the sum of its own digits each raised to the power of the number of digits.
+An [Armstrong number][armstrong-number] is a number that is the sum of its own digits each raised to the power of the number of digits.
 
 For example:
 
@@ -15,6 +15,15 @@ For example:
 - 154 is _not_ an Armstrong number, because: `154 != 1^3 + 5^3 + 4^3 = 1 + 125 + 64 = 190`
 
 Write some code to determine whether a number is an Armstrong number.
+
+[armstrong-number]: https://en.wikipedia.org/wiki/Narcissistic_number
+
+<!-- prettier-ignore-start -->
+~~~~exercism/note
+Some of the tests might pass a `BigInt` as input.
+Ensure that your implementation can handle such cases.
+~~~~
+<!-- prettier-ignore-end -->
 
 ## Source
 
@@ -27,6 +36,7 @@ Write some code to determine whether a number is an Armstrong number.
 - @ankorGH
 - @gargrave
 - @hayashi-ay
+- @jagdish-15
 - @ovidiu141
 - @SleeplessByte
 - @xarxziux

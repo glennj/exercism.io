@@ -7,7 +7,8 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 
 For want of a horseshoe nail, a kingdom was lost, or so the saying goes.
 
-Given a list of inputs, generate the relevant proverb. For example, given the list `["nail", "shoe", "horse", "rider", "message", "battle", "kingdom"]`, you will output the full text of this proverbial rhyme:
+Given a list of inputs, generate the relevant proverb.
+For example, given the list `["nail", "shoe", "horse", "rider", "message", "battle", "kingdom"]`, you will output the full text of this proverbial rhyme:
 
 ```text
 For want of a nail the shoe was lost.
@@ -19,7 +20,8 @@ For want of a battle the kingdom was lost.
 And all for the want of a nail.
 ```
 
-Note that the list of inputs may vary; your solution should be able to handle lists of arbitrary length and content. No line of the output text should be a static, unchanging string; all should vary according to the input given.
+Note that the list of inputs may vary; your solution should be able to handle lists of arbitrary length and content.
+No line of the output text should be a static, unchanging string; all should vary according to the input given.
 
 If the final item in the list is an `object` instead of a `string`, it will hold a qualifier that modifies the final line in the proverb.
 
@@ -45,4 +47,4 @@ proverb('nail', 'shoe', { qualifier: 'horseshoe' });
 
 ### Based on
 
-Wikipedia - http://en.wikipedia.org/wiki/For_Want_of_a_Nail
+Wikipedia - https://en.wikipedia.org/wiki/For_Want_of_a_Nail

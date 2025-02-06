@@ -1,4 +1,5 @@
-import { encode, decode } from './rail-fence-cipher';
+import { describe, expect, test, test } from '@jest/globals';
+import { decode, encode } from './rail-fence-cipher';
 
 describe('Rail Fence Cipher', () => {
   describe('encode', () => {

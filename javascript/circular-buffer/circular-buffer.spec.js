@@ -1,6 +1,7 @@
+import { describe, expect, test, test } from '@jest/globals';
 import CircularBuffer, {
-  BufferFullError,
   BufferEmptyError,
+  BufferFullError,
 } from './circular-buffer';
 
 describe('CircularBuffer', () => {

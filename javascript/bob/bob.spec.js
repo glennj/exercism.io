@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { hey } from './bob';
 
 describe('Bob', () => {
@@ -102,8 +103,8 @@ describe('Bob', () => {
   });
 
   test('multiple line question', () => {
-    const result = hey('\nDoes this cryogenic chamber make me look fat?\nno');
-    expect(result).toEqual('Whatever.');
+    const result = hey('\nDoes this cryogenic chamber make\n me look fat?');
+    expect(result).toEqual('Sure.');
   });
 
   test('starting with whitespace', () => {

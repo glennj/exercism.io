@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { truncate } from './micro-blog';
 
 describe('Micro-blog', () => {
@@ -8,77 +9,77 @@ describe('Micro-blog', () => {
     expect(actual).toEqual(expected);
   });
 
-  xtest('English language long', () => {
+  test('English language long', () => {
     const inputString = 'Hello there';
     const expected = 'Hello';
     const actual = truncate(inputString);
     expect(actual).toEqual(expected);
   });
 
-  xtest('German language short (broth)', () => {
+  test('German language short (broth)', () => {
     const inputString = 'brühe';
     const expected = 'brühe';
     const actual = truncate(inputString);
     expect(actual).toEqual(expected);
   });
 
-  xtest('German language long (bear carpet → beards)', () => {
+  test('German language long (bear carpet → beards)', () => {
     const inputString = 'Bärteppich';
     const expected = 'Bärte';
     const actual = truncate(inputString);
     expect(actual).toEqual(expected);
   });
 
-  xtest('Bulgarian language short (good)', () => {
+  test('Bulgarian language short (good)', () => {
     const inputString = 'Добър';
     const expected = 'Добър';
     const actual = truncate(inputString);
     expect(actual).toEqual(expected);
   });
 
-  xtest('Greek language short (health)', () => {
+  test('Greek language short (health)', () => {
     const inputString = 'υγειά';
     const expected = 'υγειά';
     const actual = truncate(inputString);
     expect(actual).toEqual(expected);
   });
 
-  xtest('Maths short', () => {
+  test('Maths short', () => {
     const inputString = 'a=πr²';
     const expected = 'a=πr²';
     const actual = truncate(inputString);
     expect(actual).toEqual(expected);
   });
 
-  xtest('Maths long', () => {
+  test('Maths long', () => {
     const inputString = '∅⊊ℕ⊊ℤ⊊ℚ⊊ℝ⊊ℂ';
     const expected = '∅⊊ℕ⊊ℤ';
     const actual = truncate(inputString);
     expect(actual).toEqual(expected);
   });
 
-  xtest('English and emoji short', () => {
+  test('English and emoji short', () => {
     const inputString = 'Fly 🛫';
     const expected = 'Fly 🛫';
     const actual = truncate(inputString);
     expect(actual).toEqual(expected);
   });
 
-  xtest('Emoji short', () => {
+  test('Emoji short', () => {
     const inputString = '💇';
     const expected = '💇';
     const actual = truncate(inputString);
     expect(actual).toEqual(expected);
   });
 
-  xtest('Emoji long', () => {
+  test('Emoji long', () => {
     const inputString = '❄🌡🤧🤒🏥🕰😀';
     const expected = '❄🌡🤧🤒🏥';
     const actual = truncate(inputString);
     expect(actual).toEqual(expected);
   });
 
-  xtest('Royal Flush?', () => {
+  test('Royal Flush?', () => {
     const inputString = '🃎🂸🃅🃋🃍🃁🃊';
     const expected = '🃎🂸🃅🃋🃍';
     const actual = truncate(inputString);

@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { meetup } from './meetup';
 
 describe('Meetup', () => {
@@ -27,37 +28,37 @@ describe('Meetup', () => {
 
   test('wednesteenth of January 2013', () => {
     expect(meetup(2013, 1, 'teenth', 'Wednesday')).toEqual(
-      new Date(2013, 0, 16)
+      new Date(2013, 0, 16),
     );
   });
 
   test('wednesteenth of February 2013', () => {
     expect(meetup(2013, 2, 'teenth', 'Wednesday')).toEqual(
-      new Date(2013, 1, 13)
+      new Date(2013, 1, 13),
     );
   });
 
   test('wednesteenth of June 2013', () => {
     expect(meetup(2013, 6, 'teenth', 'Wednesday')).toEqual(
-      new Date(2013, 5, 19)
+      new Date(2013, 5, 19),
     );
   });
 
   test('thursteenth of May 2013', () => {
     expect(meetup(2013, 5, 'teenth', 'Thursday')).toEqual(
-      new Date(2013, 4, 16)
+      new Date(2013, 4, 16),
     );
   });
 
   test('thursteenth of June 2013', () => {
     expect(meetup(2013, 6, 'teenth', 'Thursday')).toEqual(
-      new Date(2013, 5, 13)
+      new Date(2013, 5, 13),
     );
   });
 
   test('thursteenth of September 2013', () => {
     expect(meetup(2013, 9, 'teenth', 'Thursday')).toEqual(
-      new Date(2013, 8, 19)
+      new Date(2013, 8, 19),
     );
   });
 
@@ -75,19 +76,19 @@ describe('Meetup', () => {
 
   test('saturteenth of February 2013', () => {
     expect(meetup(2013, 2, 'teenth', 'Saturday')).toEqual(
-      new Date(2013, 1, 16)
+      new Date(2013, 1, 16),
     );
   });
 
   test('saturteenth of April 2013', () => {
     expect(meetup(2013, 4, 'teenth', 'Saturday')).toEqual(
-      new Date(2013, 3, 13)
+      new Date(2013, 3, 13),
     );
   });
 
   test('saturteenth of October 2013', () => {
     expect(meetup(2013, 10, 'teenth', 'Saturday')).toEqual(
-      new Date(2013, 9, 19)
+      new Date(2013, 9, 19),
     );
   });
 
@@ -177,25 +178,25 @@ describe('Meetup', () => {
 
   test('second Wednesday of July 2013', () => {
     expect(meetup(2013, 7, 'second', 'Wednesday')).toEqual(
-      new Date(2013, 6, 10)
+      new Date(2013, 6, 10),
     );
   });
 
   test('second Wednesday of August 2013', () => {
     expect(meetup(2013, 8, 'second', 'Wednesday')).toEqual(
-      new Date(2013, 7, 14)
+      new Date(2013, 7, 14),
     );
   });
 
   test('second Thursday of September 2013', () => {
     expect(meetup(2013, 9, 'second', 'Thursday')).toEqual(
-      new Date(2013, 8, 12)
+      new Date(2013, 8, 12),
     );
   });
 
   test('second Thursday of October 2013', () => {
     expect(meetup(2013, 10, 'second', 'Thursday')).toEqual(
-      new Date(2013, 9, 10)
+      new Date(2013, 9, 10),
     );
   });
 
@@ -205,13 +206,13 @@ describe('Meetup', () => {
 
   test('second Friday of December 2013', () => {
     expect(meetup(2013, 12, 'second', 'Friday')).toEqual(
-      new Date(2013, 11, 13)
+      new Date(2013, 11, 13),
     );
   });
 
   test('second Saturday of January 2013', () => {
     expect(meetup(2013, 1, 'second', 'Saturday')).toEqual(
-      new Date(2013, 0, 12)
+      new Date(2013, 0, 12),
     );
   });
 
@@ -245,13 +246,13 @@ describe('Meetup', () => {
 
   test('third Wednesday of July 2013', () => {
     expect(meetup(2013, 7, 'third', 'Wednesday')).toEqual(
-      new Date(2013, 6, 17)
+      new Date(2013, 6, 17),
     );
   });
 
   test('third Wednesday of August 2013', () => {
     expect(meetup(2013, 8, 'third', 'Wednesday')).toEqual(
-      new Date(2013, 7, 21)
+      new Date(2013, 7, 21),
     );
   });
 
@@ -261,7 +262,7 @@ describe('Meetup', () => {
 
   test('third Thursday of October 2013', () => {
     expect(meetup(2013, 10, 'third', 'Thursday')).toEqual(
-      new Date(2013, 9, 17)
+      new Date(2013, 9, 17),
     );
   });
 
@@ -307,49 +308,49 @@ describe('Meetup', () => {
 
   test('fourth Wednesday of July 2013', () => {
     expect(meetup(2013, 7, 'fourth', 'Wednesday')).toEqual(
-      new Date(2013, 6, 24)
+      new Date(2013, 6, 24),
     );
   });
 
   test('fourth Wednesday of August 2013', () => {
     expect(meetup(2013, 8, 'fourth', 'Wednesday')).toEqual(
-      new Date(2013, 7, 28)
+      new Date(2013, 7, 28),
     );
   });
 
   test('fourth Thursday of September 2013', () => {
     expect(meetup(2013, 9, 'fourth', 'Thursday')).toEqual(
-      new Date(2013, 8, 26)
+      new Date(2013, 8, 26),
     );
   });
 
   test('fourth Thursday of October 2013', () => {
     expect(meetup(2013, 10, 'fourth', 'Thursday')).toEqual(
-      new Date(2013, 9, 24)
+      new Date(2013, 9, 24),
     );
   });
 
   test('fourth Friday of November 2013', () => {
     expect(meetup(2013, 11, 'fourth', 'Friday')).toEqual(
-      new Date(2013, 10, 22)
+      new Date(2013, 10, 22),
     );
   });
 
   test('fourth Friday of December 2013', () => {
     expect(meetup(2013, 12, 'fourth', 'Friday')).toEqual(
-      new Date(2013, 11, 27)
+      new Date(2013, 11, 27),
     );
   });
 
   test('fourth Saturday of January 2013', () => {
     expect(meetup(2013, 1, 'fourth', 'Saturday')).toEqual(
-      new Date(2013, 0, 26)
+      new Date(2013, 0, 26),
     );
   });
 
   test('fourth Saturday of February 2013', () => {
     expect(meetup(2013, 2, 'fourth', 'Saturday')).toEqual(
-      new Date(2013, 1, 23)
+      new Date(2013, 1, 23),
     );
   });
 
@@ -423,7 +424,7 @@ describe('Meetup', () => {
 
   test('last Wednesday of December 2014', () => {
     expect(meetup(2014, 12, 'last', 'Wednesday')).toEqual(
-      new Date(2014, 11, 31)
+      new Date(2014, 11, 31),
     );
   });
 

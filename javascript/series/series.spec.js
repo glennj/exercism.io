@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { Series } from './series';
 
 describe('Series', () => {

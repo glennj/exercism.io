@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { steps } from './collatz-conjecture';
 
 describe('steps()', () => {
@@ -20,12 +21,12 @@ describe('steps()', () => {
   test('zero is an error', () => {
     expect(() => {
       steps(0);
-    }).toThrow(new Error('Only positive numbers are allowed'));
+    }).toThrow(new Error('Only positive integers are allowed'));
   });
 
   test('negative value is an error', () => {
     expect(() => {
       steps(-15);
-    }).toThrow(new Error('Only positive numbers are allowed'));
+    }).toThrow(new Error('Only positive integers are allowed'));
   });
 });

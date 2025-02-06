@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { Board } from './connect';
 
 describe('Judging a game of connect', () => {

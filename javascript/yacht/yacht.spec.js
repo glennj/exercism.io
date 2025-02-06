@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { score } from './yacht';
 
 describe('Yacht', () => {
@@ -35,6 +36,10 @@ describe('Yacht', () => {
 
   test('Yacht of 3s counted as fives', () => {
     expect(score([3, 3, 3, 3, 3], 'fives')).toEqual(0);
+  });
+
+  test('Fives', () => {
+    expect(score([1, 5, 3, 5, 3], 'fives')).toEqual(10);
   });
 
   test('Sixes', () => {

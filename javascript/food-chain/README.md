@@ -7,11 +7,9 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 
 Generate the lyrics of the song 'I Know an Old Lady Who Swallowed a Fly'.
 
-While you could copy/paste the lyrics,
-or read them from a file, this problem is much more
-interesting if you approach it algorithmically.
+While you could copy/paste the lyrics, or read them from a file, this problem is much more interesting if you approach it algorithmically.
 
-This is a [cumulative song](http://en.wikipedia.org/wiki/Cumulative_song) of unknown origin.
+This is a [cumulative song][cumulative-song] of unknown origin.
 
 This is one of many common variants.
 
@@ -68,6 +66,8 @@ I know an old lady who swallowed a horse.
 She's dead, of course!
 ```
 
+[cumulative-song]: https://en.wikipedia.org/wiki/Cumulative_song
+
 ## Source
 
 ### Created by
@@ -87,4 +87,4 @@ She's dead, of course!
 
 ### Based on
 
-Wikipedia - http://en.wikipedia.org/wiki/There_Was_an_Old_Lady_Who_Swallowed_a_Fly
+Wikipedia - https://en.wikipedia.org/wiki/There_Was_an_Old_Lady_Who_Swallowed_a_Fly

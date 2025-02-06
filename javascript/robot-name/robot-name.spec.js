@@ -1,3 +1,11 @@
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  test,
+  test,
+} from '@jest/globals';
 import { Robot } from './robot-name';
 
 const areSequential = (name1, name2) => {
@@ -73,7 +81,7 @@ describe('Robot', () => {
     const modifyInternal = () => {
       robot.name += 'a modification';
     };
-    expect(modifyInternal).toThrow();
+    expect(() => modifyInternal()).toThrow();
   });
 
   test('new names should not be sequential', () => {
@@ -113,6 +121,6 @@ describe('Robot', () => {
 
       expect(usedNames.size).toEqual(TOTAL_NUMBER_OF_NAMES);
     },
-    8 * 1000
+    8 * 1000,
   );
 });

@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { rotate } from './rotational-cipher';
 
 describe('Rotational cipher', () => {

@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { isValid } from './isbn-verifier';
 
 describe('ISBN Verifier', () => {
@@ -9,7 +10,7 @@ describe('ISBN Verifier', () => {
     expect(isValid('3-598-21508-9')).toEqual(false);
   });
 
-  test('valid isbn number with a check digit of 10', () => {
+  test('valid isbn with a check digit of 10', () => {
     expect(isValid('3-598-21507-X')).toEqual(true);
   });
 
@@ -17,7 +18,11 @@ describe('ISBN Verifier', () => {
     expect(isValid('3-598-21507-A')).toEqual(false);
   });
 
-  test('invalid character in isbn', () => {
+  test('invalid check digit in isbn is not treated as zero', () => {
+    expect(isValid('4-598-21507-B')).toEqual(false);
+  });
+
+  test('invalid character in isbn is not treated as zero', () => {
     expect(isValid('3-598-P1581-X')).toEqual(false);
   });
 
@@ -61,8 +66,12 @@ describe('ISBN Verifier', () => {
     expect(isValid('134456729')).toEqual(false);
   });
 
-  test('invalid characters are not ignored', () => {
+  test('invalid characters are not ignored after checking length', () => {
     expect(isValid('3132P34035')).toEqual(false);
+  });
+
+  test('invalid characters are not ignored before checking length', () => {
+    expect(isValid('3598P215088')).toEqual(false);
   });
 
   test('input is too long but contains a valid isbn', () => {

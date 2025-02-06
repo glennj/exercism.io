@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { decodedValue } from './resistor-color-duo';
 
 describe('Resistor Colors', () => {

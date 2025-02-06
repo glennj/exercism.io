@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { flatten } from './flatten-array';
 
 describe('FlattenArray', () => {
@@ -47,7 +48,7 @@ describe('FlattenArray', () => {
 
   test('all values in nested list are null', () => {
     expect(
-      flatten([null, [[[null]]], null, null, [[null, null], null], null])
+      flatten([null, [[[null]]], null, null, [[null, null], null], null]),
     ).toEqual([]);
   });
 });

@@ -174,3 +174,7 @@ There are only two viable solutions to a call stack error caused by a synchronou
 
 - @SleeplessByte
 - @safwansamsudeen
+
+### Contributed to by
+
+- @Cool-Katt

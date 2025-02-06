@@ -25,9 +25,12 @@ What do those abbreviations mean?
 - L: Matches Lost
 - P: Points
 
-A win earns a team 3 points. A draw earns 1. A loss earns 0.
+A win earns a team 3 points.
+A draw earns 1.
+A loss earns 0.
 
-The outcome should be ordered by points, descending. In case of a tie, teams are ordered alphabetically.
+The outcome is ordered by points, descending.
+In case of a tie, teams are ordered alphabetically.
 
 ## Input
 
@@ -42,7 +45,8 @@ Blithering Badgers;Devastating Donkeys;loss
 Allegoric Alaskans;Courageous Californians;win
 ```
 
-The result of the match refers to the first team listed. So this line:
+The result of the match refers to the first team listed.
+So this line:
 
 ```text
 Allegoric Alaskans;Blithering Badgers;win

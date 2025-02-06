@@ -1,4 +1,4 @@
-/* eslint-disable no-new */
+import { describe, expect, test, test } from '@jest/globals';
 import { Cipher } from './simple-cipher';
 
 describe('Random key cipher', () => {
@@ -47,7 +47,7 @@ describe('Substitution cipher', () => {
 
   test('can double shift encode', () => {
     expect(new Cipher('iamapandabear').encode('iamapandabear')).toEqual(
-      'qayaeaagaciai'
+      'qayaeaagaciai',
     );
   });
 

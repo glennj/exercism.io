@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { Allergies } from './allergies';
 
 describe('Allergies', () => {
@@ -284,6 +285,11 @@ describe('Allergies', () => {
         'pollen',
         'cats',
       ]);
+    });
+
+    test('no allergen score parts without highest valid score', () => {
+      const allergies = new Allergies(257);
+      expect(allergies.list()).toEqual(['eggs']);
     });
   });
 });

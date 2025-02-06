@@ -32,4 +32,4 @@ Using the built-in [Date class](https://developer.mozilla.org/en-US/docs/Web/Jav
 
 ### Based on
 
-Pairing session with Erin Drummond - https://twitter.com/ebdrummond
+Pairing session with Erin Drummond

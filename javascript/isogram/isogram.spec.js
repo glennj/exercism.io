@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { isIsogram } from './isogram';
 
 describe('Isogram', () => {
@@ -52,6 +53,10 @@ describe('Isogram', () => {
 
     test('same first and last characters', () => {
       expect(isIsogram('angola')).toEqual(false);
+    });
+
+    test('word with duplicated character and with two hyphens', () => {
+      expect(isIsogram('up-to-date')).toEqual(false);
     });
   });
 });

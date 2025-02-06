@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { ZebraPuzzle } from './zebra-puzzle';
 
 describe('Zebra puzzle', () => {

@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { QueenAttack } from './queen-attack';
 
 describe('Queens', () => {

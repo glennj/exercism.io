@@ -1,3 +1,4 @@
+import { describe, expect, test, test } from '@jest/globals';
 import { score } from './scrabble-score';
 
 describe('Scrabble', () => {
