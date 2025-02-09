@@ -11,7 +11,7 @@ class EliudsEggsSpec extends Specification {
         expected = 0
     }
 
-    @Ignore
+    //@Ignore
     def "1 egg"() {
         expect:
         EliudsEggs.eggCount(number) == expected
@@ -21,7 +21,7 @@ class EliudsEggsSpec extends Specification {
         expected = 1
     }
 
-    @Ignore
+    //@Ignore
     def "4 eggs"() {
         expect:
         EliudsEggs.eggCount(number) == expected
@@ -31,7 +31,7 @@ class EliudsEggsSpec extends Specification {
         expected = 4
     }
 
-    @Ignore
+    //@Ignore
     def "13 eggs"() {
         expect:
         EliudsEggs.eggCount(number) == expected
