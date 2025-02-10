@@ -1,6 +1,6 @@
-# Resistor Color Duo
+# Resistor Color
 
-Welcome to Resistor Color Duo on Exercism's Bash Track.
+Welcome to Resistor Color on Exercism's Bash Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
@@ -15,12 +15,10 @@ To get around this problem, manufacturers print color-coded bands onto the resis
 Each band has a position and a numeric value.
 
 The first 2 bands of a resistor have a simple encoding scheme: each color maps to a single number.
-For example, if they printed a brown band (value 1) followed by a green band (value 5), it would translate to the number 15.
 
 In this exercise you are going to create a helpful program so that you don't have to remember the values of the bands.
-The program will take color names as input and output a two digit number, even if the input is more than two colors!
 
-The band colors are encoded as follows:
+These colors are encoded as follows:
 
 - black: 0
 - brown: 1
@@ -33,9 +31,17 @@ The band colors are encoded as follows:
 - grey: 8
 - white: 9
 
-From the example above:
-brown-green should return 15, and
-brown-green-violet should return 15 too, ignoring the third color.
+The goal of this exercise is to create a way:
+
+- to look up the numerical value associated with a particular color band
+- to list the different band colors
+
+Mnemonics map the colors to the numbers, that, when stored as an array, happen to map to their index in the array:
+Better Be Right Or Your Great Big Values Go Wrong.
+
+More information on the color encoding of resistors can be found in the [Electronic color code Wikipedia article][e-color-code].
+
+[e-color-code]: https://en.wikipedia.org/wiki/Electronic_color_code
 
 ## Source
 
@@ -43,13 +49,6 @@ brown-green-violet should return 15 too, ignoring the third color.
 
 - @glennj
 
-### Contributed to by
-
-- @bkhl
-- @guygastineau
-- @IsaacG
-- @kotp
-
 ### Based on
 
-Maud de Vries, Erik Schierboom - https://github.com/exercism/problem-specifications/issues/1464
+Maud de Vries, Erik Schierboom - https://github.com/exercism/problem-specifications/issues/1458
