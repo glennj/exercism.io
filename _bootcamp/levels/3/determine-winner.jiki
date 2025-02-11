@@ -1,0 +1,16 @@
+set p1 to get_player_1_choice()
+set p2 to get_player_2_choice()
+set winner to "player_1"
+
+if p1 equals p2 do
+  change winner to "tie"
+
+else if p2 equals "rock" and p1 equals "scissors" do
+  change winner to "player_2"
+else if p2 equals "scissors" and p1 equals "paper" do
+  change winner to "player_2"
+else if p2 equals "paper" and p1 equals "rock" do
+  change winner to "player_2"
+end
+
+announce_result(winner)

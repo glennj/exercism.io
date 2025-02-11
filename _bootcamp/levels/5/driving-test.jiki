@@ -1,0 +1,27 @@
+function is_minor_mistake with char do
+  return char == "❌"
+end
+function is_major_mistake with char do
+  return char == "💥"
+end
+function is_pass with char do
+  return char == "✅"
+end
+
+function did_they_pass with results do
+  set minor_mistakes to 0
+  
+  for each char in results do
+    if is_major_mistake(char) do
+      return false
+      
+    else if is_minor_mistake(char) do
+      change minor_mistakes to minor_mistakes + 1
+      if minor_mistakes == 5 do
+        return false
+      end
+    end
+  end
+  
+  return true
+end

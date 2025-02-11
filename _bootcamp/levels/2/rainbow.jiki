@@ -1,0 +1,15 @@
+set iterations to 100
+set x_step to 1
+set hue_step to 360 / 100
+set x to 0 - x_step
+set hue to 0 - hue_step
+set saturation to 70
+set luminance to 50
+
+repeat iterations times do
+  change x to x + 1
+  change hue to hue + hue_step
+
+  fill_color_hsl(hue, saturation, luminance)
+  rectangle(x, 0, 2, 100)
+end

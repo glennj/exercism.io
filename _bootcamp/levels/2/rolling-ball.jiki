@@ -1,0 +1,30 @@
+// Canadian spelling of the builtin function
+function fill_colour_hex with colour do
+  fill_color_hex(colour)
+end
+
+set ground_level to 75
+set tee_x to 28
+set hole_x to 88
+set delta to 1
+set frames to (hole_x - tee_x) / delta
+
+set ball_radius to 3
+set ball_colour to "orange"
+
+// The initial position
+set x to tee_x
+
+// Set your fill color
+fill_colour_hex(ball_colour)
+
+// Draw the ball on the tee
+circle(x, ground_level, ball_radius)
+
+repeat frames times do
+  clear()
+  // Increase the x position by 1
+  change x to x + delta
+  // Draw the ball
+  circle(x, ground_level, ball_radius)
+end

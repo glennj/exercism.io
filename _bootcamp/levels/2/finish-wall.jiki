@@ -1,0 +1,13 @@
+set brick_height to 10
+set brick_width to 20
+set canvas_width to 100
+set num_bricks to canvas_width / brick_width
+set brick_top to 0
+set brick_left to 0 - brick_width
+
+fill_color_hex("#AA4A44")
+
+repeat num_bricks times do
+  change brick_left to brick_left + brick_width
+  rectangle(brick_left, brick_top, brick_width, brick_height)
+end

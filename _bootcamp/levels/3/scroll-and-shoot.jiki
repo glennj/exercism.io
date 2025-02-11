@@ -1,0 +1,23 @@
+set alien_columns to 6
+set spaces_between_columns to 5
+set positions to alien_columns + spaces_between_columns
+set left_position to 0
+set right_position to positions - 1
+
+set step to 1
+set position to left_position
+
+repeat_until_game_over do
+  if position + step < left_position or position + step > right_position do
+    change step to -1 * step
+  end
+  if step is 1 do
+    move_right()
+  else do
+    move_left()
+  end
+  change position to position + step
+  if is_alien_above() do
+    shoot()
+  end
+end

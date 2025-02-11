@@ -1,0 +1,102 @@
+// Sky
+fill_color_hex("#ADD8E6") 
+rectangle(0, 0, 100, 100)
+
+// Ground
+fill_color_hex("#ffffff")
+rectangle(0, 70, 100, 30)
+
+function add_circle with colour, x, y, r do
+  fill_color_hex(colour)
+  circle(x, y, r)
+end
+
+// Wings
+fill_color_hex("#000000")
+ellipse(28, 55, 10, 25)
+ellipse(72, 55, 10, 25)
+
+// Body
+fill_color_hex("#000000")
+ellipse(50, 53, 25, 40)
+fill_color_hex("#ffffff")
+ellipse(50, 50, 21, 39)
+
+// Head
+//fill_color_hex("#000000") 
+//circle(50, 31, 23) 
+add_circle("black", 50, 31, 23)
+
+// Upper part of face
+fill_color_hex("#ffffff")
+ellipse(41, 32, 11, 14)
+ellipse(59, 32, 11, 14)
+
+// Lower part of face
+ellipse(50, 40, 16, 11)
+
+// Eyes
+set colour to "black"
+
+fill_color_hex(colour)
+circle(42, 33, 3) 
+circle(58, 33, 3) 
+change colour to "white"
+fill_color_hex(colour)
+circle(43, 34, 1)
+circle(57, 34, 1)
+
+// Nose
+fill_color_hex("#FFA500")
+triangle(46, 38, 54, 38, 50, 47)
+
+// Feet
+fill_color_hex("#FFA500")
+ellipse(40, 93, 7, 4)
+ellipse(60, 93, 7, 4)
+
+// ----------------------------------------------
+// Paint over the penguin with an Exercism logo
+fill_color_hex("white")
+rectangle(0,0,100,100)
+
+fill_color_hex("blue")
+circle(50,56,10)
+circle(33,44,10)
+circle(67,44,10)
+circle(0, 55, 7)
+circle(0, 45, 7)
+circle(100, 55, 7)
+circle(100, 45, 7)
+circle(11, 10, 7)
+circle(11, 90, 7)
+circle(89, 10, 7)
+circle(89, 90, 7)
+
+fill_color_hex("white")
+circle(50,56,7)
+circle(33,44,7)
+circle(67,44,7)
+rectangle(23,44,54,12)
+circle(0, 55, 4)
+circle(0, 45, 4)
+rectangle(0,38,4,7)
+rectangle(0,55,4,7)
+circle(100, 55, 4)
+circle(100, 45, 4)
+rectangle(96,38,4,7)
+rectangle(96,55,4,7)
+rectangle(0,10,100,7)
+rectangle(0,83,100,7)
+rectangle(11,0,7,100)
+rectangle(82,0,7,100)
+circle(11, 10, 4)
+circle(11, 90, 4)
+circle(89, 10, 4)
+circle(89, 90, 4)
+
+fill_color_hex("blue")
+rectangle(4,10,3,34)
+rectangle(4,56,3,34)
+rectangle(93,10,3,34)
+rectangle(93,56,3,34)

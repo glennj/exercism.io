@@ -1,0 +1,20 @@
+function am_or_pm with hour_24 do
+  if hour_24 < 12 do
+    return "am"
+  end
+  return "pm"
+end
+
+function display_hour with hour_24 do
+  if hour_24 == 0 do
+    return 12
+  else if hour_24 <= 12 do
+    return hour_24
+  end
+  return hour_24 - 12
+end
+
+set hour to current_time_hour()
+set minutes to current_time_minute()
+
+display_time(display_hour(hour), minutes, am_or_pm(hour))

@@ -1,0 +1,31 @@
+function build_row with count, top, offset, width, height do
+  set left to 0 - width
+  repeat count times do
+    change left to left + width
+    rectangle(left - offset, top, width, height)
+  end
+end
+
+set canvas_width   to 100
+set canvas_height  to 100
+set brick_width    to 20
+set brick_height   to 10
+set bricks_per_row to canvas_width / brick_width
+set total_rows     to canvas_height / brick_height
+set brick_colour   to "#AA4A44"
+// build the wall from the bottom up
+set brick_top      to canvas_height 
+
+fill_color_hex(brick_colour)
+
+// building 2 rows at a time
+repeat total_rows / 2 times do
+  change brick_top to brick_top - brick_height
+  // lay a row with 6 bricks
+  build_row(bricks_per_row + 1, brick_top, brick_width / 2, brick_width, brick_height)
+
+  change brick_top to brick_top - brick_height
+  // lay a row with 5 bricks
+  build_row(bricks_per_row, brick_top, 0, brick_width, brick_height)
+end
+

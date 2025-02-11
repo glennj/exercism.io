@@ -1,0 +1,18 @@
+function contains with haystack, needle do
+  for each elem in haystack do
+    if elem == needle do
+      return true
+    end
+  end
+  return false
+end
+
+function shopping_list with fridge_contents, ingredients do
+  set grocery_list to []
+  for each item in ingredients do
+    if not contains(fridge_contents, item) do
+      change grocery_list to push(grocery_list, item)
+    end
+  end
+  return grocery_list      
+end

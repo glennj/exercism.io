@@ -1,0 +1,41 @@
+set frames to 100
+
+set light_blue_hue to 200
+set dark_blue_hue to 240
+set sky_hue_delta to (dark_blue_hue - light_blue_hue) / frames
+set sky_hue to light_blue_hue - sky_hue_delta
+set sky_sat to 70
+set sky_lum to 60
+
+set yellow_hue to 60
+set orange_hue to 20
+set sun_hue_delta to (orange_hue - yellow_hue) / frames
+set sun_hue to yellow_hue - sun_hue_delta
+set sun_sat to 80
+set sun_lum to 60
+
+set x to 50
+set y_delta to 1
+set y to 10 - y_delta
+set radius_delta to 0.2
+set radius to 5 - radius_delta
+
+repeat frames times do
+  change sky_hue to sky_hue + sky_hue_delta
+  change sun_hue to sun_hue + sun_hue_delta
+  change y to y + y_delta
+  change radius to radius + radius_delta
+
+  // sky
+  fill_color_hsl(sky_hue, sky_sat, sky_lum)
+  rectangle(0,0,100,85)
+  // sun
+  fill_color_hsl(sun_hue, sun_sat, sun_lum)
+  circle(x, y, radius)
+  // sea
+  fill_color_hex("#0308ce")
+  rectangle(0,85,100,5)
+  // sand
+  fill_color_hex("#C2B280")
+  rectangle(0,90,100,11)
+end

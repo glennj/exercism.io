@@ -1,0 +1,26 @@
+// Receives a number as its input
+// Should return the equivelent raindrop sounds
+function raindrops with number do
+  set raindrops to ""
+  if is_divisible_by(number, 3) do
+    change raindrops to join(raindrops, "Pling")
+  end
+  if is_divisible_by(number, 5) do
+    change raindrops to join(raindrops, "Plang")
+  end
+  if is_divisible_by(number, 7) do
+    change raindrops to join(raindrops, "Plong")
+  end
+  if is_empty(raindrops) do
+    change raindrops to number_to_string(number)
+  end
+  return raindrops
+end
+
+function is_divisible_by with number, divisor do
+  return number % divisor == 0
+end
+
+function is_empty with a_string do
+  return a_string == ""
+end

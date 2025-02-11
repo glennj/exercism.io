@@ -1,0 +1,36 @@
+function turn_around do
+  turn_right()
+  turn_right()
+end
+
+function can_move_in_direction with direction do
+  set result to look(direction)
+  return result is "empty" or result is "target" or result is "start"
+end
+
+function can_turn_left do
+  return can_move_in_direction("left")
+end
+
+function can_turn_right do
+  return can_move_in_direction("right")
+end
+
+function can_move do
+  return can_move_in_direction("ahead")
+end
+
+// --------------------------------------
+repeat_until_game_over do
+  if can_turn_left() do
+    turn_left()
+    move()
+  else if can_move() do
+    move()
+  else if can_turn_right() do
+    turn_right()
+    move()
+  else do
+    turn_around()
+  end
+end

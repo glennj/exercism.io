@@ -1,0 +1,42 @@
+set canvas_min to 0
+set canvas_max to 100
+set saturation to 80
+set luminance to 50
+set radius to 10
+
+set min_step to 0.5
+set max_step to 5
+
+set x_direction to 1
+set y_direction to 1
+set x_step to 2
+set y_step to 1
+set x to 5 - x_step    // initial position
+set y to 5 - y_step    // initial position
+
+set hue_delta to 1
+set hue_min to 100
+set hue_max to 255
+set hue to hue_min - hue_delta
+
+repeat 400 times do
+  if hue == hue_max or hue == hue_min do
+    change hue_delta to -1 * hue_delta
+  end
+  change hue to hue + hue_delta
+
+  if x <= canvas_min + x_step or x >= canvas_max - x_step do
+    change x_direction to -1 * x_direction
+    change x_step to random_number(min_step, max_step)
+  end
+  change x to x + x_step * x_direction
+
+  if y <= canvas_min + y_step or y >= canvas_max - y_step do
+    change y_direction to -1 * y_direction
+    change y_step to random_number(min_step, max_step)
+  end
+  change y to y + y_step * y_direction
+
+  fill_color_hsl(hue, saturation, luminance)
+  circle(x, y, radius)
+end

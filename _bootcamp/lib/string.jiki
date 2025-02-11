@@ -1,0 +1,188 @@
+// Jiki-supplied functions used:
+//  * join(a_string, another_string)
+//  * to_upper_case(a_string)
+//  * push(a_list, an_element)
+
+// ------------------------------------------------------------
+// String or list functions
+
+function length with thing do
+  set len to 0
+  for each _ in thing do
+    change len to len + 1
+  end
+  return len
+end
+
+function is_empty with string do
+  for each _ in string do
+    return false
+  end
+  return true
+end
+
+// ------------------------------------------------------------
+// Return the index of the *first* occurrence of the given char
+// in the given string.
+// Return -1 if the char does not exist in the string.
+function index_of with string, char do
+  set index to 0
+
+  for each character in string do
+    change index to index + 1
+    if character is char do
+      return index
+    end
+  end
+
+  return -1
+end
+
+// Remove the first n chars from the string.
+// If n is greater than the string length, returns an empty string.
+function drop with string, n do
+  set remaining to ""
+  set i to 0
+
+  for each char in string do
+    change i to i + 1
+    if i > n do
+      change remaining to join(remaining, char)
+    end
+  end
+
+  return remaining
+end
+
+// Grab the first n chars from the string.
+// If n is greater than the string length, returns a copy of the string.
+function take with string, n do
+  set taken to ""
+  set i to 0
+
+  for each char in string do
+    change i to i + 1
+    change taken to join(taken, char)
+    if i == n do
+      return taken
+    end
+  end
+
+  return taken
+end
+
+function split with string, separator do
+  set words to []
+  set word to ""
+
+  for each char in string do
+    if not (char is separator) do
+      change word to join(word, char)
+
+    else do
+      if not is_empty(word) do
+        change words to push(words, word)
+      end
+      change word to ""
+    end
+  end
+
+  if not is_empty(word) do
+    change words to push(words, word)
+  end
+
+  return words
+end
+
+// Split a string into two parts:
+// * the left half is the substring *before* the first instance of separator
+// * the right half is the substring *after* the first instance of separator
+// The separator is not included in the results.
+// Returns a 2-element list: [left, right]
+function partition with string, separator do
+  set result to ["", ""]
+  set index to 1
+
+  for each char in string do
+    if char is separator do
+      set index to 2
+    else do
+      change result[index] to join(result[index], char)
+    end
+  end
+
+  return result
+end
+
+function starts_with with string, prefix do
+  set prefix_len to length(prefix)
+  set i to 0
+
+  for each char in string do
+    change i to i + 1
+
+    if not (char is prefix[i]) do
+      return false
+    end
+
+    if i == prefix_len do
+      return true
+    end
+  end
+
+  return false // string is too short
+end
+
+// Does the given string end with the given suffix
+function ends_with with string, suffix do
+  set string_len to length(string)
+  set suffix_len to length(suffix)
+  if string_len < suffix_len do
+    return false
+  end
+
+  set i to string_len + 1
+  set j to suffix_len + 1
+
+  repeat suffix_len times do
+    change i to i - 1
+    change j to j - 1
+    if not (string[i] is suffix[j]) do
+      return false
+    end
+  end
+
+  return true
+end
+
+// Reverse a string
+function reverse with string do
+  set reversed to ""
+  for each letter in string do
+    change reversed to join(letter, reversed)
+  end
+  return reversed
+end
+
+// ------------------------------------------------------------
+// Character-oriented functions
+
+function is_alpha with char do
+  set C to to_upper_case(char)
+  for each letter in to_upper_case("abcdefghijklmnopqrstuvwxyz") do
+    if C is letter do
+      return true
+    end
+  end
+  return false
+end
+
+function is_digit with char do
+  for each digit in "0123456789") do
+    if char is digit do
+      return true
+    end
+  end
+  return false
+end
+

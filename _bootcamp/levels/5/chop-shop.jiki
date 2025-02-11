@@ -1,0 +1,26 @@
+function style_time with style do
+  if style is "Mohawk" do
+    return  20
+  else if style is "Slicked-Back Pixie" do
+    return  15
+  else if style is "Bob" do
+    return  25
+  else if style is "Shave and Polish" do
+    return  15
+  else if style is "Afro Trim" do
+    return  45
+  else if style is "Up-do" do
+    return  30
+  end
+end
+
+function available_time with minutes, queue do
+  for each style in queue do
+    change minutes to minutes - style_time(style)
+  end
+  return minutes
+end
+
+function can_fit_in with queue, style, remaining_time do
+  return available_time(remaining_time, queue) >= style_time(style)
+end

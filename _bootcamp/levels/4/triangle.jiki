@@ -1,0 +1,28 @@
+function is_valid with a, b, c do
+  set positive_sides to (a > 0 and b > 0 and c > 0)
+  set valid_lengths to (a + b > c and a + c > b and b + c > a)
+  return positive_sides and valid_lengths
+end
+
+function is_equilateral with a, b, c do
+  return a == b and a == c
+end
+
+function is_isosceles with a, b, c do
+  return a == b or b == c or a == c
+end
+
+function determine_triangle_type with a, b, c do
+  if not is_valid(a, b, c) do
+    return "invalid"
+  end
+
+  if is_equilateral(a, b, c) do
+    return "equilateral"
+  else if is_isosceles(a, b, c) do
+    return "isosceles"
+  else do
+    return "scalene"
+  end
+end
+

@@ -1,0 +1,17 @@
+function description_to_elements with description do
+  if description is "sunny" do
+    return ["sun"]
+  else if description is "dull" do
+    return ["cloud"]
+  else if description is "miserable" do
+    return ["cloud", "rain"]
+  else if description is "hopeful" do
+    return ["sun", "cloud"]
+  else if description is "rainbow-territory" do
+    return ["sun", "cloud", "rain"]
+  else if description is "exciting" do
+    return ["cloud", "snow"]
+  else if description is "snowboarding-time" do
+    return ["sun", "cloud", "snow"]
+  end
+end

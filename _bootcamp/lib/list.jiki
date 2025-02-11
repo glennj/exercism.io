@@ -1,0 +1,77 @@
+// Jiki-supplied functions used:
+//  * push(aList, anElement)
+
+// ------------------------------------------------------------
+// String or list functions
+
+function length with thing do
+  set len to 0
+  for each _ in thing do
+    change len to len + 1
+  end
+  return len
+end
+
+function is_empty with string do
+  for each _ in string do
+    return false
+  end
+  return true
+end
+
+// ------------------------------------------------------------
+// Return the index of the *first* occurrence of the given 
+// (scalar only) element in the given list.
+// Return -1 if the element does not exist in the list.
+function index_of with haystack, needle do
+  set index to 0
+
+  for each elem in haystack do
+    change index to index + 1
+    if elem is needle do        // scalars only!
+      return index
+    end
+  end
+
+  return -1
+end
+
+// Return true if the given (scalar only) element is in the given list.
+function contains with haystack, needle do
+  for each elem in haystack do
+    if elem is needle do        // scalars only!
+      return true
+    end
+  end
+  return false
+end
+
+// Return a copy of the list with the element at the given index removed.
+function remove_at with list, idx do
+  set result to []
+  set i to 0
+
+  for each elem in list do
+    change i to i + 1
+    if i != idx do
+      change result to push(result, list[i])
+    end
+  end
+
+  return result
+end
+
+// Reverse a list
+function reverse with list do
+  set reversed to []
+  set len to length(list)
+  set i to len + 1
+
+  repeat i times do
+    change i to i - 1
+    change reversed to push(reversed, list[i])
+  end
+
+  return reversed
+end
+

@@ -1,0 +1,20 @@
+function dna_to_rna with dna do
+  set rna to ""
+  for each nucleotide in dna do
+    change rna to join(rna, transcribe(nucleotide))
+  end
+  return rna
+end
+
+function transcribe with nucleotide do
+  set dna_nucleotides to ["G", "C", "T", "A"]
+  set rna_nucleotides to ["C", "G", "A", "U"]
+  set index to 0
+  for each nuc in dna_nucleotides do
+    change index to index + 1
+    if nuc is nucleotide do
+      return rna_nucleotides[index]
+    end
+  end
+  // assume no invalid nucleotides in the DNA strand
+end

@@ -1,0 +1,54 @@
+// TODO: I'm calling length() on the candidate name is multiple places.
+//       Calculate it once and pass it around.
+
+function length with list_or_string do
+  set count to 0
+  for each item in list_or_string do
+    change count to count + 1
+  end
+  return count
+end
+
+function starts_with with string, prefix do
+  set prefix_len to length(prefix)
+  set i to 0
+  for each char in string do
+    change i to i + 1
+    if not (char is prefix[i]) do
+      return false
+    end 
+    if i == prefix_len do
+      return true
+    end
+  end
+  return false // string is too short
+end
+
+function length_of_first_name with name do
+  set i to 0
+  for each char in name do
+    change i to i + 1
+    if char is " " do
+      return i - 1
+    end
+  end
+  return i
+end
+
+function is_match with guest, candidate do
+  if length_of_first_name(guest) != length(candidate) do
+    return false
+  end
+  return starts_with(guest, candidate)
+end
+
+function on_guest_list with guests, candidate do
+  for each guest in guests do
+    if is_match(guest, candidate) do
+      return true
+    end
+  end
+  return false
+end
+
+// 45 LOC

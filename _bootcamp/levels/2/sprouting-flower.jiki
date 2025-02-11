@@ -1,0 +1,64 @@
+set size to 100
+set mid_x to 50
+
+// prescribed values
+set ground_level             to 90
+set flower_y_delta           to -1
+set flower_radius_delta      to 0.4
+set flower_radius_start      to 0
+set flower_pistil_delta      to 0.1
+set flower_pistil_start      to 0
+set stem_width_proportion    to 0.1
+set leaf_x_radius_proportion to 0.5
+set leaf_y_radius_proportion to 0.2
+set leaf_y_proportion        to 0.5
+
+// calculate initial values
+set flower_y             to ground_level - flower_y_delta
+set flower_radius        to flower_radius_start - flower_radius_delta
+set flower_pistil_radius to flower_radius_start - flower_pistil_delta
+
+// creating loop variables
+set stem_left     to 0
+set stem_height   to 0
+set stem_width    to 0
+set leaf_x_radius to 0
+set leaf_y_radius to 0
+set leaf_y        to 0
+set leaf_x_offset to 0
+
+set frames to 60 + 1
+repeat frames times do
+  change flower_y             to flower_y + flower_y_delta
+  change flower_radius        to flower_radius + flower_radius_delta
+  change flower_pistil_radius to flower_pistil_radius + flower_pistil_delta
+
+  change stem_height to ground_level - flower_y
+  change stem_width  to stem_height * stem_width_proportion
+  change stem_left   to mid_x - stem_width / 2
+
+  change leaf_x_radius to flower_radius * leaf_x_radius_proportion
+  change leaf_y_radius to flower_radius * leaf_y_radius_proportion
+  change leaf_y        to flower_y + stem_height * leaf_y_proportion
+  change leaf_x_offset to stem_width / 2 + leaf_x_radius
+
+  // Sky
+  fill_color_hex("#ADD8E6") 
+  rectangle(0, 0, size, ground_level)
+  
+  // Ground
+  fill_color_hex("green")
+  rectangle(0, ground_level, size, size - ground_level)
+
+  // stem
+  rectangle(stem_left, flower_y, stem_width, stem_height)
+  circle(mid_x, flower_y, stem_width / 2) // top of stem shound not be square
+  // leaves
+  ellipse(mid_x - leaf_x_offset, leaf_y, leaf_x_radius, leaf_y_radius)
+  ellipse(mid_x + leaf_x_offset, leaf_y, leaf_x_radius, leaf_y_radius)
+  // flower
+  fill_color_hex("violet")
+  circle(mid_x, flower_y, flower_radius)
+  fill_color_hex("yellow")
+  circle(mid_x, flower_y, flower_pistil_radius)
+end

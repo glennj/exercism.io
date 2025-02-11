@@ -1,0 +1,19 @@
+// Receives a number as its input
+// Should return the number of steps to reach 1
+function collatz_steps with number do
+  set steps to 0
+  
+  repeat_forever do
+    if number == 1 do
+      return steps
+    end
+  
+    if number % 2 == 0 do
+      change number to number / 2
+    else do
+      change number to 3 * number + 1
+    end
+
+    change steps to steps + 1
+  end
+end

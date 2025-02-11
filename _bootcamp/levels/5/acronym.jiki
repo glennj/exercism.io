@@ -1,0 +1,36 @@
+function is_letter with char do
+  for each letter in to_upper_case("abcdefghijklmnopqrstuvwxyz") do
+    if char is letter do
+      return true
+    end
+  end
+  return false
+end
+
+function is_separator with char do
+  return char is " " or char is "-"
+end
+  
+function acronym with phrase do
+  set acronym to ""
+
+  // Implementing this by iterating over the input string character-by-character,
+  // using a little state machine to decide when to add a letter to the acronym.
+  // There are two states
+  // * "seeking letter" where we are looking for the first letter of a word
+  // * "seeking separator" after we have found the first letter,
+  //   we re looking for the separator character that follows the end of the word.
+  
+  set state to "seeking letter"
+  for each char in to_upper_case(phrase) do
+    if state is "seeking letter" and is_letter(char) do
+      change acronym to join(acronym, char)
+      change state to "seeking separator"
+  
+    else if state is "seeking separator" and is_separator(char) do
+      change state to "seeking letter"
+    end
+  end
+
+  return acronym
+end

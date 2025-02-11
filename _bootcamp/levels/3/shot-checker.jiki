@@ -1,0 +1,36 @@
+// Set our initial variables
+set tee_position to 30
+set grass_y to 75
+set ball_x to tee_position - 1 // We increment this before we use it.
+set ball_y to grass_y
+set ball_radius to 3
+
+set hole_left to 56
+set hole_right to 63
+set hole_depth_y to 84
+set drop to hole_depth_y - grass_y
+
+set shot_length to get_shot_length()
+
+// As we're not changing colors, we can 
+// set this outside of the repeat block
+fill_color_hex("orange")
+
+repeat shot_length + 1 times do
+  change ball_x to ball_x + 1
+
+  // Draw the ball
+  clear()
+  circle(ball_x, ball_y, ball_radius)
+end
+
+// Handle the ball landing in the hole.
+if hole_left <= shot_length and shot_length <= hole_right do
+  repeat drop times do
+    change ball_y to ball_y + 1
+    clear()
+    circle(ball_x, ball_y, ball_radius)
+  end
+
+  fire_fireworks()
+end
