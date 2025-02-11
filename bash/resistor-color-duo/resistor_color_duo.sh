@@ -9,4 +9,3 @@ for color in "${@:1:2}"; do
     ((result = 10 * result + value))
 done
 echo "$result"
- 

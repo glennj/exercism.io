@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-readonly COLORS=(
-    black brown red orange yellow
-    green blue violet grey white
-)
+# This library used for all the "resistor color" exercises
+
+readonly COLORS=( black brown red orange yellow green blue violet grey white )
 
 colorValue() {
     local value

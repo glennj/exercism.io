@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# This library used for all the "resistor color" exercises
+
 readonly COLORS=(
     black brown red orange yellow
     green blue violet grey white
