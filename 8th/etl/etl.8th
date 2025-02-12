@@ -4,7 +4,7 @@
     drop rdrop
 ;
 
-: transform \ m -- m
+: transform \ m -- m 
     m:new swap
     ' keys-to-values m:each
     drop

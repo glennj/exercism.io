@@ -1,4 +1,5 @@
 needs console/loaded
+needs utils/latebind 
 
 \ -----------------------------------------------------------------
 
@@ -12,13 +13,6 @@ true var, run-test
 
 \ Some utility words
 
-: array-insens-dot \ x --  \\ removes leading space on stringified arrays
-  dup >kind ns:a n:= 
-  if 
-    >s s:trim 
-  then 
-  .
-;
 
 : test-passed \ s x x --   \\ test name, expected value, actual value
     2drop
@@ -35,8 +29,8 @@ true var, run-test
     1 tests-failed n:+!
     rot
     con:red con:onBlack . space " ... FAIL" . con:white con:onBlack cr
-    "    Actual:    «" . array-insens-dot "»" . cr
-    "    Expected:  «" . array-insens-dot "»" . cr cr
+    "    Actual:    «" . . "»" . cr
+    "    Expected:  «" . . "»" . cr cr
 ;
 
 : isword?  \ x -- x f
@@ -72,7 +66,15 @@ true var, run-test
    date?   if d:= ;then
 
    \ otherwise fall back to 'lazy evaluation'
-   l: =
+   G:l: =
+;
+
+: eps_eq? \ n x x -- T
+   \ are the items the same kind?
+   2dup >kind swap >kind n:=
+   !if 2drop false ;then
+   number? !if 2drop false ;then  
+   rot n:~=
 ;
 
 : check-depth \ ... n -- ...
@@ -114,6 +116,16 @@ true var, run-test
    3 check-depth
    2dup             \ so test-failed can show actual and expected
    eq? if test-passed else test-failed then
+;
+
+: approx_equal? \ s x w n -- | s w x n --
+   run-test? !if 3drop test-skipped ;; then
+   -rot isword? !if swap then
+   w:exec
+   4 check-depth
+   3dup            \ so test-failed can show actual and expected
+   eps_eq?
+   if rot drop test-passed else rot drop test-failed then
 ;
 
 : true? \ s w --

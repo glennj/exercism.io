@@ -1,7 +1,7 @@
 : eggCount  \ n -- n
   0 >r             \ keep the count on the r-stack
   repeat
-    dup 0 n:= if   \ stop when n = 0
+    dup 0 n:= if   \ stop when n = 0 
       break
     else
       dup 1 band   \ isolate zeroth bit 

@@ -23,47 +23,56 @@ with: test
 ;
 
 \ Helper function to allow triplets in any order
-: test-triplets-with-sum \ s a n --
-    ( triplets-with-sum ( ' n:cmp a:cmp ) a:sort ) curry
-    equal?
+\ Sorts a1 before comparison
+\ Expects a2 to be already sorted
+: match-array? \ a1 a2 --
+    ( swap ( ' n:cmp a:cmp ) a:sort ) equal?
 ;
 
 "triplets whose sum is 12"
+    12 triplets-with-sum
     [[3, 4, 5]]
-    12 test-triplets-with-sum
+    match-array?
 
 SKIP-REST-OF-TESTS
 
 "triplets whose sum is 108"
+    108 triplets-with-sum
     [[27, 36, 45]]
-    108 test-triplets-with-sum
+    match-array?
 
 "triplets whose sum is 1000"
+    1000 triplets-with-sum
     [[200, 375, 425]]
-    1000 test-triplets-with-sum
+    match-array?
 
 "no matching triplets for 1001"
+    1001 triplets-with-sum
     []
-    1001 test-triplets-with-sum
+    match-array?
 
 "returns all matching triplets"
+    90 triplets-with-sum
     [[9, 40, 41], [15, 36, 39]]
-    90 test-triplets-with-sum
+    match-array?
 
 "several matching triplets"
+    840 triplets-with-sum
     [[40, 399, 401],  [56, 390, 394], [105, 360, 375], [120, 350, 370],
      [140, 336, 364], [168, 315, 357], [210, 280, 350], [240, 252, 348]]
-    840 test-triplets-with-sum
+    match-array?
 
 "test triplets for large number"
+    30_000 triplets-with-sum
     [[1200, 14375, 14425], [1875, 14000, 14125], [5000, 12000, 13000],
      [6000, 11250, 12750], [7500, 10000, 12500]]
-    30_000 test-triplets-with-sum
+    match-array?
 
 \ 1 tests
 \ "1 million, for extra credit"
+\     1_000_000 triplets-with-sum
 \     [[200000,375000,425000], [218750,360000,421250]]
-\     1_000_000  test-triplets-with-sum
+\     match-array?
 
 end-of-tests
 ;with
