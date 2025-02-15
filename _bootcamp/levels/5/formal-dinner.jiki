@@ -62,17 +62,20 @@ function ends_with with string, suffix do
   return true
 end
 
-function on_guest_list with guests, candidate do
-  // The honorific is the *first* space-separated word in the candidate string.
-  // Remove it to acquire the candidate's surname.
-  set surname to candidate
-  set idx to index_of(candidate, " ")
+function remove_honorific with name do
+  // The honorific is the *first* space-separated word in the name.
+  set surname to name
+  set idx to index_of(name, " ")
   if idx != -1 do
-    change surname to drop(candidate, idx)
+    change surname to drop(name, idx)
   end
+  return surname
+end
+
+function on_guest_list with guests, candidate do
+  set surname to remove_honorific(candidate)
   
   for each guest in guests do
-    log [guest, surname]
     if ends_with(guest, surname) do
       return true
     end
@@ -80,9 +83,3 @@ function on_guest_list with guests, candidate do
   
   return false
 end
-
-// log index_of("Mr Pitt", " ") // 3
-// log string_drop("Mr Pitt", 3) // "Pitt"
-// log length("Mr Pitt") // 7
-// log ends_with("Mr Pitt", "Pit") // false
-// log ends_with("Mr Pitt", "Pitt") // true

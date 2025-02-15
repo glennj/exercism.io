@@ -267,3 +267,4 @@ function run_game with moves do
     change player to opponent(player)
   end
 end
+
