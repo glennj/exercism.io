@@ -1,3 +1,6 @@
+// -------------------------------------------------------------------
+// "Standard Library functions:
+
 // String or list length
 function length with thing do
   set len to 0
@@ -45,6 +48,10 @@ function remove_at with list, idx do
 end
 
 // String split
+function tokenize with string do
+  return split(string, " ")
+end
+
 function split with string, separator do
   set words to []
   set word to ""
@@ -69,20 +76,22 @@ function split with string, separator do
 end
 
 // -------------------------------------------------------------------
+// "Matching Socks" utility functions
+
 function categorize with laundry_items do
   set categorized to []
   for each item in laundry_items do
-    change categorized to push(categorized, reverse(split(item, " ")))
+    change categorized to push(categorized, reverse(tokenize(item)))
   end
   return categorized
 end
 
 // Starting at start_idx, find the _next_ sock
-function next_sock with clothes, start_idx do
+function next_sock with clothes do
   set idx to 0
   for each item in clothes do
     change idx to idx + 1
-    if item[1] is "sock" and idx > start_idx do
+    if item[1] is "sock" do
       return idx
     end
   end
@@ -96,11 +105,11 @@ function other_foot with foot do
   return "left"
 end
 
-function index_of_sock with clothes, colour, foot, start_idx do
+function index_of_sock with clothes, colour, foot do
   set idx to 0
   for each item in clothes do
     change idx to idx + 1
-    if item[1] is "sock" and item[2] is colour and item[3] is foot and idx > start_idx do
+    if item[1] is "sock" and item[2] is colour and item[3] is foot do
       return idx
     end
   end
@@ -108,28 +117,32 @@ function index_of_sock with clothes, colour, foot, start_idx do
 end
 
 // -------------------------------------------------------------------
+//
 function matching_socks with clean, dirty do
-  // a "sock" is a list: ["sock", colour, foot]
   set clothes to categorize(concat(clean, dirty))
+  // now, a sock is a list: ["sock", colour, foot]
+
   set pairs to []
-  set first to []
-  set first_idx to 0
-  set second_idx to 0
+  set idx to 0
+  set colour to ""
+  set foot to ""
 
   repeat_forever do
-    change first_idx to next_sock(clothes, first_idx)
-    if first_idx == -1 do
+    change idx to next_sock(clothes)
+    if idx == -1 do
       return pairs
     end
 
-    change first to clothes[first_idx]
-    change second_idx to index_of_sock(clothes, first[2], other_foot(first[3]), first_idx)
+    // extract info about first sock
+    change colour to clothes[idx][2]
+    change foot to clothes[idx][3]
+    change clothes[idx] to [""]
 
-    if second_idx != -1 do
-      change pairs to push(pairs, join(first[2], " socks"))
-      change clothes[second_idx] to [""]
+    // find the matching sock
+    change idx to index_of_sock(clothes, colour, other_foot(foot))
+    if idx != -1 do
+      change pairs to push(pairs, join(colour, " socks"))
+      change clothes[idx] to [""]
     end
-
-    change clothes[first_idx] to [""]
   end
 end

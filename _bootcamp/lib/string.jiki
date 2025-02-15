@@ -6,6 +6,7 @@
 // ------------------------------------------------------------
 // String or list functions
 
+// For strings, returns the number of _characters_.
 function length with thing do
   set len to 0
   for each _ in thing do
@@ -36,6 +37,16 @@ function index_of with string, char do
   end
 
   return -1
+end
+
+// Return a list of the string's characters.
+// This avoids the "indexing problem" with Unicode strings.
+function chars with string do
+  set chars to []
+  for each char in string do
+    change chars to push(chars, char)
+  end
+  return chars
 end
 
 // Remove the first n chars from the string.
@@ -94,34 +105,19 @@ function split with string, separator do
   return words
 end
 
-// Split a string into two parts:
-// * the left half is the substring *before* the first instance of separator
-// * the right half is the substring *after* the first instance of separator
-// The separator is not included in the results.
-// Returns a 2-element list: [left, right]
-function partition with string, separator do
-  set result to ["", ""]
-  set index to 1
-
-  for each char in string do
-    if char is separator do
-      set index to 2
-    else do
-      change result[index] to join(result[index], char)
-    end
-  end
-
-  return result
+function tokenize with string do
+  return split(string, " ")
 end
 
 function starts_with with string, prefix do
-  set prefix_len to length(prefix)
+  set prefix_chars to chars(string)
+  set prefix_len to length(prefix_chars)
   set i to 0
 
   for each char in string do
     change i to i + 1
 
-    if not (char is prefix[i]) do
+    if not (char is prefix_chars[i]) do
       return false
     end
 
@@ -137,9 +133,13 @@ end
 function ends_with with string, suffix do
   set string_len to length(string)
   set suffix_len to length(suffix)
+
   if string_len < suffix_len do
     return false
   end
+
+  set string_chars to chars(string)
+  set suffix_chars to chars(suffix)
 
   set i to string_len + 1
   set j to suffix_len + 1
@@ -147,7 +147,7 @@ function ends_with with string, suffix do
   repeat suffix_len times do
     change i to i - 1
     change j to j - 1
-    if not (string[i] is suffix[j]) do
+    if not (string_chars[i] is suffix_chars[j]) do
       return false
     end
   end
