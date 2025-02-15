@@ -1,0 +1,3 @@
+# for github syntax highlighting
+# jikiscript is kinda sorta javascript
+*.jiki linguist-language=javascript
