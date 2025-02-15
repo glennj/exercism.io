@@ -1,64 +1,3 @@
-stroke_width(1)
-
-// ------------------------------------------------------------
-// Drawing functions
-
-function draw_board do
-  stroke_color_hex("black")
-  rectangle(5, 5, 90, 90)
-  line(5, 35, 95, 35)
-  line(5, 65, 95, 65)
-  line(35, 5, 35, 95)
-  line(65, 5, 65, 95)
-end
-
-function display with message, r, g, b, a do
-  fill_color_rgba(r, g, b, a)
-  rectangle(0, 0, 100, 100)
-  write(message)
-end
-
-function error_message with message do
-  display("Invalid move!", 200, 0, 0, 0.85)
-end
-
-function display_message with message do
-  display(message, 96, 79, 205, 0.85)
-end
-
-function nought with row, col, color do
-  stroke_color_hex(color)
-  set x to 5 + 30 * (col - 1) + 15
-  set y to 5 + 30 * (row - 1) + 15
-  circle(x, y, 10)
-end
-
-function cross with row, col, color do
-  stroke_color_hex(color)
-  set x to 5 + 30 * (col - 1) + 5
-  set y to 5 + 30 * (row - 1) + 5
-  line(x, y, x+20, y+20)
-  line(x, y+20, x+20, y)
-end
-
-// ------------------------------------------------------------
-// utilities
-
-// Does a list of coordindates contains a coordinate
-function contains_cell with cells, target do
-  for each cell in cells do
-    if equal_cells(cell, target) do
-      return true
-    end
-  end
-  return false
-end
-
-// Two sets of coordinates are equal
-function equal_cells with c1, c2 do
-  return c1[1] == c2[1] and c1[2] == c2[2]
-end
-
 // ------------------------------------------------------------
 // Player functions
 
@@ -107,69 +46,125 @@ function player_label with id do
 end
 
 // ------------------------------------------------------------
-function move with id, row, col, color do
+// Drawing functions
+
+function draw_board do
+  stroke_width(1)
+  stroke_color_hex("black")
+  rectangle(5, 5, 90, 90)
+  line(5, 35, 95, 35)
+  line(5, 65, 95, 65)
+  line(35, 5, 35, 95)
+  line(65, 5, 65, 95)
+end
+
+function display with message, r, g, b, a do
+  fill_color_rgba(r, g, b, a)
+  rectangle(0, 0, 100, 100)
+  write(message)
+end
+
+function error_message with message do
+  display(message, 200, 0, 0, 0.85)
+end
+
+function display_message with message do
+  display(message, 96, 79, 205, 0.85)
+end
+
+function move with id, cell, color do
   if is_o(id) do
-    nought(row, col, color)
+    nought(cell, color)
   else do
-    cross(row, col, color)
+    cross(cell, color)
   end
+end
+
+function nought with cell, color do
+  stroke_color_hex(color)
+  set x to 5 + 30 * (cell[2] - 1) + 15
+  set y to 5 + 30 * (cell[1] - 1) + 15
+  circle(x, y, 10)
+end
+
+function cross with cell, color do
+  stroke_color_hex(color)
+  set x to 5 + 30 * (cell[2] - 1) + 5
+  set y to 5 + 30 * (cell[1] - 1) + 5
+  line(x, y, x+20, y+20)
+  line(x, y+20, x+20, y)
 end
 
 // ------------------------------------------------------------
-function show_draw with board do
-  for each row in [1, 2, 3] do
-    for each col in [1, 2, 3] do
-      move(board[row][col], row, col, "grey")
+// utilities
+
+// Does a list of coordindates contains a coordinate
+function contains_cell with cells, target do
+  for each cell in cells do
+    if equal_cells(cell, target) do
+      return true
     end
   end
-  display_message("The game was a draw!")
+  return false
 end
 
-function show_win with board, cells do
-  log cells
+// Two sets of coordinates are equal
+function equal_cells with c1, c2 do
+  return c1[1] == c2[1] and c1[2] == c2[2]
+end
+
+// ------------------------------------------------------------
+function show_win with board, winning_cells do
+  log winning_cells
   set color to ""
   set cell to [0,0]
   set player to 0
 
   for each row in [1, 2, 3] do
     for each col in [1, 2, 3] do
-      if not is_empty(board, row, col) do
-        change cell to [row, col]
+      change cell to [row, col]
+      if not is_empty(board, cell) do
         change color to "grey"
-        if contains_cell(cells, cell) do
+        if contains_cell(winning_cells, cell) do
           change color to "#604fcd"
           change player to board[row][col]
         end
-        move(board[row][col], row, col, color)
+        move(board[row][col], [row, col], color)
       end
     end
   end
 
-  display_message(concatenate("The ", player_label(player), " won!"))
+  display_message(concatenate("The ", player_label(player), "'s won!"))
 end
 
-function is_win with board, cells do
-  set sum to 0
-  for each cell in cells do
-    change sum to sum + board[cell[1]][cell[2]]
+function show_draw with board do
+  for each row in [1, 2, 3] do
+    for each col in [1, 2, 3] do
+      move(board[row][col], [row, col], "grey")
+    end
   end
-  return sum == 3 * o_id() or sum == 3 * x_id()
+  display_message("The game was a draw!")
+end
+
+// ------------------------------------------------------------
+function winning_combinations  do
+  set combos to []
+  change combos to push(combos, [[1, 1], [1, 2], [1, 3]])   // row 1
+  change combos to push(combos, [[2, 1], [2, 2], [2, 3]])   // row 2
+  change combos to push(combos, [[3, 1], [3, 2], [3, 3]])   // row 3
+  change combos to push(combos, [[1, 1], [2, 1], [3, 1]])   // column 1
+  change combos to push(combos, [[1, 2], [2, 2], [3, 2]])   // column 2
+  change combos to push(combos, [[1, 3], [2, 3], [3, 3]])   // column 3
+  change combos to push(combos, [[1, 1], [2, 2], [3, 3]])   // diagonal 1
+  change combos to push(combos, [[3, 1], [2, 2], [1, 3]])   // diagonal 2
+  return combos
 end
 
 function is_game_over with count, board do
-  set lines to []
-  change lines to push(lines, [[1, 1], [1, 2], [1, 3]])   // row 1
-  change lines to push(lines, [[2, 1], [2, 2], [2, 3]])   // row 2
-  change lines to push(lines, [[3, 1], [3, 2], [3, 3]])   // row 3
-  change lines to push(lines, [[1, 1], [2, 1], [3, 1]])   // column 1
-  change lines to push(lines, [[1, 2], [2, 2], [3, 2]])   // column 2
-  change lines to push(lines, [[1, 3], [2, 3], [3, 3]])   // column 3
-  change lines to push(lines, [[1, 1], [2, 2], [3, 3]])   // diagonal 1
-  change lines to push(lines, [[3, 1], [2, 2], [3, 1]])   // diagonal 2
-
-  for each line in lines do
-    if is_win(board, line) do
-      show_win(board, line)
+  for each combo in winning_combinations() do
+    log combo
+    if is_win(board, combo) do
+      show_win(board, combo)
       return true
     end
   end
@@ -182,46 +177,87 @@ function is_game_over with count, board do
   return false
 end
 
+function is_win with board, cells do
+  set sum to 0
+  for each cell in cells do
+    change sum to sum + board[cell[1]][cell[2]]
+  end
+  return sum == 3 * o_id() or sum == 3 * x_id()
+end
+
+// ------------------------------------------------------------
+function ai_move with id, count, board do
+  set result to []
+
+  // 1. look for win
+  for each combo in winning_combinations() do
+    change result to could_win(id, board, combo)
+    if result[1] do
+      return result[2]
+    end
+  end
+
+  // 2. look for block
+  set other to opponent(id)
+  for each combo in winning_combinations() do
+    change result to could_win(other, board, combo)
+    if result[1] do
+      return result[2]
+    end
+  end
+
+  // 3. pick a spot
+  for each cell in [[2,2], [1,1], [1,3], [3,3], [3,1], [1,2], [2,3], [3,2], [2,1]] do
+    if is_empty(board, cell) do
+      return cell
+    end
+  end
+
+  // should not get here
+  return [0,0]
+end
+
+function could_win with id, board, cells do
+  set sum to 0
+  set empty_cell to []
+  for each cell in cells do
+    change sum to sum + board[cell[1]][cell[2]]
+    if is_empty(board, cell) do
+      change empty_cell to cell
+    end
+  end
+  return [(sum == 2 * id), empty_cell]
+end
+
 // ------------------------------------------------------------
 function new_board do
   draw_board()
   return [[0,0,0], [0,0,0], [0,0,0]]
 end
 
-function is_empty with board, row, col do
-  return board[row][col] == 0
-end
-
-// ------------------------------------------------------------
-function ai_move with id, count, board do
-  return [1, 1]
+function is_empty with board, cell do
+  return board[cell[1]][cell[2]] == 0
 end
 
 // ------------------------------------------------------------
 function run_game with moves do
   set board to new_board()
+  set n to 0
 
   set player to player_id("o")  // "O" goes first
 
-  set row to 0
-  set col to 0
-  set n to 0
-
-  for each coord in moves do
-    if coord is "?" do
-      change coord to ai_move(player, n, board)
+  for each cell in moves do
+    if cell is "?" do
+      change cell to ai_move(player, n, board)
     end
 
-    change row to coord[1]
-    change col to coord[2]
-
-    if not is_empty(board, row, col) do
+    if not is_empty(board, cell) do
       error_message("Invalid move!")
       return
     end
 
-    move(player, row, col, player_color(player))
-    change board[row][col] to player
+    move(player, cell, player_color(player))
+    change board[cell[1]][cell[2]] to player
     change n to n + 1
 
     if is_game_over(n, board) do
