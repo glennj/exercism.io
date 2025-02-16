@@ -1,17 +1,13 @@
 function style_time with style do
-  if style is "Mohawk" do
-    return  20
-  else if style is "Slicked-Back Pixie" do
-    return  15
-  else if style is "Bob" do
-    return  25
-  else if style is "Shave and Polish" do
-    return  15
-  else if style is "Afro Trim" do
-    return  45
-  else if style is "Up-do" do
-    return  30
-  end
+  set styles to {
+    "Mohawk": 20,
+    "Slicked-Back Pixie": 15,
+    "Bob": 25,
+    "Shave and Polish": 15,
+    "Afro Trim": 45,
+    "Up-do": 30
+  }
+  return styles[style]
 end
 
 function available_time with minutes, queue do

@@ -3,8 +3,11 @@ function draw_weather with description do
 
   draw_sky()
   for each element in elements do
+    // the order of the branches is important: 
+    // e.g. the sun has to be drawn before the clouds
+
     if element is "sun" do
-      if array_size(elements) == 1 do
+      if length(elements) == 1 do
         draw_big_sun()
       else do
         draw_small_sun()
@@ -64,24 +67,19 @@ end
 
 // ----------------------------------
 function description_to_elements with description do
-  if description is "sunny" do
-    return ["sun"]
-  else if description is "dull" do
-    return ["cloud"]
-  else if description is "miserable" do
-    return ["cloud", "rain"]
-  else if description is "hopeful" do
-    return ["sun", "cloud"]
-  else if description is "rainbow-territory" do
-    return ["sun", "cloud", "rain"]
-  else if description is "exciting" do
-    return ["cloud", "snow"]
-  else if description is "snowboarding-time" do
-    return ["sun", "cloud", "snow"]
-  end
+  set elements to {
+    "sunny": ["sun"],
+    "dull": ["cloud"],
+    "miserable": ["cloud", "rain"],
+    "hopeful": ["sun", "cloud"],
+    "rainbow-territory": ["sun", "cloud", "rain"],
+    "exciting": ["cloud", "snow"],
+    "snowboarding-time": ["sun", "cloud", "snow"]
+  }
+  return elements[description]
 end
 
-function array_size with array do
+function length with array do
   set size to 0
   for each elem in array do
     change size to size + 1
