@@ -4,8 +4,8 @@ function turn_around do
 end
 
 function can_move_in_direction with direction do
-  set result to look(direction)
-  return result is "empty" or result is "target" or result is "start"
+  set square to look(direction)
+  return not contains(["🔥", "💩", "🧱"], square)
 end
 
 function can_turn_left do
@@ -20,7 +20,33 @@ function can_move do
   return can_move_in_direction("ahead")
 end
 
+function is_emoji with square do
+  return not contains(["⬜", "🏁", "⭐"], square)
+end
+
 // --------------------------------------
+function dict_incr with dict, key do
+  if has_key(dict, key) do
+    change dict[key] to dict[key] + 1
+  else do
+    change dict[key] to 1
+  end
+  return dict
+end
+
+function contains with haystack, needle do
+  for each elem in haystack do
+    if elem is needle do        // scalars only!
+      return true
+    end
+  end
+  return false
+end
+
+// --------------------------------------
+set square to ""
+set emojis to {}
+
 repeat_until_game_over do
   if can_turn_left() do
     turn_left()
@@ -33,4 +59,12 @@ repeat_until_game_over do
   else do
     turn_around()
   end
+
+  change square to look("down")
+  if is_emoji(square) do
+    change emojis to dict_incr(emojis, square)
+    remove_emoji()
+  end
 end
+
+announce_emojis(emojis)

@@ -1,0 +1,57 @@
+// ordered by usage frequency
+// https://web.archive.org/web/20111224230632/http://oxforddictionaries.com/words/what-is-the-frequency-of-the-letters-of-the-alphabet-in-english
+function is_upper with char do
+  return contains("EARIOTNSLCUDPMHGBFYWKVXZJQ", char)
+end
+
+function is_lower with char do
+  return contains("eariotnslcudpmhgbfywkvxzjq", char)
+end
+
+function to_upper_case with lower do
+  return {
+    "a":"A", "b":"B", "c":"C", "d":"D", "e":"E", "f":"F", "g":"G",
+    "h":"H", "i":"I", "j":"J", "k":"K", "l":"L", "m":"M", "n":"N",
+    "o":"O", "p":"P", "q":"Q", "r":"R", "s":"S", "t":"T", "u":"U",
+    "v":"V", "w":"W", "x":"X", "y":"Y", "z":"Z"
+  }[lower]
+end
+
+function contains with thingy, target do
+  for each bit in thingy do
+    if target == bit do
+      return true
+    end
+  end
+  return false
+end
+
+function length with thingy do
+  set len to 0
+  for each bit in thingy indexed by i do
+    change len to i
+  end
+  return len
+end
+
+// ------------------------------------------------------------
+function is_pangram with string do
+  set found to ""
+  set letter to ""
+  
+  for each char in string do
+    if is_upper(char) do
+      change letter to char
+    else if is_lower(char) do
+      change letter to to_upper_case(char)
+    else do
+      next
+    end
+
+    if not contains(found, letter) do
+      change found to join(found, letter)
+    end
+  end
+  
+  return length(found) == length("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+end

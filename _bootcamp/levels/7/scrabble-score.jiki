@@ -1,0 +1,62 @@
+function letter_values do
+  set values to [
+    ["AEIOULNRST", 1],
+    ["DG", 2],
+    ["BCMP", 3],
+    ["FHVWY", 4],
+    ["K", 5],
+    ["JX", 8],
+    ["QZ", 10]
+  ]
+  set tiles to {}
+
+  for each pair in values do
+    for each letter in pair[1] do
+      change tiles[letter] to pair[2]
+    end
+  end
+
+  return tiles
+end
+
+function scrabble_score with word do
+  set tiles to letter_values()
+  set score to 0
+
+  for each letter in word do
+    if is_upper(letter) do
+      change score to score + tiles[letter]
+    else if is_lower(letter) do
+      change score to score + tiles[to_upper_case(letter)]
+    end
+  end
+
+  return score
+end
+
+// ------------------------------------------------------------
+function contains with string, target do
+  for each char in string do
+    if target == char do
+      return true
+    end
+  end
+  return false
+end
+
+function is_upper with char do
+  return contains("EARIOTNSLCUDPMHGBFYWKVXZJQ", char)
+end
+
+function is_lower with char do
+  return contains("eariotnslcudpmhgbfywkvxzjq", char)
+end
+
+function to_upper_case with lower do
+  return {
+    "a":"A", "b":"B", "c":"C", "d":"D", "e":"E", "f":"F", "g":"G",
+    "h":"H", "i":"I", "j":"J", "k":"K", "l":"L", "m":"M", "n":"N",
+    "o":"O", "p":"P", "q":"Q", "r":"R", "s":"S", "t":"T", "u":"U",
+    "v":"V", "w":"W", "x":"X", "y":"Y", "z":"Z"
+  }[lower]
+end
