@@ -36,15 +36,11 @@ end
 // in the given string.
 // Return -1 if the char does not exist in the string.
 function index_of with string, char do
-  set index to 0
-
-  for each character in string do
-    change index to index + 1
+  for each character in string indexed by index do
     if character is char do
       return index
     end
   end
-
   return -1
 end
 
@@ -117,11 +113,8 @@ end
 function starts_with with string, prefix do
   set prefix_chars to chars(string)
   set prefix_len to length(prefix_chars)
-  set i to 0
 
-  for each char in string do
-    change i to i + 1
-
+  for each char in string indexed by i do
     if not (char is prefix_chars[i]) do
       return false
     end
