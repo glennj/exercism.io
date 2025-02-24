@@ -1,0 +1,18 @@
+apply plugin: "groovy"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation "org.spockframework:spock-core:2.3-groovy-4.0"
+    implementation "org.apache.groovy:groovy:4.0.24"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        exceptionFormat = 'full'
+        events = ["passed", "failed", "skipped"]
+    }
+}
