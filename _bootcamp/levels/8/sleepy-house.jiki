@@ -1,0 +1,31 @@
+// Create the objects.
+set sky to new Sky(0)
+set sun to new Sun(80, 20, 10, 5)
+set things_that_go_bump_in_the_night to [
+  sky,
+  new Ground(20, 10),
+  new Frame(20, 50, 60, 40, 20),
+  new Roof(50, 30, 68, 20, 20),
+  new Door(43, 72, 14, 18, 30)
+]
+set theres_a_light_over_at_the_frankenstein_place to [
+  new Window(30, 55, 12, 13, 30),
+  new Window(58, 55, 12, 13, 30)
+]
+
+// sunset
+repeat 90 - sun.cy times do
+  change sun.cx to sun.cx - 1.2
+  change sun.cy to sun.cy + 1
+end
+
+// getting dark
+for each window in theres_a_light_over_at_the_frankenstein_place do
+  change window.lights to true
+end
+repeat 80 times indexed by i do
+  change sky.hue to min(310, sky.hue + 2)
+  for each thing in things_that_go_bump_in_the_night do
+    change thing.brightness to 100 - i
+  end
+end

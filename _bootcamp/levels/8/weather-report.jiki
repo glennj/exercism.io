@@ -1,0 +1,131 @@
+function draw_weather with json do
+  set forecasts to {}
+  set offsets to {
+    "06:00": {"x": 25, "y":  4, "scale": 0.50},
+    "07:00": {"x":  1, "y": 66, "scale": 0.30},
+    "08:00": {"x": 35, "y": 66, "scale": 0.30},
+    "09:00": {"x": 69, "y": 66, "scale": 0.30}
+  }
+
+  for each f in json["meteorological"]["2025"]["02"]["25"]["weather"]["summary"] do
+    change forecasts[f["time"]] to f["description"]
+  end
+
+  for each time, offset in offsets do
+    draw_description(forecasts[time], offset)
+  end
+end
+
+function draw_description with description, offsets do
+  set elements to description_to_elements(description)
+
+  draw_sky_scaled(offsets)
+
+  for each element in elements do
+    // the order of the branches is important: 
+    // e.g. the sun has to be drawn before the clouds
+
+    if element is "sun" do
+      if length(elements) == 1 do
+        draw_big_sun_scaled(offsets)
+      else do
+        draw_small_sun_scaled(offsets)
+      end
+    else if element is "cloud" do
+      draw_cloud_scaled(offsets)
+    else if element is "rain" do
+      draw_rain_scaled(offsets)
+    else if element is "snow" do
+      draw_snow_scaled(offsets)
+    end
+  end
+end
+
+function description_to_elements with description do
+  set elements to {
+    "sunny": ["sun"],
+    "dull": ["cloud"],
+    "miserable": ["cloud", "rain"],
+    "hopeful": ["sun", "cloud"],
+    "rainbow-territory": ["sun", "cloud", "rain"],
+    "exciting": ["cloud", "snow"],
+    "snowboarding-time": ["sun", "cloud", "snow"]
+  }
+  return elements[description]
+end
+
+function length with array do
+  set size to 0
+  for each elem in array do
+    change size to size + 1
+  end
+  return size
+end
+
+// ----------------------------------
+function draw_sky_scaled with offsets do
+  fill_color_hex("#ADD8E6") 
+  rectangle_scaled(0, 0, 100, 100, offsets)
+end
+
+function draw_big_sun_scaled with offsets do
+  fill_color_hex("#ffed06")
+  circle_scaled(50, 50, 25, offsets)
+end
+
+function draw_small_sun_scaled with offsets do
+  fill_color_hex("#ffed06")
+  circle_scaled(75,30, 15, offsets)
+end
+
+function draw_cloud_scaled with offsets do 
+  fill_color_hex("white")
+  rectangle_scaled(25,50, 50, 10, offsets)
+  circle_scaled(25,50, 10, offsets)
+  circle_scaled(75,50, 10, offsets)
+  circle_scaled(40,40, 15, offsets)
+  circle_scaled(55,40, 20, offsets)
+end
+
+function draw_rain_scaled with offsets do 
+  fill_color_hex("blue")
+  ellipse_scaled(30,70, 3, 5, offsets)
+  ellipse_scaled(40,80, 3, 5, offsets)
+  ellipse_scaled(50,70, 3, 5, offsets)
+  ellipse_scaled(60,80, 3, 5, offsets)
+  ellipse_scaled(70,70, 3, 5, offsets)
+end
+
+function draw_snow_scaled with offsets do
+  fill_color_hex("white")
+  circle_scaled(30, 70, 5, offsets)
+  circle_scaled(50, 70, 5, offsets)
+  circle_scaled(70, 70, 5, offsets)
+  circle_scaled(40, 80, 5, offsets)
+  circle_scaled(60, 80, 5, offsets)
+end
+
+// ----------------------------------
+function rectangle_scaled with x, y, width, height, offsets do
+  change x to x * offsets["scale"] + offsets["x"]
+  change y to y * offsets["scale"] + offsets["y"]
+  change width to width * offsets["scale"]
+  change height to height * offsets["scale"]
+  rectangle(x, y, width, height)
+end
+
+function circle_scaled with x, y, radius, offsets do
+  change x to x * offsets["scale"] + offsets["x"]
+  change y to y * offsets["scale"] + offsets["y"]
+  change radius to radius * offsets["scale"]
+  circle(x, y, radius)
+end
+
+function ellipse_scaled with x, y, x_radius, y_radius, offsets do
+  change x to x * offsets["scale"] + offsets["x"]
+  change y to y * offsets["scale"] + offsets["y"]
+  change x_radius to x_radius * offsets["scale"]
+  change y_radius to y_radius * offsets["scale"]
+  ellipse(x, y, x_radius, y_radius)
+end
+

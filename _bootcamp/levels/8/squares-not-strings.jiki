@@ -1,0 +1,68 @@
+function dict_incr with dict, key do
+  if has_key(dict, key) do
+    change dict[key] to dict[key] + 1
+  else do
+    change dict[key] to 1
+  end
+  return dict
+end
+
+function is_empty with string do
+  for each _ in string do
+    return false
+  end
+  return true
+end
+
+// --------------------------------------
+function turn_around do
+  turn_right()
+  turn_right()
+end
+
+function can_move_in_direction with direction do
+  set square to look(direction)
+  set no_go to (square.is_wall or square.contents is "🔥" or square.contents is "💩")
+  return square.in_maze and not no_go
+end
+
+function can_turn_left do
+  return can_move_in_direction("left")
+end
+
+function can_turn_right do
+  return can_move_in_direction("right")
+end
+
+function can_move do
+  return can_move_in_direction("ahead")
+end
+
+function collect_treasure with treasure_chest do
+  set emoji to look("down").contents
+  if not is_empty(emoji) do
+    change treasure_chest to dict_incr(treasure_chest, emoji)
+    remove_emoji()
+  end
+end
+
+// --------------------------------------
+set emojis to {}
+
+repeat_until_game_over do
+  if can_turn_left() do
+    turn_left()
+    move()
+  else if can_move() do
+    move()
+  else if can_turn_right() do
+    turn_right()
+    move()
+  else do
+    turn_around()
+  end
+
+  collect_treasure(emojis)
+end
+
+announce_emojis(emojis)
