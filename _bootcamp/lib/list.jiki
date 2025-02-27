@@ -12,8 +12,8 @@ function length with thing do
   return len
 end
 
-function is_empty with string do
-  for each _ in string do
+function is_empty with thing do
+  for each _ in thing do
     return false
   end
   return true

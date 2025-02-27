@@ -17,19 +17,22 @@ function translate_rna with rna do
 
   repeat_forever do
     if is_empty(rna) do
-      return protein
+      break
     end
 
     change codon to take(rna, 3)
+    change rna to drop(rna, 3)
+
     change amino_acid to amino_acids[codon]
 
     if amino_acid is "STOP" do
-      return protein
+      break
     end
 
-    change protein to push(protein, amino_acid )
-    change rna to drop(rna, 3)
+    change protein to push(protein, amino_acid)
   end
+
+  return protein
 end
 
 // ------------------------------------------------------------
