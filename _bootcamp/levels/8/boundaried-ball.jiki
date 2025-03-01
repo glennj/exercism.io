@@ -1,21 +1,20 @@
 set ball to new Ball()
 
 set screen_size to 100
-set radius to 3
 set next_x to 0
 set next_y to 0
 
 // 2 circuits of a 4-sided diamond
-set iterations to 2 * 4 * (screen_size / 2 - radius)
+set iterations to 2 * 4 * (screen_size / 2 - ball.radius)
 
 repeat iterations times do
   change next_x to ball.cx + ball.x_velocity
   change next_y to ball.cy + ball.y_velocity
 
-  if next_x - radius < 0 or next_x + radius > screen_size do
+  if next_x - ball.radius < 0 or next_x + ball.radius > screen_size do
     change ball.x_velocity to -ball.x_velocity
   end
-  if next_y - radius < 0 or next_y + radius > screen_size do
+  if next_y - ball.radius < 0 or next_y + ball.radius > screen_size do
     change ball.y_velocity to -ball.y_velocity
   end
 

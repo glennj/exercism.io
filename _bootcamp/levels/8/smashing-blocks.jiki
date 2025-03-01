@@ -16,37 +16,80 @@ function remove_at with list, idx do
   return result
 end
 
-// ------------------------------------------------------------
-set screen_size to 100
-
-set ball to new Ball()
-set radius to 3
-
-set blocks to []
-set block_width to 16
-set block_height to 7
-set block_top to 31
-set block_left to 8
-set gap to 1
-
-repeat 5 times do
-  change blocks to push(blocks, new Block(block_left, block_top))
-  change block_left to block_left + block_width + gap
+function index_of with haystack, needle do
+  for each elem in haystack indexed by index do
+    if elem is needle do
+      return index
+    end
+  end
+  return -1
 end
 
-set next_x to 0
-set next_y to 0
+// ------------------------------------------------------------
+function move_the_ball with ball, smashed do
+  set screen_size to 100
+  set next_x to ball.cx + ball.x_velocity
+  set next_y to ball.cy + ball.y_velocity
+
+  if next_x - ball.radius < 0 or next_x + ball.radius > screen_size do
+    change ball.x_velocity to -ball.x_velocity
+  end
+  if smashed or next_y - ball.radius < 0 or next_y + ball.radius > screen_size do
+    change ball.y_velocity to -ball.y_velocity
+  end
+
+  move_ball(ball)
+end
+
+function create_blocks with row_tops do
+  set blocks to []
+  set row to []
+  set blocks_per_row to 5
+  set block_left to 0
+  set gap to 1
+
+  for each block_top in row_tops do
+    change row to []
+    change block_left to 8
+
+    repeat blocks_per_row times do
+      change row to push(row, new Block(block_left, block_top))
+      change block_left to block_left + row[1].width + gap
+    end
+
+    change blocks to push(blocks, row)
+  end
+
+  return blocks
+end
+
+// ------------------------------------------------------------
+set ball to new Ball()
+
+set blocks to create_blocks([31])
+set row_bottoms to []
+for each row in blocks do
+  change row_bottoms to push(row_bottoms, row[1].top + row[1].height)
+end
+
 set smashed to false
+set idx to 0
 
 repeat_forever do
   change smashed to false
-  if ball.cy - radius == block_top + block_height do
-    for each block in blocks indexed by i do
-      if block.left <= ball.cx and ball.cx <= block.left + block_width do
+  change idx to index_of(row_bottoms, ball.cy - ball.radius)
+
+  if idx != -1 do
+    for each block in blocks[idx] indexed by i do
+      if block.left <= ball.cx and ball.cx <= block.left + block.width do
         // hit!
         change smashed to true
         change block.smashed to true
-        change blocks to remove_at(blocks, i)
+        change blocks[idx] to remove_at(blocks[idx], i)
+        if is_empty(blocks[idx]) do
+          change blocks to remove_at(blocks, idx)
+          change row_bottoms to remove_at(row_bottoms, idx)
+        end
         break
       end
     end
@@ -57,15 +100,5 @@ repeat_forever do
     end
   end
 
-  change next_x to ball.cx + ball.x_velocity
-  change next_y to ball.cy + ball.y_velocity
-
-  if next_x - radius < 0 or next_x + radius > screen_size do
-    change ball.x_velocity to -ball.x_velocity
-  end
-  if smashed or next_y - radius < 0 or next_y + radius > screen_size do
-    change ball.y_velocity to -ball.y_velocity
-  end
-
-  move_ball(ball)
+  move_the_ball(ball, smashed)
 end

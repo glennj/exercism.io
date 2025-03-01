@@ -44,6 +44,7 @@ function collect_treasure with treasure_chest do
     change treasure_chest to dict_incr(treasure_chest, emoji)
     remove_emoji()
   end
+  return treasure_chest
 end
 
 // --------------------------------------
@@ -62,7 +63,7 @@ repeat_until_game_over do
     turn_around()
   end
 
-  collect_treasure(emojis)
+  change emojis to collect_treasure(emojis)
 end
 
 announce_emojis(emojis)
