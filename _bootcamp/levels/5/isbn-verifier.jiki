@@ -1,2 +1,37 @@
-// TODO
-// https://exercism.org/bootcamp/projects/number-puzzles/exercises/isbn-verifier
+function clean with isbn do
+  set digits to []
+  set digit to 0
+  set i to 0
+
+  for each char in isbn do
+    if char is "-" do
+      next // valid separator
+    else if my#is_digit(char) do
+      change digit to string_to_number(char)
+    else if i == 9 and char == "X" do
+      change digit to 10
+    else do
+      return [] // invalid character
+    end
+    change i to i + 1
+    change digits to push(digits, digit)
+  end
+
+  return digits
+end
+
+function isbn_sum with digits do
+  set sum to 0
+  for each digit in digits indexed by i do
+    change sum to sum + digit * (11 - i)
+  end
+  return sum
+end
+
+function is_valid_isbn with isbn do
+  set digits to clean(isbn)
+  if my#length(digits) != 10 do
+    return false
+  end
+  return isbn_sum(digits) % 11 == 0
+end

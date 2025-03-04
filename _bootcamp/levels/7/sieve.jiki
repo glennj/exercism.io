@@ -1,6 +1,3 @@
-// TODO
-// unlocked by levels/5/isbn-verifier.jiki
-
 function make_marker_list with target do
   set markers to []
   repeat target times do
@@ -58,17 +55,12 @@ function extract_primes with markers do
       change primes to push(primes, i)
     end
   end
-log primes
   return primes
 end
 
 // ----------------------------------------------------------
 function sieve with target do
   set markers to make_marker_list(target)
-log markers
   change markers to mark_multiples(markers, target)
-log markers
   return extract_primes(markers)
 end
-
-log sieve(10)
