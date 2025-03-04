@@ -14,10 +14,11 @@ erDiagram
     NULL ||--|| SPLIT : ""
     NULL ||--|| STR_DROP : ""
     NULL ||--|| STR_TAKE : ""
-    INDEX_OF ||--|| CONTAINS : ""
     CONTAINS ||--|| IS_LOWER : ""
     CONTAINS ||--|| IS_UPPER : ""
     CONTAINS ||--|| IS_DIGIT : ""
+    INDEX_OF ||--|| CONTAINS : ""
+    IS_EMPTY ||--|| SPLIT : ""
     IS_LOWER ||--|| IS_ALPHA : ""
     IS_UPPER ||--|| IS_ALPHA : ""
     IS_ALPHA ||--|| IS_ALNUM : ""
@@ -33,5 +34,3 @@ erDiagram
     LENGTH ||--|| TO_SENTENCE : ""
     SPLIT ||--|| STR_TOKENIZE : ""
 ```
-
-![dependency relationships](./dependency.png)
