@@ -11,7 +11,6 @@ erDiagram
     NULL ||--|| IS_EVEN : ""
     NULL ||--|| HAS_KEY : ""
     NULL ||--|| LENGTH : ""
-    NULL ||--|| SPLIT : ""
     NULL ||--|| STR_DROP : ""
     NULL ||--|| STR_TAKE : ""
     CONTAINS ||--|| IS_LOWER : ""
