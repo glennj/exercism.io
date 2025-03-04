@@ -1,0 +1,74 @@
+// TODO
+// unlocked by levels/5/isbn-verifier.jiki
+
+function make_marker_list with target do
+  set markers to []
+  repeat target times do
+    change markers to push(markers, true)
+  end
+  change markers[1] to false
+  return markers
+end
+
+function next_unmarked_number with markers, previous do
+  for each mark in markers indexed by num do
+    if num <= previous do
+      next
+    end
+    if mark do
+      return num
+    end
+  end
+  return -1
+end
+
+function mark_multiples_of with markers, target, prime do
+  set multiple to prime * prime
+  set step to 2 * prime
+  if prime == 2 do
+    change step to 2
+  end
+
+  repeat_forever do
+    if multiple > target do
+      return markers
+    end
+
+    change markers[multiple] to false
+    change multiple to multiple + step
+  end
+end
+
+function mark_multiples with markers, target do
+  set prime to 0
+  repeat_forever do
+    change prime to next_unmarked_number(markers, prime)
+    if prime == -1 do
+      break
+    end
+    change markers to mark_multiples_of(markers, target, prime)
+  end
+  return markers
+end
+
+function extract_primes with markers do
+  set primes to []
+  for each mark in markers indexed by i do
+    if mark do
+      change primes to push(primes, i)
+    end
+  end
+log primes
+  return primes
+end
+
+// ----------------------------------------------------------
+function sieve with target do
+  set markers to make_marker_list(target)
+log markers
+  change markers to mark_multiples(markers, target)
+log markers
+  return extract_primes(markers)
+end
+
+log sieve(10)

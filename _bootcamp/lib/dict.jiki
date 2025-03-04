@@ -1,8 +1,0 @@
-function dict_incr with dict, key do
-  if has_key(dict, key) do
-    change dict[key] to dict[key] + 1
-  else do
-    change dict[key] to 1
-  end
-  return dict
-end

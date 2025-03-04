@@ -1,0 +1,7 @@
+function my#dict_incr with dict, key do
+  if not my#has_key(dict, key) do
+    change dict[key] to 0
+  end
+  change dict[key] to dict[key] + 1
+  return dict
+end

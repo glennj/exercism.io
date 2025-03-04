@@ -1,0 +1,6 @@
+function my#is_empty with measurable do
+  for each _ in measurable do
+    return false
+  end
+  return true
+end

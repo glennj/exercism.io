@@ -1,0 +1,3 @@
+function my#is_divisible_by with number, divisor do
+  return number % divisor == 0
+end

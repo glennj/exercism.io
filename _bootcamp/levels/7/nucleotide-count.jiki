@@ -1,17 +1,8 @@
-function contains with list, target do
-  for each item in list do
-    if item == target do
-      return true
-    end
-  end
-  return false
-end
-
 function count_nucleotides with strand do
   set count to { "A": 0, "C": 0, "G": 0, "T": 0 }
   set dna to keys(count)
   for each nucleotide in strand do
-    if not contains(dna, nucleotide) do
+    if not my#contains(dna, nucleotide) do
       return false
     end
   

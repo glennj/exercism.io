@@ -5,8 +5,7 @@ end
 
 function can_move_in_direction with direction do
   set square to look(direction)
-  set no_go to (square.is_wall or square.contents is "🔥" or square.contents is "💩")
-  return square.in_maze and not no_go
+  return not my#contains(["🔥", "💩", "🧱"], square)
 end
 
 function can_turn_left do
@@ -21,16 +20,12 @@ function can_move do
   return can_move_in_direction("ahead")
 end
 
-function collect_treasure with treasure_chest do
-  set emoji to look("down").contents
-  if not my#is_empty(emoji) do
-    change treasure_chest to my#dict_incr(treasure_chest, emoji)
-    remove_emoji()
-  end
-  return treasure_chest
+function is_collectable with emoji do
+  return not my#contains(["⬜", "🏁", "⭐"], emoji)
 end
 
 // --------------------------------------
+set square to ""
 set emojis to {}
 
 repeat_until_game_over do
@@ -46,7 +41,11 @@ repeat_until_game_over do
     turn_around()
   end
 
-  change emojis to collect_treasure(emojis)
+  change square to look("down")
+  if is_collectable(square) do
+    change emojis to my#dict_incr(emojis, square)
+    remove_emoji()
+  end
 end
 
 announce_emojis(emojis)

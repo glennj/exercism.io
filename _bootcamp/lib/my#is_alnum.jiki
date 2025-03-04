@@ -1,0 +1,3 @@
+function my#is_alnum with char do
+  return my#is_digit(char) or my#is_alpha(char)
+end

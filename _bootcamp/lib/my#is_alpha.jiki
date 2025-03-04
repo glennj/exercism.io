@@ -1,0 +1,3 @@
+function my#is_alpha with char do
+  return my#is_upper(char) or my#is_lower(char)
+end

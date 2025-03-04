@@ -1,0 +1,3 @@
+function my#tokenize with string do
+  return my#split(string, " ")
+end

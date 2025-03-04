@@ -1,0 +1,6 @@
+// ordered by usage frequency
+// https://web.archive.org/web/20111224230632/http://oxforddictionaries.com/words/what-is-the-frequency-of-the-letters-of-the-alphabet-in-english
+//
+function my#is_upper with char do
+  return my#contains("EARIOTNSLCUDPMHGBFYWKVXZJQ", char)
+end

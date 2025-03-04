@@ -1,0 +1,7 @@
+function my#length with measurable do
+  set count to 0
+  for each item in measurable do
+    change count to count + 1
+  end
+  return count
+end

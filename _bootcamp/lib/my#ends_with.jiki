@@ -1,0 +1,20 @@
+function my#ends_with with string, suffix do
+  set string_len to my#length(string)
+  set suffix_len to my#length(suffix)
+  if string_len < suffix_len do
+    return false
+  end
+
+  set i to string_len + 1
+  set j to suffix_len + 1
+
+  repeat suffix_len times do
+    change i to i - 1
+    change j to j - 1
+    if not (string[i] is suffix[j]) do
+      return false
+    end
+  end
+
+  return true
+end

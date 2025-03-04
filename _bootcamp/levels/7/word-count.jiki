@@ -5,59 +5,26 @@ function count_words with phrase do
   // Same algorithm as level 5 Acronym
   set state to "seeking letter"
   for each char in to_lower_case(phrase) do
-    if state is "seeking letter" and is_alnum(char) do
+    if state is "seeking letter" and my#is_alnum(char) do
       change word to char
       change state to "seeking separator"
   
     else if state is "seeking separator" do
-      if is_word_char(char) do
+      if my#is_alnum(char) or char is "'" do
         change word to join(word, char)
 
       else do
-        change counts to count_one_word(counts, word)
+        change counts to my#dict_incr(counts, word)
         change word to ""
         change state to "seeking letter"
       end
     end
   end
 
-  if not is_empty(word) do
-    change counts to count_one_word(counts, word)
+  if not my#is_empty(word) do
+    change counts to my#dict_incr(counts, word)
   end
 
   return counts
 end
 
-function count_one_word with counts, word do
-  if has_key(counts, word) do
-    change counts[word] to counts[word] + 1
-  else do
-    change counts[word] to 1
-  end
-  return counts
-end
-
-// ------------------------------------------------------------
-function is_alnum with char do
-  return contains("eariotnslcudpmhgbfywkvxzjq0123456789", char)
-end
-
-function is_word_char with char do
-  return is_alnum(char) or char is "'"
-end
-
-function contains with string, target do
-  for each char in string do
-    if target == char do
-      return true
-    end
-  end
-  return false
-end
-
-function is_empty with string do
-  for each _ in string do
-    return false
-  end
-  return true
-end

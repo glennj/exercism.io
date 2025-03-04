@@ -1,0 +1,8 @@
+function my#index_of with measurable, target do
+  for each item in measurable indexed by i do
+    if item == target do
+      return i
+    end
+  end
+  return -1
+end

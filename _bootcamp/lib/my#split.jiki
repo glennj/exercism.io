@@ -1,0 +1,22 @@
+function my#split with string, separator do
+  set words to []
+  set word to ""
+
+  for each char in string do
+    if not (char is separator) do
+      change word to join(word, char)
+
+    else do
+      if not my#is_empty(word) do
+        change words to push(words, word)
+      end
+      change word to ""
+    end
+  end
+
+  if not my#is_empty(word) do
+    change words to push(words, word)
+  end
+
+  return words
+end

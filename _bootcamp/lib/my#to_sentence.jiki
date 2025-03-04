@@ -1,0 +1,22 @@
+function my#to_sentence with list, oxford_comma do
+  set len to my#length(list)
+  if len == 1 do
+    return list[1]
+  end
+
+  set sep to ""
+  set result to ""
+
+  for each item in list indexed by i do
+    if i == len do
+      if not oxford_comma do
+        change sep to " "
+      end
+      change sep to concatenate(sep, "and ")
+    end
+
+    change result to concatenate(result, sep, item)
+    change sep to ", "
+  end
+  return result
+end

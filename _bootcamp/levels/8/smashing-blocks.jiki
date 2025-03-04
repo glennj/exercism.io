@@ -1,28 +1,14 @@
-function is_empty with list do
-  for each _ in list do
-    return false
-  end
-  return true
-end
-
 // Return a copy of the list with the element at the given index removed.
+// Currently, this needs to be locally defined: stdlib functions don't yet
+// work well with objects.
 function remove_at with list, idx do
   set result to []
   for each elem in list indexed by i do
     if i != idx do
-      change result to push(result, list[i])
+      change result to push(result, elem)
     end
   end
   return result
-end
-
-function index_of with haystack, needle do
-  for each elem in haystack indexed by index do
-    if elem is needle do
-      return index
-    end
-  end
-  return -1
 end
 
 // ------------------------------------------------------------
@@ -77,7 +63,7 @@ set idx to 0
 
 repeat_forever do
   change smashed to false
-  change idx to index_of(row_bottoms, ball.cy - ball.radius)
+  change idx to my#index_of(row_bottoms, ball.cy - ball.radius)
 
   if idx != -1 do
     for each block in blocks[idx] indexed by i do
@@ -86,7 +72,7 @@ repeat_forever do
         change smashed to true
         change block.smashed to true
         change blocks[idx] to remove_at(blocks[idx], i)
-        if is_empty(blocks[idx]) do
+        if my#is_empty(blocks[idx]) do
           change blocks to remove_at(blocks, idx)
           change row_bottoms to remove_at(row_bottoms, idx)
         end
@@ -94,7 +80,7 @@ repeat_forever do
       end
     end
 
-    if is_empty(blocks) do
+    if my#is_empty(blocks) do
       // game over
       break
     end
@@ -102,3 +88,4 @@ repeat_forever do
 
   move_the_ball(ball, smashed)
 end
+

@@ -1,0 +1,3 @@
+function my#is_digit with char do
+  return my#contains("0123456789", char)
+end

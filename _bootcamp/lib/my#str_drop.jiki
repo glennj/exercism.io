@@ -1,0 +1,11 @@
+function my#str_drop with string, n do
+  set remaining to ""
+
+  for each char in string indexed by i do
+    if i > n do
+      change remaining to join(remaining, char)
+    end
+  end
+
+  return remaining
+end

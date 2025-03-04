@@ -1,0 +1,26 @@
+function ask_llm with question do
+  set response to fetch("https://myllm.com/api/v2/qanda", {"question": question})
+
+  set time to response["meta"]["time"]
+  set duration to my#str_take(time, my#length(time) - 2)  // remove "ms" suffix
+  change duration to string_to_number(duration) / 1000
+
+  set most_certain to 0
+  set certainty to 0
+  set answer to ""
+
+  for each item in response["response"]["answers"] do
+    change certainty to string_to_number(item["certainty"]) * 100
+    if certainty > most_certain do
+      change most_certain to certainty
+      change answer to item["text"]
+    end
+  end
+
+  set result to concatenate("The answer to '", question, "'")
+  change result to concatenate(result, " is '", answer, "'")
+  change result to concatenate(result, " (", number_to_string(most_certain), "% certainty")
+  change result to concatenate(result, " in ", number_to_string(duration), "s).")
+
+  return result
+end

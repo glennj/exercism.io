@@ -1,0 +1,18 @@
+function my#starts_with with string, prefix do
+  set prefix_len to my#length(prefix)
+  if prefix_len == 0 do
+    return true
+  end
+
+  set i to 0
+  for each char in string do
+    change i to i + 1
+    if not (char is prefix[i]) do
+      return false
+    end
+    if i == prefix_len do
+      return true
+    end
+  end
+  return false // string is too short
+end

@@ -1,0 +1,15 @@
+function my#str_take with string, n do
+  if n <= 0 do
+    return ""
+  end
+
+  set taken to ""
+  for each char in string indexed by i do
+    change taken to join(taken, char)
+    if i == n do
+      break
+    end
+  end
+
+  return taken
+end

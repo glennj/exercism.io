@@ -1,0 +1,3 @@
+function my#contains with haystack, needle do
+  return my#index_of(haystack, needle) != -1
+end

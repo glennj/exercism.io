@@ -8,7 +8,7 @@ function collatz_steps with number do
       return steps
     end
   
-    if number % 2 == 0 do
+    if my#is_even(number) do
       change number to number / 2
     else do
       change number to 3 * number + 1

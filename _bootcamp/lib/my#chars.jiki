@@ -1,0 +1,7 @@
+function my#chars with string do
+  set chars to []
+  for each char in string do
+    change chars to push(chars, char)
+  end
+  return chars
+end

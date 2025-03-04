@@ -16,12 +16,12 @@ function translate_rna with rna do
   set protein to []
 
   repeat_forever do
-    if is_empty(rna) do
+    if my#is_empty(rna) do
       break
     end
 
-    change codon to take(rna, 3)
-    change rna to drop(rna, 3)
+    change codon to my#str_take(rna, 3)
+    change rna to my#str_drop(rna, 3)
 
     change amino_acid to amino_acids[codon]
 
@@ -35,39 +35,3 @@ function translate_rna with rna do
   return protein
 end
 
-// ------------------------------------------------------------
-function is_empty with string do
-  for each _ in string do
-    return false
-  end
-  return true
-end
-
-// Grab the first n chars from the string.
-// If n is greater than the string length, returns a copy of the string.
-function take with string, n do
-  set taken to ""
-
-  for each char in string indexed by i do
-    change taken to join(taken, char)
-    if i == n do
-      return taken
-    end
-  end
-
-  return taken
-end
-
-// Remove the first n chars from the string.
-// If n is greater than the string length, returns an empty string.
-function drop with string, n do
-  set remaining to ""
-
-  for each char in string indexed by i do
-    if i > n do
-      change remaining to join(remaining, char)
-    end
-  end
-
-  return remaining
-end

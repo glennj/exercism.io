@@ -26,7 +26,7 @@ function draw_description with description, offsets do
     // e.g. the sun has to be drawn before the clouds
 
     if element is "sun" do
-      if length(elements) == 1 do
+      if my#length(elements) == 1 do
         draw_big_sun_scaled(offsets)
       else do
         draw_small_sun_scaled(offsets)
@@ -52,14 +52,6 @@ function description_to_elements with description do
     "snowboarding-time": ["sun", "cloud", "snow"]
   }
   return elements[description]
-end
-
-function length with array do
-  set size to 0
-  for each elem in array do
-    change size to size + 1
-  end
-  return size
 end
 
 // ----------------------------------
