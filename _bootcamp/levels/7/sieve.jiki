@@ -1,3 +1,6 @@
+// Sieve of Eratosthenes
+// https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+
 function make_marker_list with target do
   set markers to []
   repeat target times do
@@ -7,40 +10,17 @@ function make_marker_list with target do
   return markers
 end
 
-function next_unmarked_number with markers, previous do
-  for each mark in markers indexed by num do
-    if num <= previous do
-      next
-    end
-    if mark do
-      return num
-    end
-  end
-  return -1
-end
-
-function mark_multiples_of with markers, target, prime do
-  set multiple to prime * prime
-  set step to 2 * prime
-  if prime == 2 do
-    change step to 2
-  end
-
-  repeat_forever do
-    if multiple > target do
-      return markers
-    end
-
-    change markers[multiple] to false
-    change multiple to multiple + step
-  end
-end
-
+// ----------------------------------------------------------
 function mark_multiples with markers, target do
-  set prime to 0
+  change markers to mark_multiples_of(markers, target, 2)
+  set prime to 1
+
   repeat_forever do
-    change prime to next_unmarked_number(markers, prime)
-    if prime == -1 do
+    // optimization: even numbers already marked as non-prime
+    change prime to next_unmarked_number(markers, target, prime + 2)
+
+    // optimization: no more multiples if prime > sqrt(target)
+    if prime == -1 or prime * prime > target do
       break
     end
     change markers to mark_multiples_of(markers, target, prime)
@@ -48,6 +28,44 @@ function mark_multiples with markers, target do
   return markers
 end
 
+function next_unmarked_number with markers, target, n do
+  repeat_forever do
+    if n > target do
+      break
+    end
+    if markers[n] do
+      return n
+    end
+    // optimization: even numbers already marked as non-prime
+    change n to n + 2
+  end
+  return -1
+end
+
+function mark_multiples_of with markers, target, prime do
+  // optimization: any multiple < prime * prime is already marked as non-prime
+  // example, when prime == 7, multiples are 14, 21, 28, 35, 42, 49, ...
+  // => prime 2 already marked 14, 28, 42
+  // => prime 3 already marked 21
+  // => prime 5 already marked 35
+  set multiple to prime * prime
+
+  // optimization: prime == 2 removes all even numbers
+  set step to 2 * prime
+  if prime == 2 do
+    change step to prime
+  end
+
+  repeat_forever do
+    if multiple > target do
+      return markers
+    end
+    change markers[multiple] to false
+    change multiple to multiple + step
+  end
+end
+
+// ----------------------------------------------------------
 function extract_primes with markers do
   set primes to []
   for each mark in markers indexed by i do

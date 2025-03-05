@@ -1,6 +1,10 @@
 // ----------------------------------------------------------
 set grid to get_initial_maze()
-set maze to {"grid": grid, "height": my#length(grid), "width": my#length(grid[1])}
+set maze to {
+  "grid":   grid,
+  "height": my#length(grid),
+  "width":  my#length(grid[1])
+}
 
 // ----------------------------------------------------------
 function find_starting_position with maze do
