@@ -1,2 +1,146 @@
-// TODO
-// https://exercism.org/bootcamp/projects/maze/exercises/omniscience
+// ----------------------------------------------------------
+set grid to get_initial_maze()
+set maze to {"grid": grid, "height": my#length(grid), "width": my#length(grid[1])}
+
+// ----------------------------------------------------------
+function find_starting_position with maze do
+  for each row in maze["grid"] indexed by r do
+    for each square in row indexed by c do
+      if square.is_start do
+        set position to {"row": r, "col": c, "facing": "up"}
+        if r == 1 do
+          change position["facing"] to "down"
+        else if c == 1 do
+          change position["facing"] to "right"
+        else if c == maze["width"] do
+          change position["facing"] to "left"
+        end
+        return position
+      end
+    end
+  end
+  return false
+end
+
+// ----------------------------------------------------------
+// this function returns a list:
+// - first element is a boolean: is the next square in the maze
+// - optional second element: the next square in that direction
+function look with direction, maze, position do
+  set in_maze to false
+  set dr to 0
+  set dc to 0
+
+  if direction is "ahead" do
+    if position["facing"] is "down" and position["row"] < maze["height"] do
+      change in_maze to true
+      change dr to 1
+    else if position["facing"] is "left" and position["col"] > 1 do
+      change in_maze to true
+      change dc to -1
+    else if position["facing"] is "up" and position["row"] > 1 do
+      change in_maze to true
+      change dr to -1
+    else if position["facing"] is "right" and position["col"] < maze["width"] do
+      change in_maze to true
+      change dc to 1
+    end
+
+  else if direction is "right" do
+    if position["facing"] is "down" and position["col"] > 1 do
+      change in_maze to true
+      change dc to -1
+    else if position["facing"] is "left" and position["row"] > 1 do
+      change in_maze to true
+      change dr to -1
+    else if position["facing"] is "up" and position["col"] < maze["width"] do
+      change in_maze to true
+      change dc to 1
+    else if position["facing"] is "right" and position["row"] < maze["height"] do
+      change in_maze to true
+      change dr to 1
+    end
+
+  else if direction is "left" do
+    if position["facing"] is "down" and position["col"] < maze["width"] do
+      change in_maze to true
+      change dc to 1
+    else if position["facing"] is "left" and position["row"] < maze["height"] do
+      change in_maze to true
+      change dr to 1
+    else if position["facing"] is "up" and position["col"] > 1 do
+      change in_maze to true
+      change dc to -1
+    else if position["facing"] is "right" and position["row"] > 1 do
+      change in_maze to true
+      change dr to -1
+    end
+  end
+
+  return [in_maze, maze["grid"][position["row"] + dr][position["col"] + dc]]
+end
+
+function can_move_to with direction, maze, position do
+  set square to look(direction, maze, position)
+  return square[1] and not (square[2].is_wall or my#contains("🔥💩", square[2].contents))
+end
+
+function left_turn with position do
+  turn_left()
+  change position["facing"] to {"down":"right", "right":"up", "up":"left", "left":"down"}[position["facing"]]
+  return position
+end
+
+function right_turn with position do
+  turn_right()
+  change position["facing"] to {"down":"left", "left":"up", "up":"right", "right":"down"}[position["facing"]]
+  return position
+end
+
+function advance with position do
+  move()
+  if position["facing"] is "down" do
+    change position["row"] to position["row"] + 1
+  else if position["facing"] is "up" do
+    change position["row"] to position["row"] - 1
+  else if position["facing"] is "right" do
+    change position["col"] to position["col"] + 1
+  else if position["facing"] is "left" do
+    change position["col"] to position["col"] - 1
+  end
+  return position
+end
+
+// ----------------------------------------------------------
+set square to false
+set emojis to {}
+set position to find_starting_position(maze)
+
+repeat_forever do
+  change square to maze["grid"][position["row"]][position["col"]]
+
+  if square.is_finish do
+    break
+  else if not my#is_empty(square.contents) do
+    change emojis to my#dict_incr(emojis, square.contents)
+    square.remove_emoji()
+  end
+
+  if can_move_to("left", maze, position) do
+    change position to left_turn(position)
+    change position to advance(position)
+
+  else if can_move_to("ahead", maze, position) do
+    change position to advance(position)
+
+  else if can_move_to("right", maze, position) do
+    change position to right_turn(position)
+    change position to advance(position)
+
+  else do
+    change position to left_turn(position)
+    change position to left_turn(position)
+  end
+end
+
+announce_emojis(emojis)
