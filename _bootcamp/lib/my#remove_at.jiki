@@ -1,12 +1,9 @@
-function my#lreverse with list do
-  set reversed to []
-  set len to my#length(list)
-  set i to len + 1
-
-  repeat len times do
-    change i to i - 1
-    change reversed to push(reversed, list[i])
+function my#remove_at with list, idx do
+  set result to []
+  for each elem in list indexed by i do
+    if i != idx do
+      change result to push(result, elem)
+    end
   end
-
-  return reversed
+  return result
 end

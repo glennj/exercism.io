@@ -471,7 +471,7 @@ And if the increment is 1
 <!-- -->
 
 `((...))` is preferred over `let`. See [the let builtin
-command](https://wiki.bash-hackers.org/commands/builtin/let) for details.
+command](https://web.archive.org/web/20230331041851/https://wiki.bash-hackers.org/commands/builtin/let) for details.
 Also [the shellcheck wiki entry](https://github.com/koalaman/shellcheck/wiki/SC2219).
 
 <!-- -->
@@ -1301,7 +1301,7 @@ bash -c '
 
 `((...))` is preferred over `let`, mostly for the same reasons `[[` is
 preferred over `[`. See [the let builtin
-command](https://wiki.bash-hackers.org/commands/builtin/let) for details.
+command](https://web.archive.org/web/20230331041851/https://wiki.bash-hackers.org/commands/builtin/let) for details.
 Also [the shellcheck wiki entry](https://github.com/koalaman/shellcheck/wiki/SC2219).
 
 <!-- -->
@@ -2152,7 +2152,7 @@ Instead of inventing your own way to parse the arguments, use the builtin `getop
 command. There's a good [tutorial on the Bash Hackers wiki][getopts] and
 [tons of examples on Stack Overflow][getopts-so].
 
-[getopts]: https://wiki.bash-hackers.org/howto/getopts_tutorial
+[getopts]: https://web.archive.org/web/20230324055145/http://wiki.bash-hackers.org/howto/getopts_tutorial
 [getopts-so]: https://stackoverflow.com/search?q=%5Bbash%5D+getopts
 
 <!-- -->
