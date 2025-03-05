@@ -1,25 +1,27 @@
-function process_first_guess with answer, guess do
-  color_top_row(process_guess(answer, guess))
-end
-
 function process_game with answer, guesses do
   for each guess in guesses indexed by i do
     color_row(i, process_guess(answer, guess))
   end
 end
 
+function process_first_guess with answer, guess do
+  process_game(answer, [guess])
+end
+
 function process_guess with answer, guess do
-  set row to []
-  set cmp to ""
+  set row to ["", "", "", "", ""]
   for each letter in guess indexed by i do
-    if letter == answer[i] do
-      change cmp to "correct"
-    else if my#contains(answer, letter) do
-      change cmp to "present"
-    else do
-      change cmp to "absent"
-    end
-    change row to push(row, cmp)
+    change row[i] to process_letter(answer, letter, i)
   end
   return row
+end
+
+function process_letter with answer, letter, idx do
+  if letter == answer[idx] do
+    return "correct"
+  end
+  if my#contains(answer, letter) do
+    return "present"
+  end
+  return "absent"
 end
