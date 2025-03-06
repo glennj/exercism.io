@@ -42,4 +42,4 @@ exercise.
 
 ### Based on
 
-Conversation with James Edward Gray II - https://twitter.com/jeg2
+Conversation with James Edward Gray II - http://graysoftinc.com/

@@ -107,8 +107,8 @@ test bob-20 "alternate silence" -body {
 
 skip bob-21
 test bob-21 "multiple line question" -body {
-    heyBob "\nDoes this cryogenic chamber make me look fat?\nNo."
-} -returnCodes ok -result "Whatever."
+    heyBob "\nDoes this cryogenic chamber make me look fat?"
+} -returnCodes ok -result "Sure."
 
 skip bob-22
 test bob-22 "starting with whitespace" -body {
@@ -129,6 +129,5 @@ skip bob-25
 test bob-25 "non-question ending with whitespace" -body {
     heyBob "This is a statement ending with whitespace      "
 } -returnCodes ok -result "Whatever."
-
 
 cleanupTests

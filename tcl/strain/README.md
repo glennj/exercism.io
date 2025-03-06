@@ -59,4 +59,4 @@ This discussion on the Tcl wiki, [New Control Structures][wiki], may also be hel
 
 ### Based on
 
-Conversation with James Edward Gray II - https://twitter.com/jeg2
+Conversation with James Edward Gray II - http://graysoftinc.com/

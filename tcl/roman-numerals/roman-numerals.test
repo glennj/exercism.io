@@ -140,5 +140,10 @@ test roman-27 "3999 is MMMCMXCIX" -body {
     toroman 3999
 } -returnCodes ok -result "MMMCMXCIX"
 
+skip roman-28
+test roman-28 "3888 is MMMDCCCLXXXVIII" -body {
+    toroman 3888
+} -returnCodes ok -result "MMMDCCCLXXXVIII"
+
 
 cleanupTests

@@ -57,7 +57,7 @@ test anagram-10 "detects anagrams using case-insensitive possible matches" -body
 
 skip anagram-11
 test anagram-11 "does not detect an anagram if the original word is repeated" -body {
-    findAnagrams go {go Go GO}
+    findAnagrams go {goGoGO}
 } -returnCodes ok -result {} 
 
 skip anagram-12

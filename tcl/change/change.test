@@ -50,6 +50,11 @@ test change-1.9 "no coins make 0 change" -body {
     findMinimumCoins 0 {1 5 10 21 25}
 } -returnCodes ok -result {}
 
+skip change-1.10
+test change-1.10 "a greedy approach is not optimal" -body {
+    findMinimumCoins 20 {1 10 11}
+} -returnCodes ok -result {10 10}
+
 
 skip change-2.1
 test change-2.1 "error testing for change smaller than the smallest of coins" -body {

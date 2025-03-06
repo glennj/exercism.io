@@ -30,4 +30,4 @@ Finding the best algorithm for the problem is a key skill in software engineerin
 
 ### Based on
 
-Problem 6 at Project Euler - http://projecteuler.net/problem=6
+Problem 6 at Project Euler - https://projecteuler.net/problem=6

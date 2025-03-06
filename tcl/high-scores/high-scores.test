@@ -24,6 +24,16 @@ test high-scores-1.2 {List of scores, uninitialized} -setup {
     $hs scores
 } -returnCodes ok -result {}
 
+# track test
+skip high-scores-1.3
+test high-scores-1.3 {List of scores, repeated addition} -setup {
+    set hs [HighScores new]
+} -body {
+    $hs addScores 30 50
+    $hs addScores 20 70
+    $hs scores
+} -returnCodes ok -result {30 50 20 70}
+
 skip high-scores-2.1
 test high-scores-2.1 {Latest score} -setup {
     set hs [HighScores new]

@@ -53,17 +53,6 @@ test lsp-1.9 "reports zero if all spans include zero" -body {
     largestSeriesProduct "99099" 3
 } -returnCodes ok -result 0
 
-skip lsp-1.10
-test lsp-1.10 "reports 1 for empty string and empty product (0 span)" -body {
-    largestSeriesProduct "" 0
-} -returnCodes ok -result 1
-
-skip lsp-1.11
-test lsp-1.11 "reports 1 for nonempty string and empty product (0 span)" -body {
-    largestSeriesProduct "123" 0
-} -returnCodes ok -result 1
-
-
 skip lsp-2.1
 test lsp-2.1 "rejects span longer than string length" -body {
     largestSeriesProduct "123" 4 

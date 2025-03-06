@@ -155,5 +155,10 @@ test proteins-30 "Incomplete RNA sequence can translate if valid until a STOP co
     proteins UUCUUCUAAUGGU
 } -returnCodes ok -result {Phenylalanine Phenylalanine}
 
+skip proteins-31
+test proteins-31 "Sequence of two non-STOP codons does not translate to a STOP codon" -body {
+    proteins AUGAUG
+} -returnCodes ok -result {Methionine Methionine}
+
 
 cleanupTests

@@ -151,7 +151,7 @@ test poker-12 "both hands have three of a kind, tie goes to highest ranked tripl
 skip poker-13
 test poker-13 "with multiple decks, two players can have same three of a kind, ties go to highest remaining cards" -body {
     bestHands {
-        {4S AH AS 7C AD}
+        {5S AH AS 7C AD}
         {4S AH AS 8C AD}
     }
 } -returnCodes ok -match orderedLists -result {
@@ -232,11 +232,11 @@ test poker-19 "flush beats a straight" -body {
 skip poker-20
 test poker-20 "both hands have a flush, tie goes to high card, down to the last one if necessary" -body {
     bestHands {
-        {4H 7H 8H 9H 6H}
-        {2S 4S 5S 6S 7S}
+        {2H 7H 8H 9H 6H}
+        {3S 5S 6S 7S 8S}
     }
 } -returnCodes ok -match orderedLists -result {
-    {4H 7H 8H 9H 6H}
+    {2H 7H 8H 9H 6H}
 }
 
 skip poker-21
@@ -359,5 +359,26 @@ test poker-35 "even though an ace is usually high, a 5-high straight flush is th
 } -returnCodes ok -match orderedLists -result {
     {2H 3H 4H 5H 6H}
 }
+
+skip poker-36
+test poker-36 "winning high card hand also has the lowest card" -body {
+    bestHands {
+        {2S 5H 6S 8D 7H}
+        {3S 4D 6D 8C 7S}
+    }
+} -returnCodes ok -match orderedLists -result {
+    {2S 5H 6S 8D 7H}
+}
+
+skip poker-37
+test poker-37 "both hands have the same pair, high card wins" -body {
+    bestHands {
+        "4H 4S AH JC 3D"
+        "4C 4D AS 5D 6C"
+    }
+} -returnCodes ok -match orderedLists -result {
+    "4H 4S AH JC 3D"
+}
+
 
 cleanupTests

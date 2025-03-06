@@ -57,4 +57,4 @@ This exercise involves taking an input tree and re-orientating it from the point
 
 ### Based on
 
-Adaptation of exercise from 4clojure - https://www.4clojure.com/
+Adaptation of exercise from 4clojure - https://github.com/oxalorg/4ever-clojure

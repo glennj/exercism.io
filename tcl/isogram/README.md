@@ -16,7 +16,7 @@ Examples of isograms:
 - downstream
 - six-year-old
 
-The word *isograms*, however, is not an isogram, because the s repeats.
+The word _isograms_, however, is not an isogram, because the s repeats.
 
 ## Source
 

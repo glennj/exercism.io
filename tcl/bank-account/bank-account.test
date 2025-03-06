@@ -15,7 +15,7 @@ test bank-account-1 "newly opened account has zero balance" -body {
 } -returnCodes ok -result 0
 
 skip bank-account-2
-test bank-account-2 "can deposit money" -body {
+test bank-account-2 "single deposit" -body {
     set account [BankAccount new]
     $account open
     $account deposit 100
@@ -23,7 +23,7 @@ test bank-account-2 "can deposit money" -body {
 } -returnCodes ok -result 100
 
 skip bank-account-3
-test bank-account-3 "can deposit money sequentially" -body {
+test bank-account-3 "multiple deposits" -body {
     set account [BankAccount new]
     $account open
     $account deposit 100
@@ -32,63 +32,81 @@ test bank-account-3 "can deposit money sequentially" -body {
 } -returnCodes ok -result 150
 
 skip bank-account-4
-test bank-account-4 "can withdraw money" -body {
+test bank-account-4 "withdraw once" -body {
     set account [BankAccount new]
     $account open
     $account deposit 100
-    $account withdraw 50
+    $account withdraw 75
     $account balance
-} -returnCodes ok -result 50
+} -returnCodes ok -result 25
 
 skip bank-account-5
-test bank-account-5 "can withdraw money sequentially" -body {
+test bank-account-5 "withdraw twice" -body {
     set account [BankAccount new]
     $account open
     $account deposit 100
-    $account withdraw 20
     $account withdraw 80
+    $account withdraw 20
     $account balance
 } -returnCodes ok -result 0
 
 skip bank-account-6
-test bank-account-6 "checking balance of closed account throws error" -body {
+test bank-account-6 "can do multiple operations sequentially" -body {
+    set account [BankAccount new]
+    $account open
+    $account deposit 100
+    $account deposit 110
+    $account withdraw 200
+    $account deposit 60
+    $account withdraw 50
+    $account balance
+} -returnCodes ok -result 20
+
+skip bank-account-7
+test bank-account-7 "cannot check balance of a closed account" -body {
     set account [BankAccount new]
     $account open
     $account close
     $account balance
 } -returnCodes error -match glob -result "*account is not open*"
 
-skip bank-account-7
-test bank-account-7 "deposit into closed account" -body {
+skip bank-account-8
+test bank-account-8 "cannot deposit into closed account" -body {
     set account [BankAccount new]
     $account open
     $account close
     $account deposit 50
 } -returnCodes error -match glob -result "*account is not open*"
 
-skip bank-account-8
-test bank-account-8 "withdraw from closed account" -body {
+skip bank-account-9
+test bank-account-9 "cannot deposit into unopened account" -body {
+    set account [BankAccount new]
+    $account deposit 50
+} -returnCodes error -match glob -result "*account is not open*"
+
+skip bank-account-10
+test bank-account-10 "cannot withdraw from closed account" -body {
     set account [BankAccount new]
     $account open
     $account close
     $account withdraw 50
 } -returnCodes error -match glob -result "*account is not open*"
 
-skip bank-account-9
-test bank-account-9 "close already closed account" -body {
+skip bank-account-11
+test bank-account-11 "cannot close an account that was not opened" -body {
     set account [BankAccount new]
     $account close
 } -returnCodes error -match glob -result "*account is not open*"
 
-skip bank-account-10
-test bank-account-10 "open already opened account" -body {
+skip bank-account-12
+test bank-account-12 "cannot open an already opened account" -body {
     set account [BankAccount new]
     $account open
     $account open
 } -returnCodes error -match glob -result "*account is already open*"
 
-skip bank-account-11
-test bank-account-11 "reopened account does not retain balance" -body {
+skip bank-account-13
+test bank-account-13 "reopened account does not retain balance" -body {
     set account [BankAccount new]
     $account open
     $account deposit 50
@@ -97,31 +115,31 @@ test bank-account-11 "reopened account does not retain balance" -body {
     $account balance
 } -returnCodes ok -result 0
 
-skip bank-account-12
-test bank-account-12 "cannot withdraw more than deposited" -body {
+skip bank-account-14
+test bank-account-14 "cannot withdraw more than deposited" -body {
     set account [BankAccount new]
     $account open
     $account deposit 25
     $account withdraw 50
 } -returnCodes error -match glob -result "*insufficient funds*"
 
-skip bank-account-13
-test bank-account-13 "cannot withdraw negative" -body {
+skip bank-account-15
+test bank-account-15 "cannot withdraw negative" -body {
     set account [BankAccount new]
     $account open
     $account deposit 100
     $account withdraw -50
 } -returnCodes error -match glob -result "*invalid amount*"
 
-skip bank-account-14
-test bank-account-14 "cannot deposit negative" -body {
+skip bank-account-16
+test bank-account-16 "cannot deposit negative" -body {
     set account [BankAccount new]
     $account open
     $account deposit -50
 } -returnCodes error -match glob -result "*invalid amount*"
 
-skip bank-account-15
-test bank-account-15 "adjust balance concurrently" -body {
+skip bank-account-17
+test bank-account-17 "can handle concurrent transactions" -body {
     # In this style of using Tcl threads, we don't need
     # to make any thread-specific adjustments to the
     # BankAccount class: passing messages between threads
