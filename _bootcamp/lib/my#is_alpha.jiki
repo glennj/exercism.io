@@ -1,3 +1,9 @@
 function my#is_alpha with char do
+  /// Tests if a character is an uppercase or lowercase letter.
+  //  @param {string} char - The character to test
+  //  @returns {boolean}
+  //  @see my#is_upper
+  //  @see my#is_lower
+  //
   return my#is_upper(char) or my#is_lower(char)
 end

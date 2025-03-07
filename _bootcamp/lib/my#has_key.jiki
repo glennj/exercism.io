@@ -1,4 +1,9 @@
 function my#has_key with dict, key do
+  /// Determines whether a dictionary has a specific key, and returns the result as a boolean.
+  //  @param {dict} dict - The dictionary value to check.
+  //  @param {string} key - The key to look for.
+  //  @returns {boolean}
+  //
   for each k, v in dict do
     if k == key do
       return true

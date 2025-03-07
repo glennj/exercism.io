@@ -1,3 +1,9 @@
 function my#is_alnum with char do
+  /// Is the character a letter or a digit.
+  //  @param {string} char - The character to test
+  //  @returns {boolean}
+  //  @see my#is_digit
+  //  @see my#is_alpha
+  //
   return my#is_digit(char) or my#is_alpha(char)
 end

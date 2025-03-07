@@ -1,4 +1,8 @@
 function my#length with measurable do
+  /// Returns the length of a string or list.
+  //  @param {string|list} measureable - The string or list to count.
+  //  @returns {number}
+  //
   set count to 0
   for each item in measurable do
     change count to count + 1

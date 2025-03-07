@@ -1,3 +1,8 @@
 function my#is_divisible_by with number, divisor do
+  /// Tests if a number is evenly divisible (with no remainder) by a divisor.
+  //  @param {number} number - The numerator.
+  //  @param {number} divisor - The denominator.
+  //  @returns {boolean}
+  //
   return number % divisor == 0
 end

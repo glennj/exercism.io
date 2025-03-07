@@ -1,4 +1,10 @@
 function my#lreverse with list do
+  /// Returns a list with the elements in reverse order.
+  //  @param {list} list - The list to reverse
+  //  @returns {list}
+  //  @requires push()
+  //  @see my#length
+  //
   set reversed to []
   set len to my#length(list)
   set i to len + 1

@@ -1,3 +1,8 @@
 function my#is_digit with char do
+  /// Tests if a character is a base-10 digit
+  //  @param {string} char - The character to test
+  //  @returns {boolean}
+  //  @see my#is_contains
+  //
   return my#contains("0123456789", char)
 end

@@ -1,4 +1,11 @@
 function my#to_sentence with list, oxford_comma do
+  /// Turns a list into a sentence using commas and 'and'.
+  //  @param {list<string>} list - The list of strings to join.
+  //  @param {boolean} oxfor_comma - If true, add a comma before the last list item.
+  //  @requires concatenate()
+  //  @see my#length
+  //  @see my#join
+  //
   set len to my#length(list)
   if len == 1 do
     return list[1]

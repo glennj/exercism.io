@@ -1,4 +1,8 @@
 function my#is_empty with measurable do
+  /// Is the string or list empty?
+  //  @param {string|list} measurable - The entity to test for emptiness.
+  //  @returns {boolean}
+  //
   for each _ in measurable do
     return false
   end

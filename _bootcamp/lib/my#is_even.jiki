@@ -1,3 +1,7 @@
 function my#is_even with number do
+  /// Tests if a number is an even number.
+  //  @param {number} number - The number to test.
+  //  @returns {boolean} - Returns true if the number is evenly divisible by two.
+  //
   return number % 2 == 0
 end

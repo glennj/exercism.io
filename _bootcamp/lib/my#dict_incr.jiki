@@ -1,4 +1,10 @@
 function my#dict_incr with dict, key do
+  /// Increment the numeric value of a given dictionary key by one.
+  //  @param {dict} dict - The dictionary value to update.
+  //  @param {string} key - The key whose value to increment
+  //  @returns {dict}
+  //  @see my#has_key
+  //
   if not my#has_key(dict, key) do
     change dict[key] to 0
   end

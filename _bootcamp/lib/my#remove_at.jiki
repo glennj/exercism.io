@@ -1,4 +1,10 @@
 function my#remove_at with list, idx do
+  /// Remove an item from a list at a given position.
+  //  @param {list} list - The list to manipulate.
+  //  @param {number} idx - The index of the element to remove.
+  //  @returns {list}
+  //  @requires push()
+  //
   set result to []
   for each elem in list indexed by i do
     if i != idx do

@@ -1,0 +1,8 @@
+function my#tokenize with string do
+  /// Splits a string into words using spaces as the separator.
+  //  @param {string} string - The string to split.
+  //  @returns {list<string>}
+  //  @see my#split
+  //
+  return my#split(string, " ")
+end

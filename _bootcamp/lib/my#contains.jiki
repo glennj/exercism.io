@@ -1,3 +1,10 @@
 function my#contains with haystack, needle do
+  /// Returns a boolean informing you of whether a list contains an
+  //  element, or a string contains a character.
+  //  @param {string|list} haystack - The enumerable to look in.
+  //  @param {string|number} needle - The item to look for. This must be a scalar.
+  //  @returns {boolean}
+  //  @see my#index_of
+  //
   return my#index_of(haystack, needle) != -1
 end

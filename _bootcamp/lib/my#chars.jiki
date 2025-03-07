@@ -1,4 +1,9 @@
 function my#chars with string do
+  /// Create a list of the characters of a string.
+  //  @param {string} string - the input string to process
+  //  @returns {string[]} - a list of characters
+  //  @requires push()
+  //
   set chars to []
   for each char in string do
     change chars to push(chars, char)

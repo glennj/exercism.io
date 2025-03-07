@@ -1,4 +1,11 @@
 function my#to_lower with char do
+  /// Lower-cases a single character.
+  //  Lowercase letters and non-letters are returned untouched.
+  //  @param {string} char - The character to uppercase.
+  //  @returns {string}
+  //  @see my#is_upper
+  //  @see my#to_upper
+  //
   if my#is_upper(char) do
     return {
       "A":"a", "B":"b", "C":"c", "D":"d", "E":"e", "F":"f", "G":"g",
@@ -9,4 +16,3 @@ function my#to_lower with char do
   end
   return char
 end
-

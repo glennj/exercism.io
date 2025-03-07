@@ -1,4 +1,11 @@
 function my#str_take with string, n do
+  /// Keeps only the first n characters of a string.
+  //  @param {string} string - The string to manipulate.
+  //  @param {int} n - Keep this many characters.
+  //  @returns {string}
+  //  @requires join()
+  //  @see my#str_drop
+  //
   if n <= 0 do
     return ""
   end

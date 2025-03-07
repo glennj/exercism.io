@@ -1,4 +1,10 @@
 function my#index_of with measurable, target do
+  /// Find the index of the target item in the given list.
+  //  Return -1 if not found.
+  //  @param {string|list} measurable - The input value to look in.
+  //  @param {string|number} target - The item to look for. This must be a scalar.
+  //  @returns {int} - Returns the index of the target, or -1 if not found
+  //
   for each item in measurable indexed by i do
     if item == target do
       return i

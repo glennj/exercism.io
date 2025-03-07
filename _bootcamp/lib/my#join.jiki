@@ -1,4 +1,13 @@
 function my#join with list, separator, conjoin do
+  /// Join the elements of a string with the separator.
+  //  @param {list<string>} list - The list of strings to join.
+  //  @param {string} separator - The joining text.
+  //  @param {boolean} conjoin - Add "and" before last item if true.
+  //  @returns {string}
+  //  @requires concatenate()
+  //  @see my#length
+  //  @see my#to_sentence
+  //
   set len to my#length(list)
   if len == 1 do
     return list[1]

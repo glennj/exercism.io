@@ -1,4 +1,10 @@
 function my#ends_with with string, suffix do
+  /// Determine is a string ends with the given suffix.
+  //  @param {string} string - The string to test.
+  //  @param {string} suffix - The possible ending of the string.
+  //  @returns {boolean}
+  //  @see my#length
+  //
   set string_len to my#length(string)
   set suffix_len to my#length(suffix)
   if string_len < suffix_len do
