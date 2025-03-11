@@ -3,7 +3,7 @@ function my#split with string, separator do
   //  @param {string} string - The string to split.
   //  @param {string} separator - The separator must be a single character.
   //  @returns {list<string>}
-  //  @requires join()
+  //  @requires concatenate()
   //  @requires push()
   //  @see my#is_empty
   //
@@ -12,7 +12,7 @@ function my#split with string, separator do
 
   for each char in string do
     if not (char is separator) do
-      change word to join(word, char)
+      change word to concatenate(word, char)
 
     else do
       if not my#is_empty(word) do
