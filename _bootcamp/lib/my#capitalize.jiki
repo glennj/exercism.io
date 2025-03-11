@@ -1,0 +1,16 @@
+function my#capitalize with string do
+  // Upper-case the first character of a string
+  // @param {string} string - The input string to manipulate.
+  // @returns {string}
+  // @requires my#to_upper
+  //
+  set result to ""
+  for each char in string indexed by i do
+    if i == 1 do
+      change result to my#to_upper(char)
+    else do
+      change result to concatenate(result, char)
+    end
+  end
+  return result
+end

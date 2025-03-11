@@ -1,5 +1,6 @@
 function my#split with string, separator do
   /// Splits a string into words using a separator character.
+  //  Consecutive separators are collapsed (there are no empty strings in the result list).
   //  @param {string} string - The string to split.
   //  @param {string} separator - The separator must be a single character.
   //  @returns {list<string>}

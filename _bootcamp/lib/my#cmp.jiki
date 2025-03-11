@@ -3,6 +3,7 @@ function my#cmp with a, b do
   // If equal, return 0.
   // If a is less than b, return -1.
   // If a is greater than b, return 1.
+  // If neither character is an ASCII character, return -2.
   // @param {string} a - The first character to compare.
   // @param {string} b - The second character to compare.
   // @returns {int}
@@ -10,13 +11,12 @@ function my#cmp with a, b do
   if a is b do
     return 0
   end
-  set ascii_characters to " !#$%&'()*+-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
-  for each char in ascii_characters do
+  for each char in my#ascii_printable() do
     if char is a do
       return -1
     else if char is b do
       return 1
     end
   end
-  return 0
+  return -2
 end

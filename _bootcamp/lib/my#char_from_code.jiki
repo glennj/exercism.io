@@ -1,0 +1,14 @@
+function my#char_from_code with code do
+  /// Given an ASCII code, return the character.
+  //  Range from 32 (space) to 126 (tilde).
+  //  Double quote and backslash are represented as spaces.
+  //  @param {int} code
+  //  @returns {string}
+  //  @requires my#ascii_printable
+  //
+  set char to "�"
+  if 32 <= code and code <= 126 do
+    change char to my#ascii_printable()[code - 31]
+  end
+  return char
+end

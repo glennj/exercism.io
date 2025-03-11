@@ -1,0 +1,14 @@
+function my#char_codes with string do
+  /// Return a list of the ASCII character codes of a string.
+  //  A string cannot contain a double quote or a backslash.
+  //  Range is 32 (space) to 126 (tilde).
+  //  @param {string} string
+  //  @returns {list[int]}
+  //  @requires my#char_code
+  //
+  set codes to []
+  for each char in string do
+    change codes to push(codes, my#char_code(char))
+  end
+  return codes
+end

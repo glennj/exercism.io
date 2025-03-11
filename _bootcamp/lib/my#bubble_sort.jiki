@@ -1,0 +1,36 @@
+function my#bubble_sort with unsorted do
+  /// A bubble sort of a list of numbers.
+  //  @param {list[number]} unsorted
+  //  @see https://en.wikipedia.org/wiki/Bubble_sort
+
+  // clone the input
+  set list to []
+  set len to 0
+  for each num in unsorted do
+    change list to push(list, num)
+    change len to len + 1
+  end
+  if len <= 1 do
+    return list
+  end
+
+  set has_exchange to false
+  set tmp to 0
+
+  repeat (len - 1) times indexed by i do
+    change has_exchange to false
+    repeat len - i times indexed by j do
+      if list[j] > list[j + 1] do
+        change tmp to list[j]
+        change list[j] to list[j + 1]
+        change list[j + 1] to tmp
+        change has_exchange to true
+      end
+    end
+    if not has_exchange do
+      break
+    end
+  end
+
+  return list
+end

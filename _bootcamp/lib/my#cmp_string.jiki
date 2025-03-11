@@ -1,4 +1,14 @@
 function my#cmp_string with a, b do
+  // Compare two ASCII strings alphabetically.
+  // If equal, return 0.
+  // If a is less than b, return -1.
+  // If a is greater than b, return 1.
+  // @param {string} a - The first string to compare.
+  // @param {string} b - The second string to compare.
+  // @returns {int}
+  // @requires my#length
+  // @requires my#cmp
+  //
   set a_len to 0
   set b_len to my#length(b)
   set c to 0
@@ -12,8 +22,8 @@ function my#cmp_string with a, b do
     end
     change a_len to i
   end
-  if b_len > a_len do
-    return -1
+  if a_len < b_len do
+    return -1    // a is smaller than b
   end
   return 0
 end

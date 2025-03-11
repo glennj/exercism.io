@@ -1,0 +1,14 @@
+function my#char_code with char do
+  // Return the ASCII character code for a character.
+  // The range is 32 (space) to 126 (tilde)
+  // Double quote and backslash cannot be represented
+  // Returns -1 if the input is not in range.
+  // @param {string} char - The character to translate.
+  // @returns {int}
+  //
+  set idx to my#index_of(my#ascii_printable(), char)
+  if idx == -1 do
+    return -1
+  end
+  return 31 + idx
+end

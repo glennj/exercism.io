@@ -2,15 +2,21 @@ function my#sort_string with unsorted do
   // Sorts the characters of a string.
   // @param {string} unsorted - The input string to sort.
   // @returns {string}
-  // @requires my#chars
-  // @requires my#sort_list_of_strings
-  // @requires my#join
+  // @requires my#char_codes
+  // @requires my#bubble_sort
+  // @requires my#char_from_code
+  // @requires concatenate
   //
   // Ref: https://en.wikipedia.org/wiki/Insertion_sort
   //
 
-  set chars to my#chars(unsorted)
-  set sorted my#sort_list_of_strings(chars)
-  return my#join(sorted, "")
+  //return my#join(my#sort_list_of_strings(my#chars(unsorted)), "")
+  
+  set codes to my#char_codes(unsorted)
+  set sorted to my#bubble_sort(codes)
+  set result to ""
+  for each code in sorted do
+    change result to concatenate(result, my#char_from_code(code))
+  end
+  return result
 end
-

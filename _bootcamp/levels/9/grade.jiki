@@ -1,0 +1,51 @@
+function build_url with description do
+  set words to my#tokenize(description)
+  set year to words[4]
+  set class to concatenate("class-", words[2])
+  
+  set root to "https://api.school.com"
+  set version to "v4"
+  if my#cmp_string(year, "2025") == -1 do
+    change version to "v3"
+  end
+
+  return my#join([root, version, "grades", year, class], "/")
+end
+
+function grades_to_pattern with description do
+  set url to build_url(description)
+  set response to fetch(url, {})
+  if not my#has_key(response, "data") do
+    return {"error": "No data returned"}
+  end
+
+  set teacher to teacher_name(response["data"]["teacher"])
+  set grades to patternize(response["data"]["grades"])
+  
+  return {"teacher": teacher, "grades": grades}
+end
+
+function teacher_name with name_with_honorific do
+  set surnames to []
+  for each surname in my#tokenize(remove_honorific(name_with_honorific)) do
+    change surnames to push(surnames, my#capitalize(surname))
+  end
+  return my#join(surnames, " ")
+end
+
+function remove_honorific with name do
+  // The honorific is the *first* space-separated word in the name.
+  set surname to name
+  set idx to my#index_of(name, " ")
+  if idx != -1 do
+    change surname to my#str_drop(name, idx)
+  end
+  return surname
+end
+
+function patternize with list_of_strings do
+  //set sorted to my#sort_list_of_strings(list_of_strings)
+  set sorted to my#bubble_sort_string(list_of_strings)
+  set result to my#join(sorted, "")
+  return result
+end
