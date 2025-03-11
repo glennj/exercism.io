@@ -3,14 +3,14 @@ function my#str_drop with string, n do
   //  @param {string} string - The string to manipulate.
   //  @param {int} n - Remove this many characters.
   //  @returns {string}
-  //  @requires join()
+  //  @requires concatenate()
   //  @see my#str_take
   //
   set remaining to ""
 
   for each char in string indexed by i do
     if i > n do
-      change remaining to join(remaining, char)
+      change remaining to concatenate(remaining, char)
     end
   end
 

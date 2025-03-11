@@ -2,7 +2,7 @@ function dna_to_rna with dna do
   set mapping to {"G": "C", "C": "G", "T": "A", "A": "U"}
   set rna to ""
   for each nucleotide in dna do
-    change rna to join(rna, mapping[nucleotide])
+    change rna to concatenate(rna, mapping[nucleotide])
   end
   return rna
 end

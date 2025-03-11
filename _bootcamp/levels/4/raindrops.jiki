@@ -3,13 +3,13 @@
 function raindrops with number do
   set raindrops to ""
   if my#is_divisible_by(number, 3) do
-    change raindrops to join(raindrops, "Pling")
+    change raindrops to concatenate(raindrops, "Pling")
   end
   if my#is_divisible_by(number, 5) do
-    change raindrops to join(raindrops, "Plang")
+    change raindrops to concatenate(raindrops, "Plang")
   end
   if my#is_divisible_by(number, 7) do
-    change raindrops to join(raindrops, "Plong")
+    change raindrops to concatenate(raindrops, "Plong")
   end
   if my#is_empty(raindrops) do
     change raindrops to number_to_string(number)

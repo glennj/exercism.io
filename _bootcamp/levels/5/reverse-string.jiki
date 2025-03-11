@@ -1,7 +1,7 @@
 function reverse with string do
   set reversed to ""
   for each letter in string do
-    change reversed to join(letter, reversed)
+    change reversed to concatenate(letter, reversed)
   end
   return reversed
 end

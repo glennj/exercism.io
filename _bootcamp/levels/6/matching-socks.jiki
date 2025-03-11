@@ -64,7 +64,7 @@ function matching_socks with clean, dirty do
     // find the matching sock
     change idx to index_of_sock(clothes, colour, other_foot(foot))
     if idx != -1 do
-      change pairs to push(pairs, join(colour, " socks"))
+      change pairs to push(pairs, concatenate(colour, " socks"))
       change clothes[idx] to [""]
     end
   end

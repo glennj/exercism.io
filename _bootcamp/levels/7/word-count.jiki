@@ -11,7 +11,7 @@ function count_words with phrase do
   
     else if state is "seeking separator" do
       if my#is_alnum(char) or char is "'" do
-        change word to join(word, char)
+        change word to concatenate(word, char)
 
       else do
         change counts to my#dict_incr(counts, word)

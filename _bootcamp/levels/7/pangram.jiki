@@ -10,7 +10,7 @@ function is_pangram with string do
     change letter to my#to_upper(char)
   
     if not my#contains(found, letter) do
-      change found to join(found, letter)
+      change found to concatenate(found, letter)
     end
   end
   

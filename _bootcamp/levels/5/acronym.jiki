@@ -15,7 +15,7 @@ function acronym with phrase do
   set state to "seeking letter"
   for each char in to_upper_case(phrase) do
     if state is "seeking letter" and (my#is_upper(char) or my#is_lower(char)) do
-      change acronym to join(acronym, char)
+      change acronym to concatenate(acronym, char)
       change state to "seeking separator"
   
     else if state is "seeking separator" and is_separator(char) do

@@ -3,7 +3,7 @@ function my#str_take with string, n do
   //  @param {string} string - The string to manipulate.
   //  @param {int} n - Keep this many characters.
   //  @returns {string}
-  //  @requires join()
+  //  @requires concatenate()
   //  @see my#str_drop
   //
   if n <= 0 do
@@ -12,7 +12,7 @@ function my#str_take with string, n do
 
   set taken to ""
   for each char in string indexed by i do
-    change taken to join(taken, char)
+    change taken to concatenate(taken, char)
     if i == n do
       break
     end
