@@ -5,6 +5,7 @@ function my#char_codes with string do
   //  @param {string} string
   //  @returns {list[int]}
   //  @requires my#char_code
+  //  @requires push()
   //
   set codes to []
   for each char in string do

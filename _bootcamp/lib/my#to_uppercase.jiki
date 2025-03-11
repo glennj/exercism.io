@@ -1,0 +1,14 @@
+function my#to_uppercase with string do
+  // Convert each letter in a string to upper-case.
+  // @param {string} string - The input string to uppercase.
+  // @returns {string}
+  // @requires my#to_upper
+  // @requires concatenate()
+  //
+  set result to ""
+  for each char in string do
+    change result to concatenate(result, my#to_upper(char))
+  end
+  return result
+end
+

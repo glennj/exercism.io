@@ -5,7 +5,7 @@ function my#sort_string with unsorted do
   // @requires my#char_codes
   // @requires my#bubble_sort
   // @requires my#char_from_code
-  // @requires concatenate
+  // @requires concatenate()
   //
   // Ref: https://en.wikipedia.org/wiki/Insertion_sort
   //

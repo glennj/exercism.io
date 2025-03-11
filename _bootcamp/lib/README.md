@@ -45,6 +45,8 @@ erDiagram
     CHAR_CODES ||--|| SORT_STRING : ""
     BUBBLE_SORT ||--|| SORT_STRING : ""
     CHAR_FROM_CODE ||--|| SORT_STRING : ""
-    SPLIT ||--|| STR_TOKENIZE : ""
+    SPLIT ||--|| TOKENIZE : ""
     TO_UPPER ||--|| CAPITALIZE : ""
+    TO_UPPER ||--|| TO_UPPERCASE : ""
+    TO_LOWER ||--|| TO_LOWERCASE : ""
 ```

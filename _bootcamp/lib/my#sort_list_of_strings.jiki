@@ -1,12 +1,13 @@
 function my#sort_list_of_strings with unsorted do
-  // Sort a list of strings.
-  // Returns a new list.
-  // @param {list<string>} unsorted - The unsorted list
-  // @returns {list<string>}
-  // @requires my#cmp_string
-  // @see my#sort_string
-  //
-  // Ref: https://en.wikipedia.org/wiki/Insertion_sort
+  /// Sort a list of strings.
+  //  Returns a new list.
+  //  @param {list<string>} unsorted - The unsorted list
+  //  @returns {list<string>}
+  //  @requires my#cmp_string
+  //  @requires push()
+  //  @see my#sort_string
+  //  @see my#bubble_sort_string
+  //  @see https://en.wikipedia.org/wiki/Insertion_sort
 
   // clone the input
   set sorted to []

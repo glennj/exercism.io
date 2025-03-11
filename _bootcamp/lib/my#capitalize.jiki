@@ -3,6 +3,7 @@ function my#capitalize with string do
   // @param {string} string - The input string to manipulate.
   // @returns {string}
   // @requires my#to_upper
+  // @requires concatenate()
   //
   set result to ""
   for each char in string indexed by i do

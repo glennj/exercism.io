@@ -1,0 +1,14 @@
+function my#to_lowercase with string do
+  // Convert each letter in a string to lower-case.
+  // @param {string} string - The input string to lowercase.
+  // @returns {string}
+  // @requires my#to_lower
+  // @requires concatenate()
+  //
+  set result to ""
+  for each char in string do
+    change result to concatenate(result, my#to_lower(char))
+  end
+  return result
+end
+

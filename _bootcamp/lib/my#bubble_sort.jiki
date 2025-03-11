@@ -1,6 +1,7 @@
 function my#bubble_sort with unsorted do
   /// A bubble sort of a list of numbers.
   //  @param {list[number]} unsorted
+  //  @requires push()
   //  @see https://en.wikipedia.org/wiki/Bubble_sort
 
   // clone the input

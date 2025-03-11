@@ -1,6 +1,8 @@
 function my#bubble_sort_string with unsorted do
   /// A bubble sort of a list of strings.
   //  @param {list[string]} unsorted
+  //  @requires push()
+  //  @see my#sort_list_of_strings
   //  @see https://en.wikipedia.org/wiki/Bubble_sort
 
   // clone the input
