@@ -25,6 +25,7 @@ erDiagram
     CONTAINS ||--|| IS_LOWER : ""
     CONTAINS ||--|| IS_UPPER : ""
     CONTAINS ||--|| IS_DIGIT : ""
+    CONTAINS ||--|| TO_UNIQUE : ""
     INDEX_OF ||--|| CONTAINS : ""
     IS_EMPTY ||--|| SPLIT : ""
     IS_LOWER ||--|| IS_ALPHA : ""

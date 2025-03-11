@@ -1,0 +1,15 @@
+function my#to_unique with list do
+  /// Returns a list with all the duplicates removed
+  //  @param {list} list - The input list of items to examine.
+  //  @returns {list}
+  //  @requires my#contains
+  //  @requires push()
+  //
+  set uniq to []
+  for each item in list do
+    if not my#contains(uniq, item) do
+      change uniq to push(uniq, item)
+    end
+  end
+  return uniq
+end
