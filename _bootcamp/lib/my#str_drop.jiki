@@ -5,6 +5,7 @@ function my#str_drop with string, n do
   //  @returns {string}
   //  @requires concatenate()
   //  @see my#str_take
+  //  @see my#drop
   //
   set remaining to ""
 

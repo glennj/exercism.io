@@ -5,6 +5,7 @@ function my#str_take with string, n do
   //  @returns {string}
   //  @requires concatenate()
   //  @see my#str_drop
+  //  @see my#take
   //
   if n <= 0 do
     return ""

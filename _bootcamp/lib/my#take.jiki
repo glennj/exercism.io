@@ -1,0 +1,23 @@
+function my#take with list, n do
+  /// Keeps only the first n elements of a list.
+  //  @param {list} list - The list to manipulate.
+  //  @param {int} n - Keep this many elements.
+  //  @returns {list}
+  //  @requires push()
+  //  @see my#drop
+  //  @see my#str_take
+  //
+  set taken to []
+  if n <= 0 do
+    return taken
+  end
+
+  for each item in list indexed by i do
+    change taken to push(taken, item)
+    if i == n do
+      break
+    end
+  end
+
+  return taken
+end

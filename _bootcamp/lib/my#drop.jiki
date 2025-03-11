@@ -1,0 +1,19 @@
+function my#drop with list, n do
+  /// Remove the first n elements from a list.
+  //  @param {list} list - The list to manipulate.
+  //  @param {int} n - Remove this many elements.
+  //  @returns {list}
+  //  @requires push()
+  //  @see my#take
+  //  @see my#str_drop
+  //
+  set remaining to []
+
+  for each item in list indexed by i do
+    if i > n do
+      change remaining to push(remaining, item)
+    end
+  end
+
+  return remaining
+end

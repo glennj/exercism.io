@@ -15,32 +15,20 @@ end
 function grades_to_pattern with description do
   set url to build_url(description)
   set response to fetch(url, {})
-  if not my#has_key(response, "data") do
-    return {"error": "No data returned"}
-  end
 
-  set teacher to teacher_name(response["data"]["teacher"])
-  set grades to patternize(response["data"]["grades"])
-  
-  return {"teacher": teacher, "grades": grades}
+  return {
+    "teacher": teacher_name(response["data"]["teacher"]),
+    "grades": patternize(response["data"]["grades"])
+  }
 end
 
 function teacher_name with name_with_honorific do
-  set surnames to []
-  for each surname in my#tokenize(remove_honorific(name_with_honorific)) do
-    change surnames to push(surnames, my#capitalize(surname))
+  // honorific is the first space-separated word
+  set names to my#drop(my#tokenize(name_with_honorific), 1)
+  for each name in names indexed by i do
+    change names[i] to my#capitalize(name)
   end
-  return my#join(surnames, " ")
-end
-
-function remove_honorific with name do
-  // The honorific is the *first* space-separated word in the name.
-  set surname to name
-  set idx to my#index_of(name, " ")
-  if idx != -1 do
-    change surname to my#str_drop(name, idx)
-  end
-  return surname
+  return my#join(names, " ")
 end
 
 function patternize with list_of_strings do
