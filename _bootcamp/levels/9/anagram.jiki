@@ -1,0 +1,18 @@
+function find_anagrams with word, candidates do
+  set lc_word to my#to_lowercase(word)
+  set key to my#sort_string(lc_word)
+
+  set lc_cand to ""
+  set anagrams to []
+
+  for each candidate in candidates do
+    change lc_cand to my#to_lowercase(candidate)
+    if lc_cand is lc_word do
+      next
+    end
+    if my#sort_string(lc_cand) is key do
+      change anagrams to push(anagrams, candidate)
+    end
+  end
+  return my#sort_list_of_strings(anagrams)
+end

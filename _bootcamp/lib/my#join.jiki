@@ -1,29 +1,17 @@
-function my#join with list, separator, conjoin do
-  /// Join the elements of a string with the separator.
+function my#join with list, separator do
+  /// Given a list of strings, join the elements with the separator.
   //  @param {list<string>} list - The list of strings to join.
   //  @param {string} separator - The joining text.
-  //  @param {boolean} conjoin - Add "and" before last item if true.
   //  @returns {string}
   //  @requires concatenate()
-  //  @see my#length
-  //  @see my#to_sentence
   //
-  set len to my#length(list)
-  if len == 1 do
-    return list[1]
-  end
-
-  set sep to ""
-  set conjunction to ""
   set result to ""
+  set sep to ""
 
-  for each item in list indexed by i do
-    if conjoin and i == len do
-      change conjunction to "and "
-    end
-
-    change result to concatenate(result, sep, conjunction, item)
+  for each item in list do
+    change result to concatenate(result, sep, item)
     change sep to separator
   end
+
   return result
 end

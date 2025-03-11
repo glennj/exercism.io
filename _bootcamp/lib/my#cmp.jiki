@@ -1,0 +1,22 @@
+function my#cmp with a, b do
+  // Compare character `a` and chararacter `b` alphabetically.
+  // If equal, return 0.
+  // If a is less than b, return -1.
+  // If a is greater than b, return 1.
+  // @param {string} a - The first character to compare.
+  // @param {string} b - The second character to compare.
+  // @returns {int}
+  //
+  if a is b do
+    return 0
+  end
+  set ascii_characters to " !#$%&'()*+-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+  for each char in ascii_characters do
+    if char is a do
+      return -1
+    else if char is b do
+      return 1
+    end
+  end
+  return 0
+end

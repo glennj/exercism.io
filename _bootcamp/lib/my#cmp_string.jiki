@@ -1,0 +1,19 @@
+function my#cmp_string with a, b do
+  set a_len to 0
+  set b_len to my#length(b)
+  set c to 0
+  for each char in a indexed by i do
+    if i > b_len do
+      return 1   // a is greater than b
+    end
+    change c to my#cmp(char, b[i])
+    if c != 0 do
+      return c
+    end
+    change a_len to i
+  end
+  if b_len > a_len do
+    return -1
+  end
+  return 0
+end

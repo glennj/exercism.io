@@ -1,0 +1,16 @@
+function my#sort_string with unsorted do
+  // Sorts the characters of a string.
+  // @param {string} unsorted - The input string to sort.
+  // @returns {string}
+  // @requires my#chars
+  // @requires my#sort_list_of_strings
+  // @requires my#join
+  //
+  // Ref: https://en.wikipedia.org/wiki/Insertion_sort
+  //
+
+  set chars to my#chars(unsorted)
+  set sorted my#sort_list_of_strings(chars)
+  return my#join(sorted, "")
+end
+

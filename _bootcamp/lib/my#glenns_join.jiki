@@ -1,0 +1,30 @@
+function my#glenns_join with list, separator, conjoin do
+  /// Join the elements of a string with the separator.
+  //  Optionally, add "and" before the last element.
+  //  @param {list<string>} list - The list of strings to join.
+  //  @param {string} separator - The joining text.
+  //  @param {boolean} conjoin - Add "and" before last item if true.
+  //  @returns {string}
+  //  @requires concatenate()
+  //  @see my#length
+  //  @see my#to_sentence
+  //
+  set len to my#length(list)
+  if len == 1 do
+    return list[1]
+  end
+
+  set sep to ""
+  set conjunction to ""
+  set result to ""
+
+  for each item in list indexed by i do
+    if conjoin and i == len do
+      change conjunction to "and "
+    end
+
+    change result to concatenate(result, sep, conjunction, item)
+    change sep to separator
+  end
+  return result
+end

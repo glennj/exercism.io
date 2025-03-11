@@ -1,0 +1,47 @@
+function my#sort_list_of_strings with unsorted do
+  // Sort a list of strings.
+  // Returns a new list.
+  // @param {list<string>} unsorted - The unsorted list
+  // @returns {list<string>}
+  // @requires my#cmp_string
+  // @see my#sort_string
+  //
+  // Ref: https://en.wikipedia.org/wiki/Insertion_sort
+
+  // clone the input
+  set sorted to []
+  set len to 0
+  for each item in unsorted do
+    change sorted to push(sorted, item)
+    change len to len + 1
+  end
+
+  if len <= 1 do
+    return sorted
+  end
+
+  // then, sort in-place
+  set x to ""
+  set j to 0
+  repeat len times indexed by i do
+    if i == 1 do
+      next
+    end
+
+    change j to i
+    change x to sorted[i]
+
+    repeat i - 1 times do
+      if my#cmp_string(sorted[j - 1], x) == -1 do
+        break
+      end
+      change sorted[j] to sorted[j - 1]
+      change j to j - 1
+    end
+
+    change sorted[j] to x
+    change i to i + 1
+  end
+
+  return sorted
+end

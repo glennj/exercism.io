@@ -4,7 +4,7 @@ function my#to_sentence with list, oxford_comma do
   //  @param {boolean} oxfor_comma - If true, add a comma before the last list item.
   //  @requires concatenate()
   //  @see my#length
-  //  @see my#join
+  //  @see my#glenns_join
   //
   set len to my#length(list)
   if len == 1 do

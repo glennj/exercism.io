@@ -5,5 +5,5 @@ function get_time with city do
     return "Could not determine the time."
   end
 
-  return my#join(["The time on this", response["dayOfWeek"], "in", city, "is", response["time"]], " ", false)
+  return my#join(["The time on this", response["dayOfWeek"], "in", city, "is", response["time"]], " ")
 end
