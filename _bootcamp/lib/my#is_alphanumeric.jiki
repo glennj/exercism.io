@@ -1,0 +1,16 @@
+function my#is_alphanumeric with string do
+  /// Returns true if a string contains only letters and numbers, false otherwise.
+  //  @params {string} string
+  //  @returns {boolean}
+  //  @requires my#is_alnum
+  //
+  if string == "" do
+    return false
+  end
+  for each char in string do
+    if not my#is_alnum(char) do
+      return false
+    end
+  end
+  return true
+end

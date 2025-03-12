@@ -1,0 +1,4 @@
+function how_long with measurable do
+  set len to my#length(measurable)
+  return concatenate("The length is ", number_to_string(len), ".")
+end

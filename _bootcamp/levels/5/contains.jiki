@@ -1,0 +1,7 @@
+function is_it_there with haystack, needle do
+  set present to my#contains(haystack, needle)
+  if present do
+    return "It's there! 🙂"
+  end
+  return "It's not there 😔"
+end

@@ -4,19 +4,11 @@ function my#sort_string with unsorted do
   // @returns {string}
   // @requires my#char_codes
   // @requires my#bubble_sort
-  // @requires my#char_from_code
-  // @requires concatenate()
+  // @requires my#string_from_codes
   //
   // Ref: https://en.wikipedia.org/wiki/Insertion_sort
   //
-
-  //return my#join(my#sort_list_of_strings(my#chars(unsorted)), "")
-  
   set codes to my#char_codes(unsorted)
   set sorted to my#bubble_sort(codes)
-  set result to ""
-  for each code in sorted do
-    change result to concatenate(result, my#char_from_code(code))
-  end
-  return result
+  return my#string_from_codes(sorted)
 end

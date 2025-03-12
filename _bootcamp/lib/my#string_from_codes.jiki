@@ -1,0 +1,13 @@
+function my#string_from_codes with codes do
+  // Convert a list of character codes to a string.
+  // @param {list[int]} codes
+  // @returns {string}
+  // @requires my#char_from_code
+  // @requires concatenate()
+  //
+  set string to ""
+  for each code in codes do
+    change string to concatenate(string, my#char_from_code(code))
+  end
+  return string
+end

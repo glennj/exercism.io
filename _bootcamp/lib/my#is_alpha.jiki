@@ -1,9 +1,17 @@
-function my#is_alpha with char do
-  /// Tests if a character is an uppercase or lowercase letter.
-  //  @param {string} char - The character to test
+function my#is_alpha with string do
+  /// Tests if a string consists of only uppercase or lowercase letters.
+  //  @param {string} string - The string to test
   //  @returns {boolean}
   //  @see my#is_upper
   //  @see my#is_lower
   //
-  return my#is_upper(char) or my#is_lower(char)
+  if string == "" do
+    return false
+  end
+  for each char in string do
+    if not (my#is_upper(char) or my#is_lower(char)) do
+      return false
+    end
+  end
+  return true
 end

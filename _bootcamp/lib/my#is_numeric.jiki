@@ -1,0 +1,15 @@
+function my#is_numeric with string do
+  /// Returns true if a string contains only numbers, false otherwise.
+  //  @param {string} string
+  //  @returns {boolean}
+  //  @requires my#is_digit
+  if string == "" do
+    return false
+  end
+  for each char in string do
+    if not my#is_digit(char) do
+      return false
+    end
+  end
+  return true
+end
