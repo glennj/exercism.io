@@ -1,0 +1,35 @@
+function process_game with answer, guesses do
+  set game to new WordleGame()
+  game.draw_board()
+
+  for each guess in guesses indexed by i do
+    game.add_word(i, guess, process_guess(answer, guess))
+  end
+end
+
+function process_guess with answer, guess do
+  set counts to my#tally(answer)
+  set row to ["", "", "", "", ""]
+
+  // first, look for correct positions to consume
+  for each letter in guess indexed by i do
+    if answer[i] == letter do
+      change row[i] to "correct"
+      change counts[letter] to counts[letter] - 1
+    end
+  end
+
+  // then, fill in the unset positions in the row
+  for each letter in guess indexed by i do
+    if my#is_empty(row[i]) do
+      if my#has_key(counts, letter) and counts[letter] > 0 do
+        change row[i] to "present"
+        change counts[letter] to counts[letter] - 1
+      else do
+        change row[i] to "absent"
+      end
+    end
+  end
+  
+  return row
+end

@@ -1,11 +1,12 @@
 function count_nucleotides with strand do
   set count to { "A": 0, "C": 0, "G": 0, "T": 0 }
-  set dna to keys(count)
+  set dna to my#dict_keys(count)
+
   for each nucleotide in strand do
     if not my#contains(dna, nucleotide) do
       return false
     end
-  
+
     change count[nucleotide] to count[nucleotide] + 1
   end
   return count

@@ -1,0 +1,11 @@
+function my#dict_keys with dict do
+  /// Returns a list of the keys of a dictionary.
+  //  @param {dict} dict - The dictionary value to check.
+  //  @returns {list<string>}
+  //
+  set keys to []
+  for each k, _ in dict do
+    change keys to push(keys, k)
+  end
+  return keys
+end

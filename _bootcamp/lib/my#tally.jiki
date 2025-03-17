@@ -1,0 +1,12 @@
+function my#tally with enumerable do
+  /// Returns a new dictionary where the keys are the distinct elements in the input,
+  //  and the values are the count of occurrences of each element.
+  //  @param {list|string} enumerable - The input list or string.
+  //  @returns {dict<int>}
+  //
+  set counts to {}
+  for each element in enumerable do
+    change counts to my#dict_incr(counts, element)
+  end
+  return counts
+end
