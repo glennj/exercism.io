@@ -22,7 +22,7 @@ function draw_description with description, offsets do
   draw_sky_scaled(offsets)
 
   for each element in elements do
-    // the order of the branches is important: 
+    // the order of the branches is important:
     // e.g. the sun has to be drawn before the clouds
 
     if element is "sun" do
@@ -56,7 +56,7 @@ end
 
 // ----------------------------------
 function draw_sky_scaled with offsets do
-  fill_color_hex("#ADD8E6") 
+  fill_color_hex("#ADD8E6")
   rectangle_scaled(0, 0, 100, 100, offsets)
 end
 
@@ -70,7 +70,7 @@ function draw_small_sun_scaled with offsets do
   circle_scaled(75,30, 15, offsets)
 end
 
-function draw_cloud_scaled with offsets do 
+function draw_cloud_scaled with offsets do
   fill_color_hex("white")
   rectangle_scaled(25,50, 50, 10, offsets)
   circle_scaled(25,50, 10, offsets)
@@ -79,7 +79,7 @@ function draw_cloud_scaled with offsets do
   circle_scaled(55,40, 20, offsets)
 end
 
-function draw_rain_scaled with offsets do 
+function draw_rain_scaled with offsets do
   fill_color_hex("blue")
   ellipse_scaled(30,70, 3, 5, offsets)
   ellipse_scaled(40,80, 3, 5, offsets)

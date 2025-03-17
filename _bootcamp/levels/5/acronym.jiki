@@ -1,7 +1,7 @@
 function is_separator with char do
   return char is " " or char is "-"
 end
-  
+
 function acronym with phrase do
   set acronym to ""
 
@@ -11,13 +11,13 @@ function acronym with phrase do
   // * "seeking letter" where we are looking for the first letter of a word
   // * "seeking separator" after we have found the first letter,
   //   we re looking for the separator character that follows the end of the word.
-  
+
   set state to "seeking letter"
   for each char in to_upper_case(phrase) do
     if state is "seeking letter" and (my#is_upper(char) or my#is_lower(char)) do
       change acronym to concatenate(acronym, char)
       change state to "seeking separator"
-  
+
     else if state is "seeking separator" and is_separator(char) do
       change state to "seeking letter"
     end

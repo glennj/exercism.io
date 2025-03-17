@@ -1,5 +1,5 @@
 // Sky
-fill_color_hex("#ADD8E6") 
+fill_color_hex("#ADD8E6")
 rectangle(0, 0, 100, 100)
 
 // Ground
@@ -23,8 +23,8 @@ fill_color_hex("#ffffff")
 ellipse(50, 50, 21, 39)
 
 // Head
-//fill_color_hex("#000000") 
-//circle(50, 31, 23) 
+//fill_color_hex("#000000")
+//circle(50, 31, 23)
 add_circle("black", 50, 31, 23)
 
 // Upper part of face
@@ -39,8 +39,8 @@ ellipse(50, 40, 16, 11)
 set colour to "black"
 
 fill_color_hex(colour)
-circle(42, 33, 3) 
-circle(58, 33, 3) 
+circle(42, 33, 3)
+circle(58, 33, 3)
 change colour to "white"
 fill_color_hex(colour)
 circle(43, 34, 1)

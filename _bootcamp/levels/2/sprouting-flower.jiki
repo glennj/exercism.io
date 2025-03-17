@@ -43,9 +43,9 @@ repeat frames times do
   change leaf_x_offset to stem_width / 2 + leaf_x_radius
 
   // Sky
-  fill_color_hex("#ADD8E6") 
+  fill_color_hex("#ADD8E6")
   rectangle(0, 0, size, ground_level)
-  
+
   // Ground
   fill_color_hex("green")
   rectangle(0, ground_level, size, size - ground_level)

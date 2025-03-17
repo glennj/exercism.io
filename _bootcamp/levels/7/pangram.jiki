@@ -1,19 +1,19 @@
 function is_pangram with string do
   set found to ""
   set letter to ""
-  
+
   for each char in string do
     if not my#is_alpha(char) do
       next
     end
 
     change letter to my#to_upper(char)
-  
+
     if not my#contains(found, letter) do
       change found to concatenate(found, letter)
     end
   end
-  
+
   return my#length(found) == my#length("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 end
 

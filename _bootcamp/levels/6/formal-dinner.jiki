@@ -10,12 +10,12 @@ end
 
 function on_guest_list with guests, candidate do
   set surname to remove_honorific(candidate)
-  
+
   for each guest in guests do
     if my#ends_with(guest, surname) do
       return true
     end
   end
-  
+
   return false
 end

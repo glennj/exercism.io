@@ -2,8 +2,8 @@ function translate_rna with rna do
   set amino_acids to {
     "AUG": "Methionine",   "UUU": "Phenylalanine",
     "UUA": "Leucine",      "UUC": "Phenylalanine",
-    "UUG": "Leucine",      "UGG": "Tryptophan",   
-    "UCU": "Serine",       "UGC": "Cysteine",   
+    "UUG": "Leucine",      "UGG": "Tryptophan",
+    "UCU": "Serine",       "UGC": "Cysteine",
     "UCC": "Serine",       "UGU": "Cysteine",
     "UCA": "Serine",
     "UCG": "Serine",       "UAA": "STOP",

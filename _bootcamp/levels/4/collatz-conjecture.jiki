@@ -2,12 +2,12 @@
 // Should return the number of steps to reach 1
 function collatz_steps with number do
   set steps to 0
-  
+
   repeat_forever do
     if number == 1 do
       return steps
     end
-  
+
     if my#is_even(number) do
       change number to number / 2
     else do

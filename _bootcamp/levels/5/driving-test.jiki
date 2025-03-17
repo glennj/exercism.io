@@ -10,11 +10,11 @@ end
 
 function did_they_pass with results do
   set minor_mistakes to 0
-  
+
   for each event in results do
     if is_major_mistake(event) do
       return false
-      
+
     else if is_minor_mistake(event) do
       change minor_mistakes to minor_mistakes + 1
       if minor_mistakes == 5 do
@@ -22,6 +22,6 @@ function did_they_pass with results do
       end
     end
   end
-  
+
   return true
 end

@@ -3,7 +3,7 @@ function draw_weather with description do
 
   draw_sky()
   for each element in elements do
-    // the order of the branches is important: 
+    // the order of the branches is important:
     // e.g. the sun has to be drawn before the clouds
 
     if element is "sun" do
@@ -23,8 +23,8 @@ function draw_weather with description do
 end
 
 // ----------------------------------
-function draw_sky do 
-  fill_color_hex("#ADD8E6") 
+function draw_sky do
+  fill_color_hex("#ADD8E6")
   rectangle(0, 0, 100, 100)
 end
 
@@ -38,7 +38,7 @@ function draw_small_sun do
   circle(75,30, 15)
 end
 
-function draw_cloud do 
+function draw_cloud do
   fill_color_hex("white")
   rectangle(25,50, 50, 10)
   circle(25,50, 10)
@@ -47,7 +47,7 @@ function draw_cloud do
   circle(55,40, 20)
 end
 
-function draw_rain do 
+function draw_rain do
   fill_color_hex("blue")
   ellipse(30,70, 3, 5)
   ellipse(40,80, 3, 5)

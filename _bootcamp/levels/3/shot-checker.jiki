@@ -12,7 +12,7 @@ set drop to hole_depth_y - grass_y
 
 set shot_length to get_shot_length()
 
-// As we're not changing colors, we can 
+// As we're not changing colors, we can
 // set this outside of the repeat block
 fill_color_hex("orange")
 

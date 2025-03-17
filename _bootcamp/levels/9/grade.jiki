@@ -2,7 +2,7 @@ function build_url with description do
   set words to my#tokenize(description)
   set year to words[4]
   set class to concatenate("class-", words[2])
-  
+
   set root to "https://api.school.com"
   set version to "v4"
   if my#cmp_string(year, "2025") == -1 do

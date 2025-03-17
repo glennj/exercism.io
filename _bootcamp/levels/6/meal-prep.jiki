@@ -5,5 +5,5 @@ function shopping_list with fridge_contents, ingredients do
       change grocery_list to push(grocery_list, item)
     end
   end
-  return grocery_list      
+  return grocery_list
 end

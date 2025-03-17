@@ -8,7 +8,7 @@ function count_words with phrase do
     if state is "seeking letter" and my#is_alnum(char) do
       change word to char
       change state to "seeking separator"
-  
+
     else if state is "seeking separator" do
       if my#is_alnum(char) or char is "'" do
         change word to concatenate(word, char)

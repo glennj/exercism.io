@@ -2,15 +2,15 @@ function hamming_distance with strand1, strand2 do
   set distance to 0
   set letter2 to ""
   set index to 0
-  
+
   for each letter1 in strand1 do
     change index to index + 1
     change letter2 to strand2[index]
-  
+
     if letter1 != letter2 do
       change distance to distance + 1
     end
   end
-  
+
   return distance
 end

@@ -14,7 +14,7 @@ set bricks_per_row to canvas_width / brick_width
 set total_rows     to canvas_height / brick_height
 set brick_colour   to "#AA4A44"
 // build the wall from the bottom up
-set brick_top      to canvas_height 
+set brick_top      to canvas_height
 
 fill_color_hex(brick_colour)
 

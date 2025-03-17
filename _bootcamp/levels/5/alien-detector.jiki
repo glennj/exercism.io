@@ -12,7 +12,7 @@
 // `move` returns
 //   1. the new direction, and
 //   2. the new position
-   
+
 
 function get_starting_aliens do
   // Hardcoded information in this function:

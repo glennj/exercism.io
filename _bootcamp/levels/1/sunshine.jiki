@@ -1,5 +1,5 @@
 // Light blue background
-fill_color_hex("#ADD8E6") 
+fill_color_hex("#ADD8E6")
 rectangle(0, 0, 100, 100)
 
 // Sun

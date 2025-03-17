@@ -30,6 +30,6 @@ function process_guess with answer, guess do
       end
     end
   end
-  
+
   return row
 end

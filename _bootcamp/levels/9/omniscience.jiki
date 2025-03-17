@@ -82,7 +82,7 @@ function look with direction, maze, position do
   end
 
   return {
-    "in_maze": in_maze, 
+    "in_maze": in_maze,
     "square": maze["grid"][position["row"] + dr][position["col"] + dc]
   }
 end
