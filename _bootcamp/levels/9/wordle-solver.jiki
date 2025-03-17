@@ -1,0 +1,158 @@
+function process_game do
+  set game to new WordleGame()
+  game.draw_board()
+
+  set state to {
+    "guesses": [],
+    "correct": ["-", "-", "-", "-", "-"],
+    "absent": {}
+  }
+  set status to []
+  set tmp to []
+
+  set guess to common_words()[1]
+
+  repeat 6 times indexed by n do
+    change status to process_guess(game.target_word, guess)
+    game.add_word(n, guess, status)
+
+    if guess is game.target_word do
+      break
+    end
+
+    change state["guesses"] to push(state["guesses"], guess)
+
+    change tmp to next_guess(guess, state, status)
+    change guess to tmp[1]
+    change state to tmp[2]
+  end
+end
+
+// ----------------------------------------
+function next_guess with last_guess, state, status do
+  set guess to ""
+  set present to []
+
+  // process the correct and present letters
+  for each s in status indexed by i do
+    if s is "correct" do
+      change state["correct"][i] to last_guess[i]
+    else if s is "present" do
+      change present to push(present, [last_guess[i], i])
+    end
+  end
+
+  // find the letter of the previous guess that are absent from the answer
+  for each s in status indexed by i do
+    if s is "absent" and not is_good_letter(last_guess[i], state["correct"], present) do
+      change state["absent"][last_guess[i]] to true
+    end
+  end
+
+  return find_next_guess(state, present)
+end
+
+// returns a tuple of [next guess, modified state]
+function find_next_guess with state, present do
+  set counts to {}
+  set is_candidate to true
+
+  for each word in common_words() do
+    if my#contains(state["guesses"], word) do
+      next
+    end
+    if not matches_correct_letters(word, state["correct"]) do
+      next
+    end
+    if contains_absent_letters(word, state["absent"]) do
+      next
+    end
+
+    change counts to my#tally(word)
+    for each letter in state["correct"] do
+      if letter != "-" do
+        change counts[letter] to counts[letter] - 1
+      end
+    end
+
+    // check if word contains "present" letters, but not in the position is the
+    // previous guess
+    change is_candidate to true
+    for each tuple in present do
+      if not my#has_key(counts, tuple[1]) or word[tuple[2]] == tuple[1] do
+        change is_candidate to false
+        break
+      end
+      change counts[tuple[1]] to counts[tuple[1]] - 1
+    end
+    if not is_candidate do
+      next
+    end
+
+    return [word, state]
+  end
+
+  // should not happen
+  return ["PANIC", {}]
+end
+
+function matches_correct_letters with word, correct do
+  for each letter in word indexed by i do
+    if correct[i] != "-" and letter != correct[i] do
+      return false
+    end
+  end
+  return true
+end
+
+function is_good_letter with letter, correct, present do
+  for each ltr in correct indexed by i do
+    if letter == ltr do
+      return true
+    end
+  end
+  for each tuple in present do
+    if letter == tuple[1] do
+      return true
+    end
+  end
+  return false
+end
+
+function contains_absent_letters with word, absent do
+  for each letter in word do
+    if my#has_key(absent, letter) do
+      return true
+    end
+  end
+  return false
+end
+
+// ----------------------------------------
+// unchanged from "wordle-rules" exercise
+function process_guess with answer, guess do
+  set counts to my#tally(answer)
+  set row to ["", "", "", "", ""]
+
+  // first, look for correct positions to consume
+  for each letter in guess indexed by i do
+    if answer[i] == letter do
+      change row[i] to "correct"
+      change counts[letter] to counts[letter] - 1
+    end
+  end
+
+  // then, fill in the unset positions in the row
+  for each letter in guess indexed by i do
+    if my#is_empty(row[i]) do
+      if my#has_key(counts, letter) and counts[letter] > 0 do
+        change row[i] to "present"
+        change counts[letter] to counts[letter] - 1
+      else do
+        change row[i] to "absent"
+      end
+    end
+  end
+
+  return row
+end
