@@ -1,0 +1,26 @@
+function to_s with number do
+  return my#number_to_string(number)
+end
+
+function main do
+  set r1 to new Robot()
+  set r2 to new Robot()
+  set conv to new FormalConversation(r1, r2)
+  
+  conv.exchange_salutations()
+  r1.say(concatenate("I am ", to_s(r1.age), " years old. How old are you?"))
+  r2.say(concatenate("I am ", to_s(r2.age), ". Together we are ", to_s(r1.age + r2.age), " years old. Wow."))
+  r1.say("Wow.")
+  conv.exchange_valedictions()
+
+  // --------------------------------------------
+  set r3 to new Robot()
+  set conv_two to new FormalConversation(r3, r1)
+  
+  conv_two.exchange_salutations()
+  r3.say("Who was that?")
+  r1.say(concatenate("That was ", conv.get_participant_name(2), "."))
+  conv_two.exchange_valedictions()
+end
+
+main()

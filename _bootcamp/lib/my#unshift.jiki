@@ -1,0 +1,10 @@
+function my#unshift with list, element do
+  /// Add an element to the start of a list.
+  //  @param {list} list
+  //  @param {any} element
+  //  @returns {list}
+  //  @requires my#lconcat
+  //  @see push()
+  //
+  return my#lconcat([element], list)
+end

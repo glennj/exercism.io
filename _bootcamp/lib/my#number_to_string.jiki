@@ -1,0 +1,28 @@
+function my#number_to_string with number do
+  /// Express an integer as a string
+  //  @param {int} number
+  //  @returns {string}
+  //  @requires my#char_code
+  //  @requires my#string_from_codes
+  //  @requires my#unshift
+  //
+  if number == 0 do
+    return "0"
+  end
+  
+  set codes to []
+  set digit to 0
+  set zero to my#char_code("0")
+
+  repeat_forever do
+    if number == 0 do
+      break
+    end
+  
+    change digit to number % 10
+    change codes to my#unshift(codes, zero + digit)
+    change number to (number - digit) / 10
+  end
+
+  return my#string_from_codes(codes)
+end

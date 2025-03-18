@@ -3,7 +3,7 @@ function my#starts_with with string, prefix do
   //  @param {string} string - The string to test.
   //  @param {string} prefix - Test the string starts with this text.
   //  @returns {boolean}
-  //  @see my#length
+  //  @requires my#length
   //
   set prefix_len to my#length(prefix)
   if prefix_len == 0 do

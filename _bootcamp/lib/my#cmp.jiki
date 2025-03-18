@@ -1,12 +1,13 @@
 function my#cmp with a, b do
-  // Compare character `a` and chararacter `b` alphabetically.
-  // If equal, return 0.
-  // If a is less than b, return -1.
-  // If a is greater than b, return 1.
-  // If neither character is an ASCII character, return -2.
-  // @param {string} a - The first character to compare.
-  // @param {string} b - The second character to compare.
-  // @returns {int}
+  /// Compare character `a` and chararacter `b` alphabetically.
+  //  Return 0 if a equals b.
+  //  Return 1 if a is greater than b.
+  //  Return -1 if a is less than b.
+  //  Return -2 if neither is an ASCII printable character.
+  //  @param {string} a - The first character to compare.
+  //  @param {string} b - The second character to compare.
+  //  @returns {int}
+  //  @requires my#ascii_printable
   //
   if a is b do
     return 0

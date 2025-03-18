@@ -1,6 +1,6 @@
 function my#ascii_printable do
   // Return a string containing the ASCII printable characters, in order.
-  // Double space and backslash are replaced by space.
+  // Double quote (following !) and backslash (following [) are replaced by space.
   //
   return " ! #$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~"
 end

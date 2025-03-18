@@ -1,0 +1,16 @@
+function my#lconcat with list1, list2 do
+  /// Concatenates two lists.
+  //  @param {list} list1
+  //  @param {list} list2
+  //  @returns {list}
+  //  @requires push()
+  //
+  set result to []
+  for each element in list1 do
+    change result to push(result, element)
+  end
+  for each element in list2 do
+    change result to push(result, element)
+  end
+  return result
+end

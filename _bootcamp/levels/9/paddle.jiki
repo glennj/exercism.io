@@ -1,0 +1,210 @@
+// Return a copy of the list with the element at the given index removed.
+// Currently, this needs to be locally defined: stdlib functions don't yet
+// work well with objects.
+function remove_at with list, idx do
+  set result to []
+  for each elem in list indexed by i do
+    if i != idx do
+      change result to push(result, elem)
+    end
+  end
+  return result
+end
+
+function screen_size do
+  return 100
+end
+
+// ------------------------------------------------------------
+class MyBall do
+  private property b
+  public property cx
+
+  constructor with ball do
+    set this.b to ball
+    set this.cx to ball.cx
+  end
+
+  public method left do
+    return this.b.cx - this.b.radius
+  end
+  public method next_left do
+    return this.left() + this.b.x_velocity
+  end
+
+  public method right do
+    return this.b.cx + this.b.radius
+  end
+  public method next_right do
+    return this.right() + this.b.x_velocity
+  end
+
+  public method top do
+    return this.b.cy - this.b.radius
+  end
+  public method next_top do
+    return this.top() + this.b.y_velocity
+  end
+
+  public method bottom do
+    return this.b.cy + this.b.radius
+  end
+  public method next_bottom do
+    return this.bottom() + this.b.y_velocity
+  end
+
+  public method is_moving_left do
+    return this.b.x_velocity < 0
+  end
+  public method is_moving_up do
+    return this.b.y_velocity < 0
+  end
+
+  public method move with smashed, paddle do
+    set next_y to this.b.cy + this.b.y_velocity
+
+    if this.next_left() < 0 or this.next_right() > screen_size() do
+      change this.b.x_velocity to -this.b.x_velocity
+    end
+    
+    if smashed or this.next_top() < 0 do
+      change this.b.y_velocity to -this.b.y_velocity
+    else if this.next_bottom() > paddle.top() do
+      set next_x to this.b.cx + this.b.x_velocity
+      if paddle.left() <= next_x and next_x <= paddle.right() do
+        change this.b.y_velocity to -this.b.y_velocity
+      end
+    else if this.next_bottom() > screen_size() do
+      return false
+    end
+
+    this.b.move()
+    change this.cx to this.b.cx
+    return true
+  end
+end
+
+// ------------------------------------------------------------
+class MyPaddle do
+  private property p
+
+  constructor with paddle do
+    set this.p to paddle
+  end
+
+  public method top do
+    return this.p.cy - 0.5 * this.p.height
+  end
+  public method left do
+    return this.p.cx - 0.5 * this.p.width
+  end
+  public method right do
+    return this.p.cx + 0.5 * this.p.width
+  end
+
+  public method move with ball do
+    if ball.is_moving_left() do
+      repeat_forever do
+        if not (ball.cx < this.p.cx and this.left() > 1) do
+          break
+        end
+        this.p.move_left()
+      end
+    else do
+      repeat_forever do
+        if not (ball.cx > this.p.cx and this.right() < screen_size() - 1) do
+          break
+        end
+        this.p.move_right()
+      end
+    end
+  end
+end
+  
+// ------------------------------------------------------------
+function create_blocks with row_tops do
+  set blocks to []
+  set row to []
+  set blocks_per_row to 5
+  set block_left to 0
+  set gap to 1
+
+  for each block_top in row_tops do
+    change row to []
+    change block_left to 8
+
+    repeat blocks_per_row times do
+      change row to push(row, new Block(block_left, block_top))
+      change block_left to block_left + row[1].width + gap
+    end
+
+    change blocks to push(blocks, row)
+  end
+
+  return blocks
+end
+
+// ------------------------------------------------------------
+set game to new Game()
+set ball to new MyBall(game.ball)
+set paddle to new MyPaddle(game.paddle)
+
+set row_tops to [28]
+set row_bottoms to []
+set blocks to create_blocks(row_tops)
+
+for each row in blocks do
+  change row_bottoms to push(row_bottoms, row[1].top + row[1].height)
+  for each block in row do
+    game.add_block(block)
+  end
+end
+
+set smashed to false
+set idx to 0
+set idx_top to 0
+set idx_bottom to 0
+set result to "lose"
+
+repeat_forever do
+  change smashed to false
+  change idx_top to -1
+  change idx_bottom to -1
+  if ball.is_moving_up() do
+    change idx_bottom to my#index_of(row_bottoms, ball.top())
+  else do
+    change idx_top to my#index_of(row_tops, ball.bottom())
+  end
+  change idx to my#max(idx_top, idx_bottom)
+
+  if idx != -1 do
+    for each block in blocks[idx] indexed by i do
+      if block.left <= ball.cx and ball.cx <= block.left + block.width do
+        // hit!
+        change smashed to true
+        change block.smashed to true
+        change blocks[idx] to remove_at(blocks[idx], i)
+
+        if my#is_empty(blocks[idx]) do
+          change blocks to remove_at(blocks, idx)
+          change row_tops to remove_at(row_tops, idx)
+          change row_bottoms to remove_at(row_bottoms, idx)
+        end
+        break
+      end
+    end // for
+
+    if my#is_empty(blocks) do
+      change result to "win"
+      break
+    end
+  end // if
+
+  if not ball.move(smashed, paddle) do
+    break
+  end
+
+  paddle.move(ball)
+end // repeat_forever
+
+game.game_over(result)
