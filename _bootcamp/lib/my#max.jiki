@@ -3,9 +3,7 @@ function my#max with a, b do
   //  @param {number} a
   //  @param {number} b
   //  @returns {number}
+  //  @requires my#if
   //
-  if a > b do
-    return a
-  end
-  return b
+  return my#if(a > b, a, b)
 end

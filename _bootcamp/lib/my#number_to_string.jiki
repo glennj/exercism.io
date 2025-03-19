@@ -13,15 +13,16 @@ function my#number_to_string with number do
   set codes to []
   set digit to 0
   set zero to my#char_code("0")
+  set quo_rem to []
 
   repeat_forever do
     if number == 0 do
       break
     end
-  
-    change digit to number % 10
-    change codes to my#unshift(codes, zero + digit)
-    change number to (number - digit) / 10
+
+    change quo_rem to my#divmod(number, 10)
+    change number to quo_rem[1]
+    change codes to my#unshift(codes, zero + quo_rem[2])
   end
 
   return my#string_from_codes(codes)

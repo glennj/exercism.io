@@ -5,10 +5,8 @@ function my#char_code with char do
   // Returns -1 if the input is not in range.
   // @param {string} char - The character to translate.
   // @returns {int}
+  // @requires my#if
   //
   set idx to my#index_of(my#ascii_printable(), char)
-  if idx == -1 do
-    return -1
-  end
-  return 31 + idx
+  return my#if(idx == -1, -1, 31 + idx)
 end

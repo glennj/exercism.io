@@ -1,0 +1,11 @@
+function my#if with condition, true_value, false_value do
+  /// Acts like a ternary operator: if the condition is true, return the true value, else return the false value.
+  //  @param {boolean} condition
+  //  @param {any} true_value
+  //  @param {any} false_value
+  //
+  if condition do
+    return true_value
+  end
+  return false_value
+end

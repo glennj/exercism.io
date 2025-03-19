@@ -2,9 +2,7 @@ function my#abs with n do
   /// Return the absolute value of a number.
   //  @param {number} n
   //  @returns {number}
+  //  @requires my#if
   //
-  if n < 0 do
-    return -n
-  end
-  return n
+  return my#if(n < 0, -n, n)
 end

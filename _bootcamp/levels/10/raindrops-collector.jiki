@@ -10,14 +10,10 @@ class RaindropsCollector do
   end
 
   public method add_number with number do
-    if my#is_divisible_by(number, 3) do
-      change this.sounds to concatenate(this.sounds, "Pling")
-    end
-    if my#is_divisible_by(number, 5) do
-      change this.sounds to concatenate(this.sounds, "Plang")
-    end
-    if my#is_divisible_by(number, 7) do
-      change this.sounds to concatenate(this.sounds, "Plong")
+    for each pair in [[3, "Pling"], [5, "Plang"], [7, "Plong"]] do
+      if my#is_divisible_by(number, pair[1]) do
+        change this.sounds to concatenate(this.sounds, pair[2])
+      end
     end
   end
 end

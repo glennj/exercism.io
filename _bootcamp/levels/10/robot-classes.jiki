@@ -15,29 +15,36 @@ end
 
 // -------------------------------------------------
 class FormalConversation do
-  private property r1
-  private property r2
+  private property participants
+  private property hellos
+  private property goodbyes
 
   constructor with robot1, robot2 do
-    set this.r1 to robot1
-    set this.r2 to robot2
+    set this.participants to [robot1, robot2]
+    set this.hellos       to ["Hello ⚡☂♞✿☯.", "Hello ✦☀♻❄☘."]
+    set this.goodbyes     to ["Goodbye ★⚔♠✧❀.", "Goodbye ♜⚙❖☾✺."]
+  end
+
+  private method exchange_sayings with sayings do
+    for each participant in this.participants indexed by i do
+      participant.say(sayings[i])
+    end
   end
 
   public method exchange_salutations do
-    this.r1.say("Hello ⚡☂♞✿☯.")
-    this.r2.say("Hello ✦☀♻❄☘.")
+    this.exchange_sayings(this.hellos)
   end
 
   public method exchange_valedictions do
-    this.r1.say("Goodbye ★⚔♠✧❀.")
-    this.r2.say("Goodbye ♜⚙❖☾✺.")
+    this.exchange_sayings(this.goodbyes)
   end
 
   public method get_participant_name with index do
-    if index is 1 do
-      return this.r1.name
+    set name to "�"
+    if index >= 1 and index <= my#length(this.participants) do
+      change name to this.participants[index].name
     end
-    return this.r2.name
+    return name
   end
 end
 

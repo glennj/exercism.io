@@ -1,0 +1,10 @@
+function my#divmod with numerator, denominator do
+  /// Returns a list of [quotient, remainder] for the division of numerator and denominator.
+  //  @param {int} numerator
+  //  @param {int} denominator
+  //  @returns {[int, int]}
+  //
+  set rem to numerator % denominator
+  set quo to (numerator - rem) / denominator
+  return [quo, rem]
+end

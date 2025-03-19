@@ -8,10 +8,9 @@ function my#capitalize with string do
   set result to ""
   for each char in string indexed by i do
     if i == 1 do
-      change result to my#to_upper(char)
-    else do
-      change result to concatenate(result, char)
+      change char to my#to_upper(char)
     end
+    change result to concatenate(result, char)
   end
   return result
 end
