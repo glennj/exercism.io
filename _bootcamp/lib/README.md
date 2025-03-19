@@ -18,6 +18,7 @@ erDiagram
     NULL ||--|| LCONCAT : ""
     NULL ||--|| LENGTH : ""
     NULL ||--|| MAX : ""
+    NULL ||--|| MIN : ""
     NULL ||--|| STR_DROP : ""
     NULL ||--|| STR_TAKE : ""
     NULL ||--|| TAKE : ""

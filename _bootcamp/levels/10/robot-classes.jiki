@@ -1,0 +1,63 @@
+// -------------------------------------------------
+class Robot do
+  public property name
+  public property age
+
+  constructor with name, age do
+    set this.name to name
+    set this.age to age
+  end
+
+  public method say with string do
+    vibrate_air(this.name, string)
+  end
+end
+
+// -------------------------------------------------
+class FormalConversation do
+  private property r1
+  private property r2
+
+  constructor with robot1, robot2 do
+    set this.r1 to robot1
+    set this.r2 to robot2
+  end
+
+  public method exchange_salutations do
+    this.r1.say("Hello ⚡☂♞✿☯.")
+    this.r2.say("Hello ✦☀♻❄☘.")
+  end
+
+  public method exchange_valedictions do
+    this.r1.say("Goodbye ★⚔♠✧❀.")
+    this.r2.say("Goodbye ♜⚙❖☾✺.")
+  end
+
+  public method get_participant_name with index do
+    if index is 1 do
+      return this.r1.name
+    end
+    return this.r2.name
+  end
+end
+
+// -------------------------------------------------
+// locked
+function hold_conversation with name_1, age_1, name_2, age_2, name_3, age_3 do
+  set r1 to new Robot(name_1, age_1)
+  set r2 to new Robot(name_2, age_2)
+  set conversation_1 to new FormalConversation(r1, r2)
+
+  conversation_1.exchange_salutations()
+  r1.say(concatenate("I am ", my#number_to_string(r1.age), " years old. How old are you?"))
+  r2.say(concatenate("I am ", my#number_to_string(r2.age), ". Together we are ", my#number_to_string(r1.age + r2.age), " years old. Wow."))
+  r1.say("Wow.")
+  conversation_1.exchange_valedictions()
+
+  set r3 to new Robot(name_3, age_3)
+  set conversation_2 to new FormalConversation(r3, r1)
+  conversation_2.exchange_salutations()
+  r3.say("Who was that?")
+  r1.say(concatenate("That was ", conversation_1.get_participant_name(2), "."))
+  conversation_2.exchange_valedictions()
+end

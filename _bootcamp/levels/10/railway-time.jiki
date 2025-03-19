@@ -9,7 +9,7 @@ class Clock do
   public method get_railway_time do
     set m to this.min % 60
     set h to (this.min - m) / 60
-    return concatenate(to_s(h), ":", to_s(m))
+    return concatenate(my#number_to_string(h), ":", my#number_to_string(m))
   end
 
   public method get_duodecimal_time do
@@ -26,10 +26,6 @@ class Clock do
       end
     end
 
-    return concatenate(to_s(h), ":", to_s(m), ampm)
+    return concatenate(my#number_to_string(h), ":", my#number_to_string(m), ampm)
   end
-end
-
-function to_s with n do
-  return my#number_to_string(n)
 end

@@ -1,0 +1,11 @@
+function my#min with a, b do
+  /// Return the smaller of two numbers.
+  //  @param {number} a
+  //  @param {number} b
+  //  @returns {number}
+  //
+  if a < b do
+    return a
+  end
+  return b
+end
