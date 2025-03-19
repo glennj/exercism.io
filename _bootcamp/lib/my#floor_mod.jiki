@@ -1,0 +1,10 @@
+function my#floor_mod with numerator, denominator do
+  /// Returns the remainder of numberator / denominator, in the range of 0 <= rem < denominator.
+  //  @param {int} numerator
+  //  @param {int} denominator
+  //  @returns {int}
+  //  @requires my#abs
+  //
+  set den to my#abs(denominator)
+  return (numerator % den + den) % den
+end

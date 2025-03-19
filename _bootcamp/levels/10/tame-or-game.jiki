@@ -1,0 +1,23 @@
+class TameOrGame do
+  private property num
+
+  constructor with number do
+    set this.num to number
+  end
+
+  public method is_tame do
+    return my#is_even(this.num)
+  end
+
+  public method is_game do
+    return not this.is_tame()
+  end
+
+  public method tame_or_game with prefix do
+    set suffix to "game"
+    if this.is_tame() do
+      change suffix to "tame"
+    end
+    return concatenate(prefix, " is ", suffix, ".")
+  end
+end

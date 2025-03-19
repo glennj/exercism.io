@@ -1,0 +1,35 @@
+class Clock do
+  private property min
+
+  constructor with hour, minute do
+    set mins_per_day to 24 * 60
+    set this.min to my#floor_mod(hour * 60 + minute, mins_per_day)
+  end
+
+  public method get_railway_time do
+    set m to this.min % 60
+    set h to (this.min - m) / 60
+    return concatenate(to_s(h), ":", to_s(m))
+  end
+
+  public method get_duodecimal_time do
+    set m to this.min % 60
+    set h to (this.min - m) / 60
+    set ampm to "am"
+
+    if h == 0 do
+      change h to 12
+    else if h >= 12 do
+      change ampm to "pm"
+      if h > 12 do
+        change h to h - 12
+      end
+    end
+
+    return concatenate(to_s(h), ":", to_s(m), ampm)
+  end
+end
+
+function to_s with n do
+  return my#number_to_string(n)
+end

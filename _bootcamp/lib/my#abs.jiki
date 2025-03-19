@@ -1,0 +1,10 @@
+function my#abs with n do
+  /// Return the absolute value of a number.
+  //  @param {number} n
+  //  @returns {number}
+  //
+  if n < 0 do
+    return -n
+  end
+  return n
+end

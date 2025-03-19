@@ -4,6 +4,7 @@ Dependency relationships:
 
 ```mermaid
 erDiagram
+    NULL ||--|| ABS : ""
     NULL ||--|| ASCII_PRINTABLE : ""
     NULL ||--|| BUBBLE_SORT : ""
     NULL ||--|| CHARS : ""
@@ -20,6 +21,7 @@ erDiagram
     NULL ||--|| STR_DROP : ""
     NULL ||--|| STR_TAKE : ""
     NULL ||--|| TAKE : ""
+    ABS ||--|| FLOOR_MOD : ""
     ASCII_PRINTABLE ||--|| CHAR_CODE : ""
     ASCII_PRINTABLE ||--|| CHAR_FROM_CODE : ""
     ASCII_PRINTABLE ||--|| CMP : ""
