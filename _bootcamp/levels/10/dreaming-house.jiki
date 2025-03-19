@@ -1,9 +1,14 @@
+function hsl with hue, saturation, luminosity do
+  return new HSLColor(hue, saturation, luminosity)
+end
+
 // ------------------------------------------
 class Sky do
   private property hue
   private property saturation
   private property luminosity
   private property rectangle
+  private property max_hue
 
   constructor do
     set z_index to 0
@@ -11,22 +16,20 @@ class Sky do
     set top to 0
     set width to 100
     set height to 100
+    set this.max_hue to 310
 
     // color: sky blue
     set this.hue to 190
     set this.saturation to 71
     set this.luminosity to 73
-    set this.rectangle to new Rectangle(left, top, width, height, this.hsl(), z_index)
-  end
+    set color to hsl(this.hue, this.saturation, this.luminosity)
 
-  private method hsl do
-    return new HSLColor(this.hue, this.saturation, this.luminosity)
+    set this.rectangle to new Rectangle(left, top, width, height, color, z_index)
   end
 
   public method increase_hue_by with amount do
-    set max_hue to 310
-    change this.hue to my#min(max_hue, this.hue + amount)
-    change this.rectangle.hsl to this.hsl()
+    change this.hue to my#min(this.max_hue, this.hue + amount)
+    change this.rectangle.hsl to hsl(this.hue, this.saturation, this.luminosity)
   end
 
   public method change_brightness with brightness do
@@ -57,9 +60,6 @@ end
 
 // ------------------------------------------
 class Ground do
-  private property hue
-  private property saturation
-  private property luminosity
   private property rectangle
 
   constructor with height do
@@ -67,15 +67,8 @@ class Ground do
     set left to 0
     set top to 100 - height
     set width to 100
-
-    set this.hue to 84
-    set this.saturation to 39
-    set this.luminosity to 40
-    set this.rectangle to new Rectangle(left, top, width, height, this.hsl(), z_index)
-  end
-
-  private method hsl do
-    return new HSLColor(this.hue, this.saturation, this.luminosity)
+    set color to hsl(84, 39, 40) // some kind of green
+    set this.rectangle to new Rectangle(left, top, width, height, color, z_index)
   end
 
   public method change_brightness with brightness do
@@ -95,7 +88,6 @@ class Roof do
     set bottom to 50
     set top to 50 - height
     set color to "#654321"   // dark brown
-
     set this.triangle to new Triangle(left,bottom, midpoint,top, right,bottom, color, z_index)
   end
  
@@ -106,21 +98,12 @@ end
 
 // ------------------------------------------
 class Frame do
-  private property hue
-  private property saturation
-  private property luminosity
   private property rectangle
 
   constructor with left, right, width, height do
     set z_index to 20
-    set this.hue to 350
-    set this.saturation to 100
-    set this.luminosity to 88
-    set this.rectangle to new Rectangle(left, right, width, height, this.hsl(), z_index)
-  end
-
-  private method hsl do
-    return new HSLColor(this.hue, this.saturation, this.luminosity)
+    set color to hsl(350, 100, 88) // pink
+    set this.rectangle to new Rectangle(left, right, width, height, color, z_index)
   end
 
   public method change_brightness with brightness do
@@ -130,25 +113,14 @@ end
 
 // ------------------------------------------
 class Window do
-  private property hue
-  private property saturation
-  private property luminosity
   private property rectangle
 
   constructor with left, top do
     set z_index to 30
     set width to 12
     set height to 13
-
-    // black
-    set this.hue to 0
-    set this.saturation to 0
-    set this.luminosity to 0
-    set this.rectangle to new Rectangle(left, top, width, height, this.hsl(), z_index)
-  end
-
-  private method hsl do
-    return new HSLColor(this.hue, this.saturation, this.luminosity)
+    set color to hsl(0, 0, 0) // black
+    set this.rectangle to new Rectangle(left, top, width, height, color, z_index)
   end
 
   public method change_brightness with brightness do
@@ -156,18 +128,12 @@ class Window do
   end
 
   public method turn_lights_on do
-    change this.hue to 56
-    change this.saturation to 100
-    change this.luminosity to 50
-    change this.rectangle.hsl to this.hsl()
+    change this.rectangle.hsl to hsl(56, 100, 50) // prescribed color
   end
 end
 
 // ------------------------------------------
 class Door do
-  private property hue
-  private property saturation
-  private property luminosity
   private property rectangle
   private property circle
 
@@ -175,22 +141,14 @@ class Door do
     set z_index to 30
     set width to 14
     set height to 18
-
-    // color: red
-    set this.hue to 0
-    set this.saturation to 100
-    set this.luminosity to 50
-    set this.rectangle to new Rectangle(left, top, width, height, this.hsl(), z_index)
+    set color to hsl(0, 100, 50) // red
+    set this.rectangle to new Rectangle(left, top, width, height, color, z_index)
 
     set radius to 1
     set cx to left + width - radius - 1
     set cy to top + (height / 2)
-    set color to "#cd7f32"  // bronze
+    change color to "#cd7f32"  // bronze
     set this.circle to new Circle(cx, cy, radius, color, z_index + 1)
-  end
-
-  private method hsl do
-    return new HSLColor(this.hue, this.saturation, this.luminosity)
   end
 
   public method change_brightness with brightness do

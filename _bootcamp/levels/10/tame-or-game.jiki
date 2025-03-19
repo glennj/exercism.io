@@ -14,10 +14,7 @@ class TameOrGame do
   end
 
   public method tame_or_game with prefix do
-    set suffix to "game"
-    if this.is_tame() do
-      change suffix to "tame"
-    end
+    set suffix to my#if(this.is_tame(), "tame", "game")
     return concatenate(prefix, " is ", suffix, ".")
   end
 end
