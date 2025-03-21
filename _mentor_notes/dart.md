@@ -98,6 +98,26 @@ Well done! Many people miss the [optional positional parameters](https://dart.de
 Can you combine the tests into one boolean expression (using [Logical operators](https://dart.dev/language/operators#logical-operators))?
 It often helps to say the leap year rules out loud using the words "and" and "or" and "not".
 
+---
+
+<!-- eliuds-eggs -->
+
+This is a good exercise to practice with [bitwise operators](https://dart.dev/language/operators#bitwise-and-shift-operators).
+
+---
+
+<!-- scrabble -->
+
+The scores map can be placed outside the function as a library constant:
+
+```dart
+const scoring = { ... };
+
+int score(String s) { ... }
+```
+
+---
+
 <!-- main -->
 
 The presence of a `main` function indicates you're not using the provided tests.

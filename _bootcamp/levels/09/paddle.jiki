@@ -19,10 +19,12 @@ end
 class MyBall do
   private property b
   public property cx
+  public property cy
 
   constructor with ball do
     set this.b to ball
     set this.cx to ball.cx
+    set this.cy to ball.cy
   end
 
   public method left do
@@ -80,6 +82,7 @@ class MyBall do
 
     this.b.move()
     change this.cx to this.b.cx
+    change this.cy to this.b.cy
     return true
   end
 end
@@ -103,6 +106,7 @@ class MyPaddle do
   end
 
   public method move with ball do
+if false do
     if ball.is_moving_left() do
       repeat_forever do
         if not (ball.cx < this.p.cx and this.left() > 1) do
@@ -118,6 +122,20 @@ class MyPaddle do
         this.p.move_right()
       end
     end
+else do
+    // find the destination x-coordinate for the paddle
+    set destination to screen_size() / 2
+    if not ball.is_moving_up() do
+      set ball_height to (screen_size() - ball.cy)
+      change destination to ball.cx + my#if(ball.is_moving_left(), -1, 1) * ball_height
+    end
+
+    if destination < this.p.cx and this.left() > 1 do
+      this.p.move_left()
+    else if destination > this.p.cx and this.right() < screen_size() - 1 do
+      this.p.move_right()
+    end
+end
   end
 end
   
