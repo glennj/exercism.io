@@ -1,0 +1,42 @@
+function my#string_to_number with str do
+  /// Convert a string to a number.
+  //  @param {string} str
+  //  @returns {int}
+  //  @requires my#has_key
+  //  @see my#number_to_string
+  //  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_strings#numbers
+  //  @todo scientific notation: "1e3" => 1000
+  //
+  set number to 0
+  set digits to {
+    "0": 0, "1": 1, "2": 2, "3": 3, "4": 4,
+    "5": 5, "6": 6, "7": 7, "8": 8, "9": 9
+  }
+  set negative to 1
+  set fraction to 0
+
+  for each char in str indexed by i do
+    if i == 1 and char == "-" do
+      change negative to -1
+      next
+    end
+    if char == "." do
+      change fraction to 1
+      next
+    end
+
+    if not my#has_key(digits, char) do
+      // bail out at the first non-digit
+      break
+    end
+
+    change number to 10 * number + digits[char]
+    change fraction to 10 * fraction
+  end
+
+  if fraction == 0 do
+    change fraction to 1
+  end
+
+  return number * negative / fraction
+end

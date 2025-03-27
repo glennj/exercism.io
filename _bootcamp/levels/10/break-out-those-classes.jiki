@@ -1,0 +1,248 @@
+// The game's width and height is 100.
+//
+// The paddle's should have a width of 20 and a height of 4. There should be a
+// gap of 1 between it and the floor. It should start in the horizontal middle.
+// You can choose its radius and decide how fast it can move (make it slow to
+// make it more challenging for yourself 😉).
+//
+// The ball's radius should be 2. It should sit on paddle at its horizontal
+// center. It should move by 1 at a time, starting by moving to the top-left.
+//
+// A row of blocks should be centered with a gap of 1 between each. You can
+// choose their radii. Their opacity is set to 1 by default. It should be
+// changed to 0 once they're hit.
+
+function screen_size do
+  return 100
+end
+
+// ------------------------------------------------------------
+class Game do
+  private property ball
+  private property blocks
+  private property paddle
+
+  constructor do
+    set this.paddle to this.create_paddle(20, 4)
+    set this.ball to this.create_ball(2)
+    set this.blocks to []
+  end
+
+  private method create_paddle with width, height do
+    set screen to screen_size()
+    set gap to 1
+    set paddle_left to (screen - width) / 2
+    set paddle_top to screen - height - gap
+    return new Paddle(paddle_left, paddle_top, width, height)
+  end
+
+  private method create_ball with radius do
+   return new Ball(screen_size() / 2, this.paddle.top() - radius, radius)
+  end
+
+  public method add_block_row with num, width, height, y do
+    set gap to 1
+    set left to (screen_size() - num * width - (num - 1) * gap) / 2
+    repeat num times indexed by i do
+      change this.blocks to push(this.blocks, new Block(left, y, width, height))
+      change left to left + width + gap
+    end
+  end
+
+  public method move_ball do
+    this.ball.move()
+  end
+
+  public method move_paddle do
+    this.paddle.move(this.ball)
+  end
+
+  public method handle_wall_collision do
+    if this.ball.left() == 0 or this.ball.right() == screen_size() do
+      this.ball.x_bounce()
+    end
+    if this.ball.top() == 0 do
+      this.ball.y_bounce()
+    end
+  end
+
+  public method handle_block_collision do
+    for each block in this.blocks do
+      if block.is_smashed() do
+        next
+      end
+      if not (this.ball.left() >= block.left() and this.ball.right() <= block.right()) do
+        next
+      end
+      if this.ball.top() == block.bottom() or this.ball.bottom() == block.top() do
+        this.ball.y_bounce()
+        block.smash()
+      end
+    end
+  end
+
+  public method handle_paddle_collision do
+    if this.paddle.top() == this.ball.bottom() do
+      if this.paddle.left() <= this.ball.cx() and this.ball.cx() <= this.paddle.right() do
+        this.ball.y_bounce()
+      end
+    end
+  end
+
+  public method check_finished do
+    if this.ball.bottom() == screen_size() do
+      game_over("lose")
+    end
+    if this.all_blocks_smashed() do
+      game_over("win")
+    end
+  end
+
+  private method all_blocks_smashed do
+    for each block in this.blocks do
+      if not block.is_smashed() do
+        return false
+      end
+    end
+    return true
+  end
+end
+
+// ------------------------------------------------------------
+class Block do
+  private property rectangle
+  private property smashed
+
+  constructor with left, top, width, height do
+    set this.rectangle to new RoundedRectangle(left, top, width, height, 1, "#ff00ff")
+    set this.smashed to false
+  end
+
+  public method left do
+    return this.rectangle.left
+  end
+  public method right do
+    return this.rectangle.left + this.rectangle.width
+  end
+  public method top do
+    return this.rectangle.top
+  end
+  public method bottom do
+    return this.rectangle.top + this.rectangle.height
+  end
+
+  public method smash do
+    change this.smashed to true
+    change this.rectangle.opacity to 0
+  end
+
+  public method is_smashed do
+    return this.smashed
+  end
+end
+
+// ------------------------------------------------------------
+class Ball do
+  private property circle
+  private property vx
+  private property vy
+
+  constructor with cx, cy, radius do
+    set this.circle to new Circle(cx, cy, radius, "#ffff00")
+    set this.vx to -1
+    set this.vy to -1
+  end
+
+  public method cx do
+    return this.circle.cx
+  end
+
+  public method left do
+    return this.circle.cx - this.circle.radius
+  end
+  public method right do
+    return this.circle.cx + this.circle.radius
+  end
+  public method top do
+    return this.circle.cy - this.circle.radius
+  end
+  public method bottom do
+    return this.circle.cy + this.circle.radius
+  end
+
+  public method move do
+    change this.circle.cx to this.circle.cx + this.vx
+    change this.circle.cy to this.circle.cy + this.vy
+  end
+
+  public method x_bounce do
+    change this.vx to -1 * this.vx
+  end
+  public method y_bounce do
+    change this.vy to -1 * this.vy
+  end
+
+  public method is_moving_up do
+    return this.vy < 0
+  end
+  public method is_moving_right do
+    return this.vx > 0
+  end
+end
+
+// ------------------------------------------------------------
+class Paddle do
+  private property rectangle
+  private property vx
+
+  constructor with left, top, width, height do
+    set this.rectangle to new RoundedRectangle(left, top, width, height, 1, "#00ffff")
+    set this.vx to {"left": -1.2, "right": 0.8}
+  end
+
+  public method top do
+    return this.rectangle.top
+  end
+  public method left do
+    return this.rectangle.left
+  end
+  public method right do
+    return this.rectangle.left + this.rectangle.width
+  end
+
+  public method move with ball do
+    set cx to this.rectangle.left + this.rectangle.width / 2
+    set vx to 0
+    if ball.is_moving_up() do
+      change vx to my#if( cx < screen_size() / 2, this.vx["right"], this.vx["left"])
+    else do
+      change vx to my#if( cx < ball.cx(), this.vx["right"], this.vx["left"])
+    end
+    if (vx < 0 and this.left() > 0) or (vx > 0 and this.right() < screen_size()) do
+      change this.rectangle.left to this.rectangle.left + vx
+    end
+  end
+end
+
+// ------------------------------------------------------------
+// Create the game
+// This should create a ball and paddle
+set game to new Game()
+
+// Add 5 blocks with a width of 17 and a height of 6 starting at a y of 28
+game.add_block_row(5, 17, 6, 28)
+
+// Play the game
+repeat_until_game_over do
+  // Firstly, we move things
+  game.move_ball()
+  game.move_paddle()
+
+  // Now check for collisions
+  game.handle_wall_collision()
+  game.handle_block_collision()
+  game.handle_paddle_collision()
+
+  // Finally check for any game over scenarios
+  game.check_finished()
+end

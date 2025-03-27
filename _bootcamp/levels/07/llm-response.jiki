@@ -3,14 +3,14 @@ function ask_llm with question do
 
   set time to response["meta"]["time"]
   set duration to my#str_take(time, my#length(time) - 2)  // remove "ms" suffix
-  change duration to string_to_number(duration) / 1000
+  change duration to my#string_to_number(duration) / 1000
 
   set max_certainty to 0
   set certainty to 0
   set answer to ""
 
   for each item in response["response"]["answers"] do
-    change certainty to string_to_number(item["certainty"]) * 100
+    change certainty to my#string_to_number(item["certainty"]) * 100
     if certainty > max_certainty do
       change max_certainty to certainty
       change answer to item["text"]

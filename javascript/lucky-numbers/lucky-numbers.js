@@ -34,6 +34,15 @@ export function luckyNumber(value) {
   const reverseNum = function(num) {
     let reversed = String(num).split("").reverse();
     return array2num(reversed);
+    /* Again, not to the spirit of the exercise:
+    let rev = 0;
+    while (num > 0) {
+      let digit = num % 10;
+      rev = rev * 10 + digit;
+      num = (num - digit) / 10;
+    }
+    return rev;
+    */
   }
   return value == reverseNum(value);
 }

@@ -5,6 +5,8 @@ function my#number_to_string with number do
   //  @requires my#char_code
   //  @requires my#string_from_codes
   //  @requires my#unshift
+  //  @see my#string_to_number
+  //  @todo fractional numbers
   //
   if number == 0 do
     return "0"

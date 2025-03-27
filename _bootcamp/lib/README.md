@@ -40,6 +40,7 @@ erDiagram
     DICT_INCR ||--|| TALLY : ""
     DIVMOD ||--|| NUMBER_TO_STRING : ""
     HAS_KEY ||--|| DICT_INCR : ""
+    HAS_KEY ||--|| STRING_TO_NUMBER : ""
     IF ||--|| ABS : ""
     IF ||--|| CHAR_CODE : ""
     IF ||--|| MAX : ""
