@@ -1,17 +1,3 @@
-// The game's width and height is 100.
-//
-// The paddle's should have a width of 20 and a height of 4. There should be a
-// gap of 1 between it and the floor. It should start in the horizontal middle.
-// You can choose its radius and decide how fast it can move (make it slow to
-// make it more challenging for yourself 😉).
-//
-// The ball's radius should be 2. It should sit on paddle at its horizontal
-// center. It should move by 1 at a time, starting by moving to the top-left.
-//
-// A row of blocks should be centered with a gap of 1 between each. You can
-// choose their radii. Their opacity is set to 1 by default. It should be
-// changed to 0 once they're hit.
-
 function screen_size do
   return 100
 end
@@ -71,12 +57,11 @@ class Game do
       if block.is_smashed() do
         next
       end
-      if not (this.ball.left() >= block.left() and this.ball.right() <= block.right()) do
-        next
-      end
+      if block.left() <= this.ball.cx() and this.ball.cx() <= block.right() do
       if this.ball.top() == block.bottom() or this.ball.bottom() == block.top() do
         this.ball.y_bounce()
         block.smash()
+      end
       end
     end
   end
@@ -211,20 +196,27 @@ class Paddle do
   end
 
   public method move with ball do
-    set cx to this.rectangle.left + this.rectangle.width / 2
-    set vx to 0
+    set destination to 0
     if ball.is_moving_up() do
-      change vx to my#if( cx < screen_size() / 2, this.vx["right"], this.vx["left"])
+      change destination to screen_size() / 2
     else do
-      change vx to my#if( cx < ball.cx(), this.vx["right"], this.vx["left"])
+      // otherwise, move the paddle to where the ball is going to be
+      set ball_height to this.top() - ball.bottom()
+      if ball.is_moving_right() do
+        change destination to ball.cx() + ball_height
+      else do
+        change destination to ball.cx() - ball_height
+      end
     end
+
+    set cx to this.rectangle.left + this.rectangle.width / 2
+    set vx to my#if(cx < destination, this.vx["right"], this.vx["left"])
     if (vx < 0 and this.left() > 0) or (vx > 0 and this.right() < screen_size()) do
       change this.rectangle.left to this.rectangle.left + vx
     end
   end
 end
 
-// ------------------------------------------------------------
 // Create the game
 // This should create a ball and paddle
 set game to new Game()
