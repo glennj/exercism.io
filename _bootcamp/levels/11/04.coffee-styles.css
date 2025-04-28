@@ -1,0 +1,47 @@
+h1, p, li {
+  color: #2b1a0b;
+  margin-bottom: 5%;
+  font-size: 17px;
+}
+h1 {
+  font-size: 23px;
+  font-weight: bold;
+}
+li {
+  margin-bottom: 0;
+}
+a {
+  color: darkmagenta;
+  text-decoration: underline;
+}
+strong {
+  font-weight: bold;
+}
+
+/*
+h1 {
+  font-size: 23px;
+  font-weight: bold;
+  color: #2b1a0b;
+  margin-bottom: 5%;
+}
+p {
+  font-size: 17px;
+  color: #2b1a0b;
+  margin-bottom: 5%;
+}
+ul {
+  margin-bottom: 5%;
+}
+li {
+  font-size: 17px;
+  color: #2b1a0b;
+}
+a {
+  color: darkmagenta;
+  text-decoration: underline;
+}
+strong {
+  font-weight: bold;
+}
+*/
