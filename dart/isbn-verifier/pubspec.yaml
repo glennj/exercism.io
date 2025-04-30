@@ -1,6 +1,6 @@
 name: 'isbn_verifier'
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=3.2.0 <4.0.0'
 dev_dependencies:
-  lints: ^3.0.0
   test: '<2.0.0'
+  lints: ^5.0.0

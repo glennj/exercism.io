@@ -38,6 +38,11 @@ void main() {
       expect(result, equals(false));
     }, skip: true);
 
+    test('X is only valid as a check digit', () {
+      final result = isValid('3-598-2X507-6');
+      expect(result, equals(false));
+    }, skip: true);
+
     test('valid isbn without separating dashes', () {
       final result = isValid('3598215088');
       expect(result, equals(true));
