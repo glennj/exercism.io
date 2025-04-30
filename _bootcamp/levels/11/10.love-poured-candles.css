@@ -1,43 +1,43 @@
 .business-card {
-    border: 3px double rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    margin: 5%;
-    padding: 5%;
-    background-image: url('/bootcamp/images/paper-texture.jpg');
-    background-size: cover;
+  border: 3px double rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin: 20px;
+  padding: 20px;
+  background-image: url('/bootcamp/images/paper-texture.jpg');
+  background-size: cover;
 }
 
 .logo-container {
-    background-image: url('/bootcamp/images/candle.png');
-    background-size: 20%;
-    background-position: bottom right;
-    background-repeat: no-repeat;
+  background-image: url('/bootcamp/images/candle.png');
+  background-size: 70px;
+  background-position: bottom right;
+  background-repeat: no-repeat;
 }
 
 .business-name {
-    font-weight: bold;
-    font-size: 27px;
-    color: #5b3a29;
-    margin: 0;
+  font-weight: bold;
+  font-size: 27px;
+  color: #5b3a29;
+  margin: 0;
 }
 
 .tagline {
-    font-style: italic;
-    font-size: 16px;
-    color: #8c6e54;
-    margin-top: 1%;
-    margin-bottom: 8%;
+  font-style: italic;
+  font-size: 16px;
+  color: #8c6e54;
+  margin-top: 5px;
+  margin-bottom: 30px;
 }
 
 .contacts {
-    color: #8c6e54;
-    font-size: 15px;
+  color: #8c6e54;
+  font-size: 15px;
 }
 
 .contact {
-    margin-top: 2%;
+  margin-top: 10px;
 }
 
 .contact-icon {
-    margin-right: 1%;
+  margin-right: 5px;
 }

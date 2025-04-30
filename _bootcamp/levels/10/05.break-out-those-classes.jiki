@@ -217,8 +217,8 @@ class Paddle do
   end
 end
 
+// ------------------------------------------------------------
 // Create the game
-// This should create a ball and paddle
 set game to new Game()
 
 // Add 5 blocks with a width of 17 and a height of 6 starting at a y of 28
