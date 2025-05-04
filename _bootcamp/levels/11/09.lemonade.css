@@ -1,33 +1,38 @@
+/*
+* { outline: 1px solid; }
+*/
 .recipe-card {
+  margin: 20px;
+  background-image: url("/bootcamp/images/lemons.jpg");
+  background-size: cover;
+  background-position: top right;
   border: 2px solid #e3caa5;
   border-radius: 10px;
-  margin: 20px;
-  padding: 25px;
-  background-image: url('/bootcamp/images/lemons.jpg');
-  background-size: cover;
-  color: #4b3f2f;
   font-size: 16px;
+  color: #4b3f2f;
+  padding: 25px;
+  padding-right: 110px; /* don't cover the lemons */
 }
-.recipe-card .recipe-name {
+.recipe-name {
+  margin: 0 0 10px 0;
   text-transform: uppercase;
-  margin: 0;
   font-size: 22px;
+  font-weight: bold;
 }
-.recipe-card .ingredients {
+.ingredients {
+  margin: 10px 0;
   list-style-type: "🍯 ";
-  margin: 0;
-  margin-top: 10px;
   padding-left: 20px;
 }
-.recipe-card .ingredients li {
-  margin-bottom: 5px;
+.ingredients li {
+  margin: 5px 0;
 }
-.recipe-card .instructions {
-  margin: 10px 100px 0 0;
+.instructions {
+  margin: 10px 0;
 }
-.recipe-card .commentary {
-  color: #777;
-  font-style: italic;
-  font-size: 14px;
+.commentary {
   margin-top: 10px;
+  font-size: 14px;
+  font-style: italic;
+  color: #777;
 }
