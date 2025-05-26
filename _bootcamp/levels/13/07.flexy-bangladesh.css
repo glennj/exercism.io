@@ -1,0 +1,22 @@
+.flag {
+  display: flex;
+  background: #006a4e;
+}
+#right {
+  flex-basis: 10%;
+  flex-grow: 0;
+}
+#left {
+  flex-basis: 0;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  #circle {
+    background: #f42a41;
+    flex-basis: 50%;
+    aspect-ratio: 1;
+    border-radius: 50%
+  }
+}

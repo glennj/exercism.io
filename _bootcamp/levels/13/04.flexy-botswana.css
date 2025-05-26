@@ -1,0 +1,16 @@
+.flag {
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+  background: white;
+}
+
+.stripe-middle {
+  flex-basis: 20%;
+  background: black;
+}
+
+.stripe {
+  flex-grow: 1;
+  background: #6da9d2;
+}

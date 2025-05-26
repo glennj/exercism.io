@@ -1,0 +1,26 @@
+.flag {
+  display: flex;
+  flex-direction: row;
+}
+
+.stripe {
+  flex-grow: 1;
+}
+
+.stripe#left {
+  flex-basis: 40%;
+  background: #008751;
+}
+
+.flag#horizontal-stripes {
+  flex-direction: column;
+  flex-basis: 60%;
+}
+
+.stripe#top {
+  background: #fcd116;
+}
+
+.stripe#bottom {
+  background: #e8112d;
+}

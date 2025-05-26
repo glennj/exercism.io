@@ -1,0 +1,23 @@
+.flag {
+  display: flex;
+}
+.stripe {
+  flex-basis: 30%;
+  flex-grow: 1;
+}
+.stripe:nth-child(1) {
+  background: #007a5e;
+}
+.stripe#middle {
+  background: #ce1126;
+  /* this stripe is also a flexbox container! */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.stripe:nth-child(3) {
+  background: #fcd116;
+}
+#star {
+  width: 50%; /* 50% of the containing stripe */
+}

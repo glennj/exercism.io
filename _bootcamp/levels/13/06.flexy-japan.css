@@ -1,0 +1,12 @@
+.flag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+}
+.circle {
+  background: #bc002d;
+  flex-basis: 40%;
+  aspect-ratio: 1;
+  border-radius: 50%
+}

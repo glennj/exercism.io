@@ -1,0 +1,16 @@
+.flag {
+  display: flex;
+  flex-direction: row;
+}
+.stripe {
+  flex-grow: 1;
+}
+.stripe:nth-child(1) {
+  background: #ce1126;
+}
+.stripe:nth-child(2) {
+  background: #fcd116;
+}
+.stripe:nth-child(3) {
+  background: #009460;
+}
