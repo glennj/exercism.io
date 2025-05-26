@@ -1,0 +1,10 @@
+#flag {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+
+  background: white;
+  div:nth-child(odd) {
+    background: black;
+  }
+}

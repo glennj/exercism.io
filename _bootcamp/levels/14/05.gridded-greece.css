@@ -1,0 +1,13 @@
+#greek-flag {
+  display: grid;
+  grid-template-rows: repeat(9, 1fr);
+  /* 
+   * The height is 9 units.
+   * The width will 9 * 1.5 = 13.5 units
+   */
+  grid-template-columns: 2fr 1fr 2fr 8.5fr;
+  background: white;
+
+  div.blue { background: #0d5eaf; }
+  div.row { grid-column: 1/5; }
+}

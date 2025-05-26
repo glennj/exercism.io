@@ -1,0 +1,17 @@
+section {
+  display: grid;
+  grid-template-rows: 6fr 1fr 4fr 1fr 6fr;
+  
+  div:nth-child(1), div:nth-child(5) {
+    background: #ce1126;
+  }
+  div:nth-child(2), div:nth-child(4) {
+    background: white;
+  }
+  div:nth-child(3) {
+    background: #0c1c8c;
+  }
+  div:nth-child(5) {
+    background: #3a77c8;
+  }
+}
