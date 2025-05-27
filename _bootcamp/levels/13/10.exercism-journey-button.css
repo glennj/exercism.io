@@ -1,0 +1,28 @@
+.exercism-button {
+  margin: 15px;
+  padding: 10px 15px;;
+  border-radius: 10px;
+
+  background: #e1ebff;
+  color: #2e57e8;
+  font-size: 16px;
+  
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .button-icon {
+    flex-grow: 0;
+    height: 25px;
+  }
+  .button-text {
+    flex-grow: 1;
+    strong {
+      font-weight: 600;      
+    }
+  }
+  .button-arrow {
+    flex-grow: 0;
+    height: 15px;
+  }
+}

@@ -1,13 +1,34 @@
 #greek-flag {
   display: grid;
-  grid-template-rows: repeat(9, 1fr);
-  /* 
-   * The height is 9 units.
-   * The width will 9 * 1.5 = 13.5 units
-   */
-  grid-template-columns: 2fr 1fr 2fr 8.5fr;
-  background: white;
+  grid-template-rows: 5fr 4fr;
+  background: var(--background);
 
-  div.blue { background: #0d5eaf; }
-  div.row { grid-column: 1/5; }
+  #top {
+    display: grid;
+    grid-template-columns: auto 1fr;
+
+    #cross {
+      display: grid;
+      aspect-ratio: 1;
+      gap: 20%;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+
+      div { background: var(--blue); }
+    }
+
+    #stripes {
+      display: grid;
+      grid-template-rows: repeat(5, 1fr);
+      
+      div:nth-child(odd) { background: var(--blue);}
+    }
+  }
+
+  #bottom {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+
+    div:nth-child(even) { background: var(--blue); }
+  }
 }
