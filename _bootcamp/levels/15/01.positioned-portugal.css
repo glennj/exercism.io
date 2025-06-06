@@ -1,0 +1,20 @@
+#portugese-flag {
+  display: flex;
+
+  #green {
+    background: #060;
+    flex-grow: 4;
+  }
+  #red {
+    background: #f00;
+    flex-grow: 6;
+    position: relative;
+
+    #coat-of-arms {
+      height: 60%;
+      position: absolute;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+  }
+}

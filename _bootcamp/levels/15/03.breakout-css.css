@@ -1,0 +1,45 @@
+main {
+  background: rgb(10, 18, 21);
+  position: relative;
+
+  #blocks {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+    margin: 25px;
+  }
+
+  .block {
+    height: 15px;
+    border-radius: 5px;
+  }
+
+  .row1 {background: rgb(198, 44, 52)}
+  .row2 {background: rgb(179, 75, 37)}
+  .row3 {background: rgb(184, 138, 12)}
+  .row4 {background: rgb(46, 133, 44)}
+  .row5 {background: rgb(39, 25, 205)}
+  .hit {background: rgb(10,18,21)}
+
+  #paddle {
+    background: rgb(188, 198, 200);
+    width: 15%;
+    height: 10px;
+    border-radius: 5px;
+    position: absolute;
+    top: calc(100% - 25px);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #ball {
+    background: white;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: absolute;
+    top: calc(100% - 40px);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

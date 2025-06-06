@@ -1,0 +1,18 @@
+#trini-2-de-bone {
+  background: #da1a35;
+  x-position: relative;
+
+  #stripes {
+    width: 15%;
+    height: 180%;
+    background: black;
+    border: 20px solid white;
+    box-sizing: content-box;
+    /* the black stripe is 15% width 
+       ignoring the white borders */
+    
+    position: absolute;
+    transform: rotate(-45deg);
+    transform-origin: top left;
+  }
+}
