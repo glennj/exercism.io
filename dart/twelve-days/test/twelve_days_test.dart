@@ -18,7 +18,7 @@ void main() {
       ].join(' ');
       final result = twelveDays.recite(2, 2);
       expect(result, equals(expected));
-    }, skip: true);
+    }, skip: false);
 
     test('third day three french hens', () {
       final expected = [
@@ -29,7 +29,7 @@ void main() {
       ].join(' ');
       final result = twelveDays.recite(3, 3);
       expect(result, equals(expected));
-    }, skip: true);
+    }, skip: false);
 
     test('fourth day four calling birds', () {
       final expected = [
@@ -41,7 +41,7 @@ void main() {
       ].join(' ');
       final result = twelveDays.recite(4, 4);
       expect(result, equals(expected));
-    }, skip: true);
+    }, skip: false);
 
     test('fifth day five gold rings', () {
       final expected = [
@@ -54,7 +54,7 @@ void main() {
       ].join(' ');
       final result = twelveDays.recite(5, 5);
       expect(result, equals(expected));
-    }, skip: true);
+    }, skip: false);
 
     test('sixth day six geese-a-laying', () {
       final expected = [
@@ -68,7 +68,7 @@ void main() {
       ].join(' ');
       final result = twelveDays.recite(6, 6);
       expect(result, equals(expected));
-    }, skip: true);
+    }, skip: false);
 
     test('seventh day seven swans-a-swimming', () {
       final expected = [
@@ -83,7 +83,7 @@ void main() {
       ].join(' ');
       final result = twelveDays.recite(7, 7);
       expect(result, equals(expected));
-    }, skip: true);
+    }, skip: false);
 
     test('eighth day eight maids-a-milking', () {
       final expected = [
@@ -99,7 +99,7 @@ void main() {
       ].join(' ');
       final result = twelveDays.recite(8, 8);
       expect(result, equals(expected));
-    }, skip: true);
+    }, skip: false);
 
     test('ninth day nine ladies dancing', () {
       final expected = [
@@ -116,7 +116,7 @@ void main() {
       ].join(' ');
       final result = twelveDays.recite(9, 9);
       expect(result, equals(expected));
-    }, skip: true);
+    }, skip: false);
 
     test('tenth day ten lords-a-leaping', () {
       final expected = [
@@ -134,7 +134,7 @@ void main() {
       ].join(' ');
       final result = twelveDays.recite(10, 10);
       expect(result, equals(expected));
-    }, skip: true);
+    }, skip: false);
 
     test('eleventh day eleven pipers piping', () {
       final expected = [
@@ -153,7 +153,7 @@ void main() {
       ].join(' ');
       final result = twelveDays.recite(11, 11);
       expect(result, equals(expected));
-    }, skip: true);
+    }, skip: false);
 
     test('twelfth day twelve drummers drumming', () {
       final expected = [
@@ -173,7 +173,7 @@ void main() {
       ].join(' ');
       final result = twelveDays.recite(12, 12);
       expect(result, equals(expected));
-    }, skip: true);
+    }, skip: false);
 
     test('recites first three verses of the song', () {
       final expected = [
@@ -192,7 +192,7 @@ void main() {
       ].join('\n');
       final result = twelveDays.recite(1, 3);
       expect(result, equals(expected));
-    }, skip: true);
+    }, skip: false);
 
     test('recites three verses from the middle of the song', () {
       final expected = [
@@ -223,7 +223,7 @@ void main() {
       ].join('\n');
       final result = twelveDays.recite(4, 6);
       expect(result, equals(expected));
-    }, skip: true);
+    }, skip: false);
 
     test('recites the whole song', () {
       final expected = [
@@ -341,6 +341,6 @@ void main() {
       ].join('\n');
       final result = twelveDays.recite(1, 12);
       expect(result, equals(expected));
-    }, skip: true);
+    }, skip: false);
   });
 }
