@@ -15,10 +15,12 @@ HouseData = [
 
 class House
   @verse: (number) ->
-    cb = (verse, i) -> verse + " the " + HouseData[i][0]+ " that " + HouseData[i][1]
-    [number - 1 .. 0].reduce(cb, "This is")
+    [number - 1 .. 0].reduce(
+      (verse, i) -> "#{verse} the #{HouseData[i][0]} that #{HouseData[i][1]}",
+      "This is"
+    )
 
   @verses: (startVerse, endVerse) ->
-    (@verse(i) for i in [startVerse .. endVerse]).join("\n")
+    (@verse i for i in [startVerse .. endVerse]).join("\n")
 
 module.exports = House
