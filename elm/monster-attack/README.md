@@ -6,7 +6,7 @@ If you get stuck on the exercise, check out `HINTS.md`, but try and solve it wit
 
 ## Introduction
 
-## Partial application and function composition
+## Partial Application and Function Composition
 
 ### Partial application
 

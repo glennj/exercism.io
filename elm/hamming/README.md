@@ -3,9 +3,7 @@
 Welcome to Hamming on Exercism's Elm Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
-## Instructions
-
-Calculate the Hamming Distance between two DNA strands.
+## Introduction
 
 Your body is made up of cells that contain DNA.
 Those cells regularly wear out and need replacing, which they achieve by dividing into daughter cells.
@@ -13,19 +11,23 @@ In fact, the average human body experiences about 10 quadrillion cell divisions 
 
 When cells divide, their DNA replicates too.
 Sometimes during this process mistakes happen and single pieces of DNA get encoded with the incorrect information.
-If we compare two strands of DNA and count the differences between them we can see how many mistakes occurred.
-This is known as the "Hamming Distance".
+If we compare two strands of DNA and count the differences between them, we can see how many mistakes occurred.
+This is known as the "Hamming distance".
 
-We read DNA using the letters C,A,G and T.
+The Hamming distance is useful in many areas of science, not just biology, so it's a nice phrase to be familiar with :)
+
+## Instructions
+
+Calculate the Hamming distance between two DNA strands.
+
+We read DNA using the letters C, A, G and T.
 Two strands might look like this:
 
     GAGCCTACTAACGGGAT
     CATCGTAATGACGGCCT
     ^ ^ ^  ^ ^    ^^
 
-They have 7 differences, and therefore the Hamming Distance is 7.
-
-The Hamming Distance is useful for lots of things in science, not just biology, so it's a nice phrase to be familiar with :)
+They have 7 differences, and therefore the Hamming distance is 7.
 
 ## Implementation notes
 

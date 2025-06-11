@@ -12,42 +12,42 @@ tests =
             \() ->
                 Expect.equal True
                     (isArmstrongNumber 0)
-        , {- skip <| -}
+        , skip <|
             test "Single digit numbers are Armstrong numbers" <|
                 \() ->
                     Expect.equal True
                         (isArmstrongNumber 5)
-        , {- skip <| -}
+        , skip <|
             test "There are no 2 digit Armstrong numbers" <|
                 \() ->
                     Expect.equal False
                         (isArmstrongNumber 10)
-        , {- skip <| -}
+        , skip <|
             test "Three digit number that is an Armstrong number" <|
                 \() ->
                     Expect.equal True
                         (isArmstrongNumber 153)
-        , {- skip <| -}
+        , skip <|
             test "Three digit number that is not an Armstrong number" <|
                 \() ->
                     Expect.equal False
                         (isArmstrongNumber 100)
-        , {- skip <| -}
+        , skip <|
             test "Four digit number that is an Armstrong number" <|
                 \() ->
                     Expect.equal True
                         (isArmstrongNumber 9474)
-        , {- skip <| -}
+        , skip <|
             test "Four digit number that is not an Armstrong number" <|
                 \() ->
                     Expect.equal False
                         (isArmstrongNumber 9475)
-        , {- skip <| -}
+        , skip <|
             test "Seven digit number that is an Armstrong number" <|
                 \() ->
                     Expect.equal True
                         (isArmstrongNumber 9926315)
-        , {- skip <| -}
+        , skip <|
             test "Seven digit number that is not an Armstrong number" <|
                 \() ->
                     Expect.equal False

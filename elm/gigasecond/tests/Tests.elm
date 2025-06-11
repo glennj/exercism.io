@@ -14,22 +14,22 @@ tests =
                 \() ->
                     Expect.equal "2043-01-01T01:46:40.000Z"
                         (gigasecond "2011-04-25")
-            , -- skip <|
+            , skip <|
                 test "1977-06-13" <|
                     \() ->
                         Expect.equal "2009-02-19T01:46:40.000Z"
                             (gigasecond "1977-06-13")
-            , -- skip <|
+            , skip <|
                 test "1959-07-19" <|
                     \() ->
                         Expect.equal "1991-03-27T01:46:40.000Z"
                             (gigasecond "1959-07-19")
-            , -- skip <|
+            , skip <|
                 test "full time specified" <|
                     \() ->
                         Expect.equal "2046-10-02T23:46:40.000Z"
                             (gigasecond "2015-01-24T22:00:00.000Z")
-            , -- skip <|
+            , skip <|
                 test "full time with day roll-over" <|
                     \() ->
                         Expect.equal "2046-10-03T01:46:39.000Z"

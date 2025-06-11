@@ -15,163 +15,163 @@ tests =
             \() ->
                 Expect.equal "Whatever."
                     (Bob.hey "Tom-ay-to, tom-aaaah-to.")
-        , {- skip <| -}
+        , skip <|
             test "shouting" <|
                 \() ->
                     Expect.equal
                         "Whoa, chill out!"
                         (Bob.hey "WATCH OUT!")
-        , {- skip <| -}
+        , skip <|
             test "shouting gibberish" <|
                 \() ->
                     Expect.equal
                         "Whoa, chill out!"
                         (Bob.hey (uppercaseGibberish 10))
-        , {- skip <| -}
+        , skip <|
             test "asking a question" <|
                 \() ->
                     Expect.equal
                         "Sure."
                         (Bob.hey "Does this cryogenic chamber make me look fat?")
-        , {- skip <| -}
+        , skip <|
             test "asking a numeric question" <|
                 \() ->
                     Expect.equal
                         "Sure."
                         (Bob.hey "You are, what, like 15?")
-        , {- skip <| -}
+        , skip <|
             test "asking gibberish" <|
                 \() ->
                     Expect.equal
                         "Sure."
                         (Bob.hey (gibberishQuestion 20))
-        , {- skip <| -}
+        , skip <|
             test "talking forcefully" <|
                 \() ->
                     Expect.equal
                         "Whatever."
                         (Bob.hey "Hi there!")
-        , {- skip <| -}
+        , skip <|
             test "using acronyms in regular speech" <|
                 \() ->
                     Expect.equal
                         "Whatever."
                         (Bob.hey "It's OK if you don't want to go work for NASA.")
-        , {- skip <| -}
+        , skip <|
             test "forceful questions" <|
                 \() ->
                     Expect.equal
                         "Calm down, I know what I'm doing!"
                         (Bob.hey "WHAT'S GOING ON?")
-        , {- skip <| -}
+        , skip <|
             test "shouting numbers" <|
                 \() ->
                     Expect.equal
                         "Whoa, chill out!"
                         (Bob.hey "1, 2, 3 GO!")
-        , {- skip <| -}
+        , skip <|
             test "only numbers" <|
                 \() ->
                     Expect.equal
                         "Whatever."
                         (Bob.hey "1, 2, 3")
-        , {- skip <| -}
+        , skip <|
             test "question with only numbers" <|
                 \() ->
                     Expect.equal
                         "Sure."
                         (Bob.hey "4?")
-        , {- skip <| -}
+        , skip <|
             test "shouting with special characters" <|
                 \() ->
                     Expect.equal
                         "Whoa, chill out!"
                         (Bob.hey "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!")
-        , {- skip <| -}
+        , skip <|
             test "shouting with no exclamation mark" <|
                 \() ->
                     Expect.equal
                         "Whoa, chill out!"
                         (Bob.hey "I HATE THE DENTIST")
-        , {- skip <| -}
+        , skip <|
             test "statement containing a question mark" <|
                 \() ->
                     Expect.equal
                         "Whatever."
                         (Bob.hey "Ending with ? means a question.")
-        , {- skip <| -}
+        , skip <|
             test "prattling on" <|
                 \() ->
                     Expect.equal
                         "Sure."
                         (Bob.hey "Wait! Hang on. Are you going to be OK?")
-        , {- skip <| -}
+        , skip <|
             test "silence" <|
                 \() ->
                     Expect.equal
                         "Fine. Be that way!"
                         (Bob.hey "")
-        , {- skip <| -}
+        , skip <|
             test "prolonged silence" <|
                 \() ->
                     Expect.equal
                         "Fine. Be that way!"
                         (Bob.hey "       ")
-        , {- skip <| -}
+        , skip <|
             test "alternate silences" <|
                 \() ->
                     Expect.equal
                         "Fine. Be that way!"
                         (Bob.hey "\t  \n  \t   ")
-        , {- skip <| -}
+        , skip <|
             test "on multiple line questions" <|
                 \() ->
                     Expect.equal
-                        "Whatever."
-                        (Bob.hey "\nDoes this cryogenic chamber make me look fat?\nno")
-        , {- skip <| -}
+                        "Sure."
+                        (Bob.hey "\nDoes this cryogenic chamber make\n me look fat?")
+        , skip <|
             test "ending with whitespace" <|
                 \() ->
                     Expect.equal
                         "Sure."
                         (Bob.hey "Okay if like my  spacebar  quite a bit?   ")
-        , {- skip <| -}
+        , skip <|
             test "no letters" <|
                 \() ->
                     Expect.equal
                         "Whatever."
                         (Bob.hey "1, 2, 3")
-        , {- skip <| -}
+        , skip <|
             test "question with no letters" <|
                 \() ->
                     Expect.equal
                         "Sure."
                         (Bob.hey "4?")
-        , {- skip <| -}
+        , skip <|
             test "statement containing question mark" <|
                 \() ->
                     Expect.equal
                         "Whatever."
                         (Bob.hey "Ending with ? means a question.")
-        , {- skip <| -}
+        , skip <|
             test "non-letters with question" <|
                 \() ->
                     Expect.equal
                         "Sure."
                         (Bob.hey ":) ?")
-        , {- skip <| -}
+        , skip <|
             test "starting with whitespace" <|
                 \() ->
                     Expect.equal
                         "Whatever."
                         (Bob.hey "         hmmmmmmm...")
-        , {- skip <| -}
+        , skip <|
             test "other whitespace" <|
                 \() ->
                     Expect.equal
                         "Fine. Be that way!"
                         (Bob.hey "\n\u{000D} \t")
-        , {- skip <| -}
+        , skip <|
             test "non-question ending with whitespace" <|
                 \() ->
                     Expect.equal

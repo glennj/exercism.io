@@ -16,96 +16,96 @@ tests =
                 \() ->
                     DndCharacter.modifier 3
                         |> Expect.equal -4
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 4 is -3" <|
                     \() ->
                         DndCharacter.modifier 4
                             |> Expect.equal -3
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 5 is -3" <|
                     \() ->
                         DndCharacter.modifier 5
                             |> Expect.equal -3
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 6 is -2" <|
                     \() ->
                         DndCharacter.modifier 6
                             |> Expect.equal -2
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 7 is -2" <|
                     \() ->
                         DndCharacter.modifier 7
                             |> Expect.equal -2
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 8 is -1" <|
                     \() ->
                         DndCharacter.modifier 8
                             |> Expect.equal -1
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 9 is -1" <|
                     \() ->
                         DndCharacter.modifier 9
                             |> Expect.equal -1
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 10 is 0" <|
                     \() ->
                         DndCharacter.modifier 10
                             |> Expect.equal 0
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 11 is 0" <|
                     \() ->
                         DndCharacter.modifier 11
                             |> Expect.equal 0
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 12 is +1" <|
                     \() ->
                         DndCharacter.modifier 12
                             |> Expect.equal 1
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 13 is +1" <|
                     \() ->
                         DndCharacter.modifier 13
                             |> Expect.equal 1
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 14 is +2" <|
                     \() ->
                         DndCharacter.modifier 14
                             |> Expect.equal 2
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 15 is +2" <|
                     \() ->
                         DndCharacter.modifier 15
                             |> Expect.equal 2
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 16 is +3" <|
                     \() ->
                         DndCharacter.modifier 16
                             |> Expect.equal 3
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 17 is +3" <|
                     \() ->
                         DndCharacter.modifier 17
                             |> Expect.equal 3
-            , -- -- skip <|
+            , skip <|
                 test "ability modifier for score 18 is +4" <|
                     \() ->
                         DndCharacter.modifier 18
                             |> Expect.equal 4
             ]
         , describe "ability"
-            [ -- -- skip <|
+            [ skip <|
                 fuzzWith { runs = 1000, distribution = Test.noDistribution }
                     (Fuzz.fromGenerator DndCharacter.ability)
                     "generated ability should be at least 3"
                 <|
                     \ability -> Expect.atLeast 3 ability
-            , -- -- skip <|
+            , skip <|
                 fuzzWith { runs = 1000, distribution = Test.noDistribution }
                     (Fuzz.fromGenerator DndCharacter.ability)
                     "generated ability should be at most 18"
                 <|
                     \ability -> Expect.atMost 18 ability
-            , -- -- skip <|
+            , skip <|
                 fuzzWith
                     { runs = 10000
                     , distribution =
@@ -116,7 +116,7 @@ tests =
                     "generated ability should sometimes be 3"
                 <|
                     \_ -> Expect.pass
-            , -- -- skip <|
+            , skip <|
                 fuzzWith
                     { runs = 1000
                     , distribution =
@@ -127,7 +127,7 @@ tests =
                     "generated ability should sometimes be 18"
                 <|
                     \_ -> Expect.pass
-            , -- -- skip <|
+            , skip <|
                 fuzzWith
                     { runs = 10000
                     , distribution =
@@ -142,49 +142,49 @@ tests =
                     \_ -> Expect.pass
             ]
         , describe "character"
-            [ -- skip <|
+            [ skip <|
                 fuzz (Fuzz.fromGenerator DndCharacter.character)
                     "generated character strength should be within range"
                 <|
                     \character ->
                         Expect.all [ Expect.atLeast 3, Expect.atMost 18 ] character.strength
-            , -- skip <|
+            , skip <|
                 fuzz (Fuzz.fromGenerator DndCharacter.character)
                     "generated character dexterity should be within range"
                 <|
                     \character ->
                         Expect.all [ Expect.atLeast 3, Expect.atMost 18 ] character.dexterity
-            , -- skip <|
+            , skip <|
                 fuzz (Fuzz.fromGenerator DndCharacter.character)
                     "generated character constitution should be within range"
                 <|
                     \character ->
                         Expect.all [ Expect.atLeast 3, Expect.atMost 18 ] character.constitution
-            , -- skip <|
+            , skip <|
                 fuzz (Fuzz.fromGenerator DndCharacter.character)
                     "generated character intelligence should be within range"
                 <|
                     \character ->
                         Expect.all [ Expect.atLeast 3, Expect.atMost 18 ] character.intelligence
-            , -- skip <|
+            , skip <|
                 fuzz (Fuzz.fromGenerator DndCharacter.character)
                     "generated character wisdom should be within range"
                 <|
                     \character ->
                         Expect.all [ Expect.atLeast 3, Expect.atMost 18 ] character.wisdom
-            , -- skip <|
+            , skip <|
                 fuzz (Fuzz.fromGenerator DndCharacter.character)
                     "generated character charisma should be within range"
                 <|
                     \character ->
                         Expect.all [ Expect.atLeast 3, Expect.atMost 18 ] character.charisma
-            , -- skip <|
+            , skip <|
                 fuzz (Fuzz.fromGenerator DndCharacter.character)
                     "generated character hitpoints should be 10 plus the constitution modifier"
                 <|
                     \character ->
                         Expect.equal character.hitpoints (10 + DndCharacter.modifier character.constitution)
-            , -- skip <|
+            , skip <|
                 fuzz (Fuzz.fromGenerator DndCharacter.character)
                     "generated character abilities are not all equal"
                 <|
@@ -196,7 +196,7 @@ tests =
                                     |> Set.size
                         in
                         Expect.atLeast 2 (uniqueAbilities character)
-            , -- skip <|
+            , skip <|
                 fuzzWith
                     { runs = 1000
                     , distribution =

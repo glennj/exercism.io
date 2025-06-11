@@ -11,39 +11,39 @@ tests =
         [ test "empty string" <|
             \() ->
                 Expect.equal True <| isIsogram ""
-        , {- {- skip <| -} -}
+        , skip <|
             test "isogram with only lower case characters" <|
                 \() ->
                     Expect.equal True <| isIsogram "isogram"
-        , {- {- skip <| -} -}
+        , skip <|
             test "word with one duplicated character" <|
                 \() ->
                     Expect.equal False <| isIsogram "eleven"
-        , {- {- skip <| -} -}
+        , skip <|
             test "longest reported english isogram" <|
                 \() ->
                     Expect.equal True <| isIsogram "subdermatoglyphic"
-        , {- {- skip <| -} -}
+        , skip <|
             test "word with duplicated character in mixed case" <|
                 \() ->
                     Expect.equal False <| isIsogram "Alphabet"
-        , {- {- skip <| -} -}
+        , skip <|
             test "hypothetical isogrammic word with hyphen" <|
                 \() ->
                     Expect.equal True <| isIsogram "thumbscrew-japingly"
-        , {- {- skip <| -} -}
+        , skip <|
             test "isogram with duplicated non letter character" <|
                 \() ->
                     Expect.equal True <| isIsogram "Hjelmqvist-Gryb-Zock-Pfund-Wax"
-        , {- {- skip <| -} -}
+        , skip <|
             test "made-up name that is an isogram" <|
                 \() ->
                     Expect.equal True <| isIsogram "Emily Jung Schwartzkopf"
-        , {- {- skip <| -} -}
+        , skip <|
             test "duplicated character in the middle" <|
                 \() ->
                     Expect.equal False <| isIsogram "accentor"
-        , {- {- skip <| -} -}
+        , skip <|
             test "word with duplicated character and with two hyphens" <|
                 \() ->
                     Expect.equal False <| isIsogram "up-to-date"

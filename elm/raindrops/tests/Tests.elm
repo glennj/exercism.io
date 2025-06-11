@@ -10,46 +10,46 @@ tests =
     describe "Raindrops"
         [ test "1" <|
             \() -> Expect.equal "1" (raindrops 1)
-        , {- skip <| -}
+        , skip <|
             test "3" <|
                 \() -> Expect.equal "Pling" (raindrops 3)
-        , {- skip <| -}
+        , skip <|
             test "5" <|
                 \() -> Expect.equal "Plang" (raindrops 5)
-        , {- skip <| -}
+        , skip <|
             test "7" <|
                 \() -> Expect.equal "Plong" (raindrops 7)
-        , {- skip <| -}
+        , skip <|
             test "6" <|
                 \() -> Expect.equal "Pling" (raindrops 6)
-        , {- skip <| -}
+        , skip <|
             test "9" <|
                 \() -> Expect.equal "Pling" (raindrops 9)
-        , {- skip <| -}
+        , skip <|
             test "10" <|
                 \() -> Expect.equal "Plang" (raindrops 10)
-        , {- skip <| -}
+        , skip <|
             test "14" <|
                 \() -> Expect.equal "Plong" (raindrops 14)
-        , {- skip <| -}
+        , skip <|
             test "15" <|
                 \() -> Expect.equal "PlingPlang" (raindrops 15)
-        , {- skip <| -}
+        , skip <|
             test "21" <|
                 \() -> Expect.equal "PlingPlong" (raindrops 21)
-        , {- skip <| -}
+        , skip <|
             test "25" <|
                 \() -> Expect.equal "Plang" (raindrops 25)
-        , {- skip <| -}
+        , skip <|
             test "35" <|
                 \() -> Expect.equal "PlangPlong" (raindrops 35)
-        , {- skip <| -}
+        , skip <|
             test "49" <|
                 \() -> Expect.equal "Plong" (raindrops 49)
-        , {- skip <| -}
+        , skip <|
             test "52" <|
                 \() -> Expect.equal "52" (raindrops 52)
-        , {- skip <| -}
+        , skip <|
             test "105" <|
                 \() -> Expect.equal "PlingPlangPlong" (raindrops 105)
         ]
