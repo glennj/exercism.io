@@ -1,9 +1,9 @@
 module Main exposing (..)
 
 import Browser
-import Html exposing (Html, div, input, text)
-import Html.Attributes exposing (value)
-import Html.Events exposing (onInput)
+import Html exposing (Html)
+import Html.Attributes
+import Html.Events
 import String exposing (isEmpty, reverse)
 
 
@@ -31,13 +31,13 @@ main =
 -- MODEL
 
 
-type Model
-    = Model { content : String }
+type alias Model =
+    { content : String }
 
 
 init : Model
 init =
-    Model { content = "" }
+    { content = "" }
 
 
 
@@ -52,7 +52,7 @@ update : Msg -> Model -> Model
 update msg _ =
     case msg of
         Change newContent ->
-            Model { content = newContent }
+            { content = newContent }
 
 
 
@@ -69,7 +69,7 @@ palindromeCheck content =
 
 
 view : Model -> Html Msg
-view (Model { content }) =
+view { content } =
     Html.div []
         [ Html.input
             [ Html.Attributes.placeholder "Text to reverse"

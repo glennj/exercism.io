@@ -941,7 +941,7 @@ ${indent.repeat(level)}}`;
   var WEBSOCKET_TOKEN = "235d749d-7ed8-494e-abc6-97caeeec7c89";
   var TARGET_NAME = "Paulas Palindromes";
   var INITIAL_ELM_COMPILED_TIMESTAMP = Number(
-    "1749674215970"
+    "1749738381668"
   );
   var ORIGINAL_COMPILATION_MODE = "standard";
   var ORIGINAL_BROWSER_UI_POSITION = "BottomLeft";
