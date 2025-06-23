@@ -1,5 +1,5 @@
 proc largestSeriesProduct {digits span} {
-    assert {$span <= [string length $digits]} "span must be smaller than string length"
+    assert {$span <= [string length $digits]} "span must not exceed string length"
     assert {![regexp {\D} $digits]} "digits input must only contain digits"
     assert {$span >= 0} "span must not be negative"
 

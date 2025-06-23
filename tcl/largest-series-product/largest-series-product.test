@@ -56,12 +56,12 @@ test lsp-1.9 "reports zero if all spans include zero" -body {
 skip lsp-2.1
 test lsp-2.1 "rejects span longer than string length" -body {
     largestSeriesProduct "123" 4 
-} -returnCodes error -result "span must be smaller than string length"
+} -returnCodes error -result "span must not exceed string length"
 
 skip lsp-2.2
 test lsp-2.2 "rejects empty string and nonzero span" -body {
     largestSeriesProduct "" 1 
-} -returnCodes error -result "span must be smaller than string length"
+} -returnCodes error -result "span must not exceed string length"
 
 skip lsp-2.3
 test lsp-2.3 "rejects invalid character in digits" -body {

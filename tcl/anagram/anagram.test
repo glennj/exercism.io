@@ -2,6 +2,7 @@
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
+configure -verbose {body error usec}
 
 ############################################################
 source "anagram.tcl"
@@ -84,6 +85,16 @@ skip anagram-14
 test anagram-14 "words other than themselves can be anagrams" -body {
     findAnagrams LISTEN {Silent LISTEN}
 } -returnCodes ok -result {Silent} 
+
+skip anagram-15
+test anagram-15 "handles case of greek letters" -body {
+    findAnagrams ΑΒΓ {ΒΓΑ ΒΓΔ γβα αβγ}
+} -returnCodes ok -result {ΒΓΑ γβα} 
+
+skip anagram-16
+test anagram-16 "different characters may have the same bytes" -body {
+    findAnagrams "a⬂" [list "€a"]
+} -returnCodes ok -result {} 
 
 
 cleanupTests
