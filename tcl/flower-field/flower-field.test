@@ -1,0 +1,163 @@
+#!/usr/bin/env tclsh
+package require tcltest
+namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
+source "flower-field.tcl"
+
+# Uncomment next line to view test durations.
+configure -verbose {body error usec}
+
+test flower-field-1 "no rows" -body {
+    annotate {}
+} -returnCodes ok -match orderedLists -result {}
+
+skip flower-field-2
+test flower-field-2 "no columns" -body {
+    annotate {""}
+} -returnCodes ok -match orderedLists -result {""}
+
+skip flower-field-3
+test flower-field-3 "no mines" -body {
+    annotate {
+        "   "
+        "   "
+        "   "
+    }
+} -returnCodes ok -match orderedLists -result {
+        "   "
+        "   "
+        "   "
+}
+
+skip flower-field-4
+test flower-field-4 "minefield with only mines" -body {
+    annotate {
+        "***"
+        "***"
+        "***"
+    }
+} -returnCodes ok -match orderedLists -result {
+        "***"
+        "***"
+        "***"
+}
+
+skip flower-field-5
+test flower-field-5 "mine surrounded by spaces" -body {
+    annotate {
+        "   "
+        " * "
+        "   "
+    }
+} -returnCodes ok -match orderedLists -result {
+        "111"
+        "1*1"
+        "111"
+}
+
+skip flower-field-6
+test flower-field-6 "space surrounded by mines" -body {
+    annotate {
+        "***"
+        "* *"
+        "***"
+    }
+} -returnCodes ok -match orderedLists -result {
+        "***"
+        "*8*"
+        "***"
+}
+
+skip flower-field-7
+test flower-field-7 "horizontal line" -body {
+    annotate {
+        " * * "
+    }
+} -returnCodes ok -match orderedLists -result {
+        "1*2*1"
+}
+
+skip flower-field-8
+test flower-field-8 "horizontal line, mines at edges" -body {
+    annotate {
+        "*   *"
+    }
+} -returnCodes ok -match orderedLists -result {
+        "*1 1*"
+}
+
+skip flower-field-9
+test flower-field-9 "vertical line" -body {
+    annotate {
+        " "
+        "*"
+        " "
+        "*"
+        " "
+    }
+} -returnCodes ok -match orderedLists -result {
+        "1"
+        "*"
+        "2"
+        "*"
+        "1"
+}
+
+skip flower-field-10
+test flower-field-10 "vertical line, mines at edges" -body {
+    annotate {
+        "*"
+        " "
+        " "
+        " "
+        "*"
+    }
+} -returnCodes ok -match orderedLists -result {
+        "*"
+        "1"
+        " "
+        "1"
+        "*"
+}
+
+skip flower-field-11
+test flower-field-11 "cross" -body {
+    annotate {
+        "  *  "
+        "  *  "
+        "*****"
+        "  *  "
+        "  *  "
+    }
+} -returnCodes ok -match orderedLists -result {
+        " 2*2 "
+        "25*52"
+        "*****"
+        "25*52"
+        " 2*2 "
+}
+
+skip flower-field-12
+test flower-field-12 "large minefield" -body {
+    annotate {
+        " *  * "
+        "  *   "
+        "    * "
+        "   * *"
+        " *  * "
+        "      "
+    }
+} -returnCodes ok -match orderedLists -result {
+        "1*22*1"
+        "12*322"
+        " 123*2"
+        "112*4*"
+        "1*22*2"
+        "111111"
+}
+
+
+cleanupTests
+

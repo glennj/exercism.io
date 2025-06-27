@@ -1,0 +1,139 @@
+#!/usr/bin/env tclsh
+package require tcltest
+namespace import ::tcltest::*
+source testHelpers.tcl
+
+############################################################
+source "bottle-song.tcl"
+
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
+test bottle-1.1 "verse:first generic verse" -body {
+    bottleSong 10 1
+} -returnCodes ok -match orderedLists -result {
+    "Ten green bottles hanging on the wall,"
+    "Ten green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be nine green bottles hanging on the wall."
+}
+
+skip bottle-1.2
+test bottle-1.2 "verse:last generic verse" -body {
+    bottleSong 3 1
+} -returnCodes ok -match orderedLists -result {
+    "Three green bottles hanging on the wall,"
+    "Three green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be two green bottles hanging on the wall."
+}
+
+skip bottle-1.3
+test bottle-1.3 "verse:verse with 2 bottles" -body {
+    bottleSong 2 1
+} -returnCodes ok -match orderedLists -result {
+    "Two green bottles hanging on the wall,"
+    "Two green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be one green bottle hanging on the wall."
+}
+
+skip bottle-1.4
+test bottle-1.4 "verse:verse with 1 bottle" -body {
+    bottleSong 1 1
+} -returnCodes ok -match orderedLists -result {
+    "One green bottle hanging on the wall,"
+    "One green bottle hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be no green bottles hanging on the wall."
+}
+
+skip bottle-2.1
+test bottle-2.1 "verses:first two verses" -body {
+    bottleSong 10 2
+} -returnCodes ok -match orderedLists -result {
+    "Ten green bottles hanging on the wall,"
+    "Ten green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be nine green bottles hanging on the wall."
+    ""
+    "Nine green bottles hanging on the wall,"
+    "Nine green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be eight green bottles hanging on the wall."
+}
+
+skip bottle-2.2
+test bottle-2.2 "verses:last three verses" -body {
+    bottleSong 3 3
+} -returnCodes ok -match orderedLists -result {
+    "Three green bottles hanging on the wall,"
+    "Three green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be two green bottles hanging on the wall."
+    ""
+    "Two green bottles hanging on the wall,"
+    "Two green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be one green bottle hanging on the wall."
+    ""
+    "One green bottle hanging on the wall,"
+    "One green bottle hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be no green bottles hanging on the wall."
+}
+
+skip bottle-2.3
+test bottle-2.3 "verses:all verses" -body {
+    bottleSong 10 10
+} -returnCodes ok -match orderedLists -result {
+    "Ten green bottles hanging on the wall,"
+    "Ten green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be nine green bottles hanging on the wall."
+    ""
+    "Nine green bottles hanging on the wall,"
+    "Nine green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be eight green bottles hanging on the wall."
+    ""
+    "Eight green bottles hanging on the wall,"
+    "Eight green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be seven green bottles hanging on the wall."
+    ""
+    "Seven green bottles hanging on the wall,"
+    "Seven green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be six green bottles hanging on the wall."
+    ""
+    "Six green bottles hanging on the wall,"
+    "Six green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be five green bottles hanging on the wall."
+    ""
+    "Five green bottles hanging on the wall,"
+    "Five green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be four green bottles hanging on the wall."
+    ""
+    "Four green bottles hanging on the wall,"
+    "Four green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be three green bottles hanging on the wall."
+    ""
+    "Three green bottles hanging on the wall,"
+    "Three green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be two green bottles hanging on the wall."
+    ""
+    "Two green bottles hanging on the wall,"
+    "Two green bottles hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be one green bottle hanging on the wall."
+    ""
+    "One green bottle hanging on the wall,"
+    "One green bottle hanging on the wall,"
+    "And if one green bottle should accidentally fall,"
+    "There'll be no green bottles hanging on the wall."
+}
