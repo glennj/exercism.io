@@ -1,0 +1,22 @@
+paired?: function [str][
+    brackets: #[ ")":"(" "]":"[" "}":"{" ]
+    stack: []
+
+    loop str 'char [
+        c: to :string char
+
+        if in? c brackets [
+            prepend 'stack c
+            continue
+        ]
+
+        if in? c keys brackets [
+            if or? [empty? stack] [(get brackets c) <> (first stack)]
+                -> return false
+
+            drop 'stack 1
+        ]
+    ]
+
+    empty? stack
+]

@@ -1,0 +1,29 @@
+isLeap?: function [year][
+    ;; lisp style
+    ;and?
+    ;    [equal? 0 mod year 4]
+    ;    [or?
+    ;        [notEqual? 0 mod year 100]
+    ;        [equal? 0 mod year 400]]
+
+    ;; using parens like other languages to control precedence
+    ;and?
+    ;    [(year % 4) = 0]
+    ;    [or?
+    ;        [(year % 100) <> 0]
+    ;        [(year % 400) = 0]]
+
+    ;; flip the comparisons to allow arturo's right-to-left evaluation
+    ;and?
+    ;    [0 = year % 4]
+    ;    [or?
+    ;        [0 <> year % 100]
+    ;        [0 = year % 400]]
+
+    ;; using number and logic functions
+    and?
+        [zero? year % 4]
+        [or?
+            [not? zero? year % 100]
+            [zero? year % 400]]
+]

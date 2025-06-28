@@ -1,0 +1,30 @@
+armstrong?: function[n][
+    ds: digits n
+    width: size ds
+    armstrongSum: sum map ds => [pow & width]
+    
+    n = armstrongSum
+]
+
+;; A mathematical approach to this problem:
+;;
+;;    width: switch (zero? n) [1] [ceil log n 10]
+;;    sum: 0
+;;    m: n
+;;    while [m > 0] [
+;;        sum: sum + pow (m % 10) width
+;;        m: m / 10
+;;        print @[n width m sum]
+;;    ]
+;;    n = sum
+;;
+;; This approach fails with big numbers:
+;;
+;;    $> ceil log 100000000000000000 10
+;;    => 17
+;;    
+;;    $> ceil log 1000000000000000000 10
+;;    => 18
+;;    
+;;    $> ceil log 10000000000000000000 10
+;;    => 13

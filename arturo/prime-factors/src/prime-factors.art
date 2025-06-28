@@ -1,0 +1,22 @@
+;; cheating
+;primeFactors: $[n][factors.prime n]
+
+primeFactors: function [n][
+    fs: []
+    f: 2
+    m: n
+
+    while [f =< sqrt m][
+        if? zero? mod m f [
+            append 'fs (new f)
+            div 'm f
+        ]
+        else ->
+            inc 'f
+    ]
+
+    if m > 1 ->
+        append 'fs m
+
+    fs
+]

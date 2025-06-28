@@ -1,0 +1,5 @@
+import "src/resistor-color"!
+
+resistorValue: function [bands][
+    (10 * colorCode bands\0) + colorCode bands\1
+]
