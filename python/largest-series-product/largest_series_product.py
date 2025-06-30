@@ -7,7 +7,7 @@ def product(nums):
 
 def largest_product(series, size):
     if size > len(series):
-        raise ValueError("span must be smaller than string length")
+        raise ValueError("span must not exceed string length")
 
     if series != "" and not series.isdecimal():
         raise ValueError('digits input must only contain digits')

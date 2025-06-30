@@ -1,5 +1,5 @@
 function! LargestProduct(digitString, span) abort
-    if a:digitString =~ '\D' | throw 'invalid input' | endif
+    if a:digitString =~ '\D' | return -1 | endif
 
     let digits = a:digitString->split('\zs')
     if a:span < 0 || a:span > len(digits) | return -1 | endif

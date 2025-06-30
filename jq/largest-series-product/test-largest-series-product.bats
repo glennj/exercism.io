@@ -149,7 +149,7 @@ END_INPUT
 END_INPUT
 
     assert_failure
-    expected='span must be smaller than string length'
+    expected='span must not exceed string length'
     assert_equal "$output" "$expected"
 }
 
@@ -194,7 +194,7 @@ END_INPUT
 END_INPUT
 
     assert_failure
-    expected='span must be smaller than string length'
+    expected='span must not exceed string length'
     assert_equal "$output" "$expected"
 }
 

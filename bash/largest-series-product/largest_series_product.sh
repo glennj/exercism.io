@@ -6,7 +6,7 @@ series=$1
 declare -i span=$2
 
 [[ $series =~ [^0-9] ]] && die "input must only contain digits"
-((span <= ${#series}))  || die "span must be smaller than string length"
+((span <= ${#series}))  || die "span must not exceed string length"
 ((span >= 0))           || die "span must not be negative"
 
 if ((span == 0)); then

@@ -4,7 +4,7 @@
 BEGIN { FS = "," }
 {
     len = split($1, digits, //)
-    assert($2 <= len, "span must be smaller than string length")
+    assert($2 <= len, "span must not exceed string length")
     assert($2 >= 0, "span must not be negative")
     assert($0 ~ /^[[:digit:]]*,[[:digit:]]+$/, "input must only contain digits")
 

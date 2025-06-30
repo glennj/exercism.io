@@ -24,7 +24,7 @@ def product: reduce .[] as $n (1; . * $n);
 
 .digits |= todigits("digits input must only contain digits")
 | assert(.span >= 0; "span must not be negative")
-| assert(.span <= (.digits | length); "span must be smaller than string length")
+| assert(.span <= (.digits | length); "span must not exceed string length")
 | spans
 | map(product)
 | max
