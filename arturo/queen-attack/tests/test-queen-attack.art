@@ -1,0 +1,61 @@
+import.version:1.1.2 {unitt}!
+import {src/queen-attack}!
+
+
+suite "Queen Attack" [
+  test "cannot attack" [
+    white: to :queen @[2 4]
+    black: to :queen @[6 6]
+    result: do [white\attackable? black]
+    assert -> false = result
+  ]
+
+  test "can attack on same row" [
+    white: to :queen @[2 4]
+    black: to :queen @[2 6]
+    result: do [white\attackable? black]
+    assert -> true = result
+  ]
+
+  test "can attack on same column" [
+    white: to :queen @[4 5]
+    black: to :queen @[2 5]
+    result: do [white\attackable? black]
+    assert -> true = result
+  ]
+
+  test "can attack on first diagonal" [
+    white: to :queen @[2 2]
+    black: to :queen @[0 4]
+    result: do [white\attackable? black]
+    assert -> true = result
+  ]
+
+  test "can attack on second diagonal" [
+    white: to :queen @[2 2]
+    black: to :queen @[3 1]
+    result: do [white\attackable? black]
+    assert -> true = result
+  ]
+
+  test "can attack on third diagonal" [
+    white: to :queen @[2 2]
+    black: to :queen @[1 1]
+    result: do [white\attackable? black]
+    assert -> true = result
+  ]
+
+  test "can attack on fourth diagonal" [
+    white: to :queen @[1 7]
+    black: to :queen @[0 6]
+    result: do [white\attackable? black]
+    assert -> true = result
+  ]
+
+  test "cannot attack if falling diagonals are only the same when reflected across the longest falling diagonal" [
+    white: to :queen @[4 1]
+    black: to :queen @[2 5]
+    result: do [white\attackable? black]
+    assert -> false = result
+  ]
+]

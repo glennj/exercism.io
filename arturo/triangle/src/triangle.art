@@ -1,0 +1,26 @@
+;; playing with functions
+
+equilateral?: function [x y z][
+    classifier x y z $=>[& = 1]
+]
+
+isosceles?: function [x y z][
+    classifier x y z $=>[& =< 2]
+]
+
+scalene?: function [x y z][
+    classifier x y z $=>[& = 3]
+]
+
+;; this only seems to work correctly if:
+;;    the ":function" type constraint is not given, and
+;;    the function call is not in a block.
+classifier: function [x y z checkSides][
+    if not? triangle? x y z -> return false
+    checkSides size unique @[x y z]
+]
+
+triangle?: function [x y z][
+    [a b c]: sort @[x y z]
+    and? [a > 0] [(a + b) > c]
+]

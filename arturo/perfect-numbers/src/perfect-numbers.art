@@ -1,0 +1,9 @@
+classify: function[n][
+    if not? positive? n -> return null
+
+    when.has: ((sum factors n) - n) [
+        [<n] -> 'deficient
+        [>n] -> 'abundant
+        true -> 'perfect
+    ]
+]

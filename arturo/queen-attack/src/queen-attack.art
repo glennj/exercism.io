@@ -1,0 +1,9 @@
+define :queen [
+    init: constructor [row column]
+
+    attackable?: method [other] [
+        or? [or? [this\row = other\row]
+                 [this\column = other\column]]
+            [(abs this\row - other\row) = abs this\column - other\column]
+    ]
+]

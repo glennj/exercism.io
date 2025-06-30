@@ -1,0 +1,9 @@
+square: function [number :integer][
+    when.has: number [
+        [=<0] -> null
+        [>64] -> null
+        true  -> pow 2 dec number
+    ]
+]
+
+total: $ [] -> dec 2 ^ 64

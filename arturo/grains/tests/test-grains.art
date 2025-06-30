@@ -1,0 +1,59 @@
+import.version:1.1.2 {unitt}!
+import {src/grains}!
+
+suite "Grains" [
+    test "grains on square 1" [
+        result: square 1
+        assert -> 1 = result
+    ]
+
+    test "grains on square 2" [
+        result: square 2
+        assert -> 2 = result
+    ]
+
+    test "grains on square 3" [
+        result: square 3
+        assert -> 4 = result
+    ]
+
+    test "grains on square 4" [
+        result: square 4
+        assert -> 8 = result
+    ]
+
+    test "grains on square 16" [
+        result: square 16
+        assert -> 32768 = result
+    ]
+
+    test "grains on square 32" [
+        result: square 32
+        assert -> 2147483648 = result
+    ]
+
+    test "grains on square 64" [
+        result: square 64
+        assert -> 9223372036854775808 = result
+    ]
+
+    test "square 0 is invalid" [
+        result: square 0
+        assert -> null = result
+    ]
+
+    test "negative square is invalid" [
+        result: square neg 1
+        assert -> null = result
+    ]
+
+    test "square greater than 64 is invalid" [
+        result: square 65
+        assert -> null = result
+    ]
+
+    test "returns the total number of grains on the board" [
+        result: total
+        assert -> 18446744073709551615 = result
+    ]
+]

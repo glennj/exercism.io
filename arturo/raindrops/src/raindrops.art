@@ -1,0 +1,9 @@
+raindrops: function[n][
+    drops: [[3 "Pling"] [5 "Plang"] [7 "Plong"]]
+           | select 'pair -> zero? mod n first pair
+           | map [p][last p]
+
+    switch empty? drops
+        -> render "|n|"
+        -> join drops
+]
