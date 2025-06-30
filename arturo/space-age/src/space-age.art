@@ -1,0 +1,27 @@
+; ref Quantities library
+
+specify 'year 31557600`second
+
+specify 'mercuryYear   0.2408467`year
+specify 'venusYear     0.61519726`year
+specify 'earthYear     1.0`year
+specify 'marsYear      1.8808158`year
+specify 'jupiterYear  11.862615`year
+specify 'saturnYear   29.447498`year
+specify 'uranusYear   84.016846`year
+specify 'neptuneYear 164.79132`year
+
+ageOn: function [planet :literal seconds :quantity][
+    targetQty: case planet [
+        'mercury -> `mercuryYear
+        'venus   -> `venusYear
+        'earth   -> `earthYear
+        'mars    -> `marsYear
+        'saturn  -> `saturnYear
+        'jupiter -> `jupiterYear
+        'uranus  -> `uranusYear
+        'neptune -> `neptuneYear
+        any      -> null
+    ]
+    switch targetQty -> convert seconds targetQty -> null
+]

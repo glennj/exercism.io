@@ -1,0 +1,8 @@
+score: function [x y][ 
+    when.has: hypot x y [
+        [=< 1] -> 10
+        [=< 5] -> 5
+        [=< 10] -> 1
+        true -> 0
+    ]
+]

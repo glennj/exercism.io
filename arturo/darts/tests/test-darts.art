@@ -1,0 +1,69 @@
+import.version:1.1.2 {unitt}!
+import {src/darts}!
+
+suite "Darts" [
+    test "missing target is 0" [
+        points: score neg 9 9
+        assert -> 0 = points
+    ]
+
+    test "on the outer circle is 1" [
+        points: score 0 10
+        assert -> 1 = points
+    ]
+
+    test "on the middle circle is 5" [
+        points: score neg 5 0
+        assert -> 5 = points
+    ]
+
+    test "on the inner circle is 10" [
+        points: score 0 neg 1
+        assert -> 10 = points
+    ]
+
+    test "exactly on center is 10" [
+        points: score 0 0
+        assert -> 10 = points
+    ]
+
+    test "near the center is 10" [
+        points: score  neg 0.1 neg 0.1
+        assert -> 10 = points
+    ]
+
+    test "just within the inner circle is 10" [
+        points: score 0.7 0.7
+        assert -> 10 = points
+    ]
+
+    test "just outside the inner circle is 5" [
+        points: score 0.8 neg 0.8
+        assert -> 5 = points
+    ]
+
+    test "just within the middle circle is 5" [
+        points: score neg 3.5 3.5
+        assert -> 5 = points
+    ]
+
+    test "just outside the middle circle is 1" [
+        points: score neg 3.6 neg 3.6
+        assert -> 1 = points
+    ]
+
+    test "just within the outer circle is 1" [
+        points: score neg 7.0 7.0
+        assert -> 1 = points
+    ]
+
+    test "just outside the outer circle is 0" [
+        points: score 7.1 neg 7.1
+        assert -> 0 = points
+    ]
+
+    test "asymmetric positon between the inner and middle circles is 5" [
+        points: score 0.5 neg 4
+        assert -> 5 = points
+    ]
+]

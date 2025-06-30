@@ -1,0 +1,372 @@
+import.version:1.1.2 {unitt}!
+import {src/bob}!
+
+suite "Bob" [
+    test "stating something" [
+        reply: response "Tom-ay-to, tom-aaaah-to."
+        assert -> "Whatever." = reply
+    ]
+
+    test "shouting" [
+        reply: response "WATCH OUT!"
+        assert -> "Whoa, chill out!" = reply
+    ]
+
+    test "shouting gibberish" [
+        reply: response "FCECDFCAAB"
+        assert -> "Whoa, chill out!" = reply
+    ]
+
+    test "asking a question" [
+        reply: response "Does this cryogenic chamber make me look fat?"
+        assert -> "Sure." = reply
+    ]
+
+    test "asking a numeric question" [
+        reply: response "You are, what, like 15?"
+        assert -> "Sure." = reply
+    ]
+
+    test "asking gibberish" [
+        reply: response "fffbbcbeab?"
+        assert -> "Sure." = reply
+    ]
+
+    test "talking forcefully" [
+        reply: response "Let's go make out behind the gym!"
+        assert -> "Whatever." = reply
+    ]
+
+    test "using acronyms in regular speech" [
+        reply: response "It's OK if you don't want to go to the DMV."
+        assert -> "Whatever." = reply
+    ]
+
+    test "forceful question" [
+        reply: response "WHAT THE HELL WERE YOU THINKING?"
+        assert -> "Calm down, I know what I'm doing!" = reply
+    ]
+
+    test "shouting numbers" [
+        reply: response "1, 2, 3 GO!"
+        assert -> "Whoa, chill out!" = reply
+    ]
+
+    test "no letters" [
+        reply: response "1, 2, 3"
+        assert -> "Whatever." = reply
+    ]
+
+    test "question with no letters" [
+        reply: response "4?"
+        assert -> "Sure." = reply
+    ]
+
+    test "shouting with special characters" [
+        reply: response "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!"
+        assert -> "Whoa, chill out!" = reply
+    ]
+
+    test "shouting with no exclamation mark" [
+        reply: response "I HATE YOU"
+        assert -> "Whoa, chill out!" = reply
+    ]
+
+    test "statement containing question mark" [
+        reply: response "Ending with ? means a question."
+        assert -> "Whatever." = reply
+    ]
+
+    test "non-letters with question" [
+        reply: response ":) ?"
+        assert -> "Sure." = reply
+    ]
+
+    test "prattling on" [
+        reply: response "Wait! Hang on. Are you going to be OK?"
+        assert -> "Sure." = reply
+    ]
+
+    test "silence" [
+        reply: response ""
+        assert -> "Fine. Be that way!" = reply
+    ]
+
+    test "prolonged silence" [
+        reply: response "    "
+        assert -> "Fine. Be that way!" = reply
+    ]
+
+    test "alternate silence" [
+        reply: response "\t\t\t\t\t\t\t\t\t\t"
+        assert -> "Fine. Be that way!" = reply
+    ]
+
+    test "starting with whitespace" [
+        reply: response "         hmmmmmmm..."
+        assert -> "Whatever." = reply
+    ]
+
+    test "ending with whitespace" [
+        reply: response "Okay if like my  spacebar  quite a bit?   "
+        assert -> "Sure." = reply
+    ]
+
+    test "other whitespace" [
+        reply: response "\n\r \t"
+        assert -> "Fine. Be that way!" = reply
+    ]
+
+    test "non-question ending with whitespace" [
+        reply: response "This is a statement ending with whitespace      "
+        assert -> "Whatever." = reply
+    ]
+
+    test "multiple line question" [
+        reply: response "\nDoes this cryogenic chamber make\n me look fat?"
+        assert -> "Sure." = reply
+    ]
+]
+
+
+{
+  "exercise": "bob",
+  "cases": [
+    {
+      "uuid": "e162fead-606f-437a-a166-d051915cea8e",
+      "description": "stating something",
+      "property": "response",
+      "input": {
+        "heyBob": "Tom-ay-to, tom-aaaah-to."
+      },
+      "expected": "Whatever."
+    },
+    {
+      "uuid": "73a966dc-8017-47d6-bb32-cf07d1a5fcd9",
+      "description": "shouting",
+      "property": "response",
+      "input": {
+        "heyBob": "WATCH OUT!"
+      },
+      "expected": "Whoa, chill out!"
+    },
+    {
+      "uuid": "d6c98afd-df35-4806-b55e-2c457c3ab748",
+      "description": "shouting gibberish",
+      "property": "response",
+      "input": {
+        "heyBob": "FCECDFCAAB"
+      },
+      "expected": "Whoa, chill out!"
+    },
+    {
+      "uuid": "8a2e771d-d6f1-4e3f-b6c6-b41495556e37",
+      "description": "asking a question",
+      "property": "response",
+      "input": {
+        "heyBob": "Does this cryogenic chamber make me look fat?"
+      },
+      "expected": "Sure."
+    },
+    {
+      "uuid": "81080c62-4e4d-4066-b30a-48d8d76920d9",
+      "description": "asking a numeric question",
+      "property": "response",
+      "input": {
+        "heyBob": "You are, what, like 15?"
+      },
+      "expected": "Sure."
+    },
+    {
+      "uuid": "2a02716d-685b-4e2e-a804-2adaf281c01e",
+      "description": "asking gibberish",
+      "property": "response",
+      "input": {
+        "heyBob": "fffbbcbeab?"
+      },
+      "expected": "Sure."
+    },
+    {
+      "uuid": "c02f9179-ab16-4aa7-a8dc-940145c385f7",
+      "description": "talking forcefully",
+      "property": "response",
+      "input": {
+        "heyBob": "Hi there!"
+      },
+      "expected": "Whatever."
+    },
+    {
+      "uuid": "153c0e25-9bb5-4ec5-966e-598463658bcd",
+      "description": "using acronyms in regular speech",
+      "property": "response",
+      "input": {
+        "heyBob": "It's OK if you don't want to go work for NASA."
+      },
+      "expected": "Whatever."
+    },
+    {
+      "uuid": "a5193c61-4a92-4f68-93e2-f554eb385ec6",
+      "description": "forceful question",
+      "property": "response",
+      "input": {
+        "heyBob": "WHAT'S GOING ON?"
+      },
+      "expected": "Calm down, I know what I'm doing!"
+    },
+    {
+      "uuid": "a20e0c54-2224-4dde-8b10-bd2cdd4f61bc",
+      "description": "shouting numbers",
+      "property": "response",
+      "input": {
+        "heyBob": "1, 2, 3 GO!"
+      },
+      "expected": "Whoa, chill out!"
+    },
+    {
+      "uuid": "f7bc4b92-bdff-421e-a238-ae97f230ccac",
+      "description": "no letters",
+      "property": "response",
+      "input": {
+        "heyBob": "1, 2, 3"
+      },
+      "expected": "Whatever."
+    },
+    {
+      "uuid": "bb0011c5-cd52-4a5b-8bfb-a87b6283b0e2",
+      "description": "question with no letters",
+      "property": "response",
+      "input": {
+        "heyBob": "4?"
+      },
+      "expected": "Sure."
+    },
+    {
+      "uuid": "496143c8-1c31-4c01-8a08-88427af85c66",
+      "description": "shouting with special characters",
+      "property": "response",
+      "input": {
+        "heyBob": "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!"
+      },
+      "expected": "Whoa, chill out!"
+    },
+    {
+      "uuid": "e6793c1c-43bd-4b8d-bc11-499aea73925f",
+      "description": "shouting with no exclamation mark",
+      "property": "response",
+      "input": {
+        "heyBob": "I HATE THE DENTIST"
+      },
+      "expected": "Whoa, chill out!"
+    },
+    {
+      "uuid": "aa8097cc-c548-4951-8856-14a404dd236a",
+      "description": "statement containing question mark",
+      "property": "response",
+      "input": {
+        "heyBob": "Ending with ? means a question."
+      },
+      "expected": "Whatever."
+    },
+    {
+      "uuid": "9bfc677d-ea3a-45f2-be44-35bc8fa3753e",
+      "description": "non-letters with question",
+      "property": "response",
+      "input": {
+        "heyBob": ":) ?"
+      },
+      "expected": "Sure."
+    },
+    {
+      "uuid": "8608c508-f7de-4b17-985b-811878b3cf45",
+      "description": "prattling on",
+      "property": "response",
+      "input": {
+        "heyBob": "Wait! Hang on. Are you going to be OK?"
+      },
+      "expected": "Sure."
+    },
+    {
+      "uuid": "bc39f7c6-f543-41be-9a43-fd1c2f753fc0",
+      "description": "silence",
+      "property": "response",
+      "input": {
+        "heyBob": ""
+      },
+      "expected": "Fine. Be that way!"
+    },
+    {
+      "uuid": "d6c47565-372b-4b09-b1dd-c40552b8378b",
+      "description": "prolonged silence",
+      "property": "response",
+      "input": {
+        "heyBob": "          "
+      },
+      "expected": "Fine. Be that way!"
+    },
+    {
+      "uuid": "4428f28d-4100-4d85-a902-e5a78cb0ecd3",
+      "description": "alternate silence",
+      "property": "response",
+      "input": {
+        "heyBob": "\t\t\t\t\t\t\t\t\t\t"
+      },
+      "expected": "Fine. Be that way!"
+    },
+    {
+      "uuid": "66953780-165b-4e7e-8ce3-4bcb80b6385a",
+      "description": "multiple line question",
+      "property": "response",
+      "input": {
+        "heyBob": "\nDoes this cryogenic chamber make me look fat?\nNo."
+      },
+      "expected": "Whatever."
+    },
+    {
+      "uuid": "5371ef75-d9ea-4103-bcfa-2da973ddec1b",
+      "description": "starting with whitespace",
+      "property": "response",
+      "input": {
+        "heyBob": "         hmmmmmmm..."
+      },
+      "expected": "Whatever."
+    },
+    {
+      "uuid": "05b304d6-f83b-46e7-81e0-4cd3ca647900",
+      "description": "ending with whitespace",
+      "property": "response",
+      "input": {
+        "heyBob": "Okay if like my  spacebar  quite a bit?   "
+      },
+      "expected": "Sure."
+    },
+    {
+      "uuid": "72bd5ad3-9b2f-4931-a988-dce1f5771de2",
+      "description": "other whitespace",
+      "property": "response",
+      "input": {
+        "heyBob": "\n\r \t"
+      },
+      "expected": "Fine. Be that way!"
+    },
+    {
+      "uuid": "12983553-8601-46a8-92fa-fcaa3bc4a2a0",
+      "description": "non-question ending with whitespace",
+      "property": "response",
+      "input": {
+        "heyBob": "This is a statement ending with whitespace      "
+      },
+      "expected": "Whatever."
+    },
+    {
+      "uuid": "2c7278ac-f955-4eb4-bf8f-e33eb4116a15",
+      "reimplements": "66953780-165b-4e7e-8ce3-4bcb80b6385a",
+      "description": "multiple line question",
+      "comments": ["Use one sentence, spanning multiple lines."],
+      "property": "response",
+      "input": {
+        "heyBob": "\nDoes this cryogenic chamber make\n me look fat?"
+      },
+      "expected": "Sure."
+    }
+  ]
+}

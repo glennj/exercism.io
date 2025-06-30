@@ -1,0 +1,15 @@
+response: function [heyBob][
+    if empty? strip.start heyBob -> return "Fine. Be that way!"
+    
+    asking: strip.end heyBob | suffix? "?"
+
+    yelling: and? [match? heyBob {/[[:upper:]]/}]
+                  [not? match? heyBob {/[[:lower:]]/}]
+
+    when [
+        [and? asking yelling] -> "Calm down, I know what I'm doing!"
+        yelling -> "Whoa, chill out!"
+        asking -> "Sure."
+        true -> "Whatever."
+    ]
+]

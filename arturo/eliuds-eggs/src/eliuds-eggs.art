@@ -1,0 +1,10 @@
+eggCount: function [encodedNumber][
+    ; recursively
+    counter: function [n c][
+        switch zero? n
+            -> c
+            -> counter (shr n 1) (add c and n 1)
+    ]
+
+    counter encodedNumber 0
+]

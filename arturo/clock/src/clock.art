@@ -1,0 +1,34 @@
+minsPerHour: scalar in`minute 1`hour
+minsPerDay:  scalar in`minute 1`day
+
+; ref https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html#floorMod-int-int-
+floormod: function [numerator denominator][
+    mod numerator denominator | add denominator | mod denominator
+]
+
+normalize: $ => [floormod & minsPerDay]
+
+;;
+define :clock [
+    init: method [hour :quantity minute :quantity][
+        this\minutes: normalize scalar minute + in`minute hour
+    ]
+
+    increment: method [time :quantity][
+        this\minutes: normalize this\minutes + scalar time
+    ]
+
+    decrement: method [time :quantity][
+        this\increment neg time
+    ]
+
+    equal?: method [that][
+        equal? this\minutes that\minutes
+    ]
+
+    string: method [][
+        divmod this\minutes minsPerHour
+        | map [n][ pad.with:'0' (to :string n) 2 ]
+        | join.with:':'
+    ]
+]

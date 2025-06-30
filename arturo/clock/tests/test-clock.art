@@ -1,0 +1,337 @@
+import.version:1.1.2 {unitt}!
+import {src/clock}!
+
+suite "Clock" [
+    suite "Create a new clock with an initial time" [
+        test "on the hour" [
+            result: to :string to :clock [8`hr 0`min]
+            assert -> "08:00" = result
+        ]
+
+        test "past the hour" [
+            result: to :string to :clock [11`hr 9`min]
+            assert -> "11:09" = result
+        ]
+
+        test "midnight is zero hours" [
+            result: to :string to :clock [24`hr 0`min]
+            assert -> "00:00" = result
+        ]
+
+        test "hour rolls over" [
+            result: to :string to :clock [25`hr 0`min]
+            assert -> "01:00" = result
+        ]
+
+        test "hour rolls over continuously" [
+            result: to :string to :clock [100`hr 0`min]
+            assert -> "04:00" = result
+        ]
+
+        test "sixty minutes is next hour" [
+            result: to :string to :clock [1`hr 60`min]
+            assert -> "02:00" = result
+        ]
+
+        test "minutes roll over" [
+            result: to :string to :clock [0`hr 160`min]
+            assert -> "02:40" = result
+        ]
+
+        test "minutes roll over continuously" [
+            result: to :string to :clock [0`hr 1723`min]
+            assert -> "04:43" = result
+        ]
+
+        test "hour and minutes roll over" [
+            result: to :string to :clock [25`hr 160`min]
+            assert -> "03:40" = result
+        ]
+
+        test "hour and minutes roll over continuously" [
+            result: to :string to :clock [201`hr 3001`min]
+            assert -> "11:01" = result
+        ]
+
+        test "hour and minutes roll over to exactly midnight" [
+            result: to :string to :clock [72`hr 8640`min]
+            assert -> "00:00" = result
+        ]
+
+        test "negative hour" [
+            result: to :string to :clock @[neg 1`hr 15`min]
+            assert -> "23:15" = result
+        ]
+
+        test "negative hour rolls over" [
+            result: to :string to :clock @[neg 25`hr 0`min]
+            assert -> "23:00" = result
+        ]
+
+        test "negative hour rolls over continuously" [
+            result: to :string to :clock @[neg 91`hr 0`min]
+            assert -> "05:00" = result
+        ]
+
+        test "negative minutes" [
+            result: to :string to :clock @[1`hr neg 40`min]
+            assert -> "00:20" = result
+        ]
+
+        test "negative minutes roll over" [
+            result: to :string to :clock @[1`hr neg 160`min]
+            assert -> "22:20" = result
+        ]
+
+        test "negative minutes roll over continuously" [
+            result: to :string to :clock @[1`hr neg 4820`min]
+            assert -> "16:40" = result
+        ]
+
+        test "negative sixty minutes is previous hour" [
+            result: to :string to :clock @[2`hr neg 60`min]
+            assert -> "01:00" = result
+        ]
+
+        test "negative hour and minutes roll over" [
+            result: to :string to :clock @[neg 25`hr neg 160`min]
+            assert -> "20:20" = result
+        ]
+
+        test "negative hour and minutes roll over continuously" [
+            result: to :string to :clock @[neg 121`hr neg 5810`min]
+            assert -> "22:10" = result
+        ]
+    ]
+
+    suite "Add minutes" [
+        test "add minutes" [
+            c: to :clock [10`hr 0`min]
+            do [c\increment 3`min]
+            result: to :string c
+            assert -> "10:03" = result
+        ]
+
+        test "add no minutes" [
+            c: to :clock [6`hr 41`min]
+            do [c\increment 0`min]
+            result: to :string c
+            assert -> "06:41" = result
+        ]
+
+        test "add to next hour" [
+            c: to :clock [0`hr 45`min]
+            do [c\increment 40`min]
+            result: to :string c
+            assert -> "01:25" = result
+        ]
+
+        test "add more than one hour" [
+            c: to :clock [10`hr 0`min]
+            do [c\increment 61`min]
+            result: to :string c
+            assert -> "11:01" = result
+        ]
+
+        test "add more than two hours with carry" [
+            c: to :clock [0`hr 45`min]
+            do [c\increment 160`min]
+            result: to :string c
+            assert -> "03:25" = result
+        ]
+
+        test "add across midnight" [
+            c: to :clock [23`hr 59`min]
+            do [c\increment 2`min]
+            result: to :string c
+            assert -> "00:01" = result
+        ]
+
+        test "add more than one day (1500 min = 25 hrs)" [
+            c: to :clock [5`hr 32`min]
+            do [c\increment 1500`min]
+            result: to :string c
+            assert -> "06:32" = result
+        ]
+
+        test "add more than two days" [
+            c: to :clock [1`hr 1`min]
+            do [c\increment 3500`min]
+            result: to :string c
+            assert -> "11:21" = result
+        ]
+    ]
+
+
+    suite "Subtract minutes" [
+        test "subtract minutes" [
+            c: to :clock [10`hr 3`min]
+            do [c\decrement 3`min]
+            result: to :string c
+            assert -> "10:00" = result
+        ]
+
+        test "subtract to previous hour" [
+            c: to :clock [10`hr 3`min]
+            do [c\decrement 30`min]
+            result: to :string c
+            assert -> "09:33" = result
+        ]
+
+        test "subtract more than an hour" [
+            c: to :clock [10`hr 3`min]
+            do [c\decrement 70`min]
+            result: to :string c
+            assert -> "08:53" = result
+        ]
+
+        test "subtract across midnight" [
+            c: to :clock [0`hr 3`min]
+            do [c\decrement 4`min]
+            result: to :string c
+            assert -> "23:59" = result
+        ]
+
+        test "subtract more than two hours" [
+            c: to :clock [0`hr 0`min]
+            do [c\decrement 160`min]
+            result: to :string c
+            assert -> "21:20" = result
+        ]
+
+        test "subtract more than two hours with borrow" [
+            c: to :clock [6`hr 15`min]
+            do [c\decrement 160`min]
+            result: to :string c
+            assert -> "03:35" = result
+        ]
+
+        test "subtract more than one day (1500 min = 25 hrs)" [
+            c: to :clock [5`hr 32`min]
+            do [c\decrement 1500`min]
+            result: to :string c
+            assert -> "04:32" = result
+        ]
+
+        test "subtract more than two days" [
+            c: to :clock [2`hr 20`min]
+            do [c\decrement 3000`min]
+            result: to :string c
+            assert -> "00:20" = result
+        ]
+    ]
+
+    suite "Compare two clocks for equality" [
+        test "clocks with same time" [
+            c1: to :clock [15`hr 37`min]
+            c2: to :clock [15`hr 37`min]
+            result: c1 = c2
+            assert -> true = result
+        ]
+
+        test "clocks a minute apart" [
+            c1: to :clock [15`hr 36`min]
+            c2: to :clock [15`hr 37`min]
+            result: c1 = c2
+            assert -> false = result
+        ]
+
+        test "clocks an hour apart" [
+            c1: to :clock [14`hr 37`min]
+            c2: to :clock [15`hr 37`min]
+            result: c1 = c2
+            assert -> false = result
+        ]
+
+        test "clocks with hour overflow" [
+            c1: to :clock [10`hr 37`min]
+            c2: to :clock [34`hr 37`min]
+            result: c1 = c2
+            assert -> true = result
+        ]
+
+        test "clocks with hour overflow by several days" [
+            c1: to :clock [3`hr 11`min]
+            c2: to :clock [99`hr 11`min]
+            result: c1 = c2
+            assert -> true = result
+        ]
+
+        test "clocks with negative hour" [
+            c1: to :clock [22`hr 40`min]
+            c2: to :clock @[neg 2`hr 40`min]
+            result: c1 = c2
+            assert -> true = result
+        ]
+
+        test "clocks with negative hour that wraps" [
+            c1: to :clock [17`hr 3`min]
+            c2: to :clock @[neg 31`hr 3`min]
+            result: c1 = c2
+            assert -> true = result
+        ]
+
+        test "clocks with negative hour that wraps multiple times" [
+            c1: to :clock [13`hr 49`min]
+            c2: to :clock @[neg 83`hr 49`min]
+            result: c1 = c2
+            assert -> true = result
+        ]
+
+        test "clocks with minute overflow" [
+            c1: to :clock [0`hr 1`min]
+            c2: to :clock [0`hr 1441`min]
+            result: c1 = c2
+            assert -> true = result
+        ]
+
+        test "clocks with minute overflow by several days" [
+            c1: to :clock [2`hr 2`min]
+            c2: to :clock [2`hr 4322`min]
+            result: c1 = c2
+            assert -> true = result
+        ]
+
+        test "clocks with negative minute" [
+            c1: to :clock [2`hr 40`min]
+            c2: to :clock [3`hr neg 20`min]
+            result: c1 = c2
+            assert -> true = result
+        ]
+
+        test "clocks with negative minute that wraps" [
+            c1: to :clock [4`hr 10`min]
+            c2: to :clock [5`hr neg 1490`min]
+            result: c1 = c2
+            assert -> true = result
+        ]
+
+        test "clocks with negative minute that wraps multiple times" [
+            c1: to :clock [6`hr 15`min]
+            c2: to :clock [6`hr neg 4305`min]
+            result: c1 = c2
+            assert -> true = result
+        ]
+
+        test "clocks with negative hours and minutes" [
+            c1: to :clock [7`hr 32`min]
+            c2: to :clock @[neg 12`hr neg 268`min]
+            result: c1 = c2
+            assert -> true = result
+        ]
+
+        test "clocks with negative hours and minutes that wrap" [
+            c1: to :clock [18`hr 7`min]
+            c2: to :clock @[neg 54`hr neg 11513`min]
+            result: c1 = c2
+            assert -> true = result
+        ]
+
+        test "full clock and zeroed clock" [
+            c1: to :clock [24`hr 0`min]
+            c2: to :clock [0`hr 0`min]
+            result: c1 = c2
+            assert -> true = result
+        ]
+    ]
+]
