@@ -1,0 +1,12 @@
+isogram?: function [word][
+    seen: []
+
+    loop (lower word) 'c [
+        when [
+            c ∈ seen -> return false
+            lower? c -> 'seen ++ c
+        ]
+    ]
+
+    true
+]

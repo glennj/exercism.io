@@ -1,0 +1,49 @@
+import.version:2.0.1 {unitt}!
+import {src/hamming}!
+
+suite "Hamming" [
+    test "empty strands" [
+        result: distance "" ""
+        assert -> 0 = result
+    ]
+
+    test "single letter identical strands" [
+        result: distance "A" "A"
+        assert -> 0 = result
+    ]
+
+    test "long indentical strands" [
+        result: distance "GGACTGAAATCTG" "GGACTGAAATCTG"
+        assert -> 0 = result
+    ]
+
+    test "single letter different strands" [
+        result: distance "G" "T"
+        assert -> 1 = result
+    ]
+
+    test "long different strands" [
+        result: distance "GGACGGATTCTG" "AGGACGGATTCT"
+        assert -> 9 = result
+    ]
+
+    test "disallow empty first strand" [
+        result: distance "" "G"
+        assert -> null = result
+    ]
+
+    test "disallow first strand longer" [
+        result: distance "AATG" "AAA"
+        assert -> null = result
+    ]
+
+    test "disallow second strand longer" [
+        result: distance "ATA" "AGTG"
+        assert -> null = result
+    ]
+
+    test "disallow empty second strand" [
+        result: distance "G" ""
+        assert -> null = result
+    ]
+]

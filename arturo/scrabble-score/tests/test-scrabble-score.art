@@ -1,0 +1,59 @@
+import.version:2.0.1 {unitt}!
+import {src/scrabble-score}!
+
+suite "Scrabble Score" [
+    test "lowercase letter" [
+        result: score "a"
+        assert -> 1 = result
+    ]
+
+    test "uppercase letter" [
+        result: score "A"
+        assert -> 1 = result
+    ]
+
+    test "valuable letter" [
+        result: score "f"
+        assert -> 4 = result
+    ]
+
+    test "short word" [
+        result: score "at"
+        assert -> 2 = result
+    ]
+
+    test "short, valuable word" [
+        result: score "zoo"
+        assert -> 12 = result
+    ]
+
+    test "medium word" [
+        result: score "street"
+        assert -> 6 = result
+    ]
+
+    test "medium, valuable word" [
+        result: score "quirky"
+        assert -> 22 = result
+    ]
+
+    test "long, mixed-case word" [
+        result: score "OxyphenButazone"
+        assert -> 41 = result
+    ]
+
+    test "english-like word" [
+        result: score "pinata"
+        assert -> 8 = result
+    ]
+
+    test "empty input" [
+        result: score ""
+        assert -> 0 = result
+    ]
+
+    test "entire alphabet available" [
+        result: score "abcdefghijklmnopqrstuvwxyz"
+        assert -> 87 = result
+    ]
+]

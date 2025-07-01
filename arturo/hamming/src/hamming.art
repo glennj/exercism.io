@@ -1,0 +1,7 @@
+distance: function [strand1 strand2][
+    if (size strand1) <> (size strand2)
+        -> return null
+
+    couple (split strand1) (split strand2)
+    | enumerate 'pair [ [a b]: pair, a <> b ]
+]
