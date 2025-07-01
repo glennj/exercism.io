@@ -1,0 +1,17 @@
+identity: $ => [&]
+square:   $ => [&^2]
+
+;; not as efficient as the simple arithmetic expressions,
+;; but it shows the symmetry between the two functions
+
+squareOfSum: function [n][
+    range 1 n | map => identity | sum | square
+]
+
+sumOfSquares: function [n][
+    range 1 n | map => square | sum | identity
+]
+
+differenceOfSquares: function [n][
+    abs sub sumOfSquares n squareOfSum n
+]
