@@ -1,0 +1,29 @@
+abbreviate: function[phrase][
+    seekingWordStart: true
+    abbr: ""
+
+    loop phrase [c][
+        switch seekingWordStart
+            [
+                if alpha? c [
+                    'abbr ++ c
+                    seekingWordStart: false
+                ]
+            ]
+            [
+                if not? wordChar? c [
+                    seekingWordStart: true
+                ]
+            ]
+    ]
+
+    upper abbr
+]
+
+alpha?: function [char][
+    or? [lower? char] [upper? char]
+]
+
+wordChar?: function [char][
+    or? [alpha? char] [char = '\'']
+]

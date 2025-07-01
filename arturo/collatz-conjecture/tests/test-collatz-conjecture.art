@@ -1,0 +1,34 @@
+import.version:2.0.1 {unitt}!
+import {src/collatz-conjecture}!
+
+suite "Collatz Conjecture"[
+    test "zero steps for one" [
+        steps: collatz 1
+        assert -> 0 = steps
+    ]
+
+    test "large number of even and odd steps" [
+        steps: collatz 1000000
+        assert -> 152 = steps
+    ]
+
+    test "even and odd steps" [
+        steps: collatz 12
+        assert -> 9 = steps
+    ]
+
+    test "divide if even" [
+        steps: collatz 16
+        assert -> 4 = steps
+    ]
+
+    test "zero is an error" [
+        steps: collatz 0
+        assert -> null = steps
+    ]
+
+    test "negative value is an error" [
+        steps: collatz neg 15
+        assert -> null = steps
+    ]
+]

@@ -1,0 +1,355 @@
+import.version:2.0.1 {unitt}!
+import {src/allergies}!
+
+suite "Allergies" [
+  suite "Allergies - Eggs" [
+    test "not allergic to anything" [
+        score: to :allergies [0]
+        result: do [score\allergicTo? "eggs"]
+        assert -> false? result
+    ]
+
+    test "allergic only to eggs" [
+        score: to :allergies [1]
+        result: do [score\allergicTo? "eggs"]
+        assert -> true? result
+    ]
+
+    test "allergic to eggs and something else" [
+        score: to :allergies [3]
+        result: do [score\allergicTo? "eggs"]
+        assert -> true? result
+    ]
+
+    test "allergic to something but not eggs" [
+        score: to :allergies [2]
+        result: do [score\allergicTo? "eggs"]
+        assert -> false? result
+    ]
+
+    test "allergic to everything" [
+        score: to :allergies [255]
+        result: do [score\allergicTo? "eggs"]
+        assert -> true? result
+    ]
+  ]
+
+  suite "Allergies - Peanuts" [
+    test "not allergic to anything" [
+        score: to :allergies [0]
+        result: do [score\allergicTo? "peanuts"]
+        assert -> false? result
+    ]
+
+    test "allergic only to peanuts" [
+        score: to :allergies [2]
+        result: do [score\allergicTo? "peanuts"]
+        assert -> true? result
+    ]
+
+    test "allergic to peanuts and something else" [
+        score: to :allergies [7]
+        result: do [score\allergicTo? "peanuts"]
+        assert -> true? result
+    ]
+
+    test "allergic to something but not peanuts" [
+        score: to :allergies [5]
+        result: do [score\allergicTo? "peanuts"]
+        assert -> false? result
+    ]
+
+    test "allergic to everything" [
+        score: to :allergies [255]
+        result: do [score\allergicTo? "peanuts"]
+        assert -> true? result
+    ]
+  ]
+
+  suite "Allergies - Shellfish" [
+    test "not allergic to anything" [
+        score: to :allergies [0]
+        result: do [score\allergicTo? "shellfish"]
+        assert -> false? result
+    ]
+
+    test "allergic only to shellfish" [
+        score: to :allergies [4]
+        result: do [score\allergicTo? "shellfish"]
+        assert -> true? result
+    ]
+
+    test "allergic to shellfish and something else" [
+        score: to :allergies [14]
+        result: do [score\allergicTo? "shellfish"]
+        assert -> true? result
+    ]
+
+    test "allergic to something but not shellfish" [
+        score: to :allergies [10]
+        result: do [score\allergicTo? "shellfish"]
+        assert -> false? result
+    ]
+
+    test "allergic to everything" [
+        score: to :allergies [255]
+        result: do [score\allergicTo? "shellfish"]
+        assert ->  true? result
+    ]
+  ]
+
+  suite "Allergies - Strawberries" [
+    test "not allergic to anything" [
+        score: to :allergies [0]
+        result: do [score\allergicTo? "strawberries"]
+        assert ->  false? result
+    ]
+
+    test "allergic only to strawberries" [
+        score: to :allergies [8]
+        result: do [score\allergicTo? "strawberries"]
+        assert ->  true? result
+    ]
+
+    test "allergic to strawberries and something else" [
+        score: to :allergies [28]
+        result: do [score\allergicTo? "strawberries"]
+        assert ->  true? result
+    ]
+
+    test "allergic to something but not strawberries" [
+        score: to :allergies [20]
+        result: do [score\allergicTo? "strawberries"]
+        assert ->  false? result
+    ]
+
+    test "allergic to everything" [
+        score: to :allergies [255]
+        result: do [score\allergicTo? "strawberries"]
+        assert ->  true? result
+    ]
+  ]
+
+  suite "Allergies - Tomatoes" [
+    test "not allergic to anything" [
+        score: to :allergies [0]
+        result: do [score\allergicTo? "tomatoes"]
+        assert ->  false? result
+    ]
+
+    test "allergic only to tomatoes" [
+        score: to :allergies [16]
+        result: do [score\allergicTo? "tomatoes"]
+        assert ->  true? result
+    ]
+
+    test "allergic to tomatoes and something else" [
+        score: to :allergies [56]
+        result: do [score\allergicTo? "tomatoes"]
+        assert ->  true? result
+    ]
+
+    test "allergic to something but not tomatoes" [
+        score: to :allergies [40]
+        result: do [score\allergicTo? "tomatoes"]
+        assert ->  false? result
+    ]
+
+    test "allergic to everything" [
+        score: to :allergies [255]
+        result: do [score\allergicTo? "tomatoes"]
+        assert ->  true? result
+    ]
+  ]
+
+  suite "Allergies - Chocolate" [
+    test "not allergic to anything" [
+        score: to :allergies [0]
+        result: do [score\allergicTo? "chocolate"]
+        assert ->  false? result
+    ]
+
+    test "allergic only to chocolate" [
+        score: to :allergies [32]
+        result: do [score\allergicTo? "chocolate"]
+        assert ->  true? result
+    ]
+
+    test "allergic to chocolate and something else" [
+        score: to :allergies [112]
+        result: do [score\allergicTo? "chocolate"]
+        assert ->  true? result
+    ]
+
+    test "allergic to something but not chocolate" [
+        score: to :allergies [80]
+        result: do [score\allergicTo? "chocolate"]
+        assert ->  false? result
+    ]
+
+    test "allergic to everything" [
+        score: to :allergies [255]
+        result: do [score\allergicTo? "chocolate"]
+        assert ->  true? result
+    ]
+  ]
+
+  suite "Allergies - Pollen" [
+    test "not allergic to anything" [
+        score: to :allergies [0]
+        result: do [score\allergicTo? "pollen"]
+        assert ->  false? result
+    ]
+
+    test "allergic only to pollen" [
+        score: to :allergies [64]
+        result: do [score\allergicTo? "pollen"]
+        assert ->  true? result
+    ]
+
+    test "allergic to pollen and something else" [
+        score: to :allergies [224]
+        result: do [score\allergicTo? "pollen"]
+        assert ->  true? result
+    ]
+
+    test "allergic to something but not pollen" [
+        score: to :allergies [160]
+        result: do [score\allergicTo? "pollen"]
+        assert ->  false? result
+    ]
+
+    test "allergic to everything" [
+        score: to :allergies [255]
+        result: do [score\allergicTo? "pollen"]
+        assert ->  true? result
+    ]
+  ]
+
+  suite "Allergies - Cats" [
+    test "not allergic to anything" [
+        score: to :allergies [0]
+        result: do [score\allergicTo? "cats"]
+        assert ->  false? result
+    ]
+
+    test "allergic only to cats" [
+        score: to :allergies [128]
+        result: do [score\allergicTo? "cats"]
+        assert ->  true? result
+    ]
+
+    test "allergic to cats and something else" [
+        score: to :allergies [192]
+        result: do [score\allergicTo? "cats"]
+        assert ->  true? result
+    ]
+
+    test "allergic to something but not cats" [
+        score: to :allergies [64]
+        result: do [score\allergicTo? "cats"]
+        assert ->  false? result
+    ]
+
+    test "allergic to everything" [
+        score: to :allergies [255]
+        result: do [score\allergicTo? "cats"]
+        assert ->  true? result
+    ]
+  ]
+
+  suite "Allergies - List" [
+    test "not allergic to anything" [
+        score: to :allergies [0]
+        results: do [score\list]
+        expected: []
+        assert -> expected = results
+    ]
+
+    test "just eggs" [
+        score: to :allergies [1]
+        results: do [score\list]
+        expected: ["eggs"]
+        assert -> expected = results
+    ]
+
+    test "just peanuts" [
+        score: to :allergies [2]
+        results: do [score\list]
+        expected: ["peanuts"]
+        assert -> expected = results
+    ]
+
+    test "just strawberries" [
+        score: to :allergies [8]
+        results: do [score\list]
+        expected: ["strawberries"]
+        assert -> expected = results
+    ]
+
+    test "eggs and peanuts" [
+        score: to :allergies [3]
+        results: do [score\list]
+        expected: ["eggs" "peanuts"]
+        assert -> expected = results
+    ]
+
+    test "more than eggs but not peanuts" [
+        score: to :allergies [5]
+        results: do [score\list]
+        expected: ["eggs" "shellfish"]
+        assert -> expected = results
+    ]
+
+    test "lots of stuff" [
+        score: to :allergies [248]
+        results: do [score\list]
+        expected: [
+            "strawberries"
+            "tomatoes"
+            "chocolate"
+            "pollen"
+            "cats"
+        ]
+        assert -> expected = results
+    ]
+
+    test "everything" [
+        score: to :allergies [255]
+        results: do [score\list]
+        expected: [
+            "eggs"
+            "peanuts"
+            "shellfish"
+            "strawberries"
+            "tomatoes"
+            "chocolate"
+            "pollen"
+            "cats"
+        ]
+        assert -> expected = results
+    ]
+
+    test "no allergen score parts" [
+        score: to :allergies [509]
+        results: do [score\list]
+        expected: [
+            "eggs"
+            "shellfish"
+            "strawberries"
+            "tomatoes"
+            "chocolate"
+            "pollen"
+            "cats"
+        ]
+        assert -> expected = results
+    ]
+
+    test "no allergen score parts without highest valid score" [
+        score: to :allergies [257]
+        results: do [score\list]
+        expected: ["eggs"]
+        assert -> expected = results
+    ]
+  ]
+]

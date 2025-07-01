@@ -1,0 +1,13 @@
+findAnagrams: function[subject candidates][
+    toKey: function [str][ sort split str ]
+
+    subjLc: lower subject
+    subjKey: toKey subjLc
+
+    select candidates [cand][
+        candLc: lower cand
+        candKey: toKey candLc
+
+        and? [subjLc <> candLc] [subjKey = candKey]
+    ]
+]

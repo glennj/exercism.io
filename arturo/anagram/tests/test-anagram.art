@@ -1,0 +1,148 @@
+import.version:2.0.1 {unitt}!
+import {src/anagram}!
+
+suite "Anagram" [
+    test "no matches" [
+        subject: "diaper"
+        candidates: ["hello" "world" "zombies" "pants"]
+        results: findAnagrams subject candidates
+        expected: []
+        assert -> expected = results
+    ]
+
+    test "detects two anagrams" [
+        subject: "solemn"
+        candidates: ["lemons" "cherry" "melons"]
+        results: findAnagrams subject candidates
+        expected: ["lemons" "melons"]
+        assert -> expected = results
+    ]
+
+    test "does not detect anagram subsets" [
+        subject: "good"
+        candidates: ["dog" "goody"]
+        results: findAnagrams subject candidates
+        expected: []
+        assert -> expected = results
+    ]
+
+    test "detects anagram" [
+        subject: "listen"
+        candidates: ["enlists" "google" "inlets" "banana"]
+        results: findAnagrams subject candidates
+        expected: ["inlets"]
+        assert -> expected = results
+    ]
+    
+    test "detects three anagrams" [
+        subject: "allergy"
+        candidates: ["gallery" "ballerina" "regally" "clergy" "largely" "leading"]
+        results: findAnagrams subject candidates
+        expected: ["gallery" "regally" "largely"]
+        assert -> expected = results
+    ]
+
+    test "detects multiple anagrams with different case" [
+        subject: "nose"
+        candidates: ["Eons" "ONES"]
+        results: findAnagrams subject candidates
+        expected: ["Eons" "ONES"]
+        assert -> expected = results
+    ]
+
+    test "does not detect non-anagrams with identical checksum" [
+        subject: "mass"
+        candidates: ["last"]
+        results: findAnagrams subject candidates
+        expected: []
+        assert -> expected = results
+    ]
+
+    test "detects anagrams case-insensitively" [
+        subject: "Orchestra"
+        candidates: ["cashregister" "Carthorse" "radishes"]
+        results: findAnagrams subject candidates
+        expected: ["Carthorse"]
+        assert -> expected = results
+    ]
+
+    test "detects anagrams using case-insensitive subject" [
+        subject: "Orchestra"
+        candidates: ["cashregister" "carthorse" "radishes"]
+        results: findAnagrams subject candidates
+        expected: ["carthorse"]
+        assert -> expected = results
+    ]
+
+    test "detects anagrams using case-insensitive possible matches" [
+        subject: "orchestra"
+        candidates: ["cashregister" "Carthorse" "radishes"]
+        results: findAnagrams subject candidates
+        expected: ["Carthorse"]
+        assert -> expected = results
+    ]
+
+    test "does not detect an anagram if the original word is repeated" [
+        subject: "go"
+        candidates: ["goGoGO"]
+        results: findAnagrams subject candidates
+        expected: []
+        assert -> expected = results
+    ]
+
+    test "anagrams must use all letters exactly once" [
+        subject: "tapper"
+        candidates: ["patter"]
+        results: findAnagrams subject candidates
+        expected: []
+        assert -> expected = results
+    ]
+
+    test "words are not anagrams of themselves" [
+        subject: "BANANA"
+        candidates: ["BANANA"]
+        results: findAnagrams subject candidates
+        expected: []
+        assert -> expected = results
+    ]
+
+    test "words are not anagrams of themselves even if letter case is partially different" [
+        subject: "BANANA"
+        candidates: ["Banana"]
+        results: findAnagrams subject candidates
+        expected: []
+        assert -> expected = results
+    ]
+
+    test "words are not anagrams of themselves even if letter case is completely different" [
+        subject: "BANANA"
+        candidates: ["banana"]
+        results: findAnagrams subject candidates
+        expected: []
+        assert -> expected = results
+    ]
+
+    test "words other than themselves can be anagrams" [
+        subject: "LISTEN"
+        candidates: ["Listen" "Silent" "LISTEN"]
+        results: findAnagrams subject candidates
+        expected: ["Silent"]
+        assert -> expected = results
+    ]
+
+    test "handles case of greek letters" [
+        subject: "ΑΒΓ"
+        candidates: ["ΒΓΑ" "ΒΓΔ" "γβα" "αβγ"]
+        results: findAnagrams subject candidates
+        expected: ["ΒΓΑ" "γβα"]
+        assert -> expected = results
+    ]
+
+    test "different characters may have the same bytes" [
+        subject: "a⬂"
+        candidates: ["€a"]
+        results: findAnagrams subject candidates
+        expected: []
+        assert -> expected = results
+    ]
+]

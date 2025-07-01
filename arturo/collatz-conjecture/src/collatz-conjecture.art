@@ -1,0 +1,16 @@
+; with iteration not recursion
+
+collatz: function [n][
+    if n =< 0 -> return null
+
+    steps: 0
+
+    while [n > 1][
+        inc 'steps
+        switch even? n
+            -> n: n / 2
+            -> n: 1 + 3 * n
+    ]
+
+    steps
+]

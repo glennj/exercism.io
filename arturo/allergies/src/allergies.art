@@ -1,0 +1,25 @@
+allergens: [
+    "eggs"
+    "peanuts"
+    "shellfish"
+    "strawberries"
+    "tomatoes"
+    "chocolate"
+    "pollen"
+    "cats"
+]
+
+define :allergies [  
+    init: constructor [score :integer] 
+  
+    allergicTo?: method [allergen][
+        this\list | contains? allergen
+     ]  
+  
+    list: method [][
+        select.with:'i allergens [][
+            shr this\score i | and 1 | one?
+        ]
+    ] 
+] 
+ 
