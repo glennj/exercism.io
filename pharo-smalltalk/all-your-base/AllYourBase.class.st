@@ -33,20 +33,15 @@ AllYourBase >> decimalValueOfDigits: digits inBase: inputBase [
 	(digits allSatisfy: [ :digit | digit between: 0 and: inputBase - 1 ])
 		ifFalse: [ self error: 'all digits must satisfy 0 <= d < input base' ].
 
-	^ digits reduce: [ :dec :digit | dec * inputBase + digit ]
+	^ digits inject: 0 into: [ :dec :digit | dec * inputBase + digit ]
 ]
 
 { #category : 'as yet unclassified' }
 AllYourBase >> rebaseInputBase: inputBase digits: digits outputBase: outputBase [
 
-	| decimalValue  |
-	
 	(inputBase < 2) ifTrue: [ self error: 'input base must be >= 2' ].
 	(outputBase < 2) ifTrue: [ self error: 'output base must be >= 2' ].
 
-	decimalValue := digits isEmpty
-		ifTrue: [0]
-		ifFalse: [self decimalValueOfDigits: digits inBase: inputBase].
-
-	^ self decimalValue: decimalValue toDigitsOfBase: outputBase
+	^ self decimalValue: (self decimalValueOfDigits: digits inBase: inputBase) 
+		toDigitsOfBase: outputBase
 ]
