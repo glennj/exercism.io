@@ -1,0 +1,8 @@
+flattenCollection: function[collection][
+    fold.seed:[] collection [flattened elem][
+        flattened ++
+            switch block? elem
+                -> flattenCollection elem
+                -> (null? elem)? -> [] -> elem
+    ]
+]

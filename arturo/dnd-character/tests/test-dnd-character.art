@@ -1,0 +1,117 @@
+import.version:2.0.1 {unitt}!
+import {src/dnd-character}!
+
+suite "D&D Character" [
+    test "ability modifier for score 3 is -4" [
+        result: modifier 3
+        expected: neg 4
+        assert -> expected = result
+    ]
+
+    test "ability modifier for score 4 is -3" [
+        result: modifier 4
+        expected: neg 3
+        assert -> expected = result
+    ]
+    
+    test "ability modifier for score 5 is -3" [
+        result: modifier 5
+        expected: neg 3
+        assert -> expected = result
+    ]
+    
+    test "ability modifier for score 6 is -2" [
+        result: modifier 6
+        expected: neg 2
+        assert -> expected = result
+    ]
+    
+    test "ability modifier for score 7 is -2" [
+        result: modifier 7
+        expected: neg 2
+        assert -> expected = result
+    ]
+    
+    test "ability modifier for score 8 is -1" [
+        result: modifier 8
+        expected: neg 1
+        assert -> expected = result
+    ]
+    
+    test "ability modifier for score 9 is -1" [
+        result: modifier 9
+        expected: neg 1
+        assert -> expected = result
+    ]
+    
+    test "ability modifier for score 10 is 0" [
+        result: modifier 10
+        expected: 0
+        assert -> expected = result
+    ]
+    
+    test "ability modifier for score 11 is 0" [
+        result: modifier 11
+        expected: 0
+        assert -> expected = result
+    ]
+    
+    test "ability modifier for score 12 is +1" [
+        result: modifier 12
+        expected: 1
+        assert -> expected = result
+    ]
+    
+    test "ability modifier for score 13 is +1" [
+        result: modifier 13
+        expected: 1
+        assert -> expected = result
+    ]
+    
+    test "ability modifier for score 14 is +2" [
+        result: modifier 14
+        expected: 2
+        assert -> expected = result
+    ]
+    
+    test "ability modifier for score 15 is +2" [
+        result: modifier 15
+        expected: 2
+        assert -> expected = result
+    ]
+    
+    test "ability modifier for score 16 is +3" [
+        result: modifier 16
+        expected: 3
+        assert -> expected = result
+    ]
+    
+    test "ability modifier for score 17 is +3" [
+        result: modifier 17
+        expected: 3
+        assert -> expected = result
+    ]
+    
+    test "ability modifier for score 18 is +4" [
+        result: modifier 18
+        expected: 4
+        assert -> expected = result
+    ]
+
+    test "random ability is within range" [
+        result: contains? 3..18 ability
+        expected: true
+        assert -> expected = result
+    ]
+
+    test "random character is valid" [
+        result: makeCharacter
+        assert -> contains? 3..18 result\strength
+        assert -> contains? 3..18 result\dexterity
+        assert -> contains? 3..18 result\constitution
+        assert -> contains? 3..18 result\intelligence
+        assert -> contains? 3..18 result\wisdom
+        assert -> contains? 3..18 result\charisma
+        assert -> (+ 10 modifier result\constitution) = result\hitpoints
+    ]
+]
