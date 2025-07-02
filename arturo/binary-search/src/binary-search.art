@@ -1,0 +1,18 @@
+find: function [values value][  
+    left: 0
+    right: dec size values
+
+    while [left =< right][
+        index: avg left right
+
+        when.has: values\[index] [
+            [= value] -> return index
+            [< value] -> left: index + 1
+            [> value] -> right: index - 1
+        ]
+    ]
+
+    null
+]
+
+avg: $=>[ add & & | div 2 ]
