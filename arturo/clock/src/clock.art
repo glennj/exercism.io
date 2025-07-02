@@ -28,7 +28,7 @@ define :clock [
 
     string: method [][
         divmod this\minutes minsPerHour
-        | map [n][ pad.with:'0' (to :string n) 2 ]
+        | map => [to :string & | pad.with:'0' 2]
         | join.with:':'
     ]
 ]

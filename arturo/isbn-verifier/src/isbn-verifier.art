@@ -1,0 +1,17 @@
+valid?: function [isbn][
+    char2int: $=>[ to :integer to :string & ]
+    input: replace isbn "-" ""
+    isbnSum: 0
+
+    if (size input) <> 10 -> return false
+
+    loop.with:'i input 'digit [
+        when [
+            [numeric? digit] -> add 'isbnSum (10 - i) * char2int digit
+            [and? [digit = 'X'] [i = 9]] -> add 'isbnSum 10
+            true -> return false
+        ]
+    ]
+
+    zero? isbnSum % 11
+]

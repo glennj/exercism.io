@@ -1,0 +1,99 @@
+import.version:2.0.1 {unitt}!
+import {src/isbn-verifier}!
+
+suite "ISBN Verifier" [
+    test "valid ISBN" [
+        results: valid? "3-598-21508-8"
+        assert -> true = results
+    ]
+
+    test "invalid ISBN check digit" [
+        results: valid? "3-598-21508-9"
+        assert -> false = results
+    ]
+
+    test "valid ISBN with a check digit of 10" [
+        results: valid? "3-598-21507-X"
+        assert -> true = results
+    ]
+
+    test "check digit is a character other than X" [
+        results: valid? "3-598-21507-A"
+        assert -> false = results
+    ]
+
+    test "invalid check digit in ISBN is not treated as zero" [
+        results: valid? "4-598-21507-B"
+        assert -> false = results
+    ]
+
+    test "invalid character in ISBN is not treated as zero" [
+        results: valid? "3-598-P1581-X"
+        assert -> false = results
+    ]
+
+    test "X is only valid as a check digit" [
+        results: valid? "3-598-2X507-9"
+        assert -> false = results
+    ]
+
+    test "valid ISBN without separating dashes" [
+        results: valid? "3598215088"
+        assert -> true = results
+    ]
+
+    test "ISBN without separating dashes and X as check digit" [
+        results: valid? "359821507X"
+        assert -> true = results
+    ]
+
+    test "ISBN without check digit and dashes" [
+        results: valid? "359821507"
+        assert -> false = results
+    ]
+
+    test "too long ISBN and no dashes" [
+        results: valid? "3598215078X"
+        assert -> false = results
+    ]
+
+    test "too short ISBN" [
+        results: valid? "00"
+        assert -> false = results
+    ]
+
+    test "ISBN without check digit" [
+        results: valid? "3-598-21507"
+        assert -> false = results
+    ]
+
+    test "check digit of X should not be used for 0" [
+        results: valid? "3-598-21515-X"
+        assert -> false = results
+    ]
+
+    test "empty ISBN" [
+        results: valid? ""
+        assert -> false = results
+    ]
+
+    test "input is 9 characters" [
+        results: valid? "134456729"
+        assert -> false = results
+    ]
+
+    test "invalid characters are not ignored after checking length" [
+        results: valid? "3132P34035"
+        assert -> false = results
+    ]
+
+    test "invalid characters are not ignored before checking length" [
+        results: valid? "3598P215088"
+        assert -> false = results
+    ]
+
+    test "input is too long but contains a valid ISBN" [
+        results: valid? "98245726788"
+        assert -> false = results
+    ]
+]
