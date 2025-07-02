@@ -1,19 +1,20 @@
+;; Making this a "global" means I don't have to pass it to all the functions.
+;; Also, it acts as memoization for the next call to `prime`.
+primes: [2 3]
+
 prime: function [number][
     if not? positive? number -> return false
-    if one? number -> return 2
-
-    primes: [2 3]
-    while [number > size primes] -> append 'primes nextPrime primes
-    last primes
+    while [number > size primes] -> append 'primes nextPrime
+    primes\[number - 1]
 ]
 
-nextPrime: function [primes][
+nextPrime: function [][
     candidate: 2 + last primes
-    while [not? prime? candidate primes] -> add 'candidate 2
+    while [not? prime? candidate] -> add 'candidate 2
     candidate
 ]
 
-prime?: function [n primes][
+prime?: function [n][
     loop primes 'p [
         if n < p * p -> break
         if zero? mod n p -> return false

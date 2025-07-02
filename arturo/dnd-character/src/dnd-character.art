@@ -1,6 +1,6 @@
-modifier: $ =>[ sub & 10 | fdiv 2 | floor ]
+modifier: $ =>[ & | sub 10 | fdiv 2 | floor ]
 
-ability: $ => [
+ability: function [][
     dice: map 4 =>[ random 1 6 ]
     (sum dice) - (min dice)
 ]
