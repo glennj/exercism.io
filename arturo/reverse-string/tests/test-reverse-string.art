@@ -1,0 +1,34 @@
+import.version:2.0.1 {unitt}!
+import {src/reverse-string}!
+
+suite "Reverse string" [
+    test "an empty string" [
+        result: reverseString ""
+        assert -> "" = result
+    ]
+
+    test "a word" [
+        result: reverseString "robot"
+        assert -> "tobor" = result
+    ]
+
+    test "a capitalized word" [
+        result: reverseString "Ramen"
+        assert -> "nemaR" = result
+    ]
+
+    test "a sentence with punctuation" [
+        result: reverseString "I'm hungry!"
+        assert -> "!yrgnuh m'I" = result
+    ]
+
+    test "a palindrome" [
+        result: reverseString "racecar"
+        assert -> "racecar" = result
+    ]
+
+    test "an even-sized word" [
+        result: reverseString "drawer"
+        assert -> "reward" = result
+    ]
+]

@@ -1,0 +1,29 @@
+import.version:2.0.1 {unitt}!
+import {src/nth-prime}!
+
+suite "Nth Prime" [
+    test "first prime" [
+        result: prime 1
+        assert -> 2 = result
+    ]
+
+    test "second prime" [
+        result: prime 2
+        assert -> 3 = result
+    ]
+
+    test "sixth prime" [
+        result: prime 6
+        assert -> 13 = result
+    ]
+
+    test "big prime" [
+        result: prime 10001
+        assert -> 104743 = result
+    ]
+
+    test "there is no zeroth prime" [
+        result: prime 0
+        assert -> false = result
+    ]
+]

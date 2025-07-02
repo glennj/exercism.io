@@ -1,0 +1,9 @@
+transform: function[old][
+    fold.seed: #[] old [transformed value letters][
+        val: to :integer value
+        loop letters [letter][
+            set transformed (lower letter) val
+        ]
+        transformed
+    ]
+]

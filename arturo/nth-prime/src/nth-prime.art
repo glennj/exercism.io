@@ -1,0 +1,22 @@
+prime: function [number][
+    if not? positive? number -> return false
+    if one? number -> return 2
+
+    primes: [2 3]
+    while [number > size primes] -> append 'primes nextPrime primes
+    last primes
+]
+
+nextPrime: function [primes][
+    candidate: 2 + last primes
+    while [not? prime? candidate primes] -> add 'candidate 2
+    candidate
+]
+
+prime?: function [n primes][
+    loop primes 'p [
+        if n < p * p -> break
+        if zero? mod n p -> return false
+    ]
+    true
+]

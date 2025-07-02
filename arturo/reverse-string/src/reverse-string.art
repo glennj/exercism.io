@@ -1,0 +1,13 @@
+;; cheating
+;reverseString: var 'reverse
+
+reverseString: function [string][
+    reverser: function [str chars][
+        switch empty? str 
+            -> join chars
+            -> reverser (drop str) (prepend chars (first str))
+    ]
+
+    reverser string []
+]
+
