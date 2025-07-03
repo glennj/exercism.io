@@ -1,0 +1,79 @@
+import.version:2.0.1 {unitt}!
+import {src/largest-series-product}!
+
+suite "Largest Series Product" [
+    test "finds the largest product if span equals length" [
+        result: largestProduct "29" 2
+        assert -> 18 = result
+    ]
+
+    test "can find the largest product of 2 with numbers in order" [
+        result: largestProduct "0123456789" 2
+        assert -> 72 = result
+    ]
+
+    test "can find the largest product of 2" [
+        result: largestProduct "576802143" 2
+        assert -> 48 = result
+    ]
+
+    test "can find the largest product of 3 with numbers in order" [
+        result: largestProduct "0123456789" 3
+        assert -> 504 = result
+    ]
+
+    test "can find the largest product of 3" [
+        result: largestProduct "1027839564" 3
+        assert -> 270 = result
+    ]
+
+    test "can find the largest product of 5 with numbers in order" [
+        result: largestProduct "0123456789" 5
+        assert -> 15120 = result
+    ]
+
+    test "can get the largest product of a big number" [
+        result: largestProduct "73167176531330624919225119674426574742355349194934" 6
+        assert -> 23520 = result
+    ]
+
+    test "reports zero if the only digits are zero" [
+        result: largestProduct "0000" 2
+        assert -> 0 = result
+    ]
+
+    test "reports zero if all spans include zero" [
+        result: largestProduct "99099" 3
+        assert -> 0 = result
+    ]
+
+    test "rejects span longer than string length" [
+        result: largestProduct "123" 4
+        assert -> null = result
+    ]
+
+    test "reports 1 for empty string and empty product (0 span)" [
+        result: largestProduct "" 0
+        assert -> 1 = result
+    ]
+
+    test "reports 1 for nonempty string and empty product (0 span)" [
+        result: largestProduct "123" 0
+        assert -> 1 = result
+    ]
+
+    test "rejects empty string and nonzero span" [
+        result: largestProduct "" 1
+        assert -> null = result
+    ]
+
+    test "rejects invalid character in digits" [
+        result: largestProduct "1234a5" 2
+        assert -> null = result
+    ]
+
+    test "rejects negative span" [
+        result: largestProduct "12345" neg 1
+        assert -> null = result
+    ]
+]
