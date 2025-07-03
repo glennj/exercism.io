@@ -1,0 +1,17 @@
+recite: function [startBottles takeDown][
+    range.step: (neg 1) startBottles (inc sub startBottles takeDown)
+    | map => verse
+    | join.with:"\n\n"
+]
+
+verse: $[n] -> join.with:"\n" @[(line1 n) (line1 n) line2 (line3 n)]
+
+line1: $[n] -> ~"|bottles n| hanging on the wall,"
+
+line2: "And if one green bottle should accidentally fall,"
+
+line3: $[n] -> ~"There'll be |lower bottles dec n| hanging on the wall."
+
+numbers: ["No" "One" "Two" "Three" "Four" "Five" "Six" "Seven" "Eight" "Nine" "Ten"]
+
+bottles: $[n] -> numbers\[n] ++ " green bottle" ++ ((one? n)? -> "" -> "s")

@@ -1,0 +1,20 @@
+keep: function [values :block fn :literal][
+    ;; cheating
+    ;select values [x][call fn @[x]]
+
+    f: var fn
+    fold.seed:[] values [acc x][
+        switch f x
+            -> acc ++ ((block? x)? -> @[x] -> x)
+            -> acc
+    ]
+] 
+
+discard: function [values :block fn :literal][
+    ;; cheating
+    ;filter values [x][call fn @[x]]
+
+    f: var fn
+    nf: $[x][ not? f x ]
+    keep values 'nf
+]

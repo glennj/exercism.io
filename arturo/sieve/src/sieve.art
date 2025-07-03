@@ -1,0 +1,25 @@
+primes: function [limit][
+    list: array 0..limit
+    list\0: null
+    list\1: null
+
+    markMultiples: function [p][
+        step: (p = 2)? -> p -> 2 * p
+        m: p ^ 2
+        while [m =< limit][
+            list\[m]: null
+            add 'm step
+        ]
+    ]
+
+    markMultiples 2
+
+    n: 3
+    while [n =< floor sqrt limit][
+        if not? null? list\[n]
+            -> markMultiples n
+        add 'n 2
+    ]
+
+    filter @list => null?
+]
