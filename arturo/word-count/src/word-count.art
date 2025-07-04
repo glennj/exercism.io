@@ -1,0 +1,4 @@
+countWords: function [sentence][
+    word: {/[[:alnum:]](?:['[:alnum:]]*[[:alnum:]])?/}
+    sentence | lower | match word | tally
+]

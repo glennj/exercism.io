@@ -1,0 +1,10 @@
+classroom: ['Alice 'Bob 'Charlie 'David 'Eve 'Fred 'Ginny 'Harriet 'Ileana 'Joseph 'Kincaid 'Larry]
+
+greenery: #[R:'radishes C:'clover G:'grass V:'violets]
+
+plants: function [diagram student][
+    rows: diagram | split.lines | map => [map & [a b] -> @[a b]]
+    plots: couple rows\0 rows\1 | map => flatten
+
+    plots\[index classroom student] | map => [get greenery &]
+]

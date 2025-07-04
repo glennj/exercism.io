@@ -1,0 +1,114 @@
+import.version:2.0.1 {unitt}!
+import {src/phone-number}!
+
+suite "Phone Number" [
+    test "cleans the number" [
+        result: clean "(223) 456-7890"
+        assert -> "2234567890" = result
+    ]
+
+    test "cleans numbers with dots" [
+        result: clean "223.456.7890"
+        assert -> "2234567890" = result
+    ]
+
+    test "cleans numbers with multiple spaces" [
+        result: clean "223 456   7890   "
+        assert -> "2234567890" = result
+    ]
+
+    test "invalid when 9 digits" [
+        result: clean "123456789"
+        assert -> null = result
+    ]
+
+    test "invalid when 9 digits" [
+        result: clean "123456789"
+        assert -> null = result
+    ]
+
+    test "invalid when 11 digits does not start with a 1" [
+        result: clean "22234567890"
+        assert -> null = result
+    ]
+    
+    test "valid when 11 digits and starting with 1" [
+        result: clean "12234567890"
+        assert -> "2234567890" = result
+    ]
+    
+    test "valid when 11 digits and starting with 1 even with punctuation" [
+        result: clean "+1 (223) 456-7890"
+        assert -> "2234567890" = result
+    ]
+
+    test "invalid when more than 11 digits" [
+        result: clean "321234567890"
+        assert -> null = result
+    ]
+
+    test "invalid when more than 11 digits" [
+        result: clean "321234567890"
+        assert -> null = result
+    ]
+
+    test "invalid with letters" [
+        result: clean "123-abc-7890"
+        assert -> null = result
+    ]
+
+    test "invalid with letters" [
+        result: clean "523-abc-7890"
+        assert -> null = result
+    ]
+
+    test "invalid with punctuations" [
+        result: clean "123-@:!-7890"
+        assert -> null = result
+    ]
+
+    test "invalid with punctuations" [
+        result: clean "523-@:!-7890"
+        assert -> null = result
+    ]
+
+    test "invalid if area code starts with 0" [
+        result: clean "(023) 456-7890"
+        assert -> null = result
+    ]
+
+    test "invalid if area code starts with 1" [
+        result: clean "(123) 456-7890"
+        assert -> null = result
+    ]
+
+    test "invalid if exchange code starts with 0" [
+        result: clean "(223) 056-7890"
+        assert -> null = result
+    ]
+
+    test "invalid if exchange code starts with 1" [
+        result: clean "(223) 156-7890"
+        assert -> null = result
+    ]
+
+    test "invalid if area code starts with 0 on valid 11-digit number" [
+        result: clean "1 (023) 456-7890"
+        assert -> null = result
+    ]
+
+    test "invalid if area code starts with 1 on valid 11-digit number" [
+        result: clean "1 (123) 456-7890"
+        assert -> null = result
+    ]
+
+    test "invalid if exchange code starts with 0 on valid 11-digit number" [
+        result: clean "1 (223) 056-7890"
+        assert -> null = result
+    ]
+
+    test "invalid if exchange code starts with 1 on valid 11-digit number" [
+        result: clean "1 (223) 156-7890"
+        assert -> null = result
+    ]
+]

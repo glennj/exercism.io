@@ -1,0 +1,27 @@
+toProteins: function [strand][
+    helper: function [str result][
+        if empty? str -> return result
+
+        codon: take str 3
+        if not? key? proteins codon -> return null
+
+        protein: proteins\[codon]
+        switch protein = "STOP"
+            -> return result
+            -> helper (drop.times:3 str) result ++ protein
+    ]
+
+    helper strand []
+]
+
+proteins: #[
+    AUG: "Methionine"     UAU: "Tyrosine"
+    UUU: "Phenylalanine"  UAC: "Tyrosine"
+    UUC: "Phenylalanine"  UGU: "Cysteine"
+    UUA: "Leucine"        UGC: "Cysteine"
+    UUG: "Leucine"        UGG: "Tryptophan"
+    UCU: "Serine"         UAA: "STOP"
+    UCC: "Serine"         UAG: "STOP"
+    UCA: "Serine"         UGA: "STOP"
+    UCG: "Serine"
+]

@@ -1,0 +1,8 @@
+recite: function [strings][
+    forwant: $[a b] -> ~"For want of a |a| the |b| was lost."
+    andall:  $[a]   -> ~"And all for the want of a |a|."
+
+    map.with:'i (chop strings) 'item -> forwant item strings\[i + 1]
+    | append (empty? strings)? -> [] -> @[andall first strings]
+    | join.with:"\n"
+]

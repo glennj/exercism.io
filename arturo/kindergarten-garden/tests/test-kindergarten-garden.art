@@ -1,0 +1,129 @@
+import.version:2.0.1 {unitt}!
+import {src/kindergarten-garden}!
+
+suite "Kindergarten Garden" [
+    suite "partial garden" [
+        test "garden with single student" [
+            diagram: "RC\nGG"
+            result: plants diagram 'Alice
+            expected: ['radishes 'clover 'grass 'grass]
+            assert -> expected = result
+        ]   
+
+        test "different garden with single student" [
+            diagram: "VC\nRC"
+            result: plants diagram 'Alice
+            expected: ['violets 'clover 'radishes 'clover]
+            assert -> expected = result
+        ]
+
+        test "garden with two students" [
+            diagram: "VVCG\nVVRC"
+            result: plants diagram 'Bob
+            expected: ['clover 'grass 'radishes 'clover]
+            assert -> expected = result
+        ]
+    ]
+
+    suite "multiple students for the same garden" [
+        test "second student's garden" [
+            diagram: "VVCCGG\nVVCCGG"
+            result: plants diagram 'Bob
+            expected: ['clover 'clover 'clover 'clover]
+            assert -> expected = result
+        ]
+
+        test "third student's garden" [
+            diagram: "VVCCGG\nVVCCGG"
+            result: plants diagram 'Charlie
+            expected: ['grass 'grass 'grass 'grass]
+            assert -> expected = result
+        ]
+    ]
+
+    suite "full garden" [
+        test "For Alice, first student's garden" [
+            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
+            result: plants diagram 'Alice
+            expected: ['violets 'radishes 'violets 'radishes]
+            assert -> expected = result
+        ]
+
+        test "for Bob, second student's garden" [
+            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
+            result: plants diagram 'Bob
+            expected: ['clover 'grass 'clover 'clover]
+            assert -> expected = result
+        ]
+
+        test "for Charlie" [
+            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
+            result: plants diagram 'Charlie
+            expected: ['violets 'violets 'clover 'grass]
+            assert -> expected = result
+        ]
+
+        test "for David" [
+            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
+            result: plants diagram 'David
+            expected: ['radishes 'violets 'clover 'radishes]
+            assert -> expected = result
+        ]
+
+        test "for Eve" [
+            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
+            result: plants diagram 'Eve
+            expected: ['clover 'grass 'radishes 'grass]
+            assert -> expected = result
+        ]
+
+        test "for Fred" [
+            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
+            result: plants diagram 'Fred
+            expected: ['grass 'clover 'violets 'clover]
+            assert -> expected = result
+        ]
+
+        test "for Ginny" [
+            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
+            result: plants diagram 'Ginny
+            expected: ['clover 'grass 'grass 'clover]
+            assert -> expected = result
+        ]
+
+        test "for Harriet" [
+            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
+            result: plants diagram 'Harriet
+            expected: ['violets 'radishes 'radishes 'violets]
+            assert -> expected = result
+        ]
+
+        test "for Ileana" [
+            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
+            result: plants diagram 'Ileana
+            expected: ['grass 'clover 'violets 'clover]
+            assert -> expected = result
+        ]
+
+        test "for Joseph" [
+            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
+            result: plants diagram 'Joseph
+            expected: ['violets 'clover 'violets 'grass]
+            assert -> expected = result
+        ]
+
+        test "for Kincaid, second to last student's garden" [
+            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
+            result: plants diagram 'Kincaid
+            expected: ['grass 'clover 'clover 'grass]
+            assert -> expected = result
+        ]
+
+        test "for Larry, last student's garden" [
+            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
+            result: plants diagram 'Larry
+            expected: ['grass 'violets 'clover 'violets]
+            assert -> expected = result
+        ]
+    ]
+]

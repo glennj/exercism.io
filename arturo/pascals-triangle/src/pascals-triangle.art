@@ -1,0 +1,10 @@
+rows: function[n][
+    if zero? n -> return []
+
+    choose: $ [n k] -> (factorial n) / ((factorial k) * (factorial n - k))
+    row: $ [n][ map 0..n 'k -> choose n k ]
+
+    map 0..(n - 1) => row
+]
+
+

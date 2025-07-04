@@ -1,0 +1,9 @@
+clean: function [phrase][
+    ; remove valid non-digits, and
+    ; extract 10-digit phone number from valid NANP
+    m: phrase
+       | replace {/[() .+-]/} ""
+       | match.capture {/^1?([2-9]\d\d[2-9]\d\d\d{4})$/}
+
+    switch empty? m -> null -> first m
+]

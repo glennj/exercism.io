@@ -1,0 +1,37 @@
+yacht: function [dice category][
+    case category [
+        "ones"   -> single dice 1
+        "twos"   -> single dice 2
+        "threes" -> single dice 3
+        "fours"  -> single dice 4
+        "fives"  -> single dice 5
+        "sixes"  -> single dice 6
+        "full house"      -> full dice
+        "four of a kind"  -> four dice
+        "little straight" -> straight dice @1..5
+        "big straight"    -> straight dice @2..6
+        "choice"          -> sum dice
+        "yacht"           -> (one? size unique dice)? -> 50 -> 0
+    ]
+]
+
+single: $[ds d] -> d * size select ds => [& = d]
+
+straight: $[ds wanted] -> ((sort ds) = wanted)? -> 30 -> 0
+
+four: $[dice][
+    ds: sort dice
+    switch or? [ds\0 = ds\3] [ds\1 = ds\4]
+        -> 4 * ds\2
+        -> 0
+]
+
+full: $[dice][
+    ds: sort dice
+    switch and? [or? [and? [ds\0 = ds\1] [ds\2 = ds\4]]
+                     [and? [ds\0 = ds\2] [ds\3 = ds\4]]]
+                [ds\0 <> ds\4]
+        -> sum dice
+        -> 0
+]
+

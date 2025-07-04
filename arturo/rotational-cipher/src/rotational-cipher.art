@@ -1,0 +1,12 @@
+rotateText: function[text shiftKey][
+    fromChars: append (alphabet.lower 'en) (alphabet.upper 'en)
+               | map => [to :string &]
+
+    toChars: append (alphabet.lower 'en | rotate.left shiftKey)
+                    (alphabet.upper 'en | rotate.left shiftKey)
+             | map => [to :string &]
+
+    mapping: couple fromChars toChars | flatten | dictionary.raw
+
+    translate text mapping
+]

@@ -1,0 +1,11 @@
+row: function [matrix position][
+    toMatrix matrix | get position - 1
+]
+
+column: function [matrix position][
+    toMatrix matrix | map => [get & position - 1]
+]
+
+toMatrix: function [input :string][
+    split.lines input | map => [to [:integer] split.words &]
+]

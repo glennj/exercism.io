@@ -1,0 +1,187 @@
+import.version:2.0.1 {unitt}!
+import {src/protein-translation}!
+
+suite "Protein Translation" [
+    test "Empty RNA sequence results in no proteins" [
+        result: toProteins ""
+        expected: []
+        assert -> expected = result
+    ]
+
+    test "Methionine RNA sequence" [
+        result: toProteins "AUG"
+        expected: ["Methionine"]
+        assert -> expected = result
+    ]
+
+    test "Phenylalanine RNA sequence 1" [
+        result: toProteins "UUU"
+        expected: ["Phenylalanine"]
+        assert -> expected = result
+    ]
+
+    test "Phenylalanine RNA sequence 2" [
+        result: toProteins "UUC"
+        expected: ["Phenylalanine"]
+        assert -> expected = result
+    ]
+
+    test "Leucine RNA sequence 1" [
+        result: toProteins "UUA"
+        expected: ["Leucine"]
+        assert -> expected = result
+    ]
+
+    test "Leucine RNA sequence 2" [
+        result: toProteins "UUG"
+        expected: ["Leucine"]
+        assert -> expected = result
+    ]
+
+    test "Serine RNA sequence 1" [
+        result: toProteins "UCU"
+        expected: ["Serine"]
+        assert -> expected = result
+    ]
+
+    test "Serine RNA sequence 2" [
+        result: toProteins "UCC"
+        expected: ["Serine"]
+        assert -> expected = result
+    ]
+
+    test "Serine RNA sequence 3" [
+        result: toProteins "UCA"
+        expected: ["Serine"]
+        assert -> expected = result
+    ]
+
+    test "Serine RNA sequence 4" [
+        result: toProteins "UCG"
+        expected: ["Serine"]
+        assert -> expected = result
+    ]
+
+    test "Tyrosine RNA sequence 1" [
+        result: toProteins "UAU"
+        expected: ["Tyrosine"]
+        assert -> expected = result
+    ]
+
+    test "Tyrosine RNA sequence 2" [
+        result: toProteins "UAC"
+        expected: ["Tyrosine"]
+        assert -> expected = result
+    ]
+
+    test "Cysteine RNA sequence 1" [
+        result: toProteins "UGU"
+        expected: ["Cysteine"]
+        assert -> expected = result
+    ]
+
+    test "Cysteine RNA sequence 2" [
+        result: toProteins "UGC"
+        expected: ["Cysteine"]
+        assert -> expected = result
+    ]
+
+    test "Tryptophan RNA sequence" [
+        result: toProteins "UGG"
+        expected: ["Tryptophan"]
+        assert -> expected = result
+    ]
+
+    test "STOP codon RNA sequence 1" [
+        result: toProteins "UAA"
+        expected: []
+        assert -> expected = result
+    ]
+
+    test "STOP codon RNA sequence 2" [
+        result: toProteins "UAG"
+        expected: []
+        assert -> expected = result
+    ]
+
+    test "STOP codon RNA sequence 3" [
+        result: toProteins "UGA"
+        expected: []
+        assert -> expected = result
+    ]
+
+    test "Sequence of two protein codons translates into proteins" [
+        result: toProteins "UUUUUU"
+        expected: ["Phenylalanine" "Phenylalanine"]
+        assert -> expected = result
+    ]
+
+    test "Sequence of two different protein codons translates into proteins" [
+        result: toProteins "UUAUUG"
+        expected: ["Leucine" "Leucine"]
+        assert -> expected = result
+    ]
+
+    test "Translate RNA strand into correct protein list" [
+        result: toProteins "AUGUUUUGG"
+        expected: ["Methionine" "Phenylalanine" "Tryptophan"]
+        assert -> expected = result
+    ]
+
+    test "Translation stops if STOP codon at beginning of sequence" [
+        result: toProteins "UAGUGG"
+        expected: []
+        assert -> expected = result
+    ]
+
+    test "Translation stops if STOP codon at end of two-codon sequence" [
+        result: toProteins "UGGUAG"
+        expected: ["Tryptophan"]
+        assert -> expected = result
+    ]
+
+    test "Translation stops if STOP codon at end of three-codon sequence" [
+        result: toProteins "AUGUUUUAA"
+        expected: ["Methionine" "Phenylalanine"]
+        assert -> expected = result
+    ]
+
+    test "Translation stops if STOP codon in middle of three-codon sequence" [
+        result: toProteins "UGGUAGUGG"
+        expected: ["Tryptophan"]
+        assert -> expected = result
+    ]
+
+    test "Translation stops if STOP codon in middle of six-codon sequence" [
+        result: toProteins "UGGUGUUAUUAAUGGUUU"
+        expected: ["Tryptophan" "Cysteine" "Tyrosine"]
+        assert -> expected = result
+    ]
+
+    test "Sequence of two non-STOP codons does not translate to a STOP codon" [
+        result: toProteins "AUGAUG"
+        expected: ["Methionine" "Methionine"]
+        assert -> expected = result
+    ]
+
+    test "Non-existing codon can't translate" [
+        result: toProteins "AAA"
+        assert -> null = result
+    ]
+
+    test "Unknown amino acids, not part of a codon, can't translate" [
+        result: toProteins "XYZ"
+        assert -> null = result
+    ]
+
+    test "Incomplete RNA sequence can't translate" [
+        result: toProteins "AUGU"
+        assert -> null = result
+    ]
+
+    test "Incomplete RNA sequence can translate if valid until a STOP codon" [
+        result: toProteins "UUCUUCUAAUGGU"
+        expected: ["Phenylalanine" "Phenylalanine"]
+        assert -> expected = result
+    ]
+]

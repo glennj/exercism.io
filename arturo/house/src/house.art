@@ -1,0 +1,39 @@
+recite: function [startVerse endVerse][
+    join.with:"\n" map startVerse..endVerse => verse
+]
+
+verse: function [n][
+    fold.seed:"This is" (dec n)..0 [result i][
+        result ++ ~" the |noun\[i]| that |verb\[i]|"
+    ]
+]
+
+noun: [
+    "house"
+    "malt"
+    "rat"
+    "cat"
+    "dog"
+    "cow with the crumpled horn"
+    "maiden all forlorn"
+    "man all tattered and torn"
+    "priest all shaven and shorn"
+    "rooster that crowed in the morn"
+    "farmer sowing his corn"
+    "horse and the hound and the horn"
+]
+
+verb: [
+    "Jack built."
+    "lay in"
+    "ate"
+    "killed"
+    "worried"
+    "tossed"
+    "milked"
+    "kissed"
+    "married"
+    "woke"
+    "kept"
+    "belonged to"
+]

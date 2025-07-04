@@ -1,0 +1,3 @@
+import.version:2.0.1 {unitt}!
+
+runTests.failFast findTests "tests"
