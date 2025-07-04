@@ -1,0 +1,7 @@
+encode: $=>[ cipherer & {/(.)\1+/} $[m][~"|size m||first m|"] ]
+decode: $=>[ cipherer & {/\d+\D/}  $[m][join repeat (last m) (to :integer chop m)] ]
+
+cipherer: function [text regex replacer][
+    runs: match text regex | sort.descending
+    replace text runs (map runs => replacer)
+]

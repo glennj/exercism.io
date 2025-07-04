@@ -1,0 +1,5 @@
+sumOfMultiples: function [factors limit][
+    fs: filter factors => zero?
+    hasfactor?: $[n] -> some? fs [f][zero? mod n f]
+    sum select 1..(limit - 1) => hasfactor?
+]

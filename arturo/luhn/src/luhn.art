@@ -1,0 +1,30 @@
+luhn?: function [value][
+    doubled: [0 2 4 6 8 1 3 5 7 9]
+
+    adder: function [val double? sum len][
+        when [
+            [empty? val][
+                #[ok:true sum:sum len:len]
+            ]
+            [numeric? last val][
+                digit: to :integer to :string last val
+                if double? -> digit: doubled\[digit]
+                adder (chop val) (not? double?) (sum + digit) (len + 1)
+            ]
+            [whitespace? last val][
+                adder (chop val) double? sum len
+            ]
+            true [
+                #[ok:false sum:null len:null]
+            ]
+        ]
+    ]
+
+    result: adder value false 0 0
+
+    when [
+        [not? result\ok]   -> false
+        [zero? result\sum] -> result\len > 1
+        true               -> zero? result\sum % 10
+    ]
+]
