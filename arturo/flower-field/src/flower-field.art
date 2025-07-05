@@ -1,0 +1,30 @@
+annotate: function [garden][
+    if empty? garden -> return []
+
+    heightRange: 0..(dec size garden)
+    widthRange: 0..(dec size garden\0)
+    annotated: new garden
+
+    flower?: $=> [& = '*']
+
+    neighbours: function [i j][
+        count: 0
+        loop (neg 1)..1 'di [
+            if not? in? (i + di) heightRange -> continue
+            loop (neg 1)..1 'dj [
+                if not? in? (j + dj) widthRange -> continue
+                if and? [zero? di] [zero? dj] -> continue
+                if flower? garden\[i + di]\[j + dj] -> inc 'count
+            ]
+        ]
+        (zero? count)? -> ' ' -> to :string count
+    ]
+
+    loop.with:'i garden 'row [
+        loop.with:'j row 'cell [
+            if not? flower? cell -> annotated\[i]\[j]: neighbours i j
+        ]
+    ]
+
+    annotated
+]

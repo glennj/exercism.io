@@ -1,0 +1,28 @@
+recite: function [startVerse endVerse][
+    map startVerse..endVerse => day | join.with:"\n"
+]
+
+day: function [n][
+    nthday: ~"On the |nth\[n]| day of Christmas my true love gave to me: "
+    days: map 1..n 'i -> gifts\[i]
+    if n > 1 -> days\0: ~"and |days\0|"
+
+    nthday ++ join.with:", " reverse days
+]
+
+nth: [ null "first" "second" "third" "fourth" "fifth" "sixth"
+       "seventh" "eighth" "ninth" "tenth" "eleventh" "twelfth" ]
+
+gifts:[ null
+        "a Partridge in a Pear Tree."
+        "two Turtle Doves"
+        "three French Hens"
+        "four Calling Birds"
+        "five Gold Rings"
+        "six Geese-a-Laying"
+        "seven Swans-a-Swimming"
+        "eight Maids-a-Milking"
+        "nine Ladies Dancing"
+        "ten Lords-a-Leaping"
+        "eleven Pipers Piping"
+        "twelve Drummers Drumming" ]

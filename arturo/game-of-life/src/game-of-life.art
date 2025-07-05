@@ -1,0 +1,32 @@
+tick: function [matrix][
+    if empty? matrix -> return []
+
+    heightRange: 0..(dec size matrix)
+    widthRange: 0..(dec size matrix\0)
+    nextGeneration: new matrix
+
+    neighbours: function [i j][
+        count: 0
+        loop (neg 1)..1 'di [
+            if not? in? (i + di) heightRange -> continue
+            loop (neg 1)..1 'dj [
+                if not? in? (j + dj) widthRange -> continue
+                if and? [zero? di] [zero? dj] -> continue
+                'count + matrix\[i + di]\[j + dj]
+            ]
+        ]
+        count
+    ]
+
+    loop heightRange 'i [
+        loop widthRange 'j [
+            nextGeneration\[i]\[j]: case neighbours i j [
+                2   -> matrix\[i]\[j]
+                3   -> 1
+                any -> 0
+            ]
+        ]
+    ]
+
+    nextGeneration
+]

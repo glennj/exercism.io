@@ -1,0 +1,231 @@
+import.version:2.0.1 {unitt}!
+import {src/transpose}!
+
+suite "Transpose" [
+    test "empty string" [
+        lines: ""
+        result: transpose lines
+        expected: ""
+        assert -> expected = result
+    ]
+
+    test "two characters in a row" [
+        lines: "A1"
+        result: transpose lines
+        expected: join.with:"\n" [
+            "A"
+            "1"
+        ]
+        assert -> expected = result
+    ]
+
+    test "two characters in a column" [
+        lines: join.with:"\n" [
+            "A"
+            "1"
+        ]
+        result: transpose lines
+        expected: "A1"
+        assert -> expected = result
+    ]
+
+    test "simple" [
+        lines: join.with:"\n" [
+            "ABC"
+            "123"
+        ]
+        result: transpose lines
+        expected: join.with:"\n" [
+            "A1"
+            "B2"
+            "C3"
+        ]
+        assert -> expected = result
+    ]
+
+    test "single line" [
+        lines: "Single line."
+        result: transpose lines
+        expected: join.with:"\n" [
+            "S"
+            "i"
+            "n"
+            "g"
+            "l"
+            "e"
+            " "
+            "l"
+            "i"
+            "n"
+            "e"
+            "."
+        ]
+        assert -> expected = result
+    ]
+
+    test "first line longer than second line" [
+        lines: join.with:"\n" [
+            "The fourth line."
+            "The fifth line."
+        ]
+        result: transpose lines
+        expected: join.with:"\n" [
+            "TT"
+            "hh"
+            "ee"
+            "  "
+            "ff"
+            "oi"
+            "uf"
+            "rt"
+            "th"
+            "h "
+            " l"
+            "li"
+            "in"
+            "ne"
+            "e."
+            ". "
+        ]
+        assert -> expected = result
+    ]
+
+    test "second line longer than first line" [
+        lines: join.with:"\n" [
+            "The first line."
+            "The second line."
+        ]
+        result: transpose lines
+        expected: join.with:"\n" [
+            "TT"
+            "hh"
+            "ee"
+            "  "
+            "fs"
+            "ie"
+            "rc"
+            "so"
+            "tn"
+            " d"
+            "l "
+            "il"
+            "ni"
+            "en"
+            ".e"
+            " ."
+        ]
+        assert -> expected = result
+    ]
+
+    test "mixed line length" [
+        lines: join.with:"\n" [
+            "The longest line."
+            "A long line."
+            "A longer line."
+            "A line."
+        ]
+        result: transpose lines
+        expected: join.with:"\n" [
+            "TAAA"
+            "h   "
+            "elll"
+            " ooi"
+            "lnnn"
+            "ogge"
+            "n e."
+            "glr "
+            "ei  "
+            "snl "
+            "tei "
+            " .n "
+            "l e "
+            "i . "
+            "n   "
+            "e   "
+            ".   "
+        ]
+        assert -> expected = result
+    ]
+
+    test "square" [
+        lines: join.with:"\n" [
+            "HEART"
+            "EMBER"
+            "ABUSE"
+            "RESIN"
+            "TREND"
+        ]
+        result: transpose lines
+        expected: join.with:"\n" [
+            "HEART"
+            "EMBER"
+            "ABUSE"
+            "RESIN"
+            "TREND"
+        ]
+        assert -> expected = result
+    ]
+
+    test "rectangle" [
+        lines: join.with:"\n" [
+            "FRACTURE"
+            "OUTLINED"
+            "BLOOMING"
+            "SEPTETTE"
+        ]
+        result: transpose lines
+        expected: join.with:"\n" [
+            "FOBS"
+            "RULE"
+            "ATOP"
+            "CLOT"
+            "TIME"
+            "UNIT"
+            "RENT"
+            "EDGE"
+        ]
+        assert -> expected = result
+    ]
+
+    test "triangle" [
+        lines: join.with:"\n" [
+            "T"
+            "EE"
+            "AAA"
+            "SSSS"
+            "EEEEE"
+            "RRRRRR"
+        ]
+        result: transpose lines
+        expected: join.with:"\n" [
+            "TEASER"
+            " EASER"
+            "  ASER"
+            "   SER"
+            "    ER"
+            "     R"
+        ]
+        assert -> expected = result
+    ]
+
+    test "jagged triangle" [
+        lines: join.with:"\n" [
+            "11"
+            "2"
+            "3333"
+            "444"
+            "555555"
+            "66666"
+        ]
+        result: transpose lines
+        expected: join.with:"\n" [
+            "123456"
+            "1 3456"
+            "  3456"
+            "  3 56"
+            "    56"
+            "    5 "
+        ]
+        assert -> expected = result
+    ]
+]

@@ -1,0 +1,10 @@
+transpose: function [data][
+    if empty? data -> return ""
+
+    lines: split.lines data
+    wid: map lines => size | max
+    mtx: map lines => [pad.right & wid]
+    transposed: map 0..(dec wid) 'i [map mtx => [get & i] | join]
+
+    transposed | join.with:"\n"
+]

@@ -1,0 +1,4 @@
+decode: $=> [ lower & | replace {/[^[:alnum:]]/} "" | translate mapping ]
+encode: $=> [ decode & | split.every:5 | join.with:" " ]
+
+mapping: #.raw to [:string] flatten couple (alphabet 'en) (reverse alphabet 'en)

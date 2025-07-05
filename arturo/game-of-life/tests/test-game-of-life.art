@@ -1,0 +1,126 @@
+import.version:2.0.1 {unitt}!
+import {src/game-of-life}!
+
+suite "Conway's Game of Life" [
+    test "empty matrix" [
+        matrix: []
+        result: tick matrix
+        expected: []
+        assert -> expected = result
+    ]
+
+    test "live cells with zero live neighbors die" [
+        matrix: [
+            [0 0 0]
+            [0 1 0]
+            [0 0 0]
+        ]
+        result: tick matrix
+        expected: [
+            [0 0 0]
+            [0 0 0]
+            [0 0 0]
+        ]
+        assert -> expected = result
+    ]
+
+    test "live cells with only one live neighbor die" [
+        matrix: [
+            [0 0 0]
+            [0 1 0]
+            [0 1 0]
+        ]
+        result: tick matrix
+        expected: [
+            [0 0 0]
+            [0 0 0]
+            [0 0 0]
+        ]
+        assert -> expected = result
+    ]
+
+    test "live cells with two live neighbors stay alive" [
+        matrix: [
+            [1 0 1]
+            [1 0 1]
+            [1 0 1]
+        ]
+        result: tick matrix
+        expected: [
+            [0 0 0]
+            [1 0 1]
+            [0 0 0]
+        ]
+        assert -> expected = result
+    ]
+
+    test "live cells with three live neighbors stay alive" [
+        matrix: [
+            [0 1 0]
+            [1 0 0]
+            [1 1 0]
+        ]
+        result: tick matrix
+        expected: [
+            [0 0 0]
+            [1 0 0]
+            [1 1 0]
+        ]
+        assert -> expected = result
+    ]
+
+    test "dead cells with three live neighbors become alive" [
+        matrix: [
+            [1 1 0]
+            [0 0 0]
+            [1 0 0]
+        ]
+        result: tick matrix
+        expected: [
+            [0 0 0]
+            [1 1 0]
+            [0 0 0]
+        ]
+        assert -> expected = result
+    ]
+
+    test "live cells with four or more neighbors die" [
+        matrix: [
+            [1 1 1]
+            [1 1 1]
+            [1 1 1]
+        ]
+        result: tick matrix
+        expected: [
+            [1 0 1]
+            [0 0 0]
+            [1 0 1]
+        ]
+        assert -> expected = result
+    ]
+
+    test "bigger matrix" [
+        matrix: [
+            [1 1 0 1 1 0 0 0]
+            [1 0 1 1 0 0 0 0]
+            [1 1 1 0 0 1 1 1]
+            [0 0 0 0 0 1 1 0]
+            [1 0 0 0 1 1 0 0]
+            [1 1 0 0 0 1 1 1]
+            [0 0 1 0 1 0 0 1]
+            [1 0 0 0 0 0 1 1]
+        ]
+        result: tick matrix
+        expected: [
+            [1 1 0 1 1 0 0 0]
+            [0 0 0 0 0 1 1 0]
+            [1 0 1 1 1 1 0 1]
+            [1 0 0 0 0 0 0 1]
+            [1 1 0 0 1 0 0 1]
+            [1 1 0 1 0 0 0 1]
+            [1 0 0 0 0 0 0 0]
+            [0 0 0 0 0 0 1 1]
+        ]
+        assert -> expected = result
+    ]
+]

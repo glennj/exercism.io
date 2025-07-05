@@ -1,0 +1,53 @@
+romanNumerals: #[
+    M: 1000  CM: 900  D: 500  CD: 400
+    C:  100  XC:  90  L:  50  XL:  40
+    X:   10  IX:   9  V:   5  IV:   4  I: 1
+]
+
+; I was very surprised to learn that `attrs` function
+; _returns_ the attribute dictionary **but then clears it!**
+; Don't inspect the attributes fist!
+;    loop attrs [k v][ print [k (type k) v (type v)] ]
+;
+; And apparently `attr?` is very wonky.
+;
+; Just fetch the attribute value with `attr`.
+
+stringify: function [number][
+    if not? attr 'roman -> return to :string number
+
+;; iteration
+;
+;    roman: ""
+;    loop romanNumerals [r d][
+;        while [number >= d][
+;            'roman ++ r
+;            number: number - d
+;        ]
+;    ]
+;    roman
+
+;; with a higher-order function
+;
+;    fold.seed:"" romanNumerals [roman r d][
+;        while [number >= d][
+;            roman: roman ++ r
+;            number: number - d
+;        ]
+;        roman
+;    ]
+
+;; recursion
+
+    romanize: function [n numerals roman][
+        if zero? n -> return roman
+
+        r: first keys numerals    ; taking advantage of _ordered_ dicts
+        d: numerals\[r]
+        switch n >= d
+            -> romanize (n - d) numerals (roman ++ r)
+            -> romanize n (remove.key numerals r) roman
+    ]
+
+    romanize number romanNumerals ""
+]

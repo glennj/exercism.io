@@ -1,0 +1,79 @@
+import.version:2.0.1 {unitt}!
+import {src/atbash-cipher}!
+
+suite "Atbash Cipher"
+[
+  suite "Atbash Cipher - Encode" [
+    test "encode yes" [
+      result: encode "yes"
+      assert -> "bvh" = result
+    ]
+
+    test "encode no" [
+      result: encode "no"
+      assert -> "ml" = result
+    ]
+
+    test "encode OMG" [
+      result: encode "OMG"
+      assert -> "lnt" = result
+    ]
+
+    test "encode spaces" [
+      result: encode "O M G"
+      assert -> "lnt" = result
+    ]
+
+    test "encode mindblowingly" [
+      result: encode "mindblowingly"
+      assert -> "nrmwy oldrm tob" = result
+    ]
+
+    test "encode numbers" [
+      result: encode "Testing,1 2 3, testing."
+      assert -> "gvhgr mt123 gvhgr mt" = result
+    ]
+
+    test "encode deep thought" [
+      result: encode "Truth is fiction."
+      assert -> "gifgs rhurx grlm" = result
+    ]
+
+    test "encode all the letters" [
+      result: encode "The quick brown fox jumps over the lazy dog."
+      assert -> "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt" = result
+    ]
+  ]
+
+  suite "Atbash Cipher - Decode" [
+    test "decode exercism" [
+      result: decode "vcvix rhn"
+      assert -> "exercism" = result
+    ]
+
+    test "decode a sentence" [
+      result: decode "zmlyh gzxov rhlug vmzhg vkkrm thglm v"
+      assert -> "anobstacleisoftenasteppingstone" = result
+    ]
+
+    test "decode numbers" [
+      result: decode "gvhgr mt123 gvhgr mt"
+      assert -> "testing123testing" = result
+    ]
+
+    test "decode all the letters" [
+      result: decode "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt"
+      assert -> "thequickbrownfoxjumpsoverthelazydog" = result
+    ]
+
+    test "decode with too many spaces" [
+      result: decode "vc vix    r hn"
+      assert -> "exercism" = result
+    ]
+
+    test "decode with no spaces" [
+      result: decode "zmlyhgzxovrhlugvmzhgvkkrmthglmv"
+      assert -> "anobstacleisoftenasteppingstone" = result
+    ]
+  ]
+]

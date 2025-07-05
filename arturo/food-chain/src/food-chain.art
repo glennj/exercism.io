@@ -1,0 +1,31 @@
+animals: @[
+    #[name: "fly" phrase: "I don't know why she swallowed the fly. Perhaps she'll die." extra: ""]
+    #[name: "spider" phrase: "It wriggled and jiggled and tickled inside her." extra: " that wriggled and jiggled and tickled inside her"]
+    #[name: "bird" phrase: "How absurd to swallow a bird!" extra: ""]
+    #[name: "cat" phrase: "Imagine that, to swallow a cat!" extra: ""]
+    #[name: "dog" phrase: "What a hog, to swallow a dog!" extra: ""]
+    #[name: "goat" phrase: "Just opened her throat and swallowed a goat!" extra: ""]
+    #[name: "cow" phrase: "I don't know how she swallowed a cow!" extra: ""]
+    #[name: "horse" phrase: "She's dead, of course!" extra: ""]
+]
+
+recite: function [startVerse endVerse][
+    join.with:"\n\n" map startVerse..endVerse => [verse dec &]
+]
+
+verse: function [i][
+    animal: animals\[i]
+    lines: @[~"I know an old lady who swallowed a |animal\name|."]
+    'lines ++ animal\phrase
+    if and? [animal <> first animals] [animal <> last animals] [
+        'lines ++ map i..1 => swallowed
+        'lines ++ animals\0\phrase
+    ]
+    join.with:"\n" lines
+]
+
+swallowed: function [i][
+    predator: animals\[i]
+    prey: animals\[i - 1]
+    ~"She swallowed the |predator\name| to catch the |prey\name||prey\extra|."
+]
