@@ -85,7 +85,7 @@ suite "Transpose" [
             "in"
             "ne"
             "e."
-            ". "
+            "."
         ]
         assert -> expected = result
     ]
@@ -133,16 +133,16 @@ suite "Transpose" [
             "lnnn"
             "ogge"
             "n e."
-            "glr "
-            "ei  "
-            "snl "
-            "tei "
-            " .n "
-            "l e "
-            "i . "
-            "n   "
-            "e   "
-            ".   "
+            "glr"
+            "ei "
+            "snl"
+            "tei"
+            " .n"
+            "l e"
+            "i ."
+            "n"
+            "e"
+            "."
         ]
         assert -> expected = result
     ]
@@ -224,7 +224,7 @@ suite "Transpose" [
             "  3456"
             "  3 56"
             "    56"
-            "    5 "
+            "    5"
         ]
         assert -> expected = result
     ]

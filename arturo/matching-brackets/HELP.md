@@ -62,7 +62,7 @@ The following test file has three tests, one of which is skipped.
 Unskip a test by replacing `test.skip` with `test` beside the description for the test.
 
 ```arturo
-import.version:1.1.2 {unitt}!
+import.version:2.0.1 {unitt}!
 import {src/leap}!
 
 suite "Leap" [

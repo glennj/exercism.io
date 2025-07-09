@@ -1,8 +1,7 @@
-import.version:1.1.2 {unitt}!
+import.version:2.0.1 {unitt}!
 import {src/matching-brackets}!
 
 suite "Matching Brackets"[
-
     test "paired square brackets" [
         result: paired? "[]"
         assert -> true = result

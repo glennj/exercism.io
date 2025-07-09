@@ -70,6 +70,7 @@ That means that if a column in the input text contains only spaces on its bottom
 ### Created by
 
 - @BNAndras
+- @glennj
 
 ### Based on
 

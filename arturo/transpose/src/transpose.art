@@ -6,5 +6,12 @@ transpose: function [data][
     mtx: map lines => [pad.right & wid]
     transposed: map 0..(dec wid) 'i [map mtx => [get & i] | join]
 
+    wid: 0
+    loop (dec size transposed)..0 'i [
+        line: strip.end transposed\[i]
+        wid: max @[wid size line]
+        transposed\[i]: pad.right line wid
+    ]
+
     transposed | join.with:"\n"
 ]

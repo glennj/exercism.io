@@ -3,7 +3,7 @@ keep: function [values :block fn :literal][
     ;select values [x][call fn @[x]]
 
     f: var fn
-    fold.seed:[] values [acc x][
+    fold .seed:[] values [acc x][
         switch f x
             -> acc ++ ((block? x)? -> @[x] -> x)
             -> acc
@@ -15,6 +15,9 @@ discard: function [values :block fn :literal][
     ;filter values [x][call fn @[x]]
 
     f: var fn
-    nf: $[x][ not? f x ]
-    keep values 'nf
+    fold .seed:[] values [acc x][
+        switch f x
+            -> acc
+            -> acc ++ ((block? x)? -> @[x] -> x)
+    ]
 ]
