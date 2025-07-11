@@ -1,0 +1,33 @@
+meetup: function [year month week dayofweek][
+    ; first day of the wanted month
+    day: to :date .format:"yyyy-M-d" ~"|year|-|month|-1"
+
+    ; find the first `dayofweek` day
+    while [dayofweek <> to :string .format:"dddd" day][
+        after .days:1 'day
+    ]
+
+    ; all the `dayofweek` days in the month
+    days: @[
+        day
+        (after .weeks:1 day)
+        (after .weeks:2 day)
+        (after .weeks:3 day)
+        (after .weeks:4 day)
+    ]
+
+    ; but it may be too many
+    fifth: last days
+    if fifth\month <> month -> chop 'days
+
+    target: case week [
+        "first"  -> first days
+        "last"   -> last days
+        "second" -> days\1
+        "third"  -> days\2
+        "fourth" -> days\3
+        "teenth" -> first select days 'd -> in? d\day 13..19
+    ]
+
+    to :string .format:"yyyy-MM-dd" target
+]
