@@ -15,14 +15,8 @@ Class {
 { #category : 'adding' }
 Gigasecond >> addMoment: aDateTimeString [
 
-	| future |
-	future := (DateAndTime fromString: aDateTimeString) + gigaSecond.
+	^ ((DateAndTime fromString: aDateTimeString) + gigaSecond) asDateTimeString 
 
-	^ String streamContents: [ :stream | 
-		future printYMDOn: stream.
-		stream nextPut: $T.
-		future printHMSOn: stream.
-	]
 
 ]
 

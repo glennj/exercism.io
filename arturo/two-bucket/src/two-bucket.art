@@ -1,0 +1,72 @@
+define :bucket [
+    ; _not_ a constructor
+    init: method [name :string size :integer][
+        this\name: name
+        this\size: size
+        this\amount: 0
+    ]
+
+    full?:  method [][ this\amount = this\size ]
+    empty?: method [][ this\amount = 0 ]
+
+    fill:   method [][ this\amount: this\size ]
+    empty:  method [][ this\amount: 0 ]
+
+    pourInto: method [other :bucket][
+        qty: min @[ this\amount (other\size - other\amount) ]
+        this\amount: this\amount - qty
+        other\amount: other\amount + qty
+    ]
+]
+
+;--------------------------------------------------
+measure: function [params][
+    if not? valid? params -> return null
+    
+    one: to :bucket ["one" params\bucketOne]
+    two: to :bucket ["two" params\bucketTwo]
+
+    case params\startBucket [
+        "one" -> solve params\goal one two
+        "two" -> solve params\goal two one
+    ]
+]
+
+;--------------------------------------------------
+valid?: function [ps][
+    divisor: gcd @[ps\bucketOne ps\bucketTwo]
+    and? [ps\goal =< max @[ps\bucketOne ps\bucketTwo]]
+         [or? [one? divisor]
+              [zero? mod ps\goal divisor]]
+]
+
+;--------------------------------------------------
+solve: function [goal start other][
+    moves: 0
+
+    response: function [winner loser] -> #[
+        moves:       moves
+        goalBucket:  winner\name
+        otherBucket: loser\amount
+    ]
+
+    start\fill
+    inc 'moves
+
+    if and? [other\size = goal] [start\size <> goal] [
+        other\fill
+        inc 'moves
+    ]
+
+    while [true][
+        if start\amount = goal -> return response start other
+        if other\amount = goal -> return response other start
+
+        when [
+            start\empty? -> start\fill
+            other\full?  -> other\empty
+            true         -> start\pourInto other
+        ]
+        inc 'moves
+    ]
+]
