@@ -25,7 +25,11 @@ In the end, you should be able to:
 Note that all our students only have one name (It's a small town, what do you want?) and each student cannot be added more than once to a grade or the roster.
 In fact, when a test attempts to add the same student more than once, your implementation should indicate that this is incorrect.
 
-It isn't strictly necessary to model students as a seperate object, you can use a convenient internal data strcture as the requirements are quite simple (and as long as it doesn't leak out into the results).Note: this exercise has been slightly modified from the problem-specification, as it makes more sense to seperate adding students and querying them in seperate methods (vs. having one method doing both, which feels less Pharo/Smalltalk like).
+It isn't strictly necessary to model students as a separate object, you can use a convenient internal data structure as the requirements are quite simple (and as long as it doesn't leak out into the results).
+
+~~~~exercism/note
+This exercise has been slightly modified from the problem-specification, as it makes more sense to separate adding students and querying them in separate methods (vs. having one method doing both, which feels less Pharo/Smalltalk like).
+~~~~
 
 ## Source
 

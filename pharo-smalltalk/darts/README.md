@@ -5,7 +5,7 @@ If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Instructions
 
-Write a function that returns the earned points in a single toss of a Darts game.
+Calculate the points scored in a single toss of a Darts game.
 
 [Darts][darts] is a game where players throw darts at a [target][darts-target].
 
@@ -21,7 +21,7 @@ In our particular instance of the game, the target rewards 4 different amounts o
 The outer circle has a radius of 10 units (this is equivalent to the total radius for the entire target), the middle circle a radius of 5 units, and the inner circle a radius of 1.
 Of course, they are all centered at the same point — that is, the circles are [concentric][] defined by the coordinates (0, 0).
 
-Write a function that given a point in the target (defined by its [Cartesian coordinates][cartesian-coordinates] `x` and `y`, where `x` and `y` are [real][real-numbers]), returns the correct amount earned by a dart landing at that point.
+Given a point in the target (defined by its [Cartesian coordinates][cartesian-coordinates] `x` and `y`, where `x` and `y` are [real][real-numbers]), calculate the correct score earned by a dart landing at that point.
 
 ## Credit
 
@@ -35,8 +35,6 @@ The scoreboard image was created by [habere-et-dispertire][habere-et-dispertire]
 [habere-et-dispertire]: https://exercism.org/profiles/habere-et-dispertire
 [inkscape]: https://en.wikipedia.org/wiki/Inkscape
 
-The Pythagorean theorum will help.
-
 ## Source
 
 ### Created by
@@ -46,6 +44,7 @@ The Pythagorean theorum will help.
 ### Contributed to by
 
 - @bencoman
+- @bajger
 
 ### Based on
 
