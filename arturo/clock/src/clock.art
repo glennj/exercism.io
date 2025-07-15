@@ -3,7 +3,7 @@ minsPerDay:  scalar in`minute 1`day
 
 ; ref https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html#floorMod-int-int-
 floormod: function [numerator denominator][
-    mod numerator denominator | add denominator | mod denominator
+    numerator | mod denominator | add denominator | mod denominator
 ]
 
 normalize: $ => [floormod & minsPerDay]

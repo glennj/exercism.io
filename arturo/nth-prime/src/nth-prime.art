@@ -10,14 +10,14 @@ prime: function [number][
 
 nextPrime: function [][
     candidate: 2 + last primes
-    while [not? prime? candidate] -> add 'candidate 2
+    while [not? prime? candidate][add 'candidate 2] 
     candidate
 ]
 
 prime?: function [n][
     loop primes 'p [
-        if n < p * p -> break
+        if n < p * p -> return true
         if zero? mod n p -> return false
     ]
-    true
+    maybe
 ]

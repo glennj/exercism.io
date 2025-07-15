@@ -5,7 +5,7 @@ class Series {
     _span = span
 
     assert_(_span >= 0, "span must not be negative")
-    assert_(_span <= _digits.count, "span must be smaller than string length")
+    assert_(_span <= _digits.count, "span must not exceed string length")
     assert_(_digits.all {|d| 0 <= d && d <= 9}, "digits input must only contain digits")
   }
 

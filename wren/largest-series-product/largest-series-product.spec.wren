@@ -60,7 +60,7 @@ Testie.test("LargestSeriesProduct") { |do, skip|
   skip.test("rejects span longer than string length") {
     Expect.that {
       Series.new("123", 4).largestProduct
-    }.abortsWith("span must be smaller than string length")
+    }.abortsWith("span must not exceed string length")
   }
 
   skip.test("reports 1 for empty string and empty product (0 span)") {
@@ -78,7 +78,7 @@ Testie.test("LargestSeriesProduct") { |do, skip|
   skip.test("rejects empty string and nonzero span") {
     Expect.that {
       Series.new("", 1).largestProduct
-    }.abortsWith("span must be smaller than string length")
+    }.abortsWith("span must not exceed string length")
   }
 
   skip.test("rejects invalid character in digits") {
