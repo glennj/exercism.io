@@ -12,21 +12,17 @@ end
 local bob = {}
 
 function bob.hey(input)
-    if input == "" then 
-        return 'Fine, be that way.'
-    end
+    local trimmed = input:gsub("%s+$", "")
 
-    local shouting = is_shouting(input)
-    local asking   = is_question(input)
+    local silence  = #trimmed == 0
+    local shouting = is_shouting(trimmed)
+    local asking   = is_question(trimmed)
 
-    if shouting and asking then
-        return "Calm down, I know what I'm doing!"
-    elseif shouting then
-        return 'Whoa, chill out!'
-    elseif asking then
-        return 'Sure'
-    else 
-        return 'Whatever'
+    if     silence             then return 'Fine. Be that way!'
+    elseif shouting and asking then return "Calm down, I know what I'm doing!"
+    elseif shouting            then return 'Whoa, chill out!'
+    elseif asking              then return 'Sure.'
+    else                            return 'Whatever.'
     end
 end
 

@@ -1,19 +1,12 @@
-local function ability(dice)
+local function ability()
+    local d6 = function() return math.random(6) end
     local sum = 0
     local min = 6
-    for _, die in ipairs(dice) do
+    for _, die in ipairs({ d6(), d6(), d6(), d6() }) do
         sum = sum + die
         min = math.min(min, die)
     end
     return sum - min
-end
-
-local function roll_dice()
-    local dice = {}
-    for i = 1,4 do
-        dice[i] = math.random(6)
-    end
-    return dice
 end
 
 local function modifier(input)
@@ -34,7 +27,7 @@ function Character:new(name)
     setmetatable(c, self)
     c.name = name
     for _, characteristic in ipairs(characteristics) do
-        c[characteristic] = ability(roll_dice())
+        c[characteristic] = ability()
     end
     c.hitpoints = 10 + modifier(c.constitution)
     return c
@@ -44,6 +37,5 @@ end
 return {
     Character = Character,
     ability = ability,
-    roll_dice = roll_dice,
     modifier = modifier
 }

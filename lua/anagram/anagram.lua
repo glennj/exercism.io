@@ -1,7 +1,7 @@
 -- will this work with wide chars?
 local function sorted_chars(str)
     local chars = {}
-    for c in string.gmatch(str:lower(), ".") do 
+    for c in string.gmatch(str, ".") do 
         table.insert(chars, c)
     end
     table.sort(chars)
@@ -15,14 +15,16 @@ Anagram.__index = Anagram
 function Anagram:new(base)
     local anagram = {}
     setmetatable(anagram, self)
-    self.key = sorted_chars(base)
+    self.base = base:lower()
+    self.key = sorted_chars(self.base)
     return anagram
 end
 
 function Anagram:match(words)
     local matches = {}
     for _, word in pairs(words) do
-        if self.key == sorted_chars(word) then
+        local lc = word:lower()
+        if self.base ~= lc and self.key == sorted_chars(lc) then
             table.insert(matches, word)
         end
     end
