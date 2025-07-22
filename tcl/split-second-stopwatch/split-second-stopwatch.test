@@ -1,0 +1,313 @@
+#!/usr/bin/env tclsh
+package require tcltest
+namespace import ::tcltest::*
+source "testHelpers.tcl"
+source "split-second-stopwatch.tcl"
+
+# uncomment for more verbose test results
+#configure -verbose {body error usec}
+
+############################################################
+# Mock the builtin `clock` command to be able to simulate
+# the passage of time.
+
+rename clock tcl_clock
+namespace eval clock {
+    variable epoch 0
+
+    set clock_ensemble [namespace ensemble configure ::tcl_clock -map]
+
+    dict set clock_ensemble advance [namespace current]::advance
+    dict set clock_ensemble seconds [namespace current]::seconds
+
+    namespace ensemble create -map $clock_ensemble
+
+    proc advance {timestamp} {
+        scan $timestamp {%d:%d:%d} h m s
+        set duration [expr {$h * 3600 + $m * 60 + $s}]
+
+        variable epoch
+        incr epoch $duration
+    }
+
+    proc seconds {} {
+        variable epoch
+        return $epoch
+    }
+}
+
+############################################################
+test sss-1 "new stopwatch starts in ready state" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch state
+} -returnCodes ok -result "ready"
+
+skip sss-2
+test sss-2 "new stopwatch's current lap has no elapsed time" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch currentLap
+} -returnCodes ok -result "00:00:00"
+
+skip sss-3
+test sss-3 "new stopwatch's total has no elapsed time" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch total
+} -returnCodes ok -result "00:00:00"
+
+skip sss-4
+test sss-4 "new stopwatch does not have previous laps" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch previousLaps
+} -returnCodes ok -result ""
+
+skip sss-5
+test sss-5 "start from ready state changes state to running" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    $stopwatch state
+} -returnCodes ok -result "running"
+
+skip sss-6
+test sss-6 "start does not change previous laps" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    $stopwatch previousLaps
+} -returnCodes ok -result ""
+
+skip sss-7
+test sss-7 "start initiates time tracking for current lap" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    # jump forward in time by 5 seconds
+    clock advance "00:00:05"
+    $stopwatch currentLap
+} -returnCodes ok -result "00:00:05"
+
+skip sss-8
+test sss-8 "start initiates time tracking for total" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    clock advance "00:00:23"
+    $stopwatch total
+} -returnCodes ok -result "00:00:23"
+
+skip sss-9
+test sss-9 "start cannot be called from running state" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    $stopwatch start
+} -returnCodes error -result "cannot start an already running stopwatch"
+
+skip sss-10
+test sss-10 "stop from running state changes state to stopped" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    $stopwatch stop
+    $stopwatch state
+} -returnCodes ok -result "stopped"
+
+skip sss-11
+test sss-11 "" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    clock advance "00:00:05"
+    $stopwatch stop
+    clock advance "00:00:08"
+    $stopwatch currentLap
+} -returnCodes ok -result "00:00:05"
+
+skip sss-12
+test sss-12 "" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    clock advance "00:00:13"
+    $stopwatch stop
+    clock advance "00:00:44"
+    $stopwatch total
+} -returnCodes ok -result "00:00:13"
+
+skip sss-13
+test sss-13 "stop cannot be called from ready state" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch stop
+} -returnCodes error -result "cannot stop a stopwatch that is not running"
+
+skip sss-14
+test sss-14 "stop cannot be called from stopped state" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    $stopwatch stop
+    $stopwatch stop
+} -returnCodes error -result "cannot stop a stopwatch that is not running"
+
+skip sss-15
+test sss-15 "start from stopped state changes state to running" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    $stopwatch stop
+    $stopwatch start
+    $stopwatch state
+} -returnCodes ok -result "running"
+
+skip sss-16
+test sss-16 "start from stopped state resumes time tracking for current lap" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    clock advance "00:01:20"
+    $stopwatch stop
+    clock advance "00:00:20"
+    $stopwatch start
+    clock advance "00:00:08"
+    $stopwatch currentLap
+} -returnCodes ok -result "00:01:28"
+
+skip sss-17
+test sss-17 "start from stopped state resumes time tracking for total" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    clock advance "00:00:23"
+    $stopwatch stop
+    clock advance "00:00:44"
+    $stopwatch start
+    clock advance "00:00:09"
+    $stopwatch total
+} -returnCodes ok -result "00:00:32"
+
+skip sss-18
+test sss-18 "lap adds current lap to previous laps" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    clock advance "00:01:38"
+    $stopwatch lap
+    set laps1 [$stopwatch previousLaps]
+    clock advance "00:00:44"
+    $stopwatch lap
+    set laps2 [$stopwatch previousLaps]
+    list $laps1 $laps2
+} -returnCodes ok -match orderedLists -result {{00:01:38} {00:01:38 00:00:44}}
+
+skip sss-19
+test sss-19 "lap resets current lap and resumes time tracking" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    clock advance "00:08:22"
+    $stopwatch lap
+    set current1 [$stopwatch currentLap]
+    clock advance "00:00:15"
+    set current2 [$stopwatch currentLap]
+    list $current1 $current2
+} -returnCodes ok -result {00:00:00 00:00:15}
+
+skip sss-20
+test sss-20 "lap continues time tracking for total" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    clock advance "00:00:22"
+    $stopwatch lap
+    clock advance "00:00:33"
+    $stopwatch total
+} -returnCodes ok -result "00:00:55"
+
+skip sss-21
+test sss-21 "lap cannot be called from ready state" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch lap
+} -returnCodes error -result "cannot lap a stopwatch that is not running"
+
+skip sss-22
+test sss-22 "lap cannot be called from stopped state" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    $stopwatch stop
+    $stopwatch lap
+} -returnCodes error -result "cannot lap a stopwatch that is not running"
+
+skip sss-23
+test sss-23 "stop does not change previous laps" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    clock advance "00:11:22"
+    $stopwatch lap
+    set laps1 [$stopwatch previousLaps]
+    $stopwatch stop
+    set laps2 [$stopwatch previousLaps]
+    list $laps1 $laps2
+} -returnCodes ok -result {00:11:22 00:11:22}
+
+skip sss-24
+test sss-24 "reset from stopped state changes state to ready" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    $stopwatch stop
+    $stopwatch reset
+    $stopwatch state
+} -returnCodes ok -result "ready"
+
+skip sss-25
+test sss-25 "reset resets current lap" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    clock advance "00:00:10"
+    $stopwatch stop
+    $stopwatch reset
+    $stopwatch currentLap
+} -returnCodes ok -result "00:00:00"
+
+skip sss-26
+test sss-26 "reset clears previous laps" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    clock advance "00:00:10"
+    $stopwatch lap
+    clock advance "00:00:20"
+    $stopwatch lap
+    set laps1 [$stopwatch previousLaps]
+    $stopwatch stop
+    $stopwatch reset
+    set laps2 [$stopwatch previousLaps]
+    list $laps1 $laps2
+} -returnCodes ok -result {{00:00:10 00:00:20} {}}
+
+skip sss-27
+test sss-27 "reset cannot be called from ready state" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch reset
+} -returnCodes error -result "cannot reset a stopwatch that is not stopped"
+
+skip sss-28
+test sss-28 "reset cannot be called from running state" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    $stopwatch reset
+} -returnCodes error -result "cannot reset a stopwatch that is not stopped"
+
+skip sss-29
+test sss-29 "supports very long laps" -body {
+    set stopwatch [Stopwatch new]
+    $stopwatch start
+    clock advance "01:23:45"
+    $stopwatch lap
+    set laps1 [$stopwatch previousLaps]
+    clock advance "04:01:40"
+    set current1 [$stopwatch currentLap]
+    set total1 [$stopwatch total]
+    $stopwatch lap
+    set laps2 [$stopwatch previousLaps]
+    clock advance "08:43:05"
+    set current2 [$stopwatch currentLap]
+    set total2 [$stopwatch total]
+    $stopwatch lap
+    set laps3 [$stopwatch previousLaps]
+    list \
+        laps     [list $laps1 $laps2 $laps3] \
+        currents [list $current1 $current2] \
+        totals   [list $total1 $total2]
+
+} -returnCodes ok -match orderedLists -result {
+    laps     {01:23:45 {01:23:45 04:01:40} {01:23:45 04:01:40 08:43:05}}
+    currents {04:01:40 08:43:05}
+    totals   {05:25:25 14:08:30}
+}
+
+
+cleanupTests

@@ -1,0 +1,73 @@
+tally: function [lines][
+    @[heading] ++ processInput lines
+    | join.with: "\n" 
+]
+
+;------------------------------------------------------------
+processInput: function [lines][
+    if empty? lines -> return []
+
+    teams: #[]
+    loop (split.lines lines) [line][
+        [home away result]: split.by: ";" line
+        initTeam 'teams home
+        initTeam 'teams away
+        processMatch 'teams home away result
+    ]
+
+    standings: map (values teams) 'team [
+        team\matches: team\wins + team\draws + team\losses
+        team\points: (3 * team\wins) + team\draws
+        team
+    ]
+    sort .by: "name" 'standings
+    sort .descending .by:"points" 'standings
+
+    map standings [t][
+        formatLine t\name t\matches t\wins t\draws t\losses t\points
+    ]
+]
+
+initTeam: function [ts name][
+    teams: var ts
+    if not? key? teams name [
+        teams\[name]: #[
+            name: name
+            wins: 0
+            draws: 0
+            losses: 0
+        ]
+    ]
+]
+
+processMatch: function [ts home away result][
+    teams: var ts
+    case result [
+        "win" [
+            teams\[home]\wins: inc teams\[home]\wins
+            teams\[away]\losses: inc teams\[away]\losses
+        ]
+        "loss" [
+            teams\[home]\losses: inc teams\[home]\losses
+            teams\[away]\wins: inc teams\[away]\wins
+        ]
+        "draw" [
+            teams\[home]\draws: inc teams\[home]\draws
+            teams\[away]\draws: inc teams\[away]\draws
+        ]
+    ]
+]
+
+;------------------------------------------------------------
+formatLine: function [name matches wins draws losses points][
+    @[
+        (pad.right name 30)
+        (pad (to :string matches) 2)
+        (pad (to :string wins) 2)
+        (pad (to :string draws) 2)
+        (pad (to :string losses) 2)
+        (pad (to :string points) 2)
+    ] | join.with: " | "
+]
+
+heading: formatLine "Team" "MP" "W" "D" "L" "P"
