@@ -1,0 +1,9 @@
+shift: function [collection :literal][
+    n: attr 'n
+    if null? n -> n: 1
+
+    coll: var collection
+    elems: slice coll 0 (n - 1)
+    slice 'coll n (dec size coll)
+    elems
+]
