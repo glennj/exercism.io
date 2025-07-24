@@ -1,4 +1,4 @@
-import { describe, expect, test, test } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 import { DiffieHellman } from './diffie-hellman';
 
 describe('diffie-hellman', () => {
@@ -14,7 +14,7 @@ describe('diffie-hellman', () => {
     }).toThrow();
   });
 
-  describe('input validation', () => {
+  describe('private key is greater than 1 and less than p', () => {
     const p = 23;
     const g = 5;
     const diffieHellman = new DiffieHellman(p, g);
@@ -86,5 +86,26 @@ describe('diffie-hellman', () => {
     const secretB = diffieHellman.getSecret(alicePublicKey, bobPrivateKey);
 
     expect(secretA).toEqual(secretB);
+  });
+
+  test('private key is greater than 1 and less than p', () => {
+    let p = 23;
+    for (let i = 0; i < 10; i++) {
+      let privateKey = DiffieHellman.getPrivateKey(p);
+      expect(privateKey).toBeGreaterThan(1);
+      expect(privateKey).toBeLessThan(p);
+    }
+  });
+
+  test('private key is random', () => {
+    let p = 7919;
+    let uniqueKeys = new Set();
+    let testIterations = 1000;
+
+    for (let i = 0; i < testIterations; i++) {
+      uniqueKeys.add(DiffieHellman.getPrivateKey(p));
+    }
+
+    expect(uniqueKeys.size).toBeGreaterThan(testIterations - 100);
   });
 });

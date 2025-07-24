@@ -15,9 +15,9 @@ export const clean = (str) => {
     throw new Error('Punctuations not permitted');
 
   if (digits.length < 10)
-    throw new Error('Incorrect number of digits');
+    throw new Error('Must not be fewer than 10 digits');
   if (digits.length > 11)
-    throw new Error('More than 11 digits');
+    throw new Error('Must not be greater than 11 digits');
   if (digits.length === 11) {
     if (!digits.startsWith('1'))
       throw new Error('11 digits must start with 1');

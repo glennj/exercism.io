@@ -16,5 +16,8 @@ const planetaryYears = {
 const round = (num) => Math.round(100 * num) / 100;
 
 export const age = (planet, ageInSeconds) => {
+  if (! Object.hasOwn(planetaryYears, planet))
+    throw new Error('not a planet');
+
   return round(ageInSeconds / secondsPerEarthYear / planetaryYears[planet]);
 }

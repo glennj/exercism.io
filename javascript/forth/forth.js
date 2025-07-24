@@ -31,7 +31,12 @@ export class Forth {
   }
 
   pop(n) {
-    if (this.stack.length < n) throw new Error('Stack empty');
+    if (this.stack.length < n) {
+      if (this.stack.length == 1)
+        throw new Error('Only one value on the stack');
+      else
+        throw new Error('Stack empty');
+    }
     return this.stack.splice(this.stack.length - n);
   }
 

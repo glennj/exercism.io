@@ -64,6 +64,7 @@ See [Year on Wikipedia][year] for more ways to measure a year.
 - @ankorGH
 - @cmccandless
 - @draalger
+- @jagdish-15
 - @JesseSingleton
 - @jscheffner
 - @kytrinyx

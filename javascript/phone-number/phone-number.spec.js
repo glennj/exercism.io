@@ -1,4 +1,4 @@
-import { describe, expect, test, test } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 import { clean } from './phone-number';
 
 describe('Phone Number', () => {
@@ -17,7 +17,7 @@ describe('Phone Number', () => {
 
     test('invalid when 9 digits', () => {
       expect(() => clean('123456789')).toThrow(
-        new Error('Incorrect number of digits'),
+        new Error('Must not be fewer than 10 digits'),
       );
     });
 
@@ -37,18 +37,18 @@ describe('Phone Number', () => {
 
     test('invalid when more than 11 digits', () => {
       expect(() => clean('321234567890')).toThrow(
-        new Error('More than 11 digits'),
+        new Error('Must not be greater than 11 digits'),
       );
     });
 
     test('invalid with letters', () => {
-      expect(() => clean('123-abc-7890')).toThrow(
+      expect(() => clean('523-abc-7890')).toThrow(
         new Error('Letters not permitted'),
       );
     });
 
     test('invalid with punctuations', () => {
-      expect(() => clean('123-@:!-7890')).toThrow(
+      expect(() => clean('523-@:!-7890')).toThrow(
         new Error('Punctuations not permitted'),
       );
     });

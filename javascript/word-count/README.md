@@ -70,6 +70,7 @@ the: 2
 
 - @ankorGH
 - @draalger
+- @jagdish-15
 - @kytrinyx
 - @matthewmorgan
 - @ovidiu141

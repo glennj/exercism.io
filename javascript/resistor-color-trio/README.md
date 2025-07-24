@@ -69,6 +69,7 @@ For example, an input of `"orange", "orange", "orange"` should return:
 ### Contributed to by
 
 - @hayashi-ay
+- @jagdish-15
 
 ### Based on
 

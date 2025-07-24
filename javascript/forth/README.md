@@ -36,6 +36,7 @@ Words are case-insensitive.
 ### Contributed to by
 
 - @brendanmckeown
+- @jagdish-15
 - @slaymance
 - @SleeplessByte
 - @tejasbubane

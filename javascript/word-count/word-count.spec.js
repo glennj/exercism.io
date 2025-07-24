@@ -1,4 +1,4 @@
-import { describe, expect, test, test } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 import { countWords } from './word-count';
 
 describe('countWords', () => {
@@ -80,10 +80,13 @@ describe('countWords', () => {
       laugh: 1,
       then: 1,
       cry: 1,
+      "you're": 1,
+      getting: 1,
+      it: 1,
     };
-    expect(countWords("First: don't laugh. Then: don't cry.")).toEqual(
-      expectedCounts,
-    );
+    expect(
+      countWords("'First: don't laugh. Then: don't cry. You're getting it.'"),
+    ).toEqual(expectedCounts);
   });
 
   test('with quotations', () => {
@@ -131,5 +134,13 @@ describe('countWords', () => {
       three: 1,
     };
     expect(countWords(",\n,one,\n ,two \n 'three'")).toEqual(expectedCounts);
+  });
+
+  test('quotation for word with apostrophe', () => {
+    const expectedCounts = {
+      can: 1,
+      "can't": 2,
+    };
+    expect(countWords("can, can't, 'can't'")).toEqual(expectedCounts);
   });
 });

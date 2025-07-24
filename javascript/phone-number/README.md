@@ -18,7 +18,7 @@ Are you ready to take on the challenge and keep the connections running smoothly
 
 ## Instructions
 
-Clean up user-entered phone numbers so that they can be sent SMS messages.
+Clean up phone numbers so that they can be sent SMS messages.
 
 The **North American Numbering Plan (NANP)** is a telephone numbering system used by many countries in North America like the United States, Canada or Bermuda.
 All NANP-countries share the same international country code: `1`.
@@ -61,6 +61,7 @@ should all produce the output
 
 - @ankorGH
 - @draalger
+- @jagdish-15
 - @kytrinyx
 - @LyleCharlesScott
 - @matthewmorgan

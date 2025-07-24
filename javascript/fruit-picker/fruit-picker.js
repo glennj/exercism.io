@@ -9,51 +9,43 @@
 //
 // In your own projects, files, and code, you can play with @ts-check as well.
 
-import { checkStatus, checkInventory } from './grocer';
+import { notify } from './notifier';
+import { order } from './grocer';
 
 /**
- * Returns the service status as a boolean value
- * @return {boolean}
+ * @return void
  */
-export function isServiceOnline() {
-  return checkStatus((status) => status == 'ONLINE');
+export function onSuccess() {
+  notify({message: 'SUCCESS'});
+  return;
 }
 
 /**
- * Pick a fruit using the checkInventory API
- *
+ * @return void
+ */
+export function onError() {
+  notify({message: 'ERROR'});
+  return;
+}
+
+/**
+ * @param {GrocerQuery} query
+ * @param {FruitPickerSuccessCallback} onSuccessCallback
+ * @param {FruitPickerErrorCallback} onErrorCallback
+ * @return void
+ */
+export function orderFromGrocer(query, onSuccessCallback, onErrorCallback) {
+  order(query, onSuccessCallback, onErrorCallback);
+  return;
+}
+
+/**
  * @param {string} variety
  * @param {number} quantity
- * @param {InventoryCallback} callback
- * @return {AvailabilityAction} the result from checkInventory
+ * @return void
  */
-export function pickFruit(variety, quantity, callback) {
-  const query = {
-    "variety": variety,
-    "quantity": quantity
-  };
-  return checkInventory(query, callback);
+export function postOrder(variety, quantity) {
+  orderFromGrocer({variety, quantity}, onSuccess, onError);
+  return;
 }
 
-/**
- * This is a callback function to be passed to the checkInventory API
- * handles the next step once the inventory is known
- * @param {string | null} err
- * @param {boolean | undefined} isAvailable
- * @return {AvailabilityAction} whether the fruit was purchased 'PURCHASE' or 'NOOP'
- */
-export function purchaseInventoryIfAvailable(err, isAvailable) {
-  if (err) throw new Error(err);
-  return isAvailable ? "PURCHASE" : "NOOP";
-}
-
-/**
- * Pick a fruit, and if it is available, purchase it
- *
- * @param {string} variety
- * @param {number} quantity
- * @return {AvailabilityAction} whether the fruit was purchased 'PURCHASE' or 'NOOP'
- */
-export function pickAndPurchaseFruit(variety, quantity) {
-  return pickFruit(variety, quantity, purchaseInventoryIfAvailable);
-}

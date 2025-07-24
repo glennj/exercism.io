@@ -50,6 +50,7 @@ Alice and Bob now share secret s.
 ### Contributed to by
 
 - @ankorGH
+- @jagdish-15
 - @rchavarria
 - @serixscorpio
 - @SleeplessByte

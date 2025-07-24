@@ -1,9 +1,8 @@
 const isPrime = (n) => {
+  if (n == 2) return true;
   if (n % 2 === 0) return false;
   const j = Math.floor(Math.sqrt(n));
-  for (let i = 3; i <= j; i += 2) {
-    if (n % i === 0) return false;
-  }
+  for (let i = 3; i <= j; i += 2) if (n % i === 0) return false;
   return true;
 };
 
@@ -23,4 +22,7 @@ export class DiffieHellman {
   getSecret(yourPublicKey, myPrivateKey) {
     return (yourPublicKey ** myPrivateKey) % this.p;
   }
+
+  // private key is greater than 1 and less than p
+  static getPrivateKey = p => 2 + Math.floor(Math.random() * (p - 2));
 }

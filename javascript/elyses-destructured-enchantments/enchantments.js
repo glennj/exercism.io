@@ -8,8 +8,7 @@
  *
  * @returns {Card} the first card in the deck
  */
-export function getFirstCard(deck) {
-  const [first, ] = deck; // ignore the rest
+export function getFirstCard([first, ]) {
   return first;
 }
 
@@ -20,48 +19,54 @@ export function getFirstCard(deck) {
  *
  * @returns {Card} the second card in the deck
  */
-export function getSecondCard(deck) {
-  const [ , second, ] = deck; // ignores first element
+export function getSecondCard([, second, ]) {
   return second;
 }
 
 /**
- * Switch the position of the first two cards in the given deck
+ * Switch the position of the two cards
  *
- * @param {Card[]} deck
+ * @param {[Card, Card]} deck
  *
- * @returns {Card[]} new deck with reordered cards
+ * @returns {[Card, Card]} new deck with the 2 cards swapped
  */
-export function swapTopTwoCards(deck) {
-  const [first, second, ...rest] = deck;
-  return [second, first, ...rest];
+export function swapTwoCards([first, second]) {
+  return [second, first];
 }
 
 /**
- * Put the top card of the given deck into a separate discard pile
+ * Rotate (shift) the position of the three cards (by one place)
  *
- * @param {Card[]} deck
+ * @param {[Card, Card, Card]} deck
  *
- * @returns {[Card, Card[]]} the top card of the given
- * deck and a new deck containing all the other cards
+ * @returns {[Card, Card, Card]} new deck with the 3 cards shifted by one position
  */
-export function discardTopCard(deck) {
-  const [first, ...rest] = deck;
-  return [first, rest];
+export function shiftThreeCardsAround([first, ...rest]) {
+  return [...rest, first];
 }
-
-/** @type Card[] **/
-const FACE_CARDS = ['jack', 'queen', 'king'];
 
 /**
- * Insert face cards into the given deck
+ * Grab the chosen pile from the available piles
  *
- * @param {Card[]} deck
+ * @param {{ chosen: Card[], disregarded: Card[] }} piles
  *
- * @returns {Card[]} new deck where the second,
- * third, and fourth cards are the face cards
+ * @returns {Card[]} the pile named chosen
  */
-export function insertFaceCards(deck) {
-  const [first, ...rest] = deck;
-  return [first, ...FACE_CARDS, ...rest];
+export function pickNamedPile({chosen, }) {
+  // 🚨 Do NOT use piles.chosen or piles.disregarded.
+  return chosen;
 }
+
+/**
+ * Swap the chosen pile for the disregarded pile and the disregarded pile for the chosen pile
+ *
+ * @param {{ chosen: Card[], disregarded: Card[] }} piles
+ * @returns {{ chosen: Card[], disregarded: Card[] }} new piles where the two piles are swapped
+ */
+export function swapNamedPile({chosen: disregarded, disregarded: chosen}) {
+  // 🪄 Don't break the magic.
+  // 🚨 Do NOT use piles.chosen or piles.disregarded.
+  // 🚨 Do NOT touch the next line or Elyse will accidentally reveal the trick.
+  return { chosen, disregarded };
+}
+
