@@ -118,6 +118,14 @@ int score(String s) { ... }
 
 ---
 
+<!-- atbash -->
+
+Notice that (aside from adding spaces) the encoding algorithm is exactly the same as the decoding algorithm: map 'a' to 'z', 'b' to 'y', etc.
+There's an opportunity to refactor to remove the duplicated code.
+
+
+---
+
 <!-- main -->
 
 The presence of a `main` function indicates you're not using the provided tests.
