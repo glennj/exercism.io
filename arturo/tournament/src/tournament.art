@@ -47,12 +47,15 @@ processMatch: function [ts home away result][
 ]
 
 ;------------------------------------------------------------
+; Get the team object by name from the teams dictionary.
+; Create it if it doesn't exist.
+;
 getTeam: function [ts name][
     teams: var ts
     switch key? teams name
         [ get teams name ]
         [
-            team: to :team @[name]!
+            team: to :team @[name]
             teams\[name]: team
             team
         ]

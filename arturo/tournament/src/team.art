@@ -4,24 +4,14 @@ define :team [
         this\wins: 0
         this\draws: 0
         this\losses: 0
-        this\matches: 0
-        this\points: 0
     ]
 
-    win: method [][
-        \wins:    inc \wins
-        \matches: inc \matches
-        \points:  \points + 3
-    ]
-    draw: method [][
-        \draws:   inc \draws
-        \matches: inc \matches
-        \points:  \points + 1
-    ]
-    lose: method [][
-        \losses:  inc \losses
-        \matches: inc \matches
-    ]
+    win:  method [][ \wins: inc \wins ]
+    draw: method [][ \draws: inc \draws ]
+    lose: method [][ \losses: inc \losses ]
+
+    matches: method [][ \wins + \draws + \losses ]
+    points:  method [][ (3 * \wins) + \draws ]
 
     compare: method [other :team][
         p: compare this\points other\points
