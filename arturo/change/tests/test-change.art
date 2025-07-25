@@ -1,0 +1,79 @@
+import.version:2.0.1 {unitt}!
+import {src/change}!
+
+suite "Change" [
+    test "change for 1 cent" [
+        result: findFewestCoins [1 5 10 25] 1
+        expected: [1]
+        assert -> expected = result
+    ]
+
+    test "single coin change" [
+        result: findFewestCoins [1 5 10 25 100] 25
+        expected: [25]
+        assert -> expected = result
+    ]
+
+    test "multiple coin change" [
+        result: findFewestCoins [1 5 10 25 100] 15
+        expected: [5 10]
+        assert -> expected = result
+    ]
+
+    test "change with Lilliputian Coins" [
+        result: findFewestCoins [1 4 15 20 50] 23
+        expected: [4 4 15]
+        assert -> expected = result
+    ]
+
+    test "change with Lower Elbonia Coins" [
+        result: findFewestCoins [1 5 10 21 25] 63
+        expected: [21 21 21]
+        assert -> expected = result
+    ]
+
+    test "large target values" [
+        result: findFewestCoins [1 2 5 10 20 50 100] 999
+        expected: [2 2 5 20 20 50 100 100 100 100 100 100 100 100 100]
+        assert -> expected = result
+    ]
+
+    test "possible change without unit coins available" [
+        result: findFewestCoins [2 5 10 20 50] 21
+        expected: [2 2 2 5 10]
+        assert -> expected = result
+    ]
+
+    test "another possible change without unit coins available" [
+        result: findFewestCoins [4 5] 27
+        expected: [4 4 4 5 5 5]
+        assert -> expected = result
+    ]
+
+    test "a greedy approach is not optimal" [
+        result: findFewestCoins [1 10 11] 20
+        expected: [10 10]
+        assert -> expected = result
+    ]
+
+    test "no coins make 0 change" [
+        result: findFewestCoins [1 5 10 21 25] 0
+        expected: []
+        assert -> expected = result
+    ]
+
+    test "error test.skiping for change smaller than the smallest of coins" [
+        result: findFewestCoins [5 10] 3
+        assert -> null = result
+    ]
+
+    test "error if no combination can add up to target" [
+        result: findFewestCoins [5 10] 94
+        assert -> null = result
+    ]
+
+    test "cannot find negative change values" [
+        result: findFewestCoins [1 2 5] neg 5
+        assert -> null = result
+    ]
+]

@@ -1,0 +1,53 @@
+findFewestCoins: function[denominations target][
+    if zero? target -> return []
+    if target < min denominations -> return null
+
+    coinIndex: change denominations target
+    makeChange denominations target coinIndex
+]
+
+;   Change making algorithm from
+;   http://www.ccs.neu.edu/home/jaa/CSG713.04F/Information/Handouts/dyn_prog.pdf
+;
+;   This function generates two arrays:
+;
+;   C = maps the minimum number of coins required to make change 
+;       for each n from 1 to amount. It is only used internally here.
+;
+;   S = the index of the first coin used to make change for amount n.
+;       This is the return value.
+
+change: function [denominations target][
+    C: [0] ++ repeat infinite target
+    S: repeat null inc target
+
+    loop (1..target) 'p [
+        minCoins: infinite
+        coinIndex: null
+        loop.with:'i denominations 'coin [
+            if coin =< p [
+                possibleMin: 1 + C\[p - coin]
+                if possibleMin < minCoins [
+                    minCoins: possibleMin
+                    coinIndex: i
+                ]
+            ]
+        ]
+        C\[p]: minCoins
+        S\[p]: coinIndex
+    ]
+    S
+]
+
+
+makeChange: function [denominations target coinIndex][
+    change: []
+    while [target > 0][
+        idx: coinIndex\[target]
+        if null? idx -> return null
+        coin: denominations\[idx]
+        'change ++ coin
+        target: target - coin
+    ]
+    change
+]
