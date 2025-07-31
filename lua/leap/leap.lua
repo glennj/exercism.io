@@ -1,5 +1,6 @@
+local divBy = function (num, den) return num % den == 0 end
+
 -- leap year
 return function(year)
-    return year % 4 == 0
-        and (year % 100 ~= 0 or year % 400 == 0)
+    return divBy(year, 4) and (not divBy(year, 100) or divBy(year, 400))
 end
