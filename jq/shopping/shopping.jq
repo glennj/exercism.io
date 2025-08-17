@@ -9,7 +9,8 @@
 
 # Task 4: map the listed substitutions
 (
-  .ingredients + ."optional ingredients"
+  ."optional ingredients" + .ingredients
   | map(select(has("substitute")) | {(.item): .substitute})
   | add
+  | debug
 )

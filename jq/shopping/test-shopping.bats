@@ -27,5 +27,11 @@ load bats-jq
     ## task 4
     run jq -c -f shopping.jq shopping-list.json
     assert_success
-    assert_line --index 3 '{"buttermilk":"regular milk","melted butter":"vegetable oil","blueberries":"chopped apple"}'
+    assert_objects_equal \
+        "${lines[3]}" \
+        '{
+            "buttermilk":"regular milk",
+            "melted butter":"vegetable oil",
+            "blueberries":"chopped apple"
+         }'
 }

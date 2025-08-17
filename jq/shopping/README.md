@@ -298,7 +298,6 @@ Without going into great depth (functions will be a topic for another exercise),
 - `select`
 
   Given _some_ input and a filter as an argument:
-
   - if the filter applied to the argument results in a _true_ value, output the input unchanged
   - otherwise, output _nothing_ (not the `null` value, truly no output)
 
@@ -320,7 +319,6 @@ Without going into great depth (functions will be a topic for another exercise),
   There are a couple of ways to do this.
 
   With the input `["Anne", "Bob", "Cathy", "Dave"]`, select the names having length 4.
-
   - use `map` and `select` together
 
     ```jq

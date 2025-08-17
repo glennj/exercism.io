@@ -1,5 +1,6 @@
 name: 'armstrong_numbers'
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=3.2.0 <4.0.0'
 dev_dependencies:
   test: '<2.0.0'
+  lints: ^6.0.0
