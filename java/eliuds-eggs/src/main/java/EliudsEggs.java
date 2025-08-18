@@ -1,6 +1,8 @@
-public class PopCount {
+public class EliudsEggs {
     public int eggCount(int number) {
-        //return eggCountIterative(number);
+        /*
+        return eggCountIterative(number);
+        */
         return eggCountRecursive(number, 0);
     }
 

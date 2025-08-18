@@ -15,7 +15,7 @@ class CryptoSquare {
                 : encode(split(normalized));
     }
 
-    String getCiphertext() { return ciphertext; }
+    String getCiphertext() {return ciphertext;}
 
     private String encode(List<String> rows) {
         return IntStream

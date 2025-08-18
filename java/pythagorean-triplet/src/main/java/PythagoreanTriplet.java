@@ -5,6 +5,7 @@ class PythagoreanTriplet implements Comparable<PythagoreanTriplet> {
 
     PythagoreanTriplet(int a, int b, int c) {
         int[] edges = new int[]{a, b, c};
+
         if (edges[0] <= 0 || edges[0] + edges[1] < edges[2])
             throw new IllegalArgumentException("Not a triangle");
         if (edges[0] * edges[0] + edges[1] * edges[1] != edges[2] * edges[2])

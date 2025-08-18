@@ -1,7 +1,8 @@
 class CollatzCalculator {
 
     int computeStepCount(int start) {
-        if (start <= 0) throw new IllegalArgumentException("Only positive integers are allowed");
+        if (start <= 0) 
+            throw new IllegalArgumentException("Only positive integers are allowed");
 
         int step = 0;
         while (start != 1) {
