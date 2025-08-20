@@ -16,7 +16,7 @@ test relative-1 "Direct parent-child relation" -body {
     }
 } -returnCodes ok -result 1
 
-#skip relative-2
+skip relative-2
 test relative-2 "Sibling relationship" -body {
     degreeOfSeparation Olga Yassin {
         Dalia {Olga Yassin}

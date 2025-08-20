@@ -40,7 +40,8 @@ processMatch: function [ts home away result][
         ]
     ]
 
-    ; why do I have to do this? Doesn't arturo do references?
+    ; Apparently Arturo has trouble updating dictionary values by reference.
+    ; The updated object must be explicitly stored back into the dictionary.
     teams: var ts
     teams\[homeTeam\name]: homeTeam
     teams\[awayTeam\name]: awayTeam

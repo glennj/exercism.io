@@ -10,7 +10,7 @@ suite "Tournament" [
         assert -> actual = expected
     ]
 
-    test "a win is three points, a loss is zero points" [
+    test.skip "a win is three points, a loss is zero points" [
         actual: tally "Allegoric Alaskans;Blithering Badgers;win"
         expected: {
             Team                           | MP |  W |  D |  L |  P
@@ -20,7 +20,7 @@ suite "Tournament" [
         assert -> actual = expected
     ]
 
-    test "a win can also be expressed as a loss" [
+    test.skip "a win can also be expressed as a loss" [
         actual: tally "Blithering Badgers;Allegoric Alaskans;loss"
         expected: {
             Team                           | MP |  W |  D |  L |  P
@@ -30,7 +30,7 @@ suite "Tournament" [
         assert -> actual = expected
     ]
 
-    test "a different team can win" [
+    test.skip "a different team can win" [
         actual: tally "Blithering Badgers;Allegoric Alaskans;win"
         expected: {
             Team                           | MP |  W |  D |  L |  P
@@ -40,7 +40,7 @@ suite "Tournament" [
         assert -> actual = expected
     ]
 
-    test "a draw is one point each" [
+    test.skip "a draw is one point each" [
         actual: tally "Allegoric Alaskans;Blithering Badgers;draw"
         expected: {
             Team                           | MP |  W |  D |  L |  P
@@ -50,7 +50,7 @@ suite "Tournament" [
         assert -> actual = expected
     ]
 
-    test "There can be more than one match" [
+    test.skip "There can be more than one match" [
         actual: tally {
             Allegoric Alaskans;Blithering Badgers;win
             Allegoric Alaskans;Blithering Badgers;win
@@ -63,7 +63,7 @@ suite "Tournament" [
         assert -> actual = expected
     ]
 
-    test "There can be more than one winner" [
+    test.skip "There can be more than one winner" [
         actual: tally {
             Allegoric Alaskans;Blithering Badgers;loss
             Allegoric Alaskans;Blithering Badgers;win
@@ -76,7 +76,7 @@ suite "Tournament" [
         assert -> actual = expected
     ]
 
-    test "There can be more than two teams" [
+    test.skip "There can be more than two teams" [
         actual: tally {
             Allegoric Alaskans;Blithering Badgers;win
             Blithering Badgers;Courageous Californians;win
@@ -91,7 +91,7 @@ suite "Tournament" [
         assert -> actual = expected
     ]
 
-    test "typical input" [
+    test.skip "typical input" [
         actual: tally {
             Allegoric Alaskans;Blithering Badgers;win
             Devastating Donkeys;Courageous Californians;draw
@@ -110,7 +110,7 @@ suite "Tournament" [
         assert -> actual = expected
     ]
 
-    test "incomplete competition (not all pairs have played)" [
+    test.skip "incomplete competition (not all pairs have played)" [
         actual: tally {
             Allegoric Alaskans;Blithering Badgers;loss
             Devastating Donkeys;Allegoric Alaskans;loss
@@ -127,7 +127,7 @@ suite "Tournament" [
         assert -> actual = expected
     ]
 
-    test "ties broken alphabetically" [
+    test.skip "ties broken alphabetically" [
         actual: tally {
             Courageous Californians;Devastating Donkeys;win
             Allegoric Alaskans;Blithering Badgers;win
@@ -146,7 +146,7 @@ suite "Tournament" [
         assert -> actual = expected
     ]
 
-    test "ensure points sorted numerically" [
+    test.skip "ensure points sorted numerically" [
         actual: tally {
             Devastating Donkeys;Blithering Badgers;win
             Devastating Donkeys;Blithering Badgers;win
