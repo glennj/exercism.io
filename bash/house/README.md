@@ -107,7 +107,7 @@ that ate the malt
 that lay in the house that Jack built.
 ```
 
-[papyr]: http://papyr.com/hypertextbooks/grammar/ph_noun.htm
+[papyr]: https://papyr.com/hypertextbooks/grammar/ph_noun.htm
 
 ## Source
 
@@ -124,4 +124,4 @@ that lay in the house that Jack built.
 
 ### Based on
 
-British nursery rhyme - http://en.wikipedia.org/wiki/This_Is_The_House_That_Jack_Built
+British nursery rhyme - https://en.wikipedia.org/wiki/This_Is_The_House_That_Jack_Built

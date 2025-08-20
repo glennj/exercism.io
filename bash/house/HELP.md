@@ -21,6 +21,42 @@ Help for the various `assert*` functions can be found there.
 
 [bats-assert]: https://github.com/bats-core/bats-assert
 
+## Debugging output
+
+```exercism/caution
+This works locally with `bats`, but **not** in the Exercism online editor.
+```
+
+When running tests, `bats` captures both stdout and stderr for comparison with the expected output.
+If you print debug messages to stdout (`echo`) or stderr (`>&2`), they will be included in the captured output and may cause the test to fail.
+
+To print debug information without affecting the test results, `bats` provides file descriptor **3** for this purpose.
+Anything redirected to `>&3` will be shown during the test run but will not be included in the captured output used for assertions.
+
+Example:
+
+```bash
+#!/usr/bin/env bash
+
+# This debug message will not interfere with test output comparison
+echo "debug message" >&3
+
+# Normal program output (this is what your tests will see and compare)
+echo "Hello, World!"
+```
+
+Example run:
+
+```none
+$ bats hello_world.bats
+hello_world.bats
+ ✓ Say Hi!
+debug message
+1 test, 0 failures
+```
+
+This allows you to see helpful debug output without affecting the tests.
+
 ## Skipped tests
 
 Solving an exercise means making all its tests pass.
@@ -69,7 +105,8 @@ It's possible to submit an incomplete solution which allows you to:
 If you'd like help solving the exercise, check the following pages:
 
 - The [Bash track's documentation](https://exercism.org/docs/tracks/bash)
-- [Exercism's support channel on gitter](https://gitter.im/exercism/support)
+- The [Bash track's programming category on the forum](https://forum.exercism.org/c/programming/bash)
+- [Exercism's programming category on the forum](https://forum.exercism.org/c/programming/5)
 - The [Frequently Asked Questions](https://exercism.org/docs/using/faqs)
 
 Should those resources not suffice, you could submit your (incomplete) solution to request mentoring.
