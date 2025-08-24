@@ -1,0 +1,389 @@
+#!/usr/bin/env tclsh
+package require tcltest
+namespace import ::tcltest::*
+source testHelpers.tcl
+
+# uncomment for more verbose test results
+#configure -verbose {body error usec}
+
+############################################################
+source "intergalactic-transmission.tcl"
+
+# Inputs and expected data are given in hexadecimal
+
+# calculate transmit sequences
+
+test intergalactic-1.1 "empty message" -body {
+    transmitSequence {}
+} -returnCodes ok -match orderedLists -result {}
+
+skip intergalactic-1.2
+test intergalactic-1.2 "0x00 is transmitted as 0x0000" -body {
+    transmitSequence {0x00}
+} -returnCodes ok -match orderedLists -result {
+        0x00
+        0x00
+}
+
+skip intergalactic-1.3
+test intergalactic-1.3 "0x02 is transmitted as 0x0300" -body {
+    transmitSequence {0x02}
+} -returnCodes ok -match orderedLists -result {
+        0x03
+        0x00
+}
+
+skip intergalactic-1.4
+test intergalactic-1.4 "0x06 is transmitted as 0x0600" -body {
+    transmitSequence {0x06}
+} -returnCodes ok -match orderedLists -result {
+        0x06
+        0x00
+}
+
+skip intergalactic-1.5
+test intergalactic-1.5 "0x05 is transmitted as 0x0581" -body {
+    transmitSequence {0x05}
+} -returnCodes ok -match orderedLists -result {
+        0x05
+        0x81
+}
+
+skip intergalactic-1.6
+test intergalactic-1.6 "0x29 is transmitted as 0x2881" -body {
+    transmitSequence {0x29}
+} -returnCodes ok -match orderedLists -result {
+        0x28
+        0x81
+}
+
+skip intergalactic-1.7
+test intergalactic-1.7 "0xc001c0de is transmitted as 0xc000711be1" -body {
+    transmitSequence {0xc0 0x01 0xc0 0xde}
+} -returnCodes ok -match orderedLists -result {
+        0xc0
+        0x00
+        0x71
+        0x1b
+        0xe1
+}
+
+skip intergalactic-1.8
+test intergalactic-1.8 "six byte message" -body {
+    transmitSequence {0x47 0x72 0x65 0x61 0x74 0x21}
+} -returnCodes ok -match orderedLists -result {
+        0x47
+        0xb8
+        0x99
+        0xac
+        0x17
+        0xa0
+        0x84
+}
+
+skip intergalactic-1.9
+test intergalactic-1.9 "seven byte message" -body {
+    transmitSequence {0x47 0x72 0x65 0x61 0x74 0x31 0x21}
+} -returnCodes ok -match orderedLists -result {
+        0x47
+        0xb8
+        0x99
+        0xac
+        0x17
+        0xa0
+        0xc5
+        0x42
+}
+
+skip intergalactic-1.10
+test intergalactic-1.10 "eight byte message" -body {
+    transmitSequence {
+        0xc0
+        0x01
+        0x13
+        0x37
+        0xc0
+        0xde
+        0x21
+        0x21
+    }
+} -returnCodes ok -match orderedLists -result {
+        0xc0
+        0x00
+        0x44
+        0x66
+        0x7d
+        0x06
+        0x78
+        0x42
+        0x21
+        0x81
+}
+
+skip intergalactic-1.11
+test intergalactic-1.11 "twenty byte message" -body {
+    transmitSequence {
+        0x45
+        0x78
+        0x65
+        0x72
+        0x63
+        0x69
+        0x73
+        0x6d
+        0x20
+        0x69
+        0x73
+        0x20
+        0x61
+        0x77
+        0x65
+        0x73
+        0x6f
+        0x6d
+        0x65
+        0x21
+    }
+} -returnCodes ok -match orderedLists -result {
+        0x44
+        0xbd
+        0x18
+        0xaf
+        0x27
+        0x1b
+        0xa5
+        0xe7
+        0x6c
+        0x90
+        0x1b
+        0x2e
+        0x33
+        0x03
+        0x84
+        0xee
+        0x65
+        0xb8
+        0xdb
+        0xed
+        0xd7
+        0x28
+        0x84
+}
+
+
+# decode received messages
+
+skip intergalactic-2.1
+test intergalactic-2.1 "empty message" -body {
+    decodeMessage {}
+} -returnCodes ok -match orderedLists -result {}
+
+skip intergalactic-2.2
+test intergalactic-2.2 "zero message" -body {
+    decodeMessage {0x00 0x00}
+} -returnCodes ok -match orderedLists -result {
+        0x00
+}
+
+skip intergalactic-2.3
+test intergalactic-2.3 "0x0300 is decoded to 0x02" -body {
+    decodeMessage {0x03 0x00}
+} -returnCodes ok -match orderedLists -result {
+        0x02
+}
+
+skip intergalactic-2.4
+test intergalactic-2.4 "0x0581 is decoded to 0x05" -body {
+    decodeMessage {0x05 0x81}
+} -returnCodes ok -match orderedLists -result {
+        0x05
+}
+
+skip intergalactic-2.5
+test intergalactic-2.5 "0x2881 is decoded to 0x29" -body {
+    decodeMessage {0x28 0x81}
+} -returnCodes ok -match orderedLists -result {
+        0x29
+}
+
+skip intergalactic-2.6
+test intergalactic-2.6 "first byte has wrong parity" -body {
+    decodeMessage {0x07 0x00}
+} -returnCodes error -result "wrong parity"
+
+skip intergalactic-2.7
+test intergalactic-2.7 "second byte has wrong parity" -body {
+    decodeMessage {0x03 0x68}
+} -returnCodes error -result "wrong parity"
+
+skip intergalactic-2.8
+test intergalactic-2.8 "0xcf4b00 is decoded to 0xce94" -body {
+    decodeMessage {0xcf 0x4b 0x00}
+} -returnCodes ok -match orderedLists -result {
+        0xce
+        0x94
+}
+
+skip intergalactic-2.9
+test intergalactic-2.9 "0xe2566500 is decoded to 0xe2ad90" -body {
+    decodeMessage {0xe2 0x56 0x65 0x00}
+} -returnCodes ok -match orderedLists -result {
+        0xe2
+        0xad
+        0x90
+}
+
+skip intergalactic-2.10
+test intergalactic-2.10 "six byte message" -body {
+    decodeMessage {0x47 0xb8 0x99 0xac 0x17 0xa0 0x84}
+} -returnCodes ok -match orderedLists -result {
+        0x47
+        0x72
+        0x65
+        0x61
+        0x74
+        0x21
+}
+
+skip intergalactic-2.11
+test intergalactic-2.11 "seven byte message" -body {
+    decodeMessage {
+        0x47
+        0xb8
+        0x99
+        0xac
+        0x17
+        0xa0
+        0xc5
+        0x42
+    }
+} -returnCodes ok -match orderedLists -result {
+        0x47
+        0x72
+        0x65
+        0x61
+        0x74
+        0x31
+        0x21
+}
+
+skip intergalactic-2.12
+test intergalactic-2.12 "last byte has wrong parity" -body {
+    decodeMessage {
+        0x47
+        0xb8
+        0x99
+        0xac
+        0x17
+        0xa0
+        0xc5
+        0x43
+    }
+} -returnCodes error -result "wrong parity"
+
+skip intergalactic-2.13
+test intergalactic-2.13 "eight byte message" -body {
+    decodeMessage {
+        0xc0
+        0x00
+        0x44
+        0x66
+        0x7d
+        0x06
+        0x78
+        0x42
+        0x21
+        0x81
+    }
+} -returnCodes ok -match orderedLists -result {
+        0xc0
+        0x01
+        0x13
+        0x37
+        0xc0
+        0xde
+        0x21
+        0x21
+}
+
+skip intergalactic-2.14
+test intergalactic-2.14 "twenty byte message" -body {
+    decodeMessage {
+        0x44
+        0xbd
+        0x18
+        0xaf
+        0x27
+        0x1b
+        0xa5
+        0xe7
+        0x6c
+        0x90
+        0x1b
+        0x2e
+        0x33
+        0x03
+        0x84
+        0xee
+        0x65
+        0xb8
+        0xdb
+        0xed
+        0xd7
+        0x28
+        0x84
+    }
+} -returnCodes ok -match orderedLists -result {
+        0x45
+        0x78
+        0x65
+        0x72
+        0x63
+        0x69
+        0x73
+        0x6d
+        0x20
+        0x69
+        0x73
+        0x20
+        0x61
+        0x77
+        0x65
+        0x73
+        0x6f
+        0x6d
+        0x65
+        0x21
+}
+
+skip intergalactic-2.15
+test intergalactic-2.15 "wrong parity on 16th byte" -body {
+    decodeMessage {
+        0x44
+        0xbd
+        0x18
+        0xaf
+        0x27
+        0x1b
+        0xa5
+        0xe7
+        0x6c
+        0x90
+        0x1b
+        0x2e
+        0x33
+        0x03
+        0x84
+        0xef
+        0x65
+        0xb8
+        0xdb
+        0xed
+        0xd7
+        0x28
+        0x84
+    }
+} -returnCodes error -result "wrong parity"
+
+
+cleanupTests
