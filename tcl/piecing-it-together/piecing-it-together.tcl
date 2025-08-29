@@ -68,11 +68,9 @@ proc allData {rows cols} {
 }
 
 proc matchesCriteria {data criteria} {
-    foreach key {pieces border inside rows columns aspectRatio format} {
-        if {[dict exists $criteria $key]} {
-            if {[dict get $data $key] != [dict get $criteria $key]} {
-                return false
-            }
+    dict for {key value} $data {
+        if {[dict exists $criteria $key] && $value != [dict get $criteria $key]} {
+            return false
         }
     }
     return true
