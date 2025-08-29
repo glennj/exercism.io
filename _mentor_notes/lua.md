@@ -15,6 +15,11 @@ end
 return cond
 ```
 
+<!-- -->
+
+Can you combine the tests into one boolean expression (using [Logical operators](https://www.lua.org/manual/5.4/manual.html#3.4.5))?
+It often helps to say the leap year rules out loud using the words "and" and "or" and "not".
+
 # metatables and metamethods
 
 https://exercism.org/mentoring/discussions/e43b7d8df6b348e48e39909bc5f2b815

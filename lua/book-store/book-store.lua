@@ -1,59 +1,37 @@
 local BookPrice = 800
-local Discounted = {[0]=1.0, 1.0, 0.95, 0.90, 0.80, 0.75}
+local Discounted = {[0] = 1.0, 1.0, 0.95, 0.90, 0.80, 0.75}
 
-local contains
-local optimize
+local bundleBooks, optimize, contains
 
-local printList = function(list, level)
-    level = level or 0
-
-    for i, v in ipairs(list) do
-        local value = v
-        if type(v) == "table" then
-            value = tostring(v)
-        end
-
-        print(string.rep("\t", level) .. i .. "\t" .. v)
-        if type(v) == "table" then
-            printList(v, level + 1)
-        end
+local total = function(basket)
+    local price = 0
+    for _, bundle in ipairs(optimize(bundleBooks(basket))) do
+        price = price + #bundle * BookPrice * Discounted[#bundle]
     end
+
+    return price
 end
 
-local function total(basket)
-    print("START")
-    printList(basket)
+-- ------------------------------------------------------------
+-- add each book to a "bundle", a collection of books with no duplicates
+bundleBooks = function(basket)
     local bundles = {{}}
     local added
 
-    -- add each book to a "bundle", a collection of books 
-    -- with no duplicates
     for _, book in ipairs(basket) do
         added = false
-        for _, bundle in ipairs(bundles) do
+        for i, bundle in ipairs(bundles) do
             if not contains(bundle, book) then
                 table.insert(bundle, book)
                 added = true
+                break
             end
         end
         if not added then
             table.insert(bundles, {book})
         end
     end
-    print("bundles")
-    printList(bundles)
-
-    bundles = optimize(bundles)
-    print("optimized")
-    printList(bundles)
-
-    local price = 0
-    for _, bundle in ipairs(bundles) do
-        local size = #bundle
-        price = price + size * BookPrice * Discounted[size]
-    end
-
-    return price
+    return bundles
 end
 
 contains = function(tbl, item)
@@ -68,28 +46,16 @@ end
 -- optimize the bundles: two bundles of size 4 is cheaper
 -- than a bundle of size 5 plus a bundle of size 3
 optimize = function(bundles)
-    local bundle5 = {}
+    local b5, b3
     for _, bundle in ipairs(bundles) do
-        if #bundle == 5 then
-            table.insert(bundle5, bundle)
+        if     #bundle == 5 then b5 = bundle
+        elseif #bundle == 3 then b3 = bundle
         end
     end
-    if #bundle5 == 0 then
+
+    if not (b5 and b3) then
         return bundles
     end
-
-    local bundle3 = {}
-    for _, bundle in ipairs(bundles) do
-        if #bundle == 3 then
-            table.insert(bundle3, bundle)
-        end
-    end
-    if #bundle3 == 0 then
-        return bundles
-    end
-
-    local b5 = bundle5[1]
-    local b3 = bundle3[1]
 
     for i, book in ipairs(b5) do
         if not contains(b3, book) then
@@ -99,9 +65,9 @@ optimize = function(bundles)
         end
     end
 
+    -- keep repeating until no more (5-bundle plus 3-bundle) remain
     return optimize(bundles)
 end
 
-
-
+-- ------------------------------------------------------------
 return { total = total }

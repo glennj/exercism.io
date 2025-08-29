@@ -6,7 +6,6 @@ describe('book-store', function()
     assert.are.same(800, book_store.total(basket))
   end)
 
-  --[[
   it('two of the same book', function()
     local basket = { 2, 2 }
     assert.are.same(1600, book_store.total(basket))
@@ -92,7 +91,5 @@ describe('book-store', function()
     local basket = { 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5 }
     assert.are.same(10000, book_store.total(basket))
   end)
-
-  --]]
 
 end)
