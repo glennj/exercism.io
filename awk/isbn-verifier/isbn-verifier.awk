@@ -1,19 +1,21 @@
-function debug(str) { print str > "/dev/fd/3" }
+#!/usr/bin/env gawk -f
 
-{ gsub(/-/, "", $1) }
-
-!/^[[:digit:]]{9}[[:digit:]X]$/ { print "false"; next }
+BEGIN {
+    isbn10 = @/^([0-9]{9})([0-9X])$/
+}
 
 {
-    debug("matches")
-    split($1, ds, "")
+    gsub(/-/, "", $1)
+
     sum = 0
-    for (i = 1; i <= 9; i++) {
-        sum += (11 - i) * ds[i]
-        debug("" i ": " sum)
+    if ( !match($1, isbn10, m) ) {
+        sum = -1
+    } else {
+        for (i = 1; i <= 9; i++) {
+            sum += (11 - i) * (0 + substr(m[1], i, 1))
+        }
+        sum += m[2] == "X" ? 10 : (0 + m[2])
     }
-    sum += ds[10] == "X" ? 10 : ds[10]
-    debug(sum)
 
     print sum % 11 == 0 ? "true" : "false"
 }
