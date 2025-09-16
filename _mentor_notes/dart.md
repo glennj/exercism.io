@@ -75,6 +75,20 @@ The return value from the 2nd argument becomes the accumulator value for the nex
 
 ---
 
+Function variables usually don't need to have an explicit type. 
+Instead of:
+```dart
+String wordUpper = word.toUpperCase();
+```
+you can use 
+```dart
+var wordUpper = word.toUpperCase();
+```
+
+See the [manual](https://dart.dev/language#variables) and the ["Effective Dart" doc](https://dart.dev/effective-dart/usage#do-follow-a-consistent-rule-for-var-and-final-on-local-variables).
+
+---
+
 Regular Expressions:
 
 For further reading:

@@ -362,6 +362,33 @@ This is due to [name resolution](http://www.tcl-lang.org/man/tcl8.6/TclCmd/names
 
 <!-- #################################################### -->
 
+## leap
+
+This is a common anti-pattern:
+```tcl
+if {cond} {
+  return true
+} else {
+  return false
+}
+```
+`cond` is already an expression that evaluates to a boolean value. You can return it directly.
+```tcl
+  return [expr {cond}]
+```
+Or, since Tcl procs will return the value of the last command, you can just end the proc with
+```tcl
+  expr {cond}
+```
+
+---
+
+The challenge here is to combine all the criteria into a single expression using the `&&` `||` and `!` logical operators.
+
+It often helps to say the leap year rules out loud using the words "and" and "or" and "not".
+
+<!-- #################################################### -->
+
 ## word-count
 
 In general, it's better to describe the "good" characters of words we want
