@@ -1,574 +1,669 @@
 import.version:2.0.1 {unitt}!
 import {src/meetup}!
 
-suite "Meetup" [
-    test "when teenth Monday is the 13th, the first day of the teenth week" [
-        actual: meetup 2013 5 "teenth" "Monday"
-        expected: "2013-05-13"
-        assert -> actual = expected
+describe "Meetup" [
+    it "when teenth Monday is the 13th, the first day of the teenth week" [
+        expects.be:'equal? @[
+            express "2013-05-13"
+            express meetup 2013 5 "teenth" "Monday"
+        ]
     ]
 
     test "when teenth Monday is the 19th, the last day of the teenth week" [
-        actual: meetup 2013 8 "teenth" "Monday"
-        expected: "2013-08-19"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-08-19"
+            express meetup 2013 8 "teenth" "Monday"
+        ]
     ]
 
     test "when teenth Monday is some day in the middle of the teenth week" [
-        actual: meetup 2013 9 "teenth" "Monday"
-        expected: "2013-09-16"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-09-16"
+            express meetup 2013 9 "teenth" "Monday"
+        ]
     ]
 
     test "when teenth Tuesday is the 19th, the last day of the teenth week" [
-        actual: meetup 2013 3 "teenth" "Tuesday"
-        expected: "2013-03-19"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-03-19"
+            express meetup 2013 3 "teenth" "Tuesday"
+        ]
     ]
 
     test "when teenth Tuesday is some day in the middle of the teenth week" [
-        actual: meetup 2013 4 "teenth" "Tuesday"
-        expected: "2013-04-16"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-04-16"
+            express meetup 2013 4 "teenth" "Tuesday"
+        ]
     ]
 
     test "when teenth Tuesday is the 13th, the first day of the teenth week" [
-        actual: meetup 2013 8 "teenth" "Tuesday"
-        expected: "2013-08-13"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-08-13"
+            express meetup 2013 8 "teenth" "Tuesday"
+        ]
     ]
 
     test "when teenth Wednesday is some day in the middle of the teenth week" [
-        actual: meetup 2013 1 "teenth" "Wednesday"
-        expected: "2013-01-16"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-01-16"
+            express meetup 2013 1 "teenth" "Wednesday"
+        ]
     ]
 
     test "when teenth Wednesday is the 13th, the first day of the teenth week" [
-        actual: meetup 2013 2 "teenth" "Wednesday"
-        expected: "2013-02-13"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-02-13"
+            express meetup 2013 2 "teenth" "Wednesday"
+        ]
     ]
 
     test "when teenth Wednesday is the 19th, the last day of the teenth week" [
-        actual: meetup 2013 6 "teenth" "Wednesday"
-        expected: "2013-06-19"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-06-19"
+            express meetup 2013 6 "teenth" "Wednesday"
+        ]
     ]
 
     test "when teenth Thursday is some day in the middle of the teenth week" [
-        actual: meetup 2013 5 "teenth" "Thursday"
-        expected: "2013-05-16"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-05-16"
+            express meetup 2013 5 "teenth" "Thursday"
+        ]
     ]
 
     test "when teenth Thursday is the 13th, the first day of the teenth week" [
-        actual: meetup 2013 6 "teenth" "Thursday"
-        expected: "2013-06-13"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-06-13"
+            express meetup 2013 6 "teenth" "Thursday"
+        ]
     ]
 
     test "when teenth Thursday is the 19th, the last day of the teenth week" [
-        actual: meetup 2013 9 "teenth" "Thursday"
-        expected: "2013-09-19"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-09-19"
+            express meetup 2013 9 "teenth" "Thursday"
+        ]
     ]
 
     test "when teenth Friday is the 19th, the last day of the teenth week" [
-        actual: meetup 2013 4 "teenth" "Friday"
-        expected: "2013-04-19"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-04-19"
+            express meetup 2013 4 "teenth" "Friday"
+        ]
     ]
 
     test "when teenth Friday is some day in the middle of the teenth week" [
-        actual: meetup 2013 8 "teenth" "Friday"
-        expected: "2013-08-16"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express meetup 2013 8 "teenth" "Friday"
+            express "2013-08-16"
+        ]
     ]
 
     test "when teenth Friday is the 13th, the first day of the teenth week" [
-        actual: meetup 2013 9 "teenth" "Friday"
-        expected: "2013-09-13"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-09-13"
+            express meetup 2013 9 "teenth" "Friday"
+        ]
     ]
 
     test "when teenth Saturday is some day in the middle of the teenth week" [
-        actual: meetup 2013 2 "teenth" "Saturday"
-        expected: "2013-02-16"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-02-16"
+            express meetup 2013 2 "teenth" "Saturday"
+        ]
     ]
 
     test "when teenth Saturday is the 13th, the first day of the teenth week" [
-        actual: meetup 2013 4 "teenth" "Saturday"
-        expected: "2013-04-13"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-04-13"
+            express meetup 2013 4 "teenth" "Saturday"
+        ]
     ]
 
     test "when teenth Saturday is the 19th, the last day of the teenth week" [
-        actual: meetup 2013 10 "teenth" "Saturday"
-        expected: "2013-10-19"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-10-19"
+            express meetup 2013 10 "teenth" "Saturday"
+        ]
     ]
 
     test "when teenth Sunday is the 19th, the last day of the teenth week" [
-        actual: meetup 2013 5 "teenth" "Sunday"
-        expected: "2013-05-19"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-05-19"
+            express meetup 2013 5 "teenth" "Sunday"
+        ]
     ]
 
     test "when teenth Sunday is some day in the middle of the teenth week" [
-        actual: meetup 2013 6 "teenth" "Sunday"
-        expected: "2013-06-16"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-06-16"
+            express meetup 2013 6 "teenth" "Sunday"
+        ]
     ]
 
     test "when teenth Sunday is the 13th, the first day of the teenth week" [
-        actual: meetup 2013 10 "teenth" "Sunday"
-        expected: "2013-10-13"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express meetup 2013 10 "teenth" "Sunday"
+            express "2013-10-13"
+        ]
     ]
 
     test "when first Monday is some day in the middle of the first week" [
-        actual: meetup 2013 3 "first" "Monday"
-        expected: "2013-03-04"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-03-04"
+            express meetup 2013 3 "first" "Monday"
+        ]
     ]
 
     test "when first Monday is the 1st, the first day of the first week" [
-        actual: meetup 2013 4 "first" "Monday"
-        expected: "2013-04-01"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-04-01"
+            express meetup 2013 4 "first" "Monday"
+        ]
     ]
 
     test "when first Tuesday is the 7th, the last day of the first week" [
-        actual: meetup 2013 5 "first" "Tuesday"
-        expected: "2013-05-07"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-05-07"
+            express meetup 2013 5 "first" "Tuesday"
+        ]
     ]
 
     test "when first Tuesday is some day in the middle of the first week" [
-        actual: meetup 2013 6 "first" "Tuesday"
-        expected: "2013-06-04"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-06-04"
+            express meetup 2013 6 "first" "Tuesday"
+        ]
     ]
 
     test "when first Wednesday is some day in the middle of the first week" [
-        actual: meetup 2013 7 "first" "Wednesday"
-        expected: "2013-07-03"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-07-03"
+            express meetup 2013 7 "first" "Wednesday"
+        ]
     ]
 
     test "when first Wednesday is the 7th, the last day of the first week" [
-        actual: meetup 2013 8 "first" "Wednesday"
-        expected: "2013-08-07"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-08-07"
+            express meetup 2013 8 "first" "Wednesday"
+        ]
     ]
 
     test "when first Thursday is some day in the middle of the first week" [
-        actual: meetup 2013 9 "first" "Thursday"
-        expected: "2013-09-05"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-09-05"
+            express meetup 2013 9 "first" "Thursday"
+        ]
     ]
 
     test "when first Thursday is another day in the middle of the first week" [
-        actual: meetup 2013 10 "first" "Thursday"
-        expected: "2013-10-03"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-10-03"
+            express meetup 2013 10 "first" "Thursday"
+        ]
     ]
 
     test "when first Friday is the 1st, the first day of the first week" [
-        actual: meetup 2013 11 "first" "Friday"
-        expected: "2013-11-01"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-11-01"
+            express meetup 2013 11 "first" "Friday"
+        ]
     ]
 
     test "when first Friday is some day in the middle of the first week" [
-        actual: meetup 2013 12 "first" "Friday"
-        expected: "2013-12-06"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-12-06"
+            express meetup 2013 12 "first" "Friday"
+        ]
     ]
 
     test "when first Saturday is some day in the middle of the first week" [
-        actual: meetup 2013 1 "first" "Saturday"
-        expected: "2013-01-05"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-01-05"
+            express meetup 2013 1 "first" "Saturday"
+        ]
     ]
 
     test "when first Saturday is another day in the middle of the first week" [
-        actual: meetup 2013 2 "first" "Saturday"
-        expected: "2013-02-02"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-02-02"
+            express meetup 2013 2 "first" "Saturday"
+        ]
     ]
 
     test "when first Sunday is some day in the middle of the first week" [
-        actual: meetup 2013 3 "first" "Sunday"
-        expected: "2013-03-03"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-03-03"
+            express meetup 2013 3 "first" "Sunday"
+        ]
     ]
 
     test "when first Sunday is the 7th, the last day of the first week" [
-        actual: meetup 2013 4 "first" "Sunday"
-        expected: "2013-04-07"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-04-07"
+            express meetup 2013 4 "first" "Sunday"
+        ]
     ]
 
     test "when second Monday is some day in the middle of the second week" [
-        actual: meetup 2013 3 "second" "Monday"
-        expected: "2013-03-11"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-03-11"
+            express meetup 2013 3 "second" "Monday"
+        ]
     ]
 
     test "when second Monday is the 8th, the first day of the second week" [
-        actual: meetup 2013 4 "second" "Monday"
-        expected: "2013-04-08"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-04-08"
+            express meetup 2013 4 "second" "Monday"
+        ]
     ]
 
     test "when second Tuesday is the 14th, the last day of the second week" [
-        actual: meetup 2013 5 "second" "Tuesday"
-        expected: "2013-05-14"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-05-14"
+            express meetup 2013 5 "second" "Tuesday"
+        ]
     ]
 
     test "when second Tuesday is some day in the middle of the second week" [
-        actual: meetup 2013 6 "second" "Tuesday"
-        expected: "2013-06-11"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-06-11"
+            express meetup 2013 6 "second" "Tuesday"
+        ]
     ]
 
     test "when second Wednesday is some day in the middle of the second week" [
-        actual: meetup 2013 7 "second" "Wednesday"
-        expected: "2013-07-10"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-07-10"
+            express meetup 2013 7 "second" "Wednesday"
+        ]
     ]
 
     test "when second Wednesday is the 14th, the last day of the second week" [
-        actual: meetup 2013 8 "second" "Wednesday"
-        expected: "2013-08-14"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-08-14"
+            express meetup 2013 8 "second" "Wednesday"
+        ]
     ]
 
     test "when second Thursday is some day in the middle of the second week" [
-        actual: meetup 2013 9 "second" "Thursday"
-        expected: "2013-09-12"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-09-12"
+            express meetup 2013 9 "second" "Thursday"
+        ]
     ]
 
     test "when second Thursday is another day in the middle of the second week" [
-        actual: meetup 2013 10 "second" "Thursday"
-        expected: "2013-10-10"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-10-10"
+            express meetup 2013 10 "second" "Thursday"
+        ]
     ]
 
     test "when second Friday is the 8th, the first day of the second week" [
-        actual: meetup 2013 11 "second" "Friday"
-        expected: "2013-11-08"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-11-08"
+            express meetup 2013 11 "second" "Friday"
+        ]
     ]
 
     test "when second Friday is some day in the middle of the second week" [
-        actual: meetup 2013 12 "second" "Friday"
-        expected: "2013-12-13"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-12-13"
+            express meetup 2013 12 "second" "Friday"
+        ]
     ]
 
     test "when second Saturday is some day in the middle of the second week" [
-        actual: meetup 2013 1 "second" "Saturday"
-        expected: "2013-01-12"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-01-12"
+            express meetup 2013 1 "second" "Saturday"
+        ]
     ]
 
     test "when second Saturday is another day in the middle of the second week" [
-        actual: meetup 2013 2 "second" "Saturday"
-        expected: "2013-02-09"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-02-09"
+            express meetup 2013 2 "second" "Saturday"
+        ]
     ]
 
     test "when second Sunday is some day in the middle of the second week" [
-        actual: meetup 2013 3 "second" "Sunday"
-        expected: "2013-03-10"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-03-10"
+            express meetup 2013 3 "second" "Sunday"
+        ]
     ]
 
     test "when second Sunday is the 14th, the last day of the second week" [
-        actual: meetup 2013 4 "second" "Sunday"
-        expected: "2013-04-14"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-04-14"
+            express meetup 2013 4 "second" "Sunday"
+        ]
     ]
 
     test "when third Monday is some day in the middle of the third week" [
-        actual: meetup 2013 3 "third" "Monday"
-        expected: "2013-03-18"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-03-18"
+            express meetup 2013 3 "third" "Monday"
+        ]
     ]
 
     test "when third Monday is the 15th, the first day of the third week" [
-        actual: meetup 2013 4 "third" "Monday"
-        expected: "2013-04-15"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-04-15"
+            express meetup 2013 4 "third" "Monday"
+        ]
     ]
 
     test "when third Tuesday is the 21st, the last day of the third week" [
-        actual: meetup 2013 5 "third" "Tuesday"
-        expected: "2013-05-21"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-05-21"
+            express meetup 2013 5 "third" "Tuesday"
+        ]
     ]
 
     test "when third Tuesday is some day in the middle of the third week" [
-        actual: meetup 2013 6 "third" "Tuesday"
-        expected: "2013-06-18"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-06-18"
+            express meetup 2013 6 "third" "Tuesday"
+        ]
     ]
 
     test "when third Wednesday is some day in the middle of the third week" [
-        actual: meetup 2013 7 "third" "Wednesday"
-        expected: "2013-07-17"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-07-17"
+            express meetup 2013 7 "third" "Wednesday"
+        ]
     ]
 
     test "when third Wednesday is the 21st, the last day of the third week" [
-        actual: meetup 2013 8 "third" "Wednesday"
-        expected: "2013-08-21"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-08-21"
+            express meetup 2013 8 "third" "Wednesday"
+        ]
     ]
 
     test "when third Thursday is some day in the middle of the third week" [
-        actual: meetup 2013 9 "third" "Thursday"
-        expected: "2013-09-19"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-09-19"
+            express meetup 2013 9 "third" "Thursday"
+        ]
     ]
 
     test "when third Thursday is another day in the middle of the third week" [
-        actual: meetup 2013 10 "third" "Thursday"
-        expected: "2013-10-17"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-10-17"
+            express meetup 2013 10 "third" "Thursday"
+        ]
     ]
 
     test "when third Friday is the 15th, the first day of the third week" [
-        actual: meetup 2013 11 "third" "Friday"
-        expected: "2013-11-15"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-11-15"
+            express meetup 2013 11 "third" "Friday"
+        ]
     ]
 
     test "when third Friday is some day in the middle of the third week" [
-        actual: meetup 2013 12 "third" "Friday"
-        expected: "2013-12-20"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-12-20"
+            express meetup 2013 12 "third" "Friday"
+        ]
     ]
 
     test "when third Saturday is some day in the middle of the third week" [
-        actual: meetup 2013 1 "third" "Saturday"
-        expected: "2013-01-19"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-01-19"
+            express meetup 2013 1 "third" "Saturday"
+        ]
     ]
 
     test "when third Saturday is another day in the middle of the third week" [
-        actual: meetup 2013 2 "third" "Saturday"
-        expected: "2013-02-16"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-02-16"
+            express meetup 2013 2 "third" "Saturday"
+        ]
     ]
 
     test "when third Sunday is some day in the middle of the third week" [
-        actual: meetup 2013 3 "third" "Sunday"
-        expected: "2013-03-17"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-03-17"
+            express meetup 2013 3 "third" "Sunday"
+        ]
     ]
 
     test "when third Sunday is the 21st, the last day of the third week" [
-        actual: meetup 2013 4 "third" "Sunday"
-        expected: "2013-04-21"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-04-21"
+            express meetup 2013 4 "third" "Sunday"
+        ]
     ]
 
     test "when fourth Monday is some day in the middle of the fourth week" [
-        actual: meetup 2013 3 "fourth" "Monday"
-        expected: "2013-03-25"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-03-25"
+            express meetup 2013 3 "fourth" "Monday"
+        ]
     ]
 
     test "when fourth Monday is the 22nd, the first day of the fourth week" [
-        actual: meetup 2013 4 "fourth" "Monday"
-        expected: "2013-04-22"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-04-22"
+            express meetup 2013 4 "fourth" "Monday"
+        ]
     ]
 
     test "when fourth Tuesday is the 28th, the last day of the fourth week" [
-        actual: meetup 2013 5 "fourth" "Tuesday"
-        expected: "2013-05-28"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-05-28"
+            express meetup 2013 5 "fourth" "Tuesday"
+        ]
     ]
 
     test "when fourth Tuesday is some day in the middle of the fourth week" [
-        actual: meetup 2013 6 "fourth" "Tuesday"
-        expected: "2013-06-25"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-06-25"
+            express meetup 2013 6 "fourth" "Tuesday"
+        ]
     ]
 
     test "when fourth Wednesday is some day in the middle of the fourth week" [
-        actual: meetup 2013 7 "fourth" "Wednesday"
-        expected: "2013-07-24"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-07-24"
+            express meetup 2013 7 "fourth" "Wednesday"
+        ]
     ]
 
     test "when fourth Wednesday is the 28th, the last day of the fourth week" [
-        actual: meetup 2013 8 "fourth" "Wednesday"
-        expected: "2013-08-28"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-08-28"
+            express meetup 2013 8 "fourth" "Wednesday"
+        ]
     ]
 
     test "when fourth Thursday is some day in the middle of the fourth week" [
-        actual: meetup 2013 9 "fourth" "Thursday"
-        expected: "2013-09-26"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-09-26"
+            express meetup 2013 9 "fourth" "Thursday"
+        ]
     ]
 
     test "when fourth Thursday is another day in the middle of the fourth week" [
-        actual: meetup 2013 10 "fourth" "Thursday"
-        expected: "2013-10-24"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-10-24"
+            express meetup 2013 10 "fourth" "Thursday"
+        ]
     ]
 
     test "when fourth Friday is the 22nd, the first day of the fourth week" [
-        actual: meetup 2013 11 "fourth" "Friday"
-        expected: "2013-11-22"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-11-22"
+            express meetup 2013 11 "fourth" "Friday"
+        ]
     ]
 
     test "when fourth Friday is some day in the middle of the fourth week" [
-        actual: meetup 2013 12 "fourth" "Friday"
-        expected: "2013-12-27"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-12-27"
+            express meetup 2013 12 "fourth" "Friday"
+        ]
     ]
 
     test "when fourth Saturday is some day in the middle of the fourth week" [
-        actual: meetup 2013 1 "fourth" "Saturday"
-        expected: "2013-01-26"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-01-26"
+            express meetup 2013 1 "fourth" "Saturday"
+        ]
     ]
 
     test "when fourth Saturday is another day in the middle of the fourth week" [
-        actual: meetup 2013 2 "fourth" "Saturday"
-        expected: "2013-02-23"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-02-23"
+            express meetup 2013 2 "fourth" "Saturday"
+        ]
     ]
 
     test "when fourth Sunday is some day in the middle of the fourth week" [
-        actual: meetup 2013 3 "fourth" "Sunday"
-        expected: "2013-03-24"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-03-24"
+            express meetup 2013 3 "fourth" "Sunday"
+        ]
     ]
 
     test "when fourth Sunday is the 28th, the last day of the fourth week" [
-        actual: meetup 2013 4 "fourth" "Sunday"
-        expected: "2013-04-28"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-04-28"
+            express meetup 2013 4 "fourth" "Sunday"
+        ]
     ]
 
     test "last Monday in a month with four Mondays" [
-        actual: meetup 2013 3 "last" "Monday"
-        expected: "2013-03-25"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-03-25"
+            express meetup 2013 3 "last" "Monday"
+        ]
     ]
 
     test "last Monday in a month with five Mondays" [
-        actual: meetup 2013 4 "last" "Monday"
-        expected: "2013-04-29"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-04-29"
+            express meetup 2013 4 "last" "Monday"
+        ]
     ]
 
     test "last Tuesday in a month with four Tuesdays" [
-        actual: meetup 2013 5 "last" "Tuesday"
-        expected: "2013-05-28"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-05-28"
+            express meetup 2013 5 "last" "Tuesday"
+        ]
     ]
 
     test "last Tuesday in another month with four Tuesdays" [
-        actual: meetup 2013 6 "last" "Tuesday"
-        expected: "2013-06-25"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-06-25"
+            express meetup 2013 6 "last" "Tuesday"
+        ]
     ]
 
     test "last Wednesday in a month with five Wednesdays" [
-        actual: meetup 2013 7 "last" "Wednesday"
-        expected: "2013-07-31"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-07-31"
+            express meetup 2013 7 "last" "Wednesday"
+        ]
     ]
 
     test "last Wednesday in a month with four Wednesdays" [
-        actual: meetup 2013 8 "last" "Wednesday"
-        expected: "2013-08-28"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-08-28"
+            express meetup 2013 8 "last" "Wednesday"
+        ]
     ]
 
     test "last Thursday in a month with four Thursdays" [
-        actual: meetup 2013 9 "last" "Thursday"
-        expected: "2013-09-26"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-09-26"
+            express meetup 2013 9 "last" "Thursday"
+        ]
     ]
 
     test "last Thursday in a month with five Thursdays" [
-        actual: meetup 2013 10 "last" "Thursday"
-        expected: "2013-10-31"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-10-31"
+            express meetup 2013 10 "last" "Thursday"
+        ]
     ]
 
     test "last Friday in a month with five Fridays" [
-        actual: meetup 2013 11 "last" "Friday"
-        expected: "2013-11-29"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-11-29"
+            express meetup 2013 11 "last" "Friday"
+        ]
     ]
 
     test "last Friday in a month with four Fridays" [
-        actual: meetup 2013 12 "last" "Friday"
-        expected: "2013-12-27"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-12-27"
+            express meetup 2013 12 "last" "Friday"
+        ]
     ]
 
     test "last Saturday in a month with four Saturdays" [
-        actual: meetup 2013 1 "last" "Saturday"
-        expected: "2013-01-26"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-01-26"
+            express meetup 2013 1 "last" "Saturday"
+        ]
     ]
 
     test "last Saturday in another month with four Saturdays" [
-        actual: meetup 2013 2 "last" "Saturday"
-        expected: "2013-02-23"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-02-23"
+            express meetup 2013 2 "last" "Saturday"
+        ]
     ]
 
     test "last Sunday in a month with five Sundays" [
-        actual: meetup 2013 3 "last" "Sunday"
-        expected: "2013-03-31"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-03-31"
+            express meetup 2013 3 "last" "Sunday"
+        ]
     ]
 
     test "last Sunday in a month with four Sundays" [
-        actual: meetup 2013 4 "last" "Sunday"
-        expected: "2013-04-28"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2013-04-28"
+            express meetup 2013 4 "last" "Sunday"
+        ]
     ]
 
     test "when last Wednesday in February in a leap year is the 29th" [
-        actual: meetup 2012 2 "last" "Wednesday"
-        expected: "2012-02-29"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2012-02-29"
+            express meetup 2012 2 "last" "Wednesday"
+        ]
     ]
 
     test "last Wednesday in December that is also the last day of the year" [
-        actual: meetup 2014 12 "last" "Wednesday"
-        expected: "2014-12-31"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2014-12-31"
+            express meetup 2014 12 "last" "Wednesday"
+        ]
     ]
 
     test "when last Sunday in February in a non-leap year is not the 29th" [
-        actual: meetup 2015 2 "last" "Sunday"
-        expected: "2015-02-22"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2015-02-22"
+            express meetup 2015 2 "last" "Sunday"
+        ]
     ]
 
     test "when first Friday is the 7th, the last day of the first week" [
-        actual: meetup 2012 12 "first" "Friday"
-        expected: "2012-12-07"
-        assert -> actual = expected
+        expects.be:'equal? @[
+            express "2012-12-07"
+            express meetup 2012 12 "first" "Friday"
+        ]
     ]
 ]

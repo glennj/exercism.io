@@ -2,6 +2,48 @@ A caveat: I'm not a Lua programmer, though I did complete the track.
 
 ## exercise: leap
 
+The key to this exercise is to combine the criteria into a single expression.
+Use the [Logical Operators](https://www.lua.org/manual/5.4/manual.html#3.4.5).
+
+I find that it helps to speak the criteria out loud using the words "and" "or" and "not": something like
+
+> It is a leap year if X or Y and Z.
+
+<details><summary>For some spoiler-y hints, click here...</summary>
+
+---
+
+One method to help you do this: if your cascading-if returns true for all the but last branch:
+```lua
+if first_thing then
+    return true
+elseif second_thing then
+    return true
+elseif third_thing then
+    return true
+else
+    return false
+end
+```
+
+Then you can join all the conditions with `or` into a single expression:
+```lua
+if first_thing or second_thing or third_thing then
+    return true
+else
+    return false
+end
+```
+
+And then once you have that, note that the single expression already evaluates to a boolean value. You can return it directly.
+```lua
+return first_thing or second_thing or third_thing 
+```
+
+</details>
+
+---
+
 This is a common anti-pattern:
 ```lua
 if cond then

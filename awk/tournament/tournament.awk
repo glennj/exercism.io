@@ -3,6 +3,7 @@
 @include "team"
 
 BEGIN { FS = ";" }
+BEGIN { print "starting" > "/dev/fd/3" }
 
 NF != 3 {next}
 

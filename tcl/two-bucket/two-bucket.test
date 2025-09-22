@@ -2,7 +2,9 @@
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
-configure -verbose {body error usec}
+
+# uncomment for more verbose test results
+#configure -verbose {body error usec}
 
 ############################################################
 source "two-bucket.tcl"
@@ -68,5 +70,19 @@ test two-bucket-9 "Goal larger than both buckets is impossible" \
     -returnCodes error \
     -match glob \
     -result "*impossible*"
+
+skip two-bucket-10
+test two-bucket-10 "Measure using bucket one much bigger than bucket two" \
+    -body {twoBucket {bucketOne 5 bucketTwo 1 goal 2 startBucket one}} \
+    -returnCodes ok \
+    -match dictionary \
+    -result {moves 6 goalBucket one otherBucket 1}
+
+skip two-bucket-11
+test two-bucket-11 "Measure using bucket one much smaller than bucket two" \
+    -body {twoBucket {bucketOne 3 bucketTwo 15 goal 9 startBucket one}} \
+    -returnCodes ok \
+    -match dictionary \
+    -result {moves 6 goalBucket two otherBucket 0}
 
 cleanupTests
