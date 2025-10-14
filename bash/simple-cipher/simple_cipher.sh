@@ -7,6 +7,7 @@ checkBashVersion 4.0 "case conversion"
 
 shopt -u nocasematch
 
+declare -ri alphabet_len=26
 declare -ri asc_a=$(str::ord 'a')
 
 # 100 random lower case letters
@@ -14,7 +15,7 @@ generate_key() {
     local key=""
     local -i idx
     for _ in {1..100}; do
-        idx=$(math::rand 0 26)
+        idx=$(math::rand 0 $alphabet_len)
         key+=$(str::chr $((asc_a + idx)))
     done
     echo "$key"
@@ -34,16 +35,14 @@ decode() { _code "$1" "$2" -1; }
 
 _code() {
     local -l plaintext=$1 key=$2        # lower case
-    local -i direction=$3 i idx p k
+    local direction=$3 i idx p k
+    local keylen=${#key}
     local encoded=""
-
-    # ensure the key is long enough
-    while ((${#key} < ${#plaintext})); do key+=$key; done
 
     for ((i = 0; i < ${#plaintext}; i++)); do
         p=$(($(str::ord "${plaintext:i:1}") - asc_a))
-        k=$(($(str::ord "${key:i:1}") - asc_a))
-        idx=$(math::floorMod $((p + k * direction)) 26)
+        k=$(($(str::ord "${key:i % keylen:1}") - asc_a))
+        idx=$(math::floorMod $((p + k * direction)) $alphabet_len)
         encoded+=$(str::chr $((asc_a + idx)))
     done
     echo "$encoded"
