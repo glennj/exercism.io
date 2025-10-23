@@ -1,0 +1,137 @@
+import.version:2.0.1 {unitt}!
+import {src/line-up}!
+
+describe "Line Up" [
+    it "format smallest non-exceptional ordinal numeral 4" [
+        expects.be:'equal? @[
+            express "Gianna, you are the 4th customer we serve today. Thank you!"
+            express formatMessage "Gianna" 4
+        ]
+    ]
+
+    it "format greatest single digit non-exceptional ordinal numeral 9" [
+        expects.be:'equal? @[
+            express "Maarten, you are the 9th customer we serve today. Thank you!"
+            express formatMessage "Maarten" 9
+        ]
+    ]
+
+    it "format non-exceptional ordinal numeral 5" [
+        expects.be:'equal? @[
+            express "Petronila, you are the 5th customer we serve today. Thank you!"
+            express formatMessage "Petronila" 5
+        ]
+    ]
+
+    it "format non-exceptional ordinal numeral 6" [
+        expects.be:'equal? @[
+            express "Attakullakulla, you are the 6th customer we serve today. Thank you!"
+            express formatMessage "Attakullakulla" 6
+        ]
+    ]
+
+    it "format non-exceptional ordinal numeral 7" [
+        expects.be:'equal? @[
+            express "Kate, you are the 7th customer we serve today. Thank you!"
+            express formatMessage "Kate" 7
+        ]
+    ]
+
+    it "format non-exceptional ordinal numeral 8" [
+        expects.be:'equal? @[
+            express "Maximiliano, you are the 8th customer we serve today. Thank you!"
+            express formatMessage "Maximiliano" 8
+        ]
+    ]
+
+    it "format exceptional ordinal numeral 1" [
+        expects.be:'equal? @[
+            express "Mary, you are the 1st customer we serve today. Thank you!"
+            express formatMessage "Mary" 1
+        ]
+    ]
+
+    it "format exceptional ordinal numeral 2" [
+        expects.be:'equal? @[
+            express "Haruto, you are the 2nd customer we serve today. Thank you!"
+            express formatMessage "Haruto" 2
+        ]
+    ]
+
+    it "format exceptional ordinal numeral 3" [
+        expects.be:'equal? @[
+            express "Henriette, you are the 3rd customer we serve today. Thank you!"
+            express formatMessage "Henriette" 3
+        ]
+    ]
+
+    it "format smallest two digit non-exceptional ordinal numeral 10" [
+        expects.be:'equal? @[
+            express "Alvarez, you are the 10th customer we serve today. Thank you!"
+            express formatMessage "Alvarez" 10
+        ]
+    ]
+
+    it "format non-exceptional ordinal numeral 11" [
+        expects.be:'equal? @[
+            express "Jacqueline, you are the 11th customer we serve today. Thank you!"
+            express formatMessage "Jacqueline" 11
+        ]
+    ]
+
+    it "format non-exceptional ordinal numeral 12" [
+        expects.be:'equal? @[
+            express "Juan, you are the 12th customer we serve today. Thank you!"
+            express formatMessage "Juan" 12
+        ]
+    ]
+
+    it "format non-exceptional ordinal numeral 13" [
+        expects.be:'equal? @[
+            express "Patricia, you are the 13th customer we serve today. Thank you!"
+            express formatMessage "Patricia" 13
+        ]
+    ]
+
+    it "format exceptional ordinal numeral 21" [
+        expects.be:'equal? @[
+            express "Washi, you are the 21st customer we serve today. Thank you!"
+            express formatMessage "Washi" 21
+        ]
+    ]
+
+    it "format exceptional ordinal numeral 62" [
+        expects.be:'equal? @[
+            express "Nayra, you are the 62nd customer we serve today. Thank you!"
+            express formatMessage "Nayra" 62
+        ]
+    ]
+
+    it "format exceptional ordinal numeral 100" [
+        expects.be:'equal? @[
+            express "John, you are the 100th customer we serve today. Thank you!"
+            express formatMessage "John" 100
+        ]
+    ]
+
+    it "format exceptional ordinal numeral 101" [
+        expects.be:'equal? @[
+            express "Zeinab, you are the 101st customer we serve today. Thank you!"
+            express formatMessage "Zeinab" 101
+        ]
+    ]
+
+    it "format non-exceptional ordinal numeral 112" [
+        expects.be:'equal? @[
+            express "Knud, you are the 112th customer we serve today. Thank you!"
+            express formatMessage "Knud" 112
+        ]
+    ]
+
+    it "format exceptional ordinal numeral 123" [
+        expects.be:'equal? @[
+            express "Yma, you are the 123rd customer we serve today. Thank you!"
+            express formatMessage "Yma" 123
+        ]
+    ]
+]

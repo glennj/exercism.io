@@ -1,0 +1,13 @@
+formatMessage: function [name number][
+    ordinal: function [n][
+        ones: n % 10
+        tens: n % 100
+        when [
+            and? [ones = 1] [tens <> 11] -> "st"
+            and? [ones = 2] [tens <> 12] -> "nd"
+            and? [ones = 3] [tens <> 13] -> "rd"
+            any -> "th"
+        ]
+    ]
+    ~"|name|, you are the |number||ordinal number| customer we serve today. Thank you!"
+]

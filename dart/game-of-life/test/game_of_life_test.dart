@@ -131,6 +131,7 @@ void main() {
         [0, 0, 0, 0, 0, 0, 1, 1],
       ];
       expect(game.matrix(), expected);
+      expect(matrix[7][0], 1);
     }, skip: false);
   });
 }
