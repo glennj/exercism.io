@@ -1,29 +1,28 @@
+import "./assert" for Assert
+import "./byte" for Byte
+
 class PhoneNumber {
   static clean(input) {
     // remove valid non-digits
     var cleaned = [" ", "(", ")", "-", ".", "+"].reduce(input) {|s, c| s.replace(c, "")}
 
-    if (cleaned.count < 10) Fiber.abort("must not be fewer than 10 digits")
-    if (cleaned.count > 11) Fiber.abort("must not be greater than 11 digits")
+    Assert.refute(cleaned.count < 10, "must not be fewer than 10 digits")
+    Assert.refute(cleaned.count > 11, "must not be greater than 11 digits")
+
     if (cleaned.count == 11) {
-      if (!cleaned.startsWith("1")) Fiber.abort("11 digits must start with 1")
+      Assert.assert(cleaned[0] == "1", "11 digits must start with 1")
       cleaned = cleaned[1..-1]
     }
 
-    var cps = cleaned.codePoints
-    if (cps.any {|cp|  isAlpha(cp)}) Fiber.abort("letters not permitted")
-    if (cps.any {|cp| !isDigit(cp)}) Fiber.abort("punctuations not permitted")
+    var bytes = Byte.bytes(cleaned)
+    Assert.refute(bytes.any {|b| b.isAlpha}, "letters not permitted")
+    Assert.assert(bytes.all {|b| b.isDigit}, "punctuations not permitted")
 
-    if (cleaned[0] == "0") Fiber.abort("area code cannot start with zero")
-    if (cleaned[0] == "1") Fiber.abort("area code cannot start with one")
-    if (cleaned[3] == "0") Fiber.abort("exchange code cannot start with zero")
-    if (cleaned[3] == "1") Fiber.abort("exchange code cannot start with one")
+    Assert.assert(cleaned[0] != "0", "area code cannot start with zero")
+    Assert.assert(cleaned[0] != "1", "area code cannot start with one")
+    Assert.assert(cleaned[3] != "0", "exchange code cannot start with zero")
+    Assert.assert(cleaned[3] != "1", "exchange code cannot start with one")
 
     return cleaned
   }
-
-  static isDigit(codePoint) { 48 <= codePoint && codePoint <= 57 }
-  static isAlpha(codePoint) { isLower(codePoint) || isUpper(codePoint)}
-  static isUpper(codePoint) { 65 <= codePoint && codePoint <= 90 }
-  static isLower(codePoint) { 97 <= codePoint && codePoint <= 122 }
 }
