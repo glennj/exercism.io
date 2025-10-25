@@ -56,6 +56,44 @@ class DoubleLinkedList<T> {
             node.value
         }
     }
+
+    void forEach(closure) {
+        def node = head
+        while (node != null) {
+            closure.call(node)
+            node = node.next
+        }
+    }
+
+    int count() {
+        def c = 0
+        forEach { c++ }
+        c
+    }
+
+    void delete(T value) {
+        def node = head
+        while (node != null) {
+            if (node.value != value) {
+                node = node.next
+                continue
+            }
+
+            if (node.next) {
+                node.next.prev = node.prev
+            }
+            else {
+                tail = node.prev
+            }
+            if (node.prev) {
+                node.prev.next = node.next
+            }
+            else {
+                head = node.next
+            }
+            break
+        }
+    }
 }
 
 class Node<T> {

@@ -44,6 +44,7 @@ If you want to dig deeper into linked lists, check out [this article][intro-link
 - @amscotti
 - @ikhadykin
 - @Raibaz
+- @glennj
 
 ### Based on
 

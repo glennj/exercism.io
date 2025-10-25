@@ -6,42 +6,57 @@ class BankAccount {
 
     @Synchronized
     void open() {
+        assertNotOpen()
         isOpen = true
     }
 
     @Synchronized
     void close() {
+        assertIsOpen()
         isOpen = false
-    }
-
-    @Synchronized
-    def notClosed() { 
-        if (!isOpen) throw new Exception("Account is closed")
-    }
-
-    @Synchronized
-    def validAmount(int amount) {
-        if (amount < 0) throw new Exception("Invalid amount")
+        balance = 0
     }
 
     @Synchronized
     void deposit(int amount) {
-        notClosed()
-        validAmount(amount)
+        assertIsOpen()
+        assertValidAmount(amount)
         balance += amount
     }
 
     @Synchronized
     void withdraw(int amount) {
-        notClosed()
-        validAmount(amount)
-        if (amount > balance) throw new Exception("Insufficient funds")
+        assertIsOpen()
+        assertValidAmount(amount)
+        assertSufficientFunds(amount)
         balance -= amount
     }
 
     @Synchronized
     int getBalance() {
-        notClosed()
+        assertIsOpen()
         balance
+    }
+
+    // assertions
+    @Synchronized
+    def assert_(condition, msg) {
+        if (!condition) throw new Exception(msg)
+    }
+    @Synchronized
+    def assertIsOpen() {
+        assert_(isOpen, "Account is not open")
+    }
+    @Synchronized
+    def assertNotOpen() {
+        assert_(!isOpen, "Account is already open")
+    }
+    @Synchronized
+    def assertValidAmount(int amount) {
+        assert_(amount >= 0, "Invalid amount")
+    }
+    @Synchronized
+    def assertSufficientFunds(int amount) {
+        assert_(amount <= balance, "Insufficient funds")
     }
 }

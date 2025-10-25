@@ -20,22 +20,18 @@ class ProteinTranslation {
         'UGA': 'STOP',
     ]
 
-    /* first take
     static proteins(strand) {
         def proteins = []
-        def codons = strand.findAll("...")
-        for (codon in codons) {
-            def protein = codon2protein[codon] ?: 'STOP'
-            if (protein == 'STOP') break
-            proteins << protein
-        }
-        proteins
-    }
-    */
+        while (strand != "") {
+            def codon = strand.take(3)
+            def protein = codon2protein[codon]
 
-    static proteins(strand) {
-        strand.findAll("...")
-              .collect { codon2protein[it] ?: 'STOP' }
-              .takeWhile { it != 'STOP' }
+            if (protein == null) throw new Exception("Invalid codon")
+            if (protein == 'STOP') break
+
+            proteins.add(protein)
+            strand = strand.drop(3)
+        }
+        return proteins
     }
 }

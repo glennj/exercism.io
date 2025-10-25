@@ -10,7 +10,7 @@ class LargestSeriesProductSpec extends Specification {
         "29"   | 2    || 18
     }
 
-    //  @Ignore
+    @Ignore
     def "can find the largest product of 2 with numbers in order"() {
         expect:
         LargestSeriesProduct.largestProduct(digits, span) == expectedResult
@@ -20,7 +20,7 @@ class LargestSeriesProductSpec extends Specification {
         "0123456789" | 2    || 72
     }
 
-    //@Ignore
+    @Ignore
     def "can find the largest product of 2"() {
         expect:
         LargestSeriesProduct.largestProduct(digits, span) == expectedResult
@@ -101,7 +101,7 @@ class LargestSeriesProductSpec extends Specification {
 
         where:
         digits | span || expectedErrorMessage
-        "123"  | 4    || "span must be smaller than string length"
+        "123"  | 4    || "span must not exceed string length"
     }
 
     @Ignore
@@ -135,7 +135,7 @@ class LargestSeriesProductSpec extends Specification {
 
         where:
         digits | span || expectedErrorMessage
-        ""     | 1    || "span must be smaller than string length"
+        ""     | 1    || "span must not exceed string length"
     }
 
     @Ignore
