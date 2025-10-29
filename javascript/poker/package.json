@@ -1,13 +1,13 @@
 {
-  "name": "@exercism/javascript-windowing-system",
-  "description": "Exercism concept exercise on classes",
-  "author": "junedev",
+  "name": "@exercism/javascript-poker",
+  "description": "Exercism exercises in Javascript.",
+  "author": "lpizzinidev",
   "private": true,
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/exercism/javascript",
-    "directory": "exercises/concept/windowing-system"
+    "directory": "exercises/practice/poker"
   },
   "devDependencies": {
     "@exercism/babel-preset-javascript": "^0.5.1",

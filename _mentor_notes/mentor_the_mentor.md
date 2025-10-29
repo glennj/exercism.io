@@ -71,3 +71,17 @@ Sometimes the instructions don't make sense for the particular language.
 Or the track maintainers may choose to write tests that don't strictly align with the written instructions.
 
 Look to the tests as the source of truth.
+
+<!-- -->
+
+Q: So is it generally the goal here to provide the most concise, efficient solution? Or would you also factor in the readability and (theoretic) maintainability of the code?
+
+A:
+The purpose of Exercism is to get you fluent in the language: not an expert, but good enough to write and read basic code competently.
+
+I highly rate readability. In the "real world", you're not the only person who has to maintain code you write. Are you able to understand code you wrote last year? Following style guides is good practice. Fortunately Dart makes it easy: dart fmt lib/*dart
+
+Sometimes efficiency is a goal of a track. Some of the systems langauges in particular put efficiency as a priority. I'll usually point out exceptionally inefficient algorithms, but most of the tracks I mentor are scripting languages where saving milliseconds isn't a big deal.
+
+I would not consider "most concise" a goal: you'll see lots of unreadable one-liners in the community solutions.
+

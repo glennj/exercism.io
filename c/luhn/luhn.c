@@ -15,16 +15,19 @@ bool luhn(const char *num) {
     while (*p) p++;
     p--;
 
-    int dbl = 0, sum = 0, ndigits = 0;
+    bool dbl = 0;
+    int sum = 0, ndigits = 0;
+
     for (; p >= num; p--) {
         if (isspace(*p)) continue;
         if (!isdigit(*p)) return false;
 
         sum += doubled[dbl][*p - '0'];
-        dbl ^= 1;
+        dbl = !dbl;
         ndigits++;
     }
 
-    return sum == 0 ? ndigits > 1       // allow multiple zeros
-                    : sum % 10 == 0;
+    return sum == 0
+            ? ndigits > 1    // multiple zeros is valid
+            : sum % 10 == 0;
 }
