@@ -1,79 +1,106 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/atbash-cipher}!
 
-suite "Atbash Cipher"
-[
-  suite "Atbash Cipher - Encode" [
-    test "encode yes" [
-      result: encode "yes"
-      assert -> "bvh" = result
+describe "Atbash Cipher" [
+  describe "Atbash Cipher - Encode" [
+    it "encode yes" [
+      expects.be:'equal? @[
+        "bvh"
+        encode "yes"
+      ]
     ]
 
-    test "encode no" [
-      result: encode "no"
-      assert -> "ml" = result
+    it "encode no" [
+      expects.be:'equal? @[
+        "ml"
+        encode "no"
+      ]
     ]
 
-    test "encode OMG" [
-      result: encode "OMG"
-      assert -> "lnt" = result
+    it "encode OMG" [
+      expects.be:'equal? @[
+        "lnt"
+        encode "OMG"
+      ]
     ]
 
-    test "encode spaces" [
-      result: encode "O M G"
-      assert -> "lnt" = result
+    it "encode spaces" [
+      expects.be:'equal? @[
+        "lnt"
+        encode "O M G"
+      ]
     ]
 
-    test "encode mindblowingly" [
-      result: encode "mindblowingly"
-      assert -> "nrmwy oldrm tob" = result
+    it "encode mindblowingly" [
+      expects.be:'equal? @[
+        "nrmwy oldrm tob"
+        encode "mindblowingly"
+      ]
     ]
 
-    test "encode numbers" [
-      result: encode "Testing,1 2 3, testing."
-      assert -> "gvhgr mt123 gvhgr mt" = result
+    it "encode numbers" [
+      expects.be:'equal? @[
+        "gvhgr mt123 gvhgr mt"
+        encode "Testing,1 2 3, testing."
+      ]
     ]
 
-    test "encode deep thought" [
-      result: encode "Truth is fiction."
-      assert -> "gifgs rhurx grlm" = result
+    it "encode deep thought" [
+      expects.be:'equal? @[
+        "gifgs rhurx grlm"
+        encode "Truth is fiction."
+      ]
     ]
 
-    test "encode all the letters" [
-      result: encode "The quick brown fox jumps over the lazy dog."
-      assert -> "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt" = result
+    it "encode all the letters" [
+      expects.be:'equal? @[
+        "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt"
+        encode "The quick brown fox jumps over the lazy dog."
+      ]
     ]
   ]
 
-  suite "Atbash Cipher - Decode" [
-    test "decode exercism" [
-      result: decode "vcvix rhn"
-      assert -> "exercism" = result
+  describe "Atbash Cipher - Decode" [
+    it "decode exercism" [
+      expects.be:'equal? @[
+        "exercism"
+        decode "vcvix rhn"
+      ]
     ]
 
-    test "decode a sentence" [
-      result: decode "zmlyh gzxov rhlug vmzhg vkkrm thglm v"
-      assert -> "anobstacleisoftenasteppingstone" = result
+    it "decode a sentence" [
+      expects.be:'equal? @[
+        "anobstacleisoftenasteppingstone"
+        decode "zmlyh gzxov rhlug vmzhg vkkrm thglm v"
+      ]
     ]
 
-    test "decode numbers" [
-      result: decode "gvhgr mt123 gvhgr mt"
-      assert -> "testing123testing" = result
+    it "decode numbers" [
+      expects.be:'equal? @[
+        "testing123testing"
+        decode "gvhgr mt123 gvhgr mt"
+      ]
     ]
 
-    test "decode all the letters" [
-      result: decode "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt"
-      assert -> "thequickbrownfoxjumpsoverthelazydog" = result
+    it "decode all the letters" [
+      expects.be:'equal? @[
+        "thequickbrownfoxjumpsoverthelazydog"
+        decode "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt"
+      ]
     ]
 
-    test "decode with too many spaces" [
-      result: decode "vc vix    r hn"
-      assert -> "exercism" = result
+    it "decode with too many spaces" [
+      expects.be:'equal? @[
+        "exercism"
+        decode "vc vix    r hn"
+      ]
     ]
 
-    test "decode with no spaces" [
-      result: decode "zmlyhgzxovrhlugvmzhgvkkrmthglmv"
-      assert -> "anobstacleisoftenasteppingstone" = result
+    it "decode with no spaces" [
+      expects.be:'equal? @[
+        "anobstacleisoftenasteppingstone"
+        decode "zmlyhgzxovrhlugvmzhgvkkrmthglmv"
+      ]
     ]
   ]
 ]

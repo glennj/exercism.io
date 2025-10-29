@@ -1,24 +1,20 @@
-import.version:1.1.2 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/eliuds-eggs}!
 
-suite "Eliud's Eggs" [
-    test "0 eggs" [
-        result: eggCount 0
-        assert -> 0 = result
+describe "Eliud's Eggs" [
+    it "0 eggs" [
+        expects.be:'equal? @[0 eggCount 0]
     ]
 
-    test "1 egg" [
-        result: eggCount 16
-        assert -> 1 = result
+    it "1 egg" [
+        expects.be:'equal? @[1 eggCount 16]
     ]
 
-    test "4 eggs" [
-        result: eggCount 89
-        assert -> 4 = result
+    it "4 eggs" [
+        expects.be:'equal? @[4 eggCount 89]
     ]
 
-    test "13 eggs" [
-        result: eggCount 2000000000
-        assert -> 13 = result
+    it "13 eggs" [
+        expects.be:'equal? @[13 eggCount 2000000000]
     ]
 ]

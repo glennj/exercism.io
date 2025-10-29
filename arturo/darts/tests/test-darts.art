@@ -1,69 +1,56 @@
-import.version:1.1.2 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/darts}!
 
-suite "Darts" [
-    test "missing target is 0" [
-        points: score neg 9 9
-        assert -> 0 = points
+describe "Darts" [
+    it "missing target is 0" [
+        expects.be:'equal? @[0 score neg 9 9]
     ]
 
-    test "on the outer circle is 1" [
-        points: score 0 10
-        assert -> 1 = points
+    it "on the outer circle is 1" [
+        expects.be:'equal? @[1 score 0 10]
     ]
 
-    test "on the middle circle is 5" [
-        points: score neg 5 0
-        assert -> 5 = points
+    it "on the middle circle is 5" [
+        expects.be:'equal? @[5 score neg 5 0]
     ]
 
-    test "on the inner circle is 10" [
-        points: score 0 neg 1
-        assert -> 10 = points
+    it "on the inner circle is 10" [
+        expects.be:'equal? @[10 score 0 neg 1]
     ]
 
-    test "exactly on center is 10" [
-        points: score 0 0
-        assert -> 10 = points
+    it "exactly on center is 10" [
+        expects.be:'equal? @[10 score 0 0]
     ]
 
-    test "near the center is 10" [
-        points: score  neg 0.1 neg 0.1
-        assert -> 10 = points
+    it "near the center is 10" [
+        expects.be:'equal? @[10 score neg 0.1 0.1]
     ]
 
-    test "just within the inner circle is 10" [
-        points: score 0.7 0.7
-        assert -> 10 = points
+    it "just within the inner circle is 10" [
+        expects.be:'equal? @[10 score 0.7 0.7]
     ]
 
-    test "just outside the inner circle is 5" [
-        points: score 0.8 neg 0.8
-        assert -> 5 = points
+    it "just outside the inner circle is 5" [
+        expects.be:'equal? @[5 score 0.8 neg 0.8]
     ]
 
-    test "just within the middle circle is 5" [
-        points: score neg 3.5 3.5
-        assert -> 5 = points
+    it "just within the middle circle is 5" [
+        expects.be:'equal? @[5 score neg 3.5 3.5]
     ]
 
-    test "just outside the middle circle is 1" [
-        points: score neg 3.6 neg 3.6
-        assert -> 1 = points
+    it "just outside the middle circle is 1" [
+        expects.be:'equal? @[1 score neg 3.6 neg 3.6]
     ]
 
-    test "just within the outer circle is 1" [
-        points: score neg 7.0 7.0
-        assert -> 1 = points
+    it "just within the outer circle is 1" [
+        expects.be:'equal? @[1 score neg 7.0 7.0]
     ]
 
-    test "just outside the outer circle is 0" [
-        points: score 7.1 neg 7.1
-        assert -> 0 = points
+    it "just outside the outer circle is 0" [
+        expects.be:'equal? @[0 score 7.1 neg 7.1]
     ]
 
-    test "asymmetric positon between the inner and middle circles is 5" [
-        points: score 0.5 neg 4
-        assert -> 5 = points
+    it "asymmetric positon between the inner and middle circles is 5" [
+        expects.be:'equal? @[5 score 0.5 neg 4]
     ]
 ]

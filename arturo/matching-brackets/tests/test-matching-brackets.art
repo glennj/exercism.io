@@ -1,105 +1,84 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/matching-brackets}!
 
-suite "Matching Brackets"[
-    test "paired square brackets" [
-        result: paired? "[]"
-        assert -> true = result
+describe "Matching Brackets" [
+    it "paired square brackets" [
+        expects.be:'true? @[paired? "[]"]
     ]
 
-    test "empty string" [
-        result: paired? ""
-        assert -> true = result
+    it "empty string" [
+        expects.be:'true? @[paired? ""]
     ]
 
-    test "unpaired brackets" [
-        result: paired? "[["
-        assert -> false = result
+    it "unpaired brackets" [
+        expects.be:'false? @[paired? "[["]
     ]
 
-    test "wrong ordered brackets" [
-        result: paired? "}{"
-        assert -> false = result
+    it "wrong ordered brackets" [
+        expects.be:'false? @[paired? "}{"]
     ]
 
-    test "wrong closing bracket" [
-        result: paired? "{]"
-        assert -> false = result
+    it "wrong closing bracket" [
+        expects.be:'false? @[paired? "{]"]
     ]
 
-    test "paired with whitespace" [
-        result: paired? "{ }"
-        assert -> true = result
+    it "paired with whitespace" [
+        expects.be:'true? @[paired? "{ }"]
     ]
 
-    test "partially paired brackets" [
-        result: paired? "{[])"
-        assert -> false = result
+    it "partially paired brackets" [
+        expects.be:'false? @[paired? "{[])"]
     ]
 
-    test "simple nested brackets" [
-        result: paired? "{[]}"
-        assert -> true = result
+    it "simple nested brackets" [
+        expects.be:'true? @[paired? "{[]}"]
     ]
 
-    test "several paired brackets" [
-        result: paired? "{}[]"
-        assert -> true = result
+    it "several paired brackets" [
+        expects.be:'true? @[paired? "{}[]"]
     ]
 
-    test "paired and nested brackets" [
-        result: paired? "([{}({}[])])"
-        assert -> true = result
+    it "paired and nested brackets" [
+        expects.be:'true? @[paired? "([{}({}[])])"]
     ]
 
-    test "unopened closing brackets" [
-        result: paired? "{[)][]}"
-        assert -> false = result
+    it "unopened closing brackets" [
+        expects.be:'false? @[paired? "{[)][]}"]
     ]
 
-    test "unpaired and nested brackets" [
-        result: paired? "([{])"
-        assert -> false = result
+    it "unpaired and nested brackets" [
+        expects.be:'false? @[paired? "([{])"]
     ]
 
-    test "paired and wrong nested brackets" [
-        result: paired? "[({]})"
-        assert -> false = result
+    it "paired and wrong nested brackets" [
+        expects.be:'false? @[paired? "[({]})"]
     ]
 
-    test "paired and wrong nested brackets but innermost are correct" [
-        result: paired? "[({}])"
-        assert -> false = result
+    it "paired and wrong nested brackets but innermost are correct" [
+        expects.be:'false? @[paired? "[({}])"]
     ]
 
-    test "paired and incomplete brackets" [
-        result: paired? "{}["
-        assert -> false = result
+    it "paired and incomplete brackets" [
+        expects.be:'false? @[paired? "{}["]
     ]
 
-    test "too many closing brackets" [
-        result: paired? "[]]"
-        assert -> false = result
+    it "too many closing brackets" [
+        expects.be:'false? @[paired? "[]]"]
     ]
 
-    test "early unexpected brackets" [
-        result: paired? ")()"
-        assert -> false = result
+    it "early unexpected brackets" [
+        expects.be:'false? @[paired? ")()"]
     ]
 
-    test "early mismatched brackets" [
-        result: paired? "{)()"
-        assert -> false = result
+    it "early mismatched brackets" [
+        expects.be:'false? @[paired? "{)()"]
     ]
 
-    test "math expression" [
-        result: paired? "(((185 + 223.85) * 15) - 543)/2"
-        assert -> true = result
+    it "math expression" [
+        expects.be:'true? @[paired? "(((185 + 223.85) * 15) - 543)/2"]
     ]
 
-    test "complex latex expression" [
-        result: paired? "\left(\begin{array}{cc} \frac{1}{3} & x\\ \mathrm{e}^{x} &... x^2 \end{array}\right)"
-        assert -> true = result
+    it "complex latex expression" [
+        expects.be:'true? @[paired? "\left(\begin{array}{cc} \frac{1}{3} & x\\ \mathrm{e}^{x} &... x^2 \end{array}\right)"]
     ]
-
 ]

@@ -1,10 +1,13 @@
 isogram?: function [word][
     seen: []
 
-    loop (lower word) 'c [
-        when [
-            c ∈ seen -> return false
-            lower? c -> 'seen ++ c
+    ; can't loop over an empty collection
+    if not? empty? word [
+        loop (lower word) 'c [
+            when [
+                c ∈ seen -> return false
+                lower? c -> 'seen ++ c
+            ]
         ]
     ]
 

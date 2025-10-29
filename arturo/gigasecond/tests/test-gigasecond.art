@@ -1,34 +1,39 @@
-import.version:1.1.2 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/gigasecond}!
 
-suite "Gigasecond" [
-    test "date only specification of time" [
-        result: gigasecond to :date.format: "yyyy-MM-ddzz" "2011-04-25+00"
-        expected: to :date.format: "yyyy-MM-dd hh:mm:sszz" "2043-01-01 01:46:40+00"
-        assert -> expected = result
+describe "Gigasecond" [
+    it "date only specification of time" [
+        expects.be:'equal? @[
+            to :date.format: "yyyy-MM-dd hh:mm:sszz" "2043-01-01 01:46:40+00"
+            gigasecond to :date.format: "yyyy-MM-ddzz" "2011-04-25+00"
+        ]
     ]
 
-    test "second test for date only specification of time" [
-        result: gigasecond to :date.format: "yyyy-MM-ddzz" "1977-06-13+00"
-        expected: to :date.format: "yyyy-MM-dd hh:mm:sszz" "2009-02-19 01:46:40+00"
-        assert -> expected = result
+    it "second test for date only specification of time" [
+        expects.be:'equal? @[
+            to :date.format: "yyyy-MM-dd hh:mm:sszz" "2009-02-19 01:46:40+00"
+            gigasecond to :date.format: "yyyy-MM-ddzz" "1977-06-13+00"
+        ]
     ]
 
-    test "third test for date only specification of time" [
-        result: gigasecond to :date.format: "yyyy-MM-ddzz" "1959-07-19+00"
-        expected: to :date.format: "yyyy-MM-dd hh:mm:sszz" "1991-03-27 01:46:40+00"
-        assert -> expected = result
+    it "third test for date only specification of time" [
+        expects.be:'equal? @[
+            to :date.format: "yyyy-MM-dd hh:mm:sszz" "1991-03-27 01:46:40+00"
+            gigasecond to :date.format: "yyyy-MM-ddzz" "1959-07-19+00"
+        ]
     ]
 
-    test "full time specified" [
-        result: gigasecond to :date.format: "yyyy-MM-dd hh:mm:sszz" "2015-01-24 22:00:00+00"
-        expected: to :date.format: "yyyy-MM-dd hh:mm:sszz" "2046-10-02 23:46:40+00"
-        assert -> expected = result
+    it "full time specified" [
+        expects.be:'equal? @[
+            to :date.format: "yyyy-MM-dd hh:mm:sszz" "2046-10-02 23:46:40+00"
+            gigasecond to :date.format: "yyyy-MM-dd hh:mm:sszz" "2015-01-24 22:00:00+00"
+        ]
     ]
 
-    test "full time with day roll-over" [
-        result: gigasecond to :date.format: "yyyy-MM-dd hh:mm:sszz" "2015-01-24 23:59:59+00"
-        expected: to :date.format: "yyyy-MM-dd hh:mm:sszz" "2046-10-03 01:46:39+00"
-        assert -> expected = result
+    it "full time with day roll-over" [
+        expects.be:'equal? @[
+            to :date.format: "yyyy-MM-dd hh:mm:sszz" "2046-10-03 01:46:39+00"
+            gigasecond to :date.format: "yyyy-MM-dd hh:mm:sszz" "2015-01-24 23:59:59+00"
+        ]
     ]
 ]

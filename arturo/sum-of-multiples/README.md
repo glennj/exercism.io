@@ -44,6 +44,10 @@ To calculate the energy points earned by the player, we need to find all the uni
 
 - @erikschierboom
 
+### Contributed to by
+
+- @glennj
+
 ### Based on
 
 A variation on Problem 1 at Project Euler - https://projecteuler.net/problem=1

@@ -1,63 +1,216 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/house}!
 
 
-suite "House" [
-        test "verse one - the house that Jack built" [
-            result: recite 1 1
-            expected: "This is the house that Jack built."
-            assert -> expected = result
+describe "House" [
+    it "verse one - the house that Jack built" [
+        expects.be:'equal? @[
+            "This is the house that Jack built."
+            recite 1 1
         ]
+    ]
 
-        test "verse two - the malt that lay" [
-            result: recite 2 2
-            expected: join.with:" " [
-                "This is"
-                "the malt that lay in"
-                "the house that Jack built."
-            ]
-            assert -> expected = result
+    it "verse two - the malt that lay" [
+
+        expects.be:'equal? @[
+            "This is the malt that lay in the house that Jack built."
+            recite 2 2
         ]
+    ]
 
-        test "verse three - the rat that ate" [
-            result: recite 3 3
-            expected: join.with:" " [
-                "This is"
-                "the rat that ate"
-                "the malt that lay in"
-                "the house that Jack built."
-]
-            assert -> expected = result
+    it "verse three - the rat that ate" [
+        expected: join.with:" " [
+            "This is"
+            "the rat that ate"
+            "the malt that lay in"
+            "the house that Jack built."
         ]
+        expects.be:'equal? @[
+            expected
+            recite 3 3
+        ]
+    ]
 
-        test "verse four - the cat that killed" [
-            result: recite 4 4
-            expected: join.with:" " [
+    it "verse four - the cat that killed" [
+        expected: join.with:" " [
+            "This is"
+            "the cat that killed"
+            "the rat that ate"
+            "the malt that lay in"
+            "the house that Jack built."
+        ]
+        expects.be:'equal? @[
+            expected
+            recite 4 4
+        ]
+    ]
+
+    it "verse five - the dog that worried" [
+        expected: join.with:" " [
+            "This is"
+            "the dog that worried"
+            "the cat that killed"
+            "the rat that ate"
+            "the malt that lay in"
+            "the house that Jack built."
+        ]
+        expects.be:'equal? @[
+            expected
+            recite 5 5
+        ]
+    ]
+
+    it "verse six - the cow with the crumpled horn" [
+        expected: join.with:" " [
+            "This is"
+            "the cow with the crumpled horn that tossed"
+            "the dog that worried"
+            "the cat that killed"
+            "the rat that ate"
+            "the malt that lay in"
+            "the house that Jack built."
+        ]
+        expects.be:'equal? @[
+            expected
+            recite 6 6
+        ]
+    ]
+
+    it "verse seven - the maiden all forlorn" [
+        expected: join.with:" " [
+            "This is"
+            "the maiden all forlorn that milked"
+            "the cow with the crumpled horn that tossed"
+            "the dog that worried"
+            "the cat that killed"
+            "the rat that ate"
+            "the malt that lay in"
+            "the house that Jack built."
+        ]
+        expects.be:'equal? @[
+            expected
+            recite 7 7
+        ]
+    ]
+
+    it "verse eight - the man all tattered and torn" [
+        expected: join.with:" " [
+            "This is"
+            "the man all tattered and torn that kissed"
+            "the maiden all forlorn that milked"
+            "the cow with the crumpled horn that tossed"
+            "the dog that worried"
+            "the cat that killed"
+            "the rat that ate"
+            "the malt that lay in"
+            "the house that Jack built."
+        ]
+        expects.be:'equal? @[
+            expected
+            recite 8 8
+        ]
+    ]
+
+    it "verse nine - the priest all shaven and shorn" [
+        expected: join.with:" " [
+            "This is"
+            "the priest all shaven and shorn that married"
+            "the man all tattered and torn that kissed"
+            "the maiden all forlorn that milked"
+            "the cow with the crumpled horn that tossed"
+            "the dog that worried"
+            "the cat that killed"
+            "the rat that ate"
+            "the malt that lay in"
+            "the house that Jack built."
+        ]
+        expects.be:'equal? @[
+            expected
+            recite 9 9
+        ]
+    ]
+
+    it "verse 10 - the rooster that crowed in the morn" [
+        expected: join.with:" " [
+            "This is"
+            "the rooster that crowed in the morn that woke"
+            "the priest all shaven and shorn that married"
+            "the man all tattered and torn that kissed"
+            "the maiden all forlorn that milked"
+            "the cow with the crumpled horn that tossed"
+            "the dog that worried"
+            "the cat that killed"
+            "the rat that ate"
+            "the malt that lay in"
+            "the house that Jack built."
+        ]
+        expects.be:'equal? @[
+            expected
+            recite 10 10
+        ]
+    ]
+
+    it "verse 11 - the farmer sowing his corn" [
+        expected: join.with:" " [
+            "This is"
+            "the farmer sowing his corn that kept"
+            "the rooster that crowed in the morn that woke"
+            "the priest all shaven and shorn that married"
+            "the man all tattered and torn that kissed"
+            "the maiden all forlorn that milked"
+            "the cow with the crumpled horn that tossed"
+            "the dog that worried"
+            "the cat that killed"
+            "the rat that ate"
+            "the malt that lay in"
+            "the house that Jack built."
+        ]
+        expects.be:'equal? @[
+            expected
+            recite 11 11
+        ]
+    ]
+
+    it "verse 12 - the horse and the hound and the horn" [
+        expected: join.with:" " [
+            "This is"
+            "the horse and the hound and the horn that belonged to"
+            "the farmer sowing his corn that kept"
+            "the rooster that crowed in the morn that woke"
+            "the priest all shaven and shorn that married"                        
+            "the man all tattered and torn that kissed"
+            "the maiden all forlorn that milked"
+            "the cow with the crumpled horn that tossed"
+            "the dog that worried"
+            "the cat that killed"
+            "the rat that ate"
+            "the malt that lay in"
+            "the house that Jack built."
+        ]
+        expects.be:'equal? @[
+            expected
+            recite 12 12
+        ]
+    ]
+
+    it "multiple verses" [
+        expected: join.with:"\n" @[
+            join.with:" "  [
                 "This is"
                 "the cat that killed"
                 "the rat that ate"
                 "the malt that lay in"
                 "the house that Jack built."
             ]
-            assert -> expected = result
-        ]
-
-        test "verse five - the dog that worried" [
-            result: recite 5 5
-            expected: join.with:" " [
+            join.with:" "  [
                 "This is"
                 "the dog that worried"
                 "the cat that killed"
                 "the rat that ate"
                 "the malt that lay in"
                 "the house that Jack built."
-            ]
-            assert -> expected = result
-        ]
-
-        test "verse six - the cow with the crumpled horn" [
-            result: recite 6 6
-            expected: join.with:" " [
+                ] 
+            join.with:" "  [
                 "This is"
                 "the cow with the crumpled horn that tossed"
                 "the dog that worried"
@@ -66,12 +219,7 @@ suite "House" [
                 "the malt that lay in"
                 "the house that Jack built."
             ]
-            assert -> expected = result
-        ]
-
-        test "verse seven - the maiden all forlorn" [
-            result: recite 7 7
-            expected: join.with:" " [
+            join.with:" "  [
                 "This is"
                 "the maiden all forlorn that milked"
                 "the cow with the crumpled horn that tossed"
@@ -81,12 +229,73 @@ suite "House" [
                 "the malt that lay in"
                 "the house that Jack built."
             ]
-            assert -> expected = result
+            join.with:" "  [
+                "This is"
+                "the man all tattered and torn that kissed"
+                "the maiden all forlorn that milked"
+                "the cow with the crumpled horn that tossed"
+                "the dog that worried"
+                "the cat that killed"
+                "the rat that ate"
+                "the malt that lay in"
+                "the house that Jack built."
+            ]                  
         ]
+        expects.be:'equal? @[
+            expected
+            recite 4 8
+        ]
+    ]
 
-        test "verse eight - the man all tattered and torn" [
-            result: recite 8 8
-            expected: join.with:" " [
+    it "full rhyme" [
+        expected: join.with:"\n" @[
+            "This is the house that Jack built."
+            join.with:" "  [
+                "This is"
+                "the malt that lay in"
+                "the house that Jack built."
+            ] 
+            join.with:" "  [
+                "This is"
+                "the rat that ate"
+                "the malt that lay in"
+                "the house that Jack built."
+            ]
+            join.with:" "  [
+                "This is"
+                "the cat that killed"
+                "the rat that ate"
+                "the malt that lay in"
+                "the house that Jack built."
+            ]
+            join.with:" "  [
+                "This is"
+                "the dog that worried"
+                "the cat that killed"
+                "the rat that ate"
+                "the malt that lay in"
+                "the house that Jack built."
+            ]
+            join.with:" "  [
+                "This is"
+                "the cow with the crumpled horn that tossed"
+                "the dog that worried"
+                "the cat that killed"
+                "the rat that ate"
+                "the malt that lay in"
+                "the house that Jack built."
+            ]
+            join.with:" "  [
+                "This is"
+                "the maiden all forlorn that milked"
+                "the cow with the crumpled horn that tossed"
+                "the dog that worried"
+                "the cat that killed"
+                "the rat that ate"
+                "the malt that lay in"
+                "the house that Jack built."
+            ]
+            join.with:" "  [
                 "This is"
                 "the man all tattered and torn that kissed"
                 "the maiden all forlorn that milked"
@@ -97,12 +306,7 @@ suite "House" [
                 "the malt that lay in"
                 "the house that Jack built."
             ]
-            assert -> expected = result
-        ]
-
-        test "verse nine - the priest all shaven and shorn" [
-            result: recite 9 9
-            expected: join.with:" " [
+            join.with:" "  [
                 "This is"
                 "the priest all shaven and shorn that married"
                 "the man all tattered and torn that kissed"
@@ -114,12 +318,7 @@ suite "House" [
                 "the malt that lay in"
                 "the house that Jack built."
             ]
-            assert -> expected = result
-        ]
-
-        test "verse 10 - the rooster that crowed in the morn" [
-            result: recite 10 10
-            expected: join.with:" " [
+            join.with:" "  [
                 "This is"
                 "the rooster that crowed in the morn that woke"
                 "the priest all shaven and shorn that married"
@@ -132,12 +331,7 @@ suite "House" [
                 "the malt that lay in"
                 "the house that Jack built."
             ]
-            assert -> expected = result
-        ]
-
-        test "verse 11 - the farmer sowing his corn" [
-            result: recite 11 11
-            expected: join.with:" " [
+            join.with:" "  [
                 "This is"
                 "the farmer sowing his corn that kept"
                 "the rooster that crowed in the morn that woke"
@@ -151,17 +345,12 @@ suite "House" [
                 "the malt that lay in"
                 "the house that Jack built."
             ]
-            assert -> expected = result
-        ]
-
-        test "verse 12 - the horse and the hound and the horn" [
-            result: recite 12 12
-            expected: join.with:" " [
+            join.with:" "  [
                 "This is"
                 "the horse and the hound and the horn that belonged to"
                 "the farmer sowing his corn that kept"
                 "the rooster that crowed in the morn that woke"
-                "the priest all shaven and shorn that married"                        
+                "the priest all shaven and shorn that married"
                 "the man all tattered and torn that kissed"
                 "the maiden all forlorn that milked"
                 "the cow with the crumpled horn that tossed"
@@ -171,177 +360,11 @@ suite "House" [
                 "the malt that lay in"
                 "the house that Jack built."
             ]
-            assert -> expected = result
         ]
-
-        test "multiple verses" [
-            result: recite 4 8
-            expected: join.with:"\n" @[
-                join.with:" "  [
-                    "This is"
-                    "the cat that killed"
-                    "the rat that ate"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ]
-                join.with:" "  [
-                    "This is"
-                                "the dog that worried"
-                                "the cat that killed"
-                                "the rat that ate"
-                                "the malt that lay in"
-                                "the house that Jack built."
-                                ] 
-                join.with:" "  [
-                    "This is"
-                    "the cow with the crumpled horn that tossed"
-                    "the dog that worried"
-                    "the cat that killed"
-                    "the rat that ate"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ]
-                join.with:" "  [
-                    "This is"
-                    "the maiden all forlorn that milked"
-                    "the cow with the crumpled horn that tossed"
-                    "the dog that worried"
-                    "the cat that killed"
-                    "the rat that ate"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ]
-                join.with:" "  [
-                    "This is"
-                    "the man all tattered and torn that kissed"
-                    "the maiden all forlorn that milked"
-                    "the cow with the crumpled horn that tossed"
-                    "the dog that worried"
-                    "the cat that killed"
-                    "the rat that ate"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ]                  
-            ]
-            assert -> expected = result
+    
+        expects.be:'equal? @[
+            expected
+            recite 1 12
         ]
-
-        test "full rhyme" [
-            result: recite 1 12
-            expected: join.with:"\n" @[
-                "This is the house that Jack built."
-                join.with:" "  [
-                    "This is"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ] 
-                join.with:" "  [
-                    "This is"
-                    "the rat that ate"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ]
-                join.with:" "  [
-                    "This is"
-                    "the cat that killed"
-                    "the rat that ate"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ]
-                join.with:" "  [
-                    "This is"
-                    "the dog that worried"
-                    "the cat that killed"
-                    "the rat that ate"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ]
-                join.with:" "  [
-                    "This is"
-                    "the cow with the crumpled horn that tossed"
-                    "the dog that worried"
-                    "the cat that killed"
-                    "the rat that ate"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ]
-                join.with:" "  [
-                    "This is"
-                    "the maiden all forlorn that milked"
-                    "the cow with the crumpled horn that tossed"
-                    "the dog that worried"
-                    "the cat that killed"
-                    "the rat that ate"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ]
-                join.with:" "  [
-                    "This is"
-                    "the man all tattered and torn that kissed"
-                    "the maiden all forlorn that milked"
-                    "the cow with the crumpled horn that tossed"
-                    "the dog that worried"
-                    "the cat that killed"
-                    "the rat that ate"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ]
-                join.with:" "  [
-                    "This is"
-                    "the priest all shaven and shorn that married"
-                    "the man all tattered and torn that kissed"
-                    "the maiden all forlorn that milked"
-                    "the cow with the crumpled horn that tossed"
-                    "the dog that worried"
-                    "the cat that killed"
-                    "the rat that ate"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ]
-                join.with:" "  [
-                    "This is"
-                    "the rooster that crowed in the morn that woke"
-                    "the priest all shaven and shorn that married"
-                    "the man all tattered and torn that kissed"
-                    "the maiden all forlorn that milked"
-                    "the cow with the crumpled horn that tossed"
-                    "the dog that worried"
-                    "the cat that killed"
-                    "the rat that ate"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ]
-                join.with:" "  [
-                    "This is"
-                    "the farmer sowing his corn that kept"
-                    "the rooster that crowed in the morn that woke"
-                    "the priest all shaven and shorn that married"
-                    "the man all tattered and torn that kissed"
-                    "the maiden all forlorn that milked"
-                    "the cow with the crumpled horn that tossed"
-                    "the dog that worried"
-                    "the cat that killed"
-                    "the rat that ate"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ]
-                join.with:" "  [
-                    "This is"
-                    "the horse and the hound and the horn that belonged to"
-                    "the farmer sowing his corn that kept"
-                    "the rooster that crowed in the morn that woke"
-                    "the priest all shaven and shorn that married"
-                    "the man all tattered and torn that kissed"
-                    "the maiden all forlorn that milked"
-                    "the cow with the crumpled horn that tossed"
-                    "the dog that worried"
-                    "the cat that killed"
-                    "the rat that ate"
-                    "the malt that lay in"
-                    "the house that Jack built."
-                ]
-            ]
-        
-            assert -> expected = result
-        ]
+    ]
 ]

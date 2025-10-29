@@ -1,34 +1,28 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/square-root}!
 
-suite "Square Root"[
-    test "root of 1" [
-        result: squareRoot 1
-        assert -> 1 = result
+describe "Square Root"[
+    it "root of 1" [
+        expects.be:'equal? @[1 squareRoot 1]
     ]
 
-    test "root of 4" [
-        result: squareRoot 4
-        assert -> 2 = result
+    it "root of 4" [
+        expects.be:'equal? @[2 squareRoot 4]
     ]
 
-    test "root of 25" [
-        result: squareRoot 25
-        assert -> 5 = result
+    it "root of 25" [
+        expects.be:'equal? @[5 squareRoot 25]
     ]
 
-    test "root of 81" [
-        result: squareRoot 81
-        assert -> 9 = result
+    it "root of 81" [
+        expects.be:'equal? @[9 squareRoot 81]
     ]
 
-    test "root of 196" [
-        result: squareRoot 196
-        assert -> 14 = result
+    it "root of 196" [
+        expects.be:'equal? @[14 squareRoot 196]
     ]
 
-    test "root of 65025" [
-        result: squareRoot 65025
-        assert -> 255 = result
+    it "root of 65025" [
+        expects.be:'equal? @[255 squareRoot 65025]
     ]
 ]

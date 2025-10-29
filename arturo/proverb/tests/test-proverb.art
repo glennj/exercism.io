@@ -1,73 +1,74 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/proverb}!
 
-suite "Proverb" [
-  test "zero pieces" [
-    result: recite []
-    expected: ""
-    assert -> expected = result
-  ]
-
-  test "one piece" [
-    result: recite ["nail"]
-    expected: "And all for the want of a nail."
-    assert -> expected = result
-  ]
-
-  test "two pieces" [
-    result: recite ["nail" "shoe"]
-    expected: {
-For want of a nail the shoe was lost.
-And all for the want of a nail.
-}
-    assert -> expected = result
-  ]
-
-  test "three pieces" [
-    result: recite ["nail" "shoe" "horse"]
-    expected: {
-For want of a nail the shoe was lost.
-For want of a shoe the horse was lost.
-And all for the want of a nail.
-}
-    assert -> expected = result
-  ]
-
-  test "full proverb" [
-    result: recite [
-        "nail"
-        "shoe"
-        "horse"
-        "rider"
-        "message"
-        "battle"
-        "kingdom"
+describe "Proverb" [
+    it "zero pieces" [
+        expects.be:'equal? @[
+            ""
+            recite []
+        ]
     ]
-    expected: {
-For want of a nail the shoe was lost.
-For want of a shoe the horse was lost.
-For want of a horse the rider was lost.
-For want of a rider the message was lost.
-For want of a message the battle was lost.
-For want of a battle the kingdom was lost.
-And all for the want of a nail.
-}
-    assert -> expected = result
+
+    it "one piece" [
+        expects.be:'equal? @[
+            "And all for the want of a nail."
+            recite ["nail"]
+        ]
+    ]
+
+    it "two pieces" [
+        expects.be:'equal? @[
+            {
+                For want of a nail the shoe was lost.
+                And all for the want of a nail.
+            }
+            recite ["nail" "shoe"]
+        ]
+    ]
+
+    it "three pieces" [
+        expects.be:'equal? @[
+            {
+                For want of a nail the shoe was lost.
+                For want of a shoe the horse was lost.
+                And all for the want of a nail.
+            }
+            recite ["nail" "shoe" "horse"]
+        ]
+    ]
+
+    it "full proverb" [
+        expects.be:'equal? @[
+            {
+                For want of a nail the shoe was lost.
+                For want of a shoe the horse was lost.
+                For want of a horse the rider was lost.
+                For want of a rider the message was lost.
+                For want of a message the battle was lost.
+                For want of a battle the kingdom was lost.
+                And all for the want of a nail.
+            }
+            recite [
+                "nail"
+                "shoe"
+                "horse"
+                "rider"
+                "message"
+                "battle"
+                "kingdom"
+            ]
+        ]
   ]
 
-  test "four pieces modernized" [
-    result: recite [
-        "pin"
-        "gun"
-        "soldier"
-        "battle"
+    it "four pieces modernized" [
+        expects.be:'equal? @[
+            {
+                For want of a pin the gun was lost.
+                For want of a gun the soldier was lost.
+                For want of a soldier the battle was lost.
+                And all for the want of a pin.
+            }
+            recite ["pin" "gun" "soldier" "battle"]
+        ]
     ]
-    expected: {
-For want of a pin the gun was lost.
-For want of a gun the soldier was lost.
-For want of a soldier the battle was lost.
-And all for the want of a pin.
-}
-    assert -> expected = result
-  ]
 ]

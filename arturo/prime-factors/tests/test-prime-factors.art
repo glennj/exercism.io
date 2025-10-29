@@ -1,64 +1,58 @@
-import.version:1.1.2 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/prime-factors}!
 
-suite "Prime Factors" [
-    test "no factors" [
-        result: primeFactors 1
-        assert -> [] = result
+describe "Prime Factors" [
+    it "no factors" [
+        expects.be:'equal? @[[] primeFactors 1]
     ]
 
-    test "prime number" [
-        result: primeFactors 2
-        assert -> [2] = result
+    it "prime number" [
+        expects.be:'equal? @[[2] primeFactors 2]
     ]
     
-    test "another prime number" [
-        result: primeFactors 3
-        assert -> [3] = result
+    it "another prime number" [
+        expects.be:'equal? @[[3] primeFactors 3]
     ]
     
-    test "square of a prime" [
-        result: primeFactors 9
-        assert -> [3, 3] = result
+    it "square of a prime" [
+        expects.be:'equal? @[[3 3] primeFactors 9]
     ]
     
-    test "product of first prime" [
-        result: primeFactors 4
-        assert -> [2, 2] = result
+    it "product of first prime" [
+        expects.be:'equal? @[[2 2] primeFactors 4]
     ]
     
-    test "cube of a prime" [
-        result: primeFactors 8
-        assert -> [2, 2, 2] = result
+    it "cube of a prime" [
+        expects.be:'equal? @[[2 2 2] primeFactors 8]
     ]
     
-    test "product of second prime" [
-        result: primeFactors 27
-        assert -> [3, 3, 3] = result
+    it "product of second prime" [
+        expects.be:'equal? @[[3 3 3] primeFactors 27]
     ]
     
-    test "product of third prime" [
-        result: primeFactors 625
-        assert -> [5, 5, 5, 5] = result
+    it "product of third prime" [
+        expects.be:'equal? @[[5 5 5 5] primeFactors 625]
     ]
     
-    test "product of first and second prime" [
-        result: primeFactors 6
-        assert -> [2, 3] = result
+    it "product of first and second prime" [
+        expects.be:'equal? @[[2 3] primeFactors 6]
     ]
     
-    test "product of primes and non-primes" [
-        result: primeFactors 12
-        assert -> [2, 2, 3] = result
+    it "product of primes and non-primes" [
+        expects.be:'equal? @[[2 2 3] primeFactors 12]
     ]
     
-    test "product of primes" [
-        result: primeFactors 901255
-        assert -> [5, 17, 23, 461] = result
+    it "product of primes" [
+        expects.be:'equal? @[
+            [5 17 23 461]
+            primeFactors 901255
+        ]
     ]
     
-    test "factors include a large prime" [
-        result: primeFactors 93819012551
-        assert -> [11, 9539, 894119] = result
+    it "factors include a large prime" [
+        expects.be:'equal? @[
+            [11 9539 894119]
+            primeFactors 93819012551
+        ]
     ]
 ]

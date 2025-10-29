@@ -1,54 +1,74 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/rotational-cipher}!
 
-suite "Rotational Cipher" [
-    test "rotate a by 0, same output as input" [
-        result: rotateText "a" 0
-        assert -> "a" = result
+describe "Rotational Cipher" [
+    it "rotate a by 0, same output as input" [
+        expects.be:'equal? @[
+            "a"
+            rotateText "a" 0
+        ]
     ]
 
-    test "rotate a by 1" [
-        result: rotateText "a" 1
-        assert -> "b" = result
+    it "rotate a by 1" [
+        expects.be:'equal? @[
+            "b"
+            rotateText "a" 1
+        ]
     ]
 
-    test "rotate a by 26, same output as input" [
-        result: rotateText "a" 26
-        assert -> "a" = result
+    it "rotate a by 26, same output as input" [
+        expects.be:'equal? @[
+            "a"
+            rotateText "a" 26
+        ]
     ]
 
-    test "rotate m by 13" [
-        result: rotateText "m" 13
-        assert -> "z" = result
+    it "rotate m by 13" [
+        expects.be:'equal? @[
+            "z"
+            rotateText "m" 13
+        ]
     ]
 
-    test "rotate n by 13 with wrap around alphabet" [
-        result: rotateText "n" 13
-        assert -> "a" = result
+    it "rotate n by 13 with wrap around alphabet" [
+        expects.be:'equal? @[
+            "a"
+            rotateText "n" 13
+        ]
     ]
 
-    test "rotate capital letters" [
-        result: rotateText "OMG" 5
-        assert -> "TRL" = result
+    it "rotate capital letters" [
+        expects.be:'equal? @[
+            "TRL"
+            rotateText "OMG" 5
+        ]
     ]
 
-    test "rotate spaces" [
-        result: rotateText "O M G" 5
-        assert -> "T R L" = result
+    it "rotate spaces" [
+        expects.be:'equal? @[
+            "T R L"
+            rotateText "O M G" 5
+        ]
     ]
 
-    test "rotate numbers" [
-        result: rotateText "Testing 1 2 3 testing" 4
-        assert -> "Xiwxmrk 1 2 3 xiwxmrk" = result
+    it "rotate numbers" [
+        expects.be:'equal? @[
+            "Xiwxmrk 1 2 3 xiwxmrk"
+            rotateText "Testing 1 2 3 testing" 4
+        ]
     ]
 
-    test "rotate punctuation" [
-        result: rotateText "Let's eat, Grandma!" 21
-        assert -> "Gzo'n zvo, Bmviyhv!" = result
+    it "rotate punctuation" [
+        expects.be:'equal? @[
+            "Gzo'n zvo, Bmviyhv!"
+            rotateText "Let's eat, Grandma!" 21
+        ]
     ]
 
-    test "rotate all letters" [
-        result: rotateText "The quick brown fox jumps over the lazy dog." 13
-        assert -> "Gur dhvpx oebja sbk whzcf bire gur ynml qbt." = result
+    it "rotate all letters" [
+        expects.be:'equal? @[
+            "Gur dhvpx oebja sbk whzcf bire gur ynml qbt."
+            rotateText "The quick brown fox jumps over the lazy dog." 13
+        ]
     ]
 ]

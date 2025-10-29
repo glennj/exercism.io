@@ -1,29 +1,24 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/nth-prime}!
 
 suite "Nth Prime" [
-    test "first prime" [
-        result: prime 1
-        assert -> 2 = result
+    it "first prime" [
+        expects.be:'equal? @[2 prime 1]
     ]
 
-    test "second prime" [
-        result: prime 2
-        assert -> 3 = result
+    it "second prime" [
+        expects.be:'equal? @[3 prime 2]
     ]
 
-    test "sixth prime" [
-        result: prime 6
-        assert -> 13 = result
+    it "sixth prime" [
+        expects.be:'equal? @[13 prime 6]
     ]
 
-    test "big prime" [
-        result: prime 10001
-        assert -> 104743 = result
+    it "big prime" [
+        expects.be:'equal? @[104743 prime 10001]
     ]
 
-    test "there is no zeroth prime" [
-        result: prime 0
-        assert -> false = result
+    it "there is no zeroth prime" [
+        expects.be:'false? @[prime 0]
     ]
 ]

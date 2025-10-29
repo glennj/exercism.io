@@ -34,6 +34,10 @@ output: `[1, 2, 6, 4, 5]`
 
 - @erikschierboom
 
+### Contributed to by
+
+- @glennj
+
 ### Based on
 
 Interview Question - https://reference.wolfram.com/language/ref/Flatten.html

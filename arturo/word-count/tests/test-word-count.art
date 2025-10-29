@@ -1,102 +1,84 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/word-count}!
 
-suite "Word Count" [
-  test "count one word" [
-    sentence: "word"
-    result: countWords sentence
-    expected: #["word": 1]
-    assert -> expected = result
-  ]
+describe "Word Count" [
+    it "count one word" [
+        expects.be:'equal? @[#["word": 1] countWords "word"]
+    ]
 
-  test "count one of each word" [
-    sentence: "one of each"
-    result: countWords sentence
-    expected: #["one": 1 "of": 1 "each": 1]
-    assert -> expected = result
-  ]
+    it "count one of each word" [
+        expects.be:'equal? @[#["one": 1 "of": 1 "each": 1] countWords "one of each"]
+    ]
 
-  test "multiple occurrences of a word" [
-    sentence: "one fish two fish red fish blue fish"
-    result: countWords sentence
-    expected: #["one": 1 "fish": 4 "two": 1 "red": 1 "blue": 1]
-    assert -> expected = result
-  ]
+    it "multiple occurrences of a word" [
+        expects.be:'equal? @[
+            #["one": 1 "fish": 4 "two": 1 "red": 1 "blue": 1]
+            countWords "one fish two fish red fish blue fish"
+        ]
+    ]
 
-  test "handles cramped lists" [
-    sentence: "one,two,three"
-    result: countWords sentence
-    expected: #["one": 1 "two": 1 "three": 1]
-    assert -> expected = result
-  ]
+    it "handles cramped lists" [
+        expects.be:'equal? @[#["one": 1 "two": 1 "three": 1] countWords "one,two,three"]
+    ]
 
-  test "handles expanded lists" [
-    sentence: "one,\ntwo,\nthree"
-    result: countWords sentence
-    expected: #["one": 1 "two": 1 "three": 1]
-    assert -> expected = result
-  ]
+    it "handles expanded lists" [
+        expects.be:'equal? @[
+            #["one": 1 "two": 1 "three": 1]
+            countWords "one,\ntwo,\nthree"
+        ]
+    ]
 
-  test "ignore punctuation" [
-    sentence: "car: carpet as java: javascript!!&@$%^&"
-    result: countWords sentence
-    expected: #["car": 1 "carpet": 1 "as": 1 "java": 1 "javascript": 1]
-    assert -> expected = result
-  ]
+    it "ignore punctuation" [
+        expects.be:'equal? @[
+            #["car": 1 "carpet": 1 "as": 1 "java": 1 "javascript": 1]
+            countWords "car: carpet as java: javascript!!&@$%^&"
+        ]
+    ]
 
-  test "include numbers" [
-    sentence: "testing, 1, 2 testing"
-    result: countWords sentence
-    expected: #["testing": 2 "1": 1 "2": 1]
-    assert -> expected = result
-  ]
+    it "include numbers" [
+        expects.be:'equal? @[#["iting": 2 "1": 1 "2": 1] countWords "iting, 1, 2 iting"]
+    ]
 
-  test "normalize case" [
-    sentence: "go Go GO Stop stop"
-    result: countWords sentence
-    expected: #["go": 3 "stop": 2]
-    assert -> expected = result
-  ]
+    it "normalize case" [
+        expects.be:'equal? @[#["go": 3 "stop": 2] countWords "go Go GO Stop stop"]
+    ]
 
-  test "with apostrophes" [
-    sentence: "'First: don't laugh. Then: don't cry. You're getting it.'"
-    result: countWords sentence
-    expected: #["first": 1 "don't": 2 "laugh": 1 "then": 1 "cry": 1 "you're": 1 "getting": 1 "it": 1]
-    assert -> expected = result
-  ]
+    it "with apostrophes" [
+        expects.be:'equal? @[
+            #["first": 1 "don't": 2 "laugh": 1 "then": 1 "cry": 1 "you're": 1 "getting": 1 "it": 1]
+            countWords "'First: don't laugh. Then: don't cry. You're getting it.'"
+        ]
+    ]
 
-  test "with quotations" [
-    sentence: "Joe can't tell between 'large' and large."
-    result: countWords sentence
-    expected: #["joe": 1 "can't": 1 "tell": 1 "between": 1 "large": 2 "and": 1]
-    assert -> expected = result
-  ]
+    it "with quotations" [
+        expects.be:'equal? @[
+            #["joe": 1 "can't": 1 "tell": 1 "between": 1 "large": 2 "and": 1]
+            countWords "Joe can't tell between 'large' and large."
+        ]
+    ]
 
-  test "substrings from the beginning" [
-    sentence: "Joe can't tell between app, apple and a."
-    result: countWords sentence
-    expected: #["joe": 1 "can't": 1 "tell": 1 "between": 1 "app": 1 "apple": 1 "and": 1 "a": 1]
-    assert -> expected = result
-  ]
+    it "substrings from the beginning" [
+        expects.be:'equal? @[
+            #["joe": 1 "can't": 1 "tell": 1 "between": 1 "app": 1 "apple": 1 "and": 1 "a": 1]
+            countWords "Joe can't tell between app, apple and a."
+        ]
+    ]
 
-  test "multiple spaces not detected as a word" [
-    sentence: " multiple   whitespaces"
-    result: countWords sentence
-    expected: #["multiple": 1 "whitespaces": 1]
-    assert -> expected = result
-  ]
+    it "multiple spaces not detected as a word" [
+        expects.be:'equal? @[
+            #["multiple": 1 "whitespaces": 1]
+            countWords " multiple   whitespaces"
+        ]
+    ]
 
-  test "alternating word separators not detected as a word" [
-    sentence: ",\n,one,\n ,two \n 'three'"
-    result: countWords sentence
-    expected: #["one": 1 "two": 1 "three": 1]
-    assert -> expected = result
-  ]
+    it "alternating word separators not detected as a word" [
+        expects.be:'equal? @[
+            #["one": 1 "two": 1 "three": 1]
+            countWords ",\n,one,\n ,two \n 'three'"
+        ]
+    ]
 
-  test "quotation for word with apostrophe" [
-    sentence: "can, can't, 'can't'"
-    result: countWords sentence
-    expected: #["can": 1 "can't": 2]
-    assert -> expected = result
-  ]
+    it "quotation for word with apostrophe" [
+        expects.be:'equal? @[#["can": 1 "can't": 2] countWords "can, can't, 'can't'"]
+    ]
 ]

@@ -1,39 +1,32 @@
-import.version:1.1.2 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/resistor-color-duo}!
 
-suite "Resistor Color Duo" [
-    test "brown and black returns 10" [
-        result:  resistorValue ["brown" "black"]
-        assert -> 10 = result
+describe "Resistor Color Duo" [
+    it "brown and black returns 10" [
+        expects.be:'equal? @[10 resistorValue ["brown" "black"]]
     ]
 
-    test "blue and grey returns 68" [
-        result:  resistorValue ["blue" "grey"]
-        assert -> 68 = result
+    it "blue and grey returns 68" [
+        expects.be:'equal? @[68 resistorValue ["blue" "grey"]]
     ]
 
-    test "yellow and violet returns 47" [
-        result:  resistorValue ["yellow" "violet"]
-        assert -> 47 = result
+    it "yellow and violet returns 47" [
+        expects.be:'equal? @[47 resistorValue ["yellow" "violet"]]
     ]
 
-    test "white and red returns 92" [
-        result:  resistorValue ["white" "red"]
-        assert -> 92 = result
+    it "white and red returns 92" [
+        expects.be:'equal? @[92 resistorValue ["white" "red"]]
     ]
 
-    test "orange and orange returns 33" [
-        result:  resistorValue ["orange" "orange"]
-        assert -> 33 = result
+    it "orange and orange returns 33" [
+        expects.be:'equal? @[33 resistorValue ["orange" "orange"]]
     ]
 
-    test "resistorValue ignores additional colors" [
-        result:  resistorValue ["green" "brown" "orange"]
-        assert -> 51 = result
+    it "resistorValue ignores additional colors" [
+        expects.be:'equal? @[51 resistorValue ["green" "brown" "orange"]]
     ]
 
-    test "black and brown returns a single digit" [
-        result:  resistorValue ["black" "brown"]
-        assert -> 1 = result
+    it "black and brown returns a single digit" [
+        expects.be:'equal? @[1 resistorValue ["black" "brown"]]
     ]
 ]

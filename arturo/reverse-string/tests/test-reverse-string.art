@@ -1,34 +1,46 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/reverse-string}!
 
-suite "Reverse string" [
-    test "an empty string" [
-        result: reverseString ""
-        assert -> "" = result
+describe "Reverse String" [
+    it "an empty string" [
+        expects.be:'equal? @[
+            ""
+            reverseString ""
+        ]
     ]
 
-    test "a word" [
-        result: reverseString "robot"
-        assert -> "tobor" = result
+    it "a word" [
+        expects.be:'equal? @[
+            "tobor"
+            reverseString "robot"
+        ]
     ]
 
-    test "a capitalized word" [
-        result: reverseString "Ramen"
-        assert -> "nemaR" = result
+    it "a capitalized word" [
+        expects.be:'equal? @[
+            "nemaR"
+            reverseString "Ramen"
+        ]
     ]
 
-    test "a sentence with punctuation" [
-        result: reverseString "I'm hungry!"
-        assert -> "!yrgnuh m'I" = result
+    it "a sentence with punctuation" [
+        expects.be:'equal? @[
+            "!yrgnuh m'I"
+            reverseString "I'm hungry!"
+        ]
     ]
 
-    test "a palindrome" [
-        result: reverseString "racecar"
-        assert -> "racecar" = result
+    it "a palindrome" [
+        expects.be:'equal? @[
+            "racecar"
+            reverseString "racecar"
+        ]
     ]
 
-    test "an even-sized word" [
-        result: reverseString "drawer"
-        assert -> "reward" = result
+    it "an even-sized word" [
+        expects.be:'equal? @[
+            "reward"
+            reverseString "drawer"
+        ]
     ]
 ]

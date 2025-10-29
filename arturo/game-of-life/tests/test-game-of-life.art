@@ -1,126 +1,123 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/game-of-life}!
 
-suite "Conway's Game of Life" [
-    test "empty matrix" [
-        matrix: []
-        result: tick matrix
-        expected: []
-        assert -> expected = result
+describe "Conway's Game of Life" [
+    it "empty matrix" [
+        expects.be:'equal? @[[] tick []]
     ]
 
-    test "live cells with zero live neighbors die" [
-        matrix: [
-            [0 0 0]
-            [0 1 0]
-            [0 0 0]
+    it "live cells with zero live neighbors die" [
+        expects.be:'equal? @[
+            [
+                [0 0 0]
+                [0 0 0]
+                [0 0 0] 
+            ]
+            tick [
+                [0 0 0]
+                [0 1 0]
+                [0 0 0]  
+            ]
         ]
-        result: tick matrix
-        expected: [
-            [0 0 0]
-            [0 0 0]
-            [0 0 0]
-        ]
-        assert -> expected = result
     ]
 
-    test "live cells with only one live neighbor die" [
-        matrix: [
-            [0 0 0]
-            [0 1 0]
-            [0 1 0]
+    it "live cells with only one live neighbor die" [
+        expects.be:'equal? @[
+            [
+                [0 0 0]
+                [0 0 0]
+                [0 0 0]
+            ]
+            tick [
+                [0 0 0]
+                [0 1 0]
+                [0 1 0]
+            ]
         ]
-        result: tick matrix
-        expected: [
-            [0 0 0]
-            [0 0 0]
-            [0 0 0]
-        ]
-        assert -> expected = result
     ]
 
-    test "live cells with two live neighbors stay alive" [
-        matrix: [
-            [1 0 1]
-            [1 0 1]
-            [1 0 1]
+    it "live cells with two live neighbors stay alive" [
+        expects.be:'equal? @[
+            [
+                [0 0 0]
+                [1 0 1]
+                [0 0 0]
+            ]
+            tick [
+                [1 0 1]
+                [1 0 1]
+                [1 0 1]
+            ]
         ]
-        result: tick matrix
-        expected: [
-            [0 0 0]
-            [1 0 1]
-            [0 0 0]
-        ]
-        assert -> expected = result
     ]
 
-    test "live cells with three live neighbors stay alive" [
-        matrix: [
-            [0 1 0]
-            [1 0 0]
-            [1 1 0]
+    it "live cells with three live neighbors stay alive" [
+        expects.be:'equal? @[
+            [
+                [0 0 0]
+                [1 0 0]
+                [1 1 0]
+            ]
+            tick [
+                [0 1 0]
+                [1 0 0]
+                [1 1 0]
+            ]
         ]
-        result: tick matrix
-        expected: [
-            [0 0 0]
-            [1 0 0]
-            [1 1 0]
-        ]
-        assert -> expected = result
     ]
 
-    test "dead cells with three live neighbors become alive" [
-        matrix: [
-            [1 1 0]
-            [0 0 0]
-            [1 0 0]
+    it "dead cells with three live neighbors become alive" [
+        expects.be:'equal? @[
+            [
+                [0 0 0]
+                [1 1 0]
+                [0 0 0]
+            ]
+            tick [
+                [1 1 0]
+                [0 0 0]
+                [1 0 0]
+            ]
         ]
-        result: tick matrix
-        expected: [
-            [0 0 0]
-            [1 1 0]
-            [0 0 0]
-        ]
-        assert -> expected = result
     ]
 
-    test "live cells with four or more neighbors die" [
-        matrix: [
-            [1 1 1]
-            [1 1 1]
-            [1 1 1]
+    it "live cells with four or more neighbors die" [
+        expects.be:'equal? @[
+            [
+                [1 0 1]
+                [0 0 0]
+                [1 0 1]
+            ]
+            tick [
+                [1 1 1]
+                [1 1 1]
+                [1 1 1]
+            ]
         ]
-        result: tick matrix
-        expected: [
-            [1 0 1]
-            [0 0 0]
-            [1 0 1]
-        ]
-        assert -> expected = result
     ]
 
-    test "bigger matrix" [
-        matrix: [
-            [1 1 0 1 1 0 0 0]
-            [1 0 1 1 0 0 0 0]
-            [1 1 1 0 0 1 1 1]
-            [0 0 0 0 0 1 1 0]
-            [1 0 0 0 1 1 0 0]
-            [1 1 0 0 0 1 1 1]
-            [0 0 1 0 1 0 0 1]
-            [1 0 0 0 0 0 1 1]
+    it "bigger matrix" [
+        expects.be:'equal? @[
+            [
+                [1 1 0 1 1 0 0 0]
+                [0 0 0 0 0 1 1 0]
+                [1 0 1 1 1 1 0 1]
+                [1 0 0 0 0 0 0 1]
+                [1 1 0 0 1 0 0 1]
+                [1 1 0 1 0 0 0 1]
+                [1 0 0 0 0 0 0 0]
+                [0 0 0 0 0 0 1 1]
+            ]
+            tick [
+                [1 1 0 1 1 0 0 0]
+                [1 0 1 1 0 0 0 0]
+                [1 1 1 0 0 1 1 1]
+                [0 0 0 0 0 1 1 0]
+                [1 0 0 0 1 1 0 0]
+                [1 1 0 0 0 1 1 1]
+                [0 0 1 0 1 0 0 1]
+                [1 0 0 0 0 0 1 1]
+            ]
         ]
-        result: tick matrix
-        expected: [
-            [1 1 0 1 1 0 0 0]
-            [0 0 0 0 0 1 1 0]
-            [1 0 1 1 1 1 0 1]
-            [1 0 0 0 0 0 0 1]
-            [1 1 0 0 1 0 0 1]
-            [1 1 0 1 0 0 0 1]
-            [1 0 0 0 0 0 0 0]
-            [0 0 0 0 0 0 1 1]
-        ]
-        assert -> expected = result
     ]
 ]

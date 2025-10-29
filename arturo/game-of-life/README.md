@@ -31,6 +31,10 @@ Given a matrix of 1s and 0s (corresponding to live and dead cells), apply the ru
 
 - @BNAndras
 
+### Contributed to by
+
+- @glennj
+
 ### Based on
 
 Wikipedia - https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life

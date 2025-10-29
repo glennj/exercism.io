@@ -45,6 +45,10 @@ Determine the fewest number of coins to give a customer so that the sum of their
 
 - @BNAndras
 
+### Contributed to by
+
+- @glennj
+
 ### Based on
 
 Software Craftsmanship - Coin Change Kata - https://web.archive.org/web/20130115115225/http://craftsmanship.sv.cmu.edu:80/exercises/coin-change-kata

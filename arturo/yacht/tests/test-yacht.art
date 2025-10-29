@@ -1,149 +1,120 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/yacht}!
 
-suite "Yacht" [
-    test "Yacht" [
-        result: yacht [5, 5, 5, 5, 5] "yacht" 
-        assert -> 50 = result
+describe "Yacht" [
+    it "Yacht" [
+        expects.be:'equal? @[50 yacht [5 5 5 5 5] "yacht"]
     ]
 
-    test "Not Yacht" [
-        result: yacht [1, 3, 3, 2, 5] "yacht" 
-        assert -> 0 = result
+    it "Not Yacht" [
+        expects.be:'equal? @[0 yacht [1 3 3 2 5] "yacht"]
     ]
 
-    test "Ones" [
-        result: yacht [1, 1, 1, 3, 5] "ones" 
-        assert -> 3 = result
+    it "Ones" [
+        expects.be:'equal? @[3 yacht [1 1 1 3 5] "ones"]
     ]
 
-    test "Ones, out of order" [
-        result: yacht [3, 1, 1, 5, 1] "ones" 
-        assert -> 3 = result
+    it "Ones out of order" [
+        expects.be:'equal? @[3 yacht [3 1 1 5 1] "ones"]
     ]
 
-    test "No ones" [
-        result: yacht [4, 3, 6, 5, 5] "ones" 
-        assert -> 0 = result
+    it "No ones" [
+        expects.be:'equal? @[0 yacht [4 3 6 5 5] "ones"]
     ]
 
-    test "Twos" [
-        result: yacht [2, 3, 4, 5, 6] "twos" 
-        assert -> 2 = result
+    it "Twos" [
+        expects.be:'equal? @[2 yacht [2 3 4 5 6] "twos"]
     ]
 
-    test "Yacht counted as threes" [
-        result: yacht [3, 3, 3, 3, 3] "threes" 
-        assert -> 15 = result
+    it "Yacht counted as threes" [
+        expects.be:'equal? @[15 yacht [3 3 3 3 3] "threes"]
     ]
 
-    test "Fours" [
-        result: yacht [1, 4, 1, 4, 1] "fours" 
-        assert -> 8 = result
+    it "Fours" [
+        expects.be:'equal? @[8 yacht [1 4 1 4 1] "fours"]
     ]
 
-    test "Yacht of 3s counted as fives" [
-        result: yacht [3, 3, 3, 3, 3] "fives" 
-        assert -> 0 = result
+    it "Yacht of 3s counted as fives" [
+        expects.be:'equal? @[0 yacht [3 3 3 3 3] "fives"]
     ]
 
-    test "Fives" [
-        result: yacht [1, 5, 3, 5, 3] "fives" 
-        assert -> 10 = result
+    it "Fives" [
+        expects.be:'equal? @[10 yacht [1 5 3 5 3] "fives"]
     ]
 
-    test "Sixes" [
-        result: yacht [2, 3, 4, 5, 6] "sixes" 
-        assert -> 6 = result
+    it "Sixes" [
+        expects.be:'equal? @[6 yacht [2 3 4 5 6] "sixes"]
     ]
 
-    test "Four of a Kind" [
-        result: yacht [6, 6, 4, 6, 6] "four of a kind" 
-        assert -> 24 = result
+    it "Four of a Kind" [
+        expects.be:'equal? @[24 yacht [6 6 4 6 6] "four of a kind"]
     ]
 
-    test "Yacht can be scored as Four of a Kind" [
-        result: yacht [3, 3, 3, 3, 3] "four of a kind" 
-        assert -> 12 = result
+    it "Yacht can be scored as Four of a Kind" [
+        expects.be:'equal? @[12 yacht [3 3 3 3 3] "four of a kind"]
     ]
 
-    test "Full house is not Four of a Kind" [
-        result: yacht [3, 3, 3, 5, 5] "four of a kind" 
-        assert -> 0 = result
+    it "Full house is not Four of a Kind" [
+        expects.be:'equal? @[0 yacht [3 3 3 5 5] "four of a kind"]
     ]
 
-    test "Little Straight" [
-        result: yacht [3, 5, 4, 1, 2] "little straight" 
-        assert -> 30 = result
+    it "Little Straight" [
+        expects.be:'equal? @[30 yacht [3 5 4 1 2] "little straight"]
     ]
 
-    test "Little Straight as Big Straight" [
-        result: yacht [1, 2, 3, 4, 5] "big straight" 
-        assert -> 0 = result
+    it "Little Straight as Big Straight" [
+        expects.be:'equal? @[0 yacht [1 2 3 4 5] "big straight"]
     ]
 
-    test "Four in order but not a little straight" [
-        result: yacht [1, 1, 2, 3, 4] "little straight" 
-        assert -> 0 = result
+    it "Four in order but not a little straight" [
+        expects.be:'equal? @[0 yacht [1 1 2 3 4] "little straight"]
     ]
 
-    test "No pairs but not a little straight" [
-        result: yacht [1, 2, 3, 4, 6] "little straight" 
-        assert -> 0 = result
+    it "No pairs but not a little straight" [
+        expects.be:'equal? @[0 yacht [1 2 3 4 6] "little straight"]
     ]
 
-    test "Minimum is 1, maximum is 5, but not a little straight" [
-        result: yacht [1, 1, 3, 4, 5] "little straight" 
-        assert -> 0 = result
+    it "Minimum is 1 maximum is 5 but not a little straight" [
+        expects.be:'equal? @[0 yacht [1 1 3 4 5] "little straight"]
     ]
 
-    test "Big Straight" [
-        result: yacht [4, 6, 2, 5, 3] "big straight" 
-        assert -> 30 = result
+    it "Big Straight" [
+        expects.be:'equal? @[30 yacht [4 6 2 5 3] "big straight"]
     ]
 
-    test "Big Straight as little straight" [
-        result: yacht [6, 5, 4, 3, 2] "little straight" 
-        assert -> 0 = result
+    it "Big Straight as little straight" [
+        expects.be:'equal? @[0 yacht [6 5 4 3 2] "little straight"]
     ]
 
-    test "No pairs but not a big straight" [
-        result: yacht [6, 5, 4, 3, 1] "big straight" 
-        assert -> 0 = result
+    it "No pairs but not a big straight" [
+        expects.be:'equal? @[0 yacht [6 5 4 3 1] "big straight"]
     ]
 
-    test "Full house two small, three big" [
-        result: yacht [2, 2, 4, 4, 4] "full house" 
-        assert -> 16 = result
+    it "Full house two small three big" [
+        expects.be:'equal? @[16 yacht [2 2 4 4 4] "full house"]
     ]
 
-    test "Full house three small, two big" [
-        result: yacht [5, 3, 3, 5, 3] "full house" 
-        assert -> 19 = result
+    it "Full house three small two big" [
+        expects.be:'equal? @[19 yacht [5 3 3 5 3] "full house"]
     ]
 
-    test "Two pair is not a full house" [
-        result: yacht [2, 2, 4, 4, 5] "full house" 
-        assert -> 0 = result
+    it "Two pair is not a full house" [
+        expects.be:'equal? @[0 yacht [2 2 4 4 5] "full house"]
     ]
 
-    test "Four of a kind is not a full house" [
-        result: yacht [1, 4, 4, 4, 4] "full house" 
-        assert -> 0 = result
+    it "Four of a kind is not a full house" [
+        expects.be:'equal? @[0 yacht [1 4 4 4 4] "full house"]
     ]
 
-    test "Yacht is not a full house" [
-        result: yacht [2, 2, 2, 2, 2] "full house" 
-        assert -> 0 = result
+    it "Yacht is not a full house" [
+        expects.be:'equal? @[0 yacht [2 2 2 2 2] "full house"]
     ]
 
-    test "Choice" [
-        result: yacht [3, 3, 5, 6, 6] "choice" 
-        assert -> 23 = result
+    it "Choice" [
+        expects.be:'equal? @[23 yacht [3 3 5 6 6] "choice"]
     ]
 
-    test "Yacht as choice" [
-        result: yacht [2, 2, 2, 2, 2] "choice" 
-        assert -> 10 = result
+    it "Yacht as choice" [
+        expects.be:'equal? @[10 yacht [2 2 2 2 2] "choice"]
     ]
 ]

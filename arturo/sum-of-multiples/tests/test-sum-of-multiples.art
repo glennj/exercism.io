@@ -1,84 +1,68 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/sum-of-multiples}!
 
-suite "Sum of Multiples" [
-    test "no multiples within limit" [
-        result: sumOfMultiples [3,5] 1
-        assert -> 0 = result
+describe "Sum of Multiples" [
+    it "no multiples within limit" [
+        expects.be:'equal? @[0 sumOfMultiples [3 5] 1]
     ]
 
-    test "one factor has multiples within limit" [
-        result: sumOfMultiples [3,5] 4
-        assert -> 3 = result
+    it "one factor has multiples within limit" [
+        expects.be:'equal? @[3 sumOfMultiples [3 5] 4]
     ]
 
-    test "more than one multiple within limit" [
-        result: sumOfMultiples [3] 7
-        assert -> 9 = result
+    it "more than one multiple within limit" [
+        expects.be:'equal? @[9 sumOfMultiples [3] 7]
     ]
 
-    test "more than one factor with multiples within limit" [
-        result: sumOfMultiples [3,5] 10
-        assert -> 23 = result
+    it "more than one factor with multiples within limit" [
+        expects.be:'equal? @[23 sumOfMultiples [3 5] 10]
     ]
 
-    test "each multiple is only counted once" [
-        result: sumOfMultiples [3,5] 100
-        assert -> 2318 = result
+    it "each multiple is only counted once" [
+        expects.be:'equal? @[2318 sumOfMultiples [3 5] 100]
     ]
 
-    test "a much larger limit" [
-        result: sumOfMultiples [3,5] 1000
-        assert -> 233168 = result
+    it "a much larger limit" [
+        expects.be:'equal? @[233168 sumOfMultiples [3 5] 1000]
     ]
 
-    test "three factors" [
-        result: sumOfMultiples [7,13,17] 20
-        assert -> 51 = result
+    it "three factors" [
+        expects.be:'equal? @[51 sumOfMultiples [7 13 17] 20]
     ]
 
-    test "factors not relatively prime" [
-        result: sumOfMultiples [4,6] 15
-        assert -> 30 = result
+    it "factors not relatively prime" [
+        expects.be:'equal? @[30 sumOfMultiples [4 6] 15]
     ]
 
-    test "some pairs of factors relatively prime and some not" [
-        result: sumOfMultiples [5,6,8] 150
-        assert -> 4419 = result
+    it "some pairs of factors relatively prime and some not" [
+        expects.be:'equal? @[4419 sumOfMultiples [5 6 8] 150]
     ]
 
-    test "one factor is a multiple of another" [
-        result: sumOfMultiples [5,25] 51
-        assert -> 275 = result
+    it "one factor is a multiple of another" [
+        expects.be:'equal? @[275 sumOfMultiples [5 25] 51]
     ]
 
-    test "much larger factors" [
-        result: sumOfMultiples [43,47] 10000
-        assert -> 2203160 = result
+    it "much larger factors" [
+        expects.be:'equal? @[2203160 sumOfMultiples [43 47] 10000]
     ]
 
-    test "all numbers are multiples of 1" [
-        result: sumOfMultiples [1] 100
-        assert -> 4950 = result
+    it "all numbers are multiples of 1" [
+        expects.be:'equal? @[4950 sumOfMultiples [1] 100]
     ]
 
-    test "no factors means an empty sum" [
-        result: sumOfMultiples [] 10000
-        assert -> 0 = result
+    it "no factors means an empty sum" [
+        expects.be:'equal? @[0 sumOfMultiples [] 10000]
     ]
 
-    test "the only multiple of 0 is 0" [
-        result: sumOfMultiples [0] 1
-        assert -> 0 = result
+    it "the only multiple of 0 is 0" [
+        expects.be:'equal? @[0 sumOfMultiples [0] 1]
     ]
 
-    test "the factor 0 does not affect the sum of multiples of other factors" [
-        result: sumOfMultiples [3,0] 4
-        assert -> 3 = result
+    it "the factor 0 does not affect the sum of multiples of other factors" [
+        expects.be:'equal? @[3 sumOfMultiples [3 0] 4]
     ]
 
-    test "solutions using include-exclude must extend to cardinality greater than 3" [
-        result: sumOfMultiples [2,3,5,7,11] 10000
-        assert -> 39614537 = result
+    it "solutions using include-exclude must extend to cardinality greater than 3" [
+        expects.be:'equal? @[39614537 sumOfMultiples [2 3 5 7 11] 10000]
     ]
 ]

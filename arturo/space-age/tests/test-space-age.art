@@ -1,64 +1,71 @@
-import.version:1.1.2 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/space-age}!
 
-approximatelyEqual?: function [value :floating target :floating][
-    lower: value - 0.01
-    upper: value + 0.01
+approximatelyEqual?: function [expected result][ 
+    expectedScalar: to :floating expected 
+    resultScalar: to :floating convert result units expected
+    difference: abs sub expectedScalar resultScalar
+    between? difference 0 0.01 
+] 
 
-    between? target lower upper
-]
-
-suite "Space Age" [
-    test "age on Earth" [
-        result: to :floating ageOn 'earth 1000000000`second
-        expected: to :floating 31.69`earthYear
-        assert -> approximatelyEqual? result expected
+describe "Space Age" [
+    it "age on Earth" [
+        expects.be:'approximatelyEqual? @[
+            31.69`earthYear
+            ageOn 'earth 1000000000`second
+        ]
     ]
     
-    test "age on Mercury" [
-        result: to :floating ageOn 'mercury 2134835688`second
-        expected: to :floating 280.88`mercuryYear
-        assert -> approximatelyEqual? result expected
+    it "age on Mercury" [
+        expects.be:'approximatelyEqual? @[
+            280.88`mercuryYear
+            ageOn 'mercury 2134835688`second
+        ]
     ]
     
-    test "age on Venus" [
-        result: to :floating ageOn 'venus 189839836`second
-        expected: to :floating 9.78`venusYear
-        assert -> approximatelyEqual? result expected
+    it "age on Venus" [
+        expects.be:'approximatelyEqual? @[
+            9.78`venusYear
+            ageOn 'venus 189839836`second
+        ]
     ]
     
-    test "age on Mars" [
-        result: to :floating ageOn 'mars 2129871239`second
-        expected: to :floating 35.88`marsYear
-        assert -> approximatelyEqual? result expected
+    it "age on Mars" [
+        expects.be:'approximatelyEqual? @[
+            35.88`marsYear
+            ageOn 'mars 2129871239`second
+        ]
     ]
     
-    test "age on Jupiter" [
-        result: to :floating ageOn 'jupiter 901876382`second
-        expected: to :floating 2.41`jupiterYear
-        assert -> approximatelyEqual? result expected
+    it "age on Jupiter" [
+        expects.be:'approximatelyEqual? @[
+            2.41`jupiterYear
+            ageOn 'jupiter 901876382`second
+        ]
     ]
     
-    test "age on Saturn" [
-        result: to :floating ageOn 'saturn 2000000000`second
-        expected: to :floating 2.15`saturnYear
-        assert -> approximatelyEqual? result expected
+    it "age on Saturn" [
+        expects.be:'approximatelyEqual? @[
+            2.15`saturnYear
+            ageOn 'saturn 2000000000`second
+        ]
     ]
     
-    test "age on Uranus" [
-        result: to :floating ageOn 'uranus 1210123456`second
-        expected: to :floating 0.46`uranusYear
-        assert -> approximatelyEqual? result expected
+    it "age on Uranus" [
+        expects.be:'approximatelyEqual? @[
+            0.46`uranusYear
+            ageOn 'uranus 1210123456`second
+        ]
     ]
     
-    test "age on Neptune" [
-        result: to :floating ageOn 'neptune 1821023456`second
-        expected: to :floating 0.35`neptuneYear
-        assert -> approximatelyEqual? result expected
+    it "age on Neptune" [
+        expects.be:'approximatelyEqual? @[
+            0.35`neptuneYear
+            ageOn 'neptune 1821023456`second
+        ]
     ]
     
-    test "invalid planet returns null" [
-        result: ageOn 'sun 680804807`second
-        assert -> null? result
+    it "invalid planet returns null" [
+        expects.be:'null? @[ageOn 'sun 680804807`second]
     ]
 ]

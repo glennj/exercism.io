@@ -1,114 +1,91 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/phone-number}!
 
-suite "Phone Number" [
-    test "cleans the number" [
-        result: clean "(223) 456-7890"
-        assert -> "2234567890" = result
+describe "Phone Number" [
+    it "cleans the number" [
+        expects.be:'equal? @[
+            "2234567890"
+            clean "(223) 456-7890"   
+        ]
     ]
 
-    test "cleans numbers with dots" [
-        result: clean "223.456.7890"
-        assert -> "2234567890" = result
+    it "cleans numbers with dots" [
+        expects.be:'equal? @[
+            "2234567890"
+            clean "223.456.7890"
+        ]
     ]
 
-    test "cleans numbers with multiple spaces" [
-        result: clean "223 456   7890   "
-        assert -> "2234567890" = result
+    it "cleans numbers with multiple spaces" [
+        expects.be:'equal? @[
+            "2234567890"
+            clean "223 456   7890   "
+        ]
     ]
 
-    test "invalid when 9 digits" [
-        result: clean "123456789"
-        assert -> null = result
+    it "invalid when 9 digits" [
+        expects.be:'null? @[clean "123456789"]
     ]
 
-    test "invalid when 9 digits" [
-        result: clean "123456789"
-        assert -> null = result
-    ]
-
-    test "invalid when 11 digits does not start with a 1" [
-        result: clean "22234567890"
-        assert -> null = result
+    it "invalid when 11 digits does not start with a 1" [
+        expects.be:'null? @[clean "22234567890"]
     ]
     
-    test "valid when 11 digits and starting with 1" [
-        result: clean "12234567890"
-        assert -> "2234567890" = result
+    it "valid when 11 digits and starting with 1" [
+        expects.be:'equal? @[
+            "2234567890"
+            clean "12234567890"
+        ]
     ]
     
-    test "valid when 11 digits and starting with 1 even with punctuation" [
-        result: clean "+1 (223) 456-7890"
-        assert -> "2234567890" = result
+    it "valid when 11 digits and starting with 1 even with punctuation" [
+        expects.be:'equal? @[
+            "2234567890"
+            clean "+1 (223) 456-7890"
+        ]
     ]
 
-    test "invalid when more than 11 digits" [
-        result: clean "321234567890"
-        assert -> null = result
+    it "invalid when more than 11 digits" [
+        expects.be:'null? @[clean "321234567890"]
     ]
 
-    test "invalid when more than 11 digits" [
-        result: clean "321234567890"
-        assert -> null = result
+    it "invalid with letters" [
+        expects.be:'null? @[clean "523-abc-7890"]
     ]
 
-    test "invalid with letters" [
-        result: clean "123-abc-7890"
-        assert -> null = result
+    it "invalid with punctuations" [
+        expects.be:'null? @[clean "523-@:!-7890"]
     ]
 
-    test "invalid with letters" [
-        result: clean "523-abc-7890"
-        assert -> null = result
+    it "invalid if area code starts with 0" [
+        expects.be:'null? @[clean "(023) 456-7890"]
     ]
 
-    test "invalid with punctuations" [
-        result: clean "123-@:!-7890"
-        assert -> null = result
+    it "invalid if area code starts with 1" [
+        expects.be:'null? @[clean "(123) 456-7890"]
     ]
 
-    test "invalid with punctuations" [
-        result: clean "523-@:!-7890"
-        assert -> null = result
+    it "invalid if exchange code starts with 0" [
+        expects.be:'null? @[clean "(223) 056-7890"]
     ]
 
-    test "invalid if area code starts with 0" [
-        result: clean "(023) 456-7890"
-        assert -> null = result
+    it "invalid if exchange code starts with 1" [
+        expects.be:'null? @[clean "(223) 156-7890"]
     ]
 
-    test "invalid if area code starts with 1" [
-        result: clean "(123) 456-7890"
-        assert -> null = result
+    it "invalid if area code starts with 0 on valid 11-digit number" [
+        expects.be:'null? @[clean "1 (023) 456-7890"]
     ]
 
-    test "invalid if exchange code starts with 0" [
-        result: clean "(223) 056-7890"
-        assert -> null = result
+    it "invalid if area code starts with 1 on valid 11-digit number" [
+        expects.be:'null? @[clean  "1 (123) 456-7890"]
     ]
 
-    test "invalid if exchange code starts with 1" [
-        result: clean "(223) 156-7890"
-        assert -> null = result
+    it "invalid if exchange code starts with 0 on valid 11-digit number" [
+        expects.be:'null? @[clean "1 (223) 056-7890"]
     ]
 
-    test "invalid if area code starts with 0 on valid 11-digit number" [
-        result: clean "1 (023) 456-7890"
-        assert -> null = result
-    ]
-
-    test "invalid if area code starts with 1 on valid 11-digit number" [
-        result: clean "1 (123) 456-7890"
-        assert -> null = result
-    ]
-
-    test "invalid if exchange code starts with 0 on valid 11-digit number" [
-        result: clean "1 (223) 056-7890"
-        assert -> null = result
-    ]
-
-    test "invalid if exchange code starts with 1 on valid 11-digit number" [
-        result: clean "1 (223) 156-7890"
-        assert -> null = result
+    it "invalid if exchange code starts with 1 on valid 11-digit number" [
+        expects.be:'null? @[clean "1 (223) 156-7890"]
     ]
 ]

@@ -1,69 +1,56 @@
-import.version:1.1.2 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/perfect-numbers}!
 
-suite "Perfect Numbers" [
-    test "Smallest perfect number is classified correctly" [
-        result: classify 6
-        assert -> 'perfect = result
+describe "Perfect Numbers" [
+    it "Smallest perfect number is classified correctly" [
+        expects.be:'equal? @['perfect classify 6]
     ]
 
-    test.skip "Medium perfect number is classified correctly" [
-        result: classify 28
-        assert -> 'perfect = result
+    it "Medium perfect number is classified correctly" [
+        expects.be:'equal? @['perfect classify 28]
     ]
 
-    test.skip "Large perfect number is classified correctly" [
-        result: classify 33550336
-        assert -> 'perfect = result
+    it "Large perfect number is classified correctly" [
+        expects.be:'equal? @['perfect classify 33550336]
     ]
 
-    test.skip "Smallest abundant number is classified correctly" [
-        result: classify 12
-        assert -> 'abundant = result
+    it "Smallest abundant number is classified correctly" [
+        expects.be:'equal? @['abundant classify 12]
     ]
 
-    test.skip "Medium abundant number is classified correctly" [
-        result: classify 30
-        assert -> 'abundant = result
+    it "Medium abundant number is classified correctly" [
+        expects.be:'equal? @['abundant classify 30]
     ]
 
-    test.skip "Large abundant number is classified correctly" [
-        result: classify 33550335
-        assert -> 'abundant = result
+    it "Large abundant number is classified correctly" [
+        expects.be:'equal? @['abundant classify 33550335]
     ]
 
-    test.skip "Smallest prime deficient number is classified correctly" [
-        result: classify 2
-        assert -> 'deficient = result
+    it "Smallest prime deficient number is classified correctly" [
+        expects.be:'equal? @['deficient classify 2]
     ]
 
-    test.skip "Smallest non-prime deficient number is classified correctly" [
-        result: classify 4
-        assert -> 'deficient = result
+    it "Smallest non-prime deficient number is classified correctly" [
+        expects.be:'equal? @['deficient classify 4]
     ]
 
-    test.skip "Medium deficient number is classified correctly" [
-        result: classify 32
-        assert -> 'deficient = result
+    it "Medium deficient number is classified correctly" [
+        expects.be:'equal? @['deficient classify 32]
     ]
 
-    test.skip "Large deficient number is classified correctly" [
-        result: classify 33550337
-        assert -> 'deficient = result
+    it "Large deficient number is classified correctly" [
+        expects.be:'equal? @['deficient classify 33550337]
     ]
 
-    test.skip "Edge case (no factors other than itself) is classified correctly" [
-        result: classify 1
-        assert -> 'deficient = result
+    it "Edge case (no factors other than itself) is classified correctly" [
+        expects.be:'equal? @['deficient classify 1]
     ]
 
-    test.skip "Zero is rejected (as it is not a positive integer)" [
-        result: classify 0
-        assert -> null = result
+    it "Zero is rejected (as it is not a positive integer)" [
+        expects.be:'null? @[classify 0]
     ]
 
-    test.skip "Negative integer is rejected (as it is not a positive integer)" [
-        result: classify neg 1
-        assert -> null = result
+    it "Negative integer is rejected (as it is not a positive integer)" [
+        expects.be:'null? @[classify neg 1]
     ]
 ]

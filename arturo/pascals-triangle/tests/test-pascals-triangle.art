@@ -1,52 +1,46 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/pascals-triangle}!
 
-suite "Pascal's Triangle" [
-    test "zero rows" [
-        result: rows 0
-        assert -> [] = result
+describe "Pascal's Triangle" [
+    it "zero rows" [
+        expects.be:'equal? @[[] rows 0]
     ]
 
-    test "single row" [
-        result: rows 1
+    it "single row" [
         expected: [
             [1]
         ]
-        assert -> expected = result
+        expects.be:'equal? @[expected rows 1]
     ]
 
-    test "two rows" [
-        result: rows 2
+    it "two rows" [
         expected: [
              [1]
             [1 1]
         ]
-        assert -> expected = result
+        expects.be:'equal? @[expected rows 2]
     ]
 
-    test "three rows" [
-        result: rows 3
+    it "three rows" [
         expected: [
               [1]
              [1 1]
             [1 2 1]
         ]
-        assert -> expected = result
+        expects.be:'equal? @[expected rows 3]
     ]
 
-    test "four rows" [
-        result: rows 4
+    it "four rows" [
         expected: [
                [1]
               [1 1]
              [1 2 1]
             [1 3 3 1]
         ]
-        assert -> expected = result
+        expects.be:'equal? @[expected rows 4]
     ]
 
-    test "five rows" [
-        result: rows 5
+    it "five rows" [
         expected: [
                 [1]
                [1 1]
@@ -54,11 +48,10 @@ suite "Pascal's Triangle" [
              [1 3 3 1]
             [1 4 6 4 1]
         ]
-        assert -> expected = result
+        expects.be:'equal? @[expected rows 5]
     ]
 
-    test "six rows" [
-        result: rows 6
+    it "six rows" [
         expected: [
                  [1]
                 [1 1]
@@ -67,11 +60,10 @@ suite "Pascal's Triangle" [
              [1 4 6 4 1]
             [1 5 10 10 5 1]
         ]
-        assert -> expected = result
+        expects.be:'equal? @[expected rows 6]
     ]
 
-    test "ten rows" [
-        result: rows 10
+    it "ten rows" [
         expected: [
                      [1]
                     [1 1]
@@ -84,6 +76,6 @@ suite "Pascal's Triangle" [
              [1 8 28 56 70 56 28 8 1]
             [1 9 36 84 126 126 84 36 9 1]
         ]
-        assert -> expected = result
+        expects.be:'equal? @[expected rows 10]
     ]
 ]

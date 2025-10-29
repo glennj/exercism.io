@@ -1,110 +1,143 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/two-bucket}!
 
-suite "Two Bucket" [
-
-    test "Measure using bucket one of size 3 and bucket two of size 5 - start with bucket one" [
+describe "Two Bucket" [
+    it "Measure using bucket one of size 3 and bucket two of size 5 - start with bucket one" [
         result: measure #[
             bucketOne: 3
             bucketTwo: 5
             goal: 1
             startBucket: "one"
         ]
-        assert -> result\moves = 4
-        assert -> result\goalBucket = "one"
-        assert -> result\otherBucket = 5
+        expects.be:'equal? @[
+            [4 "one" 5]
+            @[result\moves result\goalBucket result\otherBucket]
+        ]
     ]
 
-    test "Measure using bucket one of size 3 and bucket two of size 5 - start with bucket two" [
-
+    it "Measure using bucket one of size 3 and bucket two of size 5 - start with bucket two" [
         result: measure #[
             bucketOne: 3
             bucketTwo: 5
             goal: 1
             startBucket: "two"
         ]
-        assert -> result\moves = 8
-        assert -> result\goalBucket = "two"
-        assert -> result\otherBucket = 3
+        expects.be:'equal? @[
+            [8 "two" 3]
+            @[result\moves result\goalBucket result\otherBucket]
+        ]
     ]
 
-    test "Measure using bucket one of size 7 and bucket two of size 11 - start with bucket one" [
+    it "Measure using bucket one of size 7 and bucket two of size 11 - start with bucket one" [
         result: measure #[
             bucketOne: 7
             bucketTwo: 11
             goal: 2
             startBucket: "one"
         ]
-        assert -> result\moves = 14
-        assert -> result\goalBucket = "one"
-        assert -> result\otherBucket = 11
+        expects.be:'equal? @[
+            [14 "one" 11]
+            @[result\moves result\goalBucket result\otherBucket]
+        ]
     ]
 
-    test "Measure using bucket one of size 7 and bucket two of size 11 - start with bucket two" [
+    it "Measure using bucket one of size 7 and bucket two of size 11 - start with bucket two" [
         result: measure #[
             bucketOne: 7
             bucketTwo: 11
             goal: 2
             startBucket: "two"
         ]
-        assert -> result\moves = 18
-        assert -> result\goalBucket = "two"
-        assert -> result\otherBucket = 7
+        expects.be:'equal? @[
+            [18 "two" 7]
+            @[result\moves result\goalBucket result\otherBucket]
+        ]
     ]
 
-    test "Measure one step using bucket one of size 1 and bucket two of size 3 - start with bucket two" [
+    it "Measure one step using bucket one of size 1 and bucket two of size 3 - start with bucket two" [
         result: measure #[
             bucketOne: 1
             bucketTwo: 3
             goal: 3
             startBucket: "two"
         ]
-        assert -> result\moves = 1
-        assert -> result\goalBucket = "two"
-        assert -> result\otherBucket = 0
+        expects.be:'equal? @[
+            [1 "two" 0]
+            @[result\moves result\goalBucket result\otherBucket]
+        ]
     ]
 
-    test "Measure using bucket one of size 2 and bucket two of size 3 - start with bucket one and end with bucket two" [
+    it "Measure using bucket one of size 2 and bucket two of size 3 - start with bucket one and end with bucket two" [
         result: measure #[
             bucketOne: 2
             bucketTwo: 3
             goal: 3
             startBucket: "one"
         ]
-        assert -> result\moves = 2
-        assert -> result\goalBucket = "two"
-        assert -> result\otherBucket = 2
+        expects.be:'equal? @[
+            [2 "two" 2]
+            @[result\moves result\goalBucket result\otherBucket]
+        ]
     ]
 
-    test "Not possible to reach the goal" [
+    it "Measure using bucket one much bigger than bucket two" [
         result: measure #[
-            bucketOne: 6
-            bucketTwo: 15
-            goal: 5
+            bucketOne: 5
+            bucketTwo: 1
+            goal: 2
             startBucket: "one"
         ]
-        assert -> null? result
+        expects.be:'equal? @[
+            [6 "one" 1]
+            @[result\moves result\goalBucket result\otherBucket]
+        ]
     ]
 
-    test "With the same buckets but a different goal, then it is possible" [
+    it "Measure using bucket one much smaller than bucket two" [
+        result: measure #[
+            bucketOne: 3
+            bucketTwo: 15
+            goal: 9
+            startBucket: "one"
+        ]
+        expects.be:'equal? @[
+            [6 "two" 0]
+            @[result\moves result\goalBucket result\otherBucket]
+        ]
+    ]
+
+    it "Not possible to reach the goal" [
+        expects.be:'null? @[
+            measure #[
+                bucketOne: 6
+                bucketTwo: 15
+                goal: 5
+                startBucket: "one"
+            ]
+        ]
+    ]
+
+    it "With the same buckets but a different goal, then it is possible" [
         result: measure #[
             bucketOne: 6
             bucketTwo: 15
             goal: 9
             startBucket: "one"
         ]
-        assert -> result\moves = 10
-        assert -> result\goalBucket = "two"
-        assert -> result\otherBucket = 0
+        expects.be:'equal? @[
+            [10 "two" 0]
+            @[result\moves result\goalBucket result\otherBucket]
+        ]
     ]
 
-    test "Goal larger than both buckets is impossible" [
-        result: measure #[
-            bucketOne: 5
-            bucketTwo: 7
-            goal: 8
-            startBucket: "one"
+    it "Goal larger than both buckets is impossible" [
+        expects.be:'null? @[
+            measure #[
+                bucketOne: 5
+                bucketTwo: 7
+                goal: 8
+                startBucket: "one"
+            ]
         ]
-        assert -> null? result
     ]
 ]

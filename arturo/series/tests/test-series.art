@@ -1,59 +1,75 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/series}!
 
-suite "Series" [
-    test "slices of one from one" [
-        result: slices "1" 1
-        assert -> ["1"] = result
+describe "Series" [
+    it "slices of one from one" [
+        expects.be:'equal? @[
+            ["1"]
+            slices "1" 1
+        ]
     ]
 
-    test "slices of one from two" [
-        result: slices "12" 1
-        assert -> ["1", "2"] = result
+    it "slices of one from two" [
+        expects.be:'equal? @[
+            ["1" "2"]
+            slices "12" 1
+        ]
     ]
 
-    test "slices of two" [
-        result: slices "35" 2
-        assert -> ["35"] = result
+    it "slices of two" [
+        expects.be:'equal? @[
+            ["35"]
+            slices "35" 2
+        ]
     ]
 
-    test "slices of two overlap" [
-        result: slices "9142" 2
-        assert -> ["91", "14", "42"] = result
+    it "slices of two overlap" [
+        expects.be:'equal? @[
+            ["91" "14" "42"]
+            slices "9142" 2
+        ]
     ]
 
-    test "slices can include duplicates" [
-        result: slices "777777" 3
-        assert -> ["777", "777", "777", "777"] = result
+    it "slices can include duplicates" [
+        expects.be:'equal? @[
+            ["777" "777" "777" "777"]
+            slices "777777" 3
+        ]
     ]
 
-    test "slices of a long series" [
-        result: slices "918493904243" 5
-        assert -> ["91849", "18493", "84939", "49390", "93904", "39042", "90424", "04243"] = result
+    it "slices of a long series" [
+        expects.be:'equal? @[
+            [
+                "91849"
+                "18493"
+                "84939"
+                "49390"
+                "93904"
+                "39042"
+                "90424"
+                "04243"
+            ]
+            slices "918493904243" 5
+        ]
     ]
 
-    test "slice length is too large" [
-        result: slices "12345" 6
-        assert -> null = result
+    it "slice length is too large" [
+        expects.be:'null? @[slices "12345" 6]
     ]
 
-    test "slice length is way too large" [
-        result: slices "12345" 42
-        assert -> null = result
+    it "slice length is way too large" [
+        expects.be:'null? @[slices "12345" 42]
     ]
 
-    test "slice length cannot be zero" [
-        result: slices "12345" 0
-        assert -> null = result
+    it "slice length cannot be zero" [
+        expects.be:'null? @[slices "12345" 0]
     ]
 
-    test "slice length cannot be negative" [
-        result: slices "123" neg 1
-        assert -> null = result
+    it "slice length cannot be negative" [
+        expects.be:'null? @[slices "123" neg 1]
     ]
 
-    test "empty series is invalid" [
-        result: slices "" 1
-        assert -> null = result
+    it "empty series is invalid" [
+        expects.be:'null? @[slices "" 1]
     ]
 ]

@@ -1,59 +1,81 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/flatten-array}!
 
-suite "Flatten Array" [
-    test "empty" [
-        result: flattenCollection []
-        assert -> [] = result
+describe "Flatten Array" [
+    it "empty" [
+        expects.be:'equal? @[
+            []
+            flattenCollection []
+        ]
     ]
 
-    test "no nesting" [
-        result: flattenCollection [0 1 2]
-        assert -> [0 1 2] = result
+    it "no nesting" [
+        expects.be:'equal? @[
+            [0 1 2]
+            flattenCollection [0 1 2]
+        ]
     ]
 
-    test "flattens a nested array" [
-        result: flattenCollection [[[]]]
-        assert -> [] = result
+    it "flattens a nested array" [
+        expects.be:'equal? @[
+            []
+            flattenCollection [[[]]]
+        ]
     ]
 
-    test "flattens array with just integers present" [
-        result: flattenCollection [1 [2 3 4 5 6 7] 8]
-        assert -> [1 2 3 4 5 6 7 8] = result
+    it "flattens array with just integers present" [
+        expects.be:'equal? @[
+            [1 2 3 4 5 6 7 8]
+            flattenCollection [1 [2 3 4 5 6 7] 8]
+        ]
     ]
 
-    test "5 level nesting" [
-        result: flattenCollection [0 2 [[2 3] 8 100 4 [[[50]]]] neg 2]
-        assert -> [0 2 2 3 8 100 4 50 neg 2] = result
+    it "5 level nesting" [
+        expects.be:'equal? @[
+            [0 2 2 3 8 100 4 50 neg 2]
+            flattenCollection [0 2 [[2 3] 8 100 4 [[[50]]]] neg 2]
+        ]
     ]
 
-    test "6 level nesting" [
-        result: flattenCollection [1 [2 [[3]] [4 [[5]]] 6 7] 8]
-        assert -> [1 2 3 4 5 6 7 8] = result
+    it "6 level nesting" [
+        expects.be:'equal? @[
+            [1 2 3 4 5 6 7 8]
+            flattenCollection [1 [2 [[3]] [4 [[5]]] 6 7] 8]
+        ]
     ]
 
-    test "null values are omitted from the final result" [
-        result: flattenCollection @[1 2 null]
-        assert -> [1 2] = result
+    it "null values are omitted from the final result" [
+        expects.be:'equal? @[
+            [1 2]
+            flattenCollection @[1 2 null]
+        ]
     ]
 
-    test "consecutive null values at the front of the array are omitted from the final result" [
-        result: flattenCollection @[null null 3]
-        assert -> [3] = result
+    it "consecutive null values at the front of the array are omitted from the final result" [
+        expects.be:'equal? @[
+            [3]
+            flattenCollection @[null null 3]
+        ]
     ]
 
-    test "consecutive null values in the middle of the array are omitted from the final result" [
-        result: flattenCollection @[1 null null 4]
-        assert -> [1 4] = result
+    it "consecutive null values in the middle of the array are omitted from the final result" [
+        expects.be:'equal? @[
+            [1 4]
+            flattenCollection @[1 null null 4]
+        ]
     ]
 
-    test "6 level nested array with null values" [
-        result: flattenCollection @[0 2 @[[2 3] 8 @[@[100]] null @[@[null]]] 2]
-        assert -> [0 2 2 3 8 100 2] = result
+    it "6 level nested array with null values" [
+        expects.be:'equal? @[
+            [0 2 2 3 8 100 2]
+            flattenCollection @[0 2 @[[2 3] 8 @[@[100]] null @[@[null]]] 2]
+        ]
     ]
 
-    test "all values in nested array are null" [
-        result: flattenCollection @[null @[@[@[null]]] null null @[@[null null] null] null]
-        assert -> [] = result
+    it "all values in nested array are null" [
+        expects.be:'equal? @[
+            []
+            flattenCollection @[null @[@[@[null]]] null null @[@[null null] null] null]
+        ]
     ]
 ]

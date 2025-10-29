@@ -1,117 +1,87 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/dnd-character}!
 
-suite "D&D Character" [
-    test "ability modifier for score 3 is -4" [
-        result: modifier 3
-        expected: neg 4
-        assert -> expected = result
+describe "D&D Character" [
+    it "ability modifier for score 3 is -4" [
+        expects.be:'equal? @[neg 4 modifier 3]
     ]
 
-    test "ability modifier for score 4 is -3" [
-        result: modifier 4
-        expected: neg 3
-        assert -> expected = result
+    it "ability modifier for score 4 is -3" [
+        expects.be:'equal? @[neg 3 modifier 4]
     ]
     
-    test "ability modifier for score 5 is -3" [
-        result: modifier 5
-        expected: neg 3
-        assert -> expected = result
+    it "ability modifier for score 5 is -3" [
+        expects.be:'equal? @[neg 3 modifier 5]
     ]
     
-    test "ability modifier for score 6 is -2" [
-        result: modifier 6
-        expected: neg 2
-        assert -> expected = result
+    it "ability modifier for score 6 is -2" [
+        expects.be:'equal? @[neg 2 modifier 6]
     ]
     
-    test "ability modifier for score 7 is -2" [
-        result: modifier 7
-        expected: neg 2
-        assert -> expected = result
+    it "ability modifier for score 7 is -2" [
+        expects.be:'equal? @[neg 2 modifier 7]
     ]
     
-    test "ability modifier for score 8 is -1" [
-        result: modifier 8
-        expected: neg 1
-        assert -> expected = result
+    it "ability modifier for score 8 is -1" [
+        expects.be:'equal? @[neg 1 modifier 8]
     ]
     
-    test "ability modifier for score 9 is -1" [
-        result: modifier 9
-        expected: neg 1
-        assert -> expected = result
+    it "ability modifier for score 9 is -1" [
+        expects.be:'equal? @[neg 1 modifier 9]
     ]
     
-    test "ability modifier for score 10 is 0" [
-        result: modifier 10
-        expected: 0
-        assert -> expected = result
+    it "ability modifier for score 10 is 0" [
+        expects.be:'equal? @[0 modifier 10]
     ]
     
-    test "ability modifier for score 11 is 0" [
-        result: modifier 11
-        expected: 0
-        assert -> expected = result
+    it "ability modifier for score 11 is 0" [
+        expects.be:'equal? @[0 modifier 11]
     ]
     
-    test "ability modifier for score 12 is +1" [
-        result: modifier 12
-        expected: 1
-        assert -> expected = result
+    it "ability modifier for score 12 is +1" [
+        expects.be:'equal? @[1 modifier 12]
     ]
     
-    test "ability modifier for score 13 is +1" [
-        result: modifier 13
-        expected: 1
-        assert -> expected = result
+    it "ability modifier for score 13 is +1" [
+        expects.be:'equal? @[1 modifier 13]
     ]
     
-    test "ability modifier for score 14 is +2" [
-        result: modifier 14
-        expected: 2
-        assert -> expected = result
+    it "ability modifier for score 14 is +2" [
+        expects.be:'equal? @[2 modifier 14]
     ]
     
-    test "ability modifier for score 15 is +2" [
-        result: modifier 15
-        expected: 2
-        assert -> expected = result
+    it "ability modifier for score 15 is +2" [
+        expects.be:'equal? @[2 modifier 15]
     ]
     
-    test "ability modifier for score 16 is +3" [
-        result: modifier 16
-        expected: 3
-        assert -> expected = result
+    it "ability modifier for score 16 is +3" [
+        expects.be:'equal? @[3 modifier 16]
     ]
     
-    test "ability modifier for score 17 is +3" [
-        result: modifier 17
-        expected: 3
-        assert -> expected = result
+    it "ability modifier for score 17 is +3" [
+        expects.be:'equal? @[3 modifier 17]
     ]
     
-    test "ability modifier for score 18 is +4" [
-        result: modifier 18
-        expected: 4
-        assert -> expected = result
+    it "ability modifier for score 18 is +4" [
+        expects.be:'equal? @[4 modifier 18]
     ]
 
-    test "random ability is within range" [
-        result: contains? 3..18 ability
-        expected: true
-        assert -> expected = result
+    it "random ability is within range" [
+        expects.be:'contains? @[3..18 ability]
     ]
 
-    test "random character is valid" [
+    it "random character is valid" [
         result: makeCharacter
-        assert -> contains? 3..18 result\strength
-        assert -> contains? 3..18 result\dexterity
-        assert -> contains? 3..18 result\constitution
-        assert -> contains? 3..18 result\intelligence
-        assert -> contains? 3..18 result\wisdom
-        assert -> contains? 3..18 result\charisma
-        assert -> (+ 10 modifier result\constitution) = result\hitpoints
+        expects.be:'contains? @[3..18 result\strength]
+        expects.be:'contains? @[3..18 result\strength]
+        expects.be:'contains? @[3..18 result\dexterity]
+        expects.be:'contains? @[3..18 result\constitution]
+        expects.be:'contains? @[3..18 result\intelligence]
+        expects.be:'contains? @[3..18 result\wisdom]
+        expects.be:'contains? @[3..18 result\charisma]
+        expects.be:'equal? @[
+            (+ 10 modifier result\constitution)
+            result\hitpoints
+        ]
     ]
 ]

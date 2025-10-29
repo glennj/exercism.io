@@ -1,61 +1,53 @@
-import.version:1.1.2 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/queen-attack}!
 
 
 suite "Queen Attack" [
-  test "cannot attack" [
-    white: to :queen @[2 4]
-    black: to :queen @[6 6]
-    result: do [white\attackable? black]
-    assert -> false = result
-  ]
+    it "cannot attack" [
+        white: to :queen @[2 4]
+        black: to :queen @[6 6]
+        expects.be:'false? @[white\attackable? black]
+    ]
 
-  test "can attack on same row" [
-    white: to :queen @[2 4]
-    black: to :queen @[2 6]
-    result: do [white\attackable? black]
-    assert -> true = result
-  ]
+    it "can attack on same row" [
+        white: to :queen @[2 4]
+        black: to :queen @[2 6]
+        expects.be:'true? @[white\attackable? black]
+    ]
 
-  test "can attack on same column" [
-    white: to :queen @[4 5]
-    black: to :queen @[2 5]
-    result: do [white\attackable? black]
-    assert -> true = result
-  ]
+    it "can attack on same column" [
+        white: to :queen @[4 5]
+        black: to :queen @[2 5]
+        expects.be:'true? @[white\attackable? black]
+    ]
 
-  test "can attack on first diagonal" [
-    white: to :queen @[2 2]
-    black: to :queen @[0 4]
-    result: do [white\attackable? black]
-    assert -> true = result
-  ]
+    it "can attack on first diagonal" [
+        white: to :queen @[2 2]
+        black: to :queen @[0 4]
+        expects.be:'true? @[white\attackable? black]
+    ]
 
-  test "can attack on second diagonal" [
-    white: to :queen @[2 2]
-    black: to :queen @[3 1]
-    result: do [white\attackable? black]
-    assert -> true = result
-  ]
+    it "can attack on second diagonal" [
+        white: to :queen @[2 2]
+        black: to :queen @[3 1]
+        expects.be:'true? @[white\attackable? black]
+    ]
 
-  test "can attack on third diagonal" [
-    white: to :queen @[2 2]
-    black: to :queen @[1 1]
-    result: do [white\attackable? black]
-    assert -> true = result
-  ]
+    it "can attack on third diagonal" [
+        white: to :queen @[2 2]
+        black: to :queen @[1 1]
+        expects.be:'true? @[white\attackable? black]
+    ]
 
-  test "can attack on fourth diagonal" [
-    white: to :queen @[1 7]
-    black: to :queen @[0 6]
-    result: do [white\attackable? black]
-    assert -> true = result
-  ]
+    it "can attack on fourth diagonal" [
+        white: to :queen @[1 7]
+        black: to :queen @[0 6]
+        expects.be:'true? @[white\attackable? black]
+    ]
 
-  test "cannot attack if falling diagonals are only the same when reflected across the longest falling diagonal" [
-    white: to :queen @[4 1]
-    black: to :queen @[2 5]
-    result: do [white\attackable? black]
-    assert -> false = result
-  ]
+    it "cannot attack if falling diagonals are only the same when reflected across the longest falling diagonal" [
+        white: to :queen @[4 1]
+        black: to :queen @[2 5]
+        expects.be:'false? @[white\attackable? black]
+    ]
 ]

@@ -1,0 +1,4 @@
+# unitt.toml - Configuration for unitt
+
+path = "tests"
+suffix = ".art"

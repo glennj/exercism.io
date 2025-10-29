@@ -1,129 +1,129 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/kindergarten-garden}!
 
-suite "Kindergarten Garden" [
-    suite "partial garden" [
-        test "garden with single student" [
-            diagram: "RC\nGG"
-            result: plants diagram 'Alice
-            expected: ['radishes 'clover 'grass 'grass]
-            assert -> expected = result
+describe "Kindergarten Garden" [
+    describe "Kindergarten Garden - partial garden" [
+        it "garden with single student" [
+            expects.be:'equal? @[
+                ['radishes 'clover 'grass 'grass]
+                plants "RC\nGG" 'Alice   
+            ]
         ]   
 
-        test "different garden with single student" [
-            diagram: "VC\nRC"
-            result: plants diagram 'Alice
-            expected: ['violets 'clover 'radishes 'clover]
-            assert -> expected = result
+        it "different garden with single student" [
+            expects.be:'equal? @[
+                ['violets 'clover 'radishes 'clover]
+                plants "VC\nRC" 'Alice   
+            ]
         ]
 
-        test "garden with two students" [
-            diagram: "VVCG\nVVRC"
-            result: plants diagram 'Bob
-            expected: ['clover 'grass 'radishes 'clover]
-            assert -> expected = result
-        ]
-    ]
-
-    suite "multiple students for the same garden" [
-        test "second student's garden" [
-            diagram: "VVCCGG\nVVCCGG"
-            result: plants diagram 'Bob
-            expected: ['clover 'clover 'clover 'clover]
-            assert -> expected = result
-        ]
-
-        test "third student's garden" [
-            diagram: "VVCCGG\nVVCCGG"
-            result: plants diagram 'Charlie
-            expected: ['grass 'grass 'grass 'grass]
-            assert -> expected = result
+        it "garden with two students" [
+            expects.be:'equal? @[
+                ['clover 'grass 'radishes 'clover]
+                plants "VVCG\nVVRC" 'Bob   
+            ]   
         ]
     ]
 
-    suite "full garden" [
-        test "For Alice, first student's garden" [
-            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
-            result: plants diagram 'Alice
-            expected: ['violets 'radishes 'violets 'radishes]
-            assert -> expected = result
+    describe "Kindergarten Garden - multiple students for the same garden" [
+        it "second student's garden" [
+            expects.be:'equal? @[
+                ['clover 'clover 'clover 'clover]
+                plants "VVCCGG\nVVCCGG" 'Bob   
+            ]
         ]
 
-        test "for Bob, second student's garden" [
-            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
-            result: plants diagram 'Bob
-            expected: ['clover 'grass 'clover 'clover]
-            assert -> expected = result
+        it "third student's garden" [
+            expects.be:'equal? @[
+                ['grass 'grass 'grass 'grass]
+                plants "VVCCGG\nVVCCGG" 'Charlie   
+            ]
+        ]
+    ]
+
+    describe "Kindergarten Garden - full garden" [
+        it "For Alice, first student's garden" [
+            expects.be:'equal? @[
+                ['violets 'radishes 'violets 'radishes]
+                plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 'Alice   
+            ]
         ]
 
-        test "for Charlie" [
-            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
-            result: plants diagram 'Charlie
-            expected: ['violets 'violets 'clover 'grass]
-            assert -> expected = result
+        it "for Bob, second student's garden" [
+            expects.be:'equal? @[
+                ['clover 'grass 'clover 'clover]
+                plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 'Bob   
+            ]
         ]
 
-        test "for David" [
-            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
-            result: plants diagram 'David
-            expected: ['radishes 'violets 'clover 'radishes]
-            assert -> expected = result
+        it "for Charlie" [
+            expects.be:'equal? @[
+                ['violets 'violets 'clover 'grass]
+                plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 'Charlie   
+            ]
         ]
 
-        test "for Eve" [
-            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
-            result: plants diagram 'Eve
-            expected: ['clover 'grass 'radishes 'grass]
-            assert -> expected = result
+        it "for David" [
+            expects.be:'equal? @[
+                ['radishes 'violets 'clover 'radishes]
+                plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 'David   
+            ]
         ]
 
-        test "for Fred" [
-            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
-            result: plants diagram 'Fred
-            expected: ['grass 'clover 'violets 'clover]
-            assert -> expected = result
+        it "for Eve" [
+            expects.be:'equal? @[
+                ['clover 'grass 'radishes 'grass]
+                plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 'Eve   
+            ]
         ]
 
-        test "for Ginny" [
-            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
-            result: plants diagram 'Ginny
-            expected: ['clover 'grass 'grass 'clover]
-            assert -> expected = result
+        it "for Fred" [
+            expects.be:'equal? @[
+                ['grass 'clover 'violets 'clover]
+                plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 'Fred   
+            ]
         ]
 
-        test "for Harriet" [
-            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
-            result: plants diagram 'Harriet
-            expected: ['violets 'radishes 'radishes 'violets]
-            assert -> expected = result
+        it "for Ginny" [
+            expects.be:'equal? @[
+                ['clover 'grass 'grass 'clover]
+                plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 'Ginny   
+            ]
         ]
 
-        test "for Ileana" [
-            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
-            result: plants diagram 'Ileana
-            expected: ['grass 'clover 'violets 'clover]
-            assert -> expected = result
+        it "for Harriet" [
+            expects.be:'equal? @[
+                ['violets 'radishes 'radishes 'violets]
+                plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 'Harriet   
+            ]
         ]
 
-        test "for Joseph" [
-            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
-            result: plants diagram 'Joseph
-            expected: ['violets 'clover 'violets 'grass]
-            assert -> expected = result
+        it "for Ileana" [
+            expects.be:'equal? @[
+                ['grass 'clover 'violets 'clover]
+                plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 'Ileana   
+            ]
         ]
 
-        test "for Kincaid, second to last student's garden" [
-            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
-            result: plants diagram 'Kincaid
-            expected: ['grass 'clover 'clover 'grass]
-            assert -> expected = result
+        it "for Joseph" [
+            expects.be:'equal? @[
+                ['violets 'clover 'violets 'grass]
+                plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 'Joseph   
+            ]
         ]
 
-        test "for Larry, last student's garden" [
-            diagram: "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
-            result: plants diagram 'Larry
-            expected: ['grass 'violets 'clover 'violets]
-            assert -> expected = result
+        it "for Kincaid, second to last student's garden" [
+            expects.be:'equal? @[
+                ['grass 'clover 'clover 'grass]
+                plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 'Kincaid   
+            ]
+        ]
+
+        it "for Larry, last student's garden" [
+            expects.be:'equal? @[
+                ['grass 'violets 'clover 'violets]
+                plants "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV" 'Larry   
+            ]
         ]
     ]
 ]

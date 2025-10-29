@@ -1,49 +1,40 @@
-import.version:1.1.2 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/leap}!
 
-suite "Leap" [
-    test "a year not divisible by 4 is a common year" [
-        result: isLeap? 2015
-        assert -> false = result
+describe "Leap" [
+    it "a year not divisible by 4 is a common year" [
+        expects.be:'false? @[isLeap? 2015]
     ]
 
-    test "a year divisible by 2 and not divisible by 4 is a common year" [
-        result: isLeap? 1970
-        assert -> false = result
+    it "a year divisible by 2 and not divisible by 4 is a common year" [
+        expects.be:'false? @[isLeap? 1970]
     ]
 
-    test "a year divisible by 4 and not divisible by 100 is a leap year" [
-        result: isLeap? 1996
-        assert -> true = result
+    it "a year divisible by 4 and not divisible by 100 is a leap year" [
+        expects.be:'true? @[isLeap? 1996]
     ]
 
-    test "a year divisible by 4 and 5 is still a leap year" [
-        result: isLeap? 1960
-        assert -> true = result
+    it "a year divisible by 4 and 5 is still a leap year" [
+        expects.be:'true? @[isLeap? 1960]
     ]
     
-    test "a year divisible by 100 and not divisible by 400 is a common year" [
-        result: isLeap? 2100
-        assert -> false = result
+    it "a year divisible by 100 and not divisible by 400 is a common year" [
+        expects.be:'false? @[isLeap? 2100]
     ]
     
-    test "a year divisible by 100 but not divisible by 3 is still not a leap year" [
-        result: isLeap? 1900
-        assert -> false = result
+    it "a year divisible by 100 but not divisible by 3 is still not a leap year" [
+        expects.be:'false? @[isLeap? 1900]
     ]
     
-    test "a year divisible by 400 is a leap year" [
-        result: isLeap? 2000
-        assert -> true = result
+    it "a year divisible by 400 is a leap year" [
+        expects.be:'true? @[isLeap? 2000]
     ]
     
-    test "a year divisible by 400 but not by 125 is still a leap year" [
-        result: isLeap? 2400
-        assert -> true = result
+    it "a year divisible by 400 but not by 125 is still a leap year" [
+        expects.be:'true? @[isLeap? 2400]
     ]
     
-    test "a year divisible by 200 and not divisible by 400 is a common year" [
-        result: isLeap? 1800
-        assert -> false = result
+    it "a year divisible by 200 and not divisible by 400 is a common year" [
+        expects.be:'false? @[isLeap? 1800]
     ]
 ]

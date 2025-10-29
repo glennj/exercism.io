@@ -1,49 +1,47 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/hamming}!
 
-suite "Hamming" [
-    test "empty strands" [
-        result: distance "" ""
-        assert -> 0 = result
+describe "Hamming" [
+    it "empty strands" [
+        expects.be:'equal? @[0 distance "" ""]
     ]
 
-    test "single letter identical strands" [
-        result: distance "A" "A"
-        assert -> 0 = result
+    it "single letter identical strands" [
+        expects.be:'equal? @[0 distance "A" "A"]
     ]
 
-    test "long indentical strands" [
-        result: distance "GGACTGAAATCTG" "GGACTGAAATCTG"
-        assert -> 0 = result
+    it "long identical strands" [
+        expects.be:'equal? @[
+            0
+            distance "GGACTGAAATCTG" "GGACTGAAATCTG"
+        ]
     ]
 
-    test "single letter different strands" [
-        result: distance "G" "T"
-        assert -> 1 = result
+    it "single letter different strands" [
+        expects.be:'equal? @[1 distance "G" "T"]
     ]
 
-    test "long different strands" [
-        result: distance "GGACGGATTCTG" "AGGACGGATTCT"
-        assert -> 9 = result
+    it "long different strands" [
+        expects.be:'equal? @[
+            9
+            distance "GGACGGATTCTG" "AGGACGGATTCT"
+        ]
     ]
 
-    test "disallow empty first strand" [
-        result: distance "" "G"
-        assert -> null = result
+    it "disallow empty first strand" [
+        expects.be:'null? @[distance "" "G"]
     ]
 
-    test "disallow first strand longer" [
-        result: distance "AATG" "AAA"
-        assert -> null = result
+    it "disallow first strand longer" [
+        expects.be:'null? @[distance "AATG" "AAA"]
     ]
 
-    test "disallow second strand longer" [
-        result: distance "ATA" "AGTG"
-        assert -> null = result
+    it "disallow second strand longer" [
+        expects.be:'null? @[distance "ATA" "AGTG"]
     ]
 
-    test "disallow empty second strand" [
+    it "disallow empty second strand" [
         result: distance "G" ""
-        assert -> null = result
+        expects.be:'null? @[distance "G" ""]
     ]
 ]

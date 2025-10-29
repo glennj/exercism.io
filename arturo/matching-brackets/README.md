@@ -24,6 +24,10 @@ For example, `"{what is (42)}?"` is balanced and `"[text}"` is not.
 
 - @erikschierboom
 
+### Contributed to by
+
+- @chunes3
+
 ### Based on
 
 Ginna Baker

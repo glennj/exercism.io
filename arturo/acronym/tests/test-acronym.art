@@ -1,49 +1,76 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/acronym}!
 
-suite "Acronym" [
-    test "basic" [
-        result: abbreviate "Portable Network Graphics"
-        assert -> "PNG" = result
+describe "Acronym" [
+    it "basic" [
+        phrase: "Portable Network Graphics"
+        expects.be: 'equal? @[
+            "PNG"
+            abbreviate phrase 
+        ]
     ]
 
-    test "lowercase words" [
-        result: abbreviate "Ruby on Rails"
-        assert -> "ROR" = result
+    it "lowercase words" [
+        phrase: "Ruby on Rails"
+        expects.be: 'equal? @[
+            "ROR"
+            abbreviate phrase 
+        ]
     ]
 
-    test "punctuation" [
-        result: abbreviate "First In, First Out"
-        assert -> "FIFO" = result
+    it "punctuation" [
+        phrase: "First In, First Out"
+        expects.be: 'equal? @[
+            "FIFO"
+            abbreviate phrase 
+        ]
     ]
 
-    test "all uppercase word" [
-        result: abbreviate "GNU Image Manipulation Program"
-        assert -> "GIMP" = result
+    it "all uppercase word" [
+        phrase: "GNU Image Manipulation Program"
+        expects.be: 'equal? @[
+            "GIMP"
+            abbreviate phrase 
+        ]
     ]
 
-    test "punctuation without whitespace" [
-        result: abbreviate "Complementary metal-oxide semiconductor"
-        assert -> "CMOS" = result
+    it "punctuation without whitespace" [
+        phrase: "Complementary metal-oxide semiconductor"
+        expects.be: 'equal? @[
+            "CMOS"
+            abbreviate phrase 
+        ]
     ]
 
-    test "very long abbreviation" [
-        result: abbreviate "Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me"
-        assert -> "ROTFLSHTMDCOALM" = result
+    it "very long abbreviation" [
+        phrase: "Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me"
+        expects.be: 'equal? @[
+            "ROTFLSHTMDCOALM"
+            abbreviate phrase 
+        ]
     ]
 
-    test "consecutive delimiters" [
-        result: abbreviate "Something - I made up from thin air"
-        assert -> "SIMUFTA" = result
+    it "consecutive delimiters" [
+        phrase: "Something - I made up from thin air"
+        expects.be: 'equal? @[
+            "SIMUFTA"
+            abbreviate phrase 
+        ]
     ]
 
-    test "apostrophes" [
-        result: abbreviate "Halley\'s Comet"
-        assert -> "HC" = result
+    it "apostrophes" [
+        phrase: "Halley\'s Comet"
+        expects.be: 'equal? @[
+            "HC"
+            abbreviate phrase 
+        ]
     ]
 
-    test "underscore emphasis" [
-        result: abbreviate "The Road _Not_ Taken"
-        assert -> "TRNT" = result
+    it "underscore emphasis" [
+        phrase: "The Road _Not_ Taken"
+        expects.be: 'equal? @[
+            "TRNT"
+            abbreviate phrase 
+        ]
     ]
 ]

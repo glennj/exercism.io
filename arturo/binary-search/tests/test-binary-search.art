@@ -1,71 +1,55 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/binary-search}!
 
-suite "Binary Search" [
-    test "finds a value in a block with one element" [
+describe "Binary Search" [
+    it "finds a value in a block with one element" [
         vals: [6]
-        result: find vals 6
-        assert -> 0 = result
+        expects.be:'equal? @[0 find vals 6]
     ]
 
-    test "finds a value in the middle of a block" [
+    it "finds a value in the middle of a block" [
         vals: [1 3 4 6 8 9 11]
-        result: find vals 6
-        assert -> 3 = result
+        expects.be:'equal? @[3 find vals 6]
     ]
 
-    test "finds a value at the beginning of a block" [
+    it "finds a value at the beginning of a block" [
         vals: [1 3 4 6 8 9 11]
-        result: find vals 1
-        assert -> 0 = result
+        expects.be:'equal? @[0 find vals 1]
     ]
 
-    test "finds a value at the end of a block" [
+    it "finds a value at the end of a block" [
         vals: [1 3 4 6 8 9 11]
-        result: find vals 11
-        assert -> 6 = result
+        expects.be:'equal? @[6 find vals 11]
     ]
 
-    test "finds a value in a block of odd length" [
+    it "finds a value in a block of odd length" [
         vals: [1 3 5 8 13 21 34 55 89 144 233 377 634]
-        result: find vals 144
-        assert -> 9 = result
+        expects.be:'equal? @[9 find vals 144]
     ]
 
-    test "finds a value in a block of even length" [
+    it "finds a value in a block of even length" [
         vals: [1 3 5 8 13 21 34 55 89 144 233 377]
-        result: find vals 21
-        assert -> 5 = result
+        expects.be:'equal? @[5 find vals 21]
     ]
 
-    test "identifies that a value is not included in the block" [
-        vals: [1 3 4 6 8 9 11]
-        result: find vals 7
-        assert -> null = result
+    it "identifies that a value is not included in the block" [
+        expects.be:'null? [find [1 3 4 6 8 9 11] 7]
     ]
 
-    test "a value smaller than the block's smallest value is not found" [
-        vals: [1 3 4 6 8 9 11]
-        result: find vals 0
-        assert -> null = result
+    it "a value smaller than the block's smallest value is not found" [
+        expects.be:'null? [find [1 3 4 6 8 9 11] 0]
     ]
 
-    test "a value larger than the block's largest value is not found" [
-        vals: [1 3 4 6 8 9 11]
-        result: find vals 13
-        assert -> null = result
+    it "a value larger than the block's largest value is not found" [
+        expects.be:'null? [find [1 3 4 6 8 9 11] 13]
     ]
 
-    test "nothing is found in an empty block" [
-        vals: []
-        result: find vals 1
-        assert -> null = result
+    it "nothing is found in an empty block" [
+        expects.be:'null? [find [] 1]
     ]
 
-    test "nothing is found when the left and right bounds cross" [
-        vals: [1 2]
-        result: find vals 0
-        assert -> null = result
+    it "nothing is found when the left and right bounds cross" [
+        expects.be:'null? [find [1 2] 0]
     ]
 ]
 

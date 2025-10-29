@@ -1,74 +1,60 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/isogram}!
 
-suite "Isogram" [
-    test "empty string" [
-        result: isogram? ""
-        assert -> true = result
+describe "Isogram" [
+    it "empty string" [
+        expects.be:'true? @[isogram? ""]
     ]
 
-    test "isogram with only lower case characters" [
-        result: isogram? "isogram"
-        assert -> true = result
+    it "isogram with only lower case characters" [
+        expects.be:'true? @[isogram? "isogram"]
     ]
 
-    test "word with one duplicated character" [
-        result: isogram? "eleven"
-        assert -> false = result
+    it "word with one duplicated character" [
+        expects.be:'false? @[isogram? "eleven"]
     ]
 
-    test "word with one duplicated character from the end of the alphabet" [
-        result: isogram? "zzyzx"
-        assert -> false = result
+    it "word with one duplicated character from the end of the alphabet" [
+        expects.be:'false? @[isogram? "zzyzx"]
     ]
 
-    test "longest reported english isogram" [
-        result: isogram? "subdermatoglyphic"
-        assert -> true = result
+    it "longest reported english isogram" [
+        expects.be:'true? @[isogram? "subdermatoglyphic"]
     ]
 
-    test "word with duplicated character in mixed case" [
-        result: isogram? "Alphabet"
-        assert -> false = result
+    it "word with duplicated character in mixed case" [
+        expects.be:'false? @[isogram? "Alphabet"]
     ]
 
-    test "word with duplicated character in mixed case, lowercase first" [
-        result: isogram? "alphAbet"
-        assert -> false = result
+    it "word with duplicated character in mixed case, lowercase first" [
+        expects.be:'false? @[isogram? "alphAbet"]
     ]
 
-    test "hypothetical isogrammic word with hyphen" [
-        result: isogram? "thumbscrew-japingly"
-        assert -> true = result
+    it "hypothetical isogrammic word with hyphen" [
+        expects.be:'true? @[isogram? "thumbscrew-japingly"]
     ]
 
-    test "hypothetical word with duplicated character following hyphen" [
-        result: isogram? "thumbscrew-jappingly"
-        assert -> false = result
+    it "hypothetical word with duplicated character following hyphen" [
+        expects.be:'false? @[isogram? "thumbscrew-jappingly"]
     ]
 
-    test "isogram with duplicated hyphen" [
-        result: isogram? "six-year-old"
-        assert -> true = result
+    it "isogram with duplicated hyphen" [
+        expects.be:'true? @[isogram? "six-year-old"]
     ]
 
-    test "made-up name that is an isogram" [
-        result: isogram? "Emily Jung Schwartzkopf"
-        assert -> true = result
+    it "made-up name that is an isogram" [
+        expects.be:'true? @[isogram? "Emily Jung Schwartzkopf"]
     ]
 
-    test "duplicated character in the middle" [
-        result: isogram? "accentor"
-        assert -> false = result
+    it "duplicated character in the middle" [
+        expects.be:'false? @[isogram? "accentor"]
     ]
 
-    test "same first and last characters" [
-        result: isogram? "angola"
-        assert -> false = result
+    it "same first and last characters" [
+        expects.be:'false? @[isogram? "angola"]
     ]
 
-    test "word with duplicated character and with two hyphens" [
-        result: isogram? "up-to-date"
-        assert -> false = result
+    it "word with duplicated character and with two hyphens" [
+        expects.be:'false? @[isogram? "up-to-date"]
     ]
 ]

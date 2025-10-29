@@ -1,34 +1,46 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/rna-transcription}!
 
-suite "RNA Transcription" [
-    test "Empty RNA sequence" [
-        result: toRna ""
-        assert -> "" = result
+describe "RNA Transcription" [
+    it "Empty RNA sequence" [
+        expects.be:'equal? @[
+            ""
+            toRna ""
+        ]
     ]
 
-    test "RNA complement of cytosine is guanine" [
-        result: toRna "C"
-        assert -> "G" = result
+    it "RNA complement of cytosine is guanine" [
+        expects.be:'equal? @[
+            "G"
+            toRna "C"
+        ]
     ]
 
-    test "RNA complement of guanine is cytosine" [
-        result: toRna "G"
-        assert -> "C" = result
+    it "RNA complement of guanine is cytosine" [
+        expects.be:'equal? @[
+            "C"
+            toRna "G"
+        ]
     ]
 
-    test "RNA complement of thymine is adenine" [
-        result: toRna "T"
-        assert -> "A" = result
+    it "RNA complement of thymine is adenine" [
+        expects.be:'equal? @[
+            "A"
+            toRna "T"
+        ]
     ]
 
-    test "RNA complement of adenine is uracil" [
-        result: toRna "A"
-        assert -> "U" = result
+    it "RNA complement of adenine is uracil" [
+        expects.be:'equal? @[
+            "U"
+            toRna "A"
+        ]
     ]
 
-    test "RNA complement" [
-        result: toRna "ACGTGGTCTTAA"
-        assert -> "UGCACCAGAAUU" = result
+    it "RNA complement" [
+        expects.be:'equal? @[
+            "UGCACCAGAAUU"
+            toRna "ACGTGGTCTTAA"
+        ]
     ]
 ]

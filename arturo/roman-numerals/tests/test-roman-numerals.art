@@ -1,144 +1,200 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/roman-numerals}!
 
-suite "Roman Numerals" [
-    test "1 is I" [
-        result: stringify.roman 1
-        assert -> "I" = result
+describe "Roman Numerals" [
+    it "1 is I" [
+        expects.be:'equal? @[
+            "I"
+            stringify.roman 1
+        ]
     ]
 
-    test "2 is II" [
-        result: stringify.roman 2
-        assert -> "II" = result
+    it "2 is II" [
+        expects.be:'equal? @[
+            "II"
+            stringify.roman 2
+        ]
     ]
 
-    test "3 is III" [
-        result: stringify.roman 3
-        assert -> "III" = result
+    it "3 is III" [
+        expects.be:'equal? @[
+            "III"
+            stringify.roman 3
+        ]
     ]
 
-    test "4 is IV" [
-        result: stringify.roman 4
-        assert -> "IV" = result
+    it "4 is IV" [
+        expects.be:'equal? @[
+            "IV"
+            stringify.roman 4
+        ]
     ]
 
-    test "5 is V" [
-        result: stringify.roman 5
-        assert -> "V" = result
+    it "5 is V" [
+        expects.be:'equal? @[
+            "V"
+            stringify.roman 5
+        ]
     ]
 
-    test "6 is VI" [
-        result: stringify.roman 6
-        assert -> "VI" = result
+    it "6 is VI" [
+        expects.be:'equal? @[
+            "VI"
+            stringify.roman 6
+        ]
     ]
 
-    test "9 is IX" [
-        result: stringify.roman 9
-        assert -> "IX" = result
+    it "9 is IX" [
+        expects.be:'equal? @[
+            "IX"
+            stringify.roman 9
+        ]
     ]
 
-    test "27 is XXVII" [
-        result: stringify.roman 27
-        assert -> "XXVII" = result
+    it "27 is XXVII" [
+        expects.be:'equal? @[
+            "XXVII"
+            stringify.roman 27
+        ]
     ]
 
-    test "48 is XLVIII" [
-        result: stringify.roman 48
-        assert -> "XLVIII" = result
+    it "48 is XLVIII" [
+        expects.be:'equal? @[
+            "XLVIII"
+            stringify.roman 48
+        ]
     ]
 
-    test "49 is XLIX" [
-        result: stringify.roman 49
-        assert -> "XLIX" = result
+    it "49 is XLIX" [
+        expects.be:'equal? @[
+            "XLIX"
+            stringify.roman 49
+        ]
     ]
 
-    test "59 is LIX" [
-        result: stringify.roman 59
-        assert -> "LIX" = result
+    it "59 is LIX" [
+        expects.be:'equal? @[
+            "LIX"
+            stringify.roman 59
+        ]
     ]
 
-    test "93 is XCIII" [
-        result: stringify.roman 93
-        assert -> "XCIII" = result
+    it "93 is XCIII" [
+        expects.be:'equal? @[
+            "XCIII"
+            stringify.roman 93
+        ]
     ]
 
-    test "141 is CXLI" [
-        result: stringify.roman 141
-        assert -> "CXLI" = result
+    it "141 is CXLI" [
+        expects.be:'equal? @[
+            "CXLI"
+            stringify.roman 141
+        ]
     ]
 
-    test "163 is CLXIII" [
-        result: stringify.roman 163
-        assert -> "CLXIII" = result
+    it "163 is CLXIII" [
+        expects.be:'equal? @[
+            "CLXIII"
+            stringify.roman 163
+        ]
     ]
 
-    test "402 is CDII" [
-        result: stringify.roman 402
-        assert -> "CDII" = result
+    it "402 is CDII" [
+        expects.be:'equal? @[
+            "CDII"
+            stringify.roman 402
+        ]
     ]
 
-    test "575 is DLXXV" [
-        result: stringify.roman 575
-        assert -> "DLXXV" = result
+    it "575 is DLXXV" [
+        expects.be:'equal? @[
+            "DLXXV"
+            stringify.roman 575
+        ]
     ]
 
-    test "911 is CMXI" [
-        result: stringify.roman 911
-        assert -> "CMXI" = result
+    it "911 is CMXI" [
+        expects.be:'equal? @[
+            "CMXI"
+            stringify.roman 911
+        ]
     ]
 
-    test "1024 is MXXIV" [
-        result: stringify.roman 1024
-        assert -> "MXXIV" = result
+    it "1024 is MXXIV" [
+        expects.be:'equal? @[
+            "MXXIV"
+            stringify.roman 1024
+        ]
     ]
 
-    test "3000 is MMM" [
-        result: stringify.roman 3000
-        assert -> "MMM" = result
+    it "3000 is MMM" [
+        expects.be:'equal? @[
+            "MMM"
+            stringify.roman 3000
+        ]
     ]
 
-    test "16 is XVI" [
-        result: stringify.roman 16
-        assert -> "XVI" = result
+    it "16 is XVI" [
+        expects.be:'equal? @[
+            "XVI"
+            stringify.roman 16
+        ]
     ]
 
-    test "66 is LXVI" [
-        result: stringify.roman 66
-        assert -> "LXVI" = result
+    it "66 is LXVI" [
+        expects.be:'equal? @[
+            "LXVI"
+            stringify.roman 66
+        ]
     ]
 
-    test "166 is CLXVI" [
-        result: stringify.roman 166
-        assert -> "CLXVI" = result
+    it "166 is CLXVI" [
+        expects.be:'equal? @[
+            "CLXVI"
+            stringify.roman 166
+        ]
     ]
 
-    test "666 is DCLXVI" [
-        result: stringify.roman 666
-        assert -> "DCLXVI" = result
+    it "666 is DCLXVI" [
+        expects.be:'equal? @[
+            "DCLXVI"
+            stringify.roman 666
+        ]
     ]
 
-    test "1666 is MDCLXVI" [
-        result: stringify.roman 1666
-        assert -> "MDCLXVI" = result
+    it "1666 is MDCLXVI" [
+        expects.be:'equal? @[
+            "MDCLXVI"
+            stringify.roman 1666
+        ]
     ]
 
-    test "3001 is MMMI" [
-        result: stringify.roman 3001
-        assert -> "MMMI" = result
+    it "3001 is MMMI" [
+        expects.be:'equal? @[
+            "MMMI"
+            stringify.roman 3001
+        ]
     ]
 
-    test "3888 is MMMDCCCLXXXVIII" [
-        result: stringify.roman 3888
-        assert -> "MMMDCCCLXXXVIII" = result
+    it "3888 is MMMDCCCLXXXVIII" [
+        expects.be:'equal? @[
+            "MMMDCCCLXXXVIII"
+            stringify.roman 3888
+        ]
     ]
 
-    test "3999 is MMMCMXCIX" [
-        result: stringify.roman 3999
-        assert -> "MMMCMXCIX" = result
+    it "3999 is MMMCMXCIX" [
+        expects.be:'equal? @[
+            "MMMCMXCIX"
+            stringify.roman 3999
+        ]
     ]
 
-    test "return unchanged number if no roman attribute set" [
-        result: stringify 3999
-        assert -> "3999" = result
+    it "return unchanged number if no roman attribute set" [
+        expects.be:'equal? @[
+            "3999"
+            stringify 3999
+        ]
     ]
 ]

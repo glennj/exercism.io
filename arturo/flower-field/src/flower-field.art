@@ -1,11 +1,12 @@
 annotate: function [garden][
     if empty? garden -> return []
+    if empty? garden\0 -> return [""]
 
     heightRange: 0..(dec size garden)
     widthRange: 0..(dec size garden\0)
     annotated: new garden
 
-    flower?: $=> [& = '*']
+    flower?: $=>[& = '*']
 
     neighbours: function [i j][
         count: 0

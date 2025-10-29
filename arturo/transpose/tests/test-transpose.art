@@ -1,51 +1,53 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/transpose}!
 
-suite "Transpose" [
-    test "empty string" [
-        lines: ""
-        result: transpose lines
-        expected: ""
-        assert -> expected = result
+describe "Transpose" [
+    it "empty string" [
+        expects.be:'equal? @[
+            ""
+            transpose ""
+        ]
     ]
 
-    test "two characters in a row" [
-        lines: "A1"
-        result: transpose lines
+    it "two characters in a row" [
         expected: join.with:"\n" [
             "A"
             "1"
         ]
-        assert -> expected = result
+        expects.be:'equal? @[
+            expected
+            transpose "A1"
+        ]
     ]
 
-    test "two characters in a column" [
+    it "two characters in a column" [
         lines: join.with:"\n" [
             "A"
             "1"
         ]
-        result: transpose lines
-        expected: "A1"
-        assert -> expected = result
+        expects.be:'equal? @[
+            "A1"
+            transpose lines
+        ]
     ]
 
-    test "simple" [
+    it "simple" [
         lines: join.with:"\n" [
             "ABC"
             "123"
         ]
-        result: transpose lines
         expected: join.with:"\n" [
             "A1"
             "B2"
             "C3"
         ]
-        assert -> expected = result
+        expects.be:'equal? @[
+            expected
+            transpose lines
+        ]
     ]
 
-    test "single line" [
-        lines: "Single line."
-        result: transpose lines
+    it "single line" [
         expected: join.with:"\n" [
             "S"
             "i"
@@ -60,15 +62,17 @@ suite "Transpose" [
             "e"
             "."
         ]
-        assert -> expected = result
+        expects.be:'equal? @[
+            expected
+            transpose "Single line."
+        ]
     ]
 
-    test "first line longer than second line" [
+    it "first line longer than second line" [
         lines: join.with:"\n" [
             "The fourth line."
             "The fifth line."
         ]
-        result: transpose lines
         expected: join.with:"\n" [
             "TT"
             "hh"
@@ -87,15 +91,17 @@ suite "Transpose" [
             "e."
             "."
         ]
-        assert -> expected = result
+        expects.be:'equal? @[
+            expected
+            transpose lines
+        ]
     ]
 
-    test "second line longer than first line" [
+    it "second line longer than first line" [
         lines: join.with:"\n" [
             "The first line."
             "The second line."
         ]
-        result: transpose lines
         expected: join.with:"\n" [
             "TT"
             "hh"
@@ -114,17 +120,19 @@ suite "Transpose" [
             ".e"
             " ."
         ]
-        assert -> expected = result
+        expects.be:'equal? @[
+            expected
+            transpose lines
+        ]
     ]
 
-    test "mixed line length" [
+    it "mixed line length" [
         lines: join.with:"\n" [
             "The longest line."
             "A long line."
             "A longer line."
             "A line."
         ]
-        result: transpose lines
         expected: join.with:"\n" [
             "TAAA"
             "h   "
@@ -144,10 +152,13 @@ suite "Transpose" [
             "e"
             "."
         ]
-        assert -> expected = result
+        expects.be:'equal? @[
+            expected
+            transpose lines
+        ]
     ]
 
-    test "square" [
+    it "square" [
         lines: join.with:"\n" [
             "HEART"
             "EMBER"
@@ -155,7 +166,6 @@ suite "Transpose" [
             "RESIN"
             "TREND"
         ]
-        result: transpose lines
         expected: join.with:"\n" [
             "HEART"
             "EMBER"
@@ -163,17 +173,19 @@ suite "Transpose" [
             "RESIN"
             "TREND"
         ]
-        assert -> expected = result
+        expects.be:'equal? @[
+            expected
+            transpose lines
+        ]
     ]
 
-    test "rectangle" [
+    it "rectangle" [
         lines: join.with:"\n" [
             "FRACTURE"
             "OUTLINED"
             "BLOOMING"
             "SEPTETTE"
         ]
-        result: transpose lines
         expected: join.with:"\n" [
             "FOBS"
             "RULE"
@@ -184,10 +196,13 @@ suite "Transpose" [
             "RENT"
             "EDGE"
         ]
-        assert -> expected = result
+        expects.be:'equal? @[
+            expected
+            transpose lines
+        ]
     ]
 
-    test "triangle" [
+    it "triangle" [
         lines: join.with:"\n" [
             "T"
             "EE"
@@ -196,7 +211,6 @@ suite "Transpose" [
             "EEEEE"
             "RRRRRR"
         ]
-        result: transpose lines
         expected: join.with:"\n" [
             "TEASER"
             " EASER"
@@ -205,10 +219,13 @@ suite "Transpose" [
             "    ER"
             "     R"
         ]
-        assert -> expected = result
+        expects.be:'equal? @[
+            expected
+            transpose lines
+        ]
     ]
 
-    test "jagged triangle" [
+    it "jagged triangle" [
         lines: join.with:"\n" [
             "11"
             "2"
@@ -217,7 +234,6 @@ suite "Transpose" [
             "555555"
             "66666"
         ]
-        result: transpose lines
         expected: join.with:"\n" [
             "123456"
             "1 3456"
@@ -226,6 +242,9 @@ suite "Transpose" [
             "    56"
             "    5"
         ]
-        assert -> expected = result
+        expects.be:'equal? @[
+            expected
+            transpose lines
+        ]
     ]
 ]

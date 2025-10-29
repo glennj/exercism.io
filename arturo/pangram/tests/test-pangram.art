@@ -1,54 +1,53 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/pangram}!
 
-suite "Pangram" [
-    test "an empty sentence is not a pangram" [
-        result:  pangram?  ""
-        assert -> false = result
+describe "Pangram" [
+    it "an empty sentence is not a pangram" [
+        expects.be:'false? @[pangram? ""]
     ]
 
-    test "a phrase in perfect lower case can be a pangram" [
-        result:  pangram? "abcdefghijklmnopqrstuvwxyz"
-        assert -> true = result
+    it "a phrase in perfect lower case can be a pangram" [
+        phrase: "abcdefghijklmnopqrstuvwxyz"
+        expects.be:'true? @[pangram? phrase]
     ]
 
-    test "a phrase in only lower case can be a pangram" [
-        result:  pangram? "the quick brown fox jumps over the lazy dog"
-        assert -> true = result
+    it "a phrase in only lower case can be a pangram" [
+        phrase: "the quick brown fox jumps over the lazy dog"
+        expects.be:'true? @[pangram? phrase]
     ]
 
-    test "a phrase missing the letter 'x' is not a pangram" [
-        result:  pangram? "a quick movement of the enemy will jeopardize five gunboats"
-        assert -> false = result
+    it "a phrase missing the letter 'x' is not a pangram" [
+        phrase: "a quick movement of the enemy will jeopardize five gunboats"
+        expects.be:'false? @[pangram? phrase]
     ]
 
-    test "a phrase missing the letter 'h' is not a pangram" [
-        result:  pangram? "five boxing wizards jump quickly at it"
-        assert -> false = result
+    it "a phrase missing the letter 'h' is not a pangram" [
+        phrase: "five boxing wizards jump quickly at it"
+        expects.be:'false? @[pangram? phrase]
     ]
 
-    test "a phrase with underscores can be a pangram" [
-        result:  pangram? "the_quick_brown_fox_jumps_over_the_lazy_dog"
-        assert -> true = result
+    it "a phrase with underscores can be a pangram" [
+        phrase: "the_quick_brown_fox_jumps_over_the_lazy_dog"
+        expects.be:'true? @[pangram? phrase]
     ]
 
-    test "a phrase with numbers can be a pangram" [
-        result:  pangram? "the 1 quick brown fox jumps over the 2 lazy dogs"
-        assert -> true = result
+    it "a phrase with numbers can be a pangram" [
+        phrase: "the 1 quick brown fox jumps over the 2 lazy dogs"
+        expects.be:'true? @[pangram? phrase]
     ]
 
-    test "a phrase with missing letters replaced by numbers is not a pangram" [
-        result:  pangram? "7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog"
-        assert -> false = result
+    it "a phrase with missing letters replaced by numbers is not a pangram" [
+        phrase: "7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog"
+        expects.be:'false? @[pangram? phrase]
     ]
 
-    test "a phrase with mixed case and punctuation can be a pangram" [
-        result:  pangram? "\"Five quacking Zephyrs jolt my wax bed.\""
-        assert -> true = result
+    it "a phrase with mixed case and punctuation can be a pangram" [
+        phrase: "\"Five quacking Zephyrs jolt my wax bed.\""
+        expects.be:'true? @[pangram? phrase]
     ]
 
-    test "a-m and A-M are 26 dfferent characters but do form a pangram" [
-        result:  pangram? "abcdefghijklm ABCDEFGHIJKLM"
-        assert -> false = result
+    it "a-m and A-M are 26 dfferent characters but do form a pangram" [
+        phrase: "abcdefghijklm ABCDEFGHIJKLM"
+        expects.be:'false? @[pangram? phrase]
     ]
 ]

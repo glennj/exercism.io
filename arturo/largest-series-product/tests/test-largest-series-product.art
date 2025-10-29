@@ -1,79 +1,67 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/largest-series-product}!
 
-suite "Largest Series Product" [
-    test "finds the largest product if span equals length" [
-        result: largestProduct "29" 2
-        assert -> 18 = result
+describe "Largest Series Product" [
+    it "finds the largest product if span equals length" [
+        expects.be:'equal? @[18 largestProduct "29" 2]
     ]
 
-    test "can find the largest product of 2 with numbers in order" [
-        result: largestProduct "0123456789" 2
-        assert -> 72 = result
+    it "can find the largest product of 2 with numbers in order" [
+        expects.be:'equal? @[72 largestProduct "0123456789" 2]
     ]
 
-    test "can find the largest product of 2" [
-        result: largestProduct "576802143" 2
-        assert -> 48 = result
+    it "can find the largest product of 2" [
+        expects.be:'equal? @[48 largestProduct "576802143" 2]
     ]
 
-    test "can find the largest product of 3 with numbers in order" [
-        result: largestProduct "0123456789" 3
-        assert -> 504 = result
+    it "can find the largest product of 3 with numbers in order" [
+        expects.be:'equal? @[504 largestProduct "0123456789" 3]
     ]
 
-    test "can find the largest product of 3" [
-        result: largestProduct "1027839564" 3
-        assert -> 270 = result
+    it "can find the largest product of 3" [
+        expects.be:'equal? @[270 largestProduct "1027839564" 3]
     ]
 
-    test "can find the largest product of 5 with numbers in order" [
-        result: largestProduct "0123456789" 5
-        assert -> 15120 = result
+    it "can find the largest product of 5 with numbers in order" [
+        expects.be:'equal? @[15120 largestProduct "0123456789" 5]
     ]
 
-    test "can get the largest product of a big number" [
-        result: largestProduct "73167176531330624919225119674426574742355349194934" 6
-        assert -> 23520 = result
+    it "can get the largest product of a big number" [
+        expects.be:'equal? @[
+            23520
+            largestProduct "73167176531330624919225119674426574742355349194934" 6
+        ]
     ]
 
-    test "reports zero if the only digits are zero" [
-        result: largestProduct "0000" 2
-        assert -> 0 = result
+    it "reports zero if the only digits are zero" [
+        expects.be:'equal? @[0 largestProduct "0000" 2]
     ]
 
-    test "reports zero if all spans include zero" [
-        result: largestProduct "99099" 3
-        assert -> 0 = result
+    it "reports zero if all spans include zero" [
+        expects.be:'equal? @[0 largestProduct "99099" 3]
     ]
 
-    test "rejects span longer than string length" [
-        result: largestProduct "123" 4
-        assert -> null = result
+    it "rejects span longer than string length" [
+        expects.be:'null? @[largestProduct "123" 4]
     ]
 
-    test "reports 1 for empty string and empty product (0 span)" [
-        result: largestProduct "" 0
-        assert -> 1 = result
+    it "reports 1 for empty string and empty product (0 span)" [
+        expects.be:'equal? @[1 largestProduct "" 0]
     ]
 
-    test "reports 1 for nonempty string and empty product (0 span)" [
-        result: largestProduct "123" 0
-        assert -> 1 = result
+    it "reports 1 for nonempty string and empty product (0 span)" [
+        expects.be:'equal? @[1 largestProduct "123" 0]
     ]
 
-    test "rejects empty string and nonzero span" [
-        result: largestProduct "" 1
-        assert -> null = result
+    it "rejects empty string and nonzero span" [
+        expects.be:'null? @[largestProduct "" 1]
     ]
 
-    test "rejects invalid character in digits" [
-        result: largestProduct "1234a5" 2
-        assert -> null = result
+    it "rejects invalid character in digits" [
+        expects.be:'null? @[largestProduct "1234a5" 2]
     ]
 
-    test "rejects negative span" [
-        result: largestProduct "12345" neg 1
-        assert -> null = result
+    it "rejects negative span" [
+        expects.be:'null? @[largestProduct "12345" neg 1]
     ]
 ]

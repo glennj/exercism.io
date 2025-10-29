@@ -1,19 +1,25 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/two-fer}!
 
-suite "Two Fer" [
-    test "no name given" [
-        result: twoFer ""
-        assert -> "One for you, one for me." = result
+describe "Two Fer" [
+    it "no name given" [
+        expects.be:'equal? @[
+            "One for you, one for me."
+            twoFer ""
+        ]
     ]
 
-    test "a name given" [
-        result: twoFer "Alice"
-        assert -> "One for Alice, one for me." = result
+    it "a name given" [
+        expects.be:'equal? @[
+            "One for Alice, one for me."
+            twoFer "Alice"
+        ]
     ]
     
-    test "another name given" [
-        result: twoFer "Bob"
-        assert -> "One for Bob, one for me." = result
+    it "another name given" [
+        expects.be:'equal? @[
+            "One for Bob, one for me."
+            twoFer "Bob"
+        ]
     ]
 ]

@@ -2,17 +2,8 @@ pangram?: function [phrase][
     26 = (
         phrase
         | upper
-        | select => upper?
+        | select 'c [upper? c]
         | unique
         | size
     )
 ]
-
-
-;; https://exercism.org/tracks/arturo/exercises/pangram/solutions/factor3
-;
-;       subset? alphabet 'en to [:char] lower phrase
-
-;; https://exercism.org/tracks/arturo/exercises/pangram/solutions/drkameleon
-;
-;       every? 'a'..'z' => [in? & lower phrase]

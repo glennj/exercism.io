@@ -1,145 +1,159 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/bottle-song}!
 
-suite "Bottle Song" [
-    suite "single verse" [
-        test "first generic verse" [
-            result: recite 10 1
+describe "Bottle Song" [
+    describe "Bottle Song - Single Verse" [
+        it "first generic verse" [
             expected: {
-Ten green bottles hanging on the wall,
-Ten green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be nine green bottles hanging on the wall.
-}
-            assert -> expected = result
+                Ten green bottles hanging on the wall,
+                Ten green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be nine green bottles hanging on the wall.
+            }
+            expects.be:'equal? @[
+                expected
+                recite 10 1
+            ]
         ]
 
-        test "last generic verse" [
-            result: recite 3 1
+        it "last generic verse" [
             expected: {
-Three green bottles hanging on the wall,
-Three green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be two green bottles hanging on the wall.
-}
-            assert -> expected = result
+                Three green bottles hanging on the wall,
+                Three green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be two green bottles hanging on the wall.
+            }
+            expects.be:'equal? @[
+                expected
+                recite 3 1
+            ]
         ]
 
-        test "verse with 2 bottles" [
-            result: recite 2 1
+        it "verse with 2 bottles" [
             expected: {
-Two green bottles hanging on the wall,
-Two green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be one green bottle hanging on the wall.
-}
-            assert -> expected = result
+                Two green bottles hanging on the wall,
+                Two green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be one green bottle hanging on the wall.
+            }
+            expects.be:'equal? @[
+                expected
+                recite 2 1
+            ]
         ]
 
-        test "verse with 1 bottle" [
-            result: recite 1 1
+        it "verse with 1 bottle" [
             expected: {
-One green bottle hanging on the wall,
-One green bottle hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be no green bottles hanging on the wall.
-}
-            assert -> expected = result
+                One green bottle hanging on the wall,
+                One green bottle hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be no green bottles hanging on the wall.
+            }
+            expects.be:'equal? @[
+                expected
+                recite 1 1
+            ]
         ]
     ]
 
-    suite "multiple verses" [
-        test "first two verses" [
-            result: recite 10 2
+    describe "Bottle Song - Multiple Verses" [
+        it "first two verses" [
             expected: {
-Ten green bottles hanging on the wall,
-Ten green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be nine green bottles hanging on the wall.
+                Ten green bottles hanging on the wall,
+                Ten green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be nine green bottles hanging on the wall.
 
-Nine green bottles hanging on the wall,
-Nine green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be eight green bottles hanging on the wall.
-}
-            assert -> expected = result
+                Nine green bottles hanging on the wall,
+                Nine green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be eight green bottles hanging on the wall.
+            }
+            expects.be:'equal? @[
+                expected
+                recite 10 2
+            ]
         ]
 
-        test "last three verses" [
-            result: recite 3 3
+        it "last three verses" [
             expected: {
-Three green bottles hanging on the wall,
-Three green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be two green bottles hanging on the wall.
+                Three green bottles hanging on the wall,
+                Three green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be two green bottles hanging on the wall.
 
-Two green bottles hanging on the wall,
-Two green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be one green bottle hanging on the wall.
+                Two green bottles hanging on the wall,
+                Two green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be one green bottle hanging on the wall.
 
-One green bottle hanging on the wall,
-One green bottle hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be no green bottles hanging on the wall.
-}
-            assert -> expected = result
+                One green bottle hanging on the wall,
+                One green bottle hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be no green bottles hanging on the wall.
+            }
+            expects.be:'equal? @[
+                expected
+                recite 3 3
+            ]
         ]
 
-        test "all verses" [
-            result: recite 10 10
+        it "all verses" [
             expected: {
-Ten green bottles hanging on the wall,
-Ten green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be nine green bottles hanging on the wall.
+                Ten green bottles hanging on the wall,
+                Ten green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be nine green bottles hanging on the wall.
 
-Nine green bottles hanging on the wall,
-Nine green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be eight green bottles hanging on the wall.
+                Nine green bottles hanging on the wall,
+                Nine green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be eight green bottles hanging on the wall.
 
-Eight green bottles hanging on the wall,
-Eight green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be seven green bottles hanging on the wall.
+                Eight green bottles hanging on the wall,
+                Eight green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be seven green bottles hanging on the wall.
 
-Seven green bottles hanging on the wall,
-Seven green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be six green bottles hanging on the wall.
+                Seven green bottles hanging on the wall,
+                Seven green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be six green bottles hanging on the wall.
 
-Six green bottles hanging on the wall,
-Six green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be five green bottles hanging on the wall.
+                Six green bottles hanging on the wall,
+                Six green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be five green bottles hanging on the wall.
 
-Five green bottles hanging on the wall,
-Five green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be four green bottles hanging on the wall.
+                Five green bottles hanging on the wall,
+                Five green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be four green bottles hanging on the wall.
 
-Four green bottles hanging on the wall,
-Four green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be three green bottles hanging on the wall.
+                Four green bottles hanging on the wall,
+                Four green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be three green bottles hanging on the wall.
 
-Three green bottles hanging on the wall,
-Three green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be two green bottles hanging on the wall.
+                Three green bottles hanging on the wall,
+                Three green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be two green bottles hanging on the wall.
 
-Two green bottles hanging on the wall,
-Two green bottles hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be one green bottle hanging on the wall.
+                Two green bottles hanging on the wall,
+                Two green bottles hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be one green bottle hanging on the wall.
 
-One green bottle hanging on the wall,
-One green bottle hanging on the wall,
-And if one green bottle should accidentally fall,
-There'll be no green bottles hanging on the wall.
-}
-            assert -> expected = result
+                One green bottle hanging on the wall,
+                One green bottle hanging on the wall,
+                And if one green bottle should accidentally fall,
+                There'll be no green bottles hanging on the wall.
+            }
+            expects.be:'equal? @[
+                expected
+                recite 10 10
+            ]
         ]
     ]
 ]

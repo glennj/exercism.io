@@ -1,114 +1,92 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/luhn}!
 
-suite "Luhn" [
-    test "single digit strings can not be valid" [
-        result: luhn? "1"
-        assert -> false = result
+describe "Luhn" [
+    it "single digit strings can not be valid" [
+        expects.be:'false? @[luhn? "1"]
     ]
 
-    test "a single zero is invalid" [
-        result: luhn? "0"
-        assert -> false = result
+    it "a single zero is invalid" [
+        expects.be:'false? @[luhn? "0"]
     ]
 
-    test "a simple valid SIN that remains valid if reversed" [
-        result: luhn? "059"
-        assert -> true = result
+    it "a simple valid SIN that remains valid if reversed" [
+        expects.be:'true? @[luhn? "059"]
     ]
 
-    test "a simple valid SIN that becomes invalid if reversed" [
-        result: luhn? "59"
-        assert -> true = result
+    it "a simple valid SIN that becomes invalid if reversed" [
+        expects.be:'true? @[luhn? "59"]
     ]
 
-    test "a valid Canadian SIN" [
-        result: luhn? "055 444 285"
-        assert -> true = result
+    it "a valid Canadian SIN" [
+        expects.be:'true? @[luhn? "055 444 285"]
     ]
 
-    test "invalid Canadian SIN" [
-        result: luhn? "055 444 286"
-        assert -> false = result
+    it "invalid Canadian SIN" [
+        expects.be:'false? @[luhn? "055 444 286"]
     ]
 
-    test "invalid credit card" [
-        result: luhn? "8273 1232 7352 0569"
-        assert -> false = result
+    it "invalid credit card" [
+        expects.be:'false? @[luhn? "8273 1232 7352 0569"]
     ]
 
-    test "invalid long number with an even remainder" [
-        result: luhn? "1 2345 6789 1234 5678 9012"
-        assert -> false = result
+    it "invalid long number with an even remainder" [
+        expects.be:'false? @[luhn? "1 2345 6789 1234 5678 9012"]
     ]
 
-    test "invalid long number with a remainder divisible by 5" [
-        result: luhn? "1 2345 6789 1234 5678 9013"
-        assert -> false = result
+    it "invalid long number with a remainder divisible by 5" [
+        expects.be:'false? @[luhn? "1 2345 6789 1234 5678 9013"]
     ]
 
-    test "valid number with an even number of digits" [
-        result: luhn? "095 245 88"
-        assert -> true = result
+    it "valid number with an even number of digits" [
+        expects.be:'true? @[luhn? "095 245 88"]
     ]
 
-    test "valid number with an odd number of spaces" [
-        result: luhn? "234 567 891 234"
-        assert -> true = result
+    it "valid number with an odd number of spaces" [
+        expects.be:'true? @[luhn? "234 567 891 234"]
     ]
 
-    test "valid strings with a non-digit added at the end become invalid" [
-        result: luhn? "059a"
-        assert -> false = result
+    it "valid strings with a non-digit added at the end become invalid" [
+        expects.be:'false? @[luhn? "059a"]
     ]
 
-    test "valid strings with punctuation included become invalid" [
-        result: luhn? "055-444-285"
-        assert -> false = result
+    it "valid strings with punctuation included become invalid" [
+        expects.be:'false? @[luhn? "055-444-285"]
     ]
 
-    test "valid strings with symbols included become invalid" [
-        result: luhn? "055# 444$ 285"
-        assert -> false = result
+    it "valid strings with symbols included become invalid" [
+        expects.be:'false? @[luhn? "055# 444$ 285"]
     ]
 
-    test "single zero with space is invalid" [
-        result: luhn? " 0"
-        assert -> false = result
+    it "single zero with space is invalid" [
+        expects.be:'false? @[luhn? " 0"]
     ]
 
-    test "more than a single zero is valid" [
-        result: luhn? "0000 0"
-        assert -> true = result
+    it "more than a single zero is valid" [
+        expects.be:'true? @[luhn? "0000 0"]
     ]
 
-    test "input digit 9 is correctly converted to output digit 9" [
-        result: luhn? "091"
-        assert -> true = result
+    it "input digit 9 is correctly converted to output digit 9" [
+        expects.be:'true? @[luhn? "091"]
     ]
 
-    test "very long input is valid" [
-        result: luhn? "9999999999 9999999999 9999999999 9999999999"
-        assert -> true = result
+    it "very long input is valid" [
+        expects.be:'true? @[luhn? "9999999999 9999999999 9999999999 9999999999"]
     ]
 
-    test "valid luhn with an odd number of digits and non zero first digit" [
-        result: luhn? "109"
-        assert -> true = result
+    it "valid luhn with an odd number of digits and non zero first digit" [
+        expects.be:'true? @[luhn? "109"]
     ]
 
-    test "using ascii value for non-doubled non-digit isn't allowed" [
-        result: luhn? "055b 444 285"
-        assert -> false = result
+    it "using ascii value for non-doubled non-digit isn't allowed" [
+        expects.be:'false? @[luhn? "055b 444 285"]
     ]
 
-    test "using ascii value for doubled non-digit isn't allowed" [
-        result: luhn? ":9"
-        assert -> false = result
+    it "using ascii value for doubled non-digit isn't allowed" [
+        expects.be:'false? @[luhn? ":9"]
     ]
 
-    test "non-numeric, non-space char in the middle with a sum that's divisible by 10 isn't allowed" [
-        result: luhn? "59%59"
-        assert -> false = result
+    it "non-numeric, non-space char in the middle with a sum that's divisible by 10 isn't allowed" [
+        expects.be:'false? @[luhn? "59%59"]
     ]
 ]

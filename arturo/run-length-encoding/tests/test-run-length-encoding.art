@@ -1,69 +1,100 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/run-length-encoding}!
 
-suite "Run-Length Encoding" [
-    test "Encode empty string" [
-        ciphertext: encode ""
-        assert -> "" = ciphertext
+describe "Run-Length Encoding" [
+    describe "Run-Length Encoding - Encode" [
+        it "encode empty string" [
+            expects.be:'equal? @[
+                ""
+                encode ""
+            ]
+        ]
+
+        it "encode single characters only are encoded without count" [
+            expects.be:'equal? @[
+                "XYZ"
+                encode "XYZ"
+            ]
+        ]
+
+        it "encode string with no single characters" [
+            expects.be:'equal? @[
+                "2A3B4C"
+                encode "AABBBCCCC"
+            ]
+        ]
+
+        it "encode single characters mixed with repeated characters" [
+            expects.be:'equal? @[
+                "12WB12W3B24WB"
+                encode "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB"
+            ]
+        ]
+
+        it "encode multiple whitespace mixed in string" [
+            expects.be:'equal? @[
+                "2 hs2q q2w2 "
+                encode "  hsqq qww  "
+            ]
+        ]
+
+        it "encode lowercase characters" [
+            expects.be:'equal? @[
+                "2a3b4c"
+                encode "aabbbcccc"
+            ]
+        ]
     ]
 
-    test "Encode single characters only are encoded without count" [
-        ciphertext: encode "XYZ"
-        assert -> "XYZ" = ciphertext
-    ]
 
-    test "Encode string with no single characters" [
-        ciphertext: encode "AABBBCCCC"
-        assert -> "2A3B4C" = ciphertext
-    ]
+    describe "Run-Length Encoding - Decode" [
+        it "decode empty string" [
+            expects.be:'equal? @[
+                ""
+                decode ""
+            ]
+        ]
 
-    test "Encode single characters mixed with repeated characters" [
-        ciphertext: encode "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB"
-        assert -> "12WB12W3B24WB" = ciphertext
-    ]
+        it "decode single characters only" [
+            expects.be:'equal? @[
+                "XYZ"
+                decode "XYZ"
+            ]
+        ]
 
-    test "Encode multiple whitespace mixed in string" [
-        ciphertext: encode "  hsqq qww  "
-        assert -> "2 hs2q q2w2 " = ciphertext
-    ]
+        it "decode string with no single characters" [
+            expects.be:'equal? @[
+                "AABBBCCCC"
+                decode "2A3B4C"
+            ]
+        ]
 
-    test "Encode lowercase characters" [
-        ciphertext: encode "aabbbcccc"
-        assert -> "2a3b4c" = ciphertext
-    ]
+        it "decode single characters with repeated characters" [
+            expects.be:'equal? @[
+                "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB"
+                decode "12WB12W3B24WB"
+            ]
+        ]
 
-    test "Decode empty string" [
-        plaintext: decode ""
-        assert -> "" = plaintext
-    ]
+        it "decode multiple whitespace mixed in string" [
+            expects.be:'equal? @[
+                "  hsqq qww  "
+                decode "2 hs2q q2w2 "
+            ]
+        ]
 
-    test "Decode single characters only" [
-        plaintext: decode "XYZ"
-        assert -> "XYZ" = plaintext
-    ]
+        it "decode lowercase string" [
+            expects.be:'equal? @[
+                "aabbbcccc"
+                decode "2a3b4c"
+            ]
+        ]
 
-    test "Decode string with no single characters" [
-        plaintext: decode "2A3B4C"
-        assert -> "AABBBCCCC" = plaintext
-    ]
-
-    test "Decode single characters with repeated characters" [
-        plaintext: decode "12WB12W3B24WB"
-        assert -> "WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB" = plaintext
-    ]
-
-    test "Decode multiple whitespace mixed in string" [
-        plaintext: decode "2 hs2q q2w2 "
-        assert -> "  hsqq qww  " = plaintext
-    ]
-
-    test "Decode lowercase string" [
-        plaintext: decode "2a3b4c"
-        assert -> "aabbbcccc" = plaintext
-    ]
-
-    test "Encode followed by decode gives original string" [
-        plaintext: decode encode "zzz ZZ  zZ"
-        assert -> "zzz ZZ  zZ" = plaintext
+        it "encode followed by decode gives original string" [
+            expects.be:'equal? @[
+                "zzz ZZ  zZ"
+                decode encode "zzz ZZ  zZ"
+            ]
+        ]
     ]
 ]

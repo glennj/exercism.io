@@ -1,9 +1,8 @@
-import.version:1.1.2 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/hello-world}!
 
-suite "Hello, World!" [
-    test "hello returns 'Hello, World!'" [
-        result: hello
-        assert -> "Hello, World!" = result
+describe "Hello World!" [
+    it "hello returns 'Hello, World!'" [
+        expects.be:'equal? @["Hello, World!" hello]
     ]
 ]

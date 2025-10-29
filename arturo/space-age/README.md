@@ -53,6 +53,8 @@ See [Year on Wikipedia][year] for more ways to measure a year.
 [year]: https://en.wikipedia.org/wiki/Year#Summary
 ~~~~
 
+## Arturo-specific information
+
 In this exercise, you will be expected to return the ages using a [physical quantity] with a custom unit representing the length of a single year on a that planet.
 In Arturo, a quantity consists of a numerical amount and an associated [unit of measurement][unit-of-measurement].
 
@@ -82,12 +84,14 @@ convert 1`m `m2 ; conversion error results
 
 ~~~~exercism/note
 Because of the precision limitations with floating point numbers, Arturo sometimes stores the scalar as a rational number.
-The `to` function can be used to retrieve the amount instead as an approximate floating point number.
+The [`to` function][to] can be used to retrieve the amount instead as an approximate floating point number.
 
 ```arturo
 length: convert 1`m `ft ; 1250/381 ft
 to :floating length ; 3.280839895013123
 ```
+
+[to]: https://arturo-lang.io/master/documentation/library/types/to/
 ~~~~
 
 Arturo also allows us to [specify] our own units for quantities.

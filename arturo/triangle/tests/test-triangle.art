@@ -1,109 +1,94 @@
-import.version:1.1.2 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/triangle}!
 
-suite "Triangle" [
-    test "invalid: 0 0 0" [
-        result: equilateral? 0 0 0
-        assert -> false = result
+describe "Triangle" [
+    describe "Triangle - Equilateral" [
+        it "invalid: 0 0 0" [
+            expects.be:'false? @[equilateral? 0 0 0]
+        ]
+
+        it "equilateral with floating point" [
+            expects.be:'true? @[equilateral? 0.5 0.5 0.5]
+        ]
+
+        it "equilateral 2 2 2" [
+            expects.be:'true? @[equilateral? 2 2 2]
+        ]
+
+        it "isosceles is not equilateral" [
+            expects.be:'false? @[equilateral? 2 3 2]
+        ]
+
+        it "scalene is not equilateral" [
+            expects.be:'false? @[equilateral? 5 4 6]
+        ]
     ]
 
-    test "equilateral with floating point" [
-        result: equilateral? 0.5 0.5 0.5
-        assert -> true = result
+    describe "Triangle - Isosceles" [
+        it "isosceles with floating point" [
+            expects.be:'true? @[isosceles? 0.5 0.4 0.5]
+        ]
+
+        it "(invalid) isosceles 1 1 3, 3 in last position" [
+            expects.be:'false? @[isosceles? 1 1 3]
+        ]
+
+        it "(invalid) isosceles 1 3 1, 3 in middle position" [
+            expects.be:'false? @[isosceles? 1 3 1]
+        ]
+
+        it "(invalid) isosceles 3 1 1, 3 in first position" [
+            expects.be:'false? @[isosceles? 3 1 1]
+        ]
+
+        it "isosceles 2 2 3, 3 in last position" [
+            expects.be:'true? @[isosceles? 2 2 3]
+        ]
+
+        it "isosceles 2 3 2, 3 in middle position" [
+            expects.be:'true? @[isosceles? 2 3 2]
+        ]
+
+        it "isosceles 3 2 2, 3 in first position" [
+            expects.be:'true? @[isosceles? 3 2 2]
+        ]
+
+        it "is scalene and isosceles?" [
+            expects.be:'false? @[isosceles? 2 3 4]
+        ]
+
+        it "equilateral is also isosceles" [
+            expects.be:'true? @[isosceles? 4 4 4]
+        ]
     ]
 
-    test "equilateral 2 2 2" [
-        result: equilateral? 2 2 2
-        assert -> true = result
-    ]
+    describe "Triangle - Scalene" [
+        it "scalene with floating point" [
+            expects.be:'true? @[scalene? 0.5 0.4 0.6]
+        ]
 
-    test "isosceles is not equilateral" [
-        result: equilateral? 2 3 2
-        assert -> false = result
-    ]
+        it "isosceles is not scalene" [
+            expects.be:'false? @[scalene? 4 4 3]
+        ]
 
-    test "scalene is not equilateral" [
-        result: equilateral? 5 4 6
-        assert -> false = result
-    ]
+        it "equilateral is not scalene" [
+            expects.be:'false? @[scalene? 4 4 4]
+        ]
 
-    test "isosceles with floating point" [
-        result: isosceles? 0.5 0.4 0.5
-        assert -> true = result
-    ]
+        it "scalene 5 4 6" [
+            expects.be:'true? @[scalene? 5 4 6]
+        ]
 
-    test "(invalid) isosceles 1 1 3, 3 in last position" [
-        result: isosceles? 1 1 3
-        assert -> false = result
-    ]
+        it "triangle inequality rule violation" [
+            expects.be:'false? @[scalene? 7 3 2]
+        ]
 
-    test "(invalid) isosceles 1 3 1, 3 in middle position" [
-        result: isosceles? 1 3 1
-        assert -> false = result
-    ]
+        it "broken triangle #1" [
+            expects.be:'false? @[scalene? 0 3 3]
+        ]
 
-    test "(invalid) isosceles 3 1 1, 3 in first position" [
-        result: isosceles? 3 1 1
-        assert -> false = result
-    ]
-
-    test "isosceles 2 2 3, 3 in last position" [
-        result: isosceles? 2 2 3
-        assert -> true = result
-    ]
-
-    test "isosceles 2 3 2, 3 in middle position" [
-        result: isosceles? 2 3 2
-        assert -> true = result
-    ]
-
-    test "isosceles 3 2 2, 3 in first position" [
-        result: isosceles? 3 2 2
-        assert -> true = result
-    ]
-
-    test "is scalene and isosceles?" [
-        result: isosceles? 2 3 4
-        assert -> false = result
-    ]
-
-    test "equilateral is also isosceles" [
-        result: isosceles? 4 4 4
-        assert -> true = result
-    ]
-
-    test "scalene with floating point" [
-        result: scalene? 0.5 0.4 0.6
-        assert -> true = result
-    ]
-
-    test "isosceles is not scalene" [
-        result: scalene? 4 4 3
-        assert -> false = result
-    ]
-
-    test "equilateral is not scalene" [
-        result: scalene? 4 4 4
-        assert -> false = result
-    ]
-
-    test "scalene 5 4 6" [
-        result: scalene? 5 4 6
-        assert -> true = result
-    ]
-
-    test "triangle inequality rule violation" [
-        result: scalene? 7 3 2
-        assert -> false = result
-    ]
-
-    test "broken triangle #1" [
-        result: scalene? 0 3 3
-        assert -> false = result
-    ]
-
-    test "broken triangle #2" [
-        result: scalene? 0 3 0
-        assert -> false = result
+        it "broken triangle #2" [
+            expects.be:'false? @[scalene? 0 3 0]
+        ]
     ]
 ]

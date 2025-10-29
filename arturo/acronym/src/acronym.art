@@ -27,12 +27,3 @@ alpha?: function [char][
 wordChar?: function [char][
     or? [alpha? char] [char = '\'']
 ]
-
-
-;; typical community solution
-;abbreviate: function[phrase][
-;    replace phrase ["_" "-"] " "
-;    | split.words
-;    | map 'x -> upper  x\0
-;    | join
-;]

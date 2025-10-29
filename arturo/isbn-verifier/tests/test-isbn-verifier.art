@@ -1,99 +1,80 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/isbn-verifier}!
 
-suite "ISBN Verifier" [
-    test "valid ISBN" [
-        results: valid? "3-598-21508-8"
-        assert -> true = results
+describe "ISBN Verifier" [
+    it "valid ISBN" [
+        expects.be:'true? @[valid? "3-598-21508-8"]
     ]
 
-    test "invalid ISBN check digit" [
-        results: valid? "3-598-21508-9"
-        assert -> false = results
+    it "invalid ISBN check digit" [
+        expects.be:'false? @[valid? "3-598-21508-9"]
     ]
 
-    test "valid ISBN with a check digit of 10" [
-        results: valid? "3-598-21507-X"
-        assert -> true = results
+    it "valid ISBN with a check digit of 10" [
+        expects.be:'true? @[valid? "3-598-21507-X"]
     ]
 
-    test "check digit is a character other than X" [
-        results: valid? "3-598-21507-A"
-        assert -> false = results
+    it "check digit is a character other than X" [
+        expects.be:'false? @[valid? "3-598-21507-A"]
     ]
 
-    test "invalid check digit in ISBN is not treated as zero" [
-        results: valid? "4-598-21507-B"
-        assert -> false = results
+    it "invalid check digit in ISBN is not treated as zero" [
+        expects.be:'false? @[valid? "4-598-21507-B"]
     ]
 
-    test "invalid character in ISBN is not treated as zero" [
-        results: valid? "3-598-P1581-X"
-        assert -> false = results
+    it "invalid character in ISBN is not treated as zero" [
+        expects.be:'false? @[valid? "3-598-P1581-X"]
     ]
 
-    test "X is only valid as a check digit" [
-        results: valid? "3-598-2X507-9"
-        assert -> false = results
+    it "X is only valid as a check digit" [
+        expects.be:'false? @[valid? "3-598-2X507-9"]
     ]
 
-    test "valid ISBN without separating dashes" [
-        results: valid? "3598215088"
-        assert -> true = results
+    it "valid ISBN without separating dashes" [
+        expects.be:'true? @[valid? "3598215088"]
     ]
 
-    test "ISBN without separating dashes and X as check digit" [
-        results: valid? "359821507X"
-        assert -> true = results
+    it "ISBN without separating dashes and X as check digit" [
+        expects.be:'true? @[valid? "359821507X"]
     ]
 
-    test "ISBN without check digit and dashes" [
-        results: valid? "359821507"
-        assert -> false = results
+    it "ISBN without check digit and dashes" [
+        expects.be:'false? @[valid? "359821507"]
     ]
 
-    test "too long ISBN and no dashes" [
-        results: valid? "3598215078X"
-        assert -> false = results
+    it "too long ISBN and no dashes" [
+        expects.be:'false? @[valid? "3598215078X"]
     ]
 
-    test "too short ISBN" [
-        results: valid? "00"
-        assert -> false = results
+    it "too short ISBN" [
+        expects.be:'false? @[valid? "00"]
     ]
 
-    test "ISBN without check digit" [
-        results: valid? "3-598-21507"
-        assert -> false = results
+    it "ISBN without check digit" [
+        expects.be:'false? @[valid? "3-598-21507"]
     ]
 
-    test "check digit of X should not be used for 0" [
-        results: valid? "3-598-21515-X"
-        assert -> false = results
+    it "check digit of X should not be used for 0" [
+        expects.be:'false? @[valid? "3-598-21515-X"]
     ]
 
-    test "empty ISBN" [
-        results: valid? ""
-        assert -> false = results
+    it "empty ISBN" [
+        expects.be:'false? @[valid? ""]
     ]
 
-    test "input is 9 characters" [
-        results: valid? "134456729"
-        assert -> false = results
+    it "input is 9 characters" [
+        expects.be:'false? @[valid? "134456729"]
     ]
 
-    test "invalid characters are not ignored after checking length" [
-        results: valid? "3132P34035"
-        assert -> false = results
+    it "invalid characters are not ignored after checking length" [
+        expects.be:'false? @[valid? "3132P34035"]
     ]
 
-    test "invalid characters are not ignored before checking length" [
-        results: valid? "3598P215088"
-        assert -> false = results
+    it "invalid characters are not ignored before checking length" [
+        expects.be:'false? @[valid? "3598P215088"]
     ]
 
-    test "input is too long but contains a valid ISBN" [
-        results: valid? "98245726788"
-        assert -> false = results
+    it "input is too long but contains a valid ISBN" [
+        expects.be:'false? @[valid? "98245726788"]
     ]
 ]

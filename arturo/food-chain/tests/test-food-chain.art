@@ -1,181 +1,191 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/food-chain}!
 
 
-suite "Food Chain" [
-    test "fly" [
-        results: recite 1 1
-        expected: join.with:"\n" [
-            "I know an old lady who swallowed a fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
+describe "Food Chain" [
+    it "fly" [
+        expects.be:'equal? @[
+            {
+                I know an old lady who swallowed a fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.         
+            }
+            recite 1 1
         ]
-        assert -> expected = results
     ]
 
-    test "spider" [
-        results: recite 2 2
-        expected: join.with:"\n" [
-            "I know an old lady who swallowed a spider."
-            "It wriggled and jiggled and tickled inside her."
-            "She swallowed the spider to catch the fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
+    it "spider" [
+        expects.be:'equal? @[
+            {
+                I know an old lady who swallowed a spider.
+                It wriggled and jiggled and tickled inside her.
+                She swallowed the spider to catch the fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+            }
+            recite 2 2
         ]
-        assert -> expected = results
     ]
 
-    test "bird" [
-        results: recite 3 3
-        expected: join.with:"\n" [
-            "I know an old lady who swallowed a bird."
-            "How absurd to swallow a bird!"
-            "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her."
-            "She swallowed the spider to catch the fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
+    it "bird" [
+        expects.be:'equal? @[
+            {
+                I know an old lady who swallowed a bird.
+                How absurd to swallow a bird!
+                She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
+                She swallowed the spider to catch the fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+            }
+            recite 3 3
         ]
-        assert -> expected = results
     ]
 
-    test "cat" [
-        results: recite 4 4
-        expected: join.with:"\n" [
-             "I know an old lady who swallowed a cat."
-            "Imagine that, to swallow a cat!"
-            "She swallowed the cat to catch the bird."
-            "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her."
-            "She swallowed the spider to catch the fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
+    it "cat" [
+        expects.be:'equal? @[
+            {
+                I know an old lady who swallowed a cat.
+                Imagine that, to swallow a cat!
+                She swallowed the cat to catch the bird.
+                She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
+                She swallowed the spider to catch the fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+            }
+            recite 4 4
         ]
-        assert -> expected = results
     ]
 
-    test "dog" [
-        results: recite 5 5
-        expected: join.with:"\n" [
-            "I know an old lady who swallowed a dog."
-            "What a hog, to swallow a dog!"
-            "She swallowed the dog to catch the cat."
-            "She swallowed the cat to catch the bird."
-            "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her."
-            "She swallowed the spider to catch the fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
+    it "dog" [
+        expects.be:'equal? @[
+            {
+                I know an old lady who swallowed a dog.
+                What a hog, to swallow a dog!
+                She swallowed the dog to catch the cat.
+                She swallowed the cat to catch the bird.
+                She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
+                She swallowed the spider to catch the fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+            }
+            recite 5 5
         ]
-        assert -> expected = results
     ]
 
-    test "goat" [
-        results: recite 6 6
-        expected: join.with:"\n" [
-            "I know an old lady who swallowed a goat."
-            "Just opened her throat and swallowed a goat!"
-            "She swallowed the goat to catch the dog."
-            "She swallowed the dog to catch the cat."
-            "She swallowed the cat to catch the bird."
-            "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her."
-            "She swallowed the spider to catch the fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
+    it "goat" [
+        expects.be:'equal? @[
+            {
+                I know an old lady who swallowed a goat.
+                Just opened her throat and swallowed a goat!
+                She swallowed the goat to catch the dog.
+                She swallowed the dog to catch the cat.
+                She swallowed the cat to catch the bird.
+                She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
+                She swallowed the spider to catch the fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+            }
+            recite 6 6
         ]
-        assert -> expected = results
     ]
 
-    test "cow" [
-        results: recite 7 7
-        expected: join.with:"\n" [
-            "I know an old lady who swallowed a cow."
-            "I don't know how she swallowed a cow!"
-            "She swallowed the cow to catch the goat."
-            "She swallowed the goat to catch the dog."
-            "She swallowed the dog to catch the cat."
-            "She swallowed the cat to catch the bird."
-            "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her."
-            "She swallowed the spider to catch the fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
+    it "cow" [
+        expects.be:'equal? @[
+            {
+                I know an old lady who swallowed a cow.
+                I don't know how she swallowed a cow!
+                She swallowed the cow to catch the goat.
+                She swallowed the goat to catch the dog.
+                She swallowed the dog to catch the cat.
+                She swallowed the cat to catch the bird.
+                She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
+                She swallowed the spider to catch the fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+            }
+            recite 7 7
         ]
-        assert -> expected = results
     ]
 
-    test "horse" [
-        results: recite 8 8
-        expected: join.with:"\n" [
-            "I know an old lady who swallowed a horse."
-            "She's dead, of course!"
+    it "horse" [
+        expects.be:'equal? @[
+            {
+                I know an old lady who swallowed a horse.
+                She's dead, of course!
+            }
+            recite 8 8
         ]
-        assert -> expected = results
     ]
 
-    test "multiple verses" [
-        results: recite 1 3
-        expected: join.with:"\n" [
-            "I know an old lady who swallowed a fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
-            ""
-            "I know an old lady who swallowed a spider."
-            "It wriggled and jiggled and tickled inside her."
-            "She swallowed the spider to catch the fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
-            ""
-            "I know an old lady who swallowed a bird."
-            "How absurd to swallow a bird!"
-            "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her."
-            "She swallowed the spider to catch the fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
+    it "multiple verses" [
+        expects.be:'equal? @[
+            {
+                I know an old lady who swallowed a fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+
+                I know an old lady who swallowed a spider.
+                It wriggled and jiggled and tickled inside her.
+                She swallowed the spider to catch the fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+
+                I know an old lady who swallowed a bird.
+                How absurd to swallow a bird!
+                She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
+                She swallowed the spider to catch the fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+            }
+            recite 1 3
         ]
-        assert -> expected = results
     ]
 
-    test "full song" [
-        results: recite 1 8
-        expected: join.with:"\n" [
-            "I know an old lady who swallowed a fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
-            ""
-            "I know an old lady who swallowed a spider."
-            "It wriggled and jiggled and tickled inside her."
-            "She swallowed the spider to catch the fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
-            ""
-            "I know an old lady who swallowed a bird."
-            "How absurd to swallow a bird!"
-            "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her."
-            "She swallowed the spider to catch the fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
-            ""
-            "I know an old lady who swallowed a cat."
-            "Imagine that, to swallow a cat!"
-            "She swallowed the cat to catch the bird."
-            "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her."
-            "She swallowed the spider to catch the fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
-            ""
-            "I know an old lady who swallowed a dog."
-            "What a hog, to swallow a dog!"
-            "She swallowed the dog to catch the cat."
-            "She swallowed the cat to catch the bird."
-            "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her."
-            "She swallowed the spider to catch the fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
-            ""
-            "I know an old lady who swallowed a goat."
-            "Just opened her throat and swallowed a goat!"
-            "She swallowed the goat to catch the dog."
-            "She swallowed the dog to catch the cat."
-            "She swallowed the cat to catch the bird."
-            "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her."
-            "She swallowed the spider to catch the fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
-            ""
-            "I know an old lady who swallowed a cow."
-            "I don't know how she swallowed a cow!"
-            "She swallowed the cow to catch the goat."
-            "She swallowed the goat to catch the dog."
-            "She swallowed the dog to catch the cat."
-            "She swallowed the cat to catch the bird."
-            "She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her."
-            "She swallowed the spider to catch the fly."
-            "I don't know why she swallowed the fly. Perhaps she'll die."
-            ""
-            "I know an old lady who swallowed a horse."
-            "She's dead, of course!"
+    it "full song" [
+        expects.be:'equal? @[
+            {
+                I know an old lady who swallowed a fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+                
+                I know an old lady who swallowed a spider.
+                It wriggled and jiggled and tickled inside her.
+                She swallowed the spider to catch the fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+                
+                I know an old lady who swallowed a bird.
+                How absurd to swallow a bird!
+                She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
+                She swallowed the spider to catch the fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+                
+                I know an old lady who swallowed a cat.
+                Imagine that, to swallow a cat!
+                She swallowed the cat to catch the bird.
+                She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
+                She swallowed the spider to catch the fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+                
+                I know an old lady who swallowed a dog.
+                What a hog, to swallow a dog!
+                She swallowed the dog to catch the cat.
+                She swallowed the cat to catch the bird.
+                She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
+                She swallowed the spider to catch the fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+                
+                I know an old lady who swallowed a goat.
+                Just opened her throat and swallowed a goat!
+                She swallowed the goat to catch the dog.
+                She swallowed the dog to catch the cat.
+                She swallowed the cat to catch the bird.
+                She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
+                She swallowed the spider to catch the fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+                
+                I know an old lady who swallowed a cow.
+                I don't know how she swallowed a cow!
+                She swallowed the cow to catch the goat.
+                She swallowed the goat to catch the dog.
+                She swallowed the dog to catch the cat.
+                She swallowed the cat to catch the bird.
+                She swallowed the bird to catch the spider that wriggled and jiggled and tickled inside her.
+                She swallowed the spider to catch the fly.
+                I don't know why she swallowed the fly. Perhaps she'll die.
+                
+                I know an old lady who swallowed a horse.
+                She's dead, of course!
+            }
+            recite 1 8
         ]
-        assert -> expected = results
     ]
 ]

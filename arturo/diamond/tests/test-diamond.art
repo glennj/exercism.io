@@ -1,25 +1,27 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/diamond}!
 
-suite "Diamond" [
-    test "Degenerate case with a single 'A' row" [
-        result: diamond 'A'
-        expected: "A"
-        assert -> expected = result
+describe "Diamond" [
+    it "Degenerate case with a single 'A' row" [
+        expects.be:'equal? @[
+            "A"
+            diamond 'A'
+        ]
     ]
 
-    test "Degenerate case with no row containing 3 distinct groups of spaces" [
-        result: diamond 'B'
+    it "Degenerate case with no row containing 3 distinct groups of spaces" [
         expected: join.with:"\n" [
             " A "
             "B B"
             " A "
         ]
-        assert -> expected = result
+        expects.be:'equal? @[
+            expected
+            diamond 'B'
+        ]
     ]
 
-    test "Smallest non-degenerate case with odd diamond side length" [
-        result: diamond 'C'
+    it "Smallest non-degenerate case with odd diamond side length" [
         expected: join.with:"\n" [
             "  A  "
             " B B "
@@ -27,11 +29,13 @@ suite "Diamond" [
             " B B "
             "  A  "
         ]
-        assert -> expected = result
+        expects.be:'equal? @[
+            expected
+            diamond 'C'
+        ]
     ]
 
-    test "Smallest non-degenerate case with even diamond side length" [
-        result: diamond 'D'
+    it "Smallest non-degenerate case with even diamond side length" [
         expected: join.with:"\n" [
             "   A   "
             "  B B  "
@@ -41,11 +45,13 @@ suite "Diamond" [
             "  B B  "
             "   A   "
         ]
-        assert -> expected = result
+        expects.be:'equal? @[
+            expected
+            diamond 'D'
+        ]
     ]
 
-    test "Largest possible diamond" [
-        result: diamond 'Z'
+    it "Largest possible diamond" [
         expected: join.with:"\n" [
             "                         A                         "
             "                        B B                        "
@@ -99,6 +105,9 @@ suite "Diamond" [
             "                        B B                        "
             "                         A                         "
         ]
-        assert -> expected = result
+        expects.be:'equal? @[
+            expected
+            diamond 'Z'
+        ]
     ]
 ]

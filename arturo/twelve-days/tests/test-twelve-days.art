@@ -1,120 +1,135 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/twelve-days}!
 
 
-suite "Twelve Days" [
-    suite "verse" [
-        test "first day a partridge in a pear tree" [
-            results: recite 1 1
-            expected: "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree."
-            assert -> expected = results
+describe "Twelve Days" [
+    describe "Twelve Days - Verse" [
+        it "first day a partridge in a pear tree" [
+            expects.be:'equal? @[
+                "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree."
+                recite 1 1
+            ]
         ]
 
-        test "second day two turtle doves" [
-            results: recite 2 2
-            expected: "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree."
-            assert -> expected = results
+        it "second day two turtle doves" [
+            expects.be:'equal? @[
+                "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree."
+                recite 2 2
+            ]
         ]
 
-        test "third day three french hens" [
-            results: recite 3 3
-            expected: "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            assert -> expected = results
+        it "third day three french hens" [
+            expects.be:'equal? @[
+                "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                recite 3 3
+            ]
         ]
 
-        test "fourth day four calling birds" [
-            results: recite 4 4
-            expected: "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            assert -> expected = results
+        it "fourth day four calling birds" [
+            expects.be:'equal? @[
+                "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                recite 4 4
+            ]
         ]
 
-        test "fifth day five gold rings" [
-            results: recite 5 5
-            expected: "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            assert -> expected = results
+        it "fifth day five gold rings" [
+            expects.be:'equal? @[
+                "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                recite 5 5
+            ]
         ]
 
-        test "sixth day six geese-a-laying" [
-            results: recite 6 6
-            expected: "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            assert -> expected = results
+        it "sixth day six geese-a-laying" [
+            expects.be:'equal? @[
+                "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                recite 6 6
+            ]
         ]
 
-        test "seventh day seven swans-a-swimming" [
-            results: recite 7 7
-            expected: "On the seventh day of Christmas my true love gave to me: seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            assert -> expected = results
+        it "seventh day seven swans-a-swimming" [
+            expects.be:'equal? @[
+                "On the seventh day of Christmas my true love gave to me: seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                recite 7 7
+            ]
         ]
 
-        test "eighth day eight maids-a-milking" [
-            results: recite 8 8
-            expected: "On the eighth day of Christmas my true love gave to me: eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            assert -> expected = results
+        it "eighth day eight maids-a-milking" [
+            expects.be:'equal? @[
+                "On the eighth day of Christmas my true love gave to me: eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                recite 8 8
+            ]
         ]
 
-        test "ninth day nine ladies dancing" [
-            results: recite 9 9
-            expected: "On the ninth day of Christmas my true love gave to me: nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            assert -> expected = results
+        it "ninth day nine ladies dancing" [
+            expects.be:'equal? @[
+                "On the ninth day of Christmas my true love gave to me: nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                recite 9 9
+            ]
         ]
 
-        test "tenth day ten lords-a-leaping" [
-            results: recite 10 10
-            expected: "On the tenth day of Christmas my true love gave to me: ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            assert -> expected = results
+        it "tenth day ten lords-a-leaping" [
+            expects.be:'equal? @[
+                "On the tenth day of Christmas my true love gave to me: ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                recite 10 10
+            ]
         ]
 
-        test "eleventh day eleven pipers piping" [
-            results: recite 11 11
-            expected: "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            assert -> expected = results
+        it "eleventh day eleven pipers piping" [
+            expects.be:'equal? @[
+                "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                recite 11 11
+            ]
         ]
 
-        test "twelfth day twelve drummers drumming" [
-            results: recite 12 12
-            expected: "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-            assert -> expected = results
+        it "twelfth day twelve drummers drumming" [
+            expects.be:'equal? @[
+                "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                recite 12 12
+            ]
         ]
     ]
 
-    suite "lyrics" [
-        test "recites first three verses of the song" [
-            results: recite 1 3
-            expected: join.with:"\n" [
-                "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree."
-                "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree."
-                "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+    describe "Twelve Days - Lyrics" [
+        it "recites first three verses of the song" [
+            expects.be:'equal? @[
+                join.with:"\n" [
+                    "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree."
+                    "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree."
+                    "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                ]
+                recite 1 3
             ]
-            assert -> expected = results
         ]
 
-        test "recites three verses from the middle of the song" [
-            results: recite 4 6
-            expected: join.with:"\n" [
-                "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-                "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-                "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+        it "recites three verses from the middle of the song" [
+            expects.be:'equal? @[
+                join.with:"\n" [
+                    "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                    "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                    "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                ]
+                recite 4 6
             ]
-            assert -> expected = results
         ]
 
-        test "recites the whole song" [
-            results: recite 1 12
-            expected: join.with:"\n" [
-                "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree."
-                "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree."
-                "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-                "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-                "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-                "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-                "On the seventh day of Christmas my true love gave to me: seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-                "On the eighth day of Christmas my true love gave to me: eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-                "On the ninth day of Christmas my true love gave to me: nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-                "On the tenth day of Christmas my true love gave to me: ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-                "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
-                "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+        it "recites the whole song" [
+            expects.be:'equal? @[
+                join.with:"\n" [
+                    "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree."
+                    "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree."
+                    "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                    "On the fourth day of Christmas my true love gave to me: four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                    "On the fifth day of Christmas my true love gave to me: five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                    "On the sixth day of Christmas my true love gave to me: six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                    "On the seventh day of Christmas my true love gave to me: seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                    "On the eighth day of Christmas my true love gave to me: eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                    "On the ninth day of Christmas my true love gave to me: nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                    "On the tenth day of Christmas my true love gave to me: ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                    "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                    "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree."
+                ]
+                recite 1 12
             ]
-            assert -> expected = results
         ]
     ]
 ]

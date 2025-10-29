@@ -1,49 +1,40 @@
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}! 
 import {src/difference-of-squares}!
 
-suite "Difference of Squares"[
-    test "square of sum 1" [
-        result: squareOfSum 1
-        assert -> 1 = result
+describe "Difference of Squares"[
+    it "square of sum 1" [
+        expects.be:'equal? @[1 squareOfSum 1]
     ]
 
-    test "square of sum 5" [
-        result: squareOfSum 5
-        assert -> 225 = result
+    it "square of sum 5" [
+        expects.be:'equal? @[225 squareOfSum 5]
     ]
 
-    test "square of sum 100" [
-        result: squareOfSum 100
-        assert -> 25502500 = result
+    it "square of sum 100" [
+        expects.be:'equal? @[25502500 squareOfSum 100]
     ]
 
-    test "sum of squares 1" [
-        result: sumOfSquares 1
-        assert -> 1 = result
+    it "sum of squares 1" [
+        expects.be:'equal? @[1 sumOfSquares 1]
     ]
 
-    test "sum of squares 5" [
-        result: sumOfSquares 5
-        assert -> 55 = result
+    it "sum of squares 5" [
+        expects.be:'equal? @[55 sumOfSquares 5]
     ]
 
-    test "sum of squares 100" [
-        result: sumOfSquares 100
-        assert -> 338350 = result
+    it "sum of squares 100" [
+        expects.be:'equal? @[338350 sumOfSquares 100]
     ]
 
-    test "difference of squares 1" [
-        result: differenceOfSquares 1
-        assert -> 0 = result
+    it "difference of squares 1" [
+        expects.be:'equal? @[0 differenceOfSquares 1]
     ]
 
-    test "difference of squares 5" [
-        result: differenceOfSquares 5
-        assert -> 170 = result
+    it "difference of squares 5" [
+        expects.be:'equal? @[170 differenceOfSquares 5]
     ]
 
-    test "difference of squares 100" [
-        result: differenceOfSquares 100
-        assert -> 25164150 = result
+    it "difference of squares 100" [
+        expects.be:'equal? @[25164150 differenceOfSquares 100]
     ]
 ]

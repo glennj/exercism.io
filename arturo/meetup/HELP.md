@@ -43,7 +43,7 @@ Remove the `panic` line and then begin coding your implementation for `isLeap?`.
 ## RSpec Test Structure
 
 ```arturo
-import.version:2.0.1 {unitt}!
+import.version:3.0.0 {unitt}!
 import {src/leap}!
 
 describe "Leap" [
@@ -65,14 +65,6 @@ In `expects.be:'false? @[isLeap? 2015]`, the test suite is making an assertion t
 Another way to write that is `expects.be:'equal? @[false isLeapYear? 2015]` where we're asserting the returned vaue of `isLeapYear? 2015` is equal to `false`.
 This longer form comparing two values is the most common type of assertion on the Arturo track.
 The expected value will always come first in the block before the result value.
-Notably, `express <value>` is used sometimes to add quotes at the beginning and end of strings, like `expects.be:'equal? @[express "reward" express reverseString "drawer"]`.
-To help readability, this will typically be split across multiple lines like this:
-```arturo
-expects.be:'equal? @[
-    express "reward"
-    express reverseString "drawer"
-]
-```
 
 ## XUnit Test Structure
 
@@ -108,24 +100,29 @@ RSpec, however, reports it as `false? false` because we used the `false?` functi
 Starting at the beginning, Arturo will report an error if the `panic` from the starting file hasm't been removed and not evaluate any tests.
 
 ```
-===== tests/test-leap.art =====
+Uncaught error in tests/test-leap.art:
+#[
+        output: {
+                
+                ══╡ Program Error ╞═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════ <script> ══
+                
+                  Please implement the isLeap? function
+                
+                
+        }
+        code: 1
+]
 
-Description: Leap 
- 
-
-══╡ Program Error ╞═════════════════════════════════════════════════════════════════════════════════════════════════ <script> ══
-
-  please implement the isLeap? function
 ```
 
 Once the `panic` is replaced, Arturo will report the status for each assertion made within a test.
 Now the first test passes, but the second test is skipped.
 
 ```plaintext
-===== tests/test-leap.art =====
+======== .unitt/tests/test-leap.art ========
 
-Description: Leap 
- 
+Describe: Leap
+
     ✅ - assert that a year not divisible by 4 is a common year
          ✅: false? false
 
@@ -133,25 +130,24 @@ Description: Leap
          skipped!
 
 
+========== Summary ==========
 
-===== Statistics =====
+⏏️   TOTAL: 2 assertions
+✅  PASSED: 1 assertion
+⏩ SKIPPED: 1 assertion
+❌  FAILED: 0 assertion
 
- ⏏️   TOTAL: 1 assertions
-✅  PASSED: 1 assertions
-⏩ SKIPPED: 1 assertions
-❌  FAILED: 0 assertions
-
-===== ========== =====
+========== ======= ==========
 ```
 
 After the second test is manually unskipped, both tests will be run.
-However, my code only returns `false` so the second test fails its assertion.
+However, the current isLeap? code implementation only returns `false` so the second test fails its assertion.
 
 ```plaintext
-===== tests/test-leap.art =====
+======== .unitt/tests/test-leap.art ========
 
-Description: Leap 
- 
+Describe: Leap
+
     ✅ - assert that a year not divisible by 4 is a common year
          ✅: false? false
 
@@ -159,15 +155,14 @@ Description: Leap
          ❌: true? false
 
 
+========== Summary ==========
 
-===== Statistics =====
+⏏️   TOTAL: 2 assertions
+✅  PASSED: 1 assertion
+⏩ SKIPPED: 0 assertion
+❌  FAILED: 1 assertion
 
- ⏏️   TOTAL: 2 assertions
-✅  PASSED: 1 assertions
-⏩ SKIPPED: 0 assertions
-❌  FAILED: 1 assertions
-
-===== ========== =====
+========== ======= ==========
 ```
 
 This process will continue as you unskip more tests.
