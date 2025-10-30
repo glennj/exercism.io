@@ -16,7 +16,7 @@ paired?: function [str][
                 if or? [empty? myStack] [(get brackets c) <> (first myStack)]
                     -> return false
 
-                drop 'myStack 1
+                drop 'myStack
             ]
         ]
     ]

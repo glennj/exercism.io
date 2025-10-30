@@ -70,15 +70,6 @@ Devastating Donkeys;Courageous Californians;draw
 
 means that the Devastating Donkeys and Courageous Californians tied.
 
-## Use of the medium vertical bar
-
-~~~~exercism/caution
-In Arturo, `|` is the pipe operator for reversing the default right to left order of function calls.
-In v2 of the Unitt testing framework, there is currently an issue where instances of `|` are being unexpectedly evaluated inside strings.
-Therefore, we've replaced `|` (vertical bar) with `❙` (medium vertical bar) in the expected outputs.
-We're in the process of upgrading the track to Unitt v3 where this issue is fixed. Then we'll revert back to the expected `|` (vertical bar) delimiter.
-~~~~
-
 ## Some notes about Arturo strings
 
 You'll see some syntax in the tests that may be new to you: multiline strings enclosed in `{ braces }`.
