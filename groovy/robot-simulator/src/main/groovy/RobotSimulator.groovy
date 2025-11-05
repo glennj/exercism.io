@@ -1,36 +1,38 @@
 class RobotSimulator {
     private static Bearings = [north: 90, east: 0, south: 270, west: 180]
-    private static Directions = Bearings.collectEntries { key, value -> [value, key] }
 
     int x, y
-    String direction
     private int bearing
 
     RobotSimulator(int pos_x, int pos_y, String direction) {
         this.x = pos_x
         this.y = pos_y
-        this.direction = direction
         this.bearing = Bearings[direction]
     }
 
+    // provides the `robot.direction` property
+    def getDirection() { 
+        Bearings.find {it.value == this.bearing}?.key
+    }
+    
     def move(String commands) {
         for (cmd in commands) {
             switch (cmd) {
-                case "L": turn(+1); break
-                case "R": turn(-1); break
+                case "L": turn(+90); break
+                case "R": turn(-90); break
                 case "A": advance()
             }
         }
         this
     }
 
-    private def turn(int direction) {
-        this.bearing = Math.floorMod(this.bearing + direction * 90, 360)
-        this.direction = Directions[this.bearing]
+    private def turn(int rotation) {
+        this.bearing = Math.floorMod(this.bearing + rotation, 360)
     }
 
     private advance() {
-        this.x += Math.cos(Math.toRadians(this.bearing))
-        this.y += Math.sin(Math.toRadians(this.bearing))
+        def θ = Math.toRadians(this.bearing)
+        this.x += Math.cos(θ)
+        this.y += Math.sin(θ)
     }
 }
