@@ -1,6 +1,4 @@
-score: function [word][
-    fold.seed: 0 (upper word) [value char] -> value + get tiles char
-]
+score: function [word][fold.seed:0 (upper word) =>[& + get tiles &]]
 
 tiles: #[
     A: 1  E: 1  I: 1  O: 1  U: 1
