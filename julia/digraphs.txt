@@ -1,24 +1,55 @@
 vim digraphs for julialang
-See `:dig!`
+
+See:
+- `:he digraphs-use`
+- `:dig`   or   https://vimhelp.org/digraph.txt.html#digraph-table
 
 Operators
-       ^K + 
-le      =<      ≤       &#8804;
-ge      >=      ≥       &#8805;
-neq     !=      ≠       &#8800;
-in      (-      ∈       &#8712;
-ni      n/a     ∉       &#8713;
-div     -:      ÷       &#247;
+        char    ^K +    hex
+le      ≤       =<      &#8804;
+ge      ≥       >=      &#8805;
+neq     ≠       !=      &#8800;
+in      ∈       (-      &#8712;
+ni      ∉       n/a     &#8713;
+contain ∋       -)      &#8715;
+div     ÷       -:      &#247;
 func composition \
-        Ob      ∘       &#8728;
-approx  ?2      ≈       &#8776;
-sqrt    RT      √       &#8730;
+        ∘       Ob      &#8728;
+approx  ≈       ?2      &#8776;
+sqrt    √       RT      &#8730;
+mult    ×       *X      &#215;
 
 bitwise xor \
-        n/a     ⊻       &#8891;
+        ⊻       n/a     &#8891;
 
-delta   D*      Δ       &#916;
-pi      p*      π       &#960;
-exp     n/a     ℯ       &#8495;
+exp     ℯ       n/a     &#8495;
+empty set \
+        ∅       /0      &#87099;
 
-timex   /\      ×
+Greek           | upper case              | lower case
+letter  english | char    ^K+     hex     | char    ^K+     hex
+alpha   a       | Α       A*      &#913;  | α       a*      &#945;
+beta    b       | Β       B*      &#914;  | β       b*      &#946;
+gamma   g       | Γ       G*      &#915;  | γ       g*      &#947;
+delta   d       | Δ       D*      &#916;  | δ       d*      &#948;
+epsilon e       | Ε       E*      &#917;  | ε       e*      &#949;
+zeta    z       | Ζ       Z*      &#918;  | ζ       z*      &#950;
+eta     h       | Η       Y*      &#919;  | η       y*      &#951;
+theta   th      | Θ       H*      &#920;  | θ       h*      &#952;
+iota    i       | Ι       I*      &#921;  | ι       i*      &#953;
+kappa   k       | Κ       K*      &#922;  | κ       k*      &#954;
+lambda  l       | Λ       L*      &#923;  | λ       l*      &#955;
+mu      m       | Μ       M*      &#924;  | μ       m*      &#956;
+nu      n       | Ν       N*      &#925;  | ν       n*      &#957;
+xi      x       | Ξ       C*      &#926;  | ξ       c*      &#958;
+omicron o       | Ο       O*      &#927;  | ο       o*      &#959;
+pi      p       | Π       P*      &#928;  | π       p*      &#960;
+rho     r       | Ρ       R*      &#929;  | ρ       r*      &#961;
+sigma   s       | Σ       S*      &#931;  | σ       s*      &#963;
+                                          | ς       *s      &#962;
+tau     t       | Τ       T*      &#932;  | τ       t*      &#964;
+upsilon u       | Υ       U*      &#933;  | υ       u*      &#965;
+phi     ph      | Φ       F*      &#934;  | φ       f*      &#966;
+chi     ch      | Χ       X*      &#935;  | χ       x*      &#967;
+psi     ps      | Ψ       Q*      &#936;  | ψ       q*      &#968;
+omega   o       | Ω       W*      &#937;  | ω       w*      &#969;
