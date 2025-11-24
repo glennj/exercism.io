@@ -71,7 +71,7 @@ var result = someList.fold(
     (acc, elem) => acc + someFunc(elem)
 );
 ```
-The return value from the 2nd argument becomes the accumulator value for the next iteration.
+The return value from fold's 2nd argument becomes the accumulator value for the next iteration.
 
 ---
 
@@ -149,3 +149,47 @@ There's an opportunity to refactor to remove the duplicated code.
 
 The presence of a `main` function indicates you're not using the provided tests.
 Please see [Testing on the Dart track](https://exercism.org/docs/tracks/dart/tests).
+
+---
+
+<!-- string indexing -->
+
+<details><summary>
+You have to be careful using string indexing, particularly for Unicode strings.
+While there are no Unicode strings in this exercise, it's helpful to know.
+Click for details.
+</summary>
+
+---
+
+In Dart, string indexing uses neither byte nor what we perceive as character indexing directly. Instead, it operates on UTF-16 code units.
+Here's what that means:
+
+* A Dart [String](https://api.dart.dev/dart-core/String-class.html) is a sequence of UTF-16 code units.
+* [`string[i]`](https://api.dart.dev/dart-core/String/operator_get.html) accesses the i-th 16-bit code unit, not the i-th character.
+* Most common characters (like those in ASCII) are represented by a single UTF-16 code unit, so it often feels like character indexing.
+* However, some characters, like many emojis or complex symbols, require two UTF-16 code units (a "surrogate pair").
+  In these cases, indexing will access only half of the character, which can lead to errors.
+
+
+```dart
+var myString = 'dart';
+print(myString[0]); // Output: 'd'
+
+var emojiString = '🎯';    // A single character, but a surrogate pair in UTF-16
+print(emojiString.length); // Output: 2
+// print(emojiString[0]);  // This would be an invalid character on its own.
+```
+
+To correctly access characters, you should use the [`runes`](https://api.dart.dev/dart-core/String/runes.html) property, which iterates over Unicode code points:
+
+```dart
+for (var rune in emojiString.runes) {
+  print(String.fromCharCode(rune)); // Output: 🎯
+}
+```
+</details>
+
+<!--
+For handling user-perceived characters (grapheme clusters), such as an emoji with a skin-tone modifier, it's recommended to use the `characters` (https://pub.dev/packages/characters) package.
+-->

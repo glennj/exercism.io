@@ -36,6 +36,10 @@ You'll get more learning from a mentoring session if you apply the suggestions a
 Often new questions come up in the back-and-forth between student and mentor that increase the benefits.
 Plus, you have the benefit of seeing the progression of your solutions through multiple iterations.
 
+## Comments
+
+It's generally good practice to review comments in your code to ensure they are accurate and relevant.
+
 ## Ending a mentoring conversation:
 
 Have fun with the next exercise; feel free to post here if you have more comments or questions.

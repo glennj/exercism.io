@@ -1,5 +1,13 @@
 A caveat: I'm not a Lua programmer, though I did complete the track.
 
+## iterating over a string
+
+There is an alternate way to iterate over the characters of a string. The [`string.gmatch`](https://www.lua.org/manual/5.4/manual.html#pdf-string.gmatch) function returns an iterator so you can loop over all the matches. If your pattern is `"."` then each match is one character:
+
+```lua
+for char in input:gmatch(".") do
+```
+
 ## exercise: leap
 
 The key to this exercise is to combine the criteria into a single expression.
