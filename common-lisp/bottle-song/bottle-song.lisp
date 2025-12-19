@@ -14,9 +14,9 @@
       (line3 () "And if one green bottle should accidentally fall,")
       (line4 (n) (format nil "There'll be ~a." (bottles (1- n))))
       (verse (n) (list "" (line1 n) (line1 n) (line3) (line4 n)))
-      (helper (n remaining song)
+      (recite-rec (n remaining &optional (song '()))
         (if (zerop remaining)
           song
-          (helper (1- n) (1- remaining) (append song (verse n))))))
+          (recite-rec (1- n) (1- remaining) (append song (verse n))))))
 
-    (cdr (helper start-bottles take-down '()))))
+    (cdr (recite-rec start-bottles take-down))))
