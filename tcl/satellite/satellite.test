@@ -3,6 +3,9 @@ package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# uncomment for more verbose test results
+#configure -verbose {body error usec}
+
 ############################################################
 source "satellite.tcl"
 
@@ -48,5 +51,66 @@ test satellite-2.3 "Reject traversals with repeated elements" -body {
     treeFromTraversals {a b a} {b a a}
 } -returnCodes error -result "traversals must contain unique elements"
 
+
+skip sattelite-3.1
+test sattelite-3.1 "A degenerate binary tree" -body {
+    treeFromTraversals {a b c d} {d c b a}
+} -returnCodes ok -match dictionary -result {
+    v a
+    l {
+        v b
+        l {
+            v c
+            l { v d l {} r {} }
+            r {}
+        }
+        r {}
+    }
+    r {}
+}
+
+skip sattelite-3.2
+test sattelite-3.2 "Another degenerate binary tree" -body {
+    treeFromTraversals {a b c d} {a b c d}
+} -returnCodes ok -match dictionary -result {
+    v a
+    l {}
+    r {
+        v b
+        l {}
+        r {
+            v c
+            l {}
+            r { v d l {} r {} }
+        }
+    }
+}
+
+skip sattelite-3.3
+test sattelite-3.3 "Tree with many more items" -body {
+    set preorder {a b d g h c e f i}
+    set inorder  {g d h b a e c i f}
+    treeFromTraversals $preorder $inorder
+} -returnCodes ok -match dictionary -result {
+    v a
+    l {
+        v b
+        l {
+            v d
+            l { v g l {} r {} }
+            r { v h l {} r {} }
+        }
+        r {}
+    }
+    r {
+        v c
+        l { v e l {} r {} }
+        r {
+            v f
+            l { v i l {} r {} }
+            r {}
+        }
+    }
+}
 
 cleanupTests

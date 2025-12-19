@@ -3,6 +3,8 @@ package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+configure -verbose {msec}
+
 ############################################################
 source "nth-prime.tcl"
 
