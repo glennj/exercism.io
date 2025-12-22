@@ -3,18 +3,9 @@ return function(matrix)
   local colMin = {}
 
   for i = 1, #matrix do
-    rowMax[i] = math.mininteger
     for j = 1, #matrix[i] do
-      if i == 1 then 
-        colMin[j] = math.maxinteger
-      end
-      
-      if matrix[i][j] > rowMax[i] then
-        rowMax[i] = matrix[i][j]
-      end
-      if matrix[i][j] < colMin[j] then
-        colMin[j] = matrix[i][j]
-      end
+      rowMax[i] = j == 1 and matrix[i][j] or math.max(matrix[i][j], rowMax[i])
+      colMin[j] = i == 1 and matrix[i][j] or math.min(matrix[i][j], colMin[j])
     end
   end
 
