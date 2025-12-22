@@ -117,6 +117,20 @@ Well done! Many people miss the [optional positional parameters](https://dart.de
 Can you combine the tests into one boolean expression (using [Logical operators](https://dart.dev/language/operators#logical-operators))?
 It often helps to say the leap year rules out loud using the words "and" and "or" and "not".
 
+The code can look like:
+
+```dart
+bool leapYear(int year) {
+    return (one expression here);
+}
+```
+
+Or with [arrow notation](https://dart.dev/resources/dart-cheatsheet#arrow-syntax)
+```dart
+bool leapYear(int year) => (one expression here);
+```
+
+
 ---
 
 <!-- eliuds-eggs -->
