@@ -928,6 +928,18 @@ Quotes are not required:
 * as the "word" of a [Here String](https://www.gnu.org/software/bash/manual/bash.html#Here-Strings)
 * when you _want_ the variable to undergo [Word Splitting](https://www.gnu.org/software/bash/manual/bash.html#Word-Splitting) and [Filename Expansion](https://www.gnu.org/software/bash/manual/bash.html#Filename-Expansion)
 
+<!-- -->
+
+Note that the right-hand side of a variable assignment does not necessarily need to be quoted.
+From [Shell Parameters](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters) in the manual:
+
+> A variable is assigned to using a statement of the form
+>
+>> name=[value]
+>
+> [...] All values undergo tilde expansion, parameter and variable expansion, command substitution, arithmetic expansion, and quote removal (see [Shell Parameter Expansion](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion))
+
+That list of expansions explicitly excludes word splitting and filename expansion.
 
 <!-- ........................................................ -->
 ## Unset and Quoting
