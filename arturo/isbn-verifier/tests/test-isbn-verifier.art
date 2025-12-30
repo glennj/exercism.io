@@ -30,6 +30,14 @@ describe "ISBN Verifier" [
         expects.be:'false? @[valid? "3-598-2X507-9"]
     ]
 
+    it "only one check digit is allowed" [
+        expects.be:'false? @[valid? "3-598-21508-96"]
+    ]
+
+    it "X is not substituted by the value 10" [
+        expects.be:'false? @[valid? "3-598-2X507-5"]
+    ]
+
     it "valid ISBN without separating dashes" [
         expects.be:'true? @[valid? "3598215088"]
     ]
