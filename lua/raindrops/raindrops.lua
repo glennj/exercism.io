@@ -1,10 +1,13 @@
+local drops = {{3, "Pling"}, {5, "Plang"}, {7, "Plong"}}
+
 local raindrops = function(n)
     local result = ""
-    if n % 3 == 0   then result = result .. "Pling" end
-    if n % 5 == 0   then result = result .. "Plang" end
-    if n % 7 == 0   then result = result .. "Plong" end
-    if #result == 0 then result = tostring(n) end
-    return result
+    for _, pair in ipairs(drops) do
+        if n % pair[1] == 0 then
+            result = result .. pair[2]
+        end
+    end
+    return #result > 0 and result or tostring(n)
 end
 
 return raindrops
