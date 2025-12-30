@@ -4,6 +4,7 @@
 --             result  REAL
 --         );
 
+/*
 CREATE TEMP TABLE planet_year (
     planet TEXT
   , relative_to_earth REAL
@@ -19,8 +20,21 @@ INSERT INTO planet_year VALUES
   , ('Uranus',   84.016846)
   , ('Neptune', 164.79132)
 ;
+*/
 
-WITH earth_year AS (
+-- I did not know you could specify a "table literal" with a VALUES list
+WITH planet_year(planet, relative_to_earth) AS (
+    VALUES
+        ('Mercury',   0.2408467)
+      , ('Venus',     0.61519726)
+      , ('Earth',     1.0)
+      , ('Mars',      1.8808158)
+      , ('Jupiter',  11.862615)
+      , ('Saturn',   29.447498)
+      , ('Uranus',   84.016846)
+      , ('Neptune', 164.79132)
+)
+, earth_year AS (
     SELECT 31557600 AS in_seconds
 )
 UPDATE "space-age" AS s
