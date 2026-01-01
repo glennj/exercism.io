@@ -1,0 +1,38 @@
+CREATE TEMP TABLE allergens (
+    allergen TEXT,
+    value    INT
+);
+
+INSERT INTO allergens VALUES
+  ('eggs', 1)
+, ('peanuts', 2)
+, ('shellfish', 4)
+, ('strawberries', 8)
+, ('tomatoes', 16)
+, ('chocolate', 32)
+, ('pollen', 64)
+, ('cats', 128)
+;
+
+
+UPDATE allergies
+SET result = IIF(score & allergens.value != 0, 'true', 'false')
+FROM allergens
+WHERE task = 'allergicTo'
+  AND item = allergens.allergen
+;
+
+
+WITH grouped AS (
+    SELECT score, GROUP_CONCAT(allergen, ', ') AS allergy_items
+    FROM allergies, allergens
+    WHERE task = 'list'
+        AND score & value != 0
+    GROUP BY score
+)
+UPDATE allergies
+SET result = allergy_items
+FROM grouped
+WHERE task = 'list'
+  AND allergies.score = grouped.score
+;
