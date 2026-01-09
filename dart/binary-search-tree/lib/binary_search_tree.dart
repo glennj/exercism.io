@@ -9,18 +9,11 @@ class BinarySearchTree<T extends Comparable<T>> {
   BinarySearchTree get root => this;
 
   void insert(T value) {
-    if (value.compareTo(this.data) <= 0) {
-      if (this.left == null) {
-        this.left = BinarySearchTree<T>(value);
-      } else {
-        this.left!.insert(value);
-      }
+    if (value.compareTo(data) <= 0) {
+      // using a cascade (`?..`) so the object is returned, not the result of `insert`
+      left = (left?..insert(value)) ?? BinarySearchTree<T>(value);
     } else {
-      if (this.right == null) {
-        this.right = BinarySearchTree<T>(value);
-      } else {
-        this.right!.insert(value);
-      }
+      right = (right?..insert(value)) ?? BinarySearchTree<T>(value);
     }
   }
 
@@ -31,8 +24,8 @@ class BinarySearchTree<T extends Comparable<T>> {
   }
 
   void forEach<T>(void Function(T) func) {
-    this.left?.forEach(func);
-    func(this.data as T);
-    this.right?.forEach(func);
+    left?.forEach(func);
+    func(data as T);
+    right?.forEach(func);
   }
 }
