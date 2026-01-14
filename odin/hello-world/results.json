@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "status": "fail",
+  "tests": [
+    {
+      "name": "Say Hi!",
+      "message": "expected hello_world() to be Hello, World!, got Hello, World?!",
+      "status": "fail",
+      "test_code": "expected := \"Hello, World!\"\ntesting.expect_value(t, hello_world(), expected)"
+    }
+  ]
+}

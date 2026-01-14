@@ -73,6 +73,8 @@ var result = someList.fold(
 ```
 The return value from fold's 2nd argument becomes the accumulator value for the next iteration.
 
+There are lots of other useful methods in the [`Iterable`](https://api.dart.dev/dart-core/Iterable-class.html) class
+
 ---
 
 Function variables usually don't need to have an explicit type. 
