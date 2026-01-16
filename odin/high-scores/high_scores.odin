@@ -1,6 +1,7 @@
 package high_scores
 
 import "core:slice"
+import "core:math/bits"
 
 High_Scores :: struct {
 	scores: []int,
@@ -31,11 +32,9 @@ latest :: proc(s: High_Scores) -> int {
 }
 
 personal_best :: proc(s: High_Scores) -> int {
-	best := s.scores[0]
+	best := bits.I64_MIN
 	for i := 0; i < len(s.scores); i += 1 {
-		if s.scores[i] > best {
-			best = s.scores[i]
-		}
+		best = max(best, s.scores[i])
 	}
 	return best
 }
