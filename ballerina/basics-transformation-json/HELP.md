@@ -25,6 +25,7 @@ It's possible to submit an incomplete solution which allows you to:
 If you'd like help solving the exercise, check the following pages:
 
 - The [Ballerina track's documentation](https://exercism.org/docs/tracks/ballerina)
+- The [Ballerina track's programming category on the forum](https://forum.exercism.org/c/programming/ballerina)
 - [Exercism's programming category on the forum](https://forum.exercism.org/c/programming/5)
 - The [Frequently Asked Questions](https://exercism.org/docs/using/faqs)
 
