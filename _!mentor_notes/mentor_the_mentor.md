@@ -89,3 +89,16 @@ Sometimes efficiency is a goal of a track. Some of the systems langauges in part
 
 I would not consider "most concise" a goal: you'll see lots of unreadable one-liners in the community solutions.
 
+<!-- -->
+
+In general, here's a strategy that's worked for me. Read code. Lots of it. On
+Exercism, for every exercise you do, look at the community solutions. Use the
+"sort by" dropdown to get different solutions at the top. Read them, and try to
+understand them. If they use a function you're not familiar with, look it up in
+the language documenation. Ask questions on Discord or the forum so you get
+more opinions than just one mentor (I happen to be the only Dart mentor right
+now). If you find a technique that looks interesting, try it in your own
+solution. Don't copy it but try to implement it yourself.
+
+Programming is something that gets easier with experience. And there's no
+shortcut to get experience: you have to practice and practice.
