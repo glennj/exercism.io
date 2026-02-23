@@ -1,11 +1,9 @@
 class AtbashCipher {
-  String encode(String plaintext) =>
-    decode(plaintext.toLowerCase()).insertSpacesEvery(5);
-
   String decode(String ciphertext) =>
-    ciphertext.splitMapJoin('', onNonMatch: _translate);
+      ciphertext.splitMapJoin('', onNonMatch: (char) => translation[char] ?? '');
 
-  String _translate(String character) => translation[character] ?? '';
+  String encode(String plaintext) =>
+      decode(plaintext.toLowerCase()).insertSpaces();
 }
 
 const translation = {
@@ -18,6 +16,6 @@ const translation = {
 };
 
 extension StringGrouping on String {
-  String insertSpacesEvery(int count) =>
-    RegExp(".{1,${count}}").allMatches(this).map((m) => m.group(0)).join(' ');
+  String insertSpaces({int every = 5}) =>
+      RegExp(".{1,${every}}").allMatches(this).map((m) => m.group(0)).join(' ');
 }
