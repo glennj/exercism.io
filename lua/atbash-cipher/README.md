@@ -40,6 +40,7 @@ All text will be encoded as lowercase letters.
 ### Contributed to by
 
 - @aarti
+- @BNAndras
 
 ### Based on
 

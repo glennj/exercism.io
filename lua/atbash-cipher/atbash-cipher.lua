@@ -5,15 +5,16 @@ local encode_char = function (char)
 end
 
 local group_by = function (string, n)
-    n = n or 5
     return string:gsub(("."):rep(n), "%0 "):gsub("%s$", "")
 end
 
 ----------------------------------
-local atbash = function(plaintext)
-    local alnum_chars = (plaintext or ""):gsub("%W", ""):lower()
-    local encoded = alnum_chars:gsub("%l", encode_char)
-    return group_by(encoded)
+local atbash = function(text)
+    local alnum_chars = (text or ""):gsub("%W", ""):lower()
+    return alnum_chars:gsub("%l", encode_char)
 end
 
-return { encode = atbash }
+return {
+    decode = atbash,
+    encode = function(text) return group_by(atbash(text), 5) end
+}
