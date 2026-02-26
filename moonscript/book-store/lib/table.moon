@@ -7,17 +7,6 @@ contains = (t, item) ->
   false
 
 
--- distinct elements
-distinct = (t) ->
-  seen = {}
-  result = {}
-  for elem in *t
-    if not seen[elem]
-      seen[elem] = true
-      table.insert result, elem
-  result
-
-
 --
 map = (t, fn) ->
   result = {}
@@ -49,20 +38,4 @@ sorted = (t) ->
   u
 
 
-intersection = (t1, t2) ->
-  result = {}
-  for elem in *t1
-    if contains t2, elem
-      table.insert result, elem
-  result
-
-
-{
-  :clone,
-  :contains,
-  :distinct,
-  :intersection,
-  :map,
-  :sorted,
-  :treverse,
-}
+{ :contains, :map, :treverse, :clone, :sorted }
