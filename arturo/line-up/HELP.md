@@ -2,11 +2,10 @@
 
 ## Running the tests
 
-The Arturo track uses the [Unitt unit-testing package][unitt] for all exercise tests.
-This package provides a testng framework supporting both modern RSpec-inspired syntax and legacy XUnit-inspired syntax.
-Arturo will automatically download and install this package when you run the tests, requiring minimal setup.
-
-To begin running tests, you can use `arturo tester.art` or `exercism test` within the exercise folder.
+The Arturo track uses the [Unitt 3.0.0 unit-testing package][unitt] for all exercise tests.
+This package provides a testing framework supporting both modern RSpec-inspired syntax and legacy XUnit-inspired syntax.
+Running `arturo tester.art` or `exercism test` from within your local exercise folder should install the package from the Internet on first run.
+Alternatively, you can install Unitt by running `arturo --package install unitt 3.0.0`.
 Only the first test will be run and reported back to you.
 Once that test passes, unskip the next one and run the tests again until each test passes.
 For both the RSpec and XUnit setups, that's as simple as removing `.skip` from `it.skip` or `test.skip` respectively.
@@ -24,7 +23,7 @@ leap/
 ```
 
 Running `arturo tester.art` will set up Unitt and then run the tests inside `tests/test-leap.art`.
-The tests will import `src/leap.art` which contains your solution and tben make a series of assertions about what your solution should return for specific inputs.
+The tests will import `src/leap.art` which contains your solution and then make a series of assertions about what your solution should return for specific inputs.
 
 
 ## Solution File
@@ -198,6 +197,6 @@ Here are some resources for getting help if you run into trouble
 * [Arturo Discord][discord] is Arturo's official Discord server.
 * [Rosetta Code][rosetta-code] has over 770+ Arturo code examples for many different tasks.
 
-[official-docs]: https://arturo-lang.io/master/documentation/
+[official-docs]: https://arturo-lang.io/documentation
 [discord]: https://discord.gg/YdVK2CB
 [rosetta-code]: https://rosettacode.org/wiki/Category:Arturo

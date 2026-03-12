@@ -1,7 +1,8 @@
+execute ~{|sys\binary| -p install unitt 3.0.0}
 exe: switch "windows" = sys\os 
     -> "unitt.bat" 
     -> "unitt"
 
 fullpath: normalize ~"|path\home|/.arturo/packages/bin/|exe|"
-code: execute.code.directly ~"|fullpath|"
+code: execute.code.directly fullpath
 panic.unstyled.code: code ""
