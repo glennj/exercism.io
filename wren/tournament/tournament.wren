@@ -34,17 +34,17 @@ class Tournament {
     }
   }
 
-  format {
+  format { 
     var standings = [ formatRow(["Team", "MP", "W", "D", "L", "P"]) ]
     for (team in _teams.values.toList.sort()) {
-      var stats = team.stats.map {|i| i.toString}.toList
-      standings.add(formatRow(stats))
+      standings.add(formatRow(team.stats))
     }
     return standings
   }
 
   formatRow(items) {
-    var row = [Str.padEnd(items[0], 30)] + items[1..-1].map {|i| Str.padStart(i, 2)}
+    var row = [ Str.padEnd(items[0], 30) ]
+    row.addAll( items.skip(1).map {|i| Str.padStart(i.toString, 2)} )
     return row.join(" | ")
   }
 }
