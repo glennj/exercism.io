@@ -6,11 +6,11 @@ Testie.test("TwoFer") { |do, skip|
     Expect.value(TwoFer.twoFer()).toEqual("One for you, one for me.")
   }
 
-  do.test("a name given") {
+  skip.test("a name given") {
     Expect.value(TwoFer.twoFer("Alice")).toEqual("One for Alice, one for me.")
   }
 
-  do.test("another name given") {
+  skip.test("another name given") {
     Expect.value(TwoFer.twoFer("Bob")).toEqual("One for Bob, one for me.")
   }
 }

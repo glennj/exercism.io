@@ -1,4 +1,5 @@
 class TwoFer {
+  // Taking advantage of method overloading: https://wren.io/method-calls.html#signature
   static twoFer() {
     return twoFer("you")
   }
