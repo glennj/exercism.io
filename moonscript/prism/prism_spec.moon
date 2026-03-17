@@ -1,103 +1,103 @@
 Prism = require 'prism'
 
 describe 'prism', ->
---  it 'zero prisms', ->
---    start = {x: 0, y: 0, angle: 0}
---    prisms = {}
---    expected = {}
---    result = Prism.findSequence start, prisms
---    assert.are.same expected, result
---
---  it 'one prism one hit', ->
---    start = {x: 0, y: 0, angle: 0}
---    prisms = {
---      {id: 1, x: 10, y: 0, angle: 0}
---    }
---    expected = {1}
---    result = Prism.findSequence start, prisms
---    assert.are.same expected, result
---
---  it 'one prism zero hits', ->
---    start = {x: 0, y: 0, angle: 0}
---    prisms = {
---      {id: 1, x: -10, y: 0, angle: 0}
---    }
---    expected = {}
---    result = Prism.findSequence start, prisms
---    assert.are.same expected, result
---
---  it 'going up zero hits', ->
---    start = {x: 0, y: 0, angle: 90}
---    prisms = {
---      {id: 3, x: 0, y: -10, angle: 0}
---      {id: 1, x: -10, y: 0, angle: 0}
---      {id: 2, x: 10, y: 0, angle: 0}
---    }
---    expected = {}
---    result = Prism.findSequence start, prisms
---    assert.are.same expected, result
---
---  it 'going down zero hits', ->
---    start = {x: 0, y: 0, angle: -90}
---    prisms = {
---      {id: 1, x: 10, y: 0, angle: 0}
---      {id: 2, x: 0, y: 10, angle: 0}
---      {id: 3, x: -10, y: 0, angle: 0}
---    }
---    expected = {}
---    result = Prism.findSequence start, prisms
---    assert.are.same expected, result
---
---  it 'going left zero hits', ->
---    start = {x: 0, y: 0, angle: 180}
---    prisms = {
---      {id: 2, x: 0, y: 10, angle: 0}
---      {id: 3, x: 10, y: 0, angle: 0}
---      {id: 1, x: 0, y: -10, angle: 0}
---    }
---    expected = {}
---    result = Prism.findSequence start, prisms
---    assert.are.same expected, result
---
---  it 'negative angle', ->
---    start = {x: 0, y: 0, angle: -180}
---    prisms = {
---      {id: 1, x: 0, y: -10, angle: 0}
---      {id: 2, x: 0, y: 10, angle: 0}
---      {id: 3, x: 10, y: 0, angle: 0}
---    }
---    expected = {}
---    result = Prism.findSequence start, prisms
---    assert.are.same expected, result
---
---  it 'large angle', ->
---    start = {x: 0, y: 0, angle: 2340}
---    prisms = {
---      {id: 1, x: 10, y: 0, angle: 0}
---    }
---    expected = {}
---    result = Prism.findSequence start, prisms
---    assert.are.same expected, result
---
---  it 'upward refraction two hits', ->
---    start = {x: 0, y: 0, angle: 0}
---    prisms = {
---      {id: 1, x: 10, y: 10, angle: 0}
---      {id: 2, x: 10, y: 0, angle: 90}
---    }
---    expected = {2, 1}
---    result = Prism.findSequence start, prisms
---    assert.are.same expected, result
---
---  it 'downward refraction two hits', ->
---    start = {x: 0, y: 0, angle: 0}
---    prisms = {
---      {id: 1, x: 10, y: 0, angle: -90}
---      {id: 2, x: 10, y: -10, angle: 0}
---    }
---    expected = {1, 2}
---    result = Prism.findSequence start, prisms
---    assert.are.same expected, result
+  it 'zero prisms', ->
+    start = {x: 0, y: 0, angle: 0}
+    prisms = {}
+    expected = {}
+    result = Prism.findSequence start, prisms
+    assert.are.same expected, result
+
+  it 'one prism one hit', ->
+    start = {x: 0, y: 0, angle: 0}
+    prisms = {
+      {id: 1, x: 10, y: 0, angle: 0}
+    }
+    expected = {1}
+    result = Prism.findSequence start, prisms
+    assert.are.same expected, result
+
+  it 'one prism zero hits', ->
+    start = {x: 0, y: 0, angle: 0}
+    prisms = {
+      {id: 1, x: -10, y: 0, angle: 0}
+    }
+    expected = {}
+    result = Prism.findSequence start, prisms
+    assert.are.same expected, result
+
+  it 'going up zero hits', ->
+    start = {x: 0, y: 0, angle: 90}
+    prisms = {
+      {id: 3, x: 0, y: -10, angle: 0}
+      {id: 1, x: -10, y: 0, angle: 0}
+      {id: 2, x: 10, y: 0, angle: 0}
+    }
+    expected = {}
+    result = Prism.findSequence start, prisms
+    assert.are.same expected, result
+
+  it 'going down zero hits', ->
+    start = {x: 0, y: 0, angle: -90}
+    prisms = {
+      {id: 1, x: 10, y: 0, angle: 0}
+      {id: 2, x: 0, y: 10, angle: 0}
+      {id: 3, x: -10, y: 0, angle: 0}
+    }
+    expected = {}
+    result = Prism.findSequence start, prisms
+    assert.are.same expected, result
+
+  it 'going left zero hits', ->
+    start = {x: 0, y: 0, angle: 180}
+    prisms = {
+      {id: 2, x: 0, y: 10, angle: 0}
+      {id: 3, x: 10, y: 0, angle: 0}
+      {id: 1, x: 0, y: -10, angle: 0}
+    }
+    expected = {}
+    result = Prism.findSequence start, prisms
+    assert.are.same expected, result
+
+  it 'negative angle', ->
+    start = {x: 0, y: 0, angle: -180}
+    prisms = {
+      {id: 1, x: 0, y: -10, angle: 0}
+      {id: 2, x: 0, y: 10, angle: 0}
+      {id: 3, x: 10, y: 0, angle: 0}
+    }
+    expected = {}
+    result = Prism.findSequence start, prisms
+    assert.are.same expected, result
+
+  it 'large angle', ->
+    start = {x: 0, y: 0, angle: 2340}
+    prisms = {
+      {id: 1, x: 10, y: 0, angle: 0}
+    }
+    expected = {}
+    result = Prism.findSequence start, prisms
+    assert.are.same expected, result
+
+  it 'upward refraction two hits', ->
+    start = {x: 0, y: 0, angle: 0}
+    prisms = {
+      {id: 1, x: 10, y: 10, angle: 0}
+      {id: 2, x: 10, y: 0, angle: 90}
+    }
+    expected = {2, 1}
+    result = Prism.findSequence start, prisms
+    assert.are.same expected, result
+
+  it 'downward refraction two hits', ->
+    start = {x: 0, y: 0, angle: 0}
+    prisms = {
+      {id: 1, x: 10, y: 0, angle: -90}
+      {id: 2, x: 10, y: -10, angle: 0}
+    }
+    expected = {1, 2}
+    result = Prism.findSequence start, prisms
+    assert.are.same expected, result
 
   it 'same prism twice', ->
     start = {x: 0, y: 0, angle: 0}
@@ -167,7 +167,7 @@ describe 'prism', ->
     result = Prism.findSequence start, prisms
     assert.are.same expected, result
 
-  pending 'complex path with multiple prisms floating point precision', ->
+  it 'complex path with multiple prisms floating point precision', ->
     start = {x: 0, y: 0, angle: 0}
     prisms = {
       {id: 46, x: 37.4, y: 20.6, angle: -88.332}
