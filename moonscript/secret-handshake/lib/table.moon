@@ -1,5 +1,3 @@
-import fold from require 'moon'
-
 -- does the table contain a target element
 contains = (t, item) ->
   for elem in *t

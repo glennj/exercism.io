@@ -1,4 +1,4 @@
-import treverse from require './table'
+import treverse from require 'lib/table'
 
 actions = {'wink', 'double blink', 'close your eyes', 'jump'}
 

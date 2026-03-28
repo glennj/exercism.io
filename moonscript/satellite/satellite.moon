@@ -1,4 +1,4 @@
-import contains, distinct, intersection from require 'lib/table'
+import distinct, intersection from require 'lib/table'
 
 tree = (preorder, inorder) ->
   assert #preorder == #inorder, 'traversals must have the same length'

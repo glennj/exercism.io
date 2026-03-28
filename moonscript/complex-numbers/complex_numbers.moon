@@ -34,10 +34,10 @@ class ComplexNumber
   -- a class method, `self` is the class object
   @tocomplex: (thing) ->
     t = type thing
-    if t == 'table' and thing.__class == self
+    if t == 'table' and thing.__class == @
       thing
     elseif t == 'number'
-      self thing, 0
+      @ thing, 0
     else
       error "Don't know how to convert this thing to a ComplexNumber"
 

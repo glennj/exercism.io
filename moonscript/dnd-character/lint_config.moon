@@ -1,0 +1,5 @@
+{
+  whitelist_shadowing: {
+    ["."]: {"sum"}
+  }
+}
