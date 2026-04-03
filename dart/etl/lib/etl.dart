@@ -1,6 +1,9 @@
+typedef InType = Map<String, List<String>>;
+typedef OutType = Map<String, int>;
+
 class Etl {
   // using lots of lazy Iterables, so it should be pretty quick.
-  Map<String, int> transform(Map<String, List<String>> original) =>
+  OutType transform(InType original) =>
     Map.fromEntries(
       original.entries
         .map((entry) => MapEntry(int.parse(entry.key), entry.value))
