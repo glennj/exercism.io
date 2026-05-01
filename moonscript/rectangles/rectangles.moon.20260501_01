@@ -1,0 +1,62 @@
+-- Using classes here is overkill, but it's an easy way
+-- to encapsulate the functionality.
+-- ---------------------------------------------
+class Matrix
+  new: (input) =>
+    @m = [ [c for c in row\gmatch '.'] for row in *input]
+
+  height: => #@m
+  width: => #@m[1]
+
+  isVertex: (row, col) =>
+    @m[row][col] == '+'
+
+  isHorizontalLine: (row, i, j) =>
+    for k = i, j
+      return false if not (@m[row][k] == '-' or @m[row][k] == '+')
+    true
+
+  isVerticalLine: (col, i, j) =>
+    for k = i, j
+      return false if not (@m[k][col] == '|' or @m[k][col] == '+')
+    true
+
+  isRectangle: (topRight, bottomLeft) =>
+    return false unless @isVertex bottomLeft.row, topRight.col
+    return false unless @isHorizontalLine topRight.row, bottomLeft.col, topRight.col
+    return false unless @isHorizontalLine bottomLeft.row, bottomLeft.col, topRight.col
+    return false unless @isVerticalLine bottomLeft.col, topRight.row, bottomLeft.row
+    return false unless @isVerticalLine topRight.col, topRight.row, bottomLeft.row
+    true
+
+-- ---------------------------------------------
+class Vertices
+  new: (matrix) =>
+    @vs = [{row: r, col: c} for r = 1, matrix\height! for c = 1, matrix\width! when matrix\isVertex r, c]
+
+  iter: =>
+    coroutine.wrap ->
+      for v in *@vs
+        coroutine.yield v 
+
+  -- list of vertices on the same row but to the right of the given vertex
+  rightOf: (vertex) =>
+    [v for v in *@vs when v.row == vertex.row and v.col > vertex.col]
+
+  -- list of vertices on the same column but below the given vertex
+  below: (vertex) =>
+    [v for v in *@vs when v.row > vertex.row and v.col == vertex.col]
+ 
+-- ---------------------------------------------
+{
+  rectangles: (input) ->
+    matrix = Matrix input
+    vertices = Vertices matrix
+    count = 0
+    for topLeft in vertices\iter!
+      for topRight in *vertices\rightOf topLeft
+        for bottomLeft in *vertices\below topLeft
+          if matrix\isRectangle topRight, bottomLeft
+            count += 1
+    count
+}
