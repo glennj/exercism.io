@@ -10,9 +10,7 @@ return {
 
     -- -------------------------------------
     local shift = function()
-      local value = stack[1]
-      stack = { table.unpack(stack, 2) }
-      return value
+      return table.remove(stack, 1)
     end
 
     local get_number = function()
