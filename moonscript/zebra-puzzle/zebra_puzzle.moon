@@ -12,15 +12,11 @@ MIDDLE = 3
 local drinksWater, ownsZebra
 
 solvePuzzle = ->
-  for colours in permute.order_iter HOUSES
-    {red, green, ivory, yellow, blue} = colours
-
+  for {red, green, ivory, yellow, blue} in permute.order_iter HOUSES
     -- clue 6. The green house is immediately to the right of the ivory house.
     continue if not rightOf green, ivory
 
-    for countries in permute.order_iter HOUSES
-      {english, spanish, ukrainian, norwegian, japanese} = countries
-
+    for {english, spanish, ukrainian, norwegian, japanese} in permute.order_iter HOUSES
       -- clue 2. The Englishman lives in the red house.
       -- clue 10. The Norwegian lives in the first house.
       -- clue 15. The Norwegian lives next to the blue house.
@@ -35,9 +31,7 @@ solvePuzzle = ->
         [norwegian]: 'Norwegian'
         [japanese]: 'Japanese'
 
-      for beverages in permute.order_iter HOUSES
-        {coffee, tea, milk, orangeJuice, water} = beverages
-
+      for {coffee, tea, milk, orangeJuice, water} in permute.order_iter HOUSES
         -- clue 4. The person in the green house drinks coffee.
         -- clue 5. The Ukrainian drinks tea.
         -- clue 9. The person in the middle house drinks milk.
@@ -45,9 +39,7 @@ solvePuzzle = ->
         continue if tea != ukrainian
         continue if milk != MIDDLE
 
-        for hobbies in permute.order_iter HOUSES
-          {dancing, painting, reading, football, chess} = hobbies
-
+        for {dancing, painting, reading, football, chess} in permute.order_iter HOUSES
           -- clue 8. The person in the yellow house is a painter.
           -- clue 13. The person who plays football drinks orange juice.
           -- clue 14. The Japanese person plays chess.
@@ -55,9 +47,7 @@ solvePuzzle = ->
           continue if football != orangeJuice
           continue if chess != japanese
 
-          for pets in permute.order_iter HOUSES
-            {dog, snails, fox, horse, zebra} = pets
-
+          for {dog, snails, fox, horse, zebra} in permute.order_iter HOUSES
             -- clue 3. The Spaniard owns the dog.
             -- clue 7. The snail owner likes to go dancing.
             -- clue 11. The person who enjoys reading lives in the house next to the person with the fox.
