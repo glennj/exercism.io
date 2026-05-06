@@ -13,6 +13,7 @@ function cars.calculate_working_cars_per_minute(production_rate, success_rate)
   return cars.calculate_working_cars_per_hour(production_rate, success_rate) // 60
 end
 
+
 -- returns the cost of producing the given number of cars
 function cars.calculate_cost(cars_count)
   local groups = cars_count // GROUP_SIZE

@@ -54,7 +54,7 @@ end
 
 local function abs(a)
   local x = obj_form(a)
-  return {math.abs(x.num), math.abs(x.den) }
+  return reduce({math.abs(x.num), math.abs(x.den) })
 end
 
 local function exp_rational(a, p)

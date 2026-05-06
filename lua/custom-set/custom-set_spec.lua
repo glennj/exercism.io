@@ -48,9 +48,11 @@ describe('custom-set', function()
       assert.is_true(Set(1, 2, 3):is_subset(Set(4, 1, 2, 3)))
     end)
 
+    -- LuaFormatter off
     it('should indicate that a set is not a subset of another set with different elements but the same element count', function()
       assert.is_false(Set(1, 2, 3):is_subset(Set(4, 1, 3)))
     end)
+    -- LuaFormatter on
   end)
 
   describe('is_disjoint', function()
@@ -62,7 +64,7 @@ describe('custom-set', function()
       assert.is_true(Set():is_disjoint(Set(1)))
     end)
 
-    it('should indicate that a non-empty set is not disjoint with an empty set', function()
+    it('should indicate that a non-empty set is disjoint with an empty set', function()
       assert.is_true(Set(1):is_disjoint(Set()))
     end)
 
@@ -94,6 +96,10 @@ describe('custom-set', function()
 
     it('should consider different sets to be different', function()
       assert.is_false(Set(1, 2, 3):equals(Set(1, 2, 4)))
+    end)
+
+    it('should ignore duplicates', function()
+      assert.is_true(Set(1):equals(Set(1, 1)))
     end)
   end)
 
@@ -166,6 +172,10 @@ describe('custom-set', function()
 
     it('should give the difference of two sets with an intersection', function()
       assert.is_true(Set(3, 2, 1):difference(Set(2, 4)):equals(Set(1, 3)))
+    end)
+
+    it('should remove all duplicates in the first set', function()
+      assert.is_true(Set(1, 1):difference(Set(1)):equals(Set()))
     end)
   end)
 

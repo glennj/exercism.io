@@ -39,4 +39,4 @@ The `grep` command supports the following flags:
 
 ### Based on
 
-Conversation with Nate Foster. - https://www.cs.cornell.edu/Courses/cs3110/2014sp/hw/0/ps0.pdf
+Conversation with Nate Foster. - https://www.cs.cornell.edu/courses/cs3110/2014sp/hw/0/ps0.pdf

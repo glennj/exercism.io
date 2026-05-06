@@ -54,4 +54,4 @@ A _Yacht_ scores zero if entered in the _Full House_ category.
 
 ### Based on
 
-James Kilfiger, using wikipedia - https://en.wikipedia.org/wiki/Yacht_(dice_game)
+James Kilfiger, using Wikipedia - https://en.wikipedia.org/wiki/Yacht_(dice_game)

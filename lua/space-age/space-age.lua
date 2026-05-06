@@ -1,5 +1,5 @@
 local seconds_per_earth_year = 31557600
-local relative_orbital_period = {
+local relative_orbital_periods = {
     mercury =   0.2408467,
     venus   =   0.61519726,
     earth   =   1.0,
@@ -16,20 +16,21 @@ function float2fixed(f)
 end
 
 local SpaceAge = {}
-SpaceAge.__index = SpaceAge
 
 function SpaceAge:new(age_in_seconds)
-    local age = {
-        seconds = age_in_seconds or 0,
-    }
-    setmetatable(age, self)
+    local age = {}
+    setmetatable(age, {
+        -- functions are assigned directly to the instance (below), 
+        -- so any reason to look up a "missing" function is an error.
+        __index = function() error('not a planet') end
+    })
 
-    for planet, period in pairs(relative_orbital_period) do
+    for planet, earth_years_per_planet_year in pairs(relative_orbital_periods) do
         local funcname = "on_" .. planet
-        local relative_age = float2fixed(
-            age_in_seconds / seconds_per_earth_year / period
+        local age_on_planet = float2fixed(
+            age_in_seconds / seconds_per_earth_year / earth_years_per_planet_year
         )
-        SpaceAge[funcname] = function(self) return relative_age end
+        age[funcname] = function(self) return age_on_planet end
     end
 
     return age

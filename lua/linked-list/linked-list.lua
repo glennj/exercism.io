@@ -74,7 +74,7 @@ function LinkedList:count()
     return count
 end
 
--- delete *all* nodes with matching value
+-- delete *only the first* node with matching value
 function LinkedList:delete(value)
     local node = self.head
     while node do
@@ -90,6 +90,7 @@ function LinkedList:delete(value)
             else
                 self.head = node.next
             end
+            break
         end
         node = node.next
     end

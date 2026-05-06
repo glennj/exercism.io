@@ -1,14 +1,12 @@
 return function (text)
     return text
-        -- 1. captilize all words
-        :gsub("%f[%a]%l", string.upper)
+        -- 1. keep only the first letter of each word
+        --    (apostrophe is a "word character")
+        :gsub("%f[%a](.)[%a']*", "%1")
 
-        -- 2. add space between a lower and an upper
-        :gsub("%f[%L]%f[%u]", " ")
+        -- 2. remove all non-letters
+        :gsub("%A", "")
 
-        -- 3. take only the first letter of each word
-        :gsub("%u%S+", function(word) return word:sub(1,1) end)
-
-        -- 4. and remove all spaces
-        :gsub("%s", "")
+        -- 3. and uppercase
+        :upper()
 end

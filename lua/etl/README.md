@@ -60,4 +60,4 @@ If you want to look at how the data was previously structured and how it needs t
 
 ### Based on
 
-The Jumpstart Lab team - http://jumpstartlab.com
+Based on an exercise by the JumpstartLab team for students at The Turing School of Software and Design. - https://www.turing.edu/

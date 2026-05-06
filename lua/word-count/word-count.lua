@@ -1,8 +1,10 @@
 local function word_count(sentence)
     local count = {}
     for word in (sentence or ""):lower():gmatch("[%w']+") do
-        word = word:trim("'")
-        count[word] = (count[word] or 0) + 1
+        local w = word:trim("'")
+        if #w > 0 then
+            count[w] = (count[w] or 0) + 1
+        end
     end
     return count
 end
@@ -20,4 +22,4 @@ string.trim = function (s, charset)
 end
 
 
-return { word_count = word_count }
+return { count_words = word_count }

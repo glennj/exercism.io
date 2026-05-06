@@ -6,5 +6,13 @@ local colors = {
 return {
   color_code = function(color)
     return colors[color]
+  end,
+
+  colors = function()
+    local cs = {}
+    for c, v in pairs(colors) do
+      cs[v + 1] = c
+    end
+    return cs
   end
 }

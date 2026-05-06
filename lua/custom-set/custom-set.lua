@@ -17,7 +17,7 @@ end
 function Set:add(...)
     for i = 1, select('#', ...) do
         local element = select(i, ...)
-        self[element] = true
+        self[element] =  true
     end
 end
 

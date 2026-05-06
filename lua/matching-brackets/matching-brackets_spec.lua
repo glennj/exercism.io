@@ -1,5 +1,4 @@
 -- canonical test data 2.0.0
-
 local brackets = require('matching-brackets')
 
 describe('matching-brackets', function()
@@ -55,6 +54,10 @@ describe('matching-brackets', function()
     assert.is_false(brackets.valid('[({]})'))
   end)
 
+  it('should reject paired and wrong nested brackets but innermost are correct', function()
+    assert.is_false(brackets.valid('[({}])'))
+  end)
+
   it('should reject paired and incomplete brackets', function()
     assert.is_false(brackets.valid('{}['))
   end)
@@ -63,11 +66,20 @@ describe('matching-brackets', function()
     assert.is_false(brackets.valid('[]]'))
   end)
 
+  it('should reject early unexpected brackets', function()
+    assert.is_false(brackets.valid(')()'))
+  end)
+
+  it('should reject early mismatched brackets', function()
+    assert.is_false(brackets.valid('{)()'))
+  end)
+
   it('should accept math expression', function()
     assert.is_true(brackets.valid('(((185 + 223.85) * 15) - 543)/2'))
   end)
 
   it('should accept complex latex expression', function()
-    assert.is_true(brackets.valid([[\left(\begin{array}{cc} \frac{1}{3} & x\\ \mathrm{e}^{x} &... x^2 \end{array}\right)]]))
+    assert.is_true(brackets.valid(
+                     [[\left(\begin{array}{cc} \frac{1}{3} & x\\ \mathrm{e}^{x} &... x^2 \end{array}\right)]]))
   end)
 end)

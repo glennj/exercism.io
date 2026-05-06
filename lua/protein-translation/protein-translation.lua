@@ -18,11 +18,11 @@ local rna_strand = function(rna)
     local proteins = {}
     for i = 1, #rna, 3 do
         local cod = rna:sub(i, i+2)
-        local protein = codon(cod)    -- allow error to propagate
+        local protein = codon(cod)
         if protein == "STOP" then break end
         table.insert(proteins, protein)
     end
     return proteins
 end
 
-return { codon = codon, rna_strand = rna_strand }
+return { proteins = rna_strand }

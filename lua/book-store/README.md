@@ -73,4 +73,4 @@ And $51.20 is the price with the biggest discount.
 
 ### Based on
 
-Inspired by the harry potter kata from Cyber-Dojo. - https://cyber-dojo.org
+Inspired by the harry potter kata from Cyber-Dojo. - https://cyber-dojo.org/creator/home
