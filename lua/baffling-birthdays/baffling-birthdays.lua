@@ -25,8 +25,8 @@ end
 
 baffling_birthdays.random_birthdates = function(count)
     local dates = {}
-    for _ = 1, count do
-        dates[#dates + 1] = random_birthdate()
+    for i = 1, count do
+        dates[i] = random_birthdate()
     end
     return dates
 end

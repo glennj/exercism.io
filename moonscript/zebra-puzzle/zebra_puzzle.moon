@@ -8,9 +8,6 @@ HOUSES = {1, 2, 3, 4, 5}
 FIRST = 1
 MIDDLE = 3
 
--- these are the functions we care about
-local drinksWater, ownsZebra
-
 solvePuzzle = ->
   for {red, green, ivory, yellow, blue} in permute.order_iter HOUSES
     -- clue 6. The green house is immediately to the right of the ivory house.
@@ -57,11 +54,10 @@ solvePuzzle = ->
             continue if not nextTo fox, reading
             continue if not nextTo horse, painting
 
-            -- solved! now define the functions
-            drinksWater = -> nationalities[water]
-            ownsZebra   = -> nationalities[zebra]
-            return true
+            return { waterDrinker: nationalities[water], zebraOwner: nationalities[zebra] }
+  error "No Solution Found!"
 
-assert solvePuzzle!, "No Solution Found!"
-
-{ :drinksWater, :ownsZebra }
+{ 
+  drinksWater: -> solvePuzzle!.waterDrinker
+  ownsZebra: -> solvePuzzle!.zebraOwner
+}
