@@ -1,22 +1,21 @@
-local L = require('./list_utils')
+local Seq = require('./seq')
 
 local function combinations(sum, size, exclude)
-    exclude = exclude or {}
+    exclude = Seq(exclude)
     if size == 1 then
-        if 1 <= sum and sum <= 9 and not L.contains(exclude, sum) then
-            return {{sum}}
+        if 1 <= sum and sum <= 9 and not exclude:contains(sum) then
+            return Seq({Seq({sum})})
         else
             return {}
         end
     else
-        local results = {}
+        local results = Seq()
         for n = 1, 9 do
-            if not L.contains(exclude, n) then
-                local newexclude = L.append(L.copy(exclude), n)
-                for _, c in ipairs(combinations(sum - n, size - 1, newexclude)) do
-                    local combination = L.sort(L.append(c, n))
-                    if not L.contains(results, combination) then
-                        table.insert(results, combination)
+            if not exclude:contains(n) then
+                for _, c in ipairs(combinations(sum - n, size - 1, exclude:append(n))) do
+                    local combination = c:append(n):sorted()
+                    if not results:contains(combination) then
+                        results:append(combination)
                     end
                 end
             end
