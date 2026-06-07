@@ -10,6 +10,10 @@ git checkout pubspec.lock
 
 <!-- Docs and tips -->
 
+For consistent style, use [`dart format`](https://dart.dev/tools/dart-format) ([formatter FAQ](https://github.com/dart-lang/dart_style/wiki/FAQ)).
+
+---
+
 [Effective Dart](https://dart.dev/effective-dart) is a very useful guide to community best practices.
 
 ---
