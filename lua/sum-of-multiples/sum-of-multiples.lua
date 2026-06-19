@@ -1,8 +1,8 @@
-local sum_of_multiples = function(multiples)
+local sum_of_multiples = function(factors)
 
     local is_a_multiple = function (n)
-        for _, m in pairs(multiples) do
-            if n % m == 0 then
+        for _, f in pairs(factors) do
+            if f ~= 0 and n % f == 0 then
                 return true
             end
         end

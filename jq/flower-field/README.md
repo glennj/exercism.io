@@ -48,10 +48,10 @@ run jq -s -R -c -f flower-field.jq << 'END_INPUT'
 
 What are they?
 
-* `-s`
+- `-s`
 
   This is "slurp" mode.
-  Instead of handling the input as a stream of JSON objects, 
+  Instead of handling the input as a stream of JSON objects,
   all the input will be slurped into an array.
 
   ```sh
@@ -65,7 +65,7 @@ What are they?
   [1,2,3,4,5]
   ```
 
-* `-R`
+- `-R`
 
   You may have seen `-r` already, to output "raw" strings (without quotes).
   This is the opposite.
@@ -92,7 +92,7 @@ you get the entire input as a single string, including end-of-line newlines.
 
 ```sh
 $ seq 5 | jq -s -R -c .
-"1\n2\n3\n4\n5\n" 
+"1\n2\n3\n4\n5\n"
 ```
 
 Handling this is part of the challenge of this exercise.

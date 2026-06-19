@@ -73,7 +73,6 @@ bats
 Use it while you are developing your exercise solutions to inspect the data that is currently in the jq pipline.
 See the [debugging doc][debugging] for more details.
 
-
 [bash]: https://exercism.org/docs/tracks/bash/tests
 [bats-assert]: https://github.com/bats-core/bats-assert
 [here-string]: https://www.gnu.org/software/bash/manual/bash.html#Here-Strings

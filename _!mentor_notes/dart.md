@@ -18,6 +18,10 @@ For consistent style, use [`dart format`](https://dart.dev/tools/dart-format) ([
 
 ---
 
+To update your code to follow the [Dart formatting guidelines](https://dart.dev/effective-dart/style#formatting), use the [`dart format` command](https://dart.dev/tools/dart-format). 
+Also, see [the FAQ](https://github.com/dart-lang/dart_style/wiki/FAQ).
+---
+
 Since you have a function that returns a single expression, you can write it with [arrow notation](https://dart.dev/language/functions)
 ```dart
 int add(int a, int b) {
@@ -68,7 +72,7 @@ for (var elem in someList) {
 }
 ```
 
-you can use a more functional style with [`fold`](https://api.dart.dev/stable/3.5.0/dart-core/Iterable/fold.html)
+you can use a more functional 1 with [`fold`](https://api.dart.dev/stable/3.5.0/dart-core/Iterable/fold.html)
 ```dart
 var result = someList.fold(
     someValue,
@@ -106,7 +110,7 @@ For further reading:
 
 <!-- two-fer -->
 
-Instead of using an `if` statement, you can provide the default value in the function signature.
+Instead of using an `if` statement (or a conditional operator), you can provide the default value in the function signature.
 See [Optional positional parameters](https://dart.dev/language/functions#optional-positional-parameters) in the manual.
 <!--
 See [Optional positional parameters](https://dart.dev/resources/dart-cheatsheet#optional-positional-parameters) in the Dart cheatsheet.

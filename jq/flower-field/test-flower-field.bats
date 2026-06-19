@@ -1,21 +1,14 @@
 #!/usr/bin/env bats
+# generated on 2026-05-26T18:34:23Z
 load bats-extra
 load bats-jq
 
-@test 'no rows' {
+@test 'no columns' {
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
-    run jq -s -R -c -f flower-field.jq < /dev/null
+    run jq -s -R -c -f flower-field.jq << 'END_INPUT'
 
-    assert_success
-    expected='[]'
-    assert_equal "$output" "$expected"
-}
-
-@test 'no columns' {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-
-    run jq -s -R -c -f flower-field.jq <<< ""
+END_INPUT
 
     assert_success
     expected='[""]'
@@ -164,5 +157,17 @@ END_INPUT
 
     assert_success
     expected='["1*22*1","12*322",".123*2","112*4*","1*22*2","111111"]'
+    assert_equal "$output" "$expected"
+}
+
+@test 'multiple adjacent flowers' {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+
+    run jq -s -R -c -f flower-field.jq << 'END_INPUT'
+.**.
+END_INPUT
+
+    assert_success
+    expected='["1**1"]'
     assert_equal "$output" "$expected"
 }
