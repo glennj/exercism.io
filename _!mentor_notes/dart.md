@@ -122,6 +122,74 @@ Well done! Many people miss the [optional positional parameters](https://dart.de
 
 ---
 
+Looking at various ways to code a function's parameter:
+
+1. this means that the required `name` parameter must be of type String: null is not allowed
+
+    ```dart
+    String twoFer(String name) {...}
+    ```
+
+1. this means that the `name` parameter must be of type String OR Null.
+   The programmer has to test for "nullity" before using the variable.
+
+    ```dart
+    String twoFer(String? name) {...}
+    ```
+
+   Because this is not enclosed in brackets, it's a _required_ positional parameter: `twoFer("Tom")` or `twoFer(null)`
+    
+1. [optional positional parameters](https://dart.dev/language/functions#optional-positional-parameters):
+   The function can be invoked like `twoFer()`.
+   The default value means that the `name` parameter can never be null.
+
+    ```dart
+    String twoFer([String name = "you"]) {...}
+    ```
+
+    If you don't provide a default value, the type must be nullable
+
+    ```dart
+    String twoFer([String? name]) {...}
+    ```
+
+See also the Dart cheatsheet:
+
+* [Nullable variables](https://dart.dev/resources/dart-cheatsheet#nullable-variables)
+* [Null-aware operators](https://dart.dev/resources/dart-cheatsheet#null-aware-operators)
+* [Optional positional parameters](https://dart.dev/resources/dart-cheatsheet#optional-positional-parameters)
+
+The other style is _named parameters_, where you invoke it like 
+
+```dart
+String twoFer({String name}) {...}
+
+var result = twoFer(name: "Joe");
+```
+
+This style is good when you have a function with lots of parameters: then the function invocation is self-documenting. An example:
+
+```dart
+void drawRectangle({int x, int y, int width, int height}) {...}
+
+// hard to understand what these numbers mean
+drawRectangle(1, 2, 3, 4);
+
+// self-documenting
+drawRectangle(x: 1, y: 2, height: 4, width: 3);
+```
+
+Note with this style, you can give the arguments in any order.
+
+The Dart API uses named parameters.
+An example is [`String.fromEnvironment`](https://api.dart.dev/dart-core/String/String.fromEnvironment.html) that has one required parameter and one optional named parameter:
+
+```dart
+var myHome = String.fromEnvironment("HOME");
+var myConfig = String.fromEnvironment("XDG_CONFIG_HOME", defaultValue: "$myHome/.config");
+```
+
+
 <!-- leap -->
 
 Can you combine the tests into one boolean expression (using [Logical operators](https://dart.dev/language/operators#logical-operators))?
