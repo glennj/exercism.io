@@ -1,0 +1,48 @@
+let groundY = 2
+let left = 2
+
+repeat(numBuildings()) {
+  let width = randomWidth()
+  let floors = randomNumFloors()
+
+  // ground floor
+  let x = left
+  let y = groundY
+  buildWall(x, y)
+  let numGlass = (width - 2 - 1) / 2
+  repeat(numGlass) {
+    x = x + 1
+    buildGlass(x, y)
+  }
+  x = x + 1
+  buildEntrance(x, y)
+  repeat(numGlass) {
+    x = x + 1
+    buildGlass(x, y)
+  }
+  x = x + 1
+  buildWall(x, y)
+
+  // rest of floors
+  repeat(floors - 1) {
+    x = left
+    y = y + 1
+    buildWall(x, y)
+    repeat(width - 2) {
+      x = x + 1
+      buildGlass(x, y)
+    }
+    x = x + 1
+    buildWall(x, y)
+  }
+
+  // roof
+  x = left
+  y = y + 1
+  repeat(width) {
+    buildWall(x, y)
+    x = x + 1
+  }
+
+  left = left + width + 1
+}

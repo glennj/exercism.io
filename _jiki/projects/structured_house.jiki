@@ -1,0 +1,58 @@
+// These colors are fixed for you.
+let skyColor = "skyblue"
+let grassColor = "green"
+let houseColor = "brown"
+let roofColor = "brick"
+let windowColor = "white"
+let doorColor = "dark brown"
+let knobColor = "yellow"
+
+// The canvas is 100 wide.
+let canvasWidth = 100
+
+// Change these two values to check your house scales correctly,
+// but build everything else relative to them.
+let houseWidth = 90
+let houseHeight = 65
+// --------------------------------------------------------------
+
+let grassHeight = 15
+let grassTop = canvasWidth - grassHeight
+let centreX = canvasWidth / 2
+
+// sky, ground
+rectangle(0, 0, canvasWidth, canvasWidth, skyColor)
+rectangle(0, grassTop, canvasWidth, grassHeight, grassColor)
+
+let houseBottom = grassTop + 5
+let houseTop = houseBottom - houseHeight
+let houseLeft = centreX - houseWidth / 2
+rectangle(houseLeft, houseTop, houseWidth, houseHeight, houseColor)
+
+let roofLeftX = houseLeft - houseWidth / 10
+let roofLeftY = houseTop
+let roofRightX = houseLeft + houseWidth + houseWidth / 10
+let roofRightY = houseTop
+let roofPeakX = centreX
+let roofPeakY = houseTop - houseHeight / 2
+triangle(roofLeftX, roofLeftY, roofPeakX, roofPeakY, roofRightX, roofRightY, roofColor)
+
+let windowWidth = houseWidth / 5
+let windowHeight = houseHeight / 3
+let windowTop = houseTop + houseHeight / 8
+let windowLeft = houseLeft + houseWidth / 7
+rectangle(windowLeft, windowTop, windowWidth, windowHeight, windowColor)
+windowLeft = houseLeft + houseWidth - houseWidth / 7 - windowWidth
+rectangle(windowLeft, windowTop, windowWidth, windowHeight, windowColor)
+
+let doorWidth = houseWidth / 5
+let doorHeight = houseHeight / 2
+let doorTop = houseTop + houseHeight - doorHeight
+let doorLeft = centreX - doorWidth / 2
+rectangle(doorLeft, doorTop, doorWidth, doorHeight, doorColor)
+
+let knobRadius = doorWidth / 10
+let knobGap = doorWidth / 10
+let knobX = doorLeft + doorWidth - knobGap - knobRadius
+let knobY = doorTop + doorHeight / 2
+circle(knobX, knobY, knobRadius, knobColor)

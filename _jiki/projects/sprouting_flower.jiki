@@ -1,0 +1,46 @@
+const groundTop = 90
+const centerX = 50
+const flowerRadiusDelta = 0.4
+const pistilRadiusDelta = 0.1
+const stemGrowthDelta = 1
+const stemRatio = 0.1
+const leafWidthRatio = 0.5  // relative to flower
+const leafHeightRatio = 0.2  // relative to flower
+
+// initial values
+let flowerRadius = 0
+let pistilRadius = 0
+let stemHeight = 0
+
+repeat(60) {
+  // elements to grow, before drawing each iteration
+  flowerRadius = flowerRadius + flowerRadiusDelta
+  pistilRadius = pistilRadius + pistilRadiusDelta
+  stemHeight = stemHeight + stemGrowthDelta
+
+  // set all the relative values
+  const stemWidth = stemHeight * stemRatio
+  const stemLeft = centerX - stemWidth / 2
+  const stemTop = groundTop - stemHeight
+  const leafXRadius = flowerRadius * leafWidthRatio
+  const leafYRadius = flowerRadius * leafHeightRatio
+  const leafY = groundTop - stemHeight / 2
+  const leftLeafX = stemLeft - leafXRadius
+  const rightLeafX = stemLeft + stemWidth + leafXRadius
+  
+  // Sky
+  rectangle(0, 0, 100, groundTop, "skyblue")
+  // Ground
+  rectangle(0, groundTop, 100, 100 - groundTop, "green")
+
+  // stem
+  rectangle(stemLeft, stemTop, stemWidth, stemHeight, "green")
+
+  // flower
+  circle(centerX, stemTop, flowerRadius, "orange")
+  circle(centerX, stemTop, pistilRadius, "yellow")
+
+  // leaves
+  ellipse(leftLeafX, leafY, leafXRadius, leafYRadius, "green")
+  ellipse(rightLeafX, leafY, leafXRadius, leafYRadius, "green")
+}

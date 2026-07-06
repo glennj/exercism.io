@@ -1,0 +1,49 @@
+const SCREEN_SIZE = 100
+rectangle(0, 0, SCREEN_SIZE, SCREEN_SIZE, "black")
+
+const OUTER_BORDER = 2
+const USABLE_SIZE = SCREEN_SIZE - 2 * OUTER_BORDER
+
+const NUM_SQUARES = getBoardSize()
+const SQUARE_SIZE = USABLE_SIZE / NUM_SQUARES
+const MANNED_ROWS = NUM_SQUARES / 2 - 1
+
+const PIECE_OUTER_RADIUS = SQUARE_SIZE * 0.8 / 2
+const PIECE_INNER_RADIUS = PIECE_OUTER_RADIUS * 0.75
+
+const LIGHT = "white"
+const LIGHT_PIECE = "white"
+const LIGHT_PIECE_BORDER = "grey"
+
+const DARK = "dark brown"
+const DARK_PIECE = "charcoal"
+const DARK_PIECE_BORDER = "black"
+
+let row = 1
+repeat(NUM_SQUARES) {
+  let col = 1
+  repeat(NUM_SQUARES) {
+    let left = (col - 1) * SQUARE_SIZE + OUTER_BORDER
+    let top = (row - 1) * SQUARE_SIZE + OUTER_BORDER
+    let color = DARK
+    if (row % 2 === col % 2) {
+      color = LIGHT
+    }
+    rectangle(left, top, SQUARE_SIZE, SQUARE_SIZE, color)
+    
+    if (color === DARK && (row <= MANNED_ROWS || row > NUM_SQUARES - MANNED_ROWS)) {
+      let pieceColor = LIGHT_PIECE
+      let pieceBorderColor = LIGHT_PIECE_BORDER
+      if (row <= MANNED_ROWS) {
+        pieceColor = DARK_PIECE
+        pieceBorderColor = DARK_PIECE_BORDER
+      }
+      let x = left + SQUARE_SIZE / 2
+      let y = top + SQUARE_SIZE / 2
+      circle(x, y, PIECE_OUTER_RADIUS, pieceBorderColor)
+      circle(x, y, PIECE_INNER_RADIUS, pieceColor)
+    }
+    col = col + 1
+  }
+  row = row + 1
+}
