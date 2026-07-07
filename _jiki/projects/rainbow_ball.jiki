@@ -1,0 +1,37 @@
+const screen_size = 100
+const radius = 10
+let x = 5
+let y = 5
+let hue = 100
+const saturation = 80
+const luminosity = 50
+
+let deltaX = 2
+let deltaY = 1
+let deltaH = 1
+
+repeat(720) {
+  circle(x, y, radius, hsl(hue, saturation, luminosity))
+
+  if (x + radius > screen_size) {
+    deltaX = Math.randomInt(-4, -1)
+  } else if (x - radius < 0) {
+    deltaX = Math.randomInt(1, 4)
+  }
+  
+  if (y + radius > screen_size) {
+    deltaY = Math.randomInt(-4, -1)
+  } else if (y - radius < 0) {
+    deltaY = Math.randomInt(1, 4)
+  }
+
+  if (hue + deltaH > 360) {
+    deltaH = -1
+  } else if (hue + deltaH < 0) {
+    deltaH = 1
+  }
+
+  x = x + deltaX
+  y = y + deltaY
+  hue = hue + deltaH
+}
