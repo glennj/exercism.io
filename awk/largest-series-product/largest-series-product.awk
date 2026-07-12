@@ -6,7 +6,7 @@ BEGIN { FS = "," }
     len = split($1, digits, //)
     assert($2 <= len, "span must not exceed string length")
     assert($2 >= 0, "span must not be negative")
-    assert($0 ~ /^[[:digit:]]*,[[:digit:]]+$/, "input must only contain digits")
+    assert($0 ~ /^[[:digit:]]*,[[:digit:]]+$/, "digits input must only contain digits")
 
     lsp = product(digits, 1, $2)
     for (i = 2; i <= len - $2 + 1; i++)

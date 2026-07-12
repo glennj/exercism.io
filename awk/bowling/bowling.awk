@@ -11,7 +11,7 @@ BEGIN {
     fillBall = 0
 }
 
-{
+NF {
     assert($1 >= 0, "Negative roll is invalid")
     assert(frame <= 10, "Cannot roll after game is over")
     assert(frameSum + $1 <= 10, "Pin count exceeds pins on the lane")
@@ -51,6 +51,6 @@ frameComplete {
 }
 
 END {
-    assert(frame > 10, "Score cannot be taken until the end of the game")
+    assert(frame == 11, "Score cannot be taken until the end of the game")
     print sum
 }

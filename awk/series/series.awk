@@ -6,12 +6,14 @@
 # - len
 
 BEGIN {
-    assert(len > 0, "invalid length")
+    assert(len >= 0, "slice length cannot be negative")
+    assert(len > 0, "slice length cannot be zero")
 }
+
 {
     size = length
     assert(size, "series cannot be empty")
-    assert(len <= size, "invalid length")
+    assert(len <= size, "slice length cannot be greater than series length")
 
     i = 1
     printf "%s", substr($0, i, len)
