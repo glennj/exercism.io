@@ -9,14 +9,14 @@ namespace eval TicTacToe {
 
         set xWin [won? $X]
         set oWin [won? $O]
-        if {$xWin && $oWin} {
+        set bitDiff [expr {[bitCount $X] - [bitCount $O]}]  ;# should be 0 or 1
+
+        if {($xWin && $bitDiff == 0) || ($oWin && $bitDiff == 1)} {
             error "Impossible board: game should have ended after the game was won"
         }
         if {$xWin || $oWin} {
             return win
         }
-
-        set bitDiff [expr {[bitCount $X] - [bitCount $O]}]  ;# should be 0 or 1
         if {$bitDiff > 1} {
             error "Wrong turn order: X went twice"
         }
