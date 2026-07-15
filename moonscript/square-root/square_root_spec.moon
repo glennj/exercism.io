@@ -1,6 +1,6 @@
 SquareRoot = require 'square_root'
 
-describe 'square-root', ->
+describe 'square-root:', ->
   it 'root of 1', ->
     result = SquareRoot.sqrt 1
     assert.are.equal 1, result
@@ -24,3 +24,4 @@ describe 'square-root', ->
   it 'root of 65025', ->
     result = SquareRoot.sqrt 65025
     assert.are.equal 255, result
+

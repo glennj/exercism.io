@@ -25,7 +25,7 @@ class CustomSet
 
   is_empty: => not next @_set
 
-  contains: (item) => @_set[item]
+  contains: (item) => @_set[item] or false
 
   is_subset: (other) =>
     return false if @size! > other\size!

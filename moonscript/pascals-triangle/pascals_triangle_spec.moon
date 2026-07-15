@@ -6,12 +6,12 @@ describe 'pascals-triangle', ->
     expected = {}
     assert.are.same expected, result
 
-  pending 'single row', ->
+  it 'single row', ->
     result = PascalsTriangle.rows 1
     expected = {{1}}
     assert.are.same expected, result
 
-  pending 'two rows', ->
+  it 'two rows', ->
     result = PascalsTriangle.rows 2
     expected = {
       {1},
@@ -19,7 +19,7 @@ describe 'pascals-triangle', ->
     }
     assert.are.same expected, result
 
-  pending 'three rows', ->
+  it 'three rows', ->
     result = PascalsTriangle.rows 3
     expected = {
       {1},
@@ -28,7 +28,7 @@ describe 'pascals-triangle', ->
     }
     assert.are.same expected, result
 
-  pending 'four rows', ->
+  it 'four rows', ->
     result = PascalsTriangle.rows 4
     expected = {
       {1},
@@ -38,7 +38,7 @@ describe 'pascals-triangle', ->
     }
     assert.are.same expected, result
 
-  pending 'five rows', ->
+  it 'five rows', ->
     result = PascalsTriangle.rows 5
     expected = {
       {1},
@@ -49,7 +49,7 @@ describe 'pascals-triangle', ->
     }
     assert.are.same expected, result
 
-  pending 'six rows', ->
+  it 'six rows', ->
     result = PascalsTriangle.rows 6
     expected = {
       {1},
@@ -61,7 +61,7 @@ describe 'pascals-triangle', ->
     }
     assert.are.same expected, result
 
-  pending 'ten rows', ->
+  it 'ten rows', ->
     result = PascalsTriangle.rows 10
     expected = {
       {1},

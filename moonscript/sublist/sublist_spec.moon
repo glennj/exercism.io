@@ -90,3 +90,4 @@ describe 'sublist:', ->
     listOne = {1, 0, 1}
     listTwo = {10, 1}
     assert.are.equal 'unequal', sublist listOne, listTwo
+

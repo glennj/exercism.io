@@ -6,3 +6,4 @@
       count[trimmed] = (count[trimmed] or 0) + 1
     count
 }
+

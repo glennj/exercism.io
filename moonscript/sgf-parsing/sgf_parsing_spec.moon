@@ -1,17 +1,19 @@
 SGFParser = require 'sgf_parsing'
 
-describe 'sgf-parsing', ->
+assert\set_parameter "TableFormatLevel", 5
+
+describe 'sgf-parsing:', ->
   it 'empty input', ->
     f = -> SGFParser.parse ""
-    assert.has_error f, 'tree missing'
+    assert.has.error f, 'tree missing'
 
   it 'tree with no nodes', ->
     f = -> SGFParser.parse "()"
-    assert.has_error f, 'tree with no nodes'
+    assert.has.error f, 'tree with no nodes'
 
   it 'node without tree', ->
     f = -> SGFParser.parse ";"
-    assert.has_error f, 'tree missing'
+    assert.has.error f, 'tree missing'
 
   it 'node without properties', ->
     result = SGFParser.parse "(;)"
@@ -26,7 +28,7 @@ describe 'sgf-parsing', ->
     expected = {
       children: {}
       properties: {
-        A: {"B"}
+        A: {'B'}
       }
     }
     assert.are.same expected, result
@@ -36,35 +38,35 @@ describe 'sgf-parsing', ->
     expected = {
       children: {}
       properties: {
-        C: {"d"}
-        A: {"b"}
+        A: {'b'}
+        C: {'d'}
       }
     }
     assert.are.same expected, result
 
   it 'properties without delimiter', ->
     f = -> SGFParser.parse "(;A)"
-    assert.has_error f, 'properties without delimiter'
+    assert.has.error f, 'properties without delimiter'
 
   it 'all lowercase property', ->
     f = -> SGFParser.parse "(;a[b])"
-    assert.has_error f, 'property must be in uppercase'
+    assert.has.error f, 'property must be in uppercase'
 
   it 'upper and lowercase property', ->
     f = -> SGFParser.parse "(;Aa[b])"
-    assert.has_error f, 'property must be in uppercase'
+    assert.has.error f, 'property must be in uppercase'
 
   it 'two nodes', ->
     result = SGFParser.parse "(;A[B];B[C])"
     expected = {
       children: {{
-          children: {}
           properties: {
-            B: {"C"}
+            B: {'C'}
           }
+          children: {}
         }}
       properties: {
-        A: {"B"}
+        A: {'B'}
       }
     }
     assert.are.same expected, result
@@ -73,18 +75,18 @@ describe 'sgf-parsing', ->
     result = SGFParser.parse "(;A[B](;B[C])(;C[D]))"
     expected = {
       children: {{
-          children: {}
           properties: {
-            B: {"C"}
+            B: {'C'}
           }
+          children: {}
         }, {
-          children: {}
           properties: {
-            C: {"D"}
+            C: {'D'}
           }
+          children: {}
         }}
       properties: {
-        A: {"B"}
+        A: {'B'}
       }
     }
     assert.are.same expected, result
@@ -94,7 +96,7 @@ describe 'sgf-parsing', ->
     expected = {
       children: {}
       properties: {
-        A: {"b", "c", "d"}
+        A: {'b', 'c', 'd'}
       }
     }
     assert.are.same expected, result
@@ -104,7 +106,7 @@ describe 'sgf-parsing', ->
     expected = {
       children: {}
       properties: {
-        A: {"hello  world"}
+        A: {'hello  world'}
       }
     }
     assert.are.same expected, result
@@ -124,7 +126,7 @@ describe 'sgf-parsing', ->
     expected = {
       children: {}
       properties: {
-        A: {"]"}
+        A: {']'}
       }
     }
     assert.are.same expected, result
@@ -143,14 +145,14 @@ describe 'sgf-parsing', ->
     result = SGFParser.parse "(;A[x[y\\]z][foo]B[bar];C[baz])"
     expected = {
       children: {{
-          children: {}
           properties: {
-            C: {"baz"}
+            C: {'baz'}
           }
+          children: {}
         }}
       properties: {
-        B: {"bar"}
-        A: {"x[y]z", "foo"}
+        A: {'x[y]z', 'foo'}
+        B: {'bar'}
       }
     }
     assert.are.same expected, result
@@ -159,14 +161,14 @@ describe 'sgf-parsing', ->
     result = SGFParser.parse "(;A[a;b][foo]B[bar];C[baz])"
     expected = {
       children: {{
-          children: {}
           properties: {
-            C: {"baz"}
+            C: {'baz'}
           }
+          children: {}
         }}
       properties: {
-        B: {"bar"}
-        A: {"a;b", "foo"}
+        A: {'a;b', 'foo'}
+        B: {'bar'}
       }
     }
     assert.are.same expected, result
@@ -175,14 +177,14 @@ describe 'sgf-parsing', ->
     result = SGFParser.parse "(;A[x(y)z][foo]B[bar];C[baz])"
     expected = {
       children: {{
-          children: {}
           properties: {
-            C: {"baz"}
+            C: {'baz'}
           }
+          children: {}
         }}
       properties: {
-        B: {"bar"}
-        A: {"x(y)z", "foo"}
+        A: {'x(y)z', 'foo'}
+        B: {'bar'}
       }
     }
     assert.are.same expected, result
@@ -192,7 +194,7 @@ describe 'sgf-parsing', ->
     expected = {
       children: {}
       properties: {
-        A: {"hello world"}
+        A: {'hello world'}
       }
     }
     assert.are.same expected, result
@@ -202,7 +204,7 @@ describe 'sgf-parsing', ->
     expected = {
       children: {}
       properties: {
-        A: {"helloworld"}
+        A: {'helloworld'}
       }
     }
     assert.are.same expected, result
@@ -212,7 +214,7 @@ describe 'sgf-parsing', ->
     expected = {
       children: {}
       properties: {
-        A: {"t = t and n = n"}
+        A: {'t = t and n = n'}
       }
     }
     assert.are.same expected, result
@@ -226,3 +228,4 @@ describe 'sgf-parsing', ->
       }
     }
     assert.are.same expected, result
+

@@ -1,6 +1,6 @@
 reverse = require 'reverse_string'
 
-describe 'reverse-string', ->
+describe 'reverse-string:', ->
   it 'an empty string', ->
     result = reverse ''
     assert.are.equal '', result
@@ -28,3 +28,4 @@ describe 'reverse-string', ->
   it 'wide characters', ->
     result = reverse '子猫'
     assert.are.equal '猫子', result
+

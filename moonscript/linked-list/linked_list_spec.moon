@@ -1,6 +1,6 @@
 LinkedList = require 'linked_list'
 
-describe 'linked-list', ->
+describe 'linked-list:', ->
   it 'pop gets element from the list', ->
     list = LinkedList!
     list\push 7
@@ -155,3 +155,4 @@ describe 'linked-list', ->
     assert.are.equal 107, list\pop!
     assert.are.equal 9, list\pop!
     assert.are.equal 73, list\pop!
+

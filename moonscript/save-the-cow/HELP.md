@@ -63,7 +63,7 @@ The test-runner provides these:
 
 ## Submitting your solution
 
-You can submit your solution using the `exercism submit clock.moon` command.
+You can submit your solution using the `exercism submit save_the_cow.moon` command.
 This command will upload your solution to the Exercism website and print the solution page's URL.
 
 It's possible to submit an incomplete solution which allows you to:

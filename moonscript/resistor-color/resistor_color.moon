@@ -9,6 +9,5 @@ color_code = (color) ->
     if c == color
       return i - 1
   return -1
-  
 
 { :colors, :color_code }

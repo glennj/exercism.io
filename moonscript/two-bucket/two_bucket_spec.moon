@@ -1,6 +1,6 @@
 import measure from require 'two_bucket'
 
-describe 'two-bucket', ->
+describe 'two-bucket:', ->
   it 'Measure using bucket one of size 3 and bucket two of size 5 - start with bucket one', ->
     result = measure bucketOne: 3, bucketTwo: 5, goal: 1, startBucket: 'one'
     expected = moves: 4, goalBucket: 'one', otherBucket: 5
@@ -51,3 +51,4 @@ describe 'two-bucket', ->
 
   it 'Goal larger than both buckets is impossible', ->
     assert.has.errors -> measure bucketOne: 5, bucketTwo: 7, goal: 8, startBucket: 'one'
+

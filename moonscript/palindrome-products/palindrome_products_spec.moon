@@ -1,6 +1,6 @@
 PalindromeProducts = require 'palindrome_products'
 
-describe 'palindrome-products', ->
+describe 'palindrome-products:', ->
   it 'find the smallest palindrome from single digit factors', ->
     palindrome, factors = PalindromeProducts.smallest 1, 9
     expected_palindrome = 1
@@ -11,7 +11,10 @@ describe 'palindrome-products', ->
   it 'find the largest palindrome from single digit factors', ->
     palindrome, factors = PalindromeProducts.largest 1, 9
     expected_palindrome = 9
-    expected_factors    = {{1, 9}, {3, 3}}
+    expected_factors    = {
+      {1, 9},
+      {3, 3},
+    }
     assert.are.equal expected_palindrome, palindrome
     assert.are.same  expected_factors, factors
 
@@ -85,3 +88,4 @@ describe 'palindrome-products', ->
     expected_factors    = {{3297, 3333}}
     assert.are.equal expected_palindrome, palindrome
     assert.are.same  expected_factors, factors
+

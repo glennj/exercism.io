@@ -1,7 +1,7 @@
 TwelveDays = require 'twelve_days'
 
-describe 'twelve-days', ->
-  describe 'verse', ->
+describe 'twelve-days:', ->
+  describe 'verse:', ->
     it 'first day a partridge in a pear tree', ->
       result = TwelveDays.recite 1, 1
       expected = {'On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree.'}
@@ -62,7 +62,7 @@ describe 'twelve-days', ->
       expected = {'On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.'}
       assert.are.same expected, result
 
-  describe 'lyrics', ->
+  describe 'lyrics:', ->
     it 'recites first three verses of the song', ->
       result = TwelveDays.recite 1, 3
       expected = {
@@ -98,3 +98,4 @@ describe 'twelve-days', ->
         'On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.',
       }
       assert.are.same expected, result
+

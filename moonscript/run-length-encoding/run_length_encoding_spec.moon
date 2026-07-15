@@ -1,7 +1,7 @@
 import encode, decode from require 'run_length_encoding'
 
-describe 'run-length-encoding', ->
-  describe 'run-length encode a string', ->
+describe 'run-length-encoding:', ->
+  describe 'run-length encode a string:', ->
     it 'empty string', ->
       result = encode ''
       assert.are.equal '', result
@@ -26,7 +26,7 @@ describe 'run-length-encoding', ->
       result = encode 'aabbbcccc'
       assert.are.equal '2a3b4c', result
 
-  describe 'run-length decode a string', ->
+  describe 'run-length decode a string:', ->
     it 'empty string', ->
       result = decode ''
       assert.are.equal '', result
@@ -51,8 +51,9 @@ describe 'run-length-encoding', ->
       result = decode '2a3b4c'
       assert.are.equal 'aabbbcccc', result
 
-  describe 'encode and then decode', ->
+  describe 'encode and then decode:', ->
     it 'encode followed by decode gives original string', ->
       encoded = encode 'zzz ZZ  zZ'
       decoded = decode encoded
       assert.are.equal 'zzz ZZ  zZ', decoded
+

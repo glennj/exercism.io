@@ -1,17 +1,17 @@
 import clean from require 'phone_number'
 
-describe 'phone-number', ->
+describe 'phone-number:', ->
   it 'cleans the number', ->
     result = clean '(223) 456-7890'
-    assert.is.equal '2234567890', result
+    assert.are.equal '2234567890', result
 
   it 'cleans numbers with dots', ->
     result = clean '223.456.7890'
-    assert.is.equal '2234567890', result
+    assert.are.equal '2234567890', result
 
   it 'cleans numbers with multiple spaces', ->
     result = clean '223 456   7890   '
-    assert.is.equal '2234567890', result
+    assert.are.equal '2234567890', result
 
   it 'invalid when 9 digits', ->
     f = -> clean '123456789'
@@ -23,11 +23,11 @@ describe 'phone-number', ->
 
   it 'valid when 11 digits and starting with 1', ->
     result = clean '12234567890'
-    assert.is.equal '2234567890', result
+    assert.are.equal '2234567890', result
 
   it 'valid when 11 digits and starting with 1 even with punctuation', ->
     result = clean '+1 (223) 456-7890'
-    assert.is.equal '2234567890', result
+    assert.are.equal '2234567890', result
 
   it 'invalid when more than 11 digits', ->
     f = -> clean '321234567890'
@@ -72,3 +72,4 @@ describe 'phone-number', ->
   it 'invalid if exchange code starts with 1 on valid 11-digit number', ->
     f = -> clean '1 (223) 156-7890'
     assert.has.error f, 'exchange code cannot start with one'
+

@@ -1,6 +1,6 @@
 to_rna = require 'rna_transcription'
 
-describe 'rna-transcription', ->
+describe 'rna-transcription:', ->
   it 'Empty RNA sequence', ->
     result = to_rna ''
     assert.are.equal '', result
@@ -24,3 +24,4 @@ describe 'rna-transcription', ->
   it 'RNA complement', ->
     result = to_rna 'ACGTGGTCTTAA'
     assert.are.equal 'UGCACCAGAAUU', result
+

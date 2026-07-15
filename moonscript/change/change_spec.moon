@@ -1,6 +1,6 @@
 import make_change from require 'change'
 
-describe 'change', ->
+describe 'change:', ->
   it 'change for 1 cent', ->
     result = make_change 1, {1, 5, 10, 25}
     expected = {1}
@@ -62,3 +62,4 @@ describe 'change', ->
   it 'cannot find negative change values', ->
     f = -> make_change -5, {1, 2, 5}
     assert.has.error f, "target can't be negative"
+

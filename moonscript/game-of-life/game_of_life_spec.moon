@@ -1,6 +1,6 @@
 GameOfLife = require 'game_of_life'
 
-describe 'game-of-life', ->
+describe 'game-of-life:', ->
   it 'empty matrix', ->
     matrix = {}
     result = GameOfLife.tick matrix
@@ -114,3 +114,4 @@ describe 'game-of-life', ->
       {0, 0, 0, 0, 0, 0, 1, 1},
     }
     assert.are.same expected, result
+

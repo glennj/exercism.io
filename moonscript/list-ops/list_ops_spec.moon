@@ -118,3 +118,4 @@ describe 'list-ops:', ->
       result = ListOps.reverse {{1, 2}, {3}, {}, {4, 5, 6}}
       expected = {{4, 5, 6}, {}, {3}, {1, 2}}
       assert.are.same expected, result
+

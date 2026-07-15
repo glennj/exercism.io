@@ -1,6 +1,6 @@
 MicroBlog = require 'micro_blog'
 
-describe 'micro-blog', ->
+describe 'micro-blog:', ->
   it 'English language short', ->
     result = MicroBlog.truncate 'Hi'
     assert.are.equal 'Hi', result
@@ -48,3 +48,4 @@ describe 'micro-blog', ->
   it 'Royal Flush?', ->
     result = MicroBlog.truncate '🃎🂸🃅🃋🃍🃁🃊'
     assert.are.equal '🃎🂸🃅🃋🃍', result
+

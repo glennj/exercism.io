@@ -1,7 +1,7 @@
- import gamestate from require 'state_of_tic_tac_toe'
+import gamestate from require 'state_of_tic_tac_toe'
 
-describe 'state-of-tic-tac-toe', ->
-  describe 'Won games', ->
+describe 'state-of-tic-tac-toe:', ->
+  describe 'Won games:', ->
     it 'Finished game where X won via left column victory', ->
       board = {
         'XOO',
@@ -10,7 +10,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where X won via middle column victory', ->
+    it 'Finished game where X won via middle column victory', ->
       board = {
         'OXO',
         ' X ',
@@ -18,7 +18,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where X won via right column victory', ->
+    it 'Finished game where X won via right column victory', ->
       board = {
         'OOX',
         '  X',
@@ -26,7 +26,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where O won via left column victory', ->
+    it 'Finished game where O won via left column victory', ->
       board = {
         'OXX',
         'OX ',
@@ -34,7 +34,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where O won via middle column victory', ->
+    it 'Finished game where O won via middle column victory', ->
       board = {
         'XOX',
         ' OX',
@@ -42,7 +42,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where O won via right column victory', ->
+    it 'Finished game where O won via right column victory', ->
       board = {
         'XXO',
         ' XO',
@@ -50,7 +50,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where X won via top row victory', ->
+    it 'Finished game where X won via top row victory', ->
       board = {
         'XXX',
         'XOO',
@@ -58,7 +58,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where X won via middle row victory', ->
+    it 'Finished game where X won via middle row victory', ->
       board = {
         'O  ',
         'XXX',
@@ -66,7 +66,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where X won via bottom row victory', ->
+    it 'Finished game where X won via bottom row victory', ->
       board = {
         ' OO',
         'O X',
@@ -74,7 +74,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where O won via top row victory', ->
+    it 'Finished game where O won via top row victory', ->
       board = {
         'OOO',
         'XXO',
@@ -82,7 +82,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where O won via middle row victory', ->
+    it 'Finished game where O won via middle row victory', ->
       board = {
         'XX ',
         'OOO',
@@ -90,7 +90,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where O won via bottom row victory', ->
+    it 'Finished game where O won via bottom row victory', ->
       board = {
         'XOX',
         ' XX',
@@ -98,7 +98,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where X won via falling diagonal victory', ->
+    it 'Finished game where X won via falling diagonal victory', ->
       board = {
         'XOO',
         ' X ',
@@ -106,7 +106,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where X won via rising diagonal victory', ->
+    it 'Finished game where X won via rising diagonal victory', ->
       board = {
         'O X',
         'OX ',
@@ -114,7 +114,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where O won via falling diagonal victory', ->
+    it 'Finished game where O won via falling diagonal victory', ->
       board = {
         'OXX',
         'OOX',
@@ -122,7 +122,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where O won via rising diagonal victory', ->
+    it 'Finished game where O won via rising diagonal victory', ->
       board = {
         '  O',
         ' OX',
@@ -130,7 +130,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where X won via a row and a column victory', ->
+    it 'Finished game where X won via a row and a column victory', ->
       board = {
         'XXX',
         'XOO',
@@ -138,7 +138,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-    pending 'Finished game where X won via two diagonal victories', ->
+    it 'Finished game where X won via two diagonal victories', ->
       board = {
         'XOX',
         'OXO',
@@ -146,8 +146,8 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'win', gamestate board
 
-  describe 'Drawn games', ->
-    pending 'Draw', ->
+  describe 'Drawn games:', ->
+    it 'Draw', ->
       board = {
         'XOX',
         'XXO',
@@ -155,7 +155,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'draw', gamestate board
 
-    pending 'Another draw', ->
+    it 'Another draw', ->
       board = {
         'XXO',
         'OXX',
@@ -163,8 +163,8 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'draw', gamestate board
 
-  describe 'Ongoing games', ->
-    pending 'Ongoing game: one move in', ->
+  describe 'Ongoing games:', ->
+    it 'Ongoing game: one move in', ->
       board = {
         '   ',
         'X  ',
@@ -172,7 +172,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'ongoing', gamestate board
 
-    pending 'Ongoing game: two moves in', ->
+    it 'Ongoing game: two moves in', ->
       board = {
         'O  ',
         ' X ',
@@ -180,7 +180,7 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'ongoing', gamestate board
 
-    pending 'Ongoing game: five moves in', ->
+    it 'Ongoing game: five moves in', ->
       board = {
         'X  ',
         ' XO',
@@ -188,8 +188,8 @@ describe 'state-of-tic-tac-toe', ->
       }
       assert.are.equal 'ongoing', gamestate board
 
-  describe 'Invalid boards', ->
-    pending 'Invalid board: X went twice', ->
+  describe 'Invalid boards:', ->
+    it 'Invalid board: X went twice', ->
       board = {
         'XX ',
         '   ',
@@ -198,7 +198,7 @@ describe 'state-of-tic-tac-toe', ->
       f = -> gamestate board
       assert.has.error f, 'Wrong turn order: X went twice'
 
-    pending 'Invalid board: O started', ->
+    it 'Invalid board: O started', ->
       board = {
         'OOX',
         '   ',
@@ -207,7 +207,7 @@ describe 'state-of-tic-tac-toe', ->
       f = -> gamestate board
       assert.has.error f, 'Wrong turn order: O started'
 
-    pending 'Invalid board: X won and O kept playing', ->
+    it 'Invalid board: X won and O kept playing', ->
       board = {
         'XXX',
         'OOO',
@@ -216,7 +216,7 @@ describe 'state-of-tic-tac-toe', ->
       f = -> gamestate board
       assert.has.error f, 'Impossible board: game should have ended after the game was won'
 
-    pending 'Invalid board: players kept playing after a win', ->
+    it 'Invalid board: players kept playing after a win', ->
       board = {
         'XXX',
         'OOO',
@@ -224,3 +224,4 @@ describe 'state-of-tic-tac-toe', ->
       }
       f = -> gamestate board
       assert.has.error f, 'Impossible board: game should have ended after the game was won'
+

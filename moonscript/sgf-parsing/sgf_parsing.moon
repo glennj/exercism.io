@@ -31,7 +31,7 @@ SGFParser = P {
 
 -- lpeg table capture (Ct) can only capture sequences.
 -- remap_properties converts a sequence of name-value pairs into a map of name:value.
-remap_properties = (tree) ->
+remapProperties = (tree) ->
   props = {}
   for i = 1, #tree.properties, 2
     name, values = tree.properties[i], tree.properties[i + 1]
@@ -40,7 +40,7 @@ remap_properties = (tree) ->
     props[name] = values
   tree.properties = props
   -- recursively descend into the tree's children.
-  remap_properties child for child in *tree.children
+  remapProperties child for child in *tree.children
   tree
 
 {
@@ -51,5 +51,5 @@ remap_properties = (tree) ->
 
     gameTree = SGFParser\match input
     assert gameTree, 'cannot parse input'
-    remap_properties gameTree
+    remapProperties gameTree
 }

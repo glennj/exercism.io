@@ -1,6 +1,6 @@
 BookStore = require 'book_store'
 
-describe 'book-store', ->
+describe 'book-store:', ->
   it 'Only a single book', ->
     result = BookStore.total {1}
     expected = 800
@@ -90,3 +90,4 @@ describe 'book-store', ->
     result = BookStore.total {1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5}
     expected = 10000
     assert.are.equal expected, result
+

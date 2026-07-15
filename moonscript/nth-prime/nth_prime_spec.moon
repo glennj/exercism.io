@@ -1,6 +1,6 @@
 import prime from require 'nth_prime'
 
-describe 'nth-prime', ->
+describe 'nth-prime:', ->
   it 'first prime', ->
     assert.are.equal 2, prime 1
 
@@ -14,4 +14,6 @@ describe 'nth-prime', ->
     assert.are.equal 104743, prime 10001
 
   it 'there is no zeroth prime', ->
-    assert.has.errors (-> prime 0), 'there is no zeroth prime'
+    f = -> prime 0
+    assert.has.errors f, 'there is no zeroth prime'
+

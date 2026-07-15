@@ -1,6 +1,6 @@
 import transpose from require 'transpose'
 
-describe 'transpose', ->
+describe 'transpose:', ->
   it 'empty string', ->
     input = {}
     expected = {}
@@ -188,3 +188,4 @@ describe 'transpose', ->
       '    5',
     }
     assert.are.same expected, transpose input
+

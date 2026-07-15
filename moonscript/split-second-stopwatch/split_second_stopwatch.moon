@@ -46,7 +46,7 @@ format_seconds = (seconds) ->
 
 parse_duration = (duration) ->
   h, m, s = duration\match '^(%d+):(%d+):(%d+)$'
-  assert h and m and s, "malformed duration: '#{duration}', expecting 'HH:MM:SS'"
+  assert h, "malformed duration: '#{duration}', expecting 'HH:MM:SS'"
   tonumber(h) * 3600 + tonumber(m) * 60 + tonumber(s)
 
 -- ------------------------------------------------------------

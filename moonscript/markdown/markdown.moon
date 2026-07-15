@@ -6,7 +6,7 @@ string.split = (text, splitter) ->
   -- Find all words that *don't* contain the splitter character.
   -- gmatch returns an iterator.
   text\gmatch "[^#{splitter}]+"
-  
+
 string.strong = (text) -> text\gsub '__(.-)__', "<strong>%1</strong>"
 string.em = (text) -> text\gsub '_(.-)_', "<em>%1</em>"
 
@@ -27,8 +27,8 @@ string.em = (text) -> text\gsub '_(.-)_', "<em>%1</em>"
         in_list = false
         add_markup '</ul>'
 
-    for line in input\split "\n"
-      line = line\strong!\em!
+    for row in input\split "\n"
+      line = row\strong!\em!
 
       text = line\match '^[*] (.*)'
       if text

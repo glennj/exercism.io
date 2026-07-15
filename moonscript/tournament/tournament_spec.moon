@@ -1,15 +1,13 @@
 tournament = require 'tournament'
 
-describe 'tournament', ->
-  
-  write_file = (filename, lines) ->
-    with io.open filename, 'w'
-      \write table.concat lines, '\n'
-      \close!
+write_file = (filename, lines) ->
+  with io.open filename, 'w'
+    \write table.concat lines, '\n'
+    \close!
 
+describe 'tournament:', ->  
   it 'just the header if no input', ->
-    write_file 'tournament.dsv', {
-    }
+    write_file 'tournament.dsv', {}
     result = tournament.tally 'tournament.dsv'
     os.remove 'tournament.dsv'
     expected = {
@@ -187,3 +185,4 @@ describe 'tournament', ->
       'Blithering Badgers             |  5 |  1 |  0 |  4 |  3',
     }
     assert.are.same expected, result
+

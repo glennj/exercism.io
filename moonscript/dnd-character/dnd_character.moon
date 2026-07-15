@@ -2,7 +2,6 @@ import fold from require 'moon'
 
 sum = (xs) -> fold xs, (sum, x) -> sum + x
 min = (xs) -> math.min table.unpack xs
-
 d = math.random
 
 attributes = {'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'}

@@ -5,7 +5,7 @@ SIZE = 64
 square = (n) ->
   assert 1 <= n and n <= SIZE, 'square must be between 1 and #{SIZE}'
   2 ^ (n - 1)
-  
+
 total = ->
   -- the efficient solution:  (2 ^ SIZE) - 1
   -- playing with moony features:

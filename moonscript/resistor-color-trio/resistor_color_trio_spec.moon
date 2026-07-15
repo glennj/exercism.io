@@ -1,6 +1,6 @@
 ResistorColorTrio = require 'resistor_color_trio'
 
-describe 'resistor-color-trio', ->
+describe 'resistor-color-trio:', ->
   it 'Orange and orange and black', ->
     result = ResistorColorTrio.label 'orange', 'orange', 'black'
     assert.are.equal '33 ohms', result
@@ -40,3 +40,4 @@ describe 'resistor-color-trio', ->
   it 'Ignore extra colors', ->
     result = ResistorColorTrio.label 'blue', 'green', 'yellow', 'orange'
     assert.are.equal '650 kiloohms', result
+

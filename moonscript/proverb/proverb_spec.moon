@@ -1,6 +1,6 @@
 recite = require 'proverb'
 
-describe 'proverb', ->
+describe 'proverb:', ->
   it 'zero pieces', ->
     result = recite {}
     expected = ''
@@ -52,3 +52,4 @@ For want of a soldier the battle was lost.
 And all for the want of a pin.
 ]]
     assert.are.equal expected, result
+

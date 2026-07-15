@@ -1,6 +1,6 @@
 find_anagrams = require 'anagram'
 
-describe 'anagram', ->
+describe 'anagram:', ->
   it 'no matches', ->
     result = find_anagrams 'diaper', {'hello', 'world', 'zombies', 'pants'}
     expected = {}
@@ -80,3 +80,4 @@ describe 'anagram', ->
     result = find_anagrams 'LISTEN', {'LISTEN', 'Silent'}
     expected = {'Silent'}
     assert.are.same expected, result
+

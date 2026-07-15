@@ -1,7 +1,7 @@
 AtbashCipher = require 'atbash_cipher'
 
-describe 'atbash-cipher', ->
-  describe 'encode', ->
+describe 'atbash-cipher:', ->
+  describe 'encode:', ->
     it 'encode yes', ->
       result = AtbashCipher.encode 'yes'
       expected = 'bvh'
@@ -42,7 +42,7 @@ describe 'atbash-cipher', ->
       expected = 'gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt'
       assert.are.equal expected, result
 
-  describe 'decode', ->
+  describe 'decode:', ->
     it 'decode exercism', ->
       result = AtbashCipher.decode 'vcvix rhn'
       expected = 'exercism'
@@ -72,3 +72,4 @@ describe 'atbash-cipher', ->
       result = AtbashCipher.decode 'zmlyhgzxovrhlugvmzhgvkkrmthglmv'
       expected = 'anobstacleisoftenasteppingstone'
       assert.are.equal expected, result
+

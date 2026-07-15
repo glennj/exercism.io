@@ -22,4 +22,3 @@ class Robot
     @nam = NAMES[@@index]
 
   name: => @nam
-

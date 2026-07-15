@@ -1,7 +1,7 @@
 round = (n) ->
   mult = 10^15
   math.floor(0.5 + n * mult) / mult
-
+ 
 -- ------------------------------------------------------------
 class ComplexNumber
   new: (real, imaginary) =>

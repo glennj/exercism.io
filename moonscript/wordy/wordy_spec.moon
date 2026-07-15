@@ -1,6 +1,6 @@
 Wordy = require 'wordy'
 
-describe 'wordy', ->
+describe 'wordy:', ->
   it 'just a number', ->
     result = Wordy.answer 'What is 5?'
     assert.are.equal 5, result
@@ -108,3 +108,4 @@ describe 'wordy', ->
   it 'reject prefix notation', ->
     fn = -> Wordy.answer 'What is plus 1 2?'
     assert.has.error fn, 'syntax error'
+

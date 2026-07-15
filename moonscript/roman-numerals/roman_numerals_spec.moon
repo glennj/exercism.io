@@ -1,6 +1,6 @@
 RomanNumerals = require 'roman_numerals'
 
-describe 'roman-numerals', ->
+describe 'roman-numerals:', ->
   it '1 is I', ->
     assert.are.equal 'I', RomanNumerals.to_roman 1
 
@@ -81,3 +81,4 @@ describe 'roman-numerals', ->
 
   it '3999 is MMMCMXCIX', ->
     assert.are.equal 'MMMCMXCIX', RomanNumerals.to_roman 3999
+

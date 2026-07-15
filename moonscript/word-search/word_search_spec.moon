@@ -1,8 +1,8 @@
 WordSearch = require 'word_search'
 
-describe 'word-search:', ->
-  assert\set_parameter "TableFormatLevel", 3
+assert\set_parameter "TableFormatLevel", 3
 
+describe 'word-search:', ->
   it 'Should accept an initial game grid and a target search word', ->
     grid = {'jefblpepre'}
     words = {'clojure'}
@@ -14,12 +14,12 @@ describe 'word-search:', ->
     words = {'clojure'}
     expected = {
       clojure: {
-        start: {
-          column: 1
-          row: 1
-        }
         end: {
           column: 7
+          row: 1
+        }
+        start: {
+          column: 1
           row: 1
         }
       }
@@ -31,12 +31,12 @@ describe 'word-search:', ->
     words = {'clojure'}
     expected = {
       clojure: {
-        start: {
-          column: 3
-          row: 1
-        }
         end: {
           column: 9
+          row: 1
+        }
+        start: {
+          column: 3
           row: 1
         }
       }
@@ -48,12 +48,12 @@ describe 'word-search:', ->
     words = {'coffee'}
     expected = {
       coffee: {
-        start: {
-          column: 1
-          row: 1
-        }
         end: {
           column: 6
+          row: 1
+        }
+        start: {
+          column: 1
           row: 1
         }
       }
@@ -65,12 +65,12 @@ describe 'word-search:', ->
     words = {'coffee'}
     expected = {
       coffee: {
-        start: {
-          column: 2
-          row: 1
-        }
         end: {
           column: 7
+          row: 1
+        }
+        start: {
+          column: 2
           row: 1
         }
       }
@@ -85,12 +85,12 @@ describe 'word-search:', ->
     words = {'clojure'}
     expected = {
       clojure: {
-        start: {
-          column: 2
-          row: 2
-        }
         end: {
           column: 8
+          row: 2
+        }
+        start: {
+          column: 2
           row: 2
         }
       }
@@ -106,12 +106,12 @@ describe 'word-search:', ->
     words = {'clojure'}
     expected = {
       clojure: {
-        start: {
-          column: 1
-          row: 3
-        }
         end: {
           column: 7
+          row: 3
+        }
+        start: {
+          column: 1
           row: 3
         }
       }
@@ -134,12 +134,12 @@ describe 'word-search:', ->
     words = {'clojure'}
     expected = {
       clojure: {
-        start: {
-          column: 1
-          row: 10
-        }
         end: {
           column: 7
+          row: 10
+        }
+        start: {
+          column: 1
           row: 10
         }
       }
@@ -162,12 +162,12 @@ describe 'word-search:', ->
     words = {'clojure'}
     expected = {
       clojure: {
-        start: {
-          column: 1
-          row: 9
-        }
         end: {
           column: 7
+          row: 9
+        }
+        start: {
+          column: 1
           row: 9
         }
       }
@@ -190,12 +190,12 @@ describe 'word-search:', ->
     words = {'fortran'}
     expected = {
       fortran: {
-        start: {
-          column: 1
-          row: 7
-        }
         end: {
           column: 7
+          row: 7
+        }
+        start: {
+          column: 1
           row: 7
         }
       }
@@ -221,22 +221,22 @@ describe 'word-search:', ->
     }
     expected = {
       clojure: {
-        start: {
-          column: 1
-          row: 10
-        }
         end: {
           column: 7
+          row: 10
+        }
+        start: {
+          column: 1
           row: 10
         }
       }
       fortran: {
-        start: {
-          column: 1
-          row: 7
-        }
         end: {
           column: 7
+          row: 7
+        }
+        start: {
+          column: 1
           row: 7
         }
       }
@@ -248,12 +248,12 @@ describe 'word-search:', ->
     words = {'elixir'}
     expected = {
       elixir: {
-        start: {
-          column: 6
-          row: 1
-        }
         end: {
           column: 1
+          row: 1
+        }
+        start: {
+          column: 6
           row: 1
         }
       }
@@ -279,22 +279,22 @@ describe 'word-search:', ->
     }
     expected = {
       clojure: {
-        start: {
-          column: 1
-          row: 10
-        }
         end: {
           column: 7
           row: 10
         }
+        start: {
+          column: 1
+          row: 10
+        }
       }
       elixir: {
-        start: {
-          column: 6
-          row: 5
-        }
         end: {
           column: 1
+          row: 5
+        }
+        start: {
+          column: 6
           row: 5
         }
       }
@@ -320,33 +320,33 @@ describe 'word-search:', ->
       'ecmascript',
     }
     expected = {
-      ecmascript: {
-        start: {
-          column: 10
-          row: 1
-        }
-        end: {
-          column: 10
-          row: 10
-        }
-      }
       clojure: {
-        start: {
-          column: 1
-          row: 10
-        }
         end: {
           column: 7
           row: 10
         }
+        start: {
+          column: 1
+          row: 10
+        }
+      }
+      ecmascript: {
+        end: {
+          column: 10
+          row: 10
+        }
+        start: {
+          column: 10
+          row: 1
+        }
       }
       elixir: {
-        start: {
-          column: 6
-          row: 5
-        }
         end: {
           column: 1
+          row: 5
+        }
+        start: {
+          column: 6
           row: 5
         }
       }
@@ -373,44 +373,44 @@ describe 'word-search:', ->
       'rust',
     }
     expected = {
-      elixir: {
-        start: {
-          column: 6
-          row: 5
-        }
-        end: {
-          column: 1
-          row: 5
-        }
-      }
-      ecmascript: {
-        start: {
-          column: 10
-          row: 1
-        }
-        end: {
-          column: 10
-          row: 10
-        }
-      }
       clojure: {
-        start: {
-          column: 1
-          row: 10
-        }
         end: {
           column: 7
           row: 10
         }
-      }
-      rust: {
         start: {
-          column: 9
+          column: 1
+          row: 10
+        }
+      }
+      ecmascript: {
+        end: {
+          column: 10
+          row: 10
+        }
+        start: {
+          column: 10
+          row: 1
+        }
+      }
+      elixir: {
+        end: {
+          column: 1
           row: 5
         }
+        start: {
+          column: 6
+          row: 5
+        }
+      }
+      rust: {
         end: {
           column: 9
           row: 2
+        }
+        start: {
+          column: 9
+          row: 5
         }
       }
     }
@@ -437,54 +437,54 @@ describe 'word-search:', ->
       'java',
     }
     expected = {
-      rust: {
-        start: {
-          column: 9
-          row: 5
-        }
-        end: {
-          column: 9
-          row: 2
-        }
-      }
       clojure: {
-        start: {
-          column: 1
-          row: 10
-        }
         end: {
           column: 7
           row: 10
         }
+        start: {
+          column: 1
+          row: 10
+        }
       }
       ecmascript: {
-        start: {
-          column: 10
-          row: 1
-        }
         end: {
           column: 10
           row: 10
         }
+        start: {
+          column: 10
+          row: 1
+        }
       }
       elixir: {
+        end: {
+          column: 1
+          row: 5
+        }
         start: {
           column: 6
           row: 5
         }
-        end: {
-          column: 1
-          row: 5
-        }
       }
       java: {
+        end: {
+          column: 4
+          row: 4
+        }
         start: {
           column: 1
           row: 1
         }
+      }
+      rust: {
         end: {
-          column: 4
-          row: 4
+          column: 9
+          row: 2
+        }
+        start: {
+          column: 9
+          row: 5
         }
       }
     }
@@ -512,64 +512,64 @@ describe 'word-search:', ->
       'lua',
     }
     expected = {
-      lua: {
-        start: {
-          column: 8
-          row: 9
-        }
-        end: {
-          column: 6
-          row: 7
-        }
-      }
-      rust: {
-        start: {
-          column: 9
-          row: 5
-        }
-        end: {
-          column: 9
-          row: 2
-        }
-      }
       clojure: {
-        start: {
-          column: 1
-          row: 10
-        }
         end: {
           column: 7
           row: 10
         }
+        start: {
+          column: 1
+          row: 10
+        }
       }
       ecmascript: {
-        start: {
-          column: 10
-          row: 1
-        }
         end: {
           column: 10
           row: 10
         }
+        start: {
+          column: 10
+          row: 1
+        }
       }
       elixir: {
+        end: {
+          column: 1
+          row: 5
+        }
         start: {
           column: 6
           row: 5
         }
-        end: {
-          column: 1
-          row: 5
-        }
       }
       java: {
+        end: {
+          column: 4
+          row: 4
+        }
         start: {
           column: 1
           row: 1
         }
+      }
+      lua: {
         end: {
-          column: 4
-          row: 4
+          column: 6
+          row: 7
+        }
+        start: {
+          column: 8
+          row: 9
+        }
+      }
+      rust: {
+        end: {
+          column: 9
+          row: 2
+        }
+        start: {
+          column: 9
+          row: 5
         }
       }
     }
@@ -598,74 +598,74 @@ describe 'word-search:', ->
       'lisp',
     }
     expected = {
-      lisp: {
-        start: {
-          column: 3
-          row: 6
-        }
-        end: {
-          column: 6
-          row: 3
-        }
-      }
-      lua: {
-        start: {
-          column: 8
-          row: 9
-        }
-        end: {
-          column: 6
-          row: 7
-        }
-      }
-      rust: {
-        start: {
-          column: 9
-          row: 5
-        }
-        end: {
-          column: 9
-          row: 2
-        }
-      }
       clojure: {
-        start: {
-          column: 1
-          row: 10
-        }
         end: {
           column: 7
           row: 10
         }
+        start: {
+          column: 1
+          row: 10
+        }
       }
       ecmascript: {
-        start: {
-          column: 10
-          row: 1
-        }
         end: {
           column: 10
           row: 10
         }
+        start: {
+          column: 10
+          row: 1
+        }
       }
       elixir: {
+        end: {
+          column: 1
+          row: 5
+        }
         start: {
           column: 6
           row: 5
         }
-        end: {
-          column: 1
-          row: 5
-        }
       }
       java: {
+        end: {
+          column: 4
+          row: 4
+        }
         start: {
           column: 1
           row: 1
         }
+      }
+      lisp: {
         end: {
-          column: 4
-          row: 4
+          column: 6
+          row: 3
+        }
+        start: {
+          column: 3
+          row: 6
+        }
+      }
+      lua: {
+        end: {
+          column: 6
+          row: 7
+        }
+        start: {
+          column: 8
+          row: 9
+        }
+      }
+      rust: {
+        end: {
+          column: 9
+          row: 2
+        }
+        start: {
+          column: 9
+          row: 5
         }
       }
     }
@@ -696,83 +696,83 @@ describe 'word-search:', ->
     }
     expected = {
       clojure: {
-        start: {
-          column: 1
-          row: 10
-        }
         end: {
           column: 7
           row: 10
         }
-      }
-      lisp: {
         start: {
-          column: 3
-          row: 6
-        }
-        end: {
-          column: 6
-          row: 3
-        }
-      }
-      lua: {
-        start: {
-          column: 8
-          row: 9
-        }
-        end: {
-          column: 6
-          row: 7
-        }
-      }
-      rust: {
-        start: {
-          column: 9
-          row: 5
-        }
-        end: {
-          column: 9
-          row: 2
-        }
-      }
-      ruby: {
-        start: {
-          column: 8
-          row: 6
-        }
-        end: {
-          column: 5
-          row: 9
+          column: 1
+          row: 10
         }
       }
       ecmascript: {
-        start: {
-          column: 10
-          row: 1
-        }
         end: {
           column: 10
           row: 10
         }
+        start: {
+          column: 10
+          row: 1
+        }
       }
       elixir: {
+        end: {
+          column: 1
+          row: 5
+        }
         start: {
           column: 6
           row: 5
         }
-        end: {
-          column: 1
-          row: 5
-        }
       }
       java: {
+        end: {
+          column: 4
+          row: 4
+        }
         start: {
           column: 1
           row: 1
         }
+      }
+      lisp: {
         end: {
-          column: 4
-          row: 4
+          column: 6
+          row: 3
+        }
+        start: {
+          column: 3
+          row: 6
+        }
+      }
+      lua: {
+        end: {
+          column: 6
+          row: 7
+        }
+        start: {
+          column: 8
+          row: 9
+        }
+      }
+      ruby: {
+        end: {
+          column: 5
+          row: 9
+        }
+        start: {
+          column: 8
+          row: 6
+        }
+      }
+      rust: {
+        end: {
+          column: 9
+          row: 2
+        }
+        start: {
+          column: 9
+          row: 5
         }
       }
     }
@@ -804,83 +804,83 @@ describe 'word-search:', ->
     }
     expected = {
       clojure: {
-        start: {
-          column: 1
-          row: 10
-        }
         end: {
           column: 7
           row: 10
         }
-      }
-      rust: {
         start: {
-          column: 9
-          row: 5
-        }
-        end: {
-          column: 9
-          row: 2
-        }
-      }
-      elixir: {
-        start: {
-          column: 6
-          row: 5
-        }
-        end: {
           column: 1
-          row: 5
-        }
-      }
-      lisp: {
-        start: {
-          column: 3
-          row: 6
-        }
-        end: {
-          column: 6
-          row: 3
-        }
-      }
-      ruby: {
-        start: {
-          column: 8
-          row: 6
-        }
-        end: {
-          column: 5
-          row: 9
+          row: 10
         }
       }
       ecmascript: {
-        start: {
-          column: 10
-          row: 1
-        }
         end: {
           column: 10
           row: 10
         }
-      }
-      lua: {
         start: {
-          column: 8
-          row: 9
+          column: 10
+          row: 1
         }
+      }
+      elixir: {
         end: {
+          column: 1
+          row: 5
+        }
+        start: {
           column: 6
-          row: 7
+          row: 5
         }
       }
       java: {
+        end: {
+          column: 4
+          row: 4
+        }
         start: {
           column: 1
           row: 1
         }
+      }
+      lisp: {
         end: {
-          column: 4
-          row: 4
+          column: 6
+          row: 3
+        }
+        start: {
+          column: 3
+          row: 6
+        }
+      }
+      lua: {
+        end: {
+          column: 6
+          row: 7
+        }
+        start: {
+          column: 8
+          row: 9
+        }
+      }
+      ruby: {
+        end: {
+          column: 5
+          row: 9
+        }
+        start: {
+          column: 8
+          row: 6
+        }
+      }
+      rust: {
+        end: {
+          column: 9
+          row: 2
+        }
+        start: {
+          column: 9
+          row: 5
         }
       }
     }
@@ -928,3 +928,4 @@ describe 'word-search:', ->
     words = {'rust'}
     expected = {}
     assert.are.same expected, WordSearch(grid)\find(words)
+

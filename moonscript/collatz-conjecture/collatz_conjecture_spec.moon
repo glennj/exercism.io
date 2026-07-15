@@ -1,6 +1,6 @@
 CollatzConjecture = require 'collatz_conjecture'
 
-describe 'collatz-conjecture', ->
+describe 'collatz-conjecture:', ->
   it 'zero steps for one', ->
     result = CollatzConjecture.steps 1
     assert.are.equal 0, result
@@ -24,3 +24,4 @@ describe 'collatz-conjecture', ->
   it 'negative value is an error', ->
     f = -> CollatzConjecture.steps -15
     assert.has.errors f, 'Only positive integers are allowed'
+

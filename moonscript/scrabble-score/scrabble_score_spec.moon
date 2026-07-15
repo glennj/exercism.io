@@ -1,6 +1,6 @@
 Scrabble = require 'scrabble_score'
 
-describe 'scrabble-score', ->
+describe 'scrabble-score:', ->
   it 'lowercase letter', ->
     result = Scrabble.score 'a'
     assert.are.equal 1, result
@@ -44,3 +44,4 @@ describe 'scrabble-score', ->
   it 'entire alphabet available', ->
     result = Scrabble.score 'abcdefghijklmnopqrstuvwxyz'
     assert.are.equal 87, result
+

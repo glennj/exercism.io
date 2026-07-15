@@ -1,7 +1,7 @@
 Robot = require 'robot_simulator'
 
-describe 'robot-simulator', ->
-  describe 'Create robot', ->
+describe 'robot-simulator:', ->
+  describe 'Create robot:', ->
     it 'at origin facing north', ->
       robot = Robot x: 0, y: 0, direction: 'north'
       assert.are.equal 0, robot\x!
@@ -14,7 +14,7 @@ describe 'robot-simulator', ->
       assert.are.equal -1, robot\y!
       assert.are.equal 'south', robot\direction!
 
-  describe 'Rotating clockwise', ->
+  describe 'Rotating clockwise:', ->
     it 'changes north to east', ->
       robot = Robot x: 0, y: 0, direction: 'north'
       robot\move 'R'
@@ -43,7 +43,7 @@ describe 'robot-simulator', ->
       assert.are.equal 0, robot\y!
       assert.are.equal 'north', robot\direction!
 
-  describe 'Rotating counter-clockwise', ->
+  describe 'Rotating counter-clockwise:', ->
     it 'changes north to west', ->
       robot = Robot x: 0, y: 0, direction: 'north'
       robot\move 'L'
@@ -72,7 +72,7 @@ describe 'robot-simulator', ->
       assert.are.equal 0, robot\y!
       assert.are.equal 'north', robot\direction!
 
-  describe 'Moving forward one', ->
+  describe 'Moving forward one:', ->
     it 'facing north increments Y', ->
       robot = Robot x: 0, y: 0, direction: 'north'
       robot\move 'A'
@@ -101,7 +101,7 @@ describe 'robot-simulator', ->
       assert.are.equal 0, robot\y!
       assert.are.equal 'west', robot\direction!
 
-  describe 'Follow series of instructions', ->
+  describe 'Follow series of instructions:', ->
     it 'moving east and north from README', ->
       robot = Robot x: 7, y: 3, direction: 'north'
       robot\move 'RAALAL'
@@ -129,3 +129,4 @@ describe 'robot-simulator', ->
       assert.are.equal 11, robot\x!
       assert.are.equal 5, robot\y!
       assert.are.equal 'north', robot\direction!
+

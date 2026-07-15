@@ -1,6 +1,6 @@
 Isbn10 = require 'isbn_verifier'
 
-describe 'isbn-verifier', ->
+describe 'isbn-verifier:', ->
   it 'valid isbn', ->
     assert.is_true Isbn10.is_valid '3-598-21508-8'
 
@@ -63,3 +63,4 @@ describe 'isbn-verifier', ->
 
   it 'input is too long but contains a valid isbn', ->
     assert.is_false Isbn10.is_valid '98245726788'
+

@@ -25,7 +25,7 @@ add_days = (t, n) ->
       when 'fourth' then add_days t, 21
       when 'teenth' then add_days t, (t.day >= 6) and 7 or 14
       when 'last'
-        -- get the last day of the input month (the zeroth day of _next_ month)
+        -- get the last day of the input month
         last = {year: input.year, month: input.month + 1, day: 0}
         os.time last    
         while t.day <= last.day - 7

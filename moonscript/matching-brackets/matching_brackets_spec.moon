@@ -1,6 +1,6 @@
 import is_paired from require 'matching_brackets'
 
-describe 'matching-brackets', ->
+describe 'matching-brackets:', ->
   it 'paired square brackets', ->
     assert.is_true is_paired '[]'
 
@@ -60,3 +60,4 @@ describe 'matching-brackets', ->
 
   it 'complex latex expression', ->
     assert.is_true is_paired '\\left(\\begin{array}{cc} \\frac{1}{3} & x\\\\ \\mathrm{e}^{x} &... x^2 \\end{array}\\right)'
+

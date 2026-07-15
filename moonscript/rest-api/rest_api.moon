@@ -2,7 +2,7 @@ contains = (list, elem) ->
   for e in *list
     return true if e == elem
   false
-
+ 
 -- perform a deep copy of the thing
 clone = (thing) ->
   switch type thing

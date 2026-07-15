@@ -1,9 +1,9 @@
 import saddle_points from require 'saddle_points'
 
-describe 'saddle-points', ->
-  cmp_saddle_points = (a, b) ->
-    a.row < b.row or (a.row == b.row and a.column < b.column)
+compare_saddle_points = (a, b) ->
+  a.row < b.row or (a.row == b.row and a.column < b.column)
 
+describe 'saddle-points:', ->
   it 'Can identify single saddle point', ->
     matrix = {
       {9, 8, 7},
@@ -12,16 +12,16 @@ describe 'saddle-points', ->
     }
     result = saddle_points matrix
     expected = {{row: 2, column: 1}}
-    table.sort result, cmp_saddle_points
-    table.sort expected, cmp_saddle_points
+    table.sort result, compare_saddle_points
+    table.sort expected, compare_saddle_points
     assert.are.same expected, result
 
   it 'Can identify that empty matrix has no saddle points', ->
     matrix = {{}}
     result = saddle_points matrix
     expected = {}
-    table.sort result, cmp_saddle_points
-    table.sort expected, cmp_saddle_points
+    table.sort result, compare_saddle_points
+    table.sort expected, compare_saddle_points
     assert.are.same expected, result
 
   it 'Can identify lack of saddle points when there are none', ->
@@ -32,8 +32,8 @@ describe 'saddle-points', ->
     }
     result = saddle_points matrix
     expected = {}
-    table.sort result, cmp_saddle_points
-    table.sort expected, cmp_saddle_points
+    table.sort result, compare_saddle_points
+    table.sort expected, compare_saddle_points
     assert.are.same expected, result
 
   it 'Can identify multiple saddle points in a column', ->
@@ -44,8 +44,8 @@ describe 'saddle-points', ->
     }
     result = saddle_points matrix
     expected = {{row: 1, column: 2}, {row: 2, column: 2}, {row: 3, column: 2}}
-    table.sort result, cmp_saddle_points
-    table.sort expected, cmp_saddle_points
+    table.sort result, compare_saddle_points
+    table.sort expected, compare_saddle_points
     assert.are.same expected, result
 
   it 'Can identify multiple saddle points in a row', ->
@@ -56,8 +56,8 @@ describe 'saddle-points', ->
     }
     result = saddle_points matrix
     expected = {{row: 2, column: 1}, {row: 2, column: 2}, {row: 2, column: 3}}
-    table.sort result, cmp_saddle_points
-    table.sort expected, cmp_saddle_points
+    table.sort result, compare_saddle_points
+    table.sort expected, compare_saddle_points
     assert.are.same expected, result
 
   it 'Can identify saddle point in bottom right corner', ->
@@ -68,8 +68,8 @@ describe 'saddle-points', ->
     }
     result = saddle_points matrix
     expected = {{row: 3, column: 3}}
-    table.sort result, cmp_saddle_points
-    table.sort expected, cmp_saddle_points
+    table.sort result, compare_saddle_points
+    table.sort expected, compare_saddle_points
     assert.are.same expected, result
 
   it 'Can identify saddle points in a non square matrix', ->
@@ -79,8 +79,8 @@ describe 'saddle-points', ->
     }
     result = saddle_points matrix
     expected = {{row: 1, column: 3}, {row: 1, column: 1}}
-    table.sort result, cmp_saddle_points
-    table.sort expected, cmp_saddle_points
+    table.sort result, compare_saddle_points
+    table.sort expected, compare_saddle_points
     assert.are.same expected, result
 
   it 'Can identify that saddle points in a single column matrix are those with the minimum value', ->
@@ -92,14 +92,15 @@ describe 'saddle-points', ->
     }
     result = saddle_points matrix
     expected = {{row: 2, column: 1}, {row: 4, column: 1}}
-    table.sort result, cmp_saddle_points
-    table.sort expected, cmp_saddle_points
+    table.sort result, compare_saddle_points
+    table.sort expected, compare_saddle_points
     assert.are.same expected, result
 
   it 'Can identify that saddle points in a single row matrix are those with the maximum value', ->
     matrix = {{2, 5, 3, 5}}
     result = saddle_points matrix
     expected = {{row: 1, column: 2}, {row: 1, column: 4}}
-    table.sort result, cmp_saddle_points
-    table.sort expected, cmp_saddle_points
+    table.sort result, compare_saddle_points
+    table.sort expected, compare_saddle_points
     assert.are.same expected, result
+

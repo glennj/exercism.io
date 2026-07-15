@@ -1,7 +1,7 @@
 import is_equilateral, is_isosceles, is_scalene from require 'triangle'
 
-describe 'triangle', ->
-  describe 'equilateral triangle', ->
+describe 'triangle:', ->
+  describe 'equilateral triangle:', ->
     it 'all sides are equal', ->
       assert.is_true is_equilateral(2, 2, 2)
 
@@ -17,7 +17,7 @@ describe 'triangle', ->
     it 'sides may be floats', ->
       assert.is_true is_equilateral(0.5, 0.5, 0.5)
 
-  describe 'isosceles triangle', ->
+  describe 'isosceles triangle:', ->
     it 'last two sides are equal', ->
       assert.is_true is_isosceles(3, 4, 4)
 
@@ -45,7 +45,7 @@ describe 'triangle', ->
     it 'sides may be floats', ->
       assert.is_true is_isosceles(0.5, 0.4, 0.5)
 
-  describe 'scalene triangle', ->
+  describe 'scalene triangle:', ->
     it 'no sides are equal', ->
       assert.is_true is_scalene(5, 4, 6)
 
@@ -66,3 +66,4 @@ describe 'triangle', ->
 
     it 'sides may be floats', ->
       assert.is_true is_scalene(0.5, 0.4, 0.6)
+

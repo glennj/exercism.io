@@ -1,26 +1,14 @@
 BafflingBirthdays = require 'baffling_birthdays'
 
-describe 'baffling-birthdays', ->
-  -- ----------------------------------------
-  -- https://lunarmodules.github.io/Penlight/libraries/pl.tablex.html
-  tablex = require 'pl.tablex'
+-- ----------------------------------------
+-- https://lunarmodules.github.io/Penlight/libraries/pl.tablex.html
+tablex = require 'pl.tablex'
 
-  --
-  epsilon = 1.0
-  is_close_to = (state, arguments) ->
-    {a, b} = arguments
-    math.abs(a - b) <= epsilon
+isLeapYear = (year) -> year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+-- ----------------------------------------
 
-  say = require 'say'
-  say\set 'assertion.approx_equal.positive', "Expected %s and %s to be within #{epsilon}"
-  say\set 'assertion.approx_equal.negative', "Expected %s and %s not to be within #{epsilon}"
-  assert\register 'assertion', 'approx_equal', is_close_to, 'assertion.approx_equal.positive', 'assertion.approx_equal.negative'
-
-  --
-  isLeapYear = (year) -> year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
-  -- ----------------------------------------
-
-  describe 'shared birthday', ->
+describe 'baffling-birthdays:', ->
+  describe 'shared birthday:', ->
     it 'one birthdate', ->
       birthdates = {'2000-01-01'}
       assert.is.false BafflingBirthdays.sharedBirthday birthdates
@@ -57,7 +45,7 @@ describe 'baffling-birthdays', ->
       birthdates = {'1966-07-29', '1977-02-12', '2001-12-25', '1980-07-29', '2019-02-12'}
       assert.is.true BafflingBirthdays.sharedBirthday birthdates
 
-  describe 'random birthdates', ->
+  describe 'random birthdates:', ->
     it 'generate requested number of birthdates', ->
       result = true
       for n = 1, 100
@@ -90,19 +78,20 @@ describe 'baffling-birthdays', ->
       notSeen = [day for day,count in pairs days when count == 0]
       assert.is.equal 0, #notSeen
 
-  describe 'estimated probability of at least one shared birthday', ->
+  describe 'estimated probability of at least one shared birthday:', ->
     it 'for one person', ->
       result = BafflingBirthdays.estimatedProbabilityOfSharedBirthday 1
-      assert.is.approx_equal 0.0, result
+      assert.is.near 0.0, result, 1.0
 
     it 'among ten people', ->
       result = BafflingBirthdays.estimatedProbabilityOfSharedBirthday 10
-      assert.is.approx_equal 11.694818, result
+      assert.is.near 11.694818, result, 1.0
 
     it 'among twenty-three people', ->
       result = BafflingBirthdays.estimatedProbabilityOfSharedBirthday 23
-      assert.is.approx_equal 50.729723, result
+      assert.is.near 50.729723, result, 1.0
 
     it 'among seventy people', ->
       result = BafflingBirthdays.estimatedProbabilityOfSharedBirthday 70
-      assert.is.approx_equal 99.915958, result
+      assert.is.near 99.915958, result, 1.0
+

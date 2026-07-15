@@ -1,6 +1,6 @@
 Luhn = require 'luhn'
 
-describe 'luhn', ->
+describe 'luhn:', ->
   it 'single digit strings can not be valid', ->
     assert.is_false Luhn.is_valid '1'
 
@@ -66,3 +66,4 @@ describe 'luhn', ->
 
   it "non-numeric, non-space char in the middle with a sum that's divisible by 10 isn't allowed", ->
     assert.is_false Luhn.is_valid '59%59'
+

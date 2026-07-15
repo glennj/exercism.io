@@ -1,7 +1,7 @@
 SimpleCipher = require 'simple_cipher'
 
-describe 'simple-cipher', ->
-  describe 'Random key cipher', ->
+describe 'simple-cipher:', ->
+  describe 'Random key cipher:', ->
     it 'Can encode', ->
       cipher = SimpleCipher!
       plaintext = 'aaaaaaaaaa'
@@ -28,7 +28,7 @@ describe 'simple-cipher', ->
       key = cipher\key!
       assert.is.truthy key\match('^[a-z]+$')
 
-  describe 'Substitution cipher', ->
+  describe 'Substitution cipher:', ->
     it 'Can encode', ->
       cipher = SimpleCipher 'abcdefghij'
       result = cipher\encode 'aaaaaaaaaa'
@@ -69,3 +69,4 @@ describe 'simple-cipher', ->
       cipher = SimpleCipher 'abc'
       result = cipher\decode 'iboaqcnecbfcr'
       assert.are.equal 'iamapandabear', result
+

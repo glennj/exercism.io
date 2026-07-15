@@ -1,7 +1,7 @@
 Clock = require 'clock'
 
-describe 'clock', ->
-  describe 'Create a new clock with an initial time', ->
+describe 'clock:', ->
+  describe 'Create a new clock with an initial time:', ->
     it 'on the hour', ->
       clock = Clock hour: 8, minute: 0
       assert.are.equal '08:00', tostring clock
@@ -82,7 +82,7 @@ describe 'clock', ->
       clock = Clock hour: -121, minute: -5810
       assert.are.equal '22:10', tostring clock
 
-  describe 'Add minutes', ->
+  describe 'Add minutes:', ->
     it 'add minutes', ->
       clock = Clock hour: 10, minute: 0
       clock\add 3
@@ -123,7 +123,7 @@ describe 'clock', ->
       clock\add 3500
       assert.are.equal '11:21', tostring clock
 
-  describe 'Subtract minutes', ->
+  describe 'Subtract minutes:', ->
     it 'subtract minutes', ->
       clock = Clock hour: 10, minute: 3
       clock\subtract 3
@@ -164,7 +164,7 @@ describe 'clock', ->
       clock\subtract 3000
       assert.are.equal '00:20', tostring clock
 
-  describe 'Compare two clocks for equality', ->
+  describe 'Compare two clocks for equality:', ->
     it 'clocks with same time', ->
       a = Clock hour: 15, minute: 37
       b = Clock hour: 15, minute: 37
@@ -244,3 +244,4 @@ describe 'clock', ->
       a = Clock hour: 24, minute: 0
       b = Clock hour: 0, minute: 0
       assert.is_true, a\equals(b)
+

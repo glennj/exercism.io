@@ -1,6 +1,6 @@
 import roster, add, grade from require 'grade_school'
 
-describe 'grade-school', ->
+describe 'grade-school:', ->
   it 'Roster is empty when no student is added', ->
     result = roster {}
     expected = {}
@@ -100,3 +100,4 @@ describe 'grade-school', ->
     result = grade {{'Franklin', 5}, {'Bradley', 5}, {'Jeff', 1}}, 5
     expected = {'Bradley', 'Franklin'}
     assert.are.same expected, result
+

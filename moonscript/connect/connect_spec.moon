@@ -1,6 +1,6 @@
 Connect = require 'connect'
 
-describe 'connect', ->
+describe 'connect:', ->
   it 'an empty board has no winner', ->
     board = {
       '. . . . .',
@@ -109,3 +109,4 @@ describe 'connect', ->
       '        X X X X X X X X O',
     }
     assert.are.equal 'X', Connect.winner board
+

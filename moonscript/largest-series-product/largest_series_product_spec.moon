@@ -1,6 +1,6 @@
 import largest_product from require 'largest_series_product'
 
-describe 'largest-series-product', ->
+describe 'largest-series-product:', ->
   it 'finds the largest product if span equals length', ->
     result = largest_product '29', 2
     assert.are.equal 18, result
@@ -74,3 +74,4 @@ describe 'largest-series-product', ->
   it 'rejects negative span', ->
     f = -> largest_product '12345', -1
     assert.has.errors f, 'span must not be negative'
+
