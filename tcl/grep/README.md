@@ -3,6 +3,12 @@
 Welcome to Grep on Exercism's Tcl Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
+## Introduction
+
+You have taken a job at a local library helping organize their collection of old books.
+The student patrons are often hunting for half-remembered quotes to cite in their term papers.
+Rather than manually read every book from cover to cover, you decide to build a small tool to scan them, looking for these partial quotes.
+
 ## Instructions
 
 Search files for lines matching a search string and return all matching lines.
@@ -43,4 +49,4 @@ The `grep` command supports the following flags:
 
 ### Based on
 
-Conversation with Nate Foster. - https://www.cs.cornell.edu/Courses/cs3110/2014sp/hw/0/ps0.pdf
+Conversation with Nate Foster. - https://www.cs.cornell.edu/courses/cs3110/2014sp/hw/0/ps0.pdf

@@ -1,4 +1,4 @@
-source set.tcl
+source ./set.tcl
 
 namespace eval PerfectNumbers {
 
@@ -18,7 +18,7 @@ namespace eval PerfectNumbers {
 
     proc classify {n} {
         if {![string is integer -strict $n] || $n <= 0} {
-            error "Classification is only possible for natural numbers."
+            error "Classification is only possible for positive integers."
         }
         set sum [aliquotSum $n]
         if {$sum == $n} { return perfect }

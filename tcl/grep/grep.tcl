@@ -1,4 +1,4 @@
-package require Tcl 8.5
+package require Tcl 8.5-
 package require cmdline     ;# from tcllib
 
 namespace eval ::fileutil::grep {

@@ -18,3 +18,27 @@ proc cleanupTests {} {
     uplevel 1 ::tcltest::cleanupTests
     if {$failed} then {exit 1}
 }
+
+# Compare two ordered lists without comparing the lists themselves 
+# as strings.
+# e.g.
+#     set first {
+#         a  b  c
+#     }
+#     set second [list a b c]
+#     expr {$first eq $second}           ;# 0
+#     expr {$first == $second}           ;# 0
+#     orderedListsMatch $first $second   ;# true
+#
+proc orderedListsMatch {expected actual} {
+    if {[llength $expected] != [llength $actual]} {
+        return false
+    }
+    foreach e $expected a $actual {
+        if {$e != $a} {
+            return false
+        }
+    }
+    return true
+}
+customMatch orderedLists orderedListsMatch

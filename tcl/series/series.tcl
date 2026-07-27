@@ -1,6 +1,7 @@
 proc slices {str len {method byRunningSlice}} {
     assert {$str ne ""} "series cannot be empty"
-    assert {$len >= 1} "slice length cannot be less than one"
+    assert {$len != 0} "slice length cannot be zero"
+    assert {$len >= 0} "slice length cannot be negative"
 
     set strlen [string length $str]
     assert {$strlen >= $len} "slice length cannot be greater than series length"

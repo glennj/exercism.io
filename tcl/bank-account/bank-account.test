@@ -1,145 +1,148 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-26T14:06:00Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
-# configure -verbose {body error usec}
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
 
 ############################################################
 source "bank-account.tcl"
 
-test bank-account-1 "newly opened account has zero balance" -body {
+
+test bank-account-1 "Newly opened account has zero balance" -body {
     set account [BankAccount new]
-    $account open
-    $account balance
+    $account open 
+    $account balance 
 } -returnCodes ok -result 0
 
 skip bank-account-2
-test bank-account-2 "single deposit" -body {
+test bank-account-2 "Single deposit" -body {
     set account [BankAccount new]
-    $account open
+    $account open 
     $account deposit 100
-    $account balance
+    $account balance 
 } -returnCodes ok -result 100
 
 skip bank-account-3
-test bank-account-3 "multiple deposits" -body {
+test bank-account-3 "Multiple deposits" -body {
     set account [BankAccount new]
-    $account open
+    $account open 
     $account deposit 100
     $account deposit 50
-    $account balance
+    $account balance 
 } -returnCodes ok -result 150
 
 skip bank-account-4
-test bank-account-4 "withdraw once" -body {
+test bank-account-4 "Withdraw once" -body {
     set account [BankAccount new]
-    $account open
+    $account open 
     $account deposit 100
     $account withdraw 75
-    $account balance
+    $account balance 
 } -returnCodes ok -result 25
 
 skip bank-account-5
-test bank-account-5 "withdraw twice" -body {
+test bank-account-5 "Withdraw twice" -body {
     set account [BankAccount new]
-    $account open
+    $account open 
     $account deposit 100
     $account withdraw 80
     $account withdraw 20
-    $account balance
+    $account balance 
 } -returnCodes ok -result 0
 
 skip bank-account-6
-test bank-account-6 "can do multiple operations sequentially" -body {
+test bank-account-6 "Can do multiple operations sequentially" -body {
     set account [BankAccount new]
-    $account open
+    $account open 
     $account deposit 100
     $account deposit 110
     $account withdraw 200
     $account deposit 60
     $account withdraw 50
-    $account balance
+    $account balance 
 } -returnCodes ok -result 20
 
 skip bank-account-7
-test bank-account-7 "cannot check balance of a closed account" -body {
+test bank-account-7 "Cannot check balance of closed account" -body {
     set account [BankAccount new]
-    $account open
-    $account close
-    $account balance
-} -returnCodes error -match glob -result "*account is not open*"
+    $account open 
+    $account close 
+    $account balance 
+} -returnCodes error -result "account not open"
 
 skip bank-account-8
-test bank-account-8 "cannot deposit into closed account" -body {
+test bank-account-8 "Cannot deposit into closed account" -body {
     set account [BankAccount new]
-    $account open
-    $account close
+    $account open 
+    $account close 
     $account deposit 50
-} -returnCodes error -match glob -result "*account is not open*"
+} -returnCodes error -result "account not open"
 
 skip bank-account-9
-test bank-account-9 "cannot deposit into unopened account" -body {
+test bank-account-9 "Cannot deposit into unopened account" -body {
     set account [BankAccount new]
     $account deposit 50
-} -returnCodes error -match glob -result "*account is not open*"
+} -returnCodes error -result "account not open"
 
 skip bank-account-10
-test bank-account-10 "cannot withdraw from closed account" -body {
+test bank-account-10 "Cannot withdraw from closed account" -body {
     set account [BankAccount new]
-    $account open
-    $account close
+    $account open 
+    $account close 
     $account withdraw 50
-} -returnCodes error -match glob -result "*account is not open*"
+} -returnCodes error -result "account not open"
 
 skip bank-account-11
-test bank-account-11 "cannot close an account that was not opened" -body {
+test bank-account-11 "Cannot close an account that was not opened" -body {
     set account [BankAccount new]
-    $account close
-} -returnCodes error -match glob -result "*account is not open*"
+    $account close 
+} -returnCodes error -result "account not open"
 
 skip bank-account-12
-test bank-account-12 "cannot open an already opened account" -body {
+test bank-account-12 "Cannot open an already opened account" -body {
     set account [BankAccount new]
-    $account open
-    $account open
-} -returnCodes error -match glob -result "*account is already open*"
+    $account open 
+    $account open 
+} -returnCodes error -result "account already open"
 
 skip bank-account-13
-test bank-account-13 "reopened account does not retain balance" -body {
+test bank-account-13 "Reopened account does not retain balance" -body {
     set account [BankAccount new]
-    $account open
+    $account open 
     $account deposit 50
-    $account close
-    $account open
-    $account balance
+    $account close 
+    $account open 
+    $account balance 
 } -returnCodes ok -result 0
 
 skip bank-account-14
-test bank-account-14 "cannot withdraw more than deposited" -body {
+test bank-account-14 "Cannot withdraw more than deposited" -body {
     set account [BankAccount new]
-    $account open
+    $account open 
     $account deposit 25
     $account withdraw 50
-} -returnCodes error -match glob -result "*insufficient funds*"
+} -returnCodes error -result "amount must be less than balance"
 
 skip bank-account-15
-test bank-account-15 "cannot withdraw negative" -body {
+test bank-account-15 "Cannot withdraw negative" -body {
     set account [BankAccount new]
-    $account open
+    $account open 
     $account deposit 100
     $account withdraw -50
-} -returnCodes error -match glob -result "*invalid amount*"
+} -returnCodes error -result "amount must be greater than 0"
 
 skip bank-account-16
-test bank-account-16 "cannot deposit negative" -body {
+test bank-account-16 "Cannot deposit negative" -body {
     set account [BankAccount new]
-    $account open
+    $account open 
     $account deposit -50
-} -returnCodes error -match glob -result "*invalid amount*"
+} -returnCodes error -result "amount must be greater than 0"
 
 skip bank-account-17
-test bank-account-17 "can handle concurrent transactions" -body {
+test bank-account-17 "Can handle concurrent transactions" -body {
     # In this style of using Tcl threads, we don't need
     # to make any thread-specific adjustments to the
     # BankAccount class: passing messages between threads

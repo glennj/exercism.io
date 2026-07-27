@@ -7,6 +7,7 @@ proc countWords {sentence} {
 
     foreach word [regexp -all -inline {[[:alnum:]']+} $sentence] {
         set w [string trim $word {'}]
+        if {$w eq ""} then continue
         dict incr counts [string tolower $w]
     }
     return $counts
