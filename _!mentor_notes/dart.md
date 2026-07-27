@@ -85,6 +85,28 @@ There are lots of other useful methods in the [`Iterable`](https://api.dart.dev/
 
 ---
 
+There are a couple of alternatives to building up strings with the `+` operator, 
+
+- use [string interpolation](https://dart.dev/language/built-in-types#strings)
+
+  ```dart
+  var thing = "world";
+  return "Hello, ${world}!";
+  ```
+
+- use a [StringBuffer](https://api.dart.dev/dart-core/StringBuffer-class.html).
+  This is particularly useful when you have many different pieces of strings to combine.
+
+  ```dart
+  var buffer = StringBuffer("Hello");
+  buffer.write(", ");
+  buffer.write(thing);
+  buffer.write("!");
+  return buffer.toString();
+  ```
+
+---
+
 Function variables usually don't need to have an explicit type. 
 Instead of:
 ```dart
@@ -93,6 +115,15 @@ String wordUpper = word.toUpperCase();
 you can use 
 ```dart
 var wordUpper = word.toUpperCase();
+```
+
+Dart infers the type based on the right-hand side of the assignment. The only time you really need to specify a type is if you're assigning an empty list. Then, we can write
+```dart
+List<String> names = [];
+```
+like this
+```dart
+var names = <String>[];
 ```
 
 See the [manual](https://dart.dev/language#variables) and the ["Effective Dart" doc](https://dart.dev/effective-dart/usage#do-follow-a-consistent-rule-for-var-and-final-on-local-variables).
