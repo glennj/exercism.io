@@ -1,0 +1,61 @@
+const GroundY = 2
+const StartX = 2
+
+function buildAll(numberOfBuildings) {
+  let x = StartX
+  repeat(numberOfBuildings) {
+    let width = buildOneBuilding(x)
+    x = x + width + 1
+  }
+}
+
+function buildOneBuilding(x) {
+  let width = randomWidth()
+  let floors = randomNumFloors()
+
+  let y = GroundY
+  buildGroundFloor(x, y, width)
+  repeat(floors - 1) {
+    y = y + 1
+    buildGlassFloor(x, y, width)
+  }
+  buildRoof(x, y + 1, width)
+
+  return width
+}
+
+function buildGroundFloor(x, y, width) {
+  let numGlass = (width - 2 - 1) / 2
+  buildWall(x, y)
+  repeat(numGlass) {
+    x = x + 1
+    buildGlass(x, y)
+  }
+  x = x + 1
+  buildEntrance(x, y)
+  repeat(numGlass) {
+    x = x + 1
+    buildGlass(x, y)
+  }
+  x = x + 1
+  buildWall(x, y)
+}
+
+function buildGlassFloor(x, y, width) {
+  buildWall(x, y)
+  repeat(width - 2) {
+    x = x + 1
+    buildGlass(x, y)
+  }
+  x = x + 1
+  buildWall(x, y)
+}
+
+function buildRoof(x, y, width) {
+  repeat(width) {
+    buildWall(x, y)
+    x = x + 1
+  }
+}
+
+buildAll(numBuildings())
