@@ -1,10 +1,15 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-17T23:38:20Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "gigasecond.tcl"
+
 
 test gigasecond-1 "date only specification of time" -body {
     addGigasecond "2011-04-25"
@@ -30,6 +35,7 @@ test gigasecond-5 "full time with day roll-over" -body {
     addGigasecond "2015-01-24T23:59:59"
 } -returnCodes ok -result "2046-10-03T01:46:39"
 
+# bonus test
 skip gigasecond-6
 test gigasecond-6 "free-form datetime string" -body {
     addGigasecond "thu march 2, 1978 1:23 PM"

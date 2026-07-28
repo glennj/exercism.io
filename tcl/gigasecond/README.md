@@ -37,7 +37,9 @@ That is a one with nine zeros after it.
 
 If you were born on _January 24th, 2015 at 22:00 (10:00:00pm)_, then you would be a gigasecond old on _October 2nd, 2046 at 23:46:40 (11:46:40pm)_.
 
-To solve this exercise in Tcl, you'll need to use [the `clock` command][clock]
+## Implementation
+
+To solve this exercise in Tcl, you'll need to use [the `clock` command][clock].
 
 [clock]: https://www.tcl-lang.org/man/tcl8.6/TclCmd/clock.htm
 
@@ -53,4 +55,4 @@ To solve this exercise in Tcl, you'll need to use [the `clock` command][clock]
 
 ### Based on
 
-Chapter 9 in Chris Pine's online Learn to Program tutorial. - https://pine.fm/LearnToProgram/?Chapter=09
+Chapter 9 in Chris Pine's online Learn to Program tutorial. - https://pine.fm/LearnToProgram/chap_09.html
