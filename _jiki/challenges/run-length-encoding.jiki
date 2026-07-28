@@ -1,0 +1,53 @@
+function encode(input) {
+  if (input === "")  {
+    return ""
+  }
+  let encoded = ""
+  let prev = input[0]
+  let count = 1
+  for (let i = 1; i < input.length; i++) {
+    if (input[i] === prev) {
+      count++
+      continue
+    }
+    encoded = addEncoding(encoded, prev, count)
+    prev = input[i]
+    count = 1
+  } 
+  return addEncoding(encoded, prev, count)
+}
+
+function addEncoding(encoded, char, count) {
+  if (count === 1) {
+    return encoded + char
+  }
+  return encoded + String(count) + char
+}
+
+function decode(input) {
+  let decoded = ""
+  let count = 0
+  for (let char of input) {
+    if (isDigit(char)) {
+      count = count * 10 + Number(char)
+    } else if (count === 0) {
+      decoded = decoded + char
+    } else {
+      decoded = decoded + strRepeat(char, count)
+      count = 0
+    }
+  }
+  return decoded
+}
+
+function isDigit(char) {
+  return "0123456789".includes(char)
+}
+
+function strRepeat(str, count) {
+  let result = ""
+  repeat(count) {
+    result = result + str
+  }
+  return result
+}

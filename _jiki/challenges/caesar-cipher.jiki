@@ -1,0 +1,35 @@
+function encode(message, shift) {
+  let shifted = shiftedAlphabet(shift)
+  let encoded = ""
+  for (let char of message) {
+    encoded = encoded + encodeCharacter(char, shifted)
+  }
+  return encoded
+}
+
+// ---------------------------------------------------------------
+const ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+
+// shift the alphabet by `shift` number of letters.
+// Example: shiftedAlphabet(5) ==> "fghijklmnopqrstuvwxyzabcde"
+function shiftedAlphabet(shift) {
+  return substring(ALPHABET, shift, 25) + substring(ALPHABET, 0, shift - 1)
+}
+
+function encodeCharacter(char, shifted) {
+  let idx = ALPHABET.indexOf(char)
+  if (idx === -1) {
+    return char
+  } else {
+    return shifted[idx]
+  }
+}
+
+function substring(str, start, end) {
+  let result = ""
+  // TODO: validate indices
+  for (let i = start; i <= end; i++) {
+    result = result + str[i]
+  }
+  return result
+}

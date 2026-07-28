@@ -1,0 +1,24 @@
+function acronym(phrase) {
+  let seekingLetter = true
+  let result = ""
+  for (let char of phrase.toUpperCase()) {
+    if (seekingLetter) {
+      if (isUpper(char)) {
+        result = result + char
+        seekingLetter = false
+      }
+    } else if (!isUpper(char)) {
+      seekingLetter = true
+    }
+  }
+  return result
+}
+
+function isUpper(char) {
+  for (let letter of "ABCDEFGHIJKLMNOPQRSTUVWXYZ") {
+    if (letter === char) {
+      return true
+    }
+  }
+  return false
+}
