@@ -1,0 +1,73 @@
+// get alien rows
+// count aliens
+const MAX_POSITION = 10
+const ROW_COUNT = 3
+
+function move(position, step) {
+  // boundary checks
+  if (position === 0 && step === -1) {
+    step = 1
+  } else if (position === MAX_POSITION && step === 1) {
+    step = -1
+  }
+  // actually do the move
+  if (step > 0) {
+    moveRight()
+  } else {
+    moveLeft()
+  }
+  // return the new state
+  return [position + step, step]
+}
+
+function getAlienRows() {
+  let rows = [0, 0, 0]
+  for (let i = 0; i < ROW_COUNT; i++) {
+    rows[i] = getStartingAliensInRow(i)
+  }
+  return rows
+}
+
+function countAliens(matrix) {
+  let count = 0
+  for (let i = 0; i < matrix.length; i++) {
+    for (let bool of matrix[i]) {
+      if (bool) {
+        count++
+      }
+    }
+  }
+  return count
+}
+
+// returns the row number of the 
+function alienAbove(matrix, pos) {
+  for (let i = 0; i < ROW_COUNT; i++) {
+    if (matrix[i][pos]) {
+      return i
+    }
+  }
+  return -1
+}
+
+function shootEmAll() {
+  let alienGrid = getAlienRows()
+  let position = 0
+  let step = 1
+
+  // Jiki ends the game when the last alien is shot
+  repeat() {
+    let rowWithAlien = alienAbove(alienGrid, position)
+    if (rowWithAlien !== -1) {
+      shoot()
+      alienGrid[rowWithAlien][position] = false
+    }
+
+    // destructuring assignment would be nice here ...
+    let newPos = move(position, step)
+    position = newPos[0]
+    step = newPos[1]
+  }
+}
+
+shootEmAll()

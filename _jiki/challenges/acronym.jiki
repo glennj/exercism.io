@@ -1,24 +1,62 @@
+// I'm bending the rules a bit: this code:
+// - adds the first letter of each word to the acronym,
+// - a word starts with a letter and can contain letters and apostrophes,
+// - all other characters are word separators, spaces and hyphens are not special.
+
+// JavaScript builtin methods not allowed.
+
 function acronym(phrase) {
-  let seekingLetter = true
+  let state = "seekingWordStart"
   let result = ""
-  for (let char of phrase.toUpperCase()) {
-    if (seekingLetter) {
-      if (isUpper(char)) {
-        result = result + char
-        seekingLetter = false
-      }
-    } else if (!isUpper(char)) {
-      seekingLetter = true
+  for (let char of phrase) {
+    if (state === "seekingWordStart" && isAlpha(char)) {
+      result = result + char
+      state = "seekingWordEnd"
+    } else if (state === "seekingWordEnd" && !isWordChar(char)) {
+      state = "seekingWordStart"
+    }
+  }
+  return toUpperCase(result)
+}
+
+// ----------------------------------------------------
+function indexOf(needle, haystack) {
+  let idx = 0
+  for (let elem of haystack) {
+    if (elem === needle) {
+      return idx
+    }
+    idx++
+  }
+  return -1
+}
+
+function includes(haystack, needle) {
+  return indexOf(needle, haystack) !== -1
+}
+
+// ordered by highest frequency of usage
+// https://en.wikipedia.org/wiki/Letter_frequency#Relative_frequencies_of_letters_in_the_English_language
+const ALPHABET_UPPER = "EARIOTNSLCUDPMHGBFYWKVXZJQ"
+const ALPHABET_LOWER = "eariotnslcudpmhgbfywkvxzjq"
+
+function toUpperCase(str) {
+  let result = ""
+  for (let char of str) {
+    let idx = indexOf(char, ALPHABET_LOWER)
+    if (idx === -1) {
+      result = result + char
+    } else {
+      result = result + ALPHABET_UPPER[idx]
     }
   }
   return result
 }
 
-function isUpper(char) {
-  for (let letter of "ABCDEFGHIJKLMNOPQRSTUVWXYZ") {
-    if (letter === char) {
-      return true
-    }
-  }
-  return false
+function isAlpha(char) {
+  return includes(ALPHABET_LOWER, char) || includes(ALPHABET_UPPER, char)
+}
+
+function isWordChar(char) {
+  return isAlpha(char) || char === "'"
 }
