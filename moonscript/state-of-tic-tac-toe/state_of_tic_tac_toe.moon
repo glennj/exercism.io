@@ -27,7 +27,8 @@ win_masks = {
         if values[player] & mask == mask
           wins[player] = true 
 
-    assert not (wins.X and wins.O), 'Impossible board: game should have ended after the game was won'
+    assert not (wins.X and num.O >= num.X), 'Impossible board: game should have ended after the game was won'
+    assert not (wins.O and num.X >= num.O + 1), 'Impossible board: game should have ended after the game was won'
     assert num.X <= num.O + 1, 'Wrong turn order: X went twice'
     assert num.O <= num.X, 'Wrong turn order: O started'
 

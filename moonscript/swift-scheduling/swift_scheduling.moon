@@ -48,7 +48,7 @@ month = (t, m) ->
 
 quarter = (t, q) ->
   m = 3 * q
-  if t.month < m
+  if t.month <= m
     t.month = m
   else
     t.year += 1

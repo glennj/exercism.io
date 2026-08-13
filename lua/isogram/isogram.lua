@@ -1,15 +1,15 @@
-local Set = require("Set")  -- https://wscherphof.github.io/lua-set/ 
-                            -- luarocks install set
-
 local function is_isogram(input)
+    local seen = {}
     -- remove all non-alpha
     local letters = (input or ""):upper():gsub("%A", "")
 
-    local set = Set:new()
     for letter in letters:gmatch(".") do
-        set:add(letter)
+        if seen[letter] then
+            return false
+        end
+        seen[letter] = true
     end
-    return set:len() == #letters
+    return true
 end
 
 return is_isogram
