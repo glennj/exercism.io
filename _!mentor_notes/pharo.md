@@ -45,6 +45,10 @@ Car >> initialize [
 I think it boils down to this:
 super **is** self, except the method lookup _starts in the superclass_.
 
+## extension methods
+
+See [https://glennj.github.io/exercism/pharo/](https://glennj.github.io/exercism/pharo/)
+
 ## block shorthand
 
 A reminder that when you have a block like `[ :x | x method ]` you can provide just the method name as a symbol `#method`:
