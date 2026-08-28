@@ -1,0 +1,25 @@
+function matchingSocks(clean, dirty) {
+  const matchedSocks = []
+  const allItems = clean.concat(dirty)
+
+  for (let i = 0; i < allItems.length; i++) {
+    const item = allItems[i]
+    if (!item.endsWith("sock")) {
+      continue
+    }
+
+    const details = item.split(" ")
+    const color = details[1]
+    let wantedSock = `left ${color} sock`
+    if (details[0] === "left") {
+      wantedSock = wantedSock.replace("left", "right")
+    }
+    
+    let idx = allItems.slice(i + 1).indexOf(wantedSock)
+    if (idx !== -1) {
+      matchedSocks.push(`${color} socks`)
+      allItems[i + 1 + idx] = ""
+    }
+  }
+  return matchedSocks
+}

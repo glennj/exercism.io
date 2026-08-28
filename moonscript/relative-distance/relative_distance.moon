@@ -29,7 +29,7 @@ ancestry = (tree, person) ->
       table.remove ancestors[personA], 1
       table.remove ancestors[personB], 1
 
-    if     #ancestors[personA] == 0 then #ancestors[personB]
-    elseif #ancestors[personB] == 0 then #ancestors[personA]
-    else                                 #ancestors[personA] + #ancestors[personB] - 1
+    return #ancestors[personB] if #ancestors[personA] == 0
+    return #ancestors[personA] if #ancestors[personB] == 0
+    #ancestors[personA] + #ancestors[personB] - 1
 }

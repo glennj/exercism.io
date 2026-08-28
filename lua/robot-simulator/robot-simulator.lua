@@ -4,31 +4,9 @@
 ----------------------------------------
 
 -- valid headings
-local directions = { east=0, north=90, west=180, south=270 }
+local bearings = { east=0, north=90, west=180, south=270 }
 local headings = {}
-for k,v in pairs(directions) do headings[v]=k end
-
--- dispatch table for instructing the robot to move
-local motion = {}
-
--- A: advance 1 unit
-function motion.A (robot)
-    -- local rad = 2 * math.pi * directions[robot.heading] / 360
-    local rad = math.rad(directions[robot.heading])
-    robot.x = robot.x + math.cos(rad)
-    robot.y = robot.y + math.sin(rad)
-end
-
--- L: turn left (counter-clockwise)
-function motion.L (robot, dir)
-    dir = dir or 1
-    robot.heading = headings[(directions[robot.heading] + dir*90) % 360]
-end
-
--- R: turn right (clockwise)
-function motion.R (robot)
-    motion.L(robot, -1)
-end
+for k,v in pairs(bearings) do headings[v]=k end
 
 ----------------------------------------
 -- the Robot class
@@ -48,7 +26,7 @@ function Robot:new(attributes)
         y = attributes.y or 0,
         heading = attributes.heading,
     }
-    if not directions[robot.heading] then robot.heading = 'north' end
+    if not bearings[robot.heading] then robot.heading = 'north' end
 
     setmetatable(robot, self)
     return robot
@@ -56,9 +34,23 @@ end
 
 function Robot:move(instructions)
     for instruction in instructions:gmatch('.') do
-        assert(motion[instruction], 'Unknown instruction')
-        motion[instruction](self)
+        if     instruction == 'A' then self:advance()
+        elseif instruction == 'L' then self:turn(1)
+        elseif instruction == 'R' then self:turn(-1)
+        else   error('Unknown instruction')
+        end
     end
+end
+
+function Robot:advance()
+    local rad = math.rad(bearings[self.heading])
+    self.x = self.x + math.cos(rad)
+    self.y = self.y + math.sin(rad)
+end
+
+function Robot:turn(dir)
+    local bearing = (bearings[self.heading] + dir*90) % 360
+    self.heading = headings[bearing]
 end
 
 return Robot
