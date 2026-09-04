@@ -1,0 +1,98 @@
+// Magic numbers
+const GUESS_LIMIT = 6
+const WORD_LENGTH = 5
+
+// ------------------------------------------------------------
+// The solveWordle function.
+// It takes no inputs.
+// Keep guessing words from commonWords() until you get
+// the target word, using as few guesses as you can.
+function solveWordle() {
+  let words = commonWords()
+  let guessWord = words[0]
+
+  for (let i = 0; i < GUESS_LIMIT; i++) {
+    let states = guess(guessWord)
+    console.log([guessWord, states, words])
+
+    // if (states.every((state) => state === "correct")) {break}
+    if (isAllCorrect(states)) {
+      break
+    }
+
+    // Given the state of this guess, remove "useless" words
+    pruneWords(guessWord, states, words)
+
+    // Find the next word based on the current guess and updated words list
+    guessWord = nextGuess(states, guessWord, words)
+  }
+}
+
+
+// ------------------------------------------------------------
+// Does this array of letter states represent a correct guess?
+// Every state must be "correct".
+function isAllCorrect(states) {
+  for (const s of states) {
+    if (s !== "correct") {
+      return false
+    }
+  }
+  return true
+}
+
+function pruneWords(word, states, words) {
+  let len = words.length
+  // remove the guessed word so we don't repeat ourselves
+  words.splice(words.indexOf(word), 1)
+
+  // remove words with known absent letters
+  for (let i = 0; i < WORD_LENGTH; i++) {
+    if (states[i] === "absent") {
+      let letter = word[i]
+      // iterate right-to-left so we can remove entries without losing our place
+      for (let j = words.length - 1; j >= 0; j--) {
+        if (words[j].includes(letter)) {
+          words.splice(j, 1)
+        }
+      }
+    }
+  }
+}
+
+// Given a states array from a previous guess, find another word that 
+// matches those states.
+function nextGuess(states, previous, words) {
+  for (const word of words) {
+    if (matches(word, states, previous)) {
+      return word
+    }
+  }
+  // No matching word found in the words list!
+  // FIXME: we should throw an exception instead
+  return "zzzzz"
+}
+
+// Check if the potential guess matches the states of the previous guess
+function matches(word, states, previous) {
+  let letters = word.split("")
+  for (let i = 0; i < WORD_LENGTH; i++) {
+    if (states[i] === "correct" && letters[i] !== previous[i]) {
+      return false
+    } else if (states[i] === "present") {
+      // if the correspon:w
+      // ding letters are equal the state would have been "correct"
+      if (letters[i] === previous[i]) {
+        return false
+      }           
+      let idx = letters.indexOf(previous[i])
+      if (idx === -1) {
+        return false
+      }
+      letters[idx] = "_"
+    } else {
+      // we have already taken care of the "absent" state
+    }
+  }
+  return true
+}
