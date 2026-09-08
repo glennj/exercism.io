@@ -1,10 +1,10 @@
-use context essentials2020 # Don't delete this line when using Pyret on Exercism 
+use context starter2024
 
-provide: translate end
+provide: my-translate end
 
 include string-dict
 
-fun translate(legacy):
+fun my-translate(legacy):
   fun add-letters(translated, key):
     letters = legacy.get-value(key)
     letters.foldl(

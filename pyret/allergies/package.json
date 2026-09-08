@@ -1,0 +1,21 @@
+{
+  "name": "@exercism/pyret",
+  "description": "Exercism exercises in Pyret.",
+  "author": "Katrina Owen",
+  "contributors": [
+    "BNAndras"
+  ],
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/exercism/pyret"
+  },
+  "scripts": {
+    "test": "pyret *-test.arr"
+  },
+  "dependencies": {
+    "pyret-npm": "0.1.26"
+  },
+  "packageManager": "npm@11.13.0"
+}
