@@ -41,6 +41,10 @@ function isAllCorrect(states) {
   return true
 }
 
+// This function has side effects! The contents of the `words` array
+// will be modified.
+// Jiki (and Javascript) pass arrays by _reference_, so changes made
+// in this function will be visible in the calling scope.
 function pruneWords(word, states, words) {
   let len = words.length
   // remove the guessed word so we don't repeat ourselves
