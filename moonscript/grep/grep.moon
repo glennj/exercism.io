@@ -25,9 +25,9 @@ grep_file = (filename, patt, opts) ->
 
     opts = {opt, true for opt in *options}
     opts["-H"] = (#filenames > 1)
-    opts.case_func = opts["-i"] and string.lower or identity
+    opts.case_func = if opts["-i"] then string.lower else identity
 
-    patt = opts.case_func( opts["-x"] and "^#{pattern}$" or pattern )
+    patt = opts.case_func( if opts["-x"] then "^#{pattern}$" else pattern )
 
     fold {List!, table.unpack filenames}, (result, filename) ->
       result\extend grep_file filename, patt, opts
