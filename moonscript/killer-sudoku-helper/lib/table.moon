@@ -7,23 +7,23 @@ size = (t) ->
 
 -- are two tables equal
 equals = (t1, t2) ->
-  return false if size t1 != size t2
+  return false if size(t1) != size(t2)
   for k, v in pairs t1
     return false if v != t2[k]
   true
 
 
--- does the table contain a target element
+-- does the table (sequence) contain a target element
 contains = (t, item) ->
   for elem in *t
-    if type item == "table"
-      return true if type elem == "table" and equals item, elem
-    else
-      return true if elem == item
+    if type(item) == "table"
+      return true if type(elem) == "table" and equals item, elem
+    elseif elem == item
+      return true 
   false
 
 
--- distinct elements
+-- distinct elements in sequence
 distinct = (t) ->
   seen = {}
   result = {}
@@ -51,7 +51,7 @@ treverse = (t) ->
     j -= 1
 
 
--- return a shallow copy of a table
+-- return a shallow copy of a table (sequence)
 clone = (t) -> {table.unpack t}
 
 

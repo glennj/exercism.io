@@ -1,0 +1,20 @@
+import contains from require 'lib/table'
+
+combinations = (input) ->
+  {:size, :sum, :exclude} = input
+  
+  if size == 1
+    return {} if sum < 1 or sum > 9 or contains exclude, sum
+    return {{sum}}
+
+  combos = {}
+  for d = 1, 9
+    if not contains exclude, d
+      table.insert exclude, d
+      for c in *combinations({sum: sum - d, size: size - 1, :exclude})
+        table.insert c, d
+        table.sort c
+        table.insert combos, c if not contains combos, c
+  combos
+
+{ :combinations }
