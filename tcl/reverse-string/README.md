@@ -36,4 +36,4 @@ Try to implement this yourself without using those "cheats".
 
 ### Based on
 
-Introductory challenge to reverse an input string - https://medium.freecodecamp.org/how-to-reverse-a-string-in-javascript-in-3-different-ways-75e4763c68cb
+Introductory challenge to reverse an input string - https://www.freecodecamp.org/news/how-to-reverse-a-string-in-javascript-in-3-different-ways-75e4763c68cb

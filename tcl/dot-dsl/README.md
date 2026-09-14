@@ -34,6 +34,8 @@ However, unlike the DOT Language, our DSL will be an internal DSL for use only i
 [graphviz]: https://graphviz.org/
 [fowler-dsl]: https://martinfowler.com/bliki/DomainSpecificLanguage.html
 
+## DOT Language Spec
+
 Although the DOT language has a [formal specification][DOT-spec], the tests for this exercise do not expect the full specification to be implemented.
 
 The Tcl wiki has [some notes about domain-specific languages][DSL-wiki].

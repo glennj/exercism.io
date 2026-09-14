@@ -1,13 +1,15 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-24T19:22:55Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "flower-field.tcl"
 
-# Uncomment next line to view test durations.
-configure -verbose {body error usec}
 
 test flower-field-1 "no rows" -body {
     annotate {}
@@ -15,11 +17,15 @@ test flower-field-1 "no rows" -body {
 
 skip flower-field-2
 test flower-field-2 "no columns" -body {
-    annotate {""}
-} -returnCodes ok -match orderedLists -result {""}
+    annotate {
+        ""
+    }
+} -returnCodes ok -match orderedLists -result {
+        ""
+    }
 
 skip flower-field-3
-test flower-field-3 "no mines" -body {
+test flower-field-3 "no flowers" -body {
     annotate {
         "   "
         "   "
@@ -29,10 +35,10 @@ test flower-field-3 "no mines" -body {
         "   "
         "   "
         "   "
-}
+    }
 
 skip flower-field-4
-test flower-field-4 "minefield with only mines" -body {
+test flower-field-4 "garden full of flowers" -body {
     annotate {
         "***"
         "***"
@@ -42,10 +48,10 @@ test flower-field-4 "minefield with only mines" -body {
         "***"
         "***"
         "***"
-}
+    }
 
 skip flower-field-5
-test flower-field-5 "mine surrounded by spaces" -body {
+test flower-field-5 "flower surrounded by spaces" -body {
     annotate {
         "   "
         " * "
@@ -55,10 +61,10 @@ test flower-field-5 "mine surrounded by spaces" -body {
         "111"
         "1*1"
         "111"
-}
+    }
 
 skip flower-field-6
-test flower-field-6 "space surrounded by mines" -body {
+test flower-field-6 "space surrounded by flowers" -body {
     annotate {
         "***"
         "* *"
@@ -68,7 +74,7 @@ test flower-field-6 "space surrounded by mines" -body {
         "***"
         "*8*"
         "***"
-}
+    }
 
 skip flower-field-7
 test flower-field-7 "horizontal line" -body {
@@ -77,16 +83,16 @@ test flower-field-7 "horizontal line" -body {
     }
 } -returnCodes ok -match orderedLists -result {
         "1*2*1"
-}
+    }
 
 skip flower-field-8
-test flower-field-8 "horizontal line, mines at edges" -body {
+test flower-field-8 "horizontal line, flowers at edges" -body {
     annotate {
         "*   *"
     }
 } -returnCodes ok -match orderedLists -result {
         "*1 1*"
-}
+    }
 
 skip flower-field-9
 test flower-field-9 "vertical line" -body {
@@ -103,10 +109,10 @@ test flower-field-9 "vertical line" -body {
         "2"
         "*"
         "1"
-}
+    }
 
 skip flower-field-10
-test flower-field-10 "vertical line, mines at edges" -body {
+test flower-field-10 "vertical line, flowers at edges" -body {
     annotate {
         "*"
         " "
@@ -120,7 +126,7 @@ test flower-field-10 "vertical line, mines at edges" -body {
         " "
         "1"
         "*"
-}
+    }
 
 skip flower-field-11
 test flower-field-11 "cross" -body {
@@ -137,10 +143,10 @@ test flower-field-11 "cross" -body {
         "*****"
         "25*52"
         " 2*2 "
-}
+    }
 
 skip flower-field-12
-test flower-field-12 "large minefield" -body {
+test flower-field-12 "large garden" -body {
     annotate {
         " *  * "
         "  *   "
@@ -156,8 +162,16 @@ test flower-field-12 "large minefield" -body {
         "112*4*"
         "1*22*2"
         "111111"
-}
+    }
+
+skip flower-field-13
+test flower-field-13 "multiple adjacent flowers" -body {
+    annotate {
+        " ** "
+    }
+} -returnCodes ok -match orderedLists -result {
+        "1**1"
+    }
 
 
 cleanupTests
-

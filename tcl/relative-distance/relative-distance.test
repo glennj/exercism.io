@@ -1,46 +1,48 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-23T13:19:05Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
-# uncomment for more verbose test results
+# Uncomment next line to view test durations.
 #configure -verbose {body error usec}
 
 ############################################################
 source "relative-distance.tcl"
 
-test relative-1 "Direct parent-child relation" -body {
+
+test relative-distance-1 "Direct parent-child relation" -body {
     degreeOfSeparation Vera Tomoko {
         Vera {Tomoko}
         Tomoko {Aditi}
     }
 } -returnCodes ok -result 1
 
-skip relative-2
-test relative-2 "Sibling relationship" -body {
+skip relative-distance-2
+test relative-distance-2 "Sibling relationship" -body {
     degreeOfSeparation Olga Yassin {
         Dalia {Olga Yassin}
     }
 } -returnCodes ok -result 1
 
-skip relative-3
-test relative-3 "Two degrees of separation, grandchild" -body {
+skip relative-distance-3
+test relative-distance-3 "Two degrees of separation, grandchild" -body {
     degreeOfSeparation Khadija Rami {
         Khadija {Mateo}
         Mateo {Rami}
     }
 } -returnCodes ok -result 2
 
-skip relative-4
-test relative-4 "Unrelated individuals" -body {
+skip relative-distance-4
+test relative-distance-4 "Unrelated individuals" -body {
     degreeOfSeparation Priya Kaito {
         Priya {Rami}
         Kaito {Elif}
     }
 } -returnCodes ok -result -1
 
-skip relative-5
-test relative-5 "Complex graph, cousins" -body {
+skip relative-distance-5
+test relative-distance-5 "Complex graph, cousins" -body {
     degreeOfSeparation Dimitri Fabio {
         Aiko {Bao Carlos}
         Bao {Dalia Elias}
@@ -97,8 +99,8 @@ test relative-5 "Complex graph, cousins" -body {
     }
 } -returnCodes ok -result 9
 
-skip relative-6
-test relative-6 "Complex graph, no shortcut, far removed nephew" -body {
+skip relative-distance-6
+test relative-distance-6 "Complex graph, no shortcut, far removed nephew" -body {
     degreeOfSeparation Lucia Jun {
         Aiko {Bao Carlos}
         Bao {Dalia Elias}
@@ -155,8 +157,8 @@ test relative-6 "Complex graph, no shortcut, far removed nephew" -body {
     }
 } -returnCodes ok -result 14
 
-skip relative-7
-test relative-7 "Complex graph, some shortcuts, cross-down and cross-up, cousins several times removed, with unrelated family tree" -body {
+skip relative-distance-7
+test relative-distance-7 "Complex graph, some shortcuts, cross-down and cross-up, cousins several times removed, with unrelated family tree" -body {
     degreeOfSeparation Wyatt Xia {
         Aiko {Bao Carlos}
         Bao {Dalia}
@@ -211,5 +213,6 @@ test relative-7 "Complex graph, some shortcuts, cross-down and cross-up, cousins
         Zara {Mohammed}
     }
 } -returnCodes ok -result 12
+
 
 cleanupTests

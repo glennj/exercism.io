@@ -2,12 +2,11 @@
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
-configure -verbose {body error usec}
 
 ############################################################
 source "prism.tcl"
 
-skip prism-1
+#skip prism-1
 test prism-1 "zero prisms" -body {
     findSequence {
         start { x 0 y 0 angle 0 }

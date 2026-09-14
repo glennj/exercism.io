@@ -42,3 +42,17 @@ proc booleanMatch {expected actual} {
     }]
 }
 customMatch boolean booleanMatch
+
+# two lists have the same elements, in no particular order
+proc unorderedListsMatch {expected actual} {
+    if {[llength $expected] != [llength $actual]} {
+        return false
+    }
+    foreach elem $expected {
+        if {[lsearch -exact $actual $elem] == -1} {
+            return false
+        }
+    }
+    return true
+}
+customMatch unorderedLists unorderedListsMatch

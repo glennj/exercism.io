@@ -1,15 +1,17 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-17T17:57:15Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
-############################################################
-source "bottle-song.tcl"
-
 # Uncomment next line to view test durations.
 #configure -verbose {body error usec}
 
-test bottle-1.1 "verse:first generic verse" -body {
+############################################################
+source "bottle-song.tcl"
+
+
+test bottle-song-1 "verse: single verse: first generic verse" -body {
     bottleSong 10 1
 } -returnCodes ok -match orderedLists -result {
     "Ten green bottles hanging on the wall,"
@@ -18,8 +20,8 @@ test bottle-1.1 "verse:first generic verse" -body {
     "There'll be nine green bottles hanging on the wall."
 }
 
-skip bottle-1.2
-test bottle-1.2 "verse:last generic verse" -body {
+skip bottle-song-2
+test bottle-song-2 "verse: single verse: last generic verse" -body {
     bottleSong 3 1
 } -returnCodes ok -match orderedLists -result {
     "Three green bottles hanging on the wall,"
@@ -28,8 +30,8 @@ test bottle-1.2 "verse:last generic verse" -body {
     "There'll be two green bottles hanging on the wall."
 }
 
-skip bottle-1.3
-test bottle-1.3 "verse:verse with 2 bottles" -body {
+skip bottle-song-3
+test bottle-song-3 "verse: single verse: verse with 2 bottles" -body {
     bottleSong 2 1
 } -returnCodes ok -match orderedLists -result {
     "Two green bottles hanging on the wall,"
@@ -38,8 +40,8 @@ test bottle-1.3 "verse:verse with 2 bottles" -body {
     "There'll be one green bottle hanging on the wall."
 }
 
-skip bottle-1.4
-test bottle-1.4 "verse:verse with 1 bottle" -body {
+skip bottle-song-4
+test bottle-song-4 "verse: single verse: verse with 1 bottle" -body {
     bottleSong 1 1
 } -returnCodes ok -match orderedLists -result {
     "One green bottle hanging on the wall,"
@@ -48,8 +50,8 @@ test bottle-1.4 "verse:verse with 1 bottle" -body {
     "There'll be no green bottles hanging on the wall."
 }
 
-skip bottle-2.1
-test bottle-2.1 "verses:first two verses" -body {
+skip bottle-song-5
+test bottle-song-5 "lyrics: multiple verses: first two verses" -body {
     bottleSong 10 2
 } -returnCodes ok -match orderedLists -result {
     "Ten green bottles hanging on the wall,"
@@ -63,8 +65,8 @@ test bottle-2.1 "verses:first two verses" -body {
     "There'll be eight green bottles hanging on the wall."
 }
 
-skip bottle-2.2
-test bottle-2.2 "verses:last three verses" -body {
+skip bottle-song-6
+test bottle-song-6 "lyrics: multiple verses: last three verses" -body {
     bottleSong 3 3
 } -returnCodes ok -match orderedLists -result {
     "Three green bottles hanging on the wall,"
@@ -83,8 +85,8 @@ test bottle-2.2 "verses:last three verses" -body {
     "There'll be no green bottles hanging on the wall."
 }
 
-skip bottle-2.3
-test bottle-2.3 "verses:all verses" -body {
+skip bottle-song-7
+test bottle-song-7 "lyrics: multiple verses: all verses" -body {
     bottleSong 10 10
 } -returnCodes ok -match orderedLists -result {
     "Ten green bottles hanging on the wall,"
@@ -137,3 +139,6 @@ test bottle-2.3 "verses:all verses" -body {
     "And if one green bottle should accidentally fall,"
     "There'll be no green bottles hanging on the wall."
 }
+
+
+cleanupTests

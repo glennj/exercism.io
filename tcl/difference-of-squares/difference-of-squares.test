@@ -1,52 +1,57 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-17T18:59:47Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "difference-of-squares.tcl"
 
-test squares-1 "square of sum 1" -body {
+
+test difference-of-squares-1 "Square the sum of the numbers up to the given number: square of sum 1" -body {
     squareOfSum 1
 } -returnCodes ok -result 1
 
-skip squares-2
-test squares-2 "square of sum 5" -body {
+skip difference-of-squares-2
+test difference-of-squares-2 "Square the sum of the numbers up to the given number: square of sum 5" -body {
     squareOfSum 5
 } -returnCodes ok -result 225
 
-skip squares-3
-test squares-3 "square of sum 100" -body {
+skip difference-of-squares-3
+test difference-of-squares-3 "Square the sum of the numbers up to the given number: square of sum 100" -body {
     squareOfSum 100
 } -returnCodes ok -result 25502500
 
-skip squares-4
-test squares-4 "sum of squares 1" -body {
+skip difference-of-squares-4
+test difference-of-squares-4 "Sum the squares of the numbers up to the given number: sum of squares 1" -body {
     sumOfSquares 1
 } -returnCodes ok -result 1
 
-skip squares-5
-test squares-5 "sum of squares 5" -body {
+skip difference-of-squares-5
+test difference-of-squares-5 "Sum the squares of the numbers up to the given number: sum of squares 5" -body {
     sumOfSquares 5
 } -returnCodes ok -result 55
 
-skip squares-6
-test squares-6 "sum of squares 100" -body {
+skip difference-of-squares-6
+test difference-of-squares-6 "Sum the squares of the numbers up to the given number: sum of squares 100" -body {
     sumOfSquares 100
 } -returnCodes ok -result 338350
 
-skip squares-7
-test squares-7 "difference of squares 1" -body {
+skip difference-of-squares-7
+test difference-of-squares-7 "Subtract sum of squares from square of sums: difference of squares 1" -body {
     differenceOfSquares 1
 } -returnCodes ok -result 0
 
-skip squares-8
-test squares-8 "difference of squares 5" -body {
+skip difference-of-squares-8
+test difference-of-squares-8 "Subtract sum of squares from square of sums: difference of squares 5" -body {
     differenceOfSquares 5
 } -returnCodes ok -result 170
 
-skip squares-9
-test squares-9 "difference of squares 100" -body {
+skip difference-of-squares-9
+test difference-of-squares-9 "Subtract sum of squares from square of sums: difference of squares 100" -body {
     differenceOfSquares 100
 } -returnCodes ok -result 25164150
 

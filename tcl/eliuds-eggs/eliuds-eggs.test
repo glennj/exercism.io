@@ -1,10 +1,15 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-17T19:33:15Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "eliuds-eggs.tcl"
+
 
 test eliuds-eggs-1 "0 eggs" -body {
     eggCount 0
@@ -24,5 +29,6 @@ skip eliuds-eggs-4
 test eliuds-eggs-4 "13 eggs" -body {
     eggCount 2000000000
 } -returnCodes ok -result 13
+
 
 cleanupTests

@@ -31,7 +31,10 @@ For example given a rose tree (where each node contains a value and a list of ch
 
 [zipper]: https://en.wikipedia.org/wiki/Zipper_%28data_structure%29
 
-You'll find a Tree class already implemented for you. Your task is to write the Zipper class.
+## Scope
+
+You'll find a Tree class already implemented for you.
+Your task is to write the Zipper class.
 
 ## Source
 

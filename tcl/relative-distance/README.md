@@ -14,7 +14,7 @@ Your algorithm will determine the **degree of separation** between two individua
 
 Will your app help crown a perfect match?
 
-[islendiga-app]: http://www.islendingaapp.is/information-in-english/
+[islendiga-app]: https://web.archive.org/web/20250816223614/http://www.islendingaapp.is/information-in-english/
 
 ## Instructions
 
@@ -54,7 +54,7 @@ Isla and Tariq are siblings and have a separation of 1.
 Similarly, this implementation would report a separation of 2 from you to your father's brother.
 ~~~~
 
-[six-bacons]: https://en.m.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon
+[six-bacons]: https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon
 
 ## Source
 

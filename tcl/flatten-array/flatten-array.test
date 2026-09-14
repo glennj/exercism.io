@@ -1,75 +1,76 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-17T20:35:35Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
-# uncomment for more verbose test results
+# Uncomment next line to view test durations.
 #configure -verbose {body error usec}
 
 ############################################################
 source "flatten-array.tcl"
 
-test flatten-1 "empty" -body {
-    flatten {}
-} -returnCodes ok -result {}
-
-skip flatten-2
-test flatten-2 "no nesting" -body {
-    flatten {0 1 2}
-} -returnCodes ok -result {0 1 2}
-
-skip flatten-3
-test flatten-3 "flattens a nested array" -body {
-    flatten {{}}
-} -returnCodes ok -result {}
-
-skip flatten-4
-test flatten-4 "flattens array with just integers present" -body {
-    flatten {1 {2 3 4 5 6 7} 8}
-} -returnCodes ok -result {1 2 3 4 5 6 7 8}
-
-skip flatten-5
-test flatten-5 "5 level nesting" -body {
-    flatten {0 2 {{2 3} 8 100 4 {{{50}}}} -2}
-} -returnCodes ok -result {0 2 2 3 8 100 4 50 -2}
-
-skip flatten-6
-test flatten-6 "6 level nesting" -body {
-    flatten {1 {2 {{3}} {4 {{5}}} 6 7} 8}
-} -returnCodes ok -result {1 2 3 4 5 6 7 8}
 
 # Note that Tcl does not have a "null" value.
 # Typically the empty string is used instead.
 
-skip flatten-7
-test flatten-7 "null values are omitted from the final result" -body {
+test flatten-array-1 "empty" -body {
+    flatten {}
+} -returnCodes ok -result {}
+
+skip flatten-array-2
+test flatten-array-2 "no nesting" -body {
+    flatten {0 1 2}
+} -returnCodes ok -result {0 1 2}
+
+skip flatten-array-3
+test flatten-array-3 "flattens a nested array" -body {
+    flatten {{{}}}
+} -returnCodes ok -result {}
+
+skip flatten-array-4
+test flatten-array-4 "flattens array with just integers present" -body {
+    flatten {1 {2 3 4 5 6 7} 8}
+} -returnCodes ok -result {1 2 3 4 5 6 7 8}
+
+skip flatten-array-5
+test flatten-array-5 "5 level nesting" -body {
+    flatten {0 2 {{2 3} 8 100 4 50} -2}
+} -returnCodes ok -result {0 2 2 3 8 100 4 50 -2}
+
+skip flatten-array-6
+test flatten-array-6 "6 level nesting" -body {
+    flatten {1 {2 3 {4 5} 6 7} 8}
+} -returnCodes ok -result {1 2 3 4 5 6 7 8}
+
+skip flatten-array-7
+test flatten-array-7 "null values are omitted from the final result" -body {
     flatten {1 2 ""}
 } -returnCodes ok -result {1 2}
 
-skip flatten-8
-test flatten-8 "consecutive null values at the front of the list are omitted from the final result" -body {
+skip flatten-array-8
+test flatten-array-8 "consecutive null values at the front of the array are omitted from the final result" -body {
     flatten {"" "" 3}
 } -returnCodes ok -result {3}
 
-skip flatten-9
-test flatten-9 "consecutive null values in the middle of the list are omitted from the final result" -body {
+skip flatten-array-9
+test flatten-array-9 "consecutive null values in the middle of the array are omitted from the final result" -body {
     flatten {1 "" "" 4}
 } -returnCodes ok -result {1 4}
 
-skip flatten-10
-test flatten-10 "6 level nest list with null values" -body {
-    flatten {0 2 {{2 3} 8 {{100}} "" {{""}}} -2}
+skip flatten-array-10
+test flatten-array-10 "6 level nested array with null values" -body {
+    flatten {0 2 {{2 3} 8 100 "" ""} -2}
 } -returnCodes ok -result {0 2 2 3 8 100 -2}
 
-skip flatten-11
-test flatten-11 "all values in nested list are null" -body {
-    flatten {"" {{{""}}} "" "" {{"" ""} ""} ""}
+skip flatten-array-11
+test flatten-array-11 "all values in nested array are null" -body {
+    flatten {"" "" "" "" {{"" ""} ""} ""}
 } -returnCodes ok -result {}
 
-skip flatten-12
-test flatten-12 "Tcl can't differentiate between a list and a string" -body {
+skip flatten-array-12
+test flatten-array-12 "Tcl can't differentiate between a list and a string" -body {
     flatten {foo bar {baz "a string with spaces"}}
 } -returnCodes ok -result {foo bar baz a string with spaces}
-
 
 cleanupTests

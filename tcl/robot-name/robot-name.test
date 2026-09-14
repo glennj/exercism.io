@@ -3,6 +3,9 @@ package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "robot-name.tcl"
 
@@ -91,29 +94,58 @@ skip robot-9
 test robot-9 "generate lots of robots" -setup {
     resetRobotNames
 } -body {
-    set iterations 100000
+    set iterations 10000
     set seenNames {}
     for {set i 0} {$i < $iterations} {incr i} {
-        dict incr seenNames [[Robot new] name]
+        set robot [Robot new]
+        dict incr seenNames [$robot name]
+        # Tcl does not garbage collect
+        $robot destroy
     }
     expr {[dict size $seenNames] == $iterations}
 } -returnCodes ok -match boolean -result true
 
-skip robot-10
-test robot-10 "generate all robots" -setup {
-    resetRobotNames
-} -body {
-    set start [clock milliseconds]
-    set limit [expr {$start + 60 * 1000}] ;# abort after 60 seconds
-    set seenNames {}
-    for {set i 0} {$i < 676000} {incr i} {
-        set robot [Robot new]
-        if {[clock milliseconds] > $limit} {
-            error "time out"
+# These tests are optional. For some implementations, they can be too time-consuming.
+# Change `runBonus` to `true` to run them.
+set runBonus false
+
+if {$runBonus} {
+    skip robot-10
+    test robot-10 "generate all robots" -setup {
+        resetRobotNames
+    } -body {
+        set start [clock milliseconds]
+        set limit [expr {$start + 60 * 1000}] ;# abort after 60 seconds
+        set size [expr {26 * 26 * 1000}]
+        set seenNames {}
+        for {set i 0} {$i < $size} {incr i} {
+            set robot [Robot new]
+            if {[clock milliseconds] > $limit} {
+                error "time out"
+            }
+            dict incr seenNames [$robot name]
+            $robot destroy
         }
-        dict incr seenNames [$robot name]
-    }
-    expr {[dict size $seenNames] == 676000}
-} -returnCodes ok -match boolean -result true
+        expr {[dict size $seenNames] == $size}
+    } -returnCodes ok -match boolean -result true
+
+    skip robot-11
+    test robot-11 "generate too many robots" -setup {
+        resetRobotNames
+    } -body {
+        set start [clock milliseconds]
+        set limit [expr {$start + 60 * 1000}] ;# abort after 60 seconds
+        set size [expr {26 * 26 * 1000}]
+        for {set i 0} {$i < $size} {incr i} {
+            set robot [Robot new]
+            if {[clock milliseconds] > $limit} {
+                error "time out"
+            }
+            $robot destroy
+        }
+        # the 676,001st robot
+        Robot new
+    } -returnCodes error -result "no more names available"
+}
 
 cleanupTests

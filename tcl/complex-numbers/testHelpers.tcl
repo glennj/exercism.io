@@ -34,3 +34,9 @@ proc pairFloatMatch {expected actual {precision 8}} {
     }]
 }
 customMatch pairOfFloats pairFloatMatch
+
+# Compare floating point numbers 
+proc floatMatch {expected actual {epsilon 1e-6}} {
+    return [expr {abs($expected - $actual) <= $epsilon}]
+}
+customMatch float floatMatch

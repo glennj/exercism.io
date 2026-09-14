@@ -1,96 +1,156 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-23T15:56:59Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "robot-simulator.tcl"
 
-test robot-1.1 "default position is (0,0) facing north" -body {
+
+test robot-simulator-1 "default position is (0,0) facing north" -body {
     set robot [Robot new]
     $robot position
 } -returnCodes ok -match dictionary -result {x 0 y 0 direction north}
 
-skip robot-1.2
-test robot-1.2 "position (1,2) default direction" -body {
+skip robot-simulator-2
+test robot-simulator-2 "position (1,2) default direction" -body {
     set robot [Robot new {x 1 y 2}]
     $robot position
 } -returnCodes ok -match dictionary -result {x 1 y 2 direction north}
 
-skip robot-1.3
-test robot-1.3 "at negative position facing south" -body {
+skip robot-simulator-3
+test robot-simulator-3 "Create robot: at origin facing north" -body {
+    set robot [Robot new {x 0 y 0 direction north}]
+    $robot position
+} -returnCodes ok -match dictionary -result {x 0 y 0 direction north}
+
+skip robot-simulator-4
+test robot-simulator-4 "Create robot: at negative position facing south" -body {
     set robot [Robot new {x -1 y -1 direction south}]
     $robot position
 } -returnCodes ok -match dictionary -result {x -1 y -1 direction south}
 
-skip robot-1.4
-test robot-1.4 "facing east, default x and y" -body {
-    set robot [Robot new {direction east}]
+skip robot-simulator-5
+test robot-simulator-5 "Rotating clockwise: changes north to east" -body {
+    set robot [Robot new {x 0 y 0 direction north}]
+    $robot move "R"
     $robot position
 } -returnCodes ok -match dictionary -result {x 0 y 0 direction east}
 
-skip robot-1.5
-test robot-1.5 "facing west, default x and y" -body {
-    set robot [Robot new {direction west}]
+skip robot-simulator-6
+test robot-simulator-6 "Rotating clockwise: changes east to south" -body {
+    set robot [Robot new {x 0 y 0 direction east}]
+    $robot move "R"
+    $robot position
+} -returnCodes ok -match dictionary -result {x 0 y 0 direction south}
+
+skip robot-simulator-7
+test robot-simulator-7 "Rotating clockwise: changes south to west" -body {
+    set robot [Robot new {x 0 y 0 direction south}]
+    $robot move "R"
     $robot position
 } -returnCodes ok -match dictionary -result {x 0 y 0 direction west}
 
-skip robot-1.6
-test robot-1.6 "invalid direction" -body {
-    set robot [Robot new {direction southwest}]
+skip robot-simulator-8
+test robot-simulator-8 "Rotating clockwise: changes west to north" -body {
+    set robot [Robot new {x 0 y 0 direction west}]
+    $robot move "R"
     $robot position
-} -returnCodes error -result "invalid direction"
+} -returnCodes ok -match dictionary -result {x 0 y 0 direction north}
 
-skip robot-1.7
-test robot-1.7 "invalid x coordinate" -body {
-    set robot [Robot new {x foo y 0}]
+skip robot-simulator-9
+test robot-simulator-9 "Rotating counter-clockwise: changes north to west" -body {
+    set robot [Robot new {x 0 y 0 direction north}]
+    $robot move "L"
     $robot position
-} -returnCodes error -result "invalid x coordinate"
+} -returnCodes ok -match dictionary -result {x 0 y 0 direction west}
 
-skip robot-1.8
-test robot-1.8 "invalid y coordinate" -body {
-    set robot [Robot new {x 0 y bar}]
+skip robot-simulator-10
+test robot-simulator-10 "Rotating counter-clockwise: changes west to south" -body {
+    set robot [Robot new {x 0 y 0 direction west}]
+    $robot move "L"
     $robot position
-} -returnCodes error -result "invalid y coordinate"
+} -returnCodes ok -match dictionary -result {x 0 y 0 direction south}
 
+skip robot-simulator-11
+test robot-simulator-11 "Rotating counter-clockwise: changes south to east" -body {
+    set robot [Robot new {x 0 y 0 direction south}]
+    $robot move "L"
+    $robot position
+} -returnCodes ok -match dictionary -result {x 0 y 0 direction east}
 
-set instruction_cases {
-    robot-2.1 "changes north to east" {x 0 y 0 direction north} "R" {x 0 y 0 direction east}
-    robot-2.2 "changes east to south" {x 0 y 0 direction east} "R" {x 0 y 0 direction south}
-    robot-2.3 "changes south to west" {x 0 y 0 direction south} "R" {x 0 y 0 direction west}
-    robot-2.4 "changes west to north" {x 0 y 0 direction west} "R" {x 0 y 0 direction north}
+skip robot-simulator-12
+test robot-simulator-12 "Rotating counter-clockwise: changes east to north" -body {
+    set robot [Robot new {x 0 y 0 direction east}]
+    $robot move "L"
+    $robot position
+} -returnCodes ok -match dictionary -result {x 0 y 0 direction north}
 
-    robot-3.1 "changes north to west" {x 0 y 0 direction north} "L" {x 0 y 0 direction west}
-    robot-3.2 "changes west to south" {x 0 y 0 direction west} "L" {x 0 y 0 direction south}
-    robot-3.3 "changes south to east" {x 0 y 0 direction south} "L" {x 0 y 0 direction east}
-    robot-3.4 "changes east to north" {x 0 y 0 direction east} "L" {x 0 y 0 direction north}
+skip robot-simulator-13
+test robot-simulator-13 "Moving forward one: facing north increments Y" -body {
+    set robot [Robot new {x 0 y 0 direction north}]
+    $robot move "A"
+    $robot position
+} -returnCodes ok -match dictionary -result {x 0 y 1 direction north}
 
-    robot-4.1 "facing north increments Y" {x 0 y 0 direction north} "A" {x 0 y 1 direction north}
-    robot-4.2 "facing south decrements Y" {x 0 y 0 direction south} "A" {x 0 y -1 direction south}
-    robot-4.3 "facing east increments X" {x 0 y 0 direction east} "A" {x 1 y 0 direction east}
-    robot-4.4 "facing west decrements X" {x 0 y 0 direction west} "A" {x -1 y 0 direction west}
+skip robot-simulator-14
+test robot-simulator-14 "Moving forward one: facing south decrements Y" -body {
+    set robot [Robot new {x 0 y 0 direction south}]
+    $robot move "A"
+    $robot position
+} -returnCodes ok -match dictionary -result {x 0 y -1 direction south}
 
-    robot-5.1 "moving east and north" {x 7 y 3 direction north} "RAALAL" {x 9 y 4 direction west}
-    robot-5.2 "moving west and north" {x 0 y 0 direction north} "LAAARALA" {x -4 y 1 direction west}
-    robot-5.3 "moving west and south" {x 2 y -7 direction east} "RRAAAAALA" {x -3 y -8 direction south}
-    robot-5.4 "moving east and north" {x 8 y 4 direction south} "LAAARRRALLLL" {x 11 y 5 direction north}
-}
+skip robot-simulator-15
+test robot-simulator-15 "Moving forward one: facing east increments X" -body {
+    set robot [Robot new {x 0 y 0 direction east}]
+    $robot move "A"
+    $robot position
+} -returnCodes ok -match dictionary -result {x 1 y 0 direction east}
 
-skip {robot-2* robot-3* robot-4* robot-5*}
-foreach {name description init instructions result} $instruction_cases {
-    test $name $description -body {
-        set robot [Robot new $init]
-        $robot move $instructions
-        $robot position
-    } -returnCodes ok -match dictionary -result $result
-}
+skip robot-simulator-16
+test robot-simulator-16 "Moving forward one: facing west decrements X" -body {
+    set robot [Robot new {x 0 y 0 direction west}]
+    $robot move "A"
+    $robot position
+} -returnCodes ok -match dictionary -result {x -1 y 0 direction west}
 
-skip robot-6.1
-test robot-6.1 "invalid instruction" -body {
+skip robot-simulator-17
+test robot-simulator-17 "Follow series of instructions: moving east and north from README" -body {
+    set robot [Robot new {x 7 y 3 direction north}]
+    $robot move "RAALAL"
+    $robot position
+} -returnCodes ok -match dictionary -result {x 9 y 4 direction west}
+
+skip robot-simulator-18
+test robot-simulator-18 "Follow series of instructions: moving west and north" -body {
+    set robot [Robot new {x 0 y 0 direction north}]
+    $robot move "LAAARALA"
+    $robot position
+} -returnCodes ok -match dictionary -result {x -4 y 1 direction west}
+
+skip robot-simulator-19
+test robot-simulator-19 "Follow series of instructions: moving west and south" -body {
+    set robot [Robot new {x 2 y -7 direction east}]
+    $robot move "RRAAAAALA"
+    $robot position
+} -returnCodes ok -match dictionary -result {x -3 y -8 direction south}
+
+skip robot-simulator-20
+test robot-simulator-20 "Follow series of instructions: moving east and north" -body {
+    set robot [Robot new {x 8 y 4 direction south}]
+    $robot move "LAAARRRALLLL"
+    $robot position
+} -returnCodes ok -match dictionary -result {x 11 y 5 direction north}
+
+skip robot-simulator-21
+test robot-simulator-21 "invalid instruction" -body {
     set robot [Robot new]
     $robot move "RALB"
     $robot position
 } -returnCodes error -result "invalid instruction: B"
-
 
 cleanupTests

@@ -1,10 +1,15 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-18T02:06:11Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "leap.tcl"
+
 
 test leap-1 "year not divisible by 4 in common year" -body {
     isLeapYear 2015
@@ -36,7 +41,7 @@ test leap-6 "year divisible by 100 but not by 3 is still not a leap year" -body 
 } -returnCodes ok -match boolean -result false
 
 skip leap-7
-test leap-7 "year divisible by 400 in leap year" -body {
+test leap-7 "year divisible by 400 is leap year" -body {
     isLeapYear 2000
 } -returnCodes ok -match boolean -result true
 

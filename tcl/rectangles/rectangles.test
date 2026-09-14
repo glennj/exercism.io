@@ -1,36 +1,45 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-23T12:41:57Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "rectangles.tcl"
 
-test rect-1 "no rows" -body {
+
+test rectangles-1 "no rows" -body {
     rectangles {}
-} -result 0
+} -returnCodes ok -result 0
 
-skip rect-2
-test rect-2 "no columns" -body {
-    rectangles {""}
-} -result 0
+skip rectangles-2
+test rectangles-2 "no columns" -body {
+    rectangles {
+        ""
+    }
+} -returnCodes ok -result 0
 
-skip rect-3
-test rect-3 "no rectangles" -body {
-    rectangles {" "}
-} -result 0
+skip rectangles-3
+test rectangles-3 "no rectangles" -body {
+    rectangles {
+        " "
+    }
+} -returnCodes ok -result 0
 
-skip rect-4
-test rect-4 "one rectangle" -body {
+skip rectangles-4
+test rectangles-4 "one rectangle" -body {
     rectangles {
         "+-+"
         "| |"
         "+-+"
     }
-} -result 1
+} -returnCodes ok -result 1
 
-skip rect-5
-test rect-5 "two rectangles without shared parts" -body {
+skip rectangles-5
+test rectangles-5 "two rectangles without shared parts" -body {
     rectangles {
         "  +-+"
         "  | |"
@@ -38,10 +47,10 @@ test rect-5 "two rectangles without shared parts" -body {
         "| |  "
         "+-+  "
     }
-} -result 2
+} -returnCodes ok -result 2
 
-skip rect-6
-test rect-6 "five rectangles with shared parts" -body {
+skip rectangles-6
+test rectangles-6 "five rectangles with shared parts" -body {
     rectangles {
         "  +-+"
         "  | |"
@@ -49,36 +58,35 @@ test rect-6 "five rectangles with shared parts" -body {
         "| | |"
         "+-+-+"
     }
-} -result 5
+} -returnCodes ok -result 5
 
-
-skip rect-7
-test rect-7 "rectangle of height 1 is counted" -body {
+skip rectangles-7
+test rectangles-7 "rectangle of height 1 is counted" -body {
     rectangles {
         "+--+"
         "+--+"
     }
-} -result 1
+} -returnCodes ok -result 1
 
-skip rect-8
-test rect-8 "rectangle of width 1 is counted" -body {
+skip rectangles-8
+test rectangles-8 "rectangle of width 1 is counted" -body {
     rectangles {
         "++"
         "||"
         "++"
     }
-} -result 1
+} -returnCodes ok -result 1
 
-skip rect-9
-test rect-9 "1x1 square is counted" -body {
+skip rectangles-9
+test rectangles-9 "1x1 square is counted" -body {
     rectangles {
         "++"
         "++"
     }
-} -result 1
+} -returnCodes ok -result 1
 
-skip rect-10
-test rect-10 "only complete rectangles are counted" -body {
+skip rectangles-10
+test rectangles-10 "only complete rectangles are counted" -body {
     rectangles {
         "  +-+"
         "    |"
@@ -86,10 +94,10 @@ test rect-10 "only complete rectangles are counted" -body {
         "| | -"
         "+-+-+"
     }
-} -result 1
+} -returnCodes ok -result 1
 
-skip rect-11
-test rect-11 "rectangles can be of different sizes" -body {
+skip rectangles-11
+test rectangles-11 "rectangles can be of different sizes" -body {
     rectangles {
         "+------+----+"
         "|      |    |"
@@ -97,10 +105,10 @@ test rect-11 "rectangles can be of different sizes" -body {
         "|   |       |"
         "+---+-------+"
     }
-} -result 3
+} -returnCodes ok -result 3
 
-skip rect-12
-test rect-12 "corner is required for a rectangle to be complete" -body {
+skip rectangles-12
+test rectangles-12 "corner is required for a rectangle to be complete" -body {
     rectangles {
         "+------+----+"
         "|      |    |"
@@ -108,10 +116,10 @@ test rect-12 "corner is required for a rectangle to be complete" -body {
         "|   |       |"
         "+---+-------+"
     }
-} -result 2
+} -returnCodes ok -result 2
 
-skip rect-13
-test rect-13 "large input with many rectangles" -body {
+skip rectangles-13
+test rectangles-13 "large input with many rectangles" -body {
     rectangles {
         "+---+--+----+"
         "|   +--+----+"
@@ -122,10 +130,10 @@ test rect-13 "large input with many rectangles" -body {
         "+------+  | |"
         "          +-+"
     }
-} -result 60
+} -returnCodes ok -result 60
 
-skip rect-14
-test rect-14 "rectangles have four sides" -body {
+skip rectangles-14
+test rectangles-14 "rectangles must have four sides" -body {
     rectangles {
         "+-+ +-+"
         "| | | |"
@@ -135,6 +143,7 @@ test rect-14 "rectangles have four sides" -body {
         "| | | |"
         "+-+ +-+"
     }
-} -result 5
+} -returnCodes ok -result 5
+
 
 cleanupTests

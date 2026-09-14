@@ -104,9 +104,10 @@ Given that you should not use built-in support for complex numbers, implement th
 - **absolute value** of a complex number
 - **exponentiation** of _e_ (the base of the natural logarithm) to a complex number
 
+## Implementing functions for the `expr` command
+
 Some of these tests require you to create new functions for the `expr` command.
-Read the Tcl [mathfunc](https://www.tcl-lang.org/man/tcl8.6/TclCmd/mathfunc.htm)
-documentation to learn how.
+Read the Tcl [mathfunc](https://www.tcl-lang.org/man/tcl8.6/TclCmd/mathfunc.htm) documentation to learn how.
 
 ## Source
 

@@ -35,12 +35,11 @@ proc lselect {lst predicate} {
 }
 
 proc isInline {prism line} {
-    # find the perpendicular distance of the point from the line
     set dx [expr {[dict get $prism x] - [dict get $line x]}]
     set dy [expr {[dict get $prism y] - [dict get $line y]}]
     set theta [dict get $line theta]
+    set d [expr {hypot($dx, $dy)}]
     set dist [expr {$dx * sin($theta) - $dy * cos($theta)}]
-
     set eps 0.0011 ;# value found by trial and error
     expr {abs($dist) <= $eps}
 }

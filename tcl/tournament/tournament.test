@@ -1,7 +1,11 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-24T18:06:35Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
+
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
 
 ############################################################
 source "tournament.tcl"
@@ -22,8 +26,9 @@ test tournament-1 "just the header if no input" -setup {
     tournamentResults $filename
 } -cleanup {
     file delete $filename
-} -returnCodes ok -result "Team                           | MP |  W |  D |  L |  P"
-
+} -returnCodes ok -result [join {
+    "Team                           | MP |  W |  D |  L |  P"
+} \n]
 
 skip tournament-2
 test tournament-2 "a win is three points, a loss is zero points" -setup {
@@ -55,7 +60,6 @@ test tournament-3 "a win can also be expressed as a loss" -setup {
     "Blithering Badgers             |  1 |  0 |  0 |  1 |  0"
 } \n]
 
-
 skip tournament-4
 test tournament-4 "a different team can win" -setup {
     set filename [writeFile {
@@ -71,7 +75,6 @@ test tournament-4 "a different team can win" -setup {
     "Allegoric Alaskans             |  1 |  0 |  0 |  1 |  0"
 } \n]
 
-
 skip tournament-5
 test tournament-5 "a draw is one point each" -setup {
     set filename [writeFile {
@@ -86,7 +89,6 @@ test tournament-5 "a draw is one point each" -setup {
     "Allegoric Alaskans             |  1 |  0 |  1 |  0 |  1"
     "Blithering Badgers             |  1 |  0 |  1 |  0 |  1"
 } \n]
-
 
 skip tournament-6
 test tournament-6 "There can be more than one match" -setup {
@@ -104,7 +106,6 @@ test tournament-6 "There can be more than one match" -setup {
     "Blithering Badgers             |  2 |  0 |  0 |  2 |  0"
 } \n]
 
-
 skip tournament-7
 test tournament-7 "There can be more than one winner" -setup {
     set filename [writeFile {
@@ -120,7 +121,6 @@ test tournament-7 "There can be more than one winner" -setup {
     "Allegoric Alaskans             |  2 |  1 |  0 |  1 |  3"
     "Blithering Badgers             |  2 |  1 |  0 |  1 |  3"
 } \n]
-
 
 skip tournament-8
 test tournament-8 "There can be more than two teams" -setup {
@@ -139,7 +139,6 @@ test tournament-8 "There can be more than two teams" -setup {
     "Blithering Badgers             |  2 |  1 |  0 |  1 |  3"
     "Courageous Californians        |  2 |  0 |  0 |  2 |  0"
 } \n]
-
 
 skip tournament-9
 test tournament-9 "typical input" -setup {
@@ -163,7 +162,6 @@ test tournament-9 "typical input" -setup {
     "Courageous Californians        |  3 |  0 |  1 |  2 |  1"
 } \n]
 
-
 skip tournament-10
 test tournament-10 "incomplete competition (not all pairs have played)" -setup {
     set filename [writeFile {
@@ -183,7 +181,6 @@ test tournament-10 "incomplete competition (not all pairs have played)" -setup {
     "Courageous Californians        |  2 |  0 |  1 |  1 |  1"
     "Devastating Donkeys            |  1 |  0 |  0 |  1 |  0"
 } \n]
-
 
 skip tournament-11
 test tournament-11 "ties broken alphabetically" -setup {
@@ -225,5 +222,6 @@ test tournament-12 "ensure points sorted numerically" -setup {
     "Devastating Donkeys            |  5 |  4 |  0 |  1 | 12"
     "Blithering Badgers             |  5 |  1 |  0 |  4 |  3"
 } \n]
+
 
 cleanupTests

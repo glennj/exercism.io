@@ -1,82 +1,84 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-16T22:05:02Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "atbash-cipher.tcl"
 
-# encode
 
-test atbash-1.1 "encode yes" -body {
+test atbash-cipher-1 "encode yes" -body {
     atbash encode "yes"
 } -returnCodes ok -result "bvh"
 
-skip atbash-1.2
-test atbash-1.2 "encode no" -body {
+skip atbash-cipher-2
+test atbash-cipher-2 "encode no" -body {
     atbash encode "no"
 } -returnCodes ok -result "ml"
 
-skip atbash-1.3
-test atbash-1.3 "encode OMG" -body {
+skip atbash-cipher-3
+test atbash-cipher-3 "encode OMG" -body {
     atbash encode "OMG"
 } -returnCodes ok -result "lnt"
 
-skip atbash-1.4
-test atbash-1.4 "encode spaces" -body {
+skip atbash-cipher-4
+test atbash-cipher-4 "encode spaces" -body {
     atbash encode "O M G"
 } -returnCodes ok -result "lnt"
 
-skip atbash-1.5
-test atbash-1.5 "encode mindblowingly" -body {
+skip atbash-cipher-5
+test atbash-cipher-5 "encode mindblowingly" -body {
     atbash encode "mindblowingly"
 } -returnCodes ok -result "nrmwy oldrm tob"
 
-skip atbash-1.6
-test atbash-1.6 "encode numbers" -body {
+skip atbash-cipher-6
+test atbash-cipher-6 "encode numbers" -body {
     atbash encode "Testing,1 2 3, testing."
 } -returnCodes ok -result "gvhgr mt123 gvhgr mt"
 
-skip atbash-1.7
-test atbash-1.7 "encode deep thought" -body {
+skip atbash-cipher-7
+test atbash-cipher-7 "encode deep thought" -body {
     atbash encode "Truth is fiction."
 } -returnCodes ok -result "gifgs rhurx grlm"
 
-skip atbash-1.8
-test atbash-1.8 "encode all the letters" -body {
+skip atbash-cipher-8
+test atbash-cipher-8 "encode all the letters" -body {
     atbash encode "The quick brown fox jumps over the lazy dog."
 } -returnCodes ok -result "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt"
 
-# decode
-
-skip atbash-2.1
-test atbash-2.1 "decode exercism" -body {
+skip atbash-cipher-9
+test atbash-cipher-9 "decode exercism" -body {
     atbash decode "vcvix rhn"
 } -returnCodes ok -result "exercism"
 
-skip atbash-2.2
-test atbash-2.2 "decode a sentence" -body {
+skip atbash-cipher-10
+test atbash-cipher-10 "decode a sentence" -body {
     atbash decode "zmlyh gzxov rhlug vmzhg vkkrm thglm v"
 } -returnCodes ok -result "anobstacleisoftenasteppingstone"
 
-skip atbash-2.3
-test atbash-2.3 "decode numbers" -body {
+skip atbash-cipher-11
+test atbash-cipher-11 "decode numbers" -body {
     atbash decode "gvhgr mt123 gvhgr mt"
 } -returnCodes ok -result "testing123testing"
 
-skip atbash-2.4
-test atbash-2.4 "decode all the letters" -body {
+skip atbash-cipher-12
+test atbash-cipher-12 "decode all the letters" -body {
     atbash decode "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt"
 } -returnCodes ok -result "thequickbrownfoxjumpsoverthelazydog"
 
-skip atbash-2.5
-test atbash-2.5 "decode with too many spaces" -body {
+skip atbash-cipher-13
+test atbash-cipher-13 "decode with too many spaces" -body {
     atbash decode "vc vix    r hn"
 } -returnCodes ok -result "exercism"
 
-skip atbash-2.6
-test atbash-2.6 "decode with no spaces" -body {
+skip atbash-cipher-14
+test atbash-cipher-14 "decode with no spaces" -body {
     atbash decode "zmlyhgzxovrhlugvmzhgvkkrmthglmv"
 } -returnCodes ok -result "anobstacleisoftenasteppingstone"
+
 
 cleanupTests

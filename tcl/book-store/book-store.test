@@ -1,107 +1,107 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-17T16:05:10Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "book-store.tcl"
 
-# Uncomment for more verbose test output.
-# Ref: https://www.tcl.tk/man/tcl8.6/TclCmd/tcltest.html
-#configure -verbose {body error pass msec}
 
 # results expressed in units of cents.
 
-test bookstore-1 "Only a single book" -body {
+test book-store-1 "Only a single book" -body {
     basketCost {1}
 } -returnCodes ok -result 800
 
-skip bookstore-2
-test bookstore-2 "Two of the same book" -body {
+skip book-store-2
+test book-store-2 "Two of the same book" -body {
     basketCost {2 2}
 } -returnCodes ok -result 1600
 
-skip bookstore-3
-test bookstore-3 "Empty basket" -body {
+skip book-store-3
+test book-store-3 "Empty basket" -body {
     basketCost {}
 } -returnCodes ok -result 0
 
-skip bookstore-4
-test bookstore-4 "Two different books" -body {
+skip book-store-4
+test book-store-4 "Two different books" -body {
     basketCost {1 2}
 } -returnCodes ok -result 1520
 
-skip bookstore-5
-test bookstore-5 "Three different books" -body {
+skip book-store-5
+test book-store-5 "Three different books" -body {
     basketCost {1 2 3}
 } -returnCodes ok -result 2160
 
-skip bookstore-6
-test bookstore-6 "Four different books" -body {
+skip book-store-6
+test book-store-6 "Four different books" -body {
     basketCost {1 2 3 4}
 } -returnCodes ok -result 2560
 
-skip bookstore-7
-test bookstore-7 "Five different books" -body {
+skip book-store-7
+test book-store-7 "Five different books" -body {
     basketCost {1 2 3 4 5}
 } -returnCodes ok -result 3000
 
-skip bookstore-8
-test bookstore-8 "Two groups of four is cheaper than group of five plus group of three" -body {
+skip book-store-8
+test book-store-8 "Two groups of four is cheaper than group of five plus group of three" -body {
     basketCost {1 1 2 2 3 3 4 5}
 } -returnCodes ok -result 5120
 
-skip bookstore-9
-test bookstore-9 "Two groups of four is cheaper than group of five plus group of three, alternate basket" -body {
+skip book-store-9
+test book-store-9 "Two groups of four is cheaper than groups of five and three" -body {
     basketCost {1 1 2 3 4 4 5 5}
 } -returnCodes ok -result 5120
 
-skip bookstore-10
-test bookstore-10 "Group of four plus group of two is cheaper than two groups of three" -body {
+skip book-store-10
+test book-store-10 "Group of four plus group of two is cheaper than two groups of three" -body {
     basketCost {1 1 2 2 3 4}
 } -returnCodes ok -result 4080
 
-skip bookstore-11
-test bookstore-11 "Two each of first 4 books and 1 copy each of rest" -body {
+skip book-store-11
+test book-store-11 "Two each of first four books and one copy each of rest" -body {
     basketCost {1 1 2 2 3 3 4 4 5}
 } -returnCodes ok -result 5560
 
-skip bookstore-12
-test bookstore-12 "Two copies of each book" -body {
+skip book-store-12
+test book-store-12 "Two copies of each book" -body {
     basketCost {1 1 2 2 3 3 4 4 5 5}
 } -returnCodes ok -result 6000
 
-skip bookstore-13
-test bookstore-13 "Three copies of first book and 2 each of remaining" -body {
+skip book-store-13
+test book-store-13 "Three copies of first book and two each of remaining" -body {
     basketCost {1 1 2 2 3 3 4 4 5 5 1}
 } -returnCodes ok -result 6800
 
-skip bookstore-14
-test bookstore-14 "Three each of first 2 books and 2 each of remaining books" -body {
+skip book-store-14
+test book-store-14 "Three each of first two books and two each of remaining books" -body {
     basketCost {1 1 2 2 3 3 4 4 5 5 1 2}
 } -returnCodes ok -result 7520
 
-skip bookstore-15
-test bookstore-15 "Four groups of four are cheaper than two groups each of five and three" -body {
+skip book-store-15
+test book-store-15 "Four groups of four are cheaper than two groups each of five and three" -body {
     basketCost {1 1 2 2 3 3 4 5 1 1 2 2 3 3 4 5}
 } -returnCodes ok -result 10240
 
-
 # this may take a long time: change 0 to 1 to run this test case.
 if {0} {
-    skip bookstore-16
-    test bookstore-16 "Check that groups of four are created properly even when there are more groups of three than groups of five" -body {
-        basketCost {1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 5 5}
-    } -returnCodes ok -result 14560
+skip book-store-16
+test book-store-16 "Check that groups of four are created properly even when there are more groups of three than groups of five" -body {
+    basketCost {1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 5 5}
+} -returnCodes ok -result 14560
 }
 
-skip bookstore-17
-test bookstore-17 "One group of one and four is cheaper than one group of two and three" -body {
+skip book-store-17
+test book-store-17 "One group of one and four is cheaper than one group of two and three" -body {
     basketCost {1 1 2 3 4}
 } -returnCodes ok -result 3360
 
-skip bookstore-18
-test bookstore-18 "One group of one and two plus three groups of four is cheaper than one group of each size" -body {
+skip book-store-18
+test book-store-18 "One group of one and two plus three groups of four is cheaper than one group of each size" -body {
     basketCost {1 2 2 3 3 3 4 4 4 4 5 5 5 5 5}
 } -returnCodes ok -result 10000
 

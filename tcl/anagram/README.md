@@ -29,6 +29,8 @@ The words you need to find should be taken from the candidate words, using the s
 
 Given the target `"stone"` and the candidate words `"stone"`, `"tones"`, `"banana"`, `"tons"`, `"notes"`, and `"Seton"`, the anagram words you need to find are `"tones"`, `"notes"`, and `"Seton"`.
 
+## Implementation
+
 You must return the anagrams in the same order as they are listed in the candidate words.
 
 ## Source

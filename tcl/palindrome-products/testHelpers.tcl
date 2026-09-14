@@ -18,3 +18,19 @@ proc cleanupTests {} {
     uplevel 1 ::tcltest::cleanupTests
     if {$failed} then {exit 1}
 }
+
+# Compare two ordered lists without comparing the lists themselves 
+# as strings. Calls itself recursively.
+proc listOfListsMatch {expected actual} {
+    set procname [lindex [info level 0] 0]
+    if {[llength $expected] != [llength $actual]} {
+        return false
+    }
+    foreach e $expected a $actual {
+        if {[llength $e] > 1 ? (![$procname $e $a]) : ($e != $a)} {
+            return false
+        }
+    }
+    return true
+}
+customMatch listOfLists listOfListsMatch

@@ -1,142 +1,131 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-24T01:23:56Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "scale-generator.tcl"
 
-test scale-1 "Chromatic scale with sharps" -body {
+
+test scale-generator-1 "Chromatic scales: Chromatic scale with sharps" -body {
     set scale [Scale new C]
     $scale chromatic
 } -returnCodes ok -match orderedLists -result {
-    C C# D D# E F F# G G# A A# B 
+    C C# D D# E F F# G G# A A# B
 }
-
-skip scale-2
-test scale-2 "Chromatic scale with flats" -body {
+skip scale-generator-2
+test scale-generator-2 "Chromatic scales: Chromatic scale with flats" -body {
     set scale [Scale new F]
     $scale chromatic
 } -returnCodes ok -match orderedLists -result {
     F Gb G Ab A Bb B C Db D Eb E
 }
-
-skip scale-3
-test scale-3 "Simple major scale" -body {
+skip scale-generator-3
+test scale-generator-3 "Scales with specified intervals: Simple major scale" -body {
     set scale [Scale new C]
-    $scale intervals "MMmMMMm"
+    $scale intervals MMmMMMm
 } -returnCodes ok -match orderedLists -result {
     C D E F G A B C
 }
-
-skip scale-4
-test scale-4 "Major scale with sharps" -body {
+skip scale-generator-4
+test scale-generator-4 "Scales with specified intervals: Major scale with sharps" -body {
     set scale [Scale new G]
-    $scale intervals "MMmMMMm"
+    $scale intervals MMmMMMm
 } -returnCodes ok -match orderedLists -result {
-    G A B C D E "F#" G
+    G A B C D E F# G
 }
-
-skip scale-5
-test scale-5 "Major scale with flats" -body {
+skip scale-generator-5
+test scale-generator-5 "Scales with specified intervals: Major scale with flats" -body {
     set scale [Scale new F]
-    $scale intervals "MMmMMMm"
+    $scale intervals MMmMMMm
 } -returnCodes ok -match orderedLists -result {
     F G A Bb C D E F
 }
-
-skip scale-6
-test scale-6 "Minor scale with sharps" -body {
+skip scale-generator-6
+test scale-generator-6 "Scales with specified intervals: Minor scale with sharps" -body {
     set scale [Scale new f#]
-    $scale intervals "MmMMmMM"
+    $scale intervals MmMMmMM
 } -returnCodes ok -match orderedLists -result {
     F# G# A B C# D E F#
 }
-
-skip scale-7
-test scale-7 "Minor scale with flats" -body {
+skip scale-generator-7
+test scale-generator-7 "Scales with specified intervals: Minor scale with flats" -body {
     set scale [Scale new bb]
-    $scale intervals "MmMMmMM"
+    $scale intervals MmMMmMM
 } -returnCodes ok -match orderedLists -result {
     Bb C Db Eb F Gb Ab Bb
 }
-
-skip scale-8
-test scale-8 "Dorian mode" -body {
+skip scale-generator-8
+test scale-generator-8 "Scales with specified intervals: Dorian mode" -body {
     set scale [Scale new d]
-    $scale intervals "MmMMMmM"
+    $scale intervals MmMMMmM
 } -returnCodes ok -match orderedLists -result {
     D E F G A B C D
 }
-
-skip scale-9
-test scale-9 "Mixolydian mode" -body {
+skip scale-generator-9
+test scale-generator-9 "Scales with specified intervals: Mixolydian mode" -body {
     set scale [Scale new Eb]
-    $scale intervals "MMmMMmM"
+    $scale intervals MMmMMmM
 } -returnCodes ok -match orderedLists -result {
     Eb F G Ab Bb C Db Eb
 }
-
-skip scale-10
-test scale-10 "Lydian mode" -body {
+skip scale-generator-10
+test scale-generator-10 "Scales with specified intervals: Lydian mode" -body {
     set scale [Scale new a]
-    $scale intervals "MMMmMMm"
+    $scale intervals MMMmMMm
 } -returnCodes ok -match orderedLists -result {
     A B C# D# E F# G# A
 }
-
-skip scale-11
-test scale-11 "Phrygian mode" -body {
+skip scale-generator-11
+test scale-generator-11 "Scales with specified intervals: Phrygian mode" -body {
     set scale [Scale new e]
-    $scale intervals "mMMMmMM"
+    $scale intervals mMMMmMM
 } -returnCodes ok -match orderedLists -result {
     E F G A B C D E
 }
-
-skip scale-12
-test scale-12 "Lacrian mode" -body {
+skip scale-generator-12
+test scale-generator-12 "Scales with specified intervals: Locrian mode" -body {
     set scale [Scale new g]
-    $scale intervals "mMMmMMM"
+    $scale intervals mMMmMMM
 } -returnCodes ok -match orderedLists -result {
     G Ab Bb C Db Eb F G
 }
-
-skip scale-13
-test scale-13 "Harmonic minor" -body {
+skip scale-generator-13
+test scale-generator-13 "Scales with specified intervals: Harmonic minor" -body {
     set scale [Scale new d]
-    $scale intervals "MmMMmAm"
+    $scale intervals MmMMmAm
 } -returnCodes ok -match orderedLists -result {
     D E F G A Bb Db D
 }
-
-skip scale-14
-test scale-14 "Octatonic" -body {
+skip scale-generator-14
+test scale-generator-14 "Scales with specified intervals: Octatonic" -body {
     set scale [Scale new C]
-    $scale intervals "MmMmMmMm"
+    $scale intervals MmMmMmMm
 } -returnCodes ok -match orderedLists -result {
     C D D# F F# G# A B C
 }
-
-skip scale-15
-test scale-15 "Hexatonic" -body {
+skip scale-generator-15
+test scale-generator-15 "Scales with specified intervals: Hexatonic" -body {
     set scale [Scale new Db]
-    $scale intervals "MMMMMM"
+    $scale intervals MMMMMM
 } -returnCodes ok -match orderedLists -result {
     Db Eb F G A B Db
 }
-
-skip scale-16
-test scale-16 "Pentatonic" -body {
+skip scale-generator-16
+test scale-generator-16 "Scales with specified intervals: Pentatonic" -body {
     set scale [Scale new A]
-    $scale intervals "MMAMA"
+    $scale intervals MMAMA
 } -returnCodes ok -match orderedLists -result {
     A B C# E F# A
 }
-
-skip scale-17
-test scale-17 "Enigmatic" -body {
+skip scale-generator-17
+test scale-generator-17 "Scales with specified intervals: Enigmatic" -body {
     set scale [Scale new G]
-    $scale intervals "mAMMMmm"
+    $scale intervals mAMMMmm
 } -returnCodes ok -match orderedLists -result {
     G G# B C# D# F F# G
 }

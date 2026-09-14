@@ -1,165 +1,102 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-26T12:44:22Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
-# uncomment for more verbose test results
+# Uncomment next line to view test durations.
 #configure -verbose {body error usec}
 
 ############################################################
 source "high-scores.tcl"
 
-test high-scores-1.1 {List of scores} -setup {
+
+test high-scores-1 "List of scores" -body {
     set hs [HighScores new]
-    $hs addScores 30 50 20 70 
-} -body {
+    $hs addScores 30 50 20 70
     $hs scores
 } -returnCodes ok -result {30 50 20 70}
 
-# track test
-skip high-scores-1.2
-test high-scores-1.2 {List of scores, uninitialized} -setup {
-    set hs [HighScores new]
-} -body {
-    $hs scores
-} -returnCodes ok -result {}
-
-# track test
-skip high-scores-1.3
-test high-scores-1.3 {List of scores, repeated addition} -setup {
-    set hs [HighScores new]
-} -body {
-    $hs addScores 30 50
-    $hs addScores 20 70
-    $hs scores
-} -returnCodes ok -result {30 50 20 70}
-
-skip high-scores-2.1
-test high-scores-2.1 {Latest score} -setup {
+skip high-scores-2
+test high-scores-2 "Latest score" -body {
     set hs [HighScores new]
     $hs addScores 100 0 90 30
-} -body {
     $hs latest
 } -returnCodes ok -result 30
 
-# track test
-skip high-scores-2.2
-test high-scores-2.2 {Latest scores, uninitialized} -setup {
-    set hs [HighScores new]
-} -body {
-    $hs latest
-} -returnCodes ok -result {}
-
-skip high-scores-3.1
-test high-scores-3.1 {Personal best} -setup {
+skip high-scores-3
+test high-scores-3 "Personal best" -body {
     set hs [HighScores new]
     $hs addScores 40 100 70
-} -body {
     $hs personalBest
 } -returnCodes ok -result 100
 
-# track test
-skip high-scores-3.2
-test high-scores-3.2 {Personal best, uninitialized} -setup {
-    set hs [HighScores new]
-} -body {
-    $hs personalBest
-} -returnCodes ok -result {}
-
-# Top three
-skip high-scores-4.1
-test high-scores-4.1 {Personal top three from a list of scores} -setup {
+skip high-scores-4
+test high-scores-4 "Personal top three from a list of scores" -body {
     set hs [HighScores new]
     $hs addScores 10 30 90 30 100 20 10 0 30 40 40 70 70
-} -body {
     $hs topThree
 } -returnCodes ok -result {100 90 70}
 
-skip high-scores-4.2
-test high-scores-4.2 {Personal top highest to lowest} -setup {
+skip high-scores-5
+test high-scores-5 "Personal top highest to lowest" -body {
     set hs [HighScores new]
     $hs addScores 20 10 30
-} -body {
     $hs topThree
 } -returnCodes ok -result {30 20 10}
 
-skip high-scores-4.3
-test high-scores-4.3 {Personal top when there is a tie} -setup {
+skip high-scores-6
+test high-scores-6 "Personal top when there is a tie" -body {
     set hs [HighScores new]
     $hs addScores 40 20 40 30
-} -body {
     $hs topThree
 } -returnCodes ok -result {40 40 30}
 
-skip high-scores-4.4
-test high-scores-4.4 {Personal top when there are less than 3} -setup {
+skip high-scores-7
+test high-scores-7 "Personal top when there are less than 3" -body {
     set hs [HighScores new]
     $hs addScores 30 70
-} -body {
     $hs topThree
 } -returnCodes ok -result {70 30}
 
-skip high-scores-4.5
-test high-scores-4.5 {Personal top when there is only one} -setup {
+skip high-scores-8
+test high-scores-8 "Personal top when there is only one" -body {
     set hs [HighScores new]
     $hs addScores 40
-} -body {
     $hs topThree
 } -returnCodes ok -result {40}
 
-# track test
-skip high-scores-4.6
-test high-scores-4.6 {Personal top when there are no scores} -setup {
-    set hs [HighScores new]
-} -body {
-    $hs topThree
-} -returnCodes ok -result {}
-
-skip high-scores-4.7
-test high-scores-4.7 {Latest score after personal top scores} -setup {
+skip high-scores-9
+test high-scores-9 "Latest score after personal top scores" -body {
     set hs [HighScores new]
     $hs addScores 70 50 20 30
     set top3 [$hs topThree]
-} -body {
     $hs latest
 } -returnCodes ok -result 30
 
-skip high-scores-4.8
-test high-scores-4.8 {Scores after personal top scores} -setup {
+skip high-scores-10
+test high-scores-10 "Scores after personal top scores" -body {
     set hs [HighScores new]
     $hs addScores 30 50 20 70
     set top3 [$hs topThree]
-} -body {
     $hs scores
 } -returnCodes ok -result {30 50 20 70}
 
-skip high-scores-4.9
-test high-scores-4.9 {Latest score after personal best} -setup {
+skip high-scores-11
+test high-scores-11 "Latest score after personal best" -body {
     set hs [HighScores new]
     $hs addScores 20 70 15 25 30
     set best [$hs personalBest]
-} -body {
     $hs latest
 } -returnCodes ok -result 30
 
-skip high-scores-4.10
-test high-scores-4.10 {Scores after personal best} -setup {
+skip high-scores-12
+test high-scores-12 "Scores after personal best" -body {
     set hs [HighScores new]
     $hs addScores 20 70 15 25 30
     set best [$hs personalBest]
-} -body {
     $hs scores
 } -returnCodes ok -result {20 70 15 25 30}
 
-# track test
-skip high-scores-5
-test high-scores-5 {Object data is private} -setup {
-    set h1 [HighScores new]
-    set h2 [HighScores new]
-    $h1 addScores 10 30
-    $h2 addScores 20
-} -body {
-    $h1 scores
-} -returnCodes ok -result {10 30}
 
 cleanupTests

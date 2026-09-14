@@ -1,30 +1,37 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-24T04:00:53Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "spiral-matrix.tcl"
 
-test spiral-1 "empty spiral" -body {
+
+test spiral-matrix-1 "empty spiral" -body {
     spiralMatrix 0
 } -returnCodes ok -match listOfLists -result {}
 
-skip spiral-2
-test spiral-2 "trivial spiral" -body {
+skip spiral-matrix-2
+test spiral-matrix-2 "trivial spiral" -body {
     spiralMatrix 1
-} -returnCodes ok -match listOfLists -result { {1} }
+} -returnCodes ok -match listOfLists -result {
+    {1}
+}
 
-skip spiral-3
-test spiral-3 "spiral of size 2" -body {
+skip spiral-matrix-3
+test spiral-matrix-3 "spiral of size 2" -body {
     spiralMatrix 2
 } -returnCodes ok -match listOfLists -result {
     {1 2}
     {4 3}
 }
 
-skip spiral-4
-test spiral-4 "spiral of size 3" -body {
+skip spiral-matrix-4
+test spiral-matrix-4 "spiral of size 3" -body {
     spiralMatrix 3
 } -returnCodes ok -match listOfLists -result {
     {1 2 3}
@@ -32,25 +39,26 @@ test spiral-4 "spiral of size 3" -body {
     {7 6 5}
 }
 
-skip spiral-5
-test spiral-5 "spiral of size 4" -body {
+skip spiral-matrix-5
+test spiral-matrix-5 "spiral of size 4" -body {
     spiralMatrix 4
 } -returnCodes ok -match listOfLists -result {
-    { 1  2  3 4}
+    {1 2 3 4}
     {12 13 14 5}
     {11 16 15 6}
-    {10  9  8 7}
+    {10 9 8 7}
 }
 
-skip spiral-6
-test spiral-6 "spiral of size 5" -body {
+skip spiral-matrix-6
+test spiral-matrix-6 "spiral of size 5" -body {
     spiralMatrix 5
 } -returnCodes ok -match listOfLists -result {
-    { 1  2  3  4 5}
+    {1 2 3 4 5}
     {16 17 18 19 6}
     {15 24 25 20 7}
     {14 23 22 21 8}
-    {13 12 11 10 9} 
+    {13 12 11 10 9}
 }
+
 
 cleanupTests

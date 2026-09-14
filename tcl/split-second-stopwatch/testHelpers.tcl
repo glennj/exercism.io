@@ -19,15 +19,32 @@ proc cleanupTests {} {
     if {$failed} then {exit 1}
 }
 
-proc orderedListsMatch {expected actual} {
-    if {[llength $expected] != [llength $actual]} {
+
+# Compare two dictionaries for the same keys and same values
+proc dictionaryMatch {expected actual} {
+    if {[dict size $expected] != [dict size $actual]} {
         return false
     }
-    foreach e $expected a $actual {
-        if {$e != $a} {
+    dict for {key value} $expected {
+        if {![dict exists $actual $key]} {
+            return false
+        }
+        set actualValue [dict get $actual $key]
+
+        # if this value is a dict then recurse, 
+        # else just check for string equality
+        if {[string is list -strict $value] &&
+            [llength $value] > 1 && 
+            [llength $value] % 2 == 0
+        } {
+            set procname [lindex [info level 0] 0]
+            if {![$procname $value $actualValue]} {
+                return false
+            }
+        } elseif {$actualValue ne $value} {
             return false
         }
     }
     return true
 }
-customMatch orderedLists orderedListsMatch
+customMatch dictionary dictionaryMatch

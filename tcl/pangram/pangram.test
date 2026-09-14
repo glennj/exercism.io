@@ -1,10 +1,15 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-19T11:55:19Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "pangram.tcl"
+
 
 test pangram-1 "empty sentence" -body {
     isPangram ""

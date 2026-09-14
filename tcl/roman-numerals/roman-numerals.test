@@ -1,149 +1,149 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-23T15:59:35Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "roman-numerals.tcl"
 
-test roman-1 "1 is a single I" -body {
+
+test roman-numerals-1 "1 is I" -body {
     toroman 1
 } -returnCodes ok -result "I"
 
-skip roman-2
-test roman-2 "2 is two I's" -body {
+skip roman-numerals-2
+test roman-numerals-2 "2 is II" -body {
     toroman 2
 } -returnCodes ok -result "II"
 
-skip roman-3
-test roman-3 "3 is three I's" -body {
+skip roman-numerals-3
+test roman-numerals-3 "3 is III" -body {
     toroman 3
 } -returnCodes ok -result "III"
 
-skip roman-4
-test roman-4 "4, being 5 - 1, is IV" -body {
+skip roman-numerals-4
+test roman-numerals-4 "4 is IV" -body {
     toroman 4
 } -returnCodes ok -result "IV"
 
-skip roman-5
-test roman-5 "5 is a single V" -body {
+skip roman-numerals-5
+test roman-numerals-5 "5 is V" -body {
     toroman 5
 } -returnCodes ok -result "V"
 
-skip roman-6
-test roman-6 "6, being 5 + 1, is VI" -body {
+skip roman-numerals-6
+test roman-numerals-6 "6 is VI" -body {
     toroman 6
 } -returnCodes ok -result "VI"
 
-skip roman-7
-test roman-7 "9, being 10 - 1, is IX" -body {
+skip roman-numerals-7
+test roman-numerals-7 "9 is IX" -body {
     toroman 9
 } -returnCodes ok -result "IX"
 
-skip roman-8
-test roman-8 "20 is two X's" -body {
-    toroman 27
-} -returnCodes ok -result "XXVII"
-
-skip roman-9
-test roman-9 "48 is not 50 - 2 but rather 40 + 8" -body {
-    toroman 48
-} -returnCodes ok -result "XLVIII"
-
-skip roman-10
-test roman-10 "49 is not 40 + 5 + 4 but rather 50 - 10 + 10 - 1" -body {
-    toroman 49
-} -returnCodes ok -result "XLIX"
-
-skip roman-11
-test roman-11 "50 is a single L" -body {
-    toroman 59
-} -returnCodes ok -result "LIX"
-
-skip roman-12
-test roman-12 "90, being 100 - 10, is XC" -body {
-    toroman 93
-} -returnCodes ok -result "XCIII"
-
-skip roman-13
-test roman-13 "100 is a single C" -body {
-    toroman 141
-} -returnCodes ok -result "CXLI"
-
-skip roman-14
-test roman-14 "60, being 50 + 10, is LX" -body {
-    toroman 163
-} -returnCodes ok -result "CLXIII"
-
-skip roman-15
-test roman-15 "400, being 500 - 100, is CD" -body {
-    toroman 402
-} -returnCodes ok -result "CDII"
-
-skip roman-16
-test roman-16 "500 is a single D" -body {
-    toroman 575
-} -returnCodes ok -result "DLXXV"
-
-skip roman-17
-test roman-17 "900, being 1000 - 100, is CM" -body {
-    toroman 911
-} -returnCodes ok -result "CMXI"
-
-skip roman-18
-test roman-18 "1000 is a single M" -body {
-    toroman 1024
-} -returnCodes ok -result "MXXIV"
-
-skip roman-19
-test roman-19 "1888 uses all digits" -body {
-    toroman 1888
-} -returnCodes ok -result "MDCCCLXXXVIII"
-
-skip roman-20
-test roman-20 "3000 is three M's" -body {
-    toroman 3000
-} -returnCodes ok -result "MMM"
-
-skip roman-21
-test roman-21 "16 is XVI" -body {
+skip roman-numerals-8
+test roman-numerals-8 "16 is XVI" -body {
     toroman 16
 } -returnCodes ok -result "XVI"
 
-skip roman-22
-test roman-22 "66 is LXVI" -body {
+skip roman-numerals-9
+test roman-numerals-9 "27 is XXVII" -body {
+    toroman 27
+} -returnCodes ok -result "XXVII"
+
+skip roman-numerals-10
+test roman-numerals-10 "48 is XLVIII" -body {
+    toroman 48
+} -returnCodes ok -result "XLVIII"
+
+skip roman-numerals-11
+test roman-numerals-11 "49 is XLIX" -body {
+    toroman 49
+} -returnCodes ok -result "XLIX"
+
+skip roman-numerals-12
+test roman-numerals-12 "59 is LIX" -body {
+    toroman 59
+} -returnCodes ok -result "LIX"
+
+skip roman-numerals-13
+test roman-numerals-13 "66 is LXVI" -body {
     toroman 66
 } -returnCodes ok -result "LXVI"
 
-skip roman-23
-test roman-23 "166 is CLXVI" -body {
+skip roman-numerals-14
+test roman-numerals-14 "93 is XCIII" -body {
+    toroman 93
+} -returnCodes ok -result "XCIII"
+
+skip roman-numerals-15
+test roman-numerals-15 "141 is CXLI" -body {
+    toroman 141
+} -returnCodes ok -result "CXLI"
+
+skip roman-numerals-16
+test roman-numerals-16 "163 is CLXIII" -body {
+    toroman 163
+} -returnCodes ok -result "CLXIII"
+
+skip roman-numerals-17
+test roman-numerals-17 "166 is CLXVI" -body {
     toroman 166
 } -returnCodes ok -result "CLXVI"
 
-skip roman-24
-test roman-24 "666 is DCLXVI" -body {
+skip roman-numerals-18
+test roman-numerals-18 "402 is CDII" -body {
+    toroman 402
+} -returnCodes ok -result "CDII"
+
+skip roman-numerals-19
+test roman-numerals-19 "575 is DLXXV" -body {
+    toroman 575
+} -returnCodes ok -result "DLXXV"
+
+skip roman-numerals-20
+test roman-numerals-20 "666 is DCLXVI" -body {
     toroman 666
 } -returnCodes ok -result "DCLXVI"
 
-skip roman-25
-test roman-25 "1666 is MDCLXVI" -body {
+skip roman-numerals-21
+test roman-numerals-21 "911 is CMXI" -body {
+    toroman 911
+} -returnCodes ok -result "CMXI"
+
+skip roman-numerals-22
+test roman-numerals-22 "1024 is MXXIV" -body {
+    toroman 1024
+} -returnCodes ok -result "MXXIV"
+
+skip roman-numerals-23
+test roman-numerals-23 "1666 is MDCLXVI" -body {
     toroman 1666
 } -returnCodes ok -result "MDCLXVI"
 
-skip roman-26
-test roman-26 "3001 is MMMI" -body {
+skip roman-numerals-24
+test roman-numerals-24 "3000 is MMM" -body {
+    toroman 3000
+} -returnCodes ok -result "MMM"
+
+skip roman-numerals-25
+test roman-numerals-25 "3001 is MMMI" -body {
     toroman 3001
 } -returnCodes ok -result "MMMI"
 
-skip roman-27
-test roman-27 "3999 is MMMCMXCIX" -body {
-    toroman 3999
-} -returnCodes ok -result "MMMCMXCIX"
-
-skip roman-28
-test roman-28 "3888 is MMMDCCCLXXXVIII" -body {
+skip roman-numerals-26
+test roman-numerals-26 "3888 is MMMDCCCLXXXVIII" -body {
     toroman 3888
 } -returnCodes ok -result "MMMDCCCLXXXVIII"
+
+skip roman-numerals-27
+test roman-numerals-27 "3999 is MMMCMXCIX" -body {
+    toroman 3999
+} -returnCodes ok -result "MMMCMXCIX"
 
 
 cleanupTests

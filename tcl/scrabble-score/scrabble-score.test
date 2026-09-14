@@ -1,10 +1,15 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-24T01:26:40Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "scrabble-score.tcl"
+
 
 test scrabble-score-1 "lowercase letter" -body {
     scrabbleScore "a"
@@ -41,19 +46,19 @@ test scrabble-score-7 "medium, valuable word" -body {
 } -returnCodes ok -result 22
 
 skip scrabble-score-8
-test scrabble-score-8 "english-like word" -body {
+test scrabble-score-8 "long, mixed-case word" -body {
+    scrabbleScore "OxyphenButazone"
+} -returnCodes ok -result 41
+
+skip scrabble-score-9
+test scrabble-score-9 "english-like word" -body {
     scrabbleScore "pinata"
 } -returnCodes ok -result 8
 
-skip scrabble-score-9
-test scrabble-score-9 "empty input" -body {
+skip scrabble-score-10
+test scrabble-score-10 "empty input" -body {
     scrabbleScore ""
 } -returnCodes ok -result 0
-
-skip scrabble-score-10
-test scrabble-score-10 "long, mixed-case word" -body {
-    scrabbleScore "OxyphenButazone"
-} -returnCodes ok -result 41
 
 skip scrabble-score-11
 test scrabble-score-11 "entire alphabet available" -body {

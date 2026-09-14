@@ -1,19 +1,29 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-24T18:10:14Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "transpose.tcl"
 
+
 test transpose-1 "empty string" -body {
     transpose {}
-} -returnCodes OK -match orderedLists -result {}
+} -returnCodes ok -match orderedLists -result {}
 
 skip transpose-2
 test transpose-2 "two characters in a row" -body {
-    transpose {"A1"}
-} -returnCodes OK -match orderedLists -result {"A" "1"}
+    transpose {
+        "A1"
+    }
+} -returnCodes ok -match orderedLists -result {
+    "A"
+    "1"
+}
 
 skip transpose-3
 test transpose-3 "two characters in a column" -body {
@@ -21,7 +31,7 @@ test transpose-3 "two characters in a column" -body {
         "A"
         "1"
     }
-} -returnCodes OK -match orderedLists -result {
+} -returnCodes ok -match orderedLists -result {
     "A1"
 }
 
@@ -31,7 +41,7 @@ test transpose-4 "simple" -body {
         "ABC"
         "123"
     }
-} -returnCodes OK -match orderedLists -result {
+} -returnCodes ok -match orderedLists -result {
     "A1"
     "B2"
     "C3"
@@ -42,7 +52,7 @@ test transpose-5 "single line" -body {
     transpose {
         "Single line."
     }
-} -returnCodes OK -match orderedLists -result {
+} -returnCodes ok -match orderedLists -result {
     "S"
     "i"
     "n"
@@ -63,7 +73,7 @@ test transpose-6 "first line longer than second line" -body {
         "The fourth line."
         "The fifth line."
     }
-} -returnCodes OK -match orderedLists -result {
+} -returnCodes ok -match orderedLists -result {
     "TT"
     "hh"
     "ee"
@@ -88,7 +98,7 @@ test transpose-7 "second line longer than first line" -body {
         "The first line."
         "The second line."
     }
-} -returnCodes OK -match orderedLists -result {
+} -returnCodes ok -match orderedLists -result {
     "TT"
     "hh"
     "ee"
@@ -115,7 +125,7 @@ test transpose-8 "mixed line length" -body {
         "A longer line."
         "A line."
     }
-} -returnCodes OK -match orderedLists -result {
+} -returnCodes ok -match orderedLists -result {
     "TAAA"
     "h   "
     "elll"
@@ -144,7 +154,7 @@ test transpose-9 "square" -body {
         "RESIN"
         "TREND"
     }
-} -returnCodes OK -match orderedLists -result {
+} -returnCodes ok -match orderedLists -result {
     "HEART"
     "EMBER"
     "ABUSE"
@@ -160,7 +170,7 @@ test transpose-10 "rectangle" -body {
         "BLOOMING"
         "SEPTETTE"
     }
-} -returnCodes OK -match orderedLists -result {
+} -returnCodes ok -match orderedLists -result {
     "FOBS"
     "RULE"
     "ATOP"
@@ -181,7 +191,7 @@ test transpose-11 "triangle" -body {
         "EEEEE"
         "RRRRRR"
     }
-} -returnCodes OK -match orderedLists -result {
+} -returnCodes ok -match orderedLists -result {
     "TEASER"
     " EASER"
     "  ASER"
@@ -200,7 +210,7 @@ test transpose-12 "jagged triangle" -body {
         "555555"
         "66666"
     }
-} -returnCodes OK -match orderedLists -result {
+} -returnCodes ok -match orderedLists -result {
     "123456"
     "1 3456"
     "  3456"

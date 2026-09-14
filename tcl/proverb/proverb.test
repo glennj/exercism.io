@@ -1,10 +1,15 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-24T19:22:59Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "proverb.tcl"
+
 
 test proverb-1 "zero pieces" -body {
     recite {}
@@ -12,29 +17,31 @@ test proverb-1 "zero pieces" -body {
 
 skip proverb-2
 test proverb-2 "one piece" -body {
-    recite { nail }
-} -returnCodes ok -match orderedLists -result { "And all for the want of a nail." }
+    recite {nail}
+} -returnCodes ok -match orderedLists -result {
+    "And all for the want of a nail."
+}
 
 skip proverb-3
 test proverb-3 "two pieces" -body {
-    recite { nail shoe }
+    recite {nail shoe}
 } -returnCodes ok -match orderedLists -result {
     "For want of a nail the shoe was lost."
-    "And all for the want of a nail." 
+    "And all for the want of a nail."
 }
 
 skip proverb-4
 test proverb-4 "three pieces" -body {
-    recite { nail shoe horse }
+    recite {nail shoe horse}
 } -returnCodes ok -match orderedLists -result {
     "For want of a nail the shoe was lost."
     "For want of a shoe the horse was lost."
-    "And all for the want of a nail." 
+    "And all for the want of a nail."
 }
 
 skip proverb-5
 test proverb-5 "full proverb" -body {
-    recite { nail shoe horse rider message battle kingdom }
+    recite {nail shoe horse rider message battle kingdom}
 } -returnCodes ok -match orderedLists -result {
     "For want of a nail the shoe was lost."
     "For want of a shoe the horse was lost."
@@ -42,17 +49,17 @@ test proverb-5 "full proverb" -body {
     "For want of a rider the message was lost."
     "For want of a message the battle was lost."
     "For want of a battle the kingdom was lost."
-    "And all for the want of a nail." 
+    "And all for the want of a nail."
 }
 
 skip proverb-6
 test proverb-6 "four pieces modernized" -body {
-    recite { pin gun soldier battle }
+    recite {pin gun soldier battle}
 } -returnCodes ok -match orderedLists -result {
     "For want of a pin the gun was lost."
     "For want of a gun the soldier was lost."
     "For want of a soldier the battle was lost."
-    "And all for the want of a pin." 
+    "And all for the want of a pin."
 }
 
 

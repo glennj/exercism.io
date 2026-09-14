@@ -52,6 +52,8 @@ Additionally, each of the five houses is painted a different color, and their in
 There are 24 billion (5!⁵ = 24,883,200,000) possible solutions, so try ruling out as many solutions as possible.
 ~~~~
 
+## Tcl Packages
+
 This is the first exercise to include a pre-written package.
 Note the presence of the file `pkgIndex.tcl` and the inclusion of the current directory in the `auto_path` variable.
 These allow the `package require` command to be able to find the package's source file.

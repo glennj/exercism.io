@@ -1,10 +1,15 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-18T02:09:28Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "luhn.tcl"
+
 
 test luhn-1 "single digit strings can not be valid" -body {
     luhn "1"
@@ -41,73 +46,73 @@ test luhn-7 "invalid credit card" -body {
 } -returnCodes ok -match boolean -result false
 
 skip luhn-8
-test luhn-8 "valid number with an even number of digits" -body {
-    luhn "095 245 88"
-} -returnCodes ok -match boolean -result true
-
-skip luhn-9
-test luhn-9 "valid number with an odd number of spaces" -body {
-    luhn "234 567 891 234"
-} -returnCodes ok -match boolean -result true
-
-skip luhn-10
-test luhn-10 "valid strings with a non-digit added at the end become invalid" -body {
-    luhn "059a"
-} -returnCodes ok -match boolean -result false
-
-skip luhn-11
-test luhn-11 "valid strings with punctuation included become invalid" -body {
-    luhn "055-444-285"
-} -returnCodes ok -match boolean -result false
-
-skip luhn-12
-test luhn-12 "valid strings with symbols included become invalid" -body {
-    luhn "055# 444$ 285"
-} -returnCodes ok -match boolean -result false
-
-skip luhn-13
-test luhn-13 "single zero with space is invalid" -body {
-    luhn " 0"
-} -returnCodes ok -match boolean -result false
-
-skip luhn-14
-test luhn-14 "more than a single zero is valid" -body {
-    luhn "0000 0"
-} -returnCodes ok -match boolean -result true
-
-skip luhn-15
-test luhn-15 "input digit 9 is correctly converted to output digit 9" -body {
-    luhn "091"
-} -returnCodes ok -match boolean -result true
-
-skip luhn-16
-test luhn-16 "very long input is valid" -body {
-    luhn "9999999999 9999999999 9999999999 9999999999"
-} -returnCodes ok -match boolean -result true
-
-skip luhn-17
-test luhn-17 "valid luhn with an odd number of digits and non zero first digit" -body {
-    luhn "109"
-} -returnCodes ok -match boolean -result true
-
-skip luhn-18
-test luhn-18 "using ascii value for non-doubled non-digit isn't allowed" -body {
-    luhn "055b 444 285"
-} -returnCodes ok -match boolean -result false
-
-skip luhn-19
-test luhn-19 "using ascii value for doubled non-digit isn't allowed" -body {
-    luhn ":9"
-} -returnCodes ok -match boolean -result false
-
-skip luhn-20
-test luhn-20 "invalid long number with an even remainder" -body {
+test luhn-8 "invalid long number with an even remainder" -body {
     luhn "1 2345 6789 1234 5678 9012"
 } -returnCodes ok -match boolean -result false
 
-skip luhn-21
-test luhn-21 "invalid long number with a remainder divisible by 5" -body {
+skip luhn-9
+test luhn-9 "invalid long number with a remainder divisible by 5" -body {
     luhn "1 2345 6789 1234 5678 9013"
+} -returnCodes ok -match boolean -result false
+
+skip luhn-10
+test luhn-10 "valid number with an even number of digits" -body {
+    luhn "095 245 88"
+} -returnCodes ok -match boolean -result true
+
+skip luhn-11
+test luhn-11 "valid number with an odd number of spaces" -body {
+    luhn "234 567 891 234"
+} -returnCodes ok -match boolean -result true
+
+skip luhn-12
+test luhn-12 "valid strings with a non-digit added at the end become invalid" -body {
+    luhn "059a"
+} -returnCodes ok -match boolean -result false
+
+skip luhn-13
+test luhn-13 "valid strings with punctuation included become invalid" -body {
+    luhn "055-444-285"
+} -returnCodes ok -match boolean -result false
+
+skip luhn-14
+test luhn-14 "valid strings with symbols included become invalid" -body {
+    luhn "055# 444\$ 285"
+} -returnCodes ok -match boolean -result false
+
+skip luhn-15
+test luhn-15 "single zero with space is invalid" -body {
+    luhn " 0"
+} -returnCodes ok -match boolean -result false
+
+skip luhn-16
+test luhn-16 "more than a single zero is valid" -body {
+    luhn "0000 0"
+} -returnCodes ok -match boolean -result true
+
+skip luhn-17
+test luhn-17 "input digit 9 is correctly converted to output digit 9" -body {
+    luhn "091"
+} -returnCodes ok -match boolean -result true
+
+skip luhn-18
+test luhn-18 "very long input is valid" -body {
+    luhn "9999999999 9999999999 9999999999 9999999999"
+} -returnCodes ok -match boolean -result true
+
+skip luhn-19
+test luhn-19 "valid luhn with an odd number of digits and non zero first digit" -body {
+    luhn "109"
+} -returnCodes ok -match boolean -result true
+
+skip luhn-20
+test luhn-20 "using ascii value for non-doubled non-digit isn't allowed" -body {
+    luhn "055b 444 285"
+} -returnCodes ok -match boolean -result false
+
+skip luhn-21
+test luhn-21 "using ascii value for doubled non-digit isn't allowed" -body {
+    luhn ":9"
 } -returnCodes ok -match boolean -result false
 
 skip luhn-22

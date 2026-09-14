@@ -1,10 +1,15 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-16T20:06:28Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "acronym.tcl"
+
 
 test acronym-1 "basic" -body {
     abbreviate "Portable Network Graphics"
@@ -49,5 +54,6 @@ skip acronym-9
 test acronym-9 "underscore emphasis" -body {
     abbreviate "The Road _Not_ Taken"
 } -returnCodes ok -result TRNT
+
 
 cleanupTests

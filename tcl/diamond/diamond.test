@@ -1,30 +1,34 @@
 #!/usr/bin/env tclsh
+# generated: 2026-07-24T19:22:54Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
+
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
 
 ############################################################
 source "diamond.tcl"
 
 
 test diamond-1 "Degenerate case with a single 'A' row" -body {
-    diamond  "A"
-} -returnCodes ok -result "A"
-
+    diamond "A"
+} -returnCodes ok -result [join {
+    "A"
+} \n]
 
 skip diamond-2
 test diamond-2 "Degenerate case with no row containing 3 distinct groups of spaces" -body {
-    diamond  "B"
+    diamond "B"
 } -returnCodes ok -result [join {
     " A "
     "B B"
     " A "
 } \n]
 
-
 skip diamond-3
 test diamond-3 "Smallest non-degenerate case with odd diamond side length" -body {
-    diamond  "C"
+    diamond "C"
 } -returnCodes ok -result [join {
     "  A  "
     " B B "
@@ -33,10 +37,9 @@ test diamond-3 "Smallest non-degenerate case with odd diamond side length" -body
     "  A  "
 } \n]
 
-
 skip diamond-4
 test diamond-4 "Smallest non-degenerate case with even diamond side length" -body {
-    diamond  "D"
+    diamond "D"
 } -returnCodes ok -result [join {
     "   A   "
     "  B B  "
@@ -47,10 +50,9 @@ test diamond-4 "Smallest non-degenerate case with even diamond side length" -bod
     "   A   "
 } \n]
 
-
 skip diamond-5
 test diamond-5 "Largest possible diamond" -body {
-    diamond  "Z"
+    diamond "Z"
 } -returnCodes ok -result [join {
     "                         A                         "
     "                        B B                        "

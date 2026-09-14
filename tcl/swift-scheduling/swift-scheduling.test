@@ -1,52 +1,57 @@
 #!/usr/bin/env tclsh
+# generated: 2026-08-15T01:44:39Z
 package require tcltest
 namespace import ::tcltest::*
 source testHelpers.tcl
 
+# Uncomment next line to view test durations.
+#configure -verbose {body error usec}
+
 ############################################################
 source "swift-scheduling.tcl"
 
-test swift-scheduling-01 "NOW translates to two hours later" -body {
+
+test swift-scheduling-1 "NOW translates to two hours later" -body {
     deliveryDate "2012-02-13T09:00:00" "NOW"
 } -returnCodes ok -result "2012-02-13T11:00:00"
 
-skip swift-scheduling-02
-test swift-scheduling-02 "ASAP before one in the afternoon translates to today at five in the afternoon" -body {
+skip swift-scheduling-2
+test swift-scheduling-2 "ASAP before one in the afternoon translates to today at five in the afternoon" -body {
     deliveryDate "1999-06-03T09:45:00" "ASAP"
 } -returnCodes ok -result "1999-06-03T17:00:00"
 
-skip swift-scheduling-03
-test swift-scheduling-03 "ASAP at one in the afternoon translates to tomorrow at one in the afternoon" -body {
+skip swift-scheduling-3
+test swift-scheduling-3 "ASAP at one in the afternoon translates to tomorrow at one in the afternoon" -body {
     deliveryDate "2008-12-21T13:00:00" "ASAP"
 } -returnCodes ok -result "2008-12-22T13:00:00"
 
-skip swift-scheduling-04
-test swift-scheduling-04 "ASAP after one in the afternoon translates to tomorrow at one in the afternoon" -body {
+skip swift-scheduling-4
+test swift-scheduling-4 "ASAP after one in the afternoon translates to tomorrow at one in the afternoon" -body {
     deliveryDate "2008-12-21T14:50:00" "ASAP"
 } -returnCodes ok -result "2008-12-22T13:00:00"
 
-skip swift-scheduling-05
-test swift-scheduling-05 "EOW on Monday translates to Friday at five in the afternoon" -body {
+skip swift-scheduling-5
+test swift-scheduling-5 "EOW on Monday translates to Friday at five in the afternoon" -body {
     deliveryDate "2025-02-03T16:00:00" "EOW"
 } -returnCodes ok -result "2025-02-07T17:00:00"
 
-skip swift-scheduling-06
-test swift-scheduling-06 "EOW on Tuesday translates to Friday at five in the afternoon" -body {
+skip swift-scheduling-6
+test swift-scheduling-6 "EOW on Tuesday translates to Friday at five in the afternoon" -body {
     deliveryDate "1997-04-29T10:50:00" "EOW"
 } -returnCodes ok -result "1997-05-02T17:00:00"
 
-skip swift-scheduling-07
-test swift-scheduling-07 "EOW on Wednesday translates to Friday at five in the afternoon" -body {
+skip swift-scheduling-7
+test swift-scheduling-7 "EOW on Wednesday translates to Friday at five in the afternoon" -body {
     deliveryDate "2005-09-14T11:00:00" "EOW"
 } -returnCodes ok -result "2005-09-16T17:00:00"
 
-skip swift-scheduling-08
-test swift-scheduling-08 "EOW on Thursday translates to Sunday at eight in the evening" -body {
+skip swift-scheduling-8
+test swift-scheduling-8 "EOW on Thursday translates to Sunday at eight in the evening" -body {
     deliveryDate "2011-05-19T08:30:00" "EOW"
 } -returnCodes ok -result "2011-05-22T20:00:00"
 
-skip swift-scheduling-09
-test swift-scheduling-09 "EOW on Friday translates to Sunday at eight in the evening" -body {
+skip swift-scheduling-9
+test swift-scheduling-9 "EOW on Friday translates to Sunday at eight in the evening" -body {
     deliveryDate "2022-08-05T14:00:00" "EOW"
 } -returnCodes ok -result "2022-08-07T20:00:00"
 
@@ -84,6 +89,11 @@ skip swift-scheduling-16
 test swift-scheduling-16 "Q3 in the fourth quarter translates to the last workday of the third quarter of next year" -body {
     deliveryDate "2022-10-06T11:00:00" "Q3"
 } -returnCodes ok -result "2023-09-29T08:00:00"
+
+skip swift-scheduling-17
+test swift-scheduling-17 "Q2 starting in the last month of the second quarter translates to the last workday of the second quarter of this year" -body {
+    deliveryDate "2019-06-15T09:50:00" "Q2"
+} -returnCodes ok -result "2019-06-28T08:00:00"
 
 
 cleanupTests
