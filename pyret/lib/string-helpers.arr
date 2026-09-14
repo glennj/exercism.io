@@ -9,7 +9,9 @@ provide:
   string-is-all-upper,
   string-remove-all,
   string-format,
-  string-trim
+  string-trim,
+  string-trim-right,
+  string-pad-right
 end
 
 import lists as L
@@ -128,6 +130,29 @@ fun string-format(format-string, strings):
 where:
   string-format('Hello, {1}!', [list: 'World']) is 'Hello, World!'
   string-format('He{1}{1}{2}, W{2}r{1}d!', [list: 'l', 'o']) is 'Hello, World!'
+end
+
+fun string-pad-right(str, len):
+  doc: "add spaces to make the string the specified length"
+  str + string-repeat(" ", len - string-length(str))
+where:
+  string-pad-right("hello", 7) is "hello  "
+  string-pad-right(" hello", 7) is " hello "
+  string-pad-right("hello", 5) is "hello"
+  string-pad-right("hello", 3) is "hello"
+  string-pad-right("hello world", 13) is "hello world  "
+end
+
+fun string-trim-right(s, x):
+  doc: "remove all xs from the end of a string"
+  ask:
+    | string-length(s) == 0 then: s
+    | string-ends-with(s, x) then: string-trim-right(string-substring(s, 0, string-length(s) - 1), x)
+    | otherwise: s
+  end
+where:
+  string-trim-right("'hello world'", "'") is "'hello world"
+  string-trim-right("'''hello", "'") is "'''hello"
 end
 
 fun string-trim(s, x):

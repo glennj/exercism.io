@@ -1,6 +1,6 @@
 use context starter2024
 
-import arg-max, arg-min from math
+import max, min from math
 
 provide-types *
 
@@ -18,10 +18,10 @@ fun saddle-points(matrix):
     colIndices = range(0, matrix.get(0).length())
 
     # find the MAX value for each row, and the MIN value for each column
-    rowMaxima = matrix.map(lam(row): row.get(arg-max(row)) end)
+    rowMaxima = matrix.map(max)
     colMinima = colIndices.map(lam(colIdx):
       col = matrix.map(lam(row): row.get(colIdx) end)
-      col.get(arg-min(col))
+      min(col)
     end)
   
     is-saddle-point = lam({rowIdx; colIdx}):
