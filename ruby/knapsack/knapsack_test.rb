@@ -22,7 +22,7 @@ if RUBY_VERSION < '3.2.0'
 end
 
 class KnapsackTest < Minitest::Test
-def skip; end
+  def skip; end
   Item = Data.define(:weight, :value)
 
   def test_no_items
