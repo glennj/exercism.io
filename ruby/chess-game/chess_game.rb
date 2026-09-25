@@ -25,14 +25,14 @@ module Chess
     RANKS.include? rank and FILES.include? file
   end
 
-  def self.nick_name(first_name, last_name)
+  def self.nickname(first_name, last_name)
     (first_name.first_n_chars(2) + last_name.last_n_chars(2)).upcase
   end
 
   def self.move_message(first_name, last_name, square)
     is_valid = valid_square?(square[-1].to_i, square[0])
     MOVE_MESSAGE[is_valid] % [
-      nick_name(first_name, last_name),
+      nickname(first_name, last_name),
       square
     ]
   end

@@ -21,7 +21,7 @@ They are created using the range operator `..` or `...` (inclusive and exclusive
 
 The reason for having two range operators is to allow to create ranges that are inclusive or exclusive of the end value, which can be useful when for example working with indexes that are zero based.
 
-Ranges can also be created using the `Range` initializer.
+Ranges can also be created using the `Range` constructor, `new`.
 
 ```ruby
 Range.new(1, 5) # A range containing 1, 2, 3, 4, 5
@@ -29,7 +29,7 @@ Range.new(1, 5) # A range containing 1, 2, 3, 4, 5
 
 ~~~~exercism/note
 When creating a range in Ruby using the range operators `..` or `...`, and wanting to call a method on the range, you need to wrap the range in parentheses.
-This is because the otherwise will the method be called on the 2nd argument of the range operator.
+This is because, otherwise, the method will be called on the 2nd argument of the range operator.
 
 ```ruby
 (1..5).sum # => 15
@@ -75,7 +75,7 @@ Using beginless and endless ranges is useful when you want to, for example, slic
 ```ruby
 "Hello World"[0..] # => "Hello World"
 "Hello World"[4..] # => "o World"
-"Hello World"[..5] # => "Hello"
+"Hello World"[..5] # => "Hello "
 ```
 
 ~~~~exercism/caution
@@ -91,10 +91,10 @@ Its behavior can be a bit unexpected when using certain strings, so use it with 
 ("aa".."az").to_a # => ["aa", "ab", "ac", ..., "az"]
 ```
 
-[range]: https://rubyapi.org/o/range
-[sum]: https://rubyapi.org/o/enumerable#method-i-sum
-[size]: https://rubyapi.org/o/range#method-i-size
-[indlude]: https://rubyapi.org/o/range#method-i-include-3F
+[range]: https://docs.ruby-lang.org/en/master/Range.html
+[sum]: https://docs.ruby-lang.org/en/master/Enumerable.html#method-i-sum
+[size]: https://docs.ruby-lang.org/en/master/Range.html#method-i-size
+[indlude]: https://docs.ruby-lang.org/en/master/Range.html#method-i-include-3F
 
 ## Instructions
 
@@ -157,7 +157,7 @@ The game will have to create a message for a move to say which player moved to w
 The message should use the player's nickname and the square they moved to.
 The game also has to determine if the move is valid by checking if the file and rank of the square are within the ranges of the files and ranks.
 
-If the move is valid, the message should be: `"{nickname} moved to {square}}"`
+If the move is valid, the message should be: `"{nickname} moved to {square}"`
 If the move is invalid, the message should be: `"{nickname} attempted to move to {square}, but that is not a valid square"`
 
 Define the `Chess.move_message` method that takes the arguments `first_name` that holds a string of the player's first_name, `last_name` that holds a string of the player's last_name, and `square` that holds a string of the square the player moved to.
