@@ -19,3 +19,5 @@ linter:
 
     # Style rules
     - directives_ordering
+
+include: package:lints/recommended.yaml

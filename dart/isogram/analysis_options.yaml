@@ -16,3 +16,5 @@ linter:
     - literal_only_boolean_expressions
     - no_adjacent_strings_in_list
     - valid_regexps
+
+include: package:lints/recommended.yaml

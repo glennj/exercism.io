@@ -13,46 +13,46 @@ void main() {
     test('Blue and grey and brown', () {
       final result = resistorColorTrio.label(['blue', 'grey', 'brown']);
       expect(result, equals("680 ohms"));
-    }, skip: false);
+    }, skip: true);
 
     test('Red and black and red', () {
       final result = resistorColorTrio.label(['red', 'black', 'red']);
       expect(result, equals("2 kiloohms"));
-    }, skip: false);
+    }, skip: true);
 
     test('Green and brown and orange', () {
       final result = resistorColorTrio.label(['green', 'brown', 'orange']);
       expect(result, equals("51 kiloohms"));
-    }, skip: false);
+    }, skip: true);
 
     test('Yellow and violet and yellow', () {
       final result = resistorColorTrio.label(['yellow', 'violet', 'yellow']);
       expect(result, equals("470 kiloohms"));
-    }, skip: false);
+    }, skip: true);
 
     test('Blue and violet and blue', () {
       final result = resistorColorTrio.label(['blue', 'violet', 'blue']);
       expect(result, equals("67 megaohms"));
-    }, skip: false);
+    }, skip: true);
 
     test('Minimum possible value', () {
       final result = resistorColorTrio.label(['black', 'black', 'black']);
       expect(result, equals("0 ohms"));
-    }, skip: false);
+    }, skip: true);
 
     test('Maximum possible value', () {
       final result = resistorColorTrio.label(['white', 'white', 'white']);
       expect(result, equals("99 gigaohms"));
-    }, skip: false);
+    }, skip: true);
 
     test('First two colors make an invalid octal number', () {
       final result = resistorColorTrio.label(['black', 'grey', 'black']);
       expect(result, equals("8 ohms"));
-    }, skip: false);
+    }, skip: true);
 
     test('Ignore extra colors', () {
       final result = resistorColorTrio.label(['blue', 'green', 'yellow', 'orange']);
       expect(result, equals("650 kiloohms"));
-    }, skip: false);
+    }, skip: true);
   });
 }

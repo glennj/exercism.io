@@ -5,7 +5,7 @@ class LargestSeriesProduct {
     if (span < 0)
       throw ArgumentError("span must not be negative");
     if (span > number.length)
-      throw ArgumentError("span must be smaller than string length");
+      throw ArgumentError("span must not exceed string length");
     
     var digits = number.codeUnits.map((c) => c - 48).toList();  // ASCII `0`
     if (digits.any((d) => d < 0 || d > 9))

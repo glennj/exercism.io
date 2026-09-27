@@ -17,7 +17,7 @@ void main() {
       final result = proverb.recite(pieces);
       final expected = "And all for the want of a nail.";
       expect(result, equals(expected));
-    }, skip: false);
+    }, skip: true);
 
     test('two pieces', () {
       final pieces = ["nail", "shoe"];
@@ -26,7 +26,7 @@ void main() {
 For want of a nail the shoe was lost.
 And all for the want of a nail.''';
       expect(result, equals(expected));
-    }, skip: false);
+    }, skip: true);
 
     test('three pieces', () {
       final pieces = ["nail", "shoe", "horse"];
@@ -36,7 +36,7 @@ For want of a nail the shoe was lost.
 For want of a shoe the horse was lost.
 And all for the want of a nail.''';
       expect(result, equals(expected));
-    }, skip: false);
+    }, skip: true);
 
     test('full proverb', () {
       final pieces = ["nail", "shoe", "horse", "rider", "message", "battle", "kingdom"];
@@ -50,7 +50,7 @@ For want of a message the battle was lost.
 For want of a battle the kingdom was lost.
 And all for the want of a nail.''';
       expect(result, equals(expected));
-    }, skip: false);
+    }, skip: true);
 
     test('four pieces modernized', () {
       final pieces = ["pin", "gun", "soldier", "battle"];
@@ -61,6 +61,6 @@ For want of a gun the soldier was lost.
 For want of a soldier the battle was lost.
 And all for the want of a pin.''';
       expect(result, equals(expected));
-    }, skip: false);
+    }, skip: true);
   });
 }

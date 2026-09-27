@@ -51,4 +51,4 @@ Depending on your language track, you may also need to implement a way to determ
 
 ### Based on
 
-Taken from Chapter 2 of Functional Thinking by Neal Ford. - https://www.oreilly.com/library/view/functional-thinking/9781449365509/
+Taken from Chapter 2 of Functional Thinking by Neal Ford. - https://nealford.com/books/functionalthinking.html

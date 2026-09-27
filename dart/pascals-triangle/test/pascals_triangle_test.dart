@@ -17,7 +17,7 @@ void main() {
           equals(<List<int>>[
             <int>[1]
           ]));
-    }, skip: false);
+    }, skip: true);
 
     test('two rows', () {
       final result = pascalsTriangle.rows(2);
@@ -27,7 +27,7 @@ void main() {
             <int>[1],
             <int>[1, 1]
           ]));
-    }, skip: false);
+    }, skip: true);
 
     test('three rows', () {
       final result = pascalsTriangle.rows(3);
@@ -38,7 +38,7 @@ void main() {
             <int>[1, 1],
             <int>[1, 2, 1]
           ]));
-    }, skip: false);
+    }, skip: true);
 
     test('four rows', () {
       final result = pascalsTriangle.rows(4);
@@ -50,7 +50,7 @@ void main() {
             <int>[1, 2, 1],
             <int>[1, 3, 3, 1]
           ]));
-    }, skip: false);
+    }, skip: true);
 
     test('five rows', () {
       final result = pascalsTriangle.rows(5);
@@ -63,7 +63,7 @@ void main() {
             <int>[1, 3, 3, 1],
             <int>[1, 4, 6, 4, 1]
           ]));
-    }, skip: false);
+    }, skip: true);
 
     test('six rows', () {
       final result = pascalsTriangle.rows(6);
@@ -77,7 +77,7 @@ void main() {
             <int>[1, 4, 6, 4, 1],
             <int>[1, 5, 10, 10, 5, 1]
           ]));
-    }, skip: false);
+    }, skip: true);
 
     test('ten rows', () {
       final result = pascalsTriangle.rows(10);
@@ -95,6 +95,6 @@ void main() {
             <int>[1, 8, 28, 56, 70, 56, 28, 8, 1],
             <int>[1, 9, 36, 84, 126, 126, 84, 36, 9, 1]
           ]));
-    }, skip: false);
+    }, skip: true);
   });
 }

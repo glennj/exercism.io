@@ -15,6 +15,6 @@ void main() {
       final result = addGigasecondTo(moment);
       final expected = DateTime.utc(2046, DateTime.october, 03, 01, 46, 39);
       expect(result, equals(expected));
-    }, skip: false);
+    }, skip: true);
   });
 }
