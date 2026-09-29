@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:44Z
+# generated on 2026-06-28T19:09:16+00:00
 load bats-extra
 load bats-jq
 
 @test 'run-length encode a string:empty string' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r '
                 include "./run-length-encoding";
@@ -340,4 +340,3 @@ END_INPUT
     expected='zzz ZZ  zZ'
     assert_equal "$output" "$expected"
 }
-

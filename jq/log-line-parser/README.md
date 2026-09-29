@@ -124,7 +124,7 @@ Use the `ascii_downcase` and `ascii_upcase` functions.
 
 `jq` has rich support for regular expressions: this will be the topic of a later lesson.
 
-[interpolate]: https://jqlang.github.io/jq/manual/v1.7/#string-interpolation
+[interpolate]: https://jqlang.org/manual/#string-interpolation
 
 ## Instructions
 

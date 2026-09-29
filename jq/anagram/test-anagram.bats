@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:58:55Z
+# generated on 2026-06-27T06:34:10+00:00
 load bats-extra
 load bats-jq
 
 @test 'no matches' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f anagram.jq << 'END_INPUT'
         {
@@ -296,4 +296,3 @@ END_INPUT
     expected='["Silent"]'
     assert_equal "$output" "$expected"
 }
-

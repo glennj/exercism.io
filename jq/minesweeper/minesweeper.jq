@@ -32,14 +32,12 @@ def annotate:
   | .annotated
 ;
 
-
 def stringify:
   map(
     map(if . == 0 then "." elif . >= 99 then "*" else tostring end)
     | join("")
   )
 ;
-
 
 split("\n")[0:-1]
 | annotate

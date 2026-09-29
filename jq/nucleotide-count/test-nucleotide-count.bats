@@ -1,19 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2023-11-07T18:49:21Z
+# generated on 2026-06-28T06:09:14+00:00
 load bats-extra
 load bats-jq
 
-assert_objects_equal() {
-    local result=$(
-        jq -n --argjson actual "$1" \
-              --argjson expected "$2" \
-            '$actual == $expected'
-    )
-    [[ $result == "true" ]]
-}
-
 @test 'empty strand' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f nucleotide-count.jq << 'END_INPUT'
         {

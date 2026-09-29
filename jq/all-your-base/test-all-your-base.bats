@@ -1,15 +1,17 @@
 #!/usr/bin/env bats
-# generated on 
+# generated on 2026-06-27T06:23:42+00:00
 load bats-extra
 load bats-jq
 
 @test 'single bit one to decimal' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 2,
-          "digits": [1],
+          "digits": [
+            1
+          ],
           "outputBase": 10
         }
 END_INPUT
@@ -25,7 +27,11 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 2,
-          "digits": [1, 0, 1],
+          "digits": [
+            1,
+            0,
+            1
+          ],
           "outputBase": 10
         }
 END_INPUT
@@ -41,7 +47,9 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 10,
-          "digits": [5],
+          "digits": [
+            5
+          ],
           "outputBase": 2
         }
 END_INPUT
@@ -57,7 +65,14 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 2,
-          "digits": [1, 0, 1, 0, 1, 0],
+          "digits": [
+            1,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
           "outputBase": 10
         }
 END_INPUT
@@ -73,7 +88,10 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 10,
-          "digits": [4, 2],
+          "digits": [
+            4,
+            2
+          ],
           "outputBase": 2
         }
 END_INPUT
@@ -89,7 +107,12 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 3,
-          "digits": [1, 1, 2, 0],
+          "digits": [
+            1,
+            1,
+            2,
+            0
+          ],
           "outputBase": 16
         }
 END_INPUT
@@ -105,7 +128,10 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 16,
-          "digits": [2, 10],
+          "digits": [
+            2,
+            10
+          ],
           "outputBase": 3
         }
 END_INPUT
@@ -121,7 +147,11 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 97,
-          "digits": [3, 46, 60],
+          "digits": [
+            3,
+            46,
+            60
+          ],
           "outputBase": 73
         }
 END_INPUT
@@ -153,7 +183,9 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 10,
-          "digits": [0],
+          "digits": [
+            0
+          ],
           "outputBase": 2
         }
 END_INPUT
@@ -169,7 +201,11 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 10,
-          "digits": [0, 0, 0],
+          "digits": [
+            0,
+            0,
+            0
+          ],
           "outputBase": 2
         }
 END_INPUT
@@ -185,7 +221,11 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 7,
-          "digits": [0, 6, 0],
+          "digits": [
+            0,
+            6,
+            0
+          ],
           "outputBase": 10
         }
 END_INPUT
@@ -201,7 +241,9 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 1,
-          "digits": [0],
+          "digits": [
+            0
+          ],
           "outputBase": 10
         }
 END_INPUT
@@ -233,7 +275,9 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": -2,
-          "digits": [1],
+          "digits": [
+            1
+          ],
           "outputBase": 10
         }
 END_INPUT
@@ -249,7 +293,14 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 2,
-          "digits": [1, -1, 1, 0, 1, 0],
+          "digits": [
+            1,
+            -1,
+            1,
+            0,
+            1,
+            0
+          ],
           "outputBase": 10
         }
 END_INPUT
@@ -265,7 +316,14 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 2,
-          "digits": [1, 2, 1, 0, 1, 0],
+          "digits": [
+            1,
+            2,
+            1,
+            0,
+            1,
+            0
+          ],
           "outputBase": 10
         }
 END_INPUT
@@ -281,7 +339,14 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 2,
-          "digits": [1, 0, 1, 0, 1, 0],
+          "digits": [
+            1,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
           "outputBase": 1
         }
 END_INPUT
@@ -297,7 +362,9 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 10,
-          "digits": [7],
+          "digits": [
+            7
+          ],
           "outputBase": 0
         }
 END_INPUT
@@ -313,7 +380,9 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": 2,
-          "digits": [1],
+          "digits": [
+            1
+          ],
           "outputBase": -7
         }
 END_INPUT
@@ -329,7 +398,9 @@ END_INPUT
     run jq -c -f all-your-base.jq << 'END_INPUT'
         {
           "inputBase": -2,
-          "digits": [1],
+          "digits": [
+            1
+          ],
           "outputBase": -7
         }
 END_INPUT

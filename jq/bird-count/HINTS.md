@@ -24,5 +24,5 @@
 
 - The one-argument version of the [any][manual-any] filter will be appropriate.
 
-[manual-add]: https://jqlang.github.io/jq/manual/v1.7/#add
-[manual-any]: https://jqlang.github.io/jq/manual/v1.7/#any
+[manual-add]: https://jqlang.org/manual/#add
+[manual-any]: https://jqlang.org/manual/#any

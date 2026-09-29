@@ -1,6 +1,6 @@
-# Rna Transcription
+# RNA Transcription
 
-Welcome to Rna Transcription on Exercism's jq Track.
+Welcome to RNA Transcription on Exercism's jq Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Introduction
@@ -22,13 +22,13 @@ This technique is called [RNA Interference][rnai].
 
 ## Instructions
 
-Your task is determine the RNA complement of a given DNA sequence.
+Your task is to determine the RNA complement of a given DNA sequence.
 
 Both DNA and RNA strands are a sequence of nucleotides.
 
-The four nucleotides found in DNA are adenine (**A**), cytosine (**C**), guanine (**G**) and thymine (**T**).
+The four nucleotides found in DNA are adenine (**A**), cytosine (**C**), guanine (**G**), and thymine (**T**).
 
-The four nucleotides found in RNA are adenine (**A**), cytosine (**C**), guanine (**G**) and uracil (**U**).
+The four nucleotides found in RNA are adenine (**A**), cytosine (**C**), guanine (**G**), and uracil (**U**).
 
 Given a DNA strand, its transcribed RNA strand is formed by replacing each nucleotide with its complement:
 
@@ -48,7 +48,7 @@ This function will expect a DNA sequence (as a string) as input, and will output
 
 Refer to [Defining Functions][def] in the jq manual.
 
-[def]: https://jqlang.github.io/jq/manual/#DefiningFunctions
+[def]: https://jqlang.org/manual/#DefiningFunctions
 
 ## Source
 

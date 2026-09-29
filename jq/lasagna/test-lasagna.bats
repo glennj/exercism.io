@@ -2,17 +2,11 @@
 load bats-extra
 load bats-jq
 
-assert_key_value() {
-    local result
-    result=$(echo "$output" | jq -r --arg key "$2" --argjson val "$1" '.[$key] == $val')
-    [[ $result == "true" ]]
-}
-
 @test "Expected minutes in oven" {
     ## task 1
     run jq -f lasagna.jq --null-input
     assert_success
-    assert_key_value 40 "expected_minutes_in_oven"
+    assert_key_value "expected_minutes_in_oven" 40
 }
 
 @test "Calculate the remaining minutes in oven" {
@@ -23,14 +17,14 @@ assert_key_value() {
       }
 END_INPUT
     assert_success
-    assert_key_value 15 "remaining_minutes_in_oven"
+    assert_key_value "remaining_minutes_in_oven" 15
 }
 
 @test "Calculate the remaining minutes in oven, not yet started" {
     ## task 2
     run jq -f lasagna.jq --null-input
     assert_success
-    assert_key_value 40 "remaining_minutes_in_oven"
+    assert_key_value "remaining_minutes_in_oven" 40
 }
 
 @test "Calculate the preparation time with one layer" {
@@ -41,7 +35,7 @@ END_INPUT
       }
 END_INPUT
     assert_success
-    assert_key_value 2 "preparation_time"
+    assert_key_value "preparation_time" 2
 }
 
 @test "Calculate the preparation time with four layers" {
@@ -52,14 +46,14 @@ END_INPUT
       }
 END_INPUT
     assert_success
-    assert_key_value 8 "preparation_time"
+    assert_key_value "preparation_time" 8
 }
 
 @test "Calculate the preparation time with no layers specified (default 1)" {
     ## task 3
     run jq -f lasagna.jq --null-input
     assert_success
-    assert_key_value 2 "preparation_time"
+    assert_key_value "preparation_time" 2
 }
 
 @test "Total time elapsed with one layers" {
@@ -71,7 +65,7 @@ END_INPUT
       }
 END_INPUT
     assert_success
-    assert_key_value 32 "total_time"
+    assert_key_value "total_time" 32
 }
 
 @test "Total time elapsed with four layers" {
@@ -83,7 +77,7 @@ END_INPUT
       }
 END_INPUT
     assert_success
-    assert_key_value 18 "total_time"
+    assert_key_value "total_time" 18
 }
 
 # vim: sw=4 ts=8

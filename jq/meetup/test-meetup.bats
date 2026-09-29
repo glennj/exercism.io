@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:18Z
+# generated on 2026-06-28T06:03:18+00:00
 load bats-extra
 load bats-jq
 
 @test 'when teenth Monday is the 13th, the first day of the teenth week' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f meetup.jq << 'END_INPUT'
         {
@@ -1617,4 +1617,3 @@ END_INPUT
     expected='2012-12-07'
     assert_equal "$output" "$expected"
 }
-

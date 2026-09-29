@@ -1,29 +1,26 @@
 #!/usr/bin/env bats
-# generated on 2023-01-03T20:57:23Z
+# generated on 2026-06-28T06:24:15+00:00
 load bats-extra
 load bats-jq
 
 @test 'Orange and orange and black' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f resistor-color-trio.jq << 'END_INPUT'
-{
-  "colors": [
-    "orange",
-    "orange",
-    "black"
-  ]
-}
+        {
+          "colors": [
+            "orange",
+            "orange",
+            "black"
+          ]
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-{
+    expected='{
   "value": 33,
   "unit": "ohms"
-}
-END_EXPECTED
-)
+}'
     assert_equal "$output" "$expected"
 }
 
@@ -31,23 +28,20 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f resistor-color-trio.jq << 'END_INPUT'
-{
-  "colors": [
-    "blue",
-    "grey",
-    "brown"
-  ]
-}
+        {
+          "colors": [
+            "blue",
+            "grey",
+            "brown"
+          ]
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-{
+    expected='{
   "value": 680,
   "unit": "ohms"
-}
-END_EXPECTED
-)
+}'
     assert_equal "$output" "$expected"
 }
 
@@ -55,23 +49,20 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f resistor-color-trio.jq << 'END_INPUT'
-{
-  "colors": [
-    "red",
-    "black",
-    "red"
-  ]
-}
+        {
+          "colors": [
+            "red",
+            "black",
+            "red"
+          ]
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-{
+    expected='{
   "value": 2,
   "unit": "kiloohms"
-}
-END_EXPECTED
-)
+}'
     assert_equal "$output" "$expected"
 }
 
@@ -79,23 +70,20 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f resistor-color-trio.jq << 'END_INPUT'
-{
-  "colors": [
-    "green",
-    "brown",
-    "orange"
-  ]
-}
+        {
+          "colors": [
+            "green",
+            "brown",
+            "orange"
+          ]
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-{
+    expected='{
   "value": 51,
   "unit": "kiloohms"
-}
-END_EXPECTED
-)
+}'
     assert_equal "$output" "$expected"
 }
 
@@ -103,23 +91,20 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f resistor-color-trio.jq << 'END_INPUT'
-{
-  "colors": [
-    "yellow",
-    "violet",
-    "yellow"
-  ]
-}
+        {
+          "colors": [
+            "yellow",
+            "violet",
+            "yellow"
+          ]
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-{
+    expected='{
   "value": 470,
   "unit": "kiloohms"
-}
-END_EXPECTED
-)
+}'
     assert_equal "$output" "$expected"
 }
 
@@ -127,23 +112,20 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f resistor-color-trio.jq << 'END_INPUT'
-{
-  "colors": [
-    "blue",
-    "violet",
-    "blue"
-  ]
-}
+        {
+          "colors": [
+            "blue",
+            "violet",
+            "blue"
+          ]
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-{
+    expected='{
   "value": 67,
   "unit": "megaohms"
-}
-END_EXPECTED
-)
+}'
     assert_equal "$output" "$expected"
 }
 
@@ -151,23 +133,20 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f resistor-color-trio.jq << 'END_INPUT'
-{
-  "colors": [
-    "black",
-    "black",
-    "black"
-  ]
-}
+        {
+          "colors": [
+            "black",
+            "black",
+            "black"
+          ]
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-{
+    expected='{
   "value": 0,
   "unit": "ohms"
-}
-END_EXPECTED
-)
+}'
     assert_equal "$output" "$expected"
 }
 
@@ -175,23 +154,20 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f resistor-color-trio.jq << 'END_INPUT'
-{
-  "colors": [
-    "white",
-    "white",
-    "white"
-  ]
-}
+        {
+          "colors": [
+            "white",
+            "white",
+            "white"
+          ]
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-{
+    expected='{
   "value": 99,
   "unit": "gigaohms"
-}
-END_EXPECTED
-)
+}'
     assert_equal "$output" "$expected"
 }
 
@@ -199,23 +175,20 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f resistor-color-trio.jq << 'END_INPUT'
-{
-  "colors": [
-    "black",
-    "grey",
-    "black"
-  ]
-}
+        {
+          "colors": [
+            "black",
+            "grey",
+            "black"
+          ]
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-{
+    expected='{
   "value": 8,
   "unit": "ohms"
-}
-END_EXPECTED
-)
+}'
     assert_equal "$output" "$expected"
 }
 
@@ -223,23 +196,20 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f resistor-color-trio.jq << 'END_INPUT'
-{
-  "colors": [
-    "blue",
-    "green",
-    "yellow",
-    "orange"
-  ]
-}
+        {
+          "colors": [
+            "blue",
+            "green",
+            "yellow",
+            "orange"
+          ]
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-{
+    expected='{
   "value": 650,
   "unit": "kiloohms"
-}
-END_EXPECTED
-)
+}'
     assert_equal "$output" "$expected"
 }

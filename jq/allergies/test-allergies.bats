@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2024-07-12T23:33:32Z
+# generated on 2026-06-27T06:18:07+00:00
 load bats-extra
 load bats-jq
 
 @test 'testing for eggs allergy:not allergic to anything' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f allergies.jq << 'END_INPUT'
         {

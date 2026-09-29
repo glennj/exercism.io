@@ -77,7 +77,7 @@ See the [debugging doc][debugging] for more details.
 [bats-assert]: https://github.com/bats-core/bats-assert
 [here-string]: https://www.gnu.org/software/bash/manual/bash.html#Here-Strings
 [so]: https://unix.stackexchange.com/a/80372/4667
-[debug]: https://jqlang.github.io/jq/manual/#debug
+[debug]: https://jqlang.org/manual/#debug
 [debugging]: https://exercism.org/docs/tracks/jq/debugging
 
 ## Submitting your solution

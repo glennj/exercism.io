@@ -37,7 +37,7 @@ You don't have anything planned on the teenth Thursday, so you happily confirm t
 
 Your task is to find the exact date of a meetup, given a month, year, weekday and week.
 
-There are five week values to consider: `first`, `second`, `third`, `fourth`, `last`, `teenth`.
+There are six week values to consider: `first`, `second`, `third`, `fourth`, `last`, `teenth`.
 
 For example, you might be asked to find the date for the meetup on the first Monday in January 2018 (January 1, 2018).
 

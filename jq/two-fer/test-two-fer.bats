@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:54Z
+# generated on 2026-06-28T06:39:30+00:00
 load bats-extra
 load bats-jq
 
 @test 'no name given' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f two-fer.jq << 'END_INPUT'
         {
@@ -44,4 +44,3 @@ END_INPUT
     expected='One for Bob, one for me.'
     assert_equal "$output" "$expected"
 }
-

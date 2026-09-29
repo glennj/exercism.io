@@ -9,6 +9,7 @@ def matrix2d(num_rows; num_cols; init_value):
   )
 ;
 
+
 def maximize_value(i; j):
   if i <= 0 then .value[0][j] = 0
   elif j <= 0 then .value[i][0] = 0

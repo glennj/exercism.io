@@ -23,7 +23,7 @@ In your solution, use `$n` as the input to get the nth prime.
 
 See [Invoking jq][man-invoke] in the manual.
 
-[man-invoke]: https://jqlang.github.io/jq/manual/v1.7/#invoking-jq
+[man-invoke]: https://jqlang.org/manual/#invoking-jq
 
 ## Source
 

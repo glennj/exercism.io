@@ -1,23 +1,10 @@
 #!/usr/bin/env bats
-# generated on 
+# generated on 2026-06-28T18:10:53+00:00
 load bats-extra
 load bats-jq
 
-assert_objects_equal() {
-    local result=$(
-        jq -n --argjson actual "$1" \
-              --argjson expected "$2" \
-            '$actual == $expected'
-    )
-    if [[ $result != "true" ]]; then
-        echo "expected: $2" >&2
-        echo "actual: $1" >&2
-        return 1
-    fi
-}
-
 @test 'Create robot:at origin facing north' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f robot-simulator.jq << 'END_INPUT'
       {

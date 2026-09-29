@@ -2,6 +2,7 @@
 # output: the annotated array of strings
 #
 # example: ["*..","..."] => ["*1.","11."]
+
 def annotate:
 
   def increment_neighbours($x; $y):

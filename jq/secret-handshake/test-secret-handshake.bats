@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2024-07-12T19:12:00Z
+# generated on 2026-06-28T06:30:16+00:00
 load bats-extra
 load bats-jq
 
 @test 'wink for 1' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f secret-handshake.jq << 'END_INPUT'
         {

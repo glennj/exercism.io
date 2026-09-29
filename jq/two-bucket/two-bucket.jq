@@ -2,6 +2,7 @@ include "lib/assert";       # apparently includes must be before imports
 import "bucket" as Bucket;
 import "lib/math" as Math;
 
+
 def validate:
   assert(.goal <= ([.bucketOne, .bucketTwo] | max); "impossible")
   | Math::gcd(.bucketOne; .bucketTwo) as $gcd

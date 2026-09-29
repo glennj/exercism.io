@@ -39,4 +39,4 @@ For example, if the allergy score is 257, your program should only report the eg
 
 ### Based on
 
-Exercise by the JumpstartLab team for students at The Turing School of Software and Design. - https://turing.edu
+Exercise by the JumpstartLab team for students at The Turing School of Software and Design. - https://www.turing.edu/

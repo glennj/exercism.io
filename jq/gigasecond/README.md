@@ -37,9 +37,11 @@ That is a one with nine zeros after it.
 
 If you were born on _January 24th, 2015 at 22:00 (10:00:00pm)_, then you would be a gigasecond old on _October 2nd, 2046 at 23:46:40 (11:46:40pm)_.
 
+## Implementation
+
 To solve this exercise in jq, you will need to use the [builtin datetime functions][date-funcs].
 
-[date-funcs]: https://jqlang.github.io/jq/manual/v1.7/#dates
+[date-funcs]: https://jqlang.org/manual/#dates
 
 ## Source
 
@@ -49,4 +51,4 @@ To solve this exercise in jq, you will need to use the [builtin datetime functio
 
 ### Based on
 
-Chapter 9 in Chris Pine's online Learn to Program tutorial. - https://pine.fm/LearnToProgram/?Chapter=09
+Chapter 9 in Chris Pine's online Learn to Program tutorial. - https://pine.fm/LearnToProgram/chap_09.html

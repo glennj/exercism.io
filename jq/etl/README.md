@@ -94,7 +94,7 @@ outputs
 ]
 ```
 
-[x_entries]: https://jqlang.github.io/jq/manual/v1.7/#to_entries-from_entries-with_entries
+[x_entries]: https://jqlang.org/manual/#to_entries-from_entries-with_entries
 
 ## Source
 
@@ -104,4 +104,4 @@ outputs
 
 ### Based on
 
-Based on an exercise by the JumpstartLab team for students at The Turing School of Software and Design. - https://turing.edu
+Based on an exercise by the JumpstartLab team for students at The Turing School of Software and Design. - https://www.turing.edu/

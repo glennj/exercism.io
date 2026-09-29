@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 
+# generated on 2026-06-28T03:45:06+00:00
 load bats-extra
 load bats-jq
 
 @test 'finds a value in an array with one element' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f binary-search.jq << 'END_INPUT'
         {

@@ -1,9 +1,10 @@
-def score:
-  if   . <= 1  then 10
-  elif . <= 5  then 5
-  elif . <= 10 then 1
-  else 0
-  end
+def ring:
+  hypot(.x; .y)
+  | if   . <= 1  then "bullseye"
+    elif . <= 5  then "inner"
+    elif . <= 10 then "outer"
+    else "miss"
+    end
 ;
 
-hypot(.x; .y) | score
+{bullseye: 10, inner: 5, outer: 1}[ring] // 0

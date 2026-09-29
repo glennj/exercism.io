@@ -28,7 +28,7 @@
 - Include the calculated value in the output object for the key `"total_time"`.
 - [The `+` operator][addition] is used for arithmetic addition on numbers.
 
-[subtraction]: https://jqlang.github.io/jq/manual/v1.7/#subtraction
-[multiplication]: https://jqlang.github.io/jq/manual/v1.7/#multiplication-division-modulo
-[addition]: https://jqlang.github.io/jq/manual/v1.7/#addition
-[alternative]: https://jqlang.github.io/jq/manual/v1.7/#alternative-operator
+[subtraction]: https://jqlang.org/manual/#subtraction
+[multiplication]: https://jqlang.org/manual/#multiplication-division-modulo
+[addition]: https://jqlang.org/manual/#addition
+[alternative]: https://jqlang.org/manual/#alternative-operator

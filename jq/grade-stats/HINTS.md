@@ -12,5 +12,5 @@
 - The result object must have all the possible letter grades as keys, even if no students earned that grade.
 - The [`+=` assignment][jq-man-arith-assign] will be useful.
 
-[jq-man-if]: https://jqlang.github.io/jq/manual/v1.7/#if-then-else-end
-[jq-man-arith-assign]: https://jqlang.github.io/jq/manual/v1.7/#arithmetic-update-assignment
+[jq-man-if]: https://jqlang.org/manual/#if-then-else-end
+[jq-man-arith-assign]: https://jqlang.org/manual/#arithmetic-update-assignment

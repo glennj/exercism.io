@@ -1,6 +1,6 @@
-# Two Fer
+# Two-Fer
 
-Welcome to Two Fer on Exercism's jq Track.
+Welcome to Two-Fer on Exercism's jq Track.
 If you need help running the tests or submitting your code, check out `HELP.md`.
 
 ## Introduction

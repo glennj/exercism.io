@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2024-06-07T20:49:24Z
+# generated on 2026-06-28T17:16:33+00:00
 load bats-extra
 load bats-jq
 
 @test 'ay is added to words that start with vowels:word beginning with a' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
@@ -140,6 +140,20 @@ END_INPUT
 
     assert_success
     expected='atqay'
+    assert_equal "$output" "$expected"
+}
+
+@test 'first letter and ay are moved to the end of words that start with consonants:word beginning with consonant and vowel containing qu' {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+
+    run jq -r -f pig-latin.jq << 'END_INPUT'
+        {
+          "phrase": "liquid"
+        }
+END_INPUT
+
+    assert_success
+    expected='iquidlay'
     assert_equal "$output" "$expected"
 }
 

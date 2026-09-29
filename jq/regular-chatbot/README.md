@@ -18,7 +18,7 @@ We will focus on the expressions that `jq` provides to utilize regexes.
 Different tools implement different versions of regular expressions.
 `jq` incorporates the [Oniguruma][oniguruma] regex library that is largely compatible with Perl v5.8 regexes.
 
-The specific syntax used by `jq` version 1.7 can be [found on the Oniguruma GitHub repo][onig-syntax].
+The specific syntax used by `jq` can be [found on the Oniguruma GitHub repo][onig-syntax].
 
 <!-- prettier-ignore -->
 ~~~~exercism/caution
@@ -146,17 +146,6 @@ Use the `[...]` array constructor to capture the substrings.
 # => ["o", "o", "e", "a"]
 ```
 
-~~~~exercism/note
-Note that jq v1.6 does _not_ implement the 2-argument `scan` function, even though the version 1.6 manual [says it does][manual-scan-1.6]:
-
-* [version 1.7 source code][src-scan-1.7]
-* [version 1.6 source code][src-scan-1.6]
-
-[manual-scan-1.6]: https://jqlang.github.io/jq/manual/v1.6/#scan
-[src-scan-1.7]: https://github.com/jqlang/jq/blob/11c528d04d76c9b9553781aa76b073e4f40da008/src/builtin.jq#L92)
-[src-scan-1.6]: https://github.com/jqlang/jq/blob/2e01ff1fb69609540b2bdc4e62a60499f2b2fb8e/src/builtin.jq#L90)
-~~~~
-
 #### Splitting a String
 
 If you know the parts of the string you want to **keep**, use `match` or `scan`.
@@ -241,9 +230,9 @@ For example
 ```
 
 [oniguruma]: https://github.com/kkos/oniguruma
-[onig-syntax]: https://github.com/kkos/oniguruma/blob/v6.9.9/doc/RE
-[jq-regex-funcs]: https://jqlang.github.io/jq/manual/v1.7/#regular-expressions
-[jq-interp]: https://jqlang.github.io/jq/manual/v1.7/#string-interpolation
+[onig-syntax]: https://github.com/kkos/oniguruma/blob/v6.9.10/doc/RE
+[jq-regex-funcs]: https://jqlang.org/manual/#regular-expressions
+[jq-interp]: https://jqlang.org/manual/#string-interpolation
 
 ## Instructions
 

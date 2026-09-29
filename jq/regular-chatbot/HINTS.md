@@ -34,12 +34,12 @@
 - The pattern is "comma followed by zero or more whitespace".
 - We have to use the **2-arity** `split` filter; there are no flags that need to be specified.
 
-[flags]: https://jqlang.github.io/jq/manual/v1.7/#regular-expressions
-[regex-test]: https://jqlang.github.io/jq/manual/v1.7/#test
-[regex-gsub]: https://jqlang.github.io/jq/manual/v1.7/#gsub
-[regex-match]: https://jqlang.github.io/jq/manual/v1.7/#match
-[regex-scan]: https://jqlang.github.io/jq/manual/v1.7/#scan
-[regex-split]: https://jqlang.github.io/jq/manual/v1.7/#split-2
-[regex-capture]: https://jqlang.github.io/jq/manual/v1.7/#capture
+[flags]: https://jqlang.org/manual/#regular-expressions
+[regex-test]: https://jqlang.org/manual/#test
+[regex-gsub]: https://jqlang.org/manual/#gsub
+[regex-match]: https://jqlang.org/manual/#match
+[regex-scan]: https://jqlang.org/manual/#scan
+[regex-split]: https://jqlang.org/manual/#split-2
+[regex-capture]: https://jqlang.org/manual/#capture
 [named-capture]: https://riptutorial.com/regex/example/2479/named-capture-groups
 [phone-validation]: https://www.w3resource.com/javascript/form/phone-no-validation.php

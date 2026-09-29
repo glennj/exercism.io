@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:07Z
+# generated on 2026-06-28T05:22:18+00:00
 load bats-extra
 load bats-jq
 
 @test 'parsing and numbers:numbers just get pushed onto the stack' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f forth.jq << 'END_INPUT'
         {
@@ -83,6 +83,22 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
+@test 'addition:more than two values on the stack' {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+
+    run jq -c -f forth.jq << 'END_INPUT'
+        {
+          "instructions": [
+            "1 2 3 +"
+          ]
+        }
+END_INPUT
+
+    assert_success
+    expected='[1,5]'
+    assert_equal "$output" "$expected"
+}
+
 @test 'subtraction:can subtract two numbers' {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
@@ -131,6 +147,22 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
+@test 'subtraction:more than two values on the stack' {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+
+    run jq -c -f forth.jq << 'END_INPUT'
+        {
+          "instructions": [
+            "1 12 3 -"
+          ]
+        }
+END_INPUT
+
+    assert_success
+    expected='[1,9]'
+    assert_equal "$output" "$expected"
+}
+
 @test 'multiplication:can multiply two numbers' {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
@@ -176,6 +208,22 @@ END_INPUT
 
     assert_failure
     expected='only one value on the stack'
+    assert_equal "$output" "$expected"
+}
+
+@test 'multiplication:more than two values on the stack' {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+
+    run jq -c -f forth.jq << 'END_INPUT'
+        {
+          "instructions": [
+            "1 2 3 *"
+          ]
+        }
+END_INPUT
+
+    assert_success
+    expected='[1,6]'
     assert_equal "$output" "$expected"
 }
 
@@ -259,6 +307,22 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
+@test 'division:more than two values on the stack' {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+
+    run jq -c -f forth.jq << 'END_INPUT'
+        {
+          "instructions": [
+            "1 12 3 /"
+          ]
+        }
+END_INPUT
+
+    assert_success
+    expected='[1,4]'
+    assert_equal "$output" "$expected"
+}
+
 @test 'combined arithmetic:addition and subtraction' {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
@@ -288,6 +352,38 @@ END_INPUT
 
     assert_success
     expected='[2]'
+    assert_equal "$output" "$expected"
+}
+
+@test 'combined arithmetic:multiplication and addition' {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+
+    run jq -c -f forth.jq << 'END_INPUT'
+        {
+          "instructions": [
+            "1 3 4 * +"
+          ]
+        }
+END_INPUT
+
+    assert_success
+    expected='[13]'
+    assert_equal "$output" "$expected"
+}
+
+@test 'combined arithmetic:addition and multiplication' {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+
+    run jq -c -f forth.jq << 'END_INPUT'
+        {
+          "instructions": [
+            "1 3 4 + *"
+          ]
+        }
+END_INPUT
+
+    assert_success
+    expected='[7]'
     assert_equal "$output" "$expected"
 }
 
@@ -783,4 +879,3 @@ END_INPUT
     expected='[1,1,1,1]'
     assert_equal "$output" "$expected"
 }
-

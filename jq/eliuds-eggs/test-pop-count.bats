@@ -1,15 +1,15 @@
 #!/usr/bin/env bats
-# generated on 2023-10-18T13:03:37Z
+# generated on 2026-06-28T04:19:45+00:00
 load bats-extra
 load bats-jq
 
 @test '0 eggs' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pop-count.jq << 'END_INPUT'
-{
-  "number": 0
-}
+        {
+          "number": 0
+        }
 END_INPUT
 
     assert_success
@@ -21,9 +21,9 @@ END_INPUT
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pop-count.jq << 'END_INPUT'
-{
-  "number": 16
-}
+        {
+          "number": 16
+        }
 END_INPUT
 
     assert_success
@@ -35,9 +35,9 @@ END_INPUT
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pop-count.jq << 'END_INPUT'
-{
-  "number": 89
-}
+        {
+          "number": 89
+        }
 END_INPUT
 
     assert_success
@@ -49,9 +49,9 @@ END_INPUT
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pop-count.jq << 'END_INPUT'
-{
-  "number": 2000000000
-}
+        {
+          "number": 2000000000
+        }
 END_INPUT
 
     assert_success

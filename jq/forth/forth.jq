@@ -1,5 +1,6 @@
 def isnumber: try tonumber catch false;
 
+
 ############################################################
 def new_command(cmd):
   if (cmd[0] | isnumber) then "illegal operation" | halt_error

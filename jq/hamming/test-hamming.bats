@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:12Z
+# generated on 2026-06-28T05:51:26+00:00
 load bats-extra
 load bats-jq
 
 @test 'empty strands' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f hamming.jq << 'END_INPUT'
         {
@@ -137,4 +137,3 @@ END_INPUT
     expected='strands must be of equal length'
     assert_equal "$output" "$expected"
 }
-

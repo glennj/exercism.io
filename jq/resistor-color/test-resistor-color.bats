@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:40Z
+# generated on 2026-06-28T06:19:39+00:00
 load bats-extra
 load bats-jq
 
 @test 'Color codes:Black' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f resistor-color.jq << 'END_INPUT'
         {
@@ -68,4 +68,3 @@ END_INPUT
     expected='["black","brown","red","orange","yellow","green","blue","violet","grey","white"]'
     assert_equal "$output" "$expected"
 }
-

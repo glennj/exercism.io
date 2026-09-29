@@ -64,13 +64,15 @@ In practice, iterating over lists and other enumerable data structures is most o
 such as `map` and `reduce`, or by [using streams][map-implementation] like `[.[] | select(...)]`.
 Under the hood, some builtins are [implemented using recursion][walk-implementation].
 
-[map-implementation]: https://github.com/jqlang/jq/blob/jq-1.7/src/builtin.jq#L3
-[walk-implementation]: https://github.com/jqlang/jq/blob/jq-1.7/src/builtin.jq#L248
+[map-implementation]: https://github.com/search?q=repo%3Ajqlang%2Fjq+path%3A**%2Fsrc%2Fbuiltin.jq+%22def+map%28f%29%22&type=code
+[walk-implementation]: https://github.com/search?q=repo%3Ajqlang%2Fjq+path%3A**%2Fsrc%2Fbuiltin.jq+%22def+walk%28f%29%22&type=code
 [wiki-fibonacci]: https://en.wikipedia.org/wiki/Fibonacci_number
 
 ## Instructions
 
-In this exercise you're going to implement some recursive functions.
+You've just joined a team that maintains a jq-based data pipeline.
+During your first pairing session, your new colleague gets curious:
+*"Do you know how `add`, `reverse`, and `map` work under the hood? Let's explore — try implementing them yourself using recursion, without the built-ins."*
 
 ## 1. Implement a function to add the numbers in an array
 

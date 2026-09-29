@@ -1,25 +1,22 @@
 #!/usr/bin/env bats
-# generated on 2023-08-25T15:56:38Z
+# generated on 2026-06-28T19:18:55+00:00
 load bats-extra
 load bats-jq
 
 @test 'slices of one from one' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f series.jq << 'END_INPUT'
-{
-  "series": "1",
-  "sliceLength": 1
-}
+        {
+          "series": "1",
+          "sliceLength": 1
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-[
+    expected='[
   "1"
-]
-END_EXPECTED
-)
+]'
     assert_equal "$output" "$expected"
 }
 
@@ -27,20 +24,17 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f series.jq << 'END_INPUT'
-{
-  "series": "12",
-  "sliceLength": 1
-}
+        {
+          "series": "12",
+          "sliceLength": 1
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-[
+    expected='[
   "1",
   "2"
-]
-END_EXPECTED
-)
+]'
     assert_equal "$output" "$expected"
 }
 
@@ -48,19 +42,16 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f series.jq << 'END_INPUT'
-{
-  "series": "35",
-  "sliceLength": 2
-}
+        {
+          "series": "35",
+          "sliceLength": 2
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-[
+    expected='[
   "35"
-]
-END_EXPECTED
-)
+]'
     assert_equal "$output" "$expected"
 }
 
@@ -68,21 +59,18 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f series.jq << 'END_INPUT'
-{
-  "series": "9142",
-  "sliceLength": 2
-}
+        {
+          "series": "9142",
+          "sliceLength": 2
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-[
+    expected='[
   "91",
   "14",
   "42"
-]
-END_EXPECTED
-)
+]'
     assert_equal "$output" "$expected"
 }
 
@@ -90,22 +78,19 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f series.jq << 'END_INPUT'
-{
-  "series": "777777",
-  "sliceLength": 3
-}
+        {
+          "series": "777777",
+          "sliceLength": 3
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-[
+    expected='[
   "777",
   "777",
   "777",
   "777"
-]
-END_EXPECTED
-)
+]'
     assert_equal "$output" "$expected"
 }
 
@@ -113,15 +98,14 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f series.jq << 'END_INPUT'
-{
-  "series": "918493904243",
-  "sliceLength": 5
-}
+        {
+          "series": "918493904243",
+          "sliceLength": 5
+        }
 END_INPUT
 
     assert_success
-    expected=$(cat << 'END_EXPECTED'
-[
+    expected='[
   "91849",
   "18493",
   "84939",
@@ -130,9 +114,7 @@ END_INPUT
   "39042",
   "90424",
   "04243"
-]
-END_EXPECTED
-)
+]'
     assert_equal "$output" "$expected"
 }
 
@@ -140,15 +122,14 @@ END_EXPECTED
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f series.jq << 'END_INPUT'
-{
-  "series": "12345",
-  "sliceLength": 6
-}
+        {
+          "series": "12345",
+          "sliceLength": 6
+        }
 END_INPUT
 
     assert_failure
     expected='slice length cannot be greater than series length'
-
     assert_equal "$output" "$expected"
 }
 
@@ -156,15 +137,14 @@ END_INPUT
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f series.jq << 'END_INPUT'
-{
-  "series": "12345",
-  "sliceLength": 42
-}
+        {
+          "series": "12345",
+          "sliceLength": 42
+        }
 END_INPUT
 
     assert_failure
     expected='slice length cannot be greater than series length'
-
     assert_equal "$output" "$expected"
 }
 
@@ -172,15 +152,14 @@ END_INPUT
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f series.jq << 'END_INPUT'
-{
-  "series": "12345",
-  "sliceLength": 0
-}
+        {
+          "series": "12345",
+          "sliceLength": 0
+        }
 END_INPUT
 
     assert_failure
     expected='slice length cannot be zero'
-
     assert_equal "$output" "$expected"
 }
 
@@ -188,15 +167,14 @@ END_INPUT
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f series.jq << 'END_INPUT'
-{
-  "series": "123",
-  "sliceLength": -1
-}
+        {
+          "series": "123",
+          "sliceLength": -1
+        }
 END_INPUT
 
     assert_failure
     expected='slice length cannot be negative'
-
     assert_equal "$output" "$expected"
 }
 
@@ -204,14 +182,13 @@ END_INPUT
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f series.jq << 'END_INPUT'
-{
-  "series": "",
-  "sliceLength": 1
-}
+        {
+          "series": "",
+          "sliceLength": 1
+        }
 END_INPUT
 
     assert_failure
     expected='series cannot be empty'
-
     assert_equal "$output" "$expected"
 }

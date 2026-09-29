@@ -18,7 +18,7 @@
 - Division uses the `/` operator.
 - The result of the division will need to be truncated with [the `trunc` function][math-funcs].
 
-[eq]: https://jqlang.github.io/jq/manual/v1.7/#==-!=
-[cmp]: https://jqlang.github.io/jq/manual/v1.7/#%3E-%3E=-%3C=-%3C
-[if-then-else]: https://jqlang.github.io/jq/manual/v1.7/#if-then-else-end
-[math-funcs]: https://jqlang.github.io/jq/manual/v1.7/#math
+[eq]: https://jqlang.org/manual/#==-!=
+[cmp]: https://jqlang.org/manual/#%3E-%3E=-%3C=-%3C
+[if-then-else]: https://jqlang.org/manual/#if-then-else-end
+[math-funcs]: https://jqlang.org/manual/#math

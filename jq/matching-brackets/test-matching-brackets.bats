@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 
+# generated on 2026-06-28T06:02:30+00:00
 load bats-extra
 load bats-jq
 
 @test 'paired square brackets' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f matching-brackets.jq << 'END_INPUT'
         {

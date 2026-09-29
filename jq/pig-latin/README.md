@@ -33,7 +33,7 @@ For example:
 
 ## Rule 2
 
-If a word begins with a one or more consonants, first move those consonants to the end of the word and then add an `"ay"` sound to the end of the word.
+If a word begins with one or more consonants, first move those consonants to the end of the word and then add an `"ay"` sound to the end of the word.
 
 For example:
 
@@ -47,7 +47,7 @@ If a word starts with zero or more consonants followed by `"qu"`, first move tho
 
 For example:
 
-- `"quick"` -> `"ickqu"` -> `"ay"` (starts with `"qu"`, no preceding consonants)
+- `"quick"` -> `"ickqu"` -> `"ickquay"` (starts with `"qu"`, no preceding consonants)
 - `"square"` -> `"aresqu"` -> `"aresquay"` (starts with one consonant followed by `"qu`")
 
 ## Rule 4
@@ -67,4 +67,4 @@ Some examples:
 
 ### Based on
 
-The Pig Latin exercise at Test First Teaching by Ultrasaurus - https://github.com/ultrasaurus/test-first-teaching/blob/master/learn_ruby/pig_latin/
+The Pig Latin exercise at Test First Teaching by Ultrasaurus - https://github.com/ultrasaurus/test-first-teaching/tree/master/learn_ruby/pig_latin

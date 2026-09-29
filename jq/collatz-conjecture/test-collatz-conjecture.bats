@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:03Z
+# generated on 2026-06-28T00:37:24+00:00
 load bats-extra
 load bats-jq
 
 @test 'zero steps for one' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r 'import "./collatz-conjecture" as Collatz; .number | Collatz::steps' << 'END_INPUT'
         {
@@ -86,4 +86,3 @@ END_INPUT
     expected='Only positive integers are allowed'
     assert_equal "$output" "$expected"
 }
-

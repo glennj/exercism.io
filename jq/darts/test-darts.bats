@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:04Z
+# generated on 2026-06-28T00:37:24+00:00
 load bats-extra
 load bats-jq
 
 @test 'Missed target' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f darts.jq << 'END_INPUT'
         {
@@ -63,7 +63,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'Exactly on centre' {
+@test 'Exactly on center' {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f darts.jq << 'END_INPUT'
@@ -78,7 +78,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'Near the centre' {
+@test 'Near the center' {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f darts.jq << 'END_INPUT'
@@ -158,8 +158,8 @@ END_INPUT
 
     run jq -r -f darts.jq << 'END_INPUT'
         {
-          "x": -7,
-          "y": 7
+          "x": -7.0,
+          "y": 7.0
         }
 END_INPUT
 
@@ -197,4 +197,3 @@ END_INPUT
     expected=5
     assert_equal "$output" "$expected"
 }
-

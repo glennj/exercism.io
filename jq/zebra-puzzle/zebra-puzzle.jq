@@ -1,5 +1,6 @@
 include "lib/permutations";
 
+
 #  The zebra puzzle.
 #
 #   1. [-                  ] There are five houses.

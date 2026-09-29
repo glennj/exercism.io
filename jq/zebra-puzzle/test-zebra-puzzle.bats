@@ -1,15 +1,14 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:55Z
+# generated on 2026-06-28T06:41:13+00:00
 load bats-extra
 load bats-jq
 
 @test 'resident who drinks water' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f zebra-puzzle.jq << 'END_INPUT'
         {
-          "property": "drinksWater",
-          "input": {}
+          "property": "drinksWater"
         }
 END_INPUT
 
@@ -23,8 +22,7 @@ END_INPUT
 
     run jq -r -f zebra-puzzle.jq << 'END_INPUT'
         {
-          "property": "ownsZebra",
-          "input": {}
+          "property": "ownsZebra"
         }
 END_INPUT
 
@@ -32,4 +30,3 @@ END_INPUT
     expected='Japanese'
     assert_equal "$output" "$expected"
 }
-

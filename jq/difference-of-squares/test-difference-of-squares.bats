@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2024-02-21T23:55:25Z
+# generated on 2026-06-28T00:37:24+00:00
 load bats-extra
 load bats-jq
 
 @test 'Square the sum of the numbers up to the given number:square of sum 1' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f difference-of-squares.jq << 'END_INPUT'
         {

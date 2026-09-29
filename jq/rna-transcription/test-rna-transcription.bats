@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:43Z
+# generated on 2026-06-28T06:27:07+00:00
 load bats-extra
 load bats-jq
 
 @test 'Empty RNA sequence' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r 'include "./rna-transcription"; .dna | toRna' << 'END_INPUT'
         {
@@ -86,4 +86,3 @@ END_INPUT
     expected='UGCACCAGAAUU'
     assert_equal "$output" "$expected"
 }
-

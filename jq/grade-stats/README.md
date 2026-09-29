@@ -79,7 +79,7 @@ The `add` builtin is actually [implemented with `reduce`][jq-code-add], but uses
 def add: reduce .[] as $x (null; . + $x);
 ```
 
-[jq-code-add]: https://github.com/jqlang/jq/blob/jq-1.7/src/builtin.jq#L11
+[jq-code-add]: https://github.com/search?q=repo%3Ajqlang%2Fjq+path%3A**%2Fsrc%2Fbuiltin.jq+%22def+add%28f%29%22&type=code
 ~~~~
 
 <!-- prettier-ignore-end -->
@@ -103,8 +103,8 @@ def add: reduce .[] as $x (null; . + $x);
   | reduce .[] as $elem ([]; [$elem] + .)       # => ["D", "C", "B", "A"]
   ```
 
-[jq-man-reduce]: https://jqlang.github.io/jq/manual/v1.7/#reduce
-[jq-man-iterator]: https://jqlang.github.io/jq/manual/v1.7/#array-object-value-iterator
+[jq-man-reduce]: https://jqlang.org/manual/#reduce
+[jq-man-iterator]: https://jqlang.org/manual/#array-object-value-iterator
 
 ## Instructions
 

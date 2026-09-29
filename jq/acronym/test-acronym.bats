@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2024-02-19T04:45:52Z
+# generated on 2026-06-28T00:36:33+00:00
 load bats-extra
 load bats-jq
 
-@test 'basic' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+@test basic {
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f acronym.jq << 'END_INPUT'
         {
@@ -31,7 +31,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'punctuation' {
+@test punctuation {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f acronym.jq << 'END_INPUT'
@@ -101,7 +101,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'apostrophes' {
+@test apostrophes {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f acronym.jq << 'END_INPUT'

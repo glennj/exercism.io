@@ -1,9 +1,10 @@
 #!/usr/bin/env bats
+# generated on 2026-06-28T19:23:15+00:00
 load bats-extra
 load bats-jq
 
 @test 'just the header if no input' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f tournament.jq << 'END_INPUT'
         {

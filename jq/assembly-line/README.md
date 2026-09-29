@@ -53,7 +53,7 @@ As an _expression_, it is placed in a pipeline.
 
 Then syntax is: `if CONDITION then TRUE_EXPR else FALSE_EXPR end`.
 
-The `else` clause is optional in jq v1.7, but it is required in jq v1.6.
+The `else` clause is optional.
 
 ```jq
 42 | if . < 33 then "small" else "larger" end
@@ -70,9 +70,9 @@ Additional conditions use `elif`
 # => "medium"
 ```
 
-[man-types]: https://jqlang.github.io/jq/manual/v1.7/#types-and-values
-[man-math]: https://jqlang.github.io/jq/manual/v1.7/#math
-[if-then-else]: https://jqlang.github.io/jq/manual/v1.7/#if-then-else-end
+[man-types]: https://jqlang.org/manual/#types-and-values
+[man-math]: https://jqlang.org/manual/#math
+[if-then-else]: https://jqlang.org/manual/#if-then-else-end
 
 ## Instructions
 

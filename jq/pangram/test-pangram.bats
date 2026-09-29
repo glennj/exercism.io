@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 
+# generated on 2026-06-28T06:11:51+00:00
 load bats-extra
 load bats-jq
 
-@test 'empty sentence' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+@test "empty sentence" {
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pangram.jq << 'END_INPUT'
         {
@@ -17,7 +17,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'perfect lower case' {
+@test "perfect lower case" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pangram.jq << 'END_INPUT'
@@ -31,7 +31,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'only lower case' {
+@test "only lower case" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pangram.jq << 'END_INPUT'
@@ -45,7 +45,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'missing the letter "x"' {
+@test "missing the letter 'x'" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pangram.jq << 'END_INPUT'
@@ -59,7 +59,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'missing the letter "h"' {
+@test "missing the letter 'h'" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pangram.jq << 'END_INPUT'
@@ -73,7 +73,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'with underscores' {
+@test "with underscores" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pangram.jq << 'END_INPUT'
@@ -87,7 +87,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'with numbers' {
+@test "with numbers" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pangram.jq << 'END_INPUT'
@@ -101,7 +101,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'missing letters replaced by numbers' {
+@test "missing letters replaced by numbers" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pangram.jq << 'END_INPUT'
@@ -115,7 +115,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'mixed case and punctuation' {
+@test "mixed case and punctuation" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pangram.jq << 'END_INPUT'
@@ -129,7 +129,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'a-m and A-M are 26 different characters but not a pangram' {
+@test "a-m and A-M are 26 different characters but not a pangram" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f pangram.jq << 'END_INPUT'

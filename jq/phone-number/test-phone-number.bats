@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2024-07-12T20:38:30Z
+# generated on 2026-06-28T17:15:25+00:00
 load bats-extra
 load bats-jq
 
 @test 'cleans the number' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f phone-number.jq << 'END_INPUT'
         {

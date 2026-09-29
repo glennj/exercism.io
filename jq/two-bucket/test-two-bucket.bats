@@ -1,19 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2023-11-07T18:49:23Z
+# generated on 2026-06-28T06:38:48+00:00
 load bats-extra
 load bats-jq
 
-assert_objects_equal() {
-    local result=$(
-        jq -n --argjson actual "$1" \
-              --argjson expected "$2" \
-            '$actual == $expected'
-    )
-    [[ $result == "true" ]]
-}
-
 @test 'Measure using bucket one of size 3 and bucket two of size 5 - start with bucket one' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f two-bucket.jq << 'END_INPUT'
         {
@@ -111,6 +102,40 @@ END_INPUT
 
     assert_success
     expected='{"moves":2,"goalBucket":"two","otherBucket":2}'
+    assert_objects_equal "$output" "$expected"
+}
+
+@test 'Measure using bucket one much bigger than bucket two' {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+
+    run jq -c -f two-bucket.jq << 'END_INPUT'
+        {
+          "bucketOne": 5,
+          "bucketTwo": 1,
+          "goal": 2,
+          "startBucket": "one"
+        }
+END_INPUT
+
+    assert_success
+    expected='{"moves":6,"goalBucket":"one","otherBucket":1}'
+    assert_objects_equal "$output" "$expected"
+}
+
+@test 'Measure using bucket one much smaller than bucket two' {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+
+    run jq -c -f two-bucket.jq << 'END_INPUT'
+        {
+          "bucketOne": 3,
+          "bucketTwo": 15,
+          "goal": 9,
+          "startBucket": "one"
+        }
+END_INPUT
+
+    assert_success
+    expected='{"moves":6,"goalBucket":"two","otherBucket":0}'
     assert_objects_equal "$output" "$expected"
 }
 

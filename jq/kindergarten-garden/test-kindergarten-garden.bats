@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2024-07-23T22:14:38Z
+# generated on 2026-06-28T16:58:52+00:00
 load bats-extra
 load bats-jq
 
-@test 'partial garden:garden with single student' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+@test "partial garden:garden with single student" {
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
         {
@@ -18,7 +18,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'partial garden:different garden with single student' {
+@test "partial garden:different garden with single student" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -33,7 +33,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'partial garden:garden with two students' {
+@test "partial garden:garden with two students" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -48,7 +48,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'partial garden:multiple students for the same garden with three students:second student'\''s garden' {
+@test "partial garden:multiple students for the same garden with three students:second student's garden" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -63,7 +63,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'partial garden:multiple students for the same garden with three students:third student'\''s garden' {
+@test "partial garden:multiple students for the same garden with three students:third student's garden" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -78,7 +78,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'full garden:for Alice, first student'\''s garden' {
+@test "full garden:for Alice, first student's garden" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -93,7 +93,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'full garden:for Bob, second student'\''s garden' {
+@test "full garden:for Bob, second student's garden" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -108,7 +108,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'full garden:for Charlie' {
+@test "full garden:for Charlie" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -123,7 +123,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'full garden:for David' {
+@test "full garden:for David" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -138,7 +138,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'full garden:for Eve' {
+@test "full garden:for Eve" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -153,7 +153,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'full garden:for Fred' {
+@test "full garden:for Fred" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -168,7 +168,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'full garden:for Ginny' {
+@test "full garden:for Ginny" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -183,7 +183,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'full garden:for Harriet' {
+@test "full garden:for Harriet" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -198,7 +198,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'full garden:for Ileana' {
+@test "full garden:for Ileana" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -213,7 +213,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'full garden:for Joseph' {
+@test "full garden:for Joseph" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -228,7 +228,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'full garden:for Kincaid, second to last student'\''s garden' {
+@test "full garden:for Kincaid, second to last student's garden" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'
@@ -243,7 +243,7 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test 'full garden:for Larry, last student'\''s garden' {
+@test "full garden:for Larry, last student's garden" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f kindergarten-garden.jq << 'END_INPUT'

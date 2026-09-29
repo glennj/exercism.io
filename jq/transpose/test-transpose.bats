@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:51Z
+# generated on 2026-06-28T06:35:24+00:00
 load bats-extra
 load bats-jq
 
 @test 'empty string' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f transpose.jq << 'END_INPUT'
         {
@@ -216,4 +216,3 @@ END_INPUT
     expected='["123456","1 3456","  3456","  3 56","    56","    5"]'
     assert_equal "$output" "$expected"
 }
-

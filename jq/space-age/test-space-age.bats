@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:49Z
+# generated on 2026-06-28T06:32:32+00:00
 load bats-extra
 load bats-jq
 
 @test 'age on Earth' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f space-age.jq << 'END_INPUT'
         {
@@ -137,4 +137,3 @@ END_INPUT
     expected='not a planet'
     assert_equal "$output" "$expected"
 }
-

@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2024-06-14T20:09:36Z
+# generated on 2026-06-28T17:03:08+00:00
 load bats-extra
 load bats-jq
 
 @test 'finds the largest product if span equals length' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f largest-series-product.jq << 'END_INPUT'
         {

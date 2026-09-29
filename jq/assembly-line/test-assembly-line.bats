@@ -2,29 +2,6 @@
 load bats-extra
 load bats-jq
 
-assert_float() {
-    local OPTIND OPTARG
-    local decimals=2 actual expected
-    while getopts :d: opt; do
-        case $opt in
-            d) decimals=$OPTARG ;;
-            *) return 2 ;;
-        esac
-    done
-    shift $((OPTIND - 1))
-    # bash can't do floating point: use awk (also uses IEEE754 numbers)
-    read -r actual expected < <(
-        awk -v d="$decimals" -v a="$1" -v e="$2" '
-            BEGIN {
-                m = 10 ^ d
-                print int(a * m)/m, int(e * m)/m
-            }
-        '
-    )
-    # now call a bats-assert command to get the desired output
-    assert_equal "$actual" "$expected"
-}
-
 @test production_rate_per_hour_for_speed_zero {
     ## task 1
     run jq -f assembly-line.jq <<< '{"speed": 0}'

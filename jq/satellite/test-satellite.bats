@@ -1,19 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2023-11-07T18:49:22Z
+# generated on 2026-06-28T19:11:36+00:00
 load bats-extra
 load bats-jq
 
-assert_objects_equal() {
-    local result=$(
-        jq -n --argjson actual "$1" \
-              --argjson expected "$2" \
-            '$actual == $expected'
-    )
-    [[ $result == "true" ]]
-}
-
 @test 'Empty tree' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f satellite.jq << 'END_INPUT'
         {
@@ -141,14 +132,24 @@ END_INPUT
     assert_equal "$output" "$expected"
 }
 
-@test "A degenerate binary tree" {
+@test 'A degenerate binary tree' {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f satellite.jq << 'END_INPUT'
-      {
-        "preorder": ["a", "b", "c", "d"],
-        "inorder": ["d", "c", "b", "a"]
-      }
+        {
+          "preorder": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ],
+          "inorder": [
+            "d",
+            "c",
+            "b",
+            "a"
+          ]
+        }
 END_INPUT
 
     assert_success
@@ -156,14 +157,24 @@ END_INPUT
     assert_objects_equal "$output" "$expected"
 }
 
-@test "Another degenerate binary tree" {
+@test 'Another degenerate binary tree' {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f satellite.jq << 'END_INPUT'
-      {
-        "preorder": ["a", "b", "c", "d"],
-        "inorder": ["a", "b", "c", "d"]
-      }
+        {
+          "preorder": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ],
+          "inorder": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        }
 END_INPUT
 
     assert_success
@@ -171,14 +182,34 @@ END_INPUT
     assert_objects_equal "$output" "$expected"
 }
 
-@test "Tree with many more items" {
+@test 'Tree with many more items' {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f satellite.jq << 'END_INPUT'
-      {
-        "preorder": ["a", "b", "d", "g", "h", "c", "e", "f", "i"],
-        "inorder": ["g", "d", "h", "b", "a", "e", "c", "i", "f"]
-      }
+        {
+          "preorder": [
+            "a",
+            "b",
+            "d",
+            "g",
+            "h",
+            "c",
+            "e",
+            "f",
+            "i"
+          ],
+          "inorder": [
+            "g",
+            "d",
+            "h",
+            "b",
+            "a",
+            "e",
+            "c",
+            "i",
+            "f"
+          ]
+        }
 END_INPUT
 
     assert_success

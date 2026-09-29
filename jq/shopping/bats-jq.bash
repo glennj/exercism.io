@@ -31,18 +31,25 @@ jq() {
 # These are extra assert functions for use in tests.
 
 # Assert two JSON objects are equal.
-#   https://jqlang.org/manual/v1.7/#==-!=
+#   https://jqlang.org/manual/#==-!=
 #
 #   assert_objects_equal '{"a": 1, "b": 2}' '{"b":2,"a":1}' 
 #   # => true
 #
 assert_objects_equal() {
-    local result=$(
+    local result
+    result=$(
         jq -n --argjson actual "$1" \
               --argjson expected "$2" \
             '$actual == $expected'
     )
-    [[ $result == "true" ]]
+    if [[ $result != "true" ]]; then
+        batslib_print_kv_single_or_multi 8 \
+           'expected' "$2" \
+           'actual'   "$1" \
+        | batslib_decorate 'values do not equal' \
+        | fail
+    fi
 }
 
 # Assert 2 floating-point values are "close enough".
