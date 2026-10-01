@@ -30,3 +30,4 @@ _by_exercise/
 # => __exercism_api_call -o solutions.zip tracks/$TRACK/exercises/$SLUG/export_solutions
 solutions.zip
 solutions/
+pubspec.lock

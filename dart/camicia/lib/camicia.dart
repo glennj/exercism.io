@@ -64,7 +64,7 @@ class Camicia {
   Result result(status) =>
       {'status': status, 'cards': cardsPlayed, 'tricks': tricks};
 
-  String handState(Hand hand) => hand.map((card) => value(card)).join();
+  String handState(Hand hand) => hand.map(value).join();
 
   int value(Card card) =>
       switch (card) { 'A' => 4, 'K' => 3, 'Q' => 2, 'J' => 1, _ => 0 };
