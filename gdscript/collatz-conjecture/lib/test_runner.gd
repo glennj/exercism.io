@@ -162,7 +162,7 @@ class ArgParser:
 
 	func usage(message: String) -> void:
 		print("Usage:")
-		print("test_runner [--all] [--json filename.json] <solution_directory>")
+		print("test_runner [--all] [--json filename.json] <slug> <solution_directory>")
 		if not message.is_empty():
 			print()
 			print(message)
@@ -205,18 +205,18 @@ class ArgParser:
 				positional.append(arg)
 			idx += 1
 
-		if len(positional) != 1:
-			usage("Expecting 1 positional args but got %d" % len(positional))
+		if len(positional) != 2:
+			usage("Expecting 2 positional args but got %d" % len(positional))
 			return ERR_INVALID_PARAMETER
 
-		var solution_dir_path = positional[0]
-		var sep = "/"
-		if OS.get_name() == "Windows":
-			sep = "\\"
-		var slug = solution_dir_path.rsplit(sep, true, 1)[1].replace("-", "_")
+		var slug = positional[0]
+		var solution_dir_path = positional[1]
 
-		self.solution_script_path = solution_dir_path.path_join(slug + ".gd")
-		self.test_suite_script_path = solution_dir_path.path_join(slug + "_test.gd")
+		# Test folders use dashes, but test files use underscores
+		var gdscript_path = solution_dir_path.path_join(slug.replace("-", "_"))
+
+		self.solution_script_path = gdscript_path + ".gd"
+		self.test_suite_script_path = gdscript_path + "_test.gd"
 
 		return OK
 
