@@ -20,8 +20,7 @@
     "res:start": "rescript build -w",
     "res:format-check": "rescript format --check",
     "res:format-fix": "rescript format",
-    "test": "rescript && retest tmp/tests/*.js",
-    "test:only": "rescript && retest",
+    "test": "rescript && retest tests/*.js",
     "ci": "npm test"
   }
 }

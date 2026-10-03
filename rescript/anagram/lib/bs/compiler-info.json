@@ -1,0 +1,8 @@
+{
+  "version": "12.2.0",
+  "bsc_path": "/Users/glennj/src/exercism/exercism.io/rescript/anagram/node_modules/@rescript/darwin-arm64/bin/bsc.exe",
+  "bsc_hash": "2e3a7c3e707d4d40161c08f8fb37a00188f500d15e4982419ff10016b65060b4",
+  "rescript_config_hash": "19cc0afa8788bbc46eb5a7c4d739b7993f129bf92f03189e60b0a17c02909b05",
+  "runtime_path": "/Users/glennj/src/exercism/exercism.io/rescript/anagram/node_modules/@rescript/runtime",
+  "generated_at": "1790987538660"
+}
