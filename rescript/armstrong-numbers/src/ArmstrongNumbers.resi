@@ -1,0 +1,1 @@
+let isArmstrongNumber: int => bool

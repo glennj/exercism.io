@@ -1,0 +1,1 @@
+let isIsogram: string => bool
