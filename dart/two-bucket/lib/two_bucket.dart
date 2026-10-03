@@ -20,9 +20,10 @@ class Bucket {
     amount -= quantity;
     other.amount += quantity;
   }
-  String toString() => "Bucket(${name}, ${size}, ${amount})";
-}
 
+  @override
+  String toString() => "Bucket($name, $size, $amount)";
+}
 
 // ----------------------------------------------------------
 class TwoBucket {
@@ -32,30 +33,29 @@ class TwoBucket {
   bool valid = true;
   String err = '';
 
-  TwoBucket({
-      required int bucketOne,
+  TwoBucket(
+      {required int bucketOne,
       required int bucketTwo,
       required int goal,
-      required String startBucket
-  }) {
+      required String startBucket}) {
     this.goal = goal;
     if (startBucket == "one") {
-      this.first = Bucket("one", bucketOne);
-      this.second = Bucket("two", bucketTwo);
+      first = Bucket("one", bucketOne);
+      second = Bucket("two", bucketTwo);
     } else {
-      this.first = Bucket("two", bucketTwo);
-      this.second = Bucket("one", bucketOne);
+      first = Bucket("two", bucketTwo);
+      second = Bucket("one", bucketOne);
     }
 
     // pre-validation
     if (goal > max(first.size, second.size)) {
-      this.valid = false;
-      this.err = 'Measurement is impossible: goal too big';
+      valid = false;
+      err = 'Measurement is impossible: goal too big';
     }
     var gcd = first.size.gcd(second.size);
     if (gcd != 1 && goal % gcd != 0) {
-      this.valid = false;
-      this.err = 'Measurement is impossible: goal is unsatisfiable';
+      valid = false;
+      err = 'Measurement is impossible: goal is unsatisfiable';
     }
   }
 
@@ -66,15 +66,16 @@ class TwoBucket {
     second.empty();
     var moves = 1;
 
-    if (goal == second.size) {
+    if (goal == second.size && goal != first.size) {
       second.fill();
       moves++;
     }
 
     while (true) {
-      if (goal == first.amount)  return _result(moves, first, second);
+      if (goal == first.amount) return _result(moves, first, second);
       if (goal == second.amount) return _result(moves, second, first);
 
+      // ignore_for_file: curly_braces_in_flow_control_structures
       if (first.isEmpty())       first.fill();
       else if (second.isFull())  second.empty();
       else                       first.pourInto(second);
