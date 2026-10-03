@@ -1,0 +1,15 @@
+{
+  "name": "@exercism/rescript",
+  "sources": [
+    { "dir": "src", "subdirs": true, "type": "dev" },
+    { "dir": "tests", "subdirs": true, "type": "dev" }
+  ],
+  "package-specs": [
+    {
+      "module": "esmodule",
+      "in-source": true
+    }
+  ],
+  "suffix": ".res.js",
+  "dev-dependencies": ["rescript-test"]
+}

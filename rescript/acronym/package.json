@@ -1,0 +1,27 @@
+{
+  "name": "@exercism/rescript",
+  "description": "Exercism exercises in ReScript.",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/exercism/rescript"
+  },
+  "dependencies": {
+    "rescript": "^12.1.0"
+  },
+  "devDependencies": {
+    "rescript-test": "^8.0.0",
+    "toml": "^3.0.0"
+  },
+  "scripts": {
+    "res:build": "rescript",
+    "res:start": "rescript build -w",
+    "res:format-check": "rescript format --check",
+    "res:format-fix": "rescript format",
+    "test": "rescript && retest tests/*.js",
+    "test:only": "rescript && retest",
+    "ci": "npm test"
+  }
+}
