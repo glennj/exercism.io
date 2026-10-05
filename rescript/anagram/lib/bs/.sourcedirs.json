@@ -1,1 +1,0 @@
-{"cmt_scan":[{"also_scan_build_root":true,"build_root":"lib/bs","scan_dirs":["src","tests"]}],"dirs":["src","tests"],"generated":[],"pkgs":[["rescript-test","/Users/glennj/src/exercism/exercism.io/rescript/anagram/node_modules/rescript-test"]],"version":2}
