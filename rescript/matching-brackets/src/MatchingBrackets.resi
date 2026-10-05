@@ -1,0 +1,1 @@
+let isPaired: string => bool
