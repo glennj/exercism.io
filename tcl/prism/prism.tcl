@@ -1,5 +1,13 @@
 #!/usr/bin/env tclsh
 
+# Tcl 9.1 introduces an "lfilter" command
+if {[info commands lfilter] == ""} {
+    proc lfilter {varname lst body} {
+        upvar $varname elem
+        lmap elem $lst {expr {[uplevel $body] ? $elem : [continue]}}
+    }
+}
+
 proc findSequence {input} {
     set line [dict get $input start]
     set prisms [dict get $input prisms]
@@ -12,9 +20,7 @@ proc findSequence {input} {
             set th [expr {rad($a)}]
         }
 
-        set inline [lmap p $prisms {expr {
-            [isInline $p $line] ? $p : [continue]
-        }}]
+        set inline [lfilter p $prisms {isInline $p $line}]
         set p [nextPrism $inline $line]
         if {$p == ""} break
 
@@ -30,15 +36,10 @@ proc findSequence {input} {
     return $sequence
 }
 
-proc lselect {lst predicate} {
-    lmap elem $lt {expr {[$predicate $elem] ? $elem : [continue]}}
-}
-
 proc isInline {prism line} {
     set dx [expr {[dict get $prism x] - [dict get $line x]}]
     set dy [expr {[dict get $prism y] - [dict get $line y]}]
     set theta [dict get $line theta]
-    set d [expr {hypot($dx, $dy)}]
     set dist [expr {$dx * sin($theta) - $dy * cos($theta)}]
     set eps 0.0011 ;# value found by trial and error
     expr {abs($dist) <= $eps}
