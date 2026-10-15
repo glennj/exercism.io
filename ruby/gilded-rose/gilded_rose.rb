@@ -1,119 +1,65 @@
-# rubocop:disable Style/OneClassPerFile, Style/Documentation
-
+# rubocop:disable Layout/EmptyLinesAroundClassBody
 # frozen_string_literal: true
 
-# ----------------------------------------
+# Iteration Notes:
+# 1. initial solution
+# 2. changing a variable name
+# 3. -
+# 4. using `attr_accessor` and public/private blocks
+# 5. use a dispatch hash instead of a Factory class
+#    - split the file so the updater class are known in advance
+#    - split the BackstagePass#update! method into smaller pieces
+# 6. - dispatcher class inst var only uses accessors
+#    - some extra whitespace for readability
+
+require_relative 'item_updaters'
+
 Item = Struct.new(:name, :sell_in, :quality)
 
+# ----------------------------------------
 class GildedRose
-  def initialize(items)
-    @items = items
-    @updater = ItemUpdaterFactory.new
+
+  class << self
+
+    private
+
+    attr_writer :dispatcher
+
+    public
+
+    attr_reader :dispatcher
+
   end
+
+  private
+
+  # a "factory" dispatcher (Ruby hashes maintain insertion order)
+  self.dispatcher = {
+    /^Conjured Aged Brie/ => ConjuredAgedBrie,
+    /^Conjured Sulfuras/ => ConjuredSulfuras,
+    /^Conjured backstage passes/ => ConjuredBackstagePass,
+    /^Conjured/ => ConjuredBasic,
+    /^Aged Brie/ => AgedBrie,
+    /^Sulfuras/ => Sulfuras,
+    /^Backstage passes/ => BackstagePass,
+    // => BasicUpdater
+  }
+
+  attr_accessor :items
+
+  def initialize(items)
+    self.items = items
+  end
+
+  public
 
   def update!
     # we pass the item object to the updater, and the updater mutates it.
-    @items.each { |item| @updater.item_updater(item).update! }
-  end
-end
-
-# ----------------------------------------
-
-# rubocop:disable-next Metrics/CyclomaticComplexity
-class ItemUpdaterFactory
-  def item_updater(item)
-    case item.name
-    when /^Conjured Aged Brie/        then ConjuredAgedBrie.new(item)
-    when /^Conjured Sulfuras/         then ConjuredSulfuras.new(item)
-    when /^Conjured backstage passes/ then ConjuredBackstagePass.new(item)
-    when /^Conjured/                  then ConjuredBasic.new(item)
-    when /^Aged Brie/                 then AgedBrie.new(item)
-    when /^Sulfuras/                  then Sulfuras.new(item)
-    when /^Backstage passes/          then BackstagePass.new(item)
-    else                                   BasicUpdater.new(item)
+    items.each do |item|
+      klass = self.class.dispatcher.find { |regex, _| regex.match?(item.name) }.last
+      klass.new(item).update!
     end
   end
 end
 
-class BasicUpdater
-  def initialize(item)
-    @item = item
-    @delta = 1
-  end
-
-  def update!
-    delta = @delta
-    delta *= 2 if @item.sell_in <= 0
-    @item.sell_in -= 1
-    @item.quality = [0, @item.quality - delta].max
-  end
-end
-
-class ConjuredBasic < BasicUpdater
-  def initialize(item)
-    super
-    @delta = 2
-  end
-
-  def update!
-    @item.sell_in -= 1
-    @item.quality =
-      if @item.sell_in.negative? then 0
-      else [0, @item.quality - @delta].max
-      end
-  end
-end
-
-class AgedBrie < BasicUpdater
-  def update!
-    delta = @delta
-    delta *= 2 if @item.sell_in <= 0
-    @item.sell_in -= 1
-    @item.quality = [50, @item.quality + delta].min
-  end
-end
-
-class ConjuredAgedBrie < AgedBrie
-  def update!
-    super
-    @item.quality = 0 if @item.sell_in.negative?
-  end
-end
-
-class Sulfuras < BasicUpdater
-  def update!; end
-end
-
-class ConjuredSulfuras < ConjuredBasic
-  def initialize(item)
-    super
-    @delta = 0
-  end
-end
-
-class BackstagePass < BasicUpdater
-  def initialize(item)
-    super
-    @delta = { 5 => 3, 10 => 2, :default => 1 }
-  end
-
-  def update!
-    quality =
-      if    @item.sell_in <= 0  then 0
-      elsif @item.sell_in <= 5  then @item.quality + @delta[5]
-      elsif @item.sell_in <= 10 then @item.quality + @delta[10]
-      else                           @item.quality + @delta[:default]
-      end
-    @item.quality = [50, quality].min
-    @item.sell_in -= 1
-  end
-end
-
-class ConjuredBackstagePass < BackstagePass
-  def initialize(item)
-    super
-    @delta = { 5 => 2, 10 => 1, :default => 0 }
-  end
-end
-
-# rubocop:enable Style/OneClassPerFile, Style/Documentation
+# rubocop:enable Layout/EmptyLinesAroundClassBody
