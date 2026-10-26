@@ -15,7 +15,7 @@ class ListOpsSpec extends Specification {
         "non-empty-lists"       || [1, 2]       || [2, 3, 4, 5] || [1, 2, 2, 3, 4, 5]
     }
 
-    //@Ignore
+    @Ignore
     @Unroll
     def "concatenate a list of lists - #label"() {
         expect:
@@ -28,7 +28,7 @@ class ListOpsSpec extends Specification {
         "list of nested lists"  || [[[1], [2]], [[3]], [[]], [[4, 5, 6]]]   || [[1], [2], [3], [], [4, 5, 6]]
     }
 
-    //@Ignore
+    @Ignore
     @Unroll
     def "filter list returning only values that satisfy the filter function - #label"() {
         expect:
@@ -40,7 +40,7 @@ class ListOpsSpec extends Specification {
         "non-empty list"    || [1, 2, 3, 5] || [1, 3, 5]
     }
 
-    //@Ignore
+    @Ignore
     @Unroll
     def "return the length of a list - #label"() {
         expect:
@@ -52,7 +52,7 @@ class ListOpsSpec extends Specification {
         "non-empty list"    || [1, 2, 3, 5] || 4
     }
 
-    //@Ignore
+    @Ignore
     @Unroll
     def "return a list of elements whose values equal the list value transformed by the mapping function - #label"() {
         expect:
@@ -64,7 +64,7 @@ class ListOpsSpec extends Specification {
         "non-empty list"    || [1, 3, 5, 7] || [2, 4, 6, 8]
     }
 
-    //@Ignore
+    @Ignore
     @Unroll
     def "folds (reduces) the given list from the left with a function - #label"() {
         expect:
@@ -77,7 +77,7 @@ class ListOpsSpec extends Specification {
         "direction dependent function applied to non-empty list"    || [2, 5]       || { acc, el -> acc.intdiv(el) }    || 5        || 0
     }
 
-    //@Ignore
+    @Ignore
     @Unroll
     def "folds (reduces) the given list from the right with a function - #label"() {
         expect:
@@ -90,7 +90,7 @@ class ListOpsSpec extends Specification {
         "direction dependent function applied to non-empty list"    || [2, 5]       || { acc, el -> acc.intdiv(el) }    || 5        || 0
     }
 
-    //@Ignore
+    @Ignore
     @Unroll
     def "reverse the elements of the list - #label"() {
         expect:
@@ -99,7 +99,8 @@ class ListOpsSpec extends Specification {
         where:
         label                               || list                         || expected
         "empty list"                        || []                           || []
-        "non-empty list"                    || [1, 3, 5, 7]                 || [7, 5, 3, 1]
+        "non-empty even-length list"        || [1, 3, 5, 7]                 || [7, 5, 3, 1]
+        "non-empty odd-length list"         || [1, 3, 5, 7, 9, 11, 13]      || [13, 11, 9, 7, 5, 3, 1]
         "list of lists is not flattened"    || [[1, 2], [3], [], [4, 5, 6]] || [[4, 5, 6], [], [3], [1, 2]]
     }
 

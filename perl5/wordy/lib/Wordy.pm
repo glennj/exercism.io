@@ -2,7 +2,6 @@
 
 package Wordy;
 
-
 #use strictures 2;
 use strict;
 use warnings;
