@@ -16,7 +16,7 @@ items+=("farmer sowing his corn")          ; that+=("kept")
 items+=("horse and the hound and the horn"); that+=("belonged to")
 
 main() {
-    local -i start=$1 end=$2
+    local start=$1 end=$2
 
     if ! (( 1 <= start && start <= 12 && 1 <= end && end <= 12 )); then
         echo "invalid input" >&2
@@ -25,17 +25,15 @@ main() {
 
     for ((i = start - 1; i < end; i++)); do
         verse "$i"
-        echo
     done
 }
 
 verse() {
-    local n sep
+    local n
 
     printf "This is"
     for (( n = $1; n >= 0; n-- )); do
-        (( n > 0 )) && sep=$'\n' || sep=' '
-        printf " the %s%sthat %s" "${items[n]}" "$sep" "${that[n]}"
+        printf " the %s that %s" "${items[n]}" "${that[n]}"
     done
     echo "."
 }

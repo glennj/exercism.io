@@ -4,7 +4,7 @@ source ./utils.bash
 source ./utils_string.bash
 
 if (($# != 1)) || ! str::isInt "$1" || (($1 <= 0)); then
-    die "Error: Only positive numbers are allowed"
+    die "Error: Only positive integers are allowed"
 fi
 
 declare -i n=$1 steps=0
