@@ -1,0 +1,5 @@
+config_version=5
+
+[application]
+config/name="Exercism - Robot Simulator"
+config/features=PackedStringArray("4.7")
