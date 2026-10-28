@@ -1,0 +1,5 @@
+config_version=5
+
+[application]
+config/name="Exercism - Run-Length Encoding"
+config/features=PackedStringArray("4.7")
