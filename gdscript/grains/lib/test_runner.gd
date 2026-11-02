@@ -1,6 +1,7 @@
 class_name TestRunner
 extends SceneTree
 
+
 class ErrorReader:
 	"""ErrorReader reads from a STDERR file (cmd 2>/file).
 
@@ -8,15 +9,44 @@ class ErrorReader:
 	"""
 
 	const EXPECTED_GODOT_ERRORS = [
-		"ERROR: Could not create directory: /root/.local\n   at: make_dir_recursive (core/io/dir_access.cpp:180)\n",
-		"ERROR: Error attempting to create data dir: /root/.local/share/godot/app_userdata/[unnamed project].\n   at: ensure_user_data_dir (core/os/os.cpp:344)\n",
-		"ERROR: Could not create editor data directory: /root/.local/share/godot\n   at: EditorPaths (editor/editor_paths.cpp:183)\n",
-		"ERROR: Could not create directory: /root/.config\n   at: make_dir_recursive (core/io/dir_access.cpp:180)\n",
-		"ERROR: Could not create editor config directory: /root/.config/godot\n   at: EditorPaths (editor/editor_paths.cpp:198)\n",
-		"ERROR: Could not create directory: /root/.cache\n   at: make_dir_recursive (core/io/dir_access.cpp:180)\n",
-		"ERROR: Could not create editor cache directory: /root/.cache/godot\n   at: EditorPaths (editor/editor_paths.cpp:219)\n",
-		"ERROR: Can't save resource to empty path. Provide non-empty path or a Resource with non-empty resource_path.\n   at: save (core/io/resource_saver.cpp:105)\n",
-		"ERROR: Error saving editor settings to \n   at: save (editor/editor_settings.cpp:1013)\n",
+		(
+			"ERROR: Could not create directory: /root/.local\n"
+			+ "   at: make_dir_recursive (core/io/dir_access.cpp:180)\n"
+		),
+		(
+			"ERROR: Error attempting to create data dir: "
+			+ "/root/.local/share/godot/app_userdata/[unnamed project].\n"
+			+ "   at: ensure_user_data_dir (core/os/os.cpp:344)\n"
+		),
+		(
+			"ERROR: Could not create editor data directory: /root/.local/share/godot\n"
+			+ "   at: EditorPaths (editor/editor_paths.cpp:183)\n"
+		),
+		(
+			"ERROR: Could not create directory: /root/.config\n"
+			+ "   at: make_dir_recursive (core/io/dir_access.cpp:180)\n"
+		),
+		(
+			"ERROR: Could not create editor config directory: /root/.config/godot\n"
+			+ "   at: EditorPaths (editor/editor_paths.cpp:198)\n"
+		),
+		(
+			"ERROR: Could not create directory: /root/.cache\n"
+			+ "   at: make_dir_recursive (core/io/dir_access.cpp:180)\n"
+		),
+		(
+			"ERROR: Could not create editor cache directory: /root/.cache/godot\n"
+			+ "   at: EditorPaths (editor/editor_paths.cpp:219)\n"
+		),
+		(
+			"ERROR: Can't save resource to empty path. "
+			+ "Provide non-empty path or a Resource with non-empty resource_path.\n"
+			+ "   at: save (core/io/resource_saver.cpp:105)\n"
+		),
+		(
+			"ERROR: Error saving editor settings to \n"
+			+ "   at: save (editor/editor_settings.cpp:1013)\n"
+		),
 	]
 	var already_processed_bytes: int = 0
 	var filename: String = ""
@@ -72,7 +102,6 @@ class ErrorReader:
 
 
 class ResultWriter:
-
 	var json_file: String = ""
 	var stderr: ErrorReader = null
 
@@ -103,8 +132,7 @@ class ResultWriter:
 		"""
 		if self.json_file.is_empty():
 			return print_friendly_results(results)
-		else:
-			return write_results_file(results)
+		return write_results_file(results)
 
 	func print_friendly_results(results: Dictionary) -> Error:
 		"""
@@ -119,7 +147,9 @@ class ResultWriter:
 				if test.status == "pass":
 					rich_results.push_back(" %s [color=yellow]passed ✔[/color]" % test.name)
 				else:
-					rich_results.push_back(" %s [color=pink]failed: %s[/color]" % [test.name, test.message])
+					rich_results.push_back(
+						" %s [color=pink]failed: %s[/color]" % [test.name, test.message]
+					)
 		print_rich("\n".join(rich_results))
 		return OK
 
@@ -225,13 +255,14 @@ class ArgParser:
 
 
 class Runner:
-
 	var test_suite: Object = null
 	var solution: Object = null
 	var stderr: ErrorReader = null
 	var result_writer: ResultWriter = null
 
-	func _init(test_suite: Object, solution: Object, stderr: ErrorReader, result_writer: ResultWriter) -> void:
+	func _init(
+		test_suite: Object, solution: Object, stderr: ErrorReader, result_writer: ResultWriter
+	) -> void:
 		self.test_suite = test_suite
 		self.solution = solution
 		self.stderr = stderr
@@ -243,7 +274,7 @@ class Runner:
 		var parts = []
 		var methods: Dictionary = {}
 		var name: String = ""
-		var func_re: RegEx = RegEx.create_from_string('^func ([^(]+)\\(')
+		var func_re: RegEx = RegEx.create_from_string("^func ([^(]+)\\(")
 		for line in self.test_suite.get_script().source_code.split("\n"):
 			if not in_func:
 				var matched = func_re.search(line)
@@ -315,26 +346,31 @@ class Runner:
 			var error_message = self.stderr.get_error_message()
 
 			if output == null:
-				test_results.append({
-					"name": test_method_name,
-					"status": "error",
-					"message": error_message,
-				})
+				(
+					test_results
+					. append(
+						{
+							"name": test_method_name,
+							"status": "error",
+							"message": error_message,
+						}
+					)
+				)
 			else:
 				var actual = output[0]
 				var expected = output[1]
 
 				var passed = (
-					typeof(actual) == typeof(expected) and
-					actual == expected and
-					error_message.is_empty()
+					typeof(actual) == typeof(expected)
+					and actual == expected
+					and error_message.is_empty()
 				)
 
 				var status = "error"
 				if error_message.is_empty():
 					status = "pass" if passed else "fail"
-					error_message = null if passed else self.get_failed_test_message(
-						actual, expected
+					error_message = (
+						null if passed else self.get_failed_test_message(actual, expected)
 					)
 
 				var test_code = test_codes[method["name"]]
@@ -346,12 +382,17 @@ class Runner:
 				test_code = test_code.replace("\t", "    ")
 				test_code = test_code.dedent().strip_edges()
 
-				test_results.append({
-					"name": test_method_name,
-					"status": status,
-					"message": error_message,
-					"test_code": test_code,
-				})
+				(
+					test_results
+					. append(
+						{
+							"name": test_method_name,
+							"status": status,
+							"message": error_message,
+							"test_code": test_code,
+						}
+					)
+				)
 
 		return test_results
 
@@ -388,28 +429,59 @@ class Runner:
 						filtered_results.append(test_result)
 					elif not has_failure:
 						has_failure = true
-						test_result["message"] = "Passes %d/%d tests. First failure: %s" % [
-							success_count, len(test_results), test_result["message"],
-						]
+						test_result["message"] = (
+							"Passes %d/%d tests. First failure: %s"
+							% [
+								success_count,
+								len(test_results),
+								test_result["message"],
+							]
+						)
 						filtered_results.append(test_result)
 				results["tests"] = filtered_results
 
 		self.result_writer.write(results)
 
 
-func load_script(solution_script_path: String) -> Object:
+func load_solution(path: String) -> Object:
 	"""Load a script. This helper is needed to catch failures without aborting the error handling."""
-	return load(solution_script_path).new()
+	if not FileAccess.file_exists(path):
+		return null
+	var re = RegEx.create_from_string("^(    )+")
+	var replace = RegEx.create_from_string("(    )+")
+	var changed = false
+	var lines = []
+	for line in FileAccess.open(path, FileAccess.READ).get_as_text().split("\n"):
+		var m = re.search(line)
+		if m == null:
+			lines.append(line)
+		else:
+			changed = true
+			var new = []
+			for i in range(m.get_end() / 4):
+				new.append("\t")
+			new.append(line.substr(m.get_end()))
+			lines.append("".join(new))
+	if not changed:
+		return load(path).new()
+
+	path = OS.get_temp_dir() + "/solution.gd"
+	FileAccess.open(path, FileAccess.WRITE).store_string("\n".join(lines))
+	var solution = load(path).new()
+	DirAccess.remove_absolute(path)
+	return solution
 
 
-func load_solution_script(solution_script_path: String, result_writer: ResultWriter, stderr: ErrorReader) -> Array:
+func load_solution_script(
+	solution_script_path: String, result_writer: ResultWriter, stderr: ErrorReader
+) -> Array:
 	"""
 	Loads the solution script and saves it in a global variable. In case of any
 	issues, this method will save the `results.json` file with `error` status.
 	"""
 	# Make sure the STDERR file is empty.
 	stderr.get_error_message()
-	var solution_script = load_script(solution_script_path)
+	var solution_script = load_solution(solution_script_path)
 
 	if solution_script == null:
 		var message: String = "The solution file could not be parsed."
@@ -418,7 +490,9 @@ func load_solution_script(solution_script_path: String, result_writer: ResultWri
 		var error_message: String = stderr.get_error_message()
 		if not error_message.is_empty():
 			var msg = []
-			var stop = 'ERROR: Failed to load script "%s" with error "Parse error".' % solution_script_path
+			var stop = (
+				'ERROR: Failed to load script "%s" with error "Parse error".' % solution_script_path
+			)
 			for line in error_message.split("\n"):
 				if line == stop:
 					break
