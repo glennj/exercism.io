@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+slug=${PWD##*/}
+[[ -f "${slug//-/_}.gd" ]] || die "Error! solution file is missing"
+[[ -f "${slug//-/_}_test.gd" ]] || die "Error! test file is missing"
+exec godot --headless --script ./lib/test_runner.gd -- "${slug}" "${PWD}"
