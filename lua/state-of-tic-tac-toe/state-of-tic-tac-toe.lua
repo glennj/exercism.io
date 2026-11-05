@@ -1,12 +1,18 @@
 local state_of
 
+local refute = function(cond, msg)
+    assert(not cond, msg)
+end
+
 local gamestate = function (board)
     local win_x, nx = state_of(board, 'X')
     local win_o, no = state_of(board, 'O')
 
     assert(nx - no <= 1, 'X went twice')
     assert(nx - no >= 0, 'O started')
-    assert(not (win_x and win_o), 'play continued after game ended')
+    refute(win_x and no >= nx, "O kept playing after X won")
+    refute(win_o and nx >= no + 1, "X kept playing after O won")
+    refute(win_x and win_o, 'play continued after game ended')
 
     if win_x or win_o  then return 'win' end
     if nx + no == 9    then return 'draw' end
