@@ -13,25 +13,23 @@ enum {
 	CHOICE
 }
 
-func single(dice, die):
-	return dice.reduce(func(a, d): return a + (d if d == die else 0), 0)
+
+func sum(dice):
+	return dice.reduce(func(a, d): return a + d, 0)
+
 
 func score(dice, category):
 	match category:
-		ONES:	return single(dice, 1)
-		TWOS:	return single(dice, 2)
-		THREES:	return single(dice, 3)
-		FOURS:	return single(dice, 4)
-		FIVES:	return single(dice, 5)
-		SIXES:	return single(dice, 6)
+		ONES, TWOS, THREES, FOURS, FIVES, SIXES:
+			return sum(dice.filter(func(d): return d == category))
 
 		FULL_HOUSE:
-			dice.sort()
 			if score(dice, YACHT):
 				return 0
+			# yacht sorts the dice for us
 			if dice[0] == dice[1] and dice[2] == dice[4] \
 			or dice[0] == dice[2] and dice[3] == dice[4]:
-				return score(dice, CHOICE)
+				return sum(dice)
 			return 0
 
 		FOUR_OF_A_KIND:
@@ -53,4 +51,4 @@ func score(dice, category):
 			return 50 if dice[0] == dice[4] else 0
 
 		CHOICE:
-			return dice.reduce(func(a, d): return a + d, 0)
+			return sum(dice)
