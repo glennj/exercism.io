@@ -186,35 +186,63 @@ Testie.test("StateOfTicTacToe") { |do, skip|
     ])).toEqual("ongoing")
   }
 
-  Expect.that {
-    StateOfTicTacToe.gamestate([
+  do.test("Invalid boards -> Invalid board: X went twice") {
+    Expect.that {
+      StateOfTicTacToe.gamestate([
       "XX ",
       "   ",
       "   "
     ])
-  }.abortsWith("Wrong turn order: X went twice")
+    }.abortsWith("Wrong turn order: X went twice")
+  }
 
-  Expect.that {
-    StateOfTicTacToe.gamestate([
+  do.test("Invalid boards -> Invalid board: O started") {
+    Expect.that {
+      StateOfTicTacToe.gamestate([
       "OOX",
       "   ",
       "   "
     ])
-  }.abortsWith("Wrong turn order: O started")
+    }.abortsWith("Wrong turn order: O started")
+  }
 
-  Expect.that {
-    StateOfTicTacToe.gamestate([
+  do.test("Invalid boards -> Invalid board: X won and O kept playing") {
+    Expect.that {
+      StateOfTicTacToe.gamestate([
       "XXX",
       "OOO",
       "   "
     ])
-  }.abortsWith("Impossible board: game should have ended after the game was won")
+    }.abortsWith("Impossible board: game should have ended after the game was won")
+  }
 
-  Expect.that {
-    StateOfTicTacToe.gamestate([
+  do.test("Invalid boards -> Invalid board: players kept playing after a win") {
+    Expect.that {
+      StateOfTicTacToe.gamestate([
       "XXX",
       "OOO",
       "XOX"
     ])
-  }.abortsWith("Impossible board: game should have ended after the game was won")
+    }.abortsWith("Impossible board: game should have ended after the game was won")
+  }
+
+  do.test("Invalid boards -> Invalid board: O kept playing after X wins") {
+    Expect.that {
+      StateOfTicTacToe.gamestate([
+      "OO ",
+      "XXX",
+      " O "
+    ])
+    }.abortsWith("Impossible board: game should have ended after the game was won")
+  }
+
+  do.test("Invalid boards -> Invalid board: X kept playing after O wins") {
+    Expect.that {
+      StateOfTicTacToe.gamestate([
+      "XX ",
+      "OOO",
+      " XX"
+    ])
+    }.abortsWith("Impossible board: game should have ended after the game was won")
+  }
 }

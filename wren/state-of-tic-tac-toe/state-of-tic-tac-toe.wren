@@ -15,7 +15,10 @@ class StateOfTicTacToe {
 
     var xWin = isWin(_X)
     var oWin = isWin(_O)
-    if (xWin && oWin) Fiber.abort("Impossible board: game should have ended after the game was won")
+    if ( (xWin && _O.count >= _X.count) ||
+         (oWin && _X.count >= _O.count + 1) ) {
+      Fiber.abort("Impossible board: game should have ended after the game was won")
+    }
     if (xWin || oWin) return "win"
 
     return (_X.count + _O.count == 9) ? "draw" : "ongoing"
