@@ -21,21 +21,16 @@ proc listOps::foldl {list initial func} {
     return $accum
 }
 
-proc listOps::foldr {list initial func} {
-    set accum $initial
-    foreach elem [listOps::reverse $list] {
-        set accum [uplevel 1 [list apply $func $elem $accum]]
-        # order of args is swapped:            ^^^^^ ^^^^^^
-    }
-    return $accum
-}
-
 # just about everything else can be implemented with foldl
 
 proc listOps::reverse {list} {
     listOps::foldl $list {} {{reversed elem} {
         list $elem {*}$reversed
     }}
+}
+
+proc listOps::foldr {list initial func} {
+    listOps::foldl [listOps::reverse $list] $initial $func
 }
 
 proc listOps::concat {listOfLists} {

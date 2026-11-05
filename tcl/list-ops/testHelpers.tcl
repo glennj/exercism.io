@@ -18,3 +18,9 @@ proc cleanupTests {} {
     uplevel 1 ::tcltest::cleanupTests
     if {$failed} then {exit 1}
 }
+
+# Compare  numbers: for example 5.0 == 5
+proc numberMatch {expected actual} {
+    return [expr {$expected == $actual}]
+}
+customMatch numbers numberMatch
