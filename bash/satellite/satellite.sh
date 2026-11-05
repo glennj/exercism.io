@@ -54,7 +54,7 @@ validateInput() {
     for elem in "${pre[@]}"; do
         elems[$elem]=1
     done
-    assert "${#pre[@]} == ${#elems[@]}" "traversals must contain unique elements"
+    assert "${#pre[@]} == ${#elems[@]}" "traversals must contain unique items"
 
     for elem in "${in[@]}"; do
         assert "elems[$elem] == 1" "traversals must have the same elements"
