@@ -14,32 +14,32 @@ Extended information can be found in our website [Python testing guide][Python t
 
 ### Running Tests
 
-To run the included tests, navigate to the folder where the exercise is stored using `cd` in your terminal (_replace `{exercise-folder-location}` below with your path_).
+To run the included tests, navigate to the folder where the exercise is stored using `cd` in your terminal (_replace `<exercise-folder-location>` below with your path_).
 Test files usually end in `_test.py`, and are the same tests that run on the website when a solution is uploaded.
 
 Linux/MacOS
 ```bash
-$ cd {path/to/exercise-folder-location}
+$ cd <path/to/exercise-folder-location>
 ```
 
 Windows
 ```powershell
-PS C:\Users\foobar> cd {path\to\exercise-folder-location}
+PS C:\Users\foobar> cd <path\to\exercise-folder-location>
 ```
 
 <br>
 
-Next, run the `pytest` command in your terminal, replacing `{exercise_test.py}` with the name of the test file:
+Next, run the `pytest` command in your terminal, replacing `<exercise_test.py>` with the name of the test file:
 
 Linux/MacOS
 ```bash
-$ python3 -m pytest -o markers=task {exercise_test.py}
+$ python3 -m pytest -o markers=task <exercise_test.py>
 ==================== 7 passed in 0.08s ====================
 ```
 
 Windows
 ```powershell
-PS C:\Users\foobar> py -m pytest -o markers=task {exercise_test.py}
+PS C:\Users\foobar> py -m pytest -o markers=task <exercise_test.py>
 ==================== 7 passed in 0.08s ====================
 ```
 
@@ -117,13 +117,13 @@ Should those resources not suffice, you could submit your (incomplete) solution 
 Below are some resources for getting help if you run into trouble:
 
 - [The PSF](https://www.python.org) hosts Python downloads, documentation, and community resources.
+- [Python Community Forums](https://discuss.python.org/) help, PEP discussion, core Python committers, and more.
 - [The Exercism Community on Discord](https://exercism.org/r/discord)
+- [The Exercism Community Discussion Forums](https://forum.exercsim.org)
 - [Python Community on Discord](https://pythondiscord.com/) is a very helpful and active community.
 - [/r/learnpython/](https://www.reddit.com/r/learnpython/) is a subreddit designed for Python learners.
 - [#python on Libera.chat](https://www.python.org/community/irc/) this is where the core developers for the language hang out and get work done.
-- [Python Community Forums](https://discuss.python.org/)
 - [Free Code Camp Community Forums](https://forum.freecodecamp.org/)
-- [CodeNewbie Community Help Tag](https://community.codenewbie.org/t/help)
 - [Pythontutor](http://pythontutor.com/) for stepping through small code snippets visually.
 
 Additionally, [StackOverflow](http://stackoverflow.com/questions/tagged/python) is a good spot to search for your problem/question to see if it has been answered already.
