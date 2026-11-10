@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2024-07-11T22:29:37Z
+# generated on 2026-06-28T17:13:07+00:00
 load bats-extra
 load bats-jq
 
 @test 'zero rows' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f pascals-triangle.jq << 'END_INPUT'
         {

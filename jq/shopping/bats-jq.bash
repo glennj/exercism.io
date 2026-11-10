@@ -70,13 +70,15 @@ assert_float() {
         esac
     done
     shift $((OPTIND - 1))
-    # bash can't do floating point: use awk
+    # bash can't do floating point: use jq
     read -r actual expected < <(
-        awk -v d="$decimals" -v a="$1" -v e="$2" '
-            BEGIN {
-                m = 10 ^ d
-                print int(a * m)/m, int(e * m)/m
-            }
+        jq --argjson d "$decimals" --argjson a "$1" --argjson e "$2" -r -n '
+            pow(10; $ARGS.named.d) as $m
+            | [
+                (($ARGS.named.a * $m | trunc) / $m),
+                (($ARGS.named.e * $m | trunc) / $m)
+              ]
+            | @sh
         '
     )
     # now call a bats-assert command to get the desired output

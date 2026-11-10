@@ -1,5 +1,5 @@
 #!/usr/bin/env bats
-# generated on 2026-06-28T17:16:33+00:00
+# generated on 2026-11-04T19:43:01+00:00
 load bats-extra
 load bats-jq
 
@@ -316,11 +316,11 @@ END_INPUT
 
     run jq -r -f pig-latin.jq << 'END_INPUT'
         {
-          "phrase": "quick fast run"
+          "phrase": "why do squids enjoy xrays"
         }
 END_INPUT
 
     assert_success
-    expected='ickquay astfay unray'
+    expected='ywhay oday idssquay enjoyay xraysay'
     assert_equal "$output" "$expected"
 }

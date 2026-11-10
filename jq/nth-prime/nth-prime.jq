@@ -9,6 +9,7 @@ def is_prime($primes):
   {candidate: ., limit: sqrt, idx: 0} | _is_prime
 ;
 
+
 def next_prime($primes):
   def _next_prime:
     if is_prime($primes)

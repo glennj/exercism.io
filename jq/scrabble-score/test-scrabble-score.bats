@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:47Z
+# generated on 2026-06-28T06:29:25+00:00
 load bats-extra
 load bats-jq
 
 @test 'lowercase letter' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f scrabble-score.jq << 'END_INPUT'
         {
@@ -156,4 +156,3 @@ END_INPUT
     expected=87
     assert_equal "$output" "$expected"
 }
-

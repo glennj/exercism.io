@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2024-06-07T22:08:03Z
+# generated on 2026-06-28T19:23:53+00:00
 load bats-extra
 load bats-jq
 
 @test 'Yacht' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f yacht.jq << 'END_INPUT'
         {

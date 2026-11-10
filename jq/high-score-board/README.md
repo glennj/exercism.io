@@ -251,6 +251,8 @@ The function outputs the score board object with the new player added.
 # => {"Dave Thomas": 0, "José Valim": 486373} -- in some order
 ```
 
+If the player is already on the board, output the board unchanged.
+
 ## 3. Remove players from a score board
 
 If players violate the rules of the arcade hall, they are manually removed from the high score board.
@@ -276,6 +278,8 @@ The function should return the score board after the update was done.
 {"Freyja Ćirić": 12771000} | update_score("Freyja Ćirić"; 73)
 # => {"Freyja Ćirić": 12771073}
 ```
+
+This function should add the player to the board if they weren't already on it.
 
 ## 5. Apply Monday bonus points
 

@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2024-01-24T19:54:13Z
+# generated on 2026-06-28T06:28:32+00:00
 load bats-extra
 load bats-jq
 
 @test '1 is I' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run jq -r -f roman-numerals.jq <<< '{"number": 1}'
     assert_success
     expected='I'
@@ -203,18 +203,18 @@ load bats-jq
     assert_equal "$output" "$expected"
 }
 
-@test '3999 is MMMCMXCIX' {
-    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-    run jq -r -f roman-numerals.jq <<< '{"number": 3999}'
-    assert_success
-    expected='MMMCMXCIX'
-    assert_equal "$output" "$expected"
-}
-
 @test '3888 is MMMDCCCLXXXVIII' {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run jq -r -f roman-numerals.jq <<< '{"number": 3888}'
     assert_success
     expected='MMMDCCCLXXXVIII'
+    assert_equal "$output" "$expected"
+}
+
+@test '3999 is MMMCMXCIX' {
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run jq -r -f roman-numerals.jq <<< '{"number": 3999}'
+    assert_success
+    expected='MMMCMXCIX'
     assert_equal "$output" "$expected"
 }

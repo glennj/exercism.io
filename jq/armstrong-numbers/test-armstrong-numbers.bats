@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2024-06-14T21:01:19Z
+# generated on 2026-06-28T00:36:34+00:00
 load bats-extra
 load bats-jq
 
 @test 'Zero is an Armstrong number' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f armstrong-numbers.jq << 'END_INPUT'
         {

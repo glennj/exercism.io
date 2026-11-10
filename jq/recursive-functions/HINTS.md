@@ -27,4 +27,4 @@
 - The base case is an empty array.
 
 [arrays-concept]: https://exercism.org/tracks/jq/concepts/arrays
-[manual-addition]: https://jqlang.github.io/jq/manual/v1.7/#addition
+[manual-addition]: https://jqlang.org/manual/#addition

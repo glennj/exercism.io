@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:42Z
+# generated on 2026-06-29T15:42:47+00:00
 load bats-extra
 load bats-jq
 
 @test 'an empty string' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f reverse-string.jq << 'END_INPUT'
         {
@@ -13,7 +13,7 @@ load bats-jq
 END_INPUT
 
     assert_success
-    expected=''
+    expected=""
     assert_equal "$output" "$expected"
 }
 
@@ -27,7 +27,7 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='tobor'
+    expected="tobor"
     assert_equal "$output" "$expected"
 }
 
@@ -41,7 +41,7 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='nemaR'
+    expected="nemaR"
     assert_equal "$output" "$expected"
 }
 
@@ -55,7 +55,7 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='!yrgnuh m'\''I'
+    expected="!yrgnuh m'I"
     assert_equal "$output" "$expected"
 }
 
@@ -69,7 +69,7 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='racecar'
+    expected="racecar"
     assert_equal "$output" "$expected"
 }
 
@@ -83,7 +83,7 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='reward'
+    expected="reward"
     assert_equal "$output" "$expected"
 }
 
@@ -97,7 +97,6 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='猫子'
+    expected="猫子"
     assert_equal "$output" "$expected"
 }
-

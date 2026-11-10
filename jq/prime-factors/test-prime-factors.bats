@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2024-07-12T18:41:13Z
+# generated on 2026-06-28T06:13:25+00:00
 load bats-extra
 load bats-jq
 
 @test 'no factors' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f prime-factors.jq << 'END_INPUT'
         {

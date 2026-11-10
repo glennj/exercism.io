@@ -1,15 +1,15 @@
 #!/usr/bin/env bats
-# generated on 2022-11-02T20:59:16Z
+# generated on 2026-06-28T16:59:45+00:00
 load bats-extra
 load bats-jq
 
 @test 'no items' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f knapsack.jq << 'END_INPUT'
         {
           "maximumWeight": 100,
-          "items": {}
+          "items": []
         }
 END_INPUT
 
@@ -265,4 +265,3 @@ END_INPUT
     expected=1458
     assert_equal "$output" "$expected"
 }
-

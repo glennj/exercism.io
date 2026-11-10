@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 2024-07-19T12:25:40Z
+# generated on 2026-06-29T15:49:37+00:00
 load bats-extra
 load bats-jq
 
 @test "Degenerate case with a single 'A' row" {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f diamond.jq << 'END_INPUT'
         {
@@ -13,11 +13,14 @@ load bats-jq
 END_INPUT
 
     assert_success
-    expected='A'
+    expected=$(cat << END_EXPECTED
+A
+END_EXPECTED
+)
     assert_equal "$output" "$expected"
 }
 
-@test 'Degenerate case with no row containing 3 distinct groups of spaces' {
+@test "Degenerate case with no row containing 3 distinct groups of spaces" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f diamond.jq << 'END_INPUT'
@@ -36,7 +39,7 @@ END_EXPECTED
     assert_equal "$output" "$expected"
 }
 
-@test 'Smallest non-degenerate case with odd diamond side length' {
+@test "Smallest non-degenerate case with odd diamond side length" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f diamond.jq << 'END_INPUT'
@@ -57,7 +60,7 @@ END_EXPECTED
     assert_equal "$output" "$expected"
 }
 
-@test 'Smallest non-degenerate case with even diamond side length' {
+@test "Smallest non-degenerate case with even diamond side length" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f diamond.jq << 'END_INPUT'
@@ -80,7 +83,7 @@ END_EXPECTED
     assert_equal "$output" "$expected"
 }
 
-@test 'Largest possible diamond' {
+@test "Largest possible diamond" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f diamond.jq << 'END_INPUT'

@@ -1,10 +1,10 @@
 #!/usr/bin/env bats
-# generated on 
+# generated on 2026-06-28T19:05:35+00:00
 load bats-extra
 load bats-jq
 
 @test 'rotate a by 0, same output as input' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -r -f rotational-cipher.jq << 'END_INPUT'
         {
@@ -14,7 +14,7 @@ load bats-jq
 END_INPUT
 
     assert_success
-    expected='a'
+    expected="a"
     assert_equal "$output" "$expected"
 }
 
@@ -29,7 +29,7 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='b'
+    expected="b"
     assert_equal "$output" "$expected"
 }
 
@@ -44,7 +44,7 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='a'
+    expected="a"
     assert_equal "$output" "$expected"
 }
 
@@ -59,7 +59,7 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='z'
+    expected="z"
     assert_equal "$output" "$expected"
 }
 
@@ -74,7 +74,7 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='a'
+    expected="a"
     assert_equal "$output" "$expected"
 }
 
@@ -89,7 +89,7 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='TRL'
+    expected="TRL"
     assert_equal "$output" "$expected"
 }
 
@@ -104,7 +104,7 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='T R L'
+    expected="T R L"
     assert_equal "$output" "$expected"
 }
 
@@ -119,7 +119,7 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='Xiwxmrk 1 2 3 xiwxmrk'
+    expected="Xiwxmrk 1 2 3 xiwxmrk"
     assert_equal "$output" "$expected"
 }
 
@@ -134,7 +134,7 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='Gzo'\''n zvo, Bmviyhv!'
+    expected="Gzo'n zvo, Bmviyhv!"
     assert_equal "$output" "$expected"
 }
 
@@ -149,6 +149,6 @@ END_INPUT
 END_INPUT
 
     assert_success
-    expected='Gur dhvpx oebja sbk whzcf bire gur ynml qbt.'
+    expected="Gur dhvpx oebja sbk whzcf bire gur ynml qbt."
     assert_equal "$output" "$expected"
 }

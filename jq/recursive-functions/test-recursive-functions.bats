@@ -2,12 +2,6 @@
 load bats-extra
 load bats-jq
 
-assert_key_value() {
-    local result
-    result=$(echo "$output" | jq -r --arg key "$2" --argjson val "$1" '.[$key] == $val')
-    [[ $result == "true" ]]
-}
-
 @test "Sum of empty array" {
     ## task 1
     run jq -n '

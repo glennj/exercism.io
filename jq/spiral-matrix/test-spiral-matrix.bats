@@ -1,20 +1,24 @@
 #!/usr/bin/env bats
-# generated on 2024-06-28T22:33:39Z
+# generated on 2026-06-28T19:58:05+00:00
 load bats-extra
 load bats-jq
 
 @test 'empty spiral' {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
 
     run jq -c -f spiral-matrix.jq << 'END_INPUT'
         {
           "size": 0
         }
 END_INPUT
+    expected=$(jq -c . <<'END_EXPECTED'
+        [
+        ]
+END_EXPECTED
+)
 
     assert_success
-    expected='[]'
-    assert_equal "$output" "$expected"
+    assert_objects_equal "$output" "$expected"
 }
 
 @test 'trivial spiral' {
@@ -25,10 +29,15 @@ END_INPUT
           "size": 1
         }
 END_INPUT
+    expected=$(jq -c . <<'END_EXPECTED'
+        [
+            [1]
+        ]
+END_EXPECTED
+)
 
     assert_success
-    expected='[[1]]'
-    assert_equal "$output" "$expected"
+    assert_objects_equal "$output" "$expected"
 }
 
 @test 'spiral of size 2' {
@@ -48,7 +57,7 @@ END_EXPECTED
 )
 
     assert_success
-    assert_equal "$output" "$expected"
+    assert_objects_equal "$output" "$expected"
 }
 
 @test 'spiral of size 3' {
@@ -69,7 +78,7 @@ END_EXPECTED
 )
 
     assert_success
-    assert_equal "$output" "$expected"
+    assert_objects_equal "$output" "$expected"
 }
 
 @test 'spiral of size 4' {
@@ -91,7 +100,7 @@ END_EXPECTED
 )
 
     assert_success
-    assert_equal "$output" "$expected"
+    assert_objects_equal "$output" "$expected"
 }
 
 @test 'spiral of size 5' {
@@ -114,5 +123,5 @@ END_EXPECTED
 )
 
     assert_success
-    assert_equal "$output" "$expected"
+    assert_objects_equal "$output" "$expected"
 }
