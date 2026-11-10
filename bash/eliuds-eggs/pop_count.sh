@@ -3,7 +3,7 @@
 # The `|| :` are meant to protect this script when running with `bash -e`
 
 countBits() {
-    local number=$1 count
+    local number=$1 count=0
     while ((number > 0)); do
         ((number & 1)) && ((count++)) || :
         ((number >>= 1)) || :
