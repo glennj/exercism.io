@@ -1,21 +1,27 @@
 #!/usr/bin/env bats
 load bats-extra
 
+# generated on 2026-11-06T16:21:37+00:00
+
 join() {
     local IFS=$'\n'
     echo "$*"
 }
 
-@test "no columns" {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
-    input=( "" )
+test_no_columns() { # @test
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    input=(
+        ""
+    )
     run bash flower_field.sh "${input[@]}"
     assert_success
-    expected=( "" )
+    expected=(
+        ""
+    )
     assert_output "$(join "${expected[@]}")"
 }
 
-@test "no flowers" {
+test_no_flowers() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     input=(
         "   "
@@ -32,7 +38,7 @@ join() {
     assert_output "$(join "${expected[@]}")"
 }
 
-@test "garden full of flowers" {
+test_garden_full_of_flowers() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     input=(
         "***"
@@ -49,7 +55,7 @@ join() {
     assert_output "$(join "${expected[@]}")"
 }
 
-@test "flower surrounded by spaces" {
+test_flower_surrounded_by_spaces() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     input=(
         "   "
@@ -66,7 +72,7 @@ join() {
     assert_output "$(join "${expected[@]}")"
 }
 
-@test "space surrounded by flowers" {
+test_space_surrounded_by_flowers() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     input=(
         "***"
@@ -83,25 +89,33 @@ join() {
     assert_output "$(join "${expected[@]}")"
 }
 
-@test "horizontal line" {
+test_horizontal_line() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-    input=( " * * " )
+    input=(
+        " * * "
+    )
     run bash flower_field.sh "${input[@]}"
     assert_success
-    expected=( "1*2*1" )
+    expected=(
+        "1*2*1"
+    )
     assert_output "$(join "${expected[@]}")"
 }
 
-@test "horizontal line, flowers at edges" {
+test_horizontal_line_flowers_at_edges() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-    input=( "*   *" )
+    input=(
+        "*   *"
+    )
     run bash flower_field.sh "${input[@]}"
     assert_success
-    expected=( "*1 1*" )
+    expected=(
+        "*1 1*"
+    )
     assert_output "$(join "${expected[@]}")"
 }
 
-@test "vertical line" {
+test_vertical_line() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     input=(
         " "
@@ -122,7 +136,7 @@ join() {
     assert_output "$(join "${expected[@]}")"
 }
 
-@test "vertical line, flowers at edges" {
+test_vertical_line_flowers_at_edges() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     input=(
         "*"
@@ -143,7 +157,7 @@ join() {
     assert_output "$(join "${expected[@]}")"
 }
 
-@test "cross" {
+test_cross() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     input=(
         "  *  "
@@ -164,7 +178,7 @@ join() {
     assert_output "$(join "${expected[@]}")"
 }
 
-@test "large garden" {
+test_large_garden() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     input=(
         " *  * "
@@ -187,3 +201,15 @@ join() {
     assert_output "$(join "${expected[@]}")"
 }
 
+test_multiple_adjacent_flowers() { # @test
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    input=(
+        " ** "
+    )
+    run bash flower_field.sh "${input[@]}"
+    assert_success
+    expected=(
+        "1**1"
+    )
+    assert_output "$(join "${expected[@]}")"
+}

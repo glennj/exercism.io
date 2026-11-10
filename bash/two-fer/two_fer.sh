@@ -1,3 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-echo "One for ${1:-you}, one for me."
+name=${1:-you}
+echo "One for ${name}, one for me."

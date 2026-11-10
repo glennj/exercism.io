@@ -16,7 +16,7 @@ There are some rules that your solution must follow:
      b) the second bucket is full
   2. Emptying a bucket and doing nothing to the other.
   3. Filling a bucket and doing nothing to the other.
-- After an action, you may not arrive at a state where the starting bucket is empty and the other bucket is full.
+- After an action, you may not arrive at a state where the initial starting bucket is empty and the other bucket is full.
 
 Your program will take as input:
 
@@ -46,9 +46,9 @@ So your first action is to fill bucket one.
 You choose to empty bucket one for your second action.
 For your third action, you may not fill bucket two, because this violates the third rule -- you may not end up in a state after any action where the starting bucket is empty and the other bucket is full.
 
-Written with <3 at [Fullstack Academy][fulstack] by Lindsay Levine.
+Written with <3 at [Fullstack Academy][fullstack] by Lindsay Levine.
 
-[fullstack]: http://www.fullstackacademy.com/
+[fullstack]: https://www.fullstackacademy.com/
 
 ## Source
 
@@ -65,4 +65,4 @@ Written with <3 at [Fullstack Academy][fulstack] by Lindsay Levine.
 
 ### Based on
 
-Water Pouring Problem - http://demonstrations.wolfram.com/WaterPouringProblem/
+Water Pouring Problem - https://demonstrations.wolfram.com/WaterPouringProblem/

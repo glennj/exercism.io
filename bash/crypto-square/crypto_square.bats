@@ -1,11 +1,10 @@
 #!/usr/bin/env bats
 load bats-extra
 
-# local version: 3.2.0.0
-
+# generated on 2026-06-29T16:53:24+00:00
 
 @test "empty plaintext results in an empty ciphertext" {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash crypto_square.sh ""
     assert_success
     assert_output ""
@@ -53,7 +52,7 @@ load bats-extra
     assert_output "clu hlt io "
 }
 
-@test "54 character plaintext results in 7 chunks, the last two with trailing spaces" {
+@test "54 character plaintext results in 8 chunks, the last two with trailing spaces" {
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash crypto_square.sh "If man was meant to stay on the ground, god would have given us roots."
     assert_success

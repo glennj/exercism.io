@@ -9,10 +9,13 @@ Run the tests using the `bats` program.
 bats hello_world.bats
 ```
 
+If you need to print debug output while running tests locally, see [Debugging Locally][debugging].
+
 `bats` will need to be installed.
 See the [Testing on the Bash track][tests] page for instructions to install `bats` for your system.
 
 [tests]: https://exercism.org/docs/tracks/bash/tests
+[debugging]: https://exercism.org/docs/tracks/bash/debugging
 
 ## Help for assert functions
 
@@ -69,7 +72,8 @@ It's possible to submit an incomplete solution which allows you to:
 If you'd like help solving the exercise, check the following pages:
 
 - The [Bash track's documentation](https://exercism.org/docs/tracks/bash)
-- [Exercism's support channel on gitter](https://gitter.im/exercism/support)
+- The [Bash track's programming category on the forum](https://forum.exercism.org/c/programming/bash)
+- [Exercism's programming category on the forum](https://forum.exercism.org/c/programming/5)
 - The [Frequently Asked Questions](https://exercism.org/docs/using/faqs)
 
 Should those resources not suffice, you could submit your (incomplete) solution to request mentoring.

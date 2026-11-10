@@ -27,7 +27,7 @@ Now, given just that score of 34, your program should be able to say:
 - Whether Tom is allergic to any one of those allergens listed above.
 - All the allergens Tom is allergic to.
 
-Note: a given score may include allergens **not** listed above (i.e.  allergens that score 256, 512, 1024, etc.).
+Note: a given score may include allergens **not** listed above (i.e. allergens that score 256, 512, 1024, etc.).
 Your program should ignore those components of the score.
 For example, if the allergy score is 257, your program should only report the eggs (1) allergy.
 
@@ -46,4 +46,4 @@ For example, if the allergy score is 257, your program should only report the eg
 
 ### Based on
 
-Exercise by the JumpstartLab team for students at The Turing School of Software and Design. - https://turing.edu
+Exercise by the JumpstartLab team for students at The Turing School of Software and Design. - https://www.turing.edu/

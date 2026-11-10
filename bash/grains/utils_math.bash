@@ -37,6 +37,9 @@ math::min() {
 #
 math::floorMod() {
     local -i num=$1 divisor=$2
+    while ((num < 0)); do
+        ((num += divisor))
+    done
     echo $(( ((num % divisor) + divisor) % divisor ))
 }
 

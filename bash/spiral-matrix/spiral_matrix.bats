@@ -1,17 +1,17 @@
 #!/usr/bin/env bats
 load bats-extra
 
-# local version: 1.1.0.0
+# generated on 2026-11-08T06:49:56+00:00
 
-@test "empty spiral" {
-    #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
+test_empty_spiral() { # @test
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash spiral_matrix.sh 0
     expected=""
     assert_success
     assert_output "$expected"
 }
 
-@test "trivial spiral" {
+test_trivial_spiral() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash spiral_matrix.sh 1
     expected="1"
@@ -19,23 +19,26 @@ load bats-extra
     assert_output "$expected"
 }
 
-@test "spiral of size 2" {
+test_spiral_of_size_2() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash spiral_matrix.sh 2
-    expected=$'1 2\n4 3'
+    expected="1 2
+4 3"
     assert_success
     assert_output "$expected"
 }
 
-@test "spiral of size 3" {
+test_spiral_of_size_3() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash spiral_matrix.sh 3
-    expected=$'1 2 3\n8 9 4\n7 6 5'
+    expected="1 2 3
+8 9 4
+7 6 5"
     assert_success
     assert_output "$expected"
 }
 
-@test "spiral of size 4" {
+test_spiral_of_size_4() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash spiral_matrix.sh 4
     expected="1 2 3 4
@@ -46,7 +49,7 @@ load bats-extra
     assert_output "$expected"
 }
 
-@test "spiral of size 5" {
+test_spiral_of_size_5() { # @test
     [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash spiral_matrix.sh 5
     expected="1 2 3 4 5

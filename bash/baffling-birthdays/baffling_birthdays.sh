@@ -17,9 +17,12 @@ shared_birthday() {
 random_birthdates() {
     local y m d i
     local days=("" 31 28 31 30 31 30 31 31 30 31 30 31)
+    local this_year
+    printf -v this_year '%(%Y)T' -1
+    
     for ((i=$1; i > 0; i--)); do
         while true; do
-            y=$((1900 + RANDOM % 100))
+            y=$((this_year - RANDOM % 100))
             is_leap_year $y || break
         done
         m=$((1 + RANDOM % 12))

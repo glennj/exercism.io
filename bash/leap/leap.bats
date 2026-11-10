@@ -1,109 +1,108 @@
 #!/usr/bin/env bats
 load bats-extra
 
-# local version: 1.6.0.1
-# bash-specific test: Input validation
+# generated on 2026-11-06T22:03:12+00:00
 
-@test 'year not divisible by 4: common year' {
-  #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
-  run bash leap.sh 2015
+test_year_not_divisible_by_4_in_common_year() { # @test
+    # [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash leap.sh 2015
 
-  assert_success
-  assert_output "false"
+    assert_success
+    assert_output "false"
 }
 
-@test 'year divisible by 2, not divisible by 4 in common year' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-  run bash leap.sh 1970
+test_year_divisible_by_2_not_divisible_by_4_in_common_year() { # @test
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash leap.sh 1970
 
-  assert_success
-  assert_output "false"
+    assert_success
+    assert_output "false"
 }
 
-@test 'year divisible by 4, not divisible by 100: leap year' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-  run bash leap.sh 1996
+test_year_divisible_by_4_not_divisible_by_100_in_leap_year() { # @test
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash leap.sh 1996
 
-  assert_success
-  assert_output "true"
+    assert_success
+    assert_output "true"
 }
 
-@test 'year divisible by 4 and 5 is still a leap year' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-  run bash leap.sh 1960
+test_year_divisible_by_4_and_5_is_still_a_leap_year() { # @test
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash leap.sh 1960
 
-  assert_success
-  assert_output "true"
+    assert_success
+    assert_output "true"
 }
 
-@test 'year divisible by 100, not divisible by 400: common year' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-  run bash leap.sh 2100
+test_year_divisible_by_100_not_divisible_by_400_in_common_year() { # @test
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash leap.sh 2100
 
-  assert_success
-  assert_output "false"
+    assert_success
+    assert_output "false"
 }
 
-@test 'year divisible by 100 but not by 3 is still not a leap year' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-  run bash leap.sh 1900
+test_year_divisible_by_100_but_not_by_3_is_still_not_a_leap_year() { # @test
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash leap.sh 1900
 
-  assert_success
-  assert_output "false"
+    assert_success
+    assert_output "false"
 }
 
-@test 'year divisible by 400: leap year' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-  run bash leap.sh 2000
+test_year_divisible_by_400_is_leap_year() { # @test
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash leap.sh 2000
 
-  assert_success
-  assert_output "true"
+    assert_success
+    assert_output "true"
 }
 
-@test 'year divisible by 400 but not by 125 is still a leap year' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-  run bash leap.sh 2400
+test_year_divisible_by_400_but_not_by_125_is_still_a_leap_year() { # @test
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash leap.sh 2400
 
-  assert_success
-  assert_output "true"
+    assert_success
+    assert_output "true"
 }
 
-@test 'year divisible by 200, not divisible by 400 in common year' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-  run bash leap.sh 1800
+test_year_divisible_by_200_not_divisible_by_400_in_common_year() { # @test
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash leap.sh 1800
 
-  assert_success
-  assert_output "false"
+    assert_success
+    assert_output "false"
 }
 
-@test 'No input should return an error' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-  run bash leap.sh
+test_no_input_should_return_an_error() { # @test
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash leap.sh
 
-  assert_failure
-  assert_output "Usage: leap.sh <year>"
+    assert_failure
+    assert_output "Usage: leap.sh <year>"
 }
 
-@test 'Too many arguments should return an error' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-  run bash leap.sh 2016 4562 4566
+test_too_many_arguments_should_return_an_error() { # @test
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash leap.sh 2016 4562 4566
 
-  assert_failure
-  assert_output "Usage: leap.sh <year>"
+    assert_failure
+    assert_output "Usage: leap.sh <year>"
 }
 
-@test 'Float number input should return an error' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-  run bash leap.sh 2016.54
+test_float_number_input_should_return_an_error() { # @test
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash leap.sh 2016.54
 
-  assert_failure
-  assert_output "Usage: leap.sh <year>"
+    assert_failure
+    assert_output "Usage: leap.sh <year>"
 }
 
-@test 'Alpha input should return an error' {
-  [[ $BATS_RUN_SKIPPED == "true" ]] || skip
-  run bash leap.sh 'abcd'
+test_alpha_input_should_return_an_error() { # @test
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    run bash leap.sh 'abcd'
 
-  assert_failure
-  assert_output "Usage: leap.sh <year>"
+    assert_failure
+    assert_output "Usage: leap.sh <year>"
 }

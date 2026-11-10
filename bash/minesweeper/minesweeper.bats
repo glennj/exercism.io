@@ -102,7 +102,7 @@ join() {
 }
 
 @test "vertical line" {
-#    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
+    [[ $BATS_RUN_SKIPPED == "true" ]] || skip
     input=(
         " "
         "*"

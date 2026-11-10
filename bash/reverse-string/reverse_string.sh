@@ -3,7 +3,7 @@
 source ./utils_string.bash
 
 reverse () {
-    # cheating
+    # cheating?
     #rev <<< "$1"
 
     # implement in bash

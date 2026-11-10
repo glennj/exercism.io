@@ -44,13 +44,13 @@ bashver=$(bashversion)
 if ((bashver < 50)); then
     incr() {
         # array expansion is quoted
-        (('count[$1]' += 1))
+        # shellcheck disable=SC2016
+        (('count["$1"]' += 1))
     }
 else
-    shopt -s assoc_expand_once
+    ((bashver < 52)) && shopt -s assoc_expand_once
     incr() {
-        # no quoting
-        ((count[$1] += 1))
+        ((count["$1"] += 1))
     }
 fi
 
@@ -74,7 +74,7 @@ for sentence in "$@"; do
         word=${BASH_REMATCH[0]}
 
         # remove the shortest prefix ending with the word
-        sentence=${sentence#*${BASH_REMATCH[0]}}
+        sentence=${sentence#*"${BASH_REMATCH[0]}"}
 
         # we've allowed single quotes as apostrophes, but
         # we don't want leading or trailing quotes.
@@ -86,5 +86,5 @@ for sentence in "$@"; do
 done
 
 for word in "${!count[@]}"; do
-    echo "$word: ${count[$word]}"
+    echo "$word: ${count["$word"]}"
 done
