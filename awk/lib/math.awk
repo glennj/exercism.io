@@ -11,3 +11,8 @@ function gcd(a, b) { return b == 0 ? a : gcd(b, a % b) }
 
 # the modulo of n, in the range [0, d)
 function floorMod(n, d) { return (n % d + d) % d }
+
+function deg2rad(deg,    pi) {
+    pi = atan2(0, -1)
+    return deg * pi / 180
+}
